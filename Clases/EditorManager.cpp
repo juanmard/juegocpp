@@ -189,6 +189,9 @@ void    EditorManager::DuplicarActor (int x, int y)
     // Se comprueba que la referencia existe.
     if (actor != NULL)
     {
+        // Prueba de tipos.
+        //alert("Clase de tipo:", "", typeid(*actor).name(), "Ok", NULL, 0, 0);
+
         // Se crea un nuevo actor en memoria basándose en el elegido.
         Actor *nuevo = actor->clone();      
 
@@ -203,4 +206,12 @@ void    EditorManager::DuplicarActor (int x, int y)
         // \todo Hacer friend estos procedimientos para usarlos sólo desde los "Manager"
         game->actor_manager->add_all_to_create ();
     }
+}
+
+/**
+ * Devuelve el actor que se está editando.
+ */
+Actor *  EditorManager::get_actor (int x, int y)
+{
+    return game->actor_manager->get_actor (x,y-14);
 }

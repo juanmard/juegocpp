@@ -5,14 +5,15 @@
  */
 DIALOG DlgActor::dlg_propiedades[] =
 {
-   /* (proc)                    (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags) (d1) (d2) (dp)                              (dp2) (dp3) */
-   { DlgActor::box_callback,   380, 226, 249, 242,  18,  4,   0,    0,      0,   0,   NULL,                              NULL, NULL },
-   { d_button_proc,            568, 437,  55,  26,  18,  4,   0,    0,      0,   0,   const_cast<char*>("Cerrar"),       NULL, NULL },
-   { d_text_proc,              383, 230, 115,  11,  18,  4,   0,    0,      0,   0,   const_cast<char*>("Propiedades"),  NULL, NULL },
-   { d_textbox_proc,           401, 246, 211,  82,  18,  4,   0,    0,      0,   0,   const_cast<char*>("Escribe aquí"), NULL, NULL },
-   { d_slider_proc,            403, 335, 208,  13,  18,  4,   0,    0,      16,  4,   NULL,                              NULL, NULL },
-   { d_radio_proc,             405, 359,  14,  13,  18,  4,   0,    0,      0,   0,   const_cast<char*>("Activo"),       NULL, NULL },
-   { NULL,                       0,   0,   0,   0,   0,  0,   0,    0,      0,   0,   NULL,                              NULL, NULL }
+   /* (proc)                 (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags) (d1) (d2) (dp)                               (dp2) (dp3) */
+   { DlgActor::box_callback, 88,  64,  356, 332, 5,   12,  0,    0,      0,   0,   NULL,                              NULL, NULL },
+   { d_text_proc,            95,  64,  115, 11,  5,   12,  0,    0,      0,   0,   const_cast<char*>("Propiedades"),  NULL, NULL },
+   { d_textbox_proc,         120, 80,  247, 82,  5,   12,  0,    0,      0,   0,   const_cast<char*>("Escribe aqui"), NULL, NULL },
+   { d_slider_proc,          112, 172, 320, 13,  5,   12,  0,    0,      16,  4,   NULL,                              NULL, NULL },
+   { d_radio_proc,           117, 193, 14,  13,  5,   12,  0,    0,      0,   0,   const_cast<char*>("Activo"),       NULL, NULL },
+   { d_button_proc,          100, 364, 70,  25,  5,   12,  0,    0,      0,   0,   (void*)"button",                   NULL, NULL },
+   { d_button_proc,          384, 363, 55,  26,  5,   12,  0,    0,      0,   0,   const_cast<char*>("Cerrar"),       NULL, NULL },
+   { NULL,                   0,   0,   0,   0,   0,   0,   0,    0,      0,   0,   NULL,                              NULL, NULL }
 };
 
 /**
@@ -41,8 +42,8 @@ DlgActor::DlgActor (Dialog *dlg_tmp)
     owner = dlg_tmp;
 
     // Se inicializan los colores de la GUI.
-    gui_fg_color = makecol(255,255,255);
-    gui_bg_color = makecol(128,128,128);
+    //gui_fg_color = makecol(255,255,255);
+    //gui_bg_color = makecol(128,128,128);
 
     // Posición anterior del ratón.
     x_ant = mouse_x;
@@ -70,15 +71,18 @@ void    DlgActor::show (void)
 void    DlgActor::load (Actor *remoto)
 {
     // Propiedades de prueba.
-    static char buffer[40];
+    static char buffer[200];
+    
     if (remoto)
     {
-        uszprintf(buffer, sizeof(buffer), "x, y: %d, %d\nColor: %d",
+        uszprintf(buffer, sizeof(buffer), "Nombre: %s\nPosición: %d, %d\nColor: %d",
+                                          Nombres::Imprimir(remoto->get_name()).c_str(),
                                           remoto->get_x(),
                                           remoto->get_y(),
-                                          remoto->get_color());
-        //dlg_propiedades[3].dp = "Prueba, prueba...";
-        dlg_propiedades[3].dp = buffer;
+                                          remoto->get_color()
+                                        );
+        //dlg_propiedades[2].dp = const_cast<char *>("Prueba, prueba...");
+        dlg_propiedades[2].dp = buffer;
     }
 }
 
@@ -118,13 +122,6 @@ void DlgActor::msg_mousemove ()
     if (enganchado)
     {
         // Mover y dibujar contorno.
-        //int inc_x = mouse_x - x_ant;
-        //int inc_y = mouse_y - y_ant;
-        //dlg_propiedades[0].x += inc_x;
-        //dlg_propiedades[0].y += inc_y;
-        //rect (screen, dlg_propiedades[0].x, dlg_propiedades[0].y,
-        //              dlg_propiedades[0].x + dlg_propiedades[0].w,
-        //              dlg_propiedades[0].y + dlg_propiedades[0].h, 18);
         owner->draw ();
         rect (screen, mouse_x + x_rel,
                       mouse_y + y_rel,
@@ -152,11 +149,13 @@ void DlgActor::msg_dclick ()
     {
         // Lo queremos solatar en la nueva posición, para ello...
         // Cambiamos la posición del marco (y sus controles...)
-        // Para pruebas se mueve sólo el marco.
-        dlg_propiedades[0].x = mouse_x + x_rel;
-        dlg_propiedades[0].y = mouse_y + y_rel;
+        // Las coordenadas actuales serán las del cursor más la 
+        // relativa al marco padre cuando se hizo el 'enganche'.
+        int act_x = mouse_x + x_rel;
+        int act_y = mouse_y + y_rel;
+        position_dialog(&dlg_propiedades[0], act_x, act_y);
 
-        // Dibujamos padre.
+        // Dibujamos antes el diálogo padre.
         owner->draw ();
 
         // Dibujamos el marco y sus controles.

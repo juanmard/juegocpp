@@ -1,18 +1,16 @@
 #pragma once
 
+// Para pruebas... eliminar en un futuro.
+#include <typeinfo>
+
 #include <sstream>
 #include <string.h>
 #include <allegro.h>
 #include "EditorManager.h"
-#include "VentanaALG.h"
-#include "DlgActor.h"
-#include "DialogALG.h"
 #include "BoxALG.h"
 #include "TextALG.h"
 #include "MenuALG.h"
-#include "ItemALG.h"
 
-class EditorManager;
 class DlgActor;
 class VentanaALG;
 class DialogALG;
@@ -89,6 +87,7 @@ public:
             {
                 // Creamos una referencia temporal al objeto instanciado.
                 Dialog &objeto = *(static_cast<Dialog *>(active_menu->dp));
+
                 // Si usamos este mismo método para todas las opciones del
                 // menú contextual tenemos que seleccionar qué tipo de opción es.
                 // Comparando 'active_menu->text' con la opción.
@@ -111,7 +110,16 @@ public:
             alert("Selected menu item:", "", ustrtok(str, "\t"), "Ok", NULL, 0, 0);
 
             // Mostramos el diálogo del actor a modo de prueba.
-            do_dialog (dlg_actor,-1);            
+            do_dialog (dlg_actor,-1);
+
+            /* Pruebas para mostrar todos los controles.
+            for (int i=0; dlg_actor[i].proc != NULL; i++)
+            {
+                object_message(&dlg_actor[i], MSG_DRAW, 0);
+            }
+            alert("Selected menu item:", "", ustrtok(str, "\t"), "Ok", NULL, 0, 0);
+            broadcast_dialog_message (MSG_DRAW, 0);
+            */
             return D_O_K;
         }
 
@@ -229,7 +237,7 @@ public:
                     break;
 
                 case MSG_DCLICK:
-                    //objeto.prueba_dblclk ();
+                    objeto.prueba_click ();
                     break;
 
                 // Mensaje que se produce repetidamente mientras no exista otro.

@@ -38,15 +38,14 @@ class Game
 		void	               play        	(void);
 		bool	               is_paused	(void);
 		void			       set_name	(string name);
-		string			   get_name	(void);
-		void                update		(void);
+		string			       get_name	(void);
+		void                   update		(void);
 
 	protected:
-		string     name;
+		string      name;
 		int         gfx_w, gfx_h;
 		int         colors;
-
-        void		  set_max_frame_skip	(int max_fs);
+        void        set_max_frame_skip	(int max_fs);
 
 	private:
 		int     actual_tick;

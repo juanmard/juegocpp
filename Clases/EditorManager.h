@@ -33,6 +33,7 @@ class EditorManager
         int     GetActorY       ();
         void    SetActorX       (int x);
         void    SetActorY       (int y);
+        Actor * get_actor       (int x, int y);
 
     protected:
 		Game *      game;

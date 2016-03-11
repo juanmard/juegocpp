@@ -3,10 +3,9 @@
 #include <allegro.h>
 #include "Actor.h"
 #include "Dialog.h"
+#include "Nombres.h"
 
 #define   MSG_MOUSEMOVE   MSG_USER + 2
-
-class Dialog;
 
 /**
  * \brief       Muestra un actor en una pequeña GUI para editar sus propiedades.
@@ -54,6 +53,7 @@ protected:
             if (d[0].dp)
             {
                 DlgActor *obj = static_cast<DlgActor *>(d[0].dp);
+
                 // Seleccionamos los mensajes.
                 switch (msg)
                 {

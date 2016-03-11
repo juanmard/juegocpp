@@ -1,5 +1,7 @@
 
 #include "Dialog.h"
+#include "DlgActor.h"
+#include "VentanaALG.h"
 
 //#define PRUEBAS
 //#define DEBUG
@@ -48,8 +50,8 @@ MENU Dialog::mnu_ayuda[] =
 MENU Dialog::menu_editor [] =
 {
     { const_cast<char*>("&Fichero"), NULL, Dialog::mnu_fichero, 0, NULL },
-    { const_cast<char*>("&Editar"),  NULL,  Dialog::mnu_actor, 0, NULL },
-    { const_cast<char*>("&Ayuda"),   NULL,   Dialog::mnu_ayuda, 0, NULL },
+    { const_cast<char*>("&Editar"),  NULL, Dialog::mnu_actor,   0, NULL },
+    { const_cast<char*>("&Ayuda"),   NULL, Dialog::mnu_ayuda,   0, NULL },
     { NULL, NULL, NULL, 0, NULL }
 };
 
@@ -180,9 +182,11 @@ void Dialog::show (void)
 #endif
  }
 
+/**
+ * Oculta el puntero del ratón.
+ */
 void Dialog::mouse_out (void)
 {
-    // Se oculta el ratón.
     show_mouse (NULL);
 }
 
@@ -191,7 +195,6 @@ void Dialog::mouse_out (void)
  */
 void Dialog::mouse_in (void)
 {
-    // Se muestra el ratón - Allegro.
     show_mouse (screen);
 }
 
@@ -289,6 +292,11 @@ void    Dialog::mover_kbd   (int code)
  */
 void    Dialog::prueba_click    ()
 {
+        // Prueba del diálogo del Actor.
+        DlgActor dialogo (this);
+        dialogo.load (manager->get_actor(mouse_x, mouse_y));
+        dialogo.show();            
+
         // Comprobamos que el Diálogo tiene un "Manager" asociado.
         // - Si existe lo utilizamos para resaltar el objeto.
         // - Si no existe mostramos un mensaje de advertencia en pantalla.
