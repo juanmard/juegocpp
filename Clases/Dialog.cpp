@@ -60,7 +60,7 @@ MENU Dialog::menu_editor [] =
 // Menú del objeto.
 MENU Dialog::mnu_actor [] =
 {
-  { const_cast<char*>("sin nombre"),   Dialog::cb_menu_opciones,  NULL, D_DISABLED, NULL },
+  { const_cast<char*>("sin nombre"),   Dialog::cb_menu_opciones,  NULL,          0, NULL },
   { const_cast<char*>(""),             Dialog::cb_menu_opciones,  NULL, D_DISABLED, NULL },
   { const_cast<char*>("&Mover"),       Dialog::cb_menu_opciones,  NULL, D_DISABLED, NULL },
   { const_cast<char*>("&Duplicar"),    Dialog::cb_menu_opciones,  NULL,          0, NULL },
@@ -107,6 +107,13 @@ ref_x (0), ref_y(0)
 
   // Color de la caja que borra los valores.
   dialog[caja].fg = makecol (128,128,128);
+
+  // Hacemos una prueba de menú dinámico.
+  menu_dinamico.add ("Etiqueta 1");
+  menu_dinamico.add ("Etiqueta 2");
+  menu_dinamico.add ("Etiqueta 3");
+  menu_dinamico.add ("Etiqueta 4");
+  mnu_actor[0].child = &menu_dinamico;
 }
 
 /**

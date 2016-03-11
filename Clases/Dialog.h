@@ -7,6 +7,7 @@
 #include "BoxALG.h"
 #include "TextALG.h"
 #include "MenuALG.h"
+#include "Menu.h"
 
 class DlgActor;
 class VentanaALG;
@@ -65,6 +66,9 @@ class Dialog
     string            strPosicion;
     string            strDimensiones;
     string            strEstado;
+
+    //Prueba de menú dinámico.
+    Menu menu_dinamico;
 
   public:
     // Diálogo principal. 
