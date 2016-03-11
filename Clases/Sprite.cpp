@@ -6,7 +6,7 @@
  * Constructor de copia.
  */
 Sprite::Sprite (const Sprite &copia, Actor *aowner):
-ActorGraphic(aowner),
+ActorGraphic (aowner),
 frames (copia.frames),
 actual_tick (copia.actual_tick),
 actual_frame (copia.actual_frame),
@@ -19,14 +19,21 @@ mirror (copia.mirror)
  */
 Sprite::Sprite (Actor *aowner):
 ActorGraphic(aowner),
+actual_tick (0),
+actual_frame (0),
 mirror (false)
 {
 }
 
+/**
+ * Inicializa la parte gráfica del objeto.
+ * Esto provoca que el objeto no se clone en su estado actual.
+ * Se deja en blanco y se inicializa en los constructorores.
+ */
 void Sprite::init()
 {
-    actual_frame=0;
-    actual_tick=0;
+//    actual_frame=0;
+//    actual_tick=0;
 }
 
 void Sprite::add_frame(BITMAP *bmp, int cx, int cy, int ticks)
@@ -110,7 +117,8 @@ Mask *Sprite::get_mask()
  */
 Sprite * Sprite::clone (Actor *propietario) const
 {
-    return (new Sprite(*this, propietario));
+  // Al clonar usamos el constructor de copia de la clase.
+  return (new Sprite (*this, propietario));
 }
 
 /**
