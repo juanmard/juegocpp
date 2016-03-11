@@ -428,7 +428,7 @@ int  Dialog::comprobarTecla (int code)
     {
       cout << "Funciona la zona de pruebas." << endl;
       static vector<DIALOG> pesta;
-      DIALOG dlg_tmp1 = {d_box_proc,    16, 352, 608, 224,  0,   0,   0,    0,      0,   0,   NULL,              NULL, NULL };
+      DIALOG dlg_tmp1 = {d_box_proc,    16, 336, 616, 224,  0,   0,   0,    0,      0,   0,   NULL,              NULL, NULL };
       DIALOG dlg_tmp2 = {d_button_proc, 16, 352,  80,  16,  1,   0,   0,    0,      0,   0,   (void*)"Pesta 01", NULL, NULL };
       DIALOG fin =      { NULL,          0,   0,   0,   0,  0,   0,   0,    0,      0,   0,   NULL,              NULL, NULL };
       pesta.clear ();
