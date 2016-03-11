@@ -31,7 +31,7 @@ class Dialog
 {
   public:
     // \todo    Hacer el enum propio de la clase, no global.
-    enum {scr=0, pantalla=0, menu=1, lista=4, bitmap=5, pos=13, nombre=15, caja=6, ultimo=16};
+    enum {scr=0, pantalla=0, menu=1, lista=4, bitmap=5, caja=6 ,estado=7, pos=13, nombre=15, ultimo=16};
 
   public:
                 Dialog          (EditorManager *editor);

@@ -314,6 +314,7 @@ void  Dialog::draw ()
   object_message(&dialog[caja], MSG_DRAW, 0);
   // Actualizamos las propiedades del actor.
   object_message(&dialog[nombre], MSG_DRAW, 0);
+  object_message(&dialog[estado], MSG_DRAW, 0);
   object_message(&dialog[pos], MSG_DRAW, 0);
 
   // Vuelve a mostrar el ratón.
@@ -457,6 +458,7 @@ void  Dialog::actualizarValoresActor ()
 
     // Actualizamos el valor de los controles.
     dialog[pos].dp = const_cast <char*> (str.c_str());
+    dialog[estado].dp = const_cast <char*> ((actor->getEstado ()).c_str());
     dialog[nombre].dp = const_cast<char *>((actor->getNombre ()).c_str());
   }
   else

@@ -287,7 +287,10 @@ Bloque &  Actor::getBloque ()
 /**
  * \brief   Obtiene el estado actual del actor.
  */
-string &  Actor::getEstado () const {};
+string &  Actor::getEstado () const 
+{
+  return *(new std::string ("sin nombre"));
+};
 
 /**
  * \brief   Obtiene el estado actual del actor.
@@ -296,3 +299,4 @@ string &  Actor::getNombre () const
 {
   return *(new std::string (Nombres::Imprimir (nombre)));
 };
+
