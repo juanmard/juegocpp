@@ -52,8 +52,8 @@ Mosaico (aowner)
 Suelo::Suelo (Actor *aowner, Almacen &almacen, int new_size):
 Mosaico (aowner)
 {
-  suelo_1 = almacen.GetBitmap("pre2_121");
-  suelo_2 = almacen.GetBitmap("pre2_068");
+  suelo_1 = almacen.GetBitmap("pre2_067");
+  suelo_2 = almacen.GetBitmap("pre2_069");
 
   // Generamos el suelo según el tamaño solicitado.
   for (int i=0; i<new_size; i++)

@@ -3,9 +3,10 @@
 #include "Actor.h"
 #include <algorithm>
 
-ActorManager::ActorManager (Game *g)
+ActorManager::ActorManager (Game *g):
+game (g),
+actorVisualizado (NULL)
 {
-  game = g;
 }
 
 /**
@@ -158,6 +159,9 @@ void ActorManager::update ()
 {
   list<Actor*>::iterator tmp_iter;
 
+  // Se actualiza el estado del actor.
+  actualizarVisualizacion ();
+
   /*
    * \todo  Hacer un "move_all_to_stage" para pasar los actores en bambalinas a escena y así
    *        eliminar las dos funciones "add_all_to_create" y "del_all_to_del" por separado. 
@@ -239,3 +243,24 @@ list<Actor *>  ActorManager::GetActores (Bloque bloque)
   }
   return listaInterseccion;
 };
+
+/**
+ * \brief   Actualiza la visualización de un actor.
+ * \details Actualiza la visualización en modo debug.
+ * \param   paramActor  Puntero al actor al que se le hará la visualización.
+ */
+void  ActorManager::setVisualizar (Actor *paramActor)
+{
+  actorVisualizado = paramActor;
+}
+
+/**
+ * \brief   Actualiza la visualización del actor.
+ */
+void ActorManager::actualizarVisualizacion ()
+{
+  if (actorVisualizado != NULL)
+  {
+    actorVisualizado->getEstado ();
+  }
+}

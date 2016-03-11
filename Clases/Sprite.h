@@ -34,7 +34,8 @@ class Sprite : public ActorGraphic
         void                notMirror   ();
 
     protected:
-        typedef struct Frame
+//        typedef struct Frame
+        struct Frame
         {
             BITMAP *bmp;
             Mask *mask;

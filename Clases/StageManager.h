@@ -25,18 +25,25 @@ class StageManager
     BITMAP *  getBuffer       ();
     void      update          ();
     void      draw            ();
+    void      draw            (BITMAP *cuadro);
+    void      draw            (Bloque cuadro);
     void      moverMarco      (int x, int y);
     void      setSeguimiento  (Actor *paramActor);
     void      setVerBloques   (bool activar);
     bool      getVerBloques   ();
+    void      rellenarBuffer  ();
+    void      dibujarCuadrado (Bloque cuadro, int color);
+    void      setRibete       (Bloque ribete);
 
   protected:
-    void      actualizarSeguimiento ();
-  
+    void      actualizarSeguimiento     ();
+
   protected:
-    Game      *game;
-    BITMAP    *buffer;
-    Bloque    marco;
-    Actor     *actorSeguido;
-    bool      verBloques;
+    Game *    game;             // Referencia al juego.
+    BITMAP *  buffer;           // Buffer principal a volcar en pantalla.
+    Bloque    ribete;           // Marco dentro de las coordenadas de la pantalla.
+    Bloque    marco;            // Marco dentro de las coordenadas del juego.
+    Actor *   actorSeguido;     // Actor al que se le realiza el seguimiento.
+    bool      verBloques;       // Muestra los bloques de los actores.
+    bool      verInfo;          // Muestra las informaciones del juego.
 };

@@ -70,9 +70,18 @@ void  EditorManager::set (int indice)
 /**
  * \brief   Redibuja la lista de objetos.
  */
-void  EditorManager::redibuja (void)
+void  EditorManager::dibujarEscenario ()
 {
   game->stage_manager->draw ();
+}
+
+/**
+ * \brief   Redibuja la lista de objetos.
+ * \param   cuadro    Puntero a la zona de pantalla donde dibujar.
+ */
+void  EditorManager::dibujarEscenario (BITMAP *cuadro)
+{
+  game->stage_manager->draw (cuadro);
 }
 
 /**
@@ -81,14 +90,14 @@ void  EditorManager::redibuja (void)
 void    EditorManager::resaltarActor (int x, int y)
 {
   // La pantalla está desplazada 14 pixels hacia abajo.
-  Actor *actor = game->actor_manager->get_actor (x,y-14);
+  Actor *actor = game->actor_manager->get_actor (x,y);
   if (actor)
   {
     // Cambiamos el color del marco.
     actor->set_color (!actor->get_color());
 
     // Redibuja la lista de actores.
-    redibuja ();
+    //dibujarEscenario ();
 
     // Redibuja la GUI.
     gui->draw ();
@@ -111,7 +120,7 @@ void  EditorManager::editarActor (int x, int y)
   }
   else
   {
-    actor_editado = game->actor_manager->get_actor (x, y-14);
+    actor_editado = game->actor_manager->get_actor (x, y);
   }
 }
 
@@ -188,7 +197,7 @@ void  EditorManager::duplicarActor (int x, int y)
 {
   // Obtenemos la referencia al actor bajo el ratón.
   // La pantalla está desplazada 14 pixels hacia abajo.
-  Actor *actor = game->actor_manager->get_actor (x, y-14);
+  Actor *actor = game->actor_manager->get_actor (x, y);
 
   // Se comprueba que la referencia existe.
   if (actor != NULL)
@@ -197,7 +206,7 @@ void  EditorManager::duplicarActor (int x, int y)
     //alert("Clase de tipo:", "", typeid(*actor).name(), "Ok", NULL, 0, 0);
 
     // Se crea un nuevo actor en memoria basándose en el elegido.
-    Actor *nuevo = actor->clone ();      
+    Actor *nuevo = actor->clone ();
 
     // Se desplaza para visualizarlo.
     nuevo->set_x (nuevo->get_x () + 10);
@@ -213,11 +222,13 @@ void  EditorManager::duplicarActor (int x, int y)
 }
 
 /**
- * Devuelve el actor que se está editando.
+ * \brief   Devuelve el actor que se encuentra en la posición dada.
+ * \param   x   Posición x en coordenadas de juego.
+ * \param   y   Posición y en coordenadas de juego.
  */
-Actor *  EditorManager::get_actor (int x, int y) const
+Actor *  EditorManager::getActor (int x, int y) const
 {
-  return game->actor_manager->get_actor (x, y-14);
+  return game->actor_manager->get_actor (x, y);
 }
 
 /**
@@ -302,3 +313,50 @@ int  EditorManager::getEscenarioY () const
 {
   return game->stage_manager->getY ();
 }
+
+/**
+ * \brief   Realiza un ciclo de acciones sobre el juego actualizando los estados.
+ */
+void  EditorManager::step () const
+{
+  //game->stage_manager->setRibete (Bloque (10,10,640,190));
+  //game->actor_manager->update ();
+  game->update ();
+  gui->draw ();
+}
+
+/**
+ * \brief   Obtiene el buffer de pantalla.
+ */
+BITMAP *  EditorManager::getBuffer ()
+{
+  return game->stage_manager->getBuffer ();
+}
+
+/**
+ * \brief   Actualiza el escenario.
+ */
+void  EditorManager::ActualizarEscenario ()
+{
+  return game->stage_manager->rellenarBuffer ();
+}
+
+/**
+ * \brief   Dibuja el escenario en pantalla.
+ * \param   cuadro  Límites y posición del gráfico a dibujar.
+ */
+void  EditorManager::dibujarEscenario (Bloque cuadro)
+{
+  game->stage_manager->draw (cuadro);
+}
+
+/**
+ * \brief   Se dibuja un cuadrado referido a la posición actual del escenario.
+ * \param   cuadro  Bloque cuya posición vendrá referida respecto a la posición 
+  *                 actual del escenario.
+ */
+void  EditorManager::dibujarCuadrado (Bloque cuadro, int color)
+{
+  game->stage_manager->dibujarCuadrado (cuadro, color);
+}
+

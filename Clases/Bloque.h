@@ -23,6 +23,7 @@ class Bloque
     int     getY        () const;
     int     getW        () const;
     int     getH        () const;
+    void    setY        (int y);
     void    centrar     (const Bloque &bloque);
 
   private:

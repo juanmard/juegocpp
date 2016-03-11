@@ -188,7 +188,7 @@ void Herny::CambiarEstado ()
  */
 void  Herny::hit  (Actor *who, int damage)
 {
-   switch (who->get_name())
+   switch (who->getNombre ())
    {
        case Nombres::pelota:
            estado = Herny::eliminar;

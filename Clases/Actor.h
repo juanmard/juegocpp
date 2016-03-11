@@ -47,6 +47,7 @@ public:
         virtual void        draw                (BITMAP *bmp);
         virtual void        update              ();
         virtual Actor *     clone               () const;
+        virtual string &    getEstado           () const;
     
         /* \warning: Estos dos estados deben ser incluídos en uno. */
         virtual void            CambiarEstado       ();
@@ -78,12 +79,13 @@ public:
         Game::team_t                            get_team                (void);
         void                                    set_tiempo              (unsigned int tiempo);
         Actor::estado_t                         get_Estado              (void);
-        Nombres::codigo                         get_name                (void);
+        Nombres::codigo                         getNombre               (void);
         void                                    set_name                (Nombres::codigo nuevo_nombre);
         bool                                    isIntersectado          (Bloque bloque);
         void                                    draw                    (StageManager *stageManager);
         void                                    draw_block              (StageManager *stageManager);
         Bloque &                                getBloque               ();
+//        virtual string &                        getEstado               ();
 
     protected:
         int             x, y;

@@ -212,7 +212,7 @@ int Actor::get_graph_y()
 /**
  * \brief   Método para obtener el código del nombre.
  */
-Nombres::codigo Actor::get_name (void)
+Nombres::codigo  Actor::getNombre (void)
 {
     return nombre;
 };
@@ -284,3 +284,7 @@ Bloque &  Actor::getBloque ()
   return *tmp;
 }
 
+/**
+ * \brief   Obtiene el estado actual del actor.
+ */
+string &  Actor::getEstado () const {};

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <allegro.h>
+#include "Bloque.h"
 
 class Game;
 class Actor;
@@ -18,28 +19,34 @@ class Dialog;
 class EditorManager
 {
   public:
-            EditorManager   (Game *g);
-            ~EditorManager  ();
-    void    edit            ();
-    void    set             (int indice);
-    void    activate        ();
-    void    redibuja        ();
-    void    resaltarActor   (int x, int y);
-    void    editarActor     (int x, int y);
-    void    duplicarActor   (int x, int y);
-    void    moverActor      (int x, int y);
-    bool    editandoActor   () const;
-    int     getActorX       () const;
-    int     getActorY       () const;
-    void    setActorX       (int x);
-    void    setActorY       (int y);
-    Actor * get_actor       (int x, int y) const;
-    char *  getNombreTraje  (int indice) const;
-    int     getNumTrajes    () const;
-    void    cambiarTraje    (int indice);
-    int     getEscenarioX   () const;
-    int     getEscenarioY   () const;
-    void    moverEscenario  (int x, int y);
+              EditorManager         (Game *g);
+              ~EditorManager        ();
+    void      edit                  ();
+    void      set                   (int indice);
+    void      activate              ();
+    void      dibujarEscenario      ();
+    void      dibujarEscenario      (BITMAP *cuadro);
+    void      dibujarEscenario      (Bloque cuadro);
+    void      resaltarActor         (int x, int y);
+    void      editarActor           (int x, int y);
+    void      duplicarActor         (int x, int y);
+    void      moverActor            (int x, int y);
+    bool      editandoActor         () const;
+    int       getActorX             () const;
+    int       getActorY             () const;
+    void      setActorX             (int x);
+    void      setActorY             (int y);
+    Actor *   getActor              (int x, int y) const;
+    char *    getNombreTraje        (int indice) const;
+    int       getNumTrajes          () const;
+    void      cambiarTraje          (int indice);
+    int       getEscenarioX         () const;
+    int       getEscenarioY         () const;
+    void      moverEscenario        (int x, int y);
+    void      step                  () const;
+    BITMAP *  getBuffer             ();
+    void      ActualizarEscenario   ();
+    void      dibujarCuadrado       (Bloque cuadro, int color);
 
   protected:
   Game *      game;

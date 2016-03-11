@@ -70,7 +70,7 @@ void Paleta::do_action (ControllableObject::action_t act, int magnitude)
  */
 void  Paleta::hit (Actor *who, int damage)
 {
-  switch (who->get_name ())
+  switch (who->getNombre ())
   {
     // Si tropezamos con un ladrillo. Aumentamos el tamaño.
     case Nombres::ladrillo:

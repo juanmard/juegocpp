@@ -29,6 +29,10 @@ class ActorManager
     list<Actor*>::iterator  get_begin_iterator    ();
     list<Actor*>::iterator  get_end_iterator      ();
     list<Actor *>           GetActores            (Bloque bloque);
+    void                    setVisualizar         (Actor *paramActor);
+
+protected:
+    void      actualizarVisualizacion   ();
 
   protected:
     Game *                  game;
@@ -36,6 +40,7 @@ class ActorManager
     list<Actor*>::iterator  actors_iter;
     list<Actor*>            to_del;
     list<Actor*>            to_create;
+    Actor *                 actorVisualizado;
 
   //friend: 
   public:

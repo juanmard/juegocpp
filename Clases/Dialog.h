@@ -29,7 +29,7 @@ class ItemALG;
  */
 class Dialog
 {
-	public:
+  public:
                     Dialog          (EditorManager *editor);
                     ~Dialog         ();
         void        show            ();
@@ -39,18 +39,21 @@ class Dialog
         int         propiedades     ();
 
 protected:
-        void        mostrar_marco       ();
-        void        menu_contextual     (int x, int y);
-        void        mover_kbd           (int code);
-        void        mover_kbd_escenario (int code);
-        void        prueba_click        ();
-        void        prueba_dblclk       ();
-        void        mostrar_actor       ();
-        void        mover_actor         ();
-        int         DuplicarActor       (int x, int y);
-        int         CambiarTraje        ();
-    
-		EditorManager   *manager;
+        void        mostrar_marco           ();
+        void        menu_contextual         (int x, int y);
+        void        mover_kbd               (int code);
+        void        mover_kbd_escenario     (int code);
+        void        prueba_click            ();
+        void        prueba_dblclk           ();
+        void        mostrar_actor           ();
+        void        mover_actor             ();
+        int         DuplicarActor           (int x, int y);
+        int         CambiarTraje            ();
+        void        actualizarValoresActor  ();
+        void        dibujarCuadrado         (Bloque cuadro, int color);
+  
+        EditorManager   *manager;
+        Actor *         actor;
         DlgActor        *dlg_actor2;
         VentanaALG      *dlg_ventana;
         VentanaALG      *dlg_ventana2;
@@ -169,7 +172,7 @@ public:
             {
                 //Cambia el traje del actor actualmente activo.
                 manager.cambiarTraje (d->d1);
-                manager.redibuja ();
+                manager.dibujarEscenario ();
                 ant_d1 = d->d1;
 
                 // Modo de prueba para probar que se actualiza lo seleccionado.
@@ -202,7 +205,7 @@ public:
                     // y redibujamos los objetos.
                     static int actual_y = manager.getActorY ();
                     manager.setActorY( actual_y + (50-d2));
-                    manager.redibuja ();
+                    manager.dibujarEscenario ();
 
                     // Mostramos de nuevo los sliders.
                     //object_message(&dlg_actor[0], MSG_DRAW, 0);
@@ -253,6 +256,25 @@ public:
               return D_O_K;
         }
 
+    /**
+     * \brief   Prueba para lista.
+     */
+    static char *dummy_getter (int index, int *list_size)
+    {
+      if (index < 0)
+      {
+        *list_size = 2;
+        return NULL;
+      }
+      else
+      {
+        switch (index)
+        {
+          case 0: return const_cast<char *>("primero");
+          case 1: return const_cast<char *>("segundo");
+        }
+      }
+    }
         /**
          * \brief   Método "callback" de mensajes recibidos por el marco del diálogo.
          * \details Este método maneja todos los mensajes que se reciben dentro del marco que
@@ -288,11 +310,11 @@ public:
                 case MSG_DRAW:
                     objeto.draw ();
                     break;
-                        
+
                 // Mensaje cuando se presiona el botón derecho del ratón.
                 case MSG_RPRESS:
-                    objeto.prb_x = mouse_x;
-                    objeto.prb_y = mouse_y;
+                    objeto.prb_x = mouse_x - dialog[0].x;
+                    objeto.prb_y = mouse_y - dialog[0].y;
                     objeto.menu_contextual (mouse_x, mouse_y);
                     break;
 
@@ -309,7 +331,7 @@ public:
                 case MSG_IDLE:
                         // Comprobamos si se ha movido el ratón.
                         if ( !((mouse_ant_x == mouse_x) && 
-                                (mouse_ant_y == mouse_y)) )
+                               (mouse_ant_y == mouse_y)) )
                         {
                             // El ratón se ha movido. Lo actualizamos y movemos el actor.
                             mouse_ant_x = mouse_x;
@@ -322,10 +344,8 @@ public:
             }
             // No funciona. Error de acceso. No podemos enviar el mensaje al padre.
             //return d_menu_proc (msg,d,c);
-
-            // Como no podemos enviar el mensaje al padre, damos el visto bueno y por procesados todos los mensajes.
-            return D_O_K;
+          
+            // Procesamos los mensajes como una caja por omisión.
+              return d_box_proc (msg,d,c);
         }
 };
-
-

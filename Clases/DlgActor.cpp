@@ -77,7 +77,7 @@ void  DlgActor::load (Actor *remoto)
   {
     uszprintf (buffer, sizeof(buffer), 
               "Nombre: %s\nPosición: %d, %d\nColor: %d",
-              Nombres::Imprimir(remoto->get_name()).c_str(),
+              Nombres::Imprimir(remoto->getNombre ()).c_str(),
               remoto->get_x(),
               remoto->get_y(),
               remoto->get_color()

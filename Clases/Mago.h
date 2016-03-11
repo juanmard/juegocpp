@@ -17,7 +17,13 @@ class Mago : public ControllableActor
   public:
     // Definición de acciones del Mago.
     typedef enum {DOWN, UP, LEFT, RIGHT, JUMP, SPELL} action_t;
-    typedef enum {esperando, andando, cayendo, disparando, saltando} Estados_t;
+    typedef enum  {esperando, andando, cayendo, disparando, saltando} Estados_t;
+
+  private:
+        typedef enum {
+                  esperando_izq, andando_izq, cayendo_izq, disparando_izq, saltando_izq,
+                  esperando_der, andando_der, cayendo_der, disparando_der, saltando_der
+                  } Sprites_t;
 
   public:
             Mago        (Almacen &almacen);
@@ -25,13 +31,15 @@ class Mago : public ControllableActor
     void    update      ();
     void    hit         (Actor *who, int damage);
 
-  protected:
+  private:
+    Sprites_t     estado2Sprite     (Estados_t estado) const;
 
   private:
-    map<Estados_t,Sprite *>     sprites;
+    map<Sprites_t,Sprite *>     sprites;
     Estados_t                   estado, estado_sig;
     unsigned int                timer;
     int                         gravedad;
+    int                         sentido;
 };
 
 #endif // _MAGO_H_

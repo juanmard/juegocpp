@@ -9,8 +9,10 @@
 StageManager::StageManager (Game *g, int w = SCREEN_W, int h = SCREEN_H):
 game (g),
 marco (0, 0, w, h),
+ribete (0, 0, SCREEN_W, SCREEN_H),
 actorSeguido (NULL),
-verBloques(true)
+verBloques (false),
+verInfo (false)
 {
   buffer = create_bitmap (SCREEN_W, SCREEN_H);
 }
@@ -71,7 +73,7 @@ void StageManager::update ()
  * \details Para ello recorre la lista de actores y les manda dibujase en el buffer
  *          que posteriormente se vuelca en la pantalla ('screen' de Allegro).
  */
-void StageManager::draw ()
+void  StageManager::rellenarBuffer ()
 {
   Actor *tmp;
 
@@ -101,14 +103,39 @@ void StageManager::draw ()
       tmp->draw (this);
     }
   }
+}
+
+/**
+ * \brief   Dibuja el escenario en un BITMAP.
+ */
+void StageManager::draw (BITMAP *cuadro)
+{
+  rellenarBuffer ();
+  blit (buffer, cuadro, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+}
+
+/**
+ * \brief   Dibuja el escenario.
+ * \details Para ello recorre la lista de actores y les manda dibujase en el buffer
+ *          que posteriormente se vuelca en la pantalla ('screen' de Allegro).
+ */
+void StageManager::draw ()
+{
+  rellenarBuffer ();
   /*
    * Volcamos el buffer en pantalla. Se dejan 14 pixel por arriba
    * para mostrar los fps.
    *
    * \todo Opción para mostrar los fps y dejar estos 14 pixels.
    */
-  blit (buffer, screen, 0, 0, 0,14,SCREEN_W, SCREEN_H);
-  //blit (buffer, screen, 0,0,0,0,SCREEN_W, SCREEN_H);
+  ribete.setY (0);
+  if (verInfo)
+  {
+    ribete.setY (20);
+  }
+  blit (buffer, screen, 0, 0, 
+        ribete.getX (), ribete.getY (),
+        ribete.getW (), ribete.getH ());
 }
 
 /** 
@@ -167,4 +194,36 @@ void  StageManager::setVerBloques (bool activar)
 bool  StageManager::getVerBloques ()
 {
   return verBloques;
+}
+
+/**
+ * \brief   Obtiene el estado de la visualización de los bloques.
+ * \return  Si es 'true' es que los bloques están activos.
+ */
+void  StageManager::draw (Bloque cuadro)
+{
+  rellenarBuffer ();
+  blit (buffer, screen, 0, 0, cuadro.getX (), cuadro.getY(), cuadro.getW(), cuadro.getH());
+}
+
+/**
+ * \brief   Dibuja un cuadrado
+ * \details Dibuja un cuadrado referido al inicio del buffer. En coordenadas del juego,
+ *          referido a la posición actual del escenario.
+ * \param   cuadro  cuadro
+ * \param   color   color
+ */
+void  StageManager::dibujarCuadrado (Bloque cuadro, int color)
+{
+  rect (buffer, cuadro.getX (), cuadro.getY (), cuadro.getW (), cuadro.getH (), color); 
+}
+
+/**
+ * \brief   Define la zona límite del ribete a dibujar en pantalla.
+ * \param   ribete   Bloque que define posición y tamaño a dibujar en pantalla.
+ */
+void  StageManager::setRibete (Bloque ribeteParam)
+{
+  ribete.setXY (ribeteParam.getX (), ribeteParam.getY ());
+  ribete.setWH (ribeteParam.getW (), ribeteParam.getH ());
 }

@@ -30,6 +30,7 @@
 #include  "Almacen.h"
 #include  "Loro.h"
 #include  "Mago.h"
+#include  "Ben.h"
 
 /**
  * \brief   Crea el objeto del juego.
@@ -107,27 +108,28 @@ void Juego2::main()
 //  control_p1->set_owner (loro);
   actor_manager->add (loro);
 
-  // Se crea mago de prueba.
-  control_p1->add_action_name (Mago::DOWN, "Bajar");
-  control_p1->add_action_name (Mago::UP,   "Subir");
-  control_p1->add_action_name (Mago::LEFT, "Izquierda");
-  control_p1->add_action_name (Mago::RIGHT,"Derecha");
-  control_p1->add_action_name (Mago::JUMP, "Saltar");
-  control_p1->add_action_name (Mago::SPELL,"Hechizo");
-  control_p1->set_actionperipheral (Mago::DOWN,  kboard, KEY_DOWN,  Peripheral::ON_PRESSING);
-  control_p1->set_actionperipheral (Mago::UP,    kboard, KEY_UP,    Peripheral::ON_PRESSING);
-  control_p1->set_actionperipheral (Mago::LEFT,  kboard, KEY_LEFT,  Peripheral::ON_PRESSING);
-  control_p1->set_actionperipheral (Mago::RIGHT, kboard, KEY_RIGHT, Peripheral::ON_PRESSING);
-  control_p1->set_actionperipheral (Mago::JUMP,  kboard, KEY_SPACE, Peripheral::ON_PRESSING);
-  control_p1->set_actionperipheral (Mago::SPELL, kboard, KEY_A,     Peripheral::ON_PRESSING);
-  Mago *mago = new Mago (*almacen);
-  control_p1->set_owner (mago);
-  actor_manager->add (mago);
+  // Se crea Ben de prueba.
+  // \todo  Pasar esto a la clase 'Ben' como inicialización del objeto.
+  control_p1->add_action_name (Ben::DOWN, "Bajar");
+  control_p1->add_action_name (Ben::UP,   "Subir");
+  control_p1->add_action_name (Ben::LEFT, "Izquierda");
+  control_p1->add_action_name (Ben::RIGHT,"Derecha");
+  control_p1->add_action_name (Ben::JUMP, "Saltar");
+  control_p1->add_action_name (Ben::SPELL,"Hechizo");
+  control_p1->set_actionperipheral (Ben::DOWN,  kboard, KEY_DOWN,  Peripheral::ON_PRESSING);
+  control_p1->set_actionperipheral (Ben::UP,    kboard, KEY_UP,    Peripheral::ON_PRESSING);
+  control_p1->set_actionperipheral (Ben::LEFT,  kboard, KEY_LEFT,  Peripheral::ON_PRESSING);
+  control_p1->set_actionperipheral (Ben::RIGHT, kboard, KEY_RIGHT, Peripheral::ON_PRESSING);
+  control_p1->set_actionperipheral (Ben::JUMP,  kboard, KEY_SPACE, Peripheral::ON_PRESSING);
+  control_p1->set_actionperipheral (Ben::SPELL, kboard, KEY_A,     Peripheral::ON_PRESSING);
+  Ben *ben = new Ben (*almacen);
+  control_p1->set_owner (ben);
+  actor_manager->add (ben);
 
   // Se crea la pelota del juego.
   Pelota *pelota = new Pelota(actor_manager);
   pelota->set_y (170);
-  actor_manager->add(pelota);
+  //actor_manager->add(pelota);
   
   // Añadimos una conjunto de ladrillos de prueba.
   for (int j=0; j<=2; j++)
@@ -199,7 +201,7 @@ void Juego2::main()
       }
       else
       {
-        stage_manager->setSeguimiento (mago);
+        stage_manager->setSeguimiento (ben);
       }
       key[KEY_S] = false;
     }

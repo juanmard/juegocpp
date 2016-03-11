@@ -92,7 +92,7 @@ void Pelota::CambiarEstado (void)
  */
 void  Pelota::hit  (Actor *who, int damage)
 {
-   switch (who->get_name())
+   switch (who->getNombre())
    {
        /**
         * Si tropezamos con un ladrillo. Cambiamos la dirección de rebote y
@@ -135,7 +135,7 @@ void  Pelota::hit  (Actor *who, int damage)
    * \todo  Un convertidor a cadena para los nombres de los actores.
    */
   rectfill (screen, SCREEN_W-100,0,SCREEN_W,14,0);
-  textprintf (screen, font, SCREEN_W-100,0,-1, "Hit: %d", who->get_name());
+  textprintf (screen, font, SCREEN_W-100,0,-1, "Hit: %d", who->getNombre ());
 }
 
 /**

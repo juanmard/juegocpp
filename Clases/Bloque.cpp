@@ -87,3 +87,11 @@ void Bloque::centrar (const Bloque &bloque)
     x = bloque.getX () - incx;
     y = bloque.getY () - incy;
 }
+
+/**
+ * \brief   Cambia la coordenada y en la posición del bloque.
+ */
+void Bloque::setY (int paramY)
+{
+  y = paramY;
+};

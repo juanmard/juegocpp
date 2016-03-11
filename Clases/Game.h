@@ -41,11 +41,11 @@ class Game
     void            update      ();
 
   protected:
+    void        set_max_frame_skip  (int max_fs);
+
     string      name;
     int         gfx_w, gfx_h;
     int         colors;
-
-    void        set_max_frame_skip  (int max_fs);
 
   private:
     int     actual_tick;

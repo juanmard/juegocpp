@@ -64,7 +64,7 @@ Ladrillo::~Ladrillo(void)
  */
 void  Ladrillo::hit  (Actor *who, int damage)
 {
-   switch (who->get_name())
+   switch (who->getNombre ())
    {
        case Nombres::pelota:
            /**

@@ -6,16 +6,32 @@
 //#define PRUEBAS
 //#define DEBUG
 
+// \todo    Hacer el enum propio de la clase, no global.
+enum {pantalla=0, lista=4, bitmap=5, pos=13, nombre=15, caja=6, ultimo=16};
+
 // Inicialización de las variables estáticas de la clase.
 // Diálogo general de la GUI del editor.
 DIALOG Dialog::dialog[] =
 {
-   /* (proc)                  (x)  (y)  (w) (h) (fg) (bg) (key) (flags)                              (d1) (d2) (dp)                                    (dp2) (dp3) */
-   { Dialog::marco_callback,   0,   0, 300, 200,  2,  34,  0,    0,                                    0,   0,  NULL,                                   NULL, NULL },
-   { d_menu_proc,              0,   0, 300,  12,  7,  15,  0,    D_SELECTED | D_GOTFOCUS | D_GOTMOUSE, 0,   0,  Dialog::menu_editor,                    NULL, NULL },
-   { d_text_proc,            470,  20, 160,  20,  2,  33,  0,    0,                                    0,   0,  const_cast<char*>("  Modo Edición  "),  NULL, NULL },
-   { NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL }
-};                                  
+   /* (proc)                 (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags)                               (d1) (d2) (dp)                                   (dp2) (dp3) */
+   { Dialog::marco_callback, 16,  24,  612, 300, 254, 50,  0,    0,                                    0,   0,   NULL,                                  NULL, NULL },
+   { d_menu_proc,            0,   0,   640, 15,  7,   15,  0,    D_SELECTED | D_GOTFOCUS | D_GOTMOUSE, 0,   0,   Dialog::menu_editor,                   NULL, NULL },
+   { d_text_proc,            534, 342, 80,  16,  14,  219, 0,    0,                                    0,   0,   const_cast<char*>("  Modo Edicion  "), NULL, NULL },
+   { d_text_proc,            8,   360, 32,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Estado:"),         NULL, NULL },
+   { d_list_proc,            385, 342, 144, 60,  50,  219, 0,    0,                                    0,   0,   NULL,                                  NULL, NULL },
+   { d_bitmap_proc,          552, 412, 83,  64,  0,   0,   0,    0,                                    0,   0,   NULL,                                  NULL, NULL },
+   { d_box_proc,             92,  336, 128, 80,  16,  164, 0,    0,                                    0,   0,   NULL,                                  NULL, NULL },
+   { d_text_proc,            100, 360, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("andando"),         NULL, NULL },
+   { d_text_proc,            8,   372, 40,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Anterior:"),       NULL, NULL },
+   { d_text_proc,            100, 372, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("disparando"),      NULL, NULL },
+   { d_text_proc,            8,   384, 40,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Siguiente:"),      NULL, NULL },
+   { d_text_proc,            100, 384, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("saltando"),        NULL, NULL },
+   { d_text_proc,            8,   400, 40,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Posicion:"),       NULL, NULL },
+   { d_text_proc,            100, 400, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("00X, 00Y"),        NULL, NULL },
+   { d_text_proc,            8,   344, 32,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Nombre:"),         NULL, NULL },
+   { d_text_proc,            100, 344, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Sin nombre"),      NULL, NULL },
+   { NULL,                   0,   0,   0,   0,   0,   0,   0,    0,                                    0,   0,   NULL,                                  NULL, NULL }
+};
 
 // Diálogo de objeto.
 DIALOG Dialog::dlg_actor [] =
@@ -28,7 +44,7 @@ DIALOG Dialog::dlg_actor [] =
    { Dialog::mi_list_proc, 0,   40,   120, 200,    2,    33,     0,        0,    100,    50,                                  NULL, NULL, NULL },
    { d_text_proc,        470,   20,  160,   20,    2,    33,     0,        0,      0,     0, const_cast<char*>("  Modo Edición  "), NULL, NULL },
    { NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL }
-};                                  
+};
 
 // Menú fichero.
 MENU Dialog::mnu_fichero[] =
@@ -71,20 +87,19 @@ MENU Dialog::mnu_actor [] =
 /**
  * \brief   Construye la clase que servirá de GUI para editar un juego.
  */
-Dialog::Dialog (EditorManager *editor)
+Dialog::Dialog (EditorManager *editor):
+manager (editor),
+actor (NULL)
 {
-    // Guardamos referencia al propietario.
-    manager = editor;
-
     // Se inicializan los colores de la GUI.
     gui_fg_color = makecol(255,255,255);
     gui_bg_color = makecol(128,128,128);
 
     // Se inicializa el tamaño inicial de la ventana que recibe las llamadas.
-    dialog[0].x = 0;
-    dialog[0].y = 14;
-    dialog[0].h = SCREEN_H;
-    dialog[0].w = SCREEN_W;
+    //~ dialog[0].x = 0;
+    //~ dialog[0].y = 14;
+    //~ dialog[0].h = SCREEN_H;
+    //~ dialog[0].w = SCREEN_W;
 
     // Se  inicializa el ancho del menú.
     dialog[1].w = SCREEN_W;
@@ -99,13 +114,13 @@ Dialog::Dialog (EditorManager *editor)
     dialog[0].dp3 = dlg_actor;
 
     dlg_ventana2 = new VentanaALG ("Otra prueba de fondo...",0,0,SCREEN_W,SCREEN_H);
-    dlg_ventana = new VentanaALG("Prueba",100,100,120,120);
+    dlg_ventana = new VentanaALG ("Prueba",100,100,120,120);
 
     // Se apunta a ese diálogo en el menú del objeto.
     //mnu_actor[3].dp = editor->get_actor ();
 
     // Inicializamos las propiedades del actor.
-    dlg_actor[0].fg = makecol(255,255,255);
+    dlg_actor[0].fg = makecol (255,255,255);
     dlg_actor[0].bg = makecol (0,0,255);     //bitmap_mask_color (screen); 
 
     // Inicializamos el slider de prueba.
@@ -124,6 +139,22 @@ Dialog::Dialog (EditorManager *editor)
     //    mnu_actor[1].proc = reinterpret_cast<int(*)()>(&Dialog::DuplicarActor);
     mnu_actor[1].dp = this;
     mnu_actor[2].dp = this;
+
+  // Inicializamos la lista de pruebas.
+//  dialog[lista].dp = (void*)Dialog::dummy_getter;
+  dialog[lista].dp = (void*)Dialog::cb_prueba_lista;
+  dialog[lista].dp3 = manager;
+  // Bitmap
+  dialog[bitmap].dp = manager->getBuffer ();
+
+  // Color del fondo de los controles.
+  for (int i = pantalla; i < ultimo; i++)
+  {
+    dialog[i].bg = makecol (128,128,128);
+  }
+  
+  // Color de la caja que borra los valores.
+  dialog[caja].fg = makecol (128,128,128);
 }
 
 /**
@@ -145,8 +176,11 @@ Dialog::~Dialog (void)
  */
 void Dialog::show (void)
 {
-    // Se hace visible el menú de edición.
-    do_dialog (dialog,-1);
+  // Se borra la pantalla.
+  clear_to_color (screen, makecol(128,128,128));
+
+  // Se hace visible el menú de edición.
+  do_dialog (dialog,-1);
 
 // Hacemos unas pruebas independientes de la definición de la clase.
 #ifdef  PRUEBAS
@@ -164,11 +198,11 @@ void Dialog::show (void)
  //   prueba.add(control_caja);
         
     TextALG &control_texto = *(new TextALG());
-    control_texto.set_xy (400,100);
+    control_texto.set_xy (400, 100);
   //  prueba.add(control_texto);
         
     MenuALG &control_menu = *(new MenuALG());
-    control_menu.set_xy (300,50);
+    control_menu.set_xy (300, 50);
     ItemALG &menu_item = *(new ItemALG());
     control_menu.add(menu_item);
     
@@ -180,13 +214,12 @@ void Dialog::show (void)
 
     // Después de pulsar 'ESC' modificamos el dialogo de prueba y lo volvemos a mostrar.
     menu_item = *(new ItemALG("Prueba3"));
-    control_menu.add(menu_item);
-    prueba.add(control_menu);
-
-    prueba.show();
+    control_menu.add (menu_item);
+    prueba.add (control_menu);
+    prueba.show ();
 
     // Eliminamos la tecla 'ESC' del buffer de teclado.
-    key[KEY_ESC]=false;
+    key[KEY_ESC] = false;
 #endif
 }
 
@@ -195,7 +228,7 @@ void Dialog::show (void)
  */
 void Dialog::mouse_out (void)
 {
-    show_mouse (NULL);
+  show_mouse (NULL);
 }
 
 /**
@@ -203,7 +236,7 @@ void Dialog::mouse_out (void)
  */
 void Dialog::mouse_in (void)
 {
-    show_mouse (screen);
+  show_mouse (screen);
 }
 
 /**
@@ -298,11 +331,12 @@ void    Dialog::mover_kbd   (int code)
 /**
  * \brief Prueba el click de ratón resaltando el contorno del objeto en el que se produce.
  */
-void    Dialog::prueba_click    ()
+void  Dialog::prueba_click ()
 {
         // Prueba del diálogo del Actor.
         DlgActor dialogo (this);
-        dialogo.load (manager->get_actor(mouse_x, mouse_y));
+        dialogo.load (manager->getActor (mouse_x + manager->getEscenarioX (),
+                                          mouse_y + manager->getEscenarioY ()));
         dialogo.show();            
 
         // Comprobamos que el Diálogo tiene un "Manager" asociado.
@@ -311,16 +345,16 @@ void    Dialog::prueba_click    ()
         if (manager)
         {
             // Le decimos al "Manager" que resalte el objeto.
-            manager->resaltarActor (mouse_x, mouse_y);
+            manager->resaltarActor (mouse_x + manager->getEscenarioX (), mouse_y + manager->getEscenarioY ());
             
 #ifdef DEBUG
             // Mostramos en pantalla el mensaje para comprobar la posición del ratón.
-            gui_textout(screen, "* Aquí está", mouse_x, mouse_y, 0xFFFF, FALSE);
+            gui_textout_ex (screen, "* Aquí está", mouse_x + manager->getEscenarioX (), mouse_y + manager->getEscenarioY (), 0xFFFF, FALSE);
 #endif
         }
         else
         {
-            gui_textout(screen,  const_cast<char*>("NO SE HA INICIALIZADO LA REFERENCIA AL JUEGO!!!"), SCREEN_W/2, SCREEN_H/2, 0xFFFF, TRUE);
+            gui_textout_ex (screen, const_cast<char*>("NO SE HA INICIALIZADO LA REFERENCIA AL JUEGO!!!"), SCREEN_W/2, SCREEN_H/2, 0xFFFF, makecol(255, 100, 200), TRUE);
         }
  }
 
@@ -346,79 +380,97 @@ void    Dialog::mostrar_actor   ()
 /**
  * \brief   Dibuja de nuevo la GUI.
  */
-void    Dialog::draw   ()
+void  Dialog::draw ()
 {
-    // Oculta el ratón para no dejar rastros por pantalla.
-    mouse_out ();
-    
-    // Pide redibujar los objetos del juego.
-    manager->redibuja();
+  // Oculta el ratón para no dejar rastros por pantalla ni parpadeos.
+  mouse_out ();
 
-    // Redibujar los propios controles de la GUI.
-    // Nota: Esto no es necesario de momento, sólo mostramos el marco.
-    mostrar_marco ();
+  // Se dibuja el escenario y un contorno.
+  // \todo  Se debería agrupar en una única petición al EditorManager.
+  //        y el EditorManager hacer la petición al StageManager para que
+  //        se dibujaran los cuadrados sobre el buffer original y luego realizar
+  //        el volcado ('Blit') sobre la pantalla. De esta forma se evitaría el
+  //        parpadeo de los gráficos debidos a más de un volcado por ciclo.
+  int x = dialog[0].x; int y = dialog[0].y;
+  int w = dialog[0].w; int h = dialog[0].h;
+  manager->dibujarEscenario (Bloque (x, y, w, h));
+  // manager->dibujarEscenario ();
+  rect (manager->getBuffer (), 0, 0, w-1, h-1, makecol (255, 0, 0));
+  blit (manager->getBuffer (), screen, 0, 0, x, y, w, h);
 
-    // Mostramos la posición actual del actor en un cuadro de texto.
-    // \todo    Deberíamos comprobar que estamos editando y moviendo un actor.
-    if (manager->editandoActor())
-    {
-        //~ Prueba fallida para hacer trasparente las letras.
-        //~ BITMAP *copia;
-        //~ int w=dialog_objeto[0].w;
-        //~ int h=dialog_objeto[0].h;
-        //~ copia=create_bitmap (h,w);
-        //~ blit (screen, copia, mouse_x, mouse_y, 0, 0, w, h);
-        //~ blit (copia, screen, 0,0,mouse_x+100, mouse_y+100, w, h);
-        
-        // Le decimos a la posición sobre el cursor que se muestre.
-        object_message(&dlg_actor[0], MSG_DRAW, 0);
-    }
+  // Redibujar los propios controles de la GUI.
+  //int error;
+  //dialog_message (&dialog[1], MSG_DRAW, 0, &error);
 
-    // Vuelve a mostrar el ratón.
-    mouse_in ();
+  // Si hay un actor en edición se dibujan sus ¿nuevos? valores.
+  if (actor)
+  {
+    // \todo  Realizar una única petición al EditorManager.
+    int xAct = actor->get_x () - manager->getEscenarioX ();// + dialog[pantalla].x;
+    int yAct = actor->get_y () - manager->getEscenarioY ();// + dialog[pantalla].y;
+    int wAct = actor->get_w ();
+    int hAct = actor->get_h ();
+    rect (manager->getBuffer (), xAct, yAct, xAct+wAct, yAct+hAct, makecol(0,255,0));
+    blit (manager->getBuffer (), screen, 0, 0, x, y, w, h);
+  }
+
+  // Usamos la caja para borrar.
+  object_message(&dialog[caja], MSG_DRAW, 0);
+  // Actualizamos las propiedades del actor.
+  object_message(&dialog[nombre], MSG_DRAW, 0);
+  object_message(&dialog[pos], MSG_DRAW, 0);
+
+  // Vuelve a mostrar el ratón.
+  mouse_in ();
 }
 
 /**
- * \brief   Mueve el actor activo a la posición especificada
- *
+ * \brief   Mueve el actor activo a la posición actual del ratón.
  */
-void    Dialog::mover_actor  (void)
+void  Dialog::mover_actor  (void)
 {
-        // Eliminamos la referencia tomada respecto al actor a la posición actual del ratón y movemos el actor.
-        // Se hace esto para evitar el movimiento del actor respecto a la posición del ratón.
-        manager->moverActor(mouse_x + ref_x, mouse_y + ref_y);
-
-        // Convertimos la posición a una cadena y la ponemos en el objeto
-        //  para mostrarlo más tarde como texto junto al cursor.
-        std::stringstream posicion;
-        posicion << mouse_x + ref_x <<  ", " << mouse_y + ref_y;
-        std::string str = posicion.str();
-        dlg_actor[0].dp = const_cast <char*> (str.c_str());
-
-        // Movemos la posición de la cadena cerca del cursor.
-        dlg_actor[0].x=mouse_x+15;
-        dlg_actor[0].y=mouse_y-10;
+  // Eliminamos la referencia tomada respecto al actor a la posición actual del ratón y movemos el actor.
+  // Se hace esto para evitar el movimiento del actor respecto a la posición del ratón.
+//  manager->moverActor (mouse_x + ref_x + manager->getEscenarioX (), mouse_y + ref_y + manager->getEscenarioY ());
+  if (actor)
+  {
+    actor->set_x (mouse_x + ref_x + manager->getEscenarioX ());
+    actor->set_y (mouse_y + ref_y + manager->getEscenarioY ());
+    actualizarValoresActor ();
+  }
 }
 
+/**
+ * \brief   Prueba de click con el ratón.
+ */
 void Dialog::prueba_dblclk ()
 {
-    if (manager)
+  if (manager)
+  {
+    // Si hay actor editando, dejamos de editarlo.
+    if (actor)
     {
-            // Le decimos al "Manager" que resalte el objeto.
-            manager->resaltarActor (mouse_x, mouse_y);
-        
-            // Editar puede también desactivar la edición... hay que cambiarlo.
-            manager->editarActor (mouse_x, mouse_y);
-
-            // Si la última petición de edición hizo que se editara...
-            if (manager->editandoActor())
-            {
-                // Tomamos la referencia del ratón respecto al actor.
-                // ¿Esto no lo debería hacer el EditorManager (manager)?
-                ref_x = manager->getActorX() - mouse_x;
-                ref_y = manager->getActorY() - mouse_y;
-            }
+      actor = NULL;
     }
+    // Si actualmente no hay actor editando, lo buscamos bajo el ratón.
+    else
+    {
+      actor = manager->getActor (mouse_x - dialog[0].x + manager->getEscenarioX (),
+                                 mouse_y - dialog[0].y + manager->getEscenarioY ());
+      // Si encontramos el actor bajo el ratón, guardamos sus propiedades.
+      if (actor)
+      {
+        // Tomamos la referencia del ratón respecto al actor.
+        ref_x = actor->get_x() - manager->getEscenarioX () - mouse_x;
+        ref_y = actor->get_y() - manager->getEscenarioY () - mouse_y;
+      }
+    }
+    // Se actualizan los valores en la GUI del actor recién encontrado.
+    actualizarValoresActor ();
+
+    // Dibujamos de nuevo la GUI.
+    draw ();
+  }
 }
 
 /**
@@ -427,11 +479,11 @@ void Dialog::prueba_dblclk ()
 */
 int  Dialog::DuplicarActor (int x, int y)
 {
-    if (manager->editandoActor())
-    {
-        manager->duplicarActor (x, y);
-    }
-    return D_O_K; 
+  if (actor)
+  {
+    manager->duplicarActor (x, y);
+  }
+  return D_O_K; 
 };
 
 /**
@@ -481,8 +533,47 @@ void    Dialog::mover_kbd_escenario   (int code)
     case 'd':
         x += 1;
         break;
+    case 'f':
+    case 'F':
+        manager->step ();
+        actualizarValoresActor ();
+        draw ();
+        break;
     }
     manager->moverEscenario (x, y);
     draw ();
 };
 
+/**
+ * \brief   Actualizamos los valores del actor en pantalla.
+ */
+void  Dialog::actualizarValoresActor ()
+{
+  // Si hay un actor que se está editando...
+  if (actor)
+  {
+    // Construimos la cadena de posición.
+    std::stringstream posicion;
+    posicion << actor->get_x ()
+             <<  ", "
+             << actor->get_y ();
+    std::string str = posicion.str();
+
+    // Actualizamos el valor de los controles.
+    dialog[pos].dp = const_cast <char*> (str.c_str());
+    dialog[nombre].dp = const_cast<char *>(Nombres::Imprimir (actor->getNombre()).c_str());
+  }
+  else
+  {
+    // Construimos la cadena de posición.
+    std::stringstream posicion;
+    posicion << manager->getEscenarioX ()
+             <<  ", "
+             << manager->getEscenarioY ();
+    std::string str = posicion.str();
+
+    // Actualizamos el valor de los controles.
+    dialog[pos].dp = const_cast <char*> (str.c_str());
+    dialog[nombre].dp = const_cast<char *>("Escenario");
+  }
+}

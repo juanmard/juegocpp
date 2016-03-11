@@ -221,7 +221,7 @@ void Game::update ()
   if (tick-old_tick >= 70)
   {
     rectfill (screen,0,0,400,14,0);
-    textprintf (screen, font, 0,0,-1, "fps: %u frameskip:%u", graphic_tick, frame_skip);
+    textprintf_ex (screen, font, 0,0,-1, makecol(255, 100, 200), "fps: %u frameskip:%u", graphic_tick, frame_skip);
     graphic_tick = 0;
     old_tick = tick;
   }
