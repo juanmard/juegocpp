@@ -87,7 +87,7 @@ Dialog::Dialog (EditorManager *editor)
     dialog[0].dp2 = owner;
 
     // Se crea un diálogo para el actor vacío.
-    dlg_actor = new DlgActor();
+    dlg_actor = new DlgActor(this);
     dialog[0].dp3 = dlg_actor;
 
     // Se apunta a ese diálogo en el menú del objeto.
@@ -204,5 +204,11 @@ void    Dialog::mostrar_actor   ()
     //          que no sea justo el que está bajo la x y la y.
     dlg_actor->load (owner->get_actor());
     dlg_actor->show();
+    owner->redibuja();
+}
+
+void    Dialog::draw   ()
+{
+    // Queda redibujar los propios controles.
     owner->redibuja();
 }

@@ -21,6 +21,7 @@ class Dialog
                     Dialog          (EditorManager *editor);
                     ~Dialog         ();
         void        show            ();
+        void        draw            ();
         void        mouse_out       ();
         int         propiedades     ();
 

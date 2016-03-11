@@ -2,26 +2,82 @@
 
 #include <allegro.h>
 #include "Actor.h"
+#include "Dialog.h"
+
+#define   MSG_MOUSEMOVE   MSG_USER + 2
+
+class Dialog;
 
 /**
  * \brief       Muestra un actor en una pequeña GUI para editar sus propiedades.
  * \details     Esta GUI utiliza funciones básicas de Allegro. Contiene funciones globales para los
  *              "callback" de las componentes. Las funciones de modificación y actualización de
  *              objetos deben ser encomendadas a la clase "EditorManager".
- * \todo        Compatibilizar los "callback" globales mediante funciones estáticas de la clase.
- *              Ej. "DlgActor::d_mi_menu_proc" en las definiciones.
+ * \todo        Hacer esto mismo pero con una clase genérica llamada "VentanaALG" que haga virtuales
+ *              todas las llamadas "MSG_xxxx", el resto heredarán de ella y sólo tendrán que redefinir
+ *              estas llamadas.
  */
 class DlgActor
 {
 	public:
                 DlgActor          (Actor *actor);
-                DlgActor          (void);
+                DlgActor          (Dialog *dlg);
                 ~DlgActor         (void);
         void    show              (void);
         void    load              (Actor *actor);
         void    save              (void);
 
 protected:
-		Actor *actor;
-        static DIALOG DlgActor::dlg_propiedades[];
+        int             x_rel, y_rel;
+        int             x_ant, y_ant;
+        bool            enganchado;
+		Actor           *actor;
+        Dialog          *owner;
+        static DIALOG   dlg_propiedades[];
+
+        void            msg_idle            ();
+        void            msg_mousemove       ();
+        void            msg_click           ();
+        void            msg_dclick          ();
+
+        /**
+         * \brief   Callback Allegro de la clase.
+         * \todo    
+         *          - Añadir a las funciones los parámetros de entrada y de retorno.
+         *            Ej: return obj->msg_dclick(msg,d,c);
+         *          - Una vez detectado el mensaje, si no se ha procesado pasar al
+         *            padre. Ej: [int] owner->msg_owner (msg,d,c);
+         */
+        static int box_callback (int msg, DIALOG *d, int c)
+        {
+            // Si ya está inicializado el objeto...
+            if (d[0].dp)
+            {
+                DlgActor *obj = static_cast<DlgActor *>(d[0].dp);
+                // Seleccionamos los mensajes.
+                switch (msg)
+                {
+                case MSG_DCLICK:
+                    obj->msg_dclick ();
+                    break;
+
+                case MSG_CLICK:
+                    obj->msg_click ();
+                    break;
+
+                case MSG_MOUSEMOVE:
+                    obj->msg_mousemove ();
+                    break;
+
+                case MSG_IDLE:
+                    obj->msg_idle ();
+                    break;
+
+                default:
+                    return d_box_proc (msg,d,c);
+                }
+            }
+            return D_O_K;
+        };
+
 };
