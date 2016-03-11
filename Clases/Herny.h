@@ -32,15 +32,13 @@ class Herny : public ControllableActor
             saltando
         } Estados;
 
-        /**
-         * Constructor del actor principal ("Herny") sin parámetros.
-         */
-        Herny (void);
-    
-        void    do_action          (ControllableActor::action_t act, int magnitude);
-        void    CambiarEstado      (void);
-        void    ActualizarEstado   (void);
-        void    hit                (Actor *who, int damage);
+                            Herny               ();
+                            Herny               (const Herny &copia);    
+        void                do_action           (ControllableActor::action_t act, int magnitude);
+        void                CambiarEstado       ();
+        void                ActualizarEstado    ();
+        void                hit                 (Actor *who, int damage);
+        virtual Herny *     clone               () const;
 
    
     protected:

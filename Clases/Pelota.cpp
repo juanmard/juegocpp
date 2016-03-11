@@ -105,26 +105,26 @@ void  Pelota::hit  (Actor *who, int damage)
            break;
 
        case Nombres::herny:
-            /** \todo Añadir un estado general en el actor que lo identifique
-             *        el ActorManager y lo marque para borrar de la lista de actores.
-             */
-           /*
-           {
-           Pelota *prb = new Pelota();
-           prb->set_y(200);
-           manager->add(prb);
-           }
-           */
+           /** \todo Añadir un estado general en el actor que lo identifique
+            *        el ActorManager y lo marque para borrar de la lista de actores.
+            */
            break;
 
        case Nombres::paleta:
             // set_actor_graphic (granada);
        default:
+             // Queda comprobar desde donde rebota.
+             //if ((get_y() > who->get_y() + who->get_h())
+             //       || (who->get_y() > get_y() + get_h()))
+             //{
+             //  direccion_x = -direccion_x;
+             //}
+             direccion_y = -direccion_y;
+
             /**
              * \brief   Sonido de rebote de prueba.
-             * \todo    Crear clases separadas para objetosde sonido.
+             * \todo    Crear clases separadas para objetos de sonido.
              */
-             direccion_y = -direccion_y;
              play_sample (rebote,200,128,1500,FALSE);
              break;
    }
