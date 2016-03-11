@@ -1,10 +1,25 @@
 #include "AirCraft.h"
 
+/**
+ * Constructor de copia.
+ */
+AirCraft::AirCraft  (const AirCraft &copia):
+ControllableActor (copia),
+image(copia.image)
+{
+}
+
+/**
+ * Constructor por omisión.
+ */
 AirCraft::AirCraft()
 {
 	image=NULL;
 }
 
+/**
+ * Acciones como actor controlado.
+ */
 void AirCraft::do_action (ControllableObject::action_t act, int magnitude)
 {
     switch (act)
@@ -31,6 +46,17 @@ void AirCraft::do_action (ControllableObject::action_t act, int magnitude)
     if (y>SCREEN_H-get_h()) y=SCREEN_H-get_h();
 }
 
+/**
+ * Definición de estados en colisiones.
+ */
 void  AirCraft::hit  (Actor *who, int damage)
 {
+}
+
+/**
+ * Clona el objeto.
+ */
+AirCraft * AirCraft::clone () const
+{
+    return (new AirCraft (*this));
 }

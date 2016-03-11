@@ -6,9 +6,9 @@
 Paleta::Paleta (const Paleta &copia):
 ControllableActor(copia)
 {
-    // Una vez copiado el actor y su tipo gráfico en la inicialización (ControllableActor).
-    // Referenciamos la piel que es de tipo gráfico 'Suelo'.
-    piel = dynamic_cast<Suelo *>(this->agraph);
+    // Una vez copiada la parte gráfica del actor en la inicialización
+    // la referenciamos en el parámetro 'piel'.
+    piel = dynamic_cast<Suelo *>(agraph);
 }
 
 /**
@@ -16,7 +16,7 @@ ControllableActor(copia)
  */
 Paleta::Paleta()
 {
-    piel = new Suelo(this,2);
+    piel = new Suelo(this,2);    
     set_actor_graphic (piel);
     set_name (Nombres::paleta);
     set_x(0);
@@ -25,10 +25,16 @@ Paleta::Paleta()
     set_collision_method(CollisionManager::PP_COLLISION);
 }
 
+/**
+ * Destructor.
+ */
 Paleta::~Paleta(void)
 {
 }
 
+/**
+ * Acciones como actro controlable.
+ */
 void Paleta::do_action (ControllableObject::action_t act, int magnitude)
 {
     switch (act)
@@ -45,19 +51,24 @@ void Paleta::do_action (ControllableObject::action_t act, int magnitude)
     if (x>SCREEN_W-get_w()) x=SCREEN_W-get_w();
 }
 
+/**
+ * Acciones ante colisiones.
+ */
 void Paleta::hit (Actor *who, int damage)
 {
    switch (who->get_name())
    {
+       
        // Si tropezamos con un ladrillo. Aumentamos el tamaño.
        case Nombres::ladrillo:
            if (piel->Get_size () < 8)
            {
                 piel->Set_size(piel->Get_size()+1);
-                set_wh(32*piel->Get_size()+20,15);
+                this->set_wh(32*piel->Get_size()+20,15);
            }
            break;
 
+       // Si tropezamos con una pelota. Disminuímos el tamaño.
        case Nombres::pelota:
            if (piel->Get_size () > 2)
            {

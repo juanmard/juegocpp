@@ -10,7 +10,8 @@
 class AirCraft : public ControllableActor
 {
     public:
-        AirCraft();
+        AirCraft (const AirCraft &copia);
+        AirCraft ();
     
         typedef enum
         {
@@ -20,9 +21,10 @@ class AirCraft : public ControllableActor
             RIGHT
         } action_t;
 
-        void    do_action   (ControllableObject::action_t act, int magnitude);
-        void    hit         (Actor *who, int damage);
-   
+        void                do_action   (ControllableObject::action_t act, int magnitude);
+        void                hit         (Actor *who, int damage);
+        virtual AirCraft *  clone       () const;
+        
     protected:
         BITMAP *image;
 };
