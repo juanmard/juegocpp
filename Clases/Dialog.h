@@ -132,30 +132,59 @@ public:
          */
         static char *cb_prueba_lista (int index, int *list_size)
         {
-            // Si index es negativo debe devolver NULL e indicar el tamaño de la lista.
-            if (index<0)
+            if (dlg_actor[3].dp3)
             {
-                // Esto se le preguntaría al manager.
-                // list_size = manager->GetNumTrajes ();
-                *list_size = 3;
-                return NULL;
-            }
+                // Creamos una referencia temporal al manager del objeto actual.
+                EditorManager &manager = *(static_cast<EditorManager *>(dlg_actor[3].dp3));
 
-            // Si index es cero o positivo debe devolver la cadena del nombre del traje.
-            // return manager->GetNameTraje (index);
-            switch (index)
-            {
-                case 0:
-                    return "traje 0";
-                    break;
-                case 1:
-                    return "traje 1";
-                    break;
-                case 2:
-                    return "traje 2";
-                    break;
+                // Si index es negativo debe devolver NULL e indicar el tamaño de la lista.
+                // Si index es cero o positivo debe devolver la cadena del nombre del traje.
+                if (index < 0)
+                {
+                    *list_size = manager.GetNumTrajes ();
+                    return NULL;
+                }
+                else
+                {
+                    return manager.GetNombreTraje (index);
+                }
             }
         }
+
+    // Desvio del procedimiento de lista para implementar una lista de trajes.
+    static int mi_list_proc (int msg, DIALOG *d, int c)
+    {
+        int ret = d_list_proc (msg, d, c);
+
+        // Si ya se ha inicializado el nuevo objeto.
+        if (d->dp3)
+        {
+            // Creamos una referencia temporal al manager del objeto actual.
+            EditorManager &manager = *(static_cast<EditorManager *>(d->dp3));
+
+            static int ant_d1 = 0;
+            // Si se ha cambiado el traje en la lista, pedir que lo cambie al EditorManager.
+            if (d->d1 != ant_d1)
+            {
+                //Cambia el traje del actor actualmente activo.
+                manager.CambiarTraje (d->d1);
+                manager.redibuja ();
+                ant_d1 = d->d1;
+
+                // Modo de prueba para probar que se actualiza lo seleccionado.
+                int prb;
+                dlg_actor[4].dp = const_cast<char *>(cb_prueba_lista (d->d1,&prb));
+                object_message(&dlg_actor[4], MSG_DRAW, 0);
+             }
+            
+            /* Captura el mensaje de cierre. 
+             if (ret == D_CLOSE && d->dp3)
+                return ((int (*)(void))d->dp3)();
+            */
+        }        
+        return ret;
+    }
+
 
         /*
          * Prueba slider.
@@ -177,8 +206,8 @@ public:
                     // Mostramos de nuevo los sliders.
                     //object_message(&dlg_actor[0], MSG_DRAW, 0);
                     //object_message(&dlg_actor[1], MSG_DRAW, 0);
+                    object_message(&dlg_actor[1], MSG_DRAW, 0);
                     object_message(&dlg_actor[2], MSG_DRAW, 0);
-                    object_message(&dlg_actor[3], MSG_DRAW, 0);
                 }
             }
             return D_O_K;

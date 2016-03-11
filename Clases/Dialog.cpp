@@ -22,11 +22,11 @@ DIALOG Dialog::dlg_actor [] =
 {
    /* (proc)             (x),  (y),  (w),  (h), (fg),  (bg), (key),  (flags),   (d1),  (d2),  (dp),                                (dp2), (dp3)     */
    { d_text_proc,          0,  100,  300,  200,    7,    15,     0,        0,      0,     0, const_cast<char*>("x, y"),             NULL, NULL },
-   { d_text_proc,        470,   20,  160,   20,    2,    33,     0,        0,      0,     0, const_cast<char*>("  Modo Edición  "), NULL, NULL },
    { d_slider_proc,       20,  200,   20,  160,    2,    33,     0,        0,    100,    50,                                  NULL, NULL, NULL },
    { d_slider_proc,       60,  200,   20,  160,    2,    33,     0,        0,    100,    50,                                  NULL, NULL, NULL },
     // Prueba para la lista de trajes. dp se actualiza en el constructor y apunta al procedimiento para obtener información de la lista.
-   { d_list_proc,        160,  200,   80,  160,    2,    33,     0,        0,    100,    50,                                  NULL, NULL, NULL },
+   { Dialog::mi_list_proc, 0,   40,   120, 200,    2,    33,     0,        0,    100,    50,                                  NULL, NULL, NULL },
+   { d_text_proc,        470,   20,  160,   20,    2,    33,     0,        0,      0,     0, const_cast<char*>("  Modo Edición  "), NULL, NULL },
    { NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL }
 };                                  
 
@@ -109,13 +109,14 @@ Dialog::Dialog (EditorManager *editor)
     dlg_actor[0].bg = makecol (0,0,255);     //bitmap_mask_color (screen); 
 
     // Inicializamos el slider de prueba.
+    dlg_actor[1].dp2 = (void*)Dialog::clbk_prueba_slider;
+    dlg_actor[1].dp3 = manager;
     dlg_actor[2].dp2 = (void*)Dialog::clbk_prueba_slider;
     dlg_actor[2].dp3 = manager;
-    dlg_actor[3].dp2 = (void*)Dialog::clbk_prueba_slider;
-    dlg_actor[3].dp3 = manager;
 
     // Inicializamos la lista de trajes de prueba.
-    dlg_actor[4].dp = (void*)Dialog::cb_prueba_lista;
+    dlg_actor[3].dp = (void*)Dialog::cb_prueba_lista;
+    dlg_actor[3].dp3 = manager;
     
     // Inicializamos las llamadas del menú contextual.
     // Parece ser que incluir la referencia directa no funciona, hay que pasar por
@@ -445,8 +446,14 @@ int  Dialog::CambiarTraje ()
         // Si se está ediando un actor...
         // 1 - Preguntar por la lista de trajes que hay en la clase "Vestuario"
         //     mediante el EditorManager.
+        // Esto lo hace directamente desde la función callback de la lista (cb_prueba_lista)
+
         // 2 - La GUI debe crear un control de lista.
+        do_dialog (&dlg_actor[3],-1); // Usamos como prueba una parte del dlg_actor.
+
         // 3 - Llenar el control de lista con los posibles trajes.
+        // Esto también se hace directamente desde la función callback de la lista.
+        
         // 4 - Según nos movemos por la lista indicar al EditorManager que debe cambiar
         //     el traje del actor y mostrar el cambio.
     }

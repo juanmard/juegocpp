@@ -3,6 +3,11 @@
 #include "Dialog.h"
 #include "StageManager.h"
 
+// Eliminar en un futuro, sólo para pruebas.
+#include "AirCraft.h"
+#include "DatFile.h"
+#include "Bitmap.h"
+
 /**
  * \brief   Construye la clase para editar un juego.
  * \details Debe generar otra ventana, obtener la lista de objetos y realizar su propio bucle de estética
@@ -214,4 +219,63 @@ void    EditorManager::DuplicarActor (int x, int y)
 Actor *  EditorManager::get_actor (int x, int y)
 {
     return game->actor_manager->get_actor (x,y-14);
+}
+
+/**
+ * Devuelve el número de trajes disponibles en el vestuario.
+ */
+int   EditorManager::GetNumTrajes ()
+{
+    // Debería consultar a la clase vestuario.
+    // return game->vestuario.GetNumTrajes ();
+    return 4;
+}
+
+/**
+ * Devuelve el nombre del traje dado como índice.
+ */
+char *  EditorManager::GetNombreTraje (int indice)
+{
+    // Debería consultar a la clase vestuario.
+    // return game->vestuario.GetNombreTraje (indice);
+    switch (indice)
+    {
+        case 0:
+            return "Traje 0";
+            break;
+        case 1:
+            return "Traje 1";
+            break;
+        case 2:
+            return "Traje 2";
+            break;
+        case 3:
+            return "Traje 3";
+            break;
+    }
+}
+
+/**
+ * \brief Cambia el traje del actor activo por el traje dado por el índice.
+ */
+void  EditorManager::CambiarTraje (int indice)
+{
+    //actor_editado->SetTraje (game->vestuario.GetTraje (indice));
+
+    // A modo de prueba cargamos un gráfico y lo cambiamos.
+    DatFile *sprites = new DatFile("sprites.dat");
+    Bitmap *bitm2;
+    switch (indice)
+    {
+        case 1:
+            bitm2 = new Bitmap(actor_editado, sprites->GetBitmap("estrella"));
+            break;
+        case 2:
+            bitm2 = new Bitmap(actor_editado, sprites->GetBitmap("tomate"));
+            break;
+        default:
+            bitm2 = new Bitmap(actor_editado, sprites->GetBitmap("EVERSOFT"));
+            break;
+    }
+    actor_editado->set_actor_graphic (bitm2);
 }

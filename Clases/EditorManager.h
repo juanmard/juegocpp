@@ -34,6 +34,10 @@ class EditorManager
         void    SetActorX       (int x);
         void    SetActorY       (int y);
         Actor * get_actor       (int x, int y);
+        char *  GetNombreTraje  (int indice);
+        int     GetNumTrajes    ();
+        void    CambiarTraje    (int indice);
+
 
     protected:
 		Game *      game;
