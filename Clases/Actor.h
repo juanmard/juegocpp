@@ -37,7 +37,7 @@ public:
     };
 
 public:
-                        Actor               (Actor *copia);
+                        Actor               (const Actor &copia);
                         Actor               ();
         virtual         ~Actor              ();
         virtual void    draw                (BITMAP *bmp);
