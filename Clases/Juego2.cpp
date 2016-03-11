@@ -85,7 +85,7 @@ void Juego2::main()
 
   // Se crea Herny de prueba.
   Herny *jugador = new Herny();
-  jugador->set_y (280);
+  jugador->set_y (180);
  // control_p1->set_owner(jugador);
   actor_manager->add(jugador);
 

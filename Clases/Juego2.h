@@ -13,9 +13,9 @@
  * \brief   Juego de prueba heredado de Game.
  * \details Esta clase genera un simple juego para probar los distintos actores.
  */
-class Juego2 :	public Game
+class Juego2 : public Game
 {
-	public:
+  public:
                   Juego2          ();
     void          main            ();
     void virtual  create_storage  ();

@@ -1,4 +1,3 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * linux
  * Copyright (C) Juanma Rico 2010 <juanmard@gmail.com>
@@ -32,6 +31,7 @@ class Mago : public ControllableActor
     map<Estados_t,Sprite *>     sprites;
     Estados_t                   estado, estado_sig;
     unsigned int                timer;
+    int                         gravedad;
 };
 
 #endif // _MAGO_H_

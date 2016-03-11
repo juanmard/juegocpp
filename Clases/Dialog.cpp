@@ -235,10 +235,10 @@ void Dialog::menu_contextual (int x, int y)
     //    case actor:
     //    {
             // Resaltamos el actor.
-            manager->ResaltarActor (x, y);
+            manager->resaltarActor (x, y);
 
             // Para hacer pruebas con el slider editamos el actor.
-            manager->EditarActor (x, y);
+            manager->editarActor (x, y);
 
             // Mostramos el menu del actor en la posición del ratón.
             do_menu (mnu_actor, x, y);
@@ -262,10 +262,10 @@ void Dialog::menu_contextual (int x, int y)
  */
 void    Dialog::mover_kbd   (int code)
 {
-    if (manager->EditandoActor())
+    if (manager->editandoActor())
     {
-        int actor_x = manager->GetActorX ();
-        int actor_y = manager->GetActorY ();
+        int actor_x = manager->getActorX ();
+        int actor_y = manager->getActorY ();
         switch ((code & 0xff))
         {
         case 'w':
@@ -281,8 +281,8 @@ void    Dialog::mover_kbd   (int code)
             actor_x += 1;
             break;
         }
-        manager->SetActorX(actor_x);
-        manager->SetActorY(actor_y);
+        manager->setActorX(actor_x);
+        manager->setActorY(actor_y);
         draw ();
 
         // Forzamos muestre las coordenadas también con las teclas.
@@ -311,7 +311,7 @@ void    Dialog::prueba_click    ()
         if (manager)
         {
             // Le decimos al "Manager" que resalte el objeto.
-            manager->ResaltarActor (mouse_x, mouse_y);
+            manager->resaltarActor (mouse_x, mouse_y);
             
 #ifdef DEBUG
             // Mostramos en pantalla el mensaje para comprobar la posición del ratón.
@@ -360,7 +360,7 @@ void    Dialog::draw   ()
 
     // Mostramos la posición actual del actor en un cuadro de texto.
     // \todo    Deberíamos comprobar que estamos editando y moviendo un actor.
-    if (manager->EditandoActor())
+    if (manager->editandoActor())
     {
         //~ Prueba fallida para hacer trasparente las letras.
         //~ BITMAP *copia;
@@ -386,7 +386,7 @@ void    Dialog::mover_actor  (void)
 {
         // Eliminamos la referencia tomada respecto al actor a la posición actual del ratón y movemos el actor.
         // Se hace esto para evitar el movimiento del actor respecto a la posición del ratón.
-        manager->MoverActor(mouse_x + ref_x, mouse_y + ref_y);
+        manager->moverActor(mouse_x + ref_x, mouse_y + ref_y);
 
         // Convertimos la posición a una cadena y la ponemos en el objeto
         //  para mostrarlo más tarde como texto junto al cursor.
@@ -405,18 +405,18 @@ void Dialog::prueba_dblclk ()
     if (manager)
     {
             // Le decimos al "Manager" que resalte el objeto.
-            manager->ResaltarActor (mouse_x, mouse_y);
+            manager->resaltarActor (mouse_x, mouse_y);
         
             // Editar puede también desactivar la edición... hay que cambiarlo.
-            manager->EditarActor (mouse_x, mouse_y);
+            manager->editarActor (mouse_x, mouse_y);
 
             // Si la última petición de edición hizo que se editara...
-            if (manager->EditandoActor())
+            if (manager->editandoActor())
             {
                 // Tomamos la referencia del ratón respecto al actor.
                 // ¿Esto no lo debería hacer el EditorManager (manager)?
-                ref_x = manager->GetActorX() - mouse_x;
-                ref_y = manager->GetActorY() - mouse_y;
+                ref_x = manager->getActorX() - mouse_x;
+                ref_y = manager->getActorY() - mouse_y;
             }
     }
 }
@@ -427,9 +427,9 @@ void Dialog::prueba_dblclk ()
 */
 int  Dialog::DuplicarActor (int x, int y)
 {
-    if (manager->EditandoActor())
+    if (manager->editandoActor())
     {
-        manager->DuplicarActor (x, y);
+        manager->duplicarActor (x, y);
     }
     return D_O_K; 
 };
@@ -441,7 +441,7 @@ int  Dialog::DuplicarActor (int x, int y)
 int  Dialog::CambiarTraje ()
 {
     // Se le pregunta al EditorManager si está editando un actor actualmente.
-    if (manager->EditandoActor())
+    if (manager->editandoActor())
     {
         // Si se está ediando un actor...
         // 1 - Preguntar por la lista de trajes que hay en la clase "Vestuario"
@@ -465,8 +465,8 @@ int  Dialog::CambiarTraje ()
  */
 void    Dialog::mover_kbd_escenario   (int code)
 {
-    int x = manager->GetEscenarioX ();
-    int y = manager->GetEscenarioY ();
+    int x = manager->getEscenarioX ();
+    int y = manager->getEscenarioY ();
     switch ((code & 0xff))
     {
     case 'w':
@@ -482,7 +482,7 @@ void    Dialog::mover_kbd_escenario   (int code)
         x += 1;
         break;
     }
-    manager->MoverEscenario(x,y);
+    manager->moverEscenario (x, y);
     draw ();
 };
 

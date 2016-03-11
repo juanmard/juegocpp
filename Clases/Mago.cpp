@@ -1,4 +1,3 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * linux
  * Copyright (C) Juanma Rico 2010 <juanmard@gmail.com>
@@ -17,29 +16,30 @@
 Mago::Mago (Almacen &almacen):
 estado(andando),
 estado_sig(andando),
-timer(0)
+timer(0),
+gravedad (10)
 {
   // Guardamos el sprite para cada estado.
   // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
-  sprites[andando] = new Sprite(this);    
+  sprites[andando] = new Sprite(this);
   sprites[andando]->add_frame(almacen.GetBitmap("sprite_088"), 0, 0, 10);
   sprites[andando]->init ();
 
-  sprites[esperando] = new Sprite(this);    
+  sprites[esperando] = new Sprite(this);
   sprites[esperando]->add_frame(almacen.GetBitmap("sprite_084"), 0, 0, 10);
   sprites[esperando]->add_frame(almacen.GetBitmap("sprite_084"), 2, 0, 10);
   sprites[esperando]->init ();
 
-  sprites[cayendo] = new Sprite(this);    
+  sprites[cayendo] = new Sprite(this);
   sprites[cayendo]->add_frame(almacen.GetBitmap("sprite_089"), 0, 0, 10);
   sprites[cayendo]->init ();
 
-  sprites[disparando] = new Sprite(this);    
+  sprites[disparando] = new Sprite(this);
   sprites[disparando]->add_frame(almacen.GetBitmap("sprite_085"), 0, 0, 2);
   sprites[disparando]->add_frame(almacen.GetBitmap("sprite_088"), 0, 0, 4);
   sprites[disparando]->init ();
 
-  sprites[saltando] = new Sprite(this);    
+  sprites[saltando] = new Sprite(this);
   sprites[saltando]->add_frame(almacen.GetBitmap("sprite_087"), 0, 0, 10);
   sprites[saltando]->init ();
 
@@ -81,6 +81,7 @@ void Mago::do_action (ControllableActor::action_t act, int magnitude)
         estado = saltando;
         timer = 50;
         estado_sig = cayendo;
+        gravedad = 10;
       }
       break;
 
@@ -116,7 +117,7 @@ void Mago::update ()
   switch (estado)
   {
     case cayendo:
-      y+=2;
+      y+=gravedad/3;
       if (y>400) estado = esperando;
       // {
       // Comprobar que no hay intersección con suelo.
@@ -139,6 +140,8 @@ void Mago::update ()
       break;
 
     case andando:
+      if (gravedad != 0) estado = cayendo;
+      gravedad = 10;
       break;
 
     case saltando:
@@ -160,7 +163,9 @@ void  Mago::hit  (Actor *who, int damage)
   switch (who->get_name())
   {
     case Nombres::paleta:
-      y = who->get_y () - h;
+      //y = who->get_y () - h;
+      // El suelo anula la gravedad.
+      gravedad = 0;
       estado = andando;
       break;
   }

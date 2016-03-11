@@ -18,31 +18,31 @@ class Dialog;
 class EditorManager
 {
   public:
-            EditorManager 	(Game *g);
-            ~EditorManager	();
+            EditorManager   (Game *g);
+            ~EditorManager  ();
     void    edit            ();
     void    set             (int indice);
     void    activate        ();
     void    redibuja        ();
-    void    ResaltarActor   (int x, int y);
-    void    EditarActor     (int x, int y);
-    void    DuplicarActor   (int x, int y);
-    void    MoverActor      (int x, int y);
-    bool    EditandoActor   ();
-    int     GetActorX       ();
-    int     GetActorY       ();
-    void    SetActorX       (int x);
-    void    SetActorY       (int y);
-    Actor * get_actor       (int x, int y);
-    char *  GetNombreTraje  (int indice);
-    int     GetNumTrajes    ();
-    void    CambiarTraje    (int indice);
-    int     GetEscenarioX   ();
-    int     GetEscenarioY   ();
-    void    MoverEscenario  (int x, int y);
+    void    resaltarActor   (int x, int y);
+    void    editarActor     (int x, int y);
+    void    duplicarActor   (int x, int y);
+    void    moverActor      (int x, int y);
+    bool    editandoActor   () const;
+    int     getActorX       () const;
+    int     getActorY       () const;
+    void    setActorX       (int x);
+    void    setActorY       (int y);
+    Actor * get_actor       (int x, int y) const;
+    char *  getNombreTraje  (int indice) const;
+    int     getNumTrajes    () const;
+    void    cambiarTraje    (int indice);
+    int     getEscenarioX   () const;
+    int     getEscenarioY   () const;
+    void    moverEscenario  (int x, int y);
 
   protected:
-    Game *      game;
-    Dialog *    gui;
-    Actor *     actor_editado;
+  Game *      game;
+  Dialog *    gui;
+  Actor *     actor_editado;
 };

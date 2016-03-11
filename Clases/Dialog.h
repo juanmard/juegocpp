@@ -142,12 +142,12 @@ public:
                 // Si index es cero o positivo debe devolver la cadena del nombre del traje.
                 if (index < 0)
                 {
-                    *list_size = manager.GetNumTrajes ();
+                    *list_size = manager.getNumTrajes ();
                     return NULL;
                 }
                 else
                 {
-                    return manager.GetNombreTraje (index);
+                    return manager.getNombreTraje (index);
                 }
             }
         }
@@ -168,7 +168,7 @@ public:
             if (d->d1 != ant_d1)
             {
                 //Cambia el traje del actor actualmente activo.
-                manager.CambiarTraje (d->d1);
+                manager.cambiarTraje (d->d1);
                 manager.redibuja ();
                 ant_d1 = d->d1;
 
@@ -196,12 +196,12 @@ public:
             {
                 // Creamos una referencia temporal al manager del objeto actual.
                 EditorManager &manager = *(static_cast<EditorManager *>(dp3));
-                if (manager.EditandoActor())
+                if (manager.editandoActor())
                 {
                     // Guardamos la posición actual, cambiamos la posición según el slider
                     // y redibujamos los objetos.
-                    static int actual_y = manager.GetActorY ();
-                    manager.SetActorY( actual_y + (50-d2));
+                    static int actual_y = manager.getActorY ();
+                    manager.setActorY( actual_y + (50-d2));
                     manager.redibuja ();
 
                     // Mostramos de nuevo los sliders.
