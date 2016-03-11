@@ -32,6 +32,8 @@ public:
 						MenuALG 	();
 						~MenuALG  ();
 	operator 	DIALOG &() {return control;};
+	operator 	MENU *() {return &items[0];};	
+//	operator 	void *() {return &items[0];};
 	void 			add (ItemALG item);
 
 	virtual void		draw ();

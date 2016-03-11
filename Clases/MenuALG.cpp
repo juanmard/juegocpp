@@ -50,15 +50,22 @@ MenuALG::MenuALG ()
 	control.h=control.w=100;
 	control.fg = makecol(255,255,255);
 	control.bg = makecol(128,128,128);
-	control.dp =  item_fin; //static_cast<void *>(&items[0]);
+
+	// NO FUNCIONA --- Al contrario que en "do_dialog" en el enlace por puntero
+	//                           dado por el "vector<MENU>" no funciona.
+	// SI FUNCIONA -- Sin embargo sí funciona si hacemos un "do_menu" directamente.
+	//                         Este puntero es el que no va... posiblemente porque necesita tener instanciado
+	//                         el objeto. Sería mejor desviar el  "d_menu_proc" por un "MenuALg::callback"
+	//                         estático y comprobar si el objeto está instanciado.
+	control.dp =  item_fin; //&items[0]
 	control.dp2 = NULL;
-	control.dp3 = this;
+	control.dp3 = NULL;
 	control.flags = 0;
 
 	// De prueba
-	items.push_back  (item_fin[0]);	
-	items.push_back  (item_fin[1]);	
-	items.push_back  (item_fin[2]);	
+//	items.push_back  (item_fin[0]);	
+//	items.push_back  (item_fin[1]);	
+//	items.push_back  (item_fin[2]);	
 	items.push_back  (item_fin[3]);
 };
 
@@ -80,5 +87,7 @@ void MenuALG::add (ItemALG item)
 {
 	items.pop_back ();
 	items.push_back (item);
+//	items.push_back (prueba_menu[3]);
+//	items.push_back (prueba_menu[2]);
 	items.push_back  (item_fin[3]);
 }

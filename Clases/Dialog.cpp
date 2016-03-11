@@ -138,9 +138,11 @@ void Dialog::show (void)
     control5->set_xy (300,100);
     ItemALG *item1= new ItemALG();
     control5->add(*item1);
+    control5->add(*item1);
+    control5->add(*item1);
     prueba.add(*control5);
 
-    
+    do_menu (*control5,10,10);
 
     prueba.show();
     //do_menu(menu_editor, 0, 0);
