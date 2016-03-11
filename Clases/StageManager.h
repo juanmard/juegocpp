@@ -25,8 +25,6 @@ class StageManager
     BITMAP *  getBuffer       ();
     void      update          ();
     void      draw            ();
-    void      draw            (BITMAP *cuadro);
-    void      draw            (Bloque cuadro);
     void      moverMarco      (int x, int y);
     void      setSeguimiento  (Actor *paramActor);
     void      setVerBloques   (bool activar);

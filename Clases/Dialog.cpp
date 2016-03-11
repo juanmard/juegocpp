@@ -7,30 +7,30 @@
 //#define DEBUG
 
 // \todo    Hacer el enum propio de la clase, no global.
-enum {scr=0, pantalla=0, lista=4, bitmap=5, pos=13, nombre=15, caja=6, ultimo=16};
+enum {scr=0, pantalla=0, menu=1, lista=4, bitmap=5, pos=13, nombre=15, caja=6, ultimo=16};
 
 // Inicialización de las variables estáticas de la clase.
 // Diálogo general de la GUI del editor.
 DIALOG Dialog::dialog[] =
 {
-   /* (proc)                 (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags)                               (d1) (d2) (dp)                                   (dp2) (dp3) */
-   { Dialog::marco_callback, 16,  24,  612, 300, 254, 50,  0,    0,                                    0,   0,   NULL,                                  NULL, NULL },
-   { d_menu_proc,            0,   0,   640, 15,  7,   15,  0,    D_SELECTED | D_GOTFOCUS | D_GOTMOUSE, 0,   0,   Dialog::menu_editor,                   NULL, NULL },
-   { d_text_proc,            344, 328, 80,  16,  14,  219, 0,    0,                                    0,   0,   const_cast<char*>("  Modo Edicion  "), NULL, NULL },
-   { d_text_proc,            8,   360, 32,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Estado:"),         NULL, NULL },
-   { d_list_proc,            344, 344, 144, 60,  50,  219, 0,    0,                                    0,   0,   NULL,                                  NULL, NULL },
-   { d_bitmap_proc,          500, 336, 128, 132, 0,   0,   0,    0,                                    0,   0,   NULL,                                  NULL, NULL },
-   { d_box_proc,             92,  336, 128, 80,  16,  164, 0,    0,                                    0,   0,   NULL,                                  NULL, NULL },
-   { d_text_proc,            100, 360, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("andando"),         NULL, NULL },
-   { d_text_proc,            8,   372, 40,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Anterior:"),       NULL, NULL },
-   { d_text_proc,            100, 372, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("disparando"),      NULL, NULL },
-   { d_text_proc,            8,   384, 40,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Siguiente:"),      NULL, NULL },
-   { d_text_proc,            100, 384, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("saltando"),        NULL, NULL },
-   { d_text_proc,            8,   400, 40,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Posicion:"),       NULL, NULL },
-   { d_text_proc,            100, 400, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("00X, 00Y"),        NULL, NULL },
-   { d_text_proc,            8,   344, 32,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Nombre:"),         NULL, NULL },
-   { d_text_proc,            100, 344, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Sin nombre"),      NULL, NULL },
-   { NULL,                   0,   0,   0,   0,   0,   0,   0,    0,                                    0,   0,   NULL,                                  NULL, NULL }
+   /* (proc)                 (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags)                               (d1) (d2) (dp)                                     (dp2) (dp3) */
+   { Dialog::marco_callback, 16,  24,  612, 300, 254, 50,  0,    0,                                    0,   0,   NULL,                                    NULL, NULL },
+   { d_menu_proc,            0,   0,   640, 15,  7,   15,  0,    D_SELECTED | D_GOTFOCUS | D_GOTMOUSE, 0,   0,   Dialog::menu_editor,                     NULL, NULL },
+   { d_text_proc,            344, 328, 100, 8,   14,  219, 0,    0,                                    0,   0,   const_cast<char*>("Lista de actores: "), NULL, NULL },
+   { d_text_proc,            8,   360, 32,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Estado:"),           NULL, NULL },
+   { d_list_proc,            344, 340, 144, 92,  50,  219, 0,    0,                                    0,   0,   NULL,                                    NULL, NULL },
+   { d_bitmap_proc,          500, 336, 104, 96,  0,   0,   0,    0,                                    0,   0,   NULL,                                    NULL, NULL },
+   { d_box_proc,             92,  336, 128, 80,  16,  164, 0,    0,                                    0,   0,   NULL,                                    NULL, NULL },
+   { d_text_proc,            100, 360, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("andando"),           NULL, NULL },
+   { d_text_proc,            8,   372, 40,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Anterior:"),         NULL, NULL },
+   { d_text_proc,            100, 372, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("disparando"),        NULL, NULL },
+   { d_text_proc,            8,   384, 40,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Siguiente:"),        NULL, NULL },
+   { d_text_proc,            100, 384, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("saltando"),          NULL, NULL },
+   { d_text_proc,            8,   400, 40,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Posicion:"),         NULL, NULL },
+   { d_text_proc,            100, 400, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("00X, 00Y"),          NULL, NULL },
+   { d_text_proc,            8,   344, 32,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Nombre:"),           NULL, NULL },
+   { d_text_proc,            100, 344, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Sin nombre"),        NULL, NULL },
+   { NULL,                   0,   0,   0,   0,   0,   0,   0,    0,                                    0,   0,   NULL,                                    NULL, NULL }
 };
 
 // Diálogo de objeto.
@@ -95,23 +95,17 @@ actor (NULL)
     gui_fg_color = makecol(255,255,255);
     gui_bg_color = makecol(128,128,128);
 
-    // Se inicializa el tamaño inicial de la ventana que recibe las llamadas.
-    //~ dialog[0].x = 0;
-    //~ dialog[0].y = 14;
-    //~ dialog[0].h = SCREEN_H;
-    //~ dialog[0].w = SCREEN_W;
-
     // Se  inicializa el ancho del menú.
-    dialog[1].w = SCREEN_W;
-    
+    dialog[menu].w = SCREEN_W;
+
     // Se inicializan parámetros de los "callback".
     // \todo    Enum para referencias a "dialog". 
-    dialog[0].dp = this;
-    dialog[0].dp2 = manager;
+    dialog[scr].dp = this;
+    dialog[scr].dp2 = manager;
 
     // Se crea un diálogo para el actor vacío.
     dlg_actor2 = new DlgActor(this);
-    dialog[0].dp3 = dlg_actor;
+    dialog[scr].dp3 = dlg_actor;
 
     dlg_ventana2 = new VentanaALG ("Otra prueba de fondo...",0,0,SCREEN_W,SCREEN_H);
     dlg_ventana = new VentanaALG ("Prueba",100,100,120,120);
@@ -121,7 +115,7 @@ actor (NULL)
 
     // Inicializamos las propiedades del actor.
     dlg_actor[0].fg = makecol (255,255,255);
-    dlg_actor[0].bg = makecol (0,0,255);     //bitmap_mask_color (screen); 
+    dlg_actor[0].bg = makecol (0,0,255);
 
     // Inicializamos el slider de prueba.
     dlg_actor[1].dp2 = (void*)Dialog::clbk_prueba_slider;
@@ -141,7 +135,6 @@ actor (NULL)
     mnu_actor[2].dp = this;
 
   // Inicializamos la lista de pruebas.
-//  dialog[lista].dp = (void*)Dialog::dummy_getter;
   dialog[lista].dp = (void*)Dialog::cb_prueba_lista;
   dialog[lista].dp3 = manager;
   // Bitmap
@@ -162,9 +155,9 @@ actor (NULL)
  */
 Dialog::~Dialog (void)
 {
-    // Ocultamos el puntero del ratón.
-    mouse_out ();
-    // \todo Liberar memoria de todos los objetos utilizados.
+  // Ocultamos el puntero del ratón.
+  mouse_out ();
+  // \todo Liberar memoria de todos los objetos utilizados.
 }
 
 /**
@@ -195,50 +188,10 @@ void Dialog::show (void)
       salida = quit ();
     }
   }
-
-// Hacemos unas pruebas independientes de la definición de la clase.
-#ifdef  PRUEBAS
-    DialogALG prueba;
-
-    BoxALG &control_caja = *(new BoxALG());
-//    prueba.add(control_caja);
-    
-    control_caja = *(new BoxALG());
-    control_caja.set_xy (200,200);
- //   prueba.add(control_caja);
-    
-    control_caja = *(new BoxALG());
-    control_caja.set_xy (300,100);
- //   prueba.add(control_caja);
-        
-    TextALG &control_texto = *(new TextALG());
-    control_texto.set_xy (400, 100);
-  //  prueba.add(control_texto);
-        
-    MenuALG &control_menu = *(new MenuALG());
-    control_menu.set_xy (300, 50);
-    ItemALG &menu_item = *(new ItemALG());
-    control_menu.add(menu_item);
-    
-    menu_item = *(new ItemALG("Prueba2"));
-    control_menu.add(menu_item);
-    prueba.add(control_menu);
-
-    prueba.show();
-
-    // Después de pulsar 'ESC' modificamos el dialogo de prueba y lo volvemos a mostrar.
-    menu_item = *(new ItemALG("Prueba3"));
-    control_menu.add (menu_item);
-    prueba.add (control_menu);
-    prueba.show ();
-
-    // Eliminamos la tecla 'ESC' del buffer de teclado.
-    key[KEY_ESC] = false;
-#endif
 }
 
 /**
- * Oculta el puntero del ratón.
+ * \brief   Oculta el puntero del ratón.
  */
 void Dialog::mouse_out (void)
 {
@@ -254,22 +207,6 @@ void Dialog::mouse_in (void)
 }
 
 /**
- * \brief   Muestra el marco del diálogo para propósitos de depuración.
- */
-void Dialog::mostrar_marco ()
-{
-    rect (screen, dialog[0].x, dialog[0].y, 
-                  dialog[0].x + dialog[0].w,
-                  dialog[0].y + dialog[0].h,
-                  dialog[0].bg);
-    int des = 10;
-    rect (screen, dialog[0].x+des, dialog[0].y+des, 
-                  dialog[0].x + dialog[0].w - des,
-                  dialog[0].y + dialog[0].h - des-14,
-                  dialog[0].bg);
-}
-
-/**
  *  \brief  Se encarga de seleccionar el menu contextual adecuado según la posición actual del ratón.
  */
 void Dialog::menu_contextual (int x, int y)
@@ -282,10 +219,10 @@ void Dialog::menu_contextual (int x, int y)
     //    case actor:
     //    {
             // Resaltamos el actor.
-            manager->resaltarActor (x, y);
+//            manager->resaltarActor (x, y);
 
             // Para hacer pruebas con el slider editamos el actor.
-            manager->editarActor (x, y);
+//            manager->editarActor (x, y);
 
             // Mostramos el menu del actor en la posición del ratón.
             do_menu (mnu_actor, x, y);
@@ -309,7 +246,7 @@ void Dialog::menu_contextual (int x, int y)
  */
 void    Dialog::mover_kbd   (int code)
 {
-    if (manager->editandoActor())
+//    if (manager->editandoActor())
     {
         int actor_x = manager->getActorX ();
         int actor_y = manager->getActorY ();
@@ -347,48 +284,6 @@ void    Dialog::mover_kbd   (int code)
  */
 void  Dialog::prueba_click ()
 {
-        // Prueba del diálogo del Actor.
-        DlgActor dialogo (this);
-        dialogo.load (manager->getActor (mouse_x + manager->getEscenarioX (),
-                                          mouse_y + manager->getEscenarioY ()));
-        dialogo.show();            
-
-        // Comprobamos que el Diálogo tiene un "Manager" asociado.
-        // - Si existe lo utilizamos para resaltar el objeto.
-        // - Si no existe mostramos un mensaje de advertencia en pantalla.
-        if (manager)
-        {
-            // Le decimos al "Manager" que resalte el objeto.
-            manager->resaltarActor (mouse_x + manager->getEscenarioX (), mouse_y + manager->getEscenarioY ());
-            
-#ifdef DEBUG
-            // Mostramos en pantalla el mensaje para comprobar la posición del ratón.
-            gui_textout_ex (screen, "* Aquí está", mouse_x + manager->getEscenarioX (), mouse_y + manager->getEscenarioY (), 0xFFFF, FALSE);
-#endif
-        }
-        else
-        {
-            gui_textout_ex (screen, const_cast<char*>("NO SE HA INICIALIZADO LA REFERENCIA AL JUEGO!!!"), SCREEN_W/2, SCREEN_H/2, 0xFFFF, makecol(255, 100, 200), TRUE);
-        }
- }
-
-/**
- * \brief  Carga el actor marcado en un actor temporal para modificar sus propiedades.
- *         ¿Es necesario esto para algo?
- */
-void    Dialog::mostrar_actor   ()
-{
-    // Cargamos las propiedades del actor marcado.
-    // \todo    ¿No deberíamos dar la posición x e y para obtener el actor?
-    //          Esto nos muestra el actor marcado como editado... peligroso
-    //          que no sea justo el que está bajo la x y la y.
-    
-    //dlg_actor->load (manager->get_actor());
-    //dlg_actor->show();
-    
-    //dlg_ventana2->show();
-    //dlg_ventana->show ();
-    //manager->redibuja();
 }
 
 /**
@@ -499,7 +394,7 @@ int  Dialog::DuplicarActor (int x, int y)
 int  Dialog::CambiarTraje ()
 {
     // Se le pregunta al EditorManager si está editando un actor actualmente.
-    if (manager->editandoActor())
+//    if (manager->editandoActor())
     {
         // Si se está ediando un actor...
         // 1 - Preguntar por la lista de trajes que hay en la clase "Vestuario"
@@ -544,7 +439,6 @@ void    Dialog::mover_kbd_escenario   (int code)
         // \warning   Se actualiza dos veces la pantalla, en 'step' y en 'draw'.
         manager->step ();
         actualizarValoresActor ();
-        draw ();
         break;
     }
     manager->moverEscenario (x, y);

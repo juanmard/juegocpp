@@ -41,9 +41,9 @@ void  EditorManager::activate ()
 {
   // Se para el bucle del juego.
   game->pause ();
-
+ 
   // Guardamos el ribete actual del juego.
-//  Bloque ribete_ant (game->stage_manager->getRibete ());
+  //  Bloque ribete_ant (game->stage_manager->getRibete ());
   Bloque ribete_ant (0, 0, SCREEN_W, SCREEN_H-100);
   
   // Se hace visible el menú de edición.
@@ -57,77 +57,11 @@ void  EditorManager::activate ()
 }
 
 /**
- * \brief   Edita el objeto actual.
- * \details Centra la pantalla de visualización en el objeto y abre un cuadro de diálogo con las
- *          propiedades del objeto.
- */
-void  EditorManager::edit ()
-{
-}
-
-/**
- * \brief   Elige el objeto actual.
- * \details Elige el objeto actual según su índice en la lista.
- */
-void  EditorManager::set (int indice)
-{
-}
-
-/**
  * \brief   Redibuja la lista de objetos.
  */
 void  EditorManager::dibujarEscenario ()
 {
   game->stage_manager->draw ();
-}
-
-/**
- * \brief   Redibuja la lista de objetos.
- * \param   cuadro    Puntero a la zona de pantalla donde dibujar.
- */
-void  EditorManager::dibujarEscenario (BITMAP *cuadro)
-{
-  game->stage_manager->draw (cuadro);
-}
-
-/**
- * \brief   Resalta el actor que se encuentra en la posición (x,y).
- */
-void    EditorManager::resaltarActor (int x, int y)
-{
-  // La pantalla está desplazada 14 pixels hacia abajo.
-  Actor *actor = game->actor_manager->get_actor (x,y);
-  if (actor)
-  {
-    // Cambiamos el color del marco.
-    actor->set_color (!actor->get_color());
-
-    // Redibuja la lista de actores.
-    //dibujarEscenario ();
-
-    // Redibuja la GUI.
-    gui->draw ();
-  }
-}
-
-/**
- * \brief   Activa y desactiva la edición del actor que se encuentra en la posición (x,y).
- * \details Si el actor estaba editándose se deja de editar, si no estaba editándose pasa
- *          a editarse el que está en la posición x,y dada en coordenadas de pantalla local.
- */
-void  EditorManager::editarActor (int x, int y)
-{
-  // Comprobamos que no está editado nada.
-  // - Si está editado, se elimina la edición eliminando el puntero.
-  // - Si no está editado se captura el puntero del actor bajo la posición (x,y).
-  if (actor_editado)
-  {
-    actor_editado = NULL;
-  }
-  else
-  {
-    actor_editado = game->actor_manager->get_actor (x, y);
-  }
 }
 
 /**
@@ -142,21 +76,6 @@ void  EditorManager::moverActor (int x, int y)
   {
     actor_editado->set_x (x);
     actor_editado->set_y (y);
-  }
-}
-
-/**
- * \brief  Nos dice si hay algún actor editándose en el momento de la llamada.
- */
-bool  EditorManager::editandoActor () const
-{
-  if (actor_editado)
-  {
-    return true;
-  }
-  else
-  {
-    return false;
   }
 }
 
@@ -347,16 +266,6 @@ BITMAP *  EditorManager::getBuffer ()
 void  EditorManager::ActualizarEscenario ()
 {
   return game->stage_manager->rellenarBuffer ();
-}
-
-/**
- * \brief   Dibuja el escenario en pantalla.
- * \param   cuadro  Límites y posición del gráfico a dibujar.
- */
-void  EditorManager::dibujarEscenario (Bloque cuadro)
-{
-//  game->stage_manager->draw (cuadro);
-  game->stage_manager->draw ();
 }
 
 /**

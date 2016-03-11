@@ -39,13 +39,11 @@ class Dialog
         int         propiedades     ();
 
 protected:
-        void        mostrar_marco           ();
         void        menu_contextual         (int x, int y);
         void        mover_kbd               (int code);
         void        mover_kbd_escenario     (int code);
         void        prueba_click            ();
         void        prueba_dblclk           ();
-        void        mostrar_actor           ();
         void        mover_actor             ();
         int         DuplicarActor           (int x, int y);
         int         CambiarTraje            ();
@@ -199,7 +197,7 @@ public:
             {
                 // Creamos una referencia temporal al manager del objeto actual.
                 EditorManager &manager = *(static_cast<EditorManager *>(dp3));
-                if (manager.editandoActor())
+//                if (manager.editandoActor())
                 {
                     // Guardamos la posición actual, cambiamos la posición según el slider
                     // y redibujamos los objetos.

@@ -21,17 +21,10 @@ class EditorManager
   public:
               EditorManager         (Game *g);
               ~EditorManager        ();
-    void      edit                  ();
-    void      set                   (int indice);
     void      activate              ();
     void      dibujarEscenario      ();
-    void      dibujarEscenario      (BITMAP *cuadro);
-    void      dibujarEscenario      (Bloque cuadro);
-    void      resaltarActor         (int x, int y);
-    void      editarActor           (int x, int y);
     void      duplicarActor         (int x, int y);
     void      moverActor            (int x, int y);
-    bool      editandoActor         () const;
     int       getActorX             () const;
     int       getActorY             () const;
     void      setActorX             (int x);
