@@ -55,6 +55,7 @@ class Dialog
     void        tomarReferencia         ();
     void        moverEscenario          ();
     void        moverMouse              ();
+    int         kdb_coordenadas         (DIALOG *d, int code);
 
     EditorManager *   manager;
     Actor *           actor;
@@ -170,7 +171,7 @@ class Dialog
      *          Se procura que la parte estática sea mínima, pasando las llamadas a procesos
      *          protegidos de la clase.
      */
-    static int marco_callback (int msg, DIALOG *d, int c)
+    static int callback_scr (int msg, DIALOG *d, int c)
     {
       // Si ya está inicializado el objeto (puntero existe), podemos crear 
       // una referencia  al objeto y utilizar sus métodos.
@@ -249,16 +250,14 @@ class Dialog
                 }
                 break;
         }
-        // Procesamos el resto de los mensajes como una caja por omisión.
-        return d_box_proc (msg,d,c);
-        //return D_O_K;
       }
+      return d_box_proc (msg,d,c);
     };
 
     /**
      * \brief   Callback de la lista de actores.
      */
-    static int lista_callback (int msg, DIALOG *d, int c)
+    static int callback_lista (int msg, DIALOG *d, int c)
     {
       // Se sitúa el puntero del manager en 'dp3' pues en 'dp' 
       // debe estar el 'getter' de la lista.
@@ -279,14 +278,52 @@ class Dialog
                 manager.centrarActor (d[0].d1);
                 indice_ant = d[0].d1;
               }
-              break;
+              return D_O_K;
 
-          default:
-              // Procesamos el resto de los mensajes.
-              return d_list_proc (msg, d, c);
+          case MSG_GOTMOUSE:
+          case MSG_LOSTMOUSE:
+                manager.centrarActor (d[0].d1);
+                indice_ant = d[0].d1;
+                break;
         }
-        return D_O_K;
       }
+      return d_list_proc (msg, d, c);
+    };
+
+    /**
+     * \brief   Callback de la lista de actores.
+     */
+    static int callback_coordenadas (int msg, DIALOG *d, int c)
+    {
+      // Se sitúa el puntero del objeto instanciado en 'dp3'.
+      if (d[0].dp3)
+      {
+        // Creamos una referencia temporal al objeto actual.
+        Dialog &objeto = *(static_cast<Dialog *>(d[0].dp3));
+        static int color_ant = d[0].fg;
+
+        // Se procesan los mensajes.
+        switch (msg)
+        {
+          case MSG_CHAR:
+          case MSG_UCHAR:
+          case MSG_XCHAR:
+                objeto.kdb_coordenadas (d, c);
+                return object_message (&d[0], MSG_DRAW, c);
+
+          case MSG_WANTFOCUS:
+              return D_WANTFOCUS;
+
+          case MSG_GOTFOCUS:
+                d[0].fg = makecol (255,0,0);
+                return D_O_K;
+
+          case MSG_LOSTFOCUS:
+                d[0].fg = color_ant;
+                return D_O_K;
+        }
+      }
+      return d_text_proc (msg, d, c);
     };
 };
 

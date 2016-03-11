@@ -7,11 +7,11 @@
 DIALOG Dialog::dialog[] =
 {
    /* (proc)                 (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags) (d1) (d2) (dp)                                     (dp2) (dp3) */
-   { Dialog::marco_callback, 16,  24,  612, 300, 254, 50,  0,    0,      0,   0,   NULL,                                    NULL, NULL },
+   { Dialog::callback_scr,   16,  24,  612, 300, 254, 50,  0,    0,      0,   0,   NULL,                                    NULL, NULL },
    { d_menu_proc,            0,   0,   640, 15,  7,   15,  0,    0,      0,   0,   Dialog::menu_editor,                     NULL, NULL },
    { d_text_proc,            344, 328, 100, 8,   14,  219, 0,    0,      0,   0,   const_cast<char*>("Lista de actores: "), NULL, NULL },
    { d_text_proc,            8,   380, 32,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("Estado:"),           NULL, NULL },
-   { Dialog::lista_callback, 344, 340, 144, 92,  50,  219, 0,    0,      0,   0,   NULL,                                    NULL, NULL },
+   { Dialog::callback_lista, 344, 340, 144, 92,  50,  219, 0,    0,      0,   0,   NULL,                                    NULL, NULL },
    { d_bitmap_proc,          500, 336, 104, 96,  0,   0,   0,    0,      0,   0,   NULL,                                    NULL, NULL },
    { d_box_proc,             100, 336, 156, 112, 16,  164, 0,    0,      0,   0,   NULL,                                    NULL, NULL },
    { d_text_proc,            108, 380, 82,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("andando"),           NULL, NULL },
@@ -20,12 +20,12 @@ DIALOG Dialog::dialog[] =
    { d_text_proc,            12,  432, 40,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("Siguiente:"),        NULL, NULL },
    { d_text_proc,            108, 432, 82,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("saltando"),          NULL, NULL },
    { d_text_proc,            8,   368, 40,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("Posicion:"),         NULL, NULL },
-   { d_text_proc,            108, 368, 82,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("00X, 00Y"),          NULL, NULL },
+   { Dialog::callback_coordenadas,            108, 368, 82,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("00X, 00Y"),          NULL, NULL },
    { d_text_proc,            8,   344, 32,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("Nombre:"),           NULL, NULL },
    { d_text_proc,            108, 344, 82,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("Sin nombre"),        NULL, NULL },
    { d_check_proc,           348, 436, 112, 12,  50,  219, 0,    0,      1,   0,   const_cast<char *>("Centrar en pantalla"), NULL, NULL },
    { d_text_proc,            8,   356, 40,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("Dimensiones:"),      NULL, NULL },
-   { d_text_proc,            108, 356, 82,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("00X, 00Y"),          NULL, NULL },
+   { Dialog::callback_coordenadas,            108, 356, 82,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("00X, 00Y"),          NULL, NULL },
    { NULL,                   0,   0,   0,   0,   0,   0,   0,    0,      0,   0,   NULL,                                    NULL, NULL }
 };
 
@@ -86,6 +86,8 @@ ref_x (0), ref_y(0)
   // Se inicializan parámetros de los "callback".
   dialog[scr].dp = this;
   dialog[scr].dp2 = manager;
+  dialog[pos].dp3 = this;
+  dialog[dimensiones].dp3 = this;
 
   // Se  inicializa el ancho del menú.
   dialog[menu].w = SCREEN_W;
@@ -184,8 +186,8 @@ void  Dialog::draw ()
   {
     // \todo  Realizar una única petición al EditorManager esto realiza un doble
     //        volcado en pantalla.
-    int x = dialog[0].x; int y = dialog[0].y;
-    int w = dialog[0].w; int h = dialog[0].h;
+    int x = dialog[scr].x; int y = dialog[scr].y;
+    int w = dialog[scr].w; int h = dialog[scr].h;
     int xAct = actor->get_x () - manager->getEscenarioX ();// + dialog[pantalla].x;
     int yAct = actor->get_y () - manager->getEscenarioY ();// + dialog[pantalla].y;
     int wAct = actor->get_w ();
@@ -229,8 +231,8 @@ void Dialog::prueba_click ()
 {
   if (manager)
   {
-    actor = manager->getActor (mouse_x - dialog[0].x + manager->getEscenarioX (),
-                               mouse_y - dialog[0].y + manager->getEscenarioY ());
+    actor = manager->getActor (mouse_x - dialog[scr].x + manager->getEscenarioX (),
+                               mouse_y - dialog[scr].y + manager->getEscenarioY ());
 
     // Si encontramos el actor bajo el ratón, guardamos sus propiedades.
     if (actor)
@@ -269,7 +271,9 @@ void  Dialog::actualizarValoresActor ()
   if (actor)
   {
     // Construimos la cadena de posición.
-    // \todo  Crear un procedimiento que devuelva la cadena dados dos valores.
+    // \todo      Crear un procedimiento que devuelva la cadena dados dos valores.
+    // \warning   Estamos creando cadenas que no eliminamos!!!
+    //            Debemos modificar una única cadena que sea variable de la clase.
     std::stringstream posicion;
     posicion  << actor->get_x ()
               <<  ", "
@@ -284,6 +288,8 @@ void  Dialog::actualizarValoresActor ()
     std::string str2 = dim.str();
 
     // Actualizamos el valor de los controles.
+    // \warning   Esto debemos eliminarlo pues estos punteros
+    //            siempre deben apuntar a la misma cadena.
     dialog[pos].dp = const_cast <char*> (str1.c_str());
     dialog[dimensiones].dp = const_cast <char*> (str2.c_str());
     dialog[estado].dp = const_cast <char*> ((actor->getEstado ()).c_str());
@@ -418,4 +424,38 @@ void  Dialog::moverMouse ()
     mover_actor ();
     draw ();
   }
+};
+
+/**
+ * \brief   Comprueba las teclas en el control de coordenadas.
+ * \return  El procesado de la tecla.
+ */
+int  Dialog::kdb_coordenadas (DIALOG *d, int code)
+{
+  int salida = D_O_K;
+  int x, y, z, w;
+  
+  // Se extraen las coordenadas de la cadena.
+  // \warning   Se crea una nueva cadena cada vez, esto hace que se queden
+  //            cadenas sin eliminar y que se igualen coordenadas.
+  // \todo      Para evitar esto igual debemos cambiar directamente el actor.
+  std::stringstream cadena(static_cast<char *>(d->dp));
+  char coma;
+  cadena >> x >> coma >> y;
+
+  
+  // Se comprueba el 'scancode'
+  switch (code >> 8)
+  {
+    case KEY_UP:    y -= 1; salida = D_USED_CHAR; break;
+    case KEY_DOWN:  y += 1; salida = D_USED_CHAR; break;
+    case KEY_LEFT:  x -= 1; salida = D_USED_CHAR; break;
+    case KEY_RIGHT: x += 1; salida = D_USED_CHAR; break;
+  }
+
+  // Actualizamos la cadena.
+  cadena.clear ();
+  cadena << x << coma << " " << y;
+  d->dp = const_cast<char *>(cadena.str().c_str());
+  return salida;
 };
