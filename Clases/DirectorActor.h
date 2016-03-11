@@ -1,5 +1,7 @@
 #pragma once
+
 #include "Actor.h"
+class ActorManager;
 
 /**
  * \class   DirectorActor

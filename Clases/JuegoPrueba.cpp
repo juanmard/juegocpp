@@ -13,6 +13,19 @@
  */
 
 #include "JuegoPrueba.h"
+#include <allegro.h>
+#include "Control.h"
+#include "AirCraft.h"
+#include "Keyboard.h"
+#include "Paleta.h"
+#include "Sprite.h"
+#include "ActorManager.h"
+#include "Herny.h"
+#include "Pelota.h"
+#include "Ladrillo.h"
+#include "ControlManager.h"
+#include "EditorManager.h"
+
 
 void JuegoPrueba::main()
 {

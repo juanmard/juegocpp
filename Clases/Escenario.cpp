@@ -20,7 +20,7 @@
 #include "Escenario.h"
 
 /**
- * \brief		Constructor de la clase.
+ * \brief		Constructor de la clase. Esta clase NO ES NECESARIA, esta función la realiza y la debe realizar la clase StageManager.
  */
 Escenario::Escenario ()
 {
@@ -31,6 +31,9 @@ Escenario::Escenario ()
 	marco.h = 200;
 	
 	// Tomamos la pantalla completa como escena del escenario.
+	// \todo "screen" es una variable global de allegro, no se debería utilizar
+	//          aquí, sino en la inicialización de las variables de allegro,
+	//          de esta forma se independiza la clase de las bibliotecas de Allegro.
 	pantalla = screen;
 };
 

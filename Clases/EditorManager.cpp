@@ -1,4 +1,7 @@
 #include "EditorManager.h"
+#include "ActorManager.h"
+#include "Dialog.h"
+#include "StageManager.h"
 
 /**
  * \brief   Construye la clase para editar un juego.

@@ -1,4 +1,11 @@
 #include "Game.h"
+#include <allegro.h>
+#include <iostream>
+#include "ActorManager.h"
+#include "StageManager.h"
+#include "ControlManager.h"
+#include "CollisionManager.h"
+#include "SoundManager.h"
 
 /*------------------------------------------------------------------------------*/
 /* Variables y funciones globales para sincronizar juego en distintas máquinas. */

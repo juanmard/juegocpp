@@ -1,10 +1,9 @@
 #pragma once
 
 #include <allegro.h>
-#include "Game.h"
-#include "Actor.h"
-#include "Dialog.h"
 
+class Game;
+class Actor;
 class Dialog;
 
 /**

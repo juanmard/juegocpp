@@ -1,5 +1,8 @@
 #include "CollisionManager.h"
+#include "Game.h"
 #include "Actor.h"
+#include "ActorManager.h"
+#include <list>
 
 CollisionManager::CollisionManager(Game *g)
 {

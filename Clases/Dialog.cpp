@@ -99,8 +99,8 @@ Dialog::Dialog (EditorManager *editor)
 
     // Inicializamos las propiedades del objeto.
     dialog_objeto[0].fg = makecol(255,255,255);
-    dialog_objeto[0].bg = makecol (0,0,255); //bitmap_mask_color (screen); 
 
+    dialog_objeto[0].bg = makecol (0,0,255); //bitmap_mask_color (screen); 
 }
 
 Dialog::~Dialog (void)

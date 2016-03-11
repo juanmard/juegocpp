@@ -1,4 +1,6 @@
 #include "DirectorActor.h"
+#include "ActorManager.h"
+
 
 DirectorActor::DirectorActor(void)
 {

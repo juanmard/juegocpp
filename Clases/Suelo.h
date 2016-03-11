@@ -1,4 +1,4 @@
-#ifndef SUELO_H
+#ifndef  SUELO_H
 #define SUELO_H
 
 #include <allegro.h>

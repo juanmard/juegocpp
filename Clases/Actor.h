@@ -1,13 +1,15 @@
-#ifndef ACTOR_H
+#ifndef  ACTOR_H
 #define ACTOR_H
 
 #include <allegro.h>
+// Se incluyen las cabeceras puesto que se necesita hacer referencia a tipos y
+//  estructuras internas de la clase.
+#include "CollisionManager.h"
 #include "Game.h"
-#include "Mask.h"
-#include "ActorGraphic.h"
 #include "Nombres.h"
 
 class ActorGraphic;
+class Mask;
 
 /** 
  * \brief   Elemento básico con dinámica dentro del juego.
@@ -35,9 +37,9 @@ public:
     };
 
 public:
-                        Actor               ();
-        virtual         ~Actor              ();
-        virtual void    draw                (BITMAP *bmp);
+                                Actor                ();
+        virtual            ~Actor              ();
+        virtual void    draw                 (BITMAP *bmp);
         virtual void    update              ();
         /* \warning: Estos dos estados deben ser incluídos en uno. */
         virtual void    CambiarEstado       ();

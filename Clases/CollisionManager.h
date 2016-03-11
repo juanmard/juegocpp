@@ -1,10 +1,13 @@
-#ifndef COLLISIONMANAGER_H
-#define COLLISIONMANAGER_H
+#ifndef   COLLISIONMANAGER_H
+#define  COLLISIONMANAGER_H
 
-#include "Game.h"
+class Game;
+class Actor;
 
-//class Actor;
-
+/* \brief   Clase que recoge las operaciones de colisión del juego entre actores.
+ * \todo    Incluir las opciones de colisión entre 'Bloques', para por ejemplo,
+ *              poder realizar colisiones entre actores y escenario.
+ */
 class CollisionManager
 {
     public:
@@ -14,9 +17,9 @@ class CollisionManager
             PP_COLLISION
         }collision_method_t;
 
-                CollisionManager    (Game *g);        
-        void    update              ();
-        bool    Bounding            (Actor *actor1, Actor *actor2);
+                   CollisionManager    (Game *g);        
+        void    update                  ();
+        bool    Bounding              (Actor *actor1, Actor *actor2);
 
     protected:
         Game *game;

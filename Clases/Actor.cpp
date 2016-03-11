@@ -1,7 +1,8 @@
 #include "Actor.h"
+#include "ActorGraphic.h"
 
 /**
- * Crea e l actor.
+ * Crea el actor.
  * Predeterminadamente no asigna gráfico y no se sitúa en el tiempo. 
  */
 
