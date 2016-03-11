@@ -23,7 +23,7 @@ Loro::Loro (Almacen &almacen)
     skin->add_frame(almacen.GetBitmap("sprite_044"), 0,  3, 10);
     set_actor_graphic (skin);
 
-    set_name (Nombres::herny);
+    setCodigo (Nombres::herny);
     set_x(SCREEN_W/2);
     set_y(SCREEN_H/2);
 	set_is_detected (true);

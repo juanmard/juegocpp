@@ -31,7 +31,7 @@ DirectorActor (actor_manager)
     // A eliminar - Para pruebas de sonido.
     rebote = (SAMPLE *) sprites->GetDat (77);
 
-    this->set_name (Nombres::pelota);
+    this->setCodigo (Nombres::pelota);
     this->set_x(0);
     this->set_y(0);
     this->set_actor_graphic (tomate);
@@ -92,7 +92,7 @@ void Pelota::CambiarEstado (void)
  */
 void  Pelota::hit  (Actor *who, int damage)
 {
-   switch (who->getNombre())
+   switch (who->getCodigo ())
    {
        /**
         * Si tropezamos con un ladrillo. Cambiamos la dirección de rebote y

@@ -74,7 +74,7 @@ sentido(1)
 
   Sprites_t sprite_act = estado2Sprite (estado);
   set_actor_graphic (sprites[sprite_act]);
-  set_name (Nombres::mago);
+  setCodigo (Nombres::mago);
   set_x(SCREEN_W/3);
   set_y(SCREEN_H/2);
   set_is_detected (false);
@@ -212,7 +212,7 @@ void Mago::update ()
  */
 void  Mago::hit  (Actor *who, int damage)
 {
-  switch (who->getNombre ())
+  switch (who->getCodigo ())
   {
     case Nombres::pelota:
     case Nombres::paleta:

@@ -30,6 +30,10 @@ class ItemALG;
 class Dialog
 {
   public:
+    // \todo    Hacer el enum propio de la clase, no global.
+    enum {scr=0, pantalla=0, menu=1, lista=4, bitmap=5, pos=13, nombre=15, caja=6, ultimo=16};
+
+  public:
                     Dialog          (EditorManager *editor);
                     ~Dialog         ();
         void        show            ();
@@ -129,29 +133,29 @@ public:
             return D_O_K;
         }
 
-        /*
-         * Prueba lista. Debe tener la forma del d_list_proc: char *foobar(int index, int *list_size);
-         */
-        static char *cb_prueba_lista (int index, int *list_size)
-        {
-            if (dlg_actor[3].dp3)
-            {
-                // Creamos una referencia temporal al manager del objeto actual.
-                EditorManager &manager = *(static_cast<EditorManager *>(dlg_actor[3].dp3));
+    /**
+     * \brief   Rellenador de lista de actores.
+     */
+    static char *  getterListaActores (int index, int *list_size)
+    {
+      if (dialog[lista].dp3)
+      {
+        // Creamos una referencia temporal al 'manager' del objeto actual.
+        EditorManager &manager = *(static_cast<EditorManager *>(dialog[lista].dp3));
 
-                // Si index es negativo debe devolver NULL e indicar el tamaño de la lista.
-                // Si index es cero o positivo debe devolver la cadena del nombre del traje.
-                if (index < 0)
-                {
-                    *list_size = manager.getNumActores ();
-                    return NULL;
-                }
-                else
-                {
-                    return manager.getNombreTraje (index);
-                }
-            }
+        // Si 'index' es negativo debe devolver NULL e indicar el tamaño de la lista.
+        // Si 'index' es cero o positivo debe devolver la cadena del nombre del actor.
+        if (index < 0)
+        {
+          *list_size = manager.getNumActores ();
+          return NULL;
         }
+        else
+        {
+          return manager.getNombreActor (index);
+        }
+      }
+    }
 
     // Desvio del procedimiento de lista para implementar una lista de trajes.
     static int mi_list_proc (int msg, DIALOG *d, int c)
@@ -175,7 +179,7 @@ public:
 
                 // Modo de prueba para probar que se actualiza lo seleccionado.
                 int prb;
-                dlg_actor[4].dp = const_cast<char *>(cb_prueba_lista (d->d1,&prb));
+//                dlg_actor[4].dp = const_cast<char *>(cb_prueba_lista (d->d1,&prb));
                 object_message(&dlg_actor[4], MSG_DRAW, 0);
              }
             
@@ -186,7 +190,6 @@ public:
         }        
         return ret;
     }
-
 
         /*
          * Prueba slider.
@@ -215,136 +218,152 @@ public:
             return D_O_K;
         }
 
-        /**
-         * \brief   Función estática de prueba para englobar las funciones en la clase.
-         * \details Necesita inicializar los menús donde se utiliza en el constructor de la clase.
-         *          Pj:     mnu_ayuda[0].proc = &Dialog::about;
-         *          O bien declarar pública para acceso externo y definir directamente en la variable
-         *          global. P.j:
-         *              MENU mnu_ayuda[] = 
-         *              {
-         *                  { "&About \tF1",     Dialog::about,  NULL,      0,  NULL  },
-         *                  { NULL,                       NULL,  NULL,      0,  NULL  }
-         *              };
-         *          Otra opción de integración es definir también los menús como estáticos dentro
-         *          de la definición de la clase. Ej:
-         *              static MENU mnu_ayuda[];
-         *          e inicializarlo en el fichero cpp. Ej:
-         *              MENU Dialog::mnu_ayuda[] = { ... };
-         *          en ese caso las variables si pueden ser protected o private.
-         *
-         */
-        static int about ()
-        {
-           alert("* Editor - Juego ++ *",
-                 "",
-                 "Editor basado en Allegro - Juanma Rico 2009",
-                 "Ok", 0, 0, 0); 
-           return D_O_K;
-        }
-
-        /**
-         * \brief   Mensaje de confirmación de salida del editor.
-         */
-        static int quit(void)
-        {
-           if (alert("¿Salir del editor?", NULL, NULL, "&Sí", "&No", 's', 'n') == 1)
-              return D_CLOSE;
-           else
-              return D_O_K;
-        }
+    /**
+     * \brief   Función estática de prueba para englobar las funciones en la clase.
+     * \details Necesita inicializar los menús donde se utiliza en el constructor de la clase.
+     *          Pj:     mnu_ayuda[0].proc = &Dialog::about;
+     *          O bien declarar pública para acceso externo y definir directamente en la variable
+     *          global. P.j:
+     *              MENU mnu_ayuda[] = 
+     *              {
+     *                  { "&About \tF1",     Dialog::about,  NULL,      0,  NULL  },
+     *                  { NULL,                       NULL,  NULL,      0,  NULL  }
+     *              };
+     *          Otra opción de integración es definir también los menús como estáticos dentro
+     *          de la definición de la clase. Ej:
+     *              static MENU mnu_ayuda[];
+     *          e inicializarlo en el fichero cpp. Ej:
+     *              MENU Dialog::mnu_ayuda[] = { ... };
+     *          en ese caso las variables si pueden ser protected o private.
+     *
+     */
+    static int about ()
+    {
+       alert("* Editor - Juego ++ *",
+             "",
+             "Editor basado en Allegro - Juanma Rico 2009",
+             "Ok", 0, 0, 0); 
+       return D_O_K;
+    }
 
     /**
-     * \brief   Prueba para lista.
+     * \brief   Mensaje de confirmación de salida del editor.
      */
-    static char *dummy_getter (int index, int *list_size)
+    static int quit(void)
     {
-      if (index < 0)
-      {
-        *list_size = 2;
-        return NULL;
-      }
-      else
-      {
-        switch (index)
-        {
-          case 0: return const_cast<char *>("primero");
-          case 1: return const_cast<char *>("segundo");
-        }
-      }
+       if (alert("¿Salir del editor?", NULL, NULL, "&Sí", "&No", 's', 'n') == 1)
+          return D_CLOSE;
+       else
+          return D_O_K;
     }
-        /**
-         * \brief   Método "callback" de mensajes recibidos por el marco del diálogo.
-         * \details Este método maneja todos los mensajes que se reciben dentro del marco que
-         *          se dibuja sobre la pantalla actual.
-         *          Es una función estática por compatibilidad con Allegro.
-         *          El campo "dp" debe contener un puntero al objeto instanciado de la clase.
-         *          Se procura que la parte estática sea mínima, pasando las llamadas a procesos
-         *          protegidos de la clase.
-         */
-        static int marco_callback (int msg, DIALOG *d, int c)
+
+    /**
+     * \brief   Método "callback" de mensajes recibidos por el marco del diálogo.
+     * \details Este método maneja todos los mensajes que se reciben dentro del marco que
+     *          se dibuja sobre la pantalla actual.
+     *          Es una función estática por compatibilidad con Allegro.
+     *          El campo "dp" debe contener un puntero al objeto instanciado de la clase.
+     *          Se procura que la parte estática sea mínima, pasando las llamadas a procesos
+     *          protegidos de la clase.
+     */
+    static int marco_callback (int msg, DIALOG *d, int c)
+    {
+      // Si ya está inicializado el objeto (puntero existe), podemos crear 
+      // una referencia  al objeto y utilizar sus métodos.
+      // Si no está inicializado el objeto ignoramos el mensaje.
+      if (d[0].dp)
+      {
+        // Creamos una referencia temporal al objeto actual.
+        Dialog &objeto = *(static_cast<Dialog *>(d[0].dp));
+
+        // Posición anterior del ratón antes de llamar.
+        static int mouse_ant_x, mouse_ant_y;
+
+        // Se procesan los mensajes.
+        switch (msg)
         {
-            // Si ya está inicializado el objeto (puntero existe), podemos crear una referencia  al objeto y utilizar sus métodos.
-            // Si no está inicializado el objeto ignoramos el mensaje.
-            if (d[0].dp)
-            {
-                // Creamos una referencia temporal al objeto actual.
-                Dialog &objeto = *(static_cast<Dialog *>(d[0].dp));
+           // En caso de que se pulse una tecla...
+          case MSG_CHAR:
+          case MSG_UCHAR:
+          case MSG_XCHAR:
+              //objeto.mover_kbd (c);
+              objeto.mover_kbd_escenario (c);
+              break;
 
-                // Posición anterior del ratón antes de llamar.
-                static int mouse_ant_x, mouse_ant_y;
-                
-                // Seleccionamos los mensajes.
-                switch (msg)
-                {
-                 // En caso de que se pulse una tecla...
-                case MSG_CHAR:
-                case MSG_UCHAR:
-                case MSG_XCHAR:
-//                    objeto.mover_kbd (c);
-                    objeto.mover_kbd_escenario (c);
-                    break;
+            // El mensaje nos indica que debemos dibujar el control.
+          case MSG_DRAW:
+              objeto.draw ();
+              break;
 
-                case MSG_DRAW:
-                    objeto.draw ();
-                    break;
+          // Mensaje cuando se presiona el botón derecho del ratón.
+          case MSG_RPRESS:
+              objeto.prb_x = mouse_x - dialog[scr].x;
+              objeto.prb_y = mouse_y - dialog[scr].y;
+              objeto.menu_contextual (mouse_x, mouse_y);
+              break;
 
-                // Mensaje cuando se presiona el botón derecho del ratón.
-                case MSG_RPRESS:
-                    objeto.prb_x = mouse_x - dialog[0].x;
-                    objeto.prb_y = mouse_y - dialog[0].y;
-                    objeto.menu_contextual (mouse_x, mouse_y);
-                    break;
+          case MSG_CLICK:
+              //objeto.prueba_click ();
+              objeto.prueba_dblclk ();
+              break;
 
-                case MSG_CLICK:
-                    //objeto.prueba_click ();
-                    objeto.prueba_dblclk ();
-                    break;
+          case MSG_DCLICK:
+              objeto.prueba_click ();
+              break;
 
-                case MSG_DCLICK:
-                    objeto.prueba_click ();
-                    break;
-
-                // Mensaje que se produce repetidamente mientras no exista otro.
-                case MSG_IDLE:
-                        // Comprobamos si se ha movido el ratón.
-                        if ( !((mouse_ant_x == mouse_x) && 
-                               (mouse_ant_y == mouse_y)) )
-                        {
-                            // El ratón se ha movido. Lo actualizamos y movemos el actor.
-                            mouse_ant_x = mouse_x;
-                            mouse_ant_y = mouse_y;
-                            objeto.mover_actor ();
-                            objeto.draw (); 
-                        }
-                        break;
-                }
-            }
-            // No funciona. Error de acceso. No podemos enviar el mensaje al padre.
-            //return d_menu_proc (msg,d,c);
-          
-            // Procesamos los mensajes como una caja por omisión.
-            return d_box_proc (msg,d,c);
-            //return D_O_K;
+          // Mensaje que se produce repetidamente mientras no exista otro.
+          case MSG_IDLE:
+                  // Se comprueba si se ha movido el ratón.
+                  if ( !((mouse_ant_x == mouse_x) && 
+                         (mouse_ant_y == mouse_y)) )
+                  {
+                      // El ratón se ha movido. Lo actualizamos y movemos el actor.
+                      mouse_ant_x = mouse_x;
+                      mouse_ant_y = mouse_y;
+                      objeto.mover_actor ();
+                      objeto.draw (); 
+                  }
+                  break;
         }
+
+        // Procesamos el resto de los mensajes como una caja por omisión.
+        return d_box_proc (msg,d,c);
+        //return D_O_K;
+      }
+    };
+
+    /**
+     * \brief   Callback de la lista de actores.
+     */
+    static int lista_callback (int msg, DIALOG *d, int c)
+    {
+      // Se sitúa el puntero del objeto en 'dp3' pues en 'dp' 
+      // debe estar el 'getter' de la lista.
+      if (d[0].dp3)
+      {
+        // Creamos una referencia temporal al objeto actual.
+        EditorManager &objeto = *(static_cast<EditorManager *>(d[0].dp3));
+
+        // Se guarda el índice para comprobar cuando cambia.
+        static int indice_ant = d[0].d1;
+
+        // Se procesan los mensajes.
+        switch (msg)
+        {
+          case MSG_IDLE:
+              if (d[0].d1 != indice_ant)
+              {
+                alert (const_cast<char *>(objeto.getNombreActor (d[0].d1)), "", "Teclado", "&Continuar", NULL, 'c', 0);
+                indice_ant = d[0].d1;
+              }
+              break;
+
+          default:
+              // Procesamos el resto de los mensajes como una caja por omisión.
+              return d_list_proc (msg,d,c);
+        }
+        return D_O_K;
+      }
+    };
 };
+

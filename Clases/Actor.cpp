@@ -212,18 +212,18 @@ int Actor::get_graph_y()
 /**
  * \brief   Método para obtener el código del nombre.
  */
-Nombres::codigo  Actor::getNombre (void)
+Nombres::codigo  Actor::getCodigo (void)
 {
-    return nombre;
+  return nombre;
 };
 
 /**
  * \brief   Método para modificar el nombre.
  * \param   new_name    Nombre nuevo para sustituir.
  */
-void Actor::set_name (Nombres::codigo new_name)
+void  Actor::setCodigo (Nombres::codigo new_name)
 {
-    nombre = new_name;
+  nombre = new_name;
 };
 
 /**
@@ -288,3 +288,11 @@ Bloque &  Actor::getBloque ()
  * \brief   Obtiene el estado actual del actor.
  */
 string &  Actor::getEstado () const {};
+
+/**
+ * \brief   Obtiene el estado actual del actor.
+ */
+string &  Actor::getNombre () const
+{
+  return *(new std::string (Nombres::Imprimir (nombre)));
+};

@@ -30,7 +30,7 @@ class EditorManager
     void      setActorX             (int x);
     void      setActorY             (int y);
     Actor *   getActor              (int x, int y) const;
-    char *    getNombreTraje        (int indice) const;
+    char *    getNombreActor        (int indice) const;
     int       getNumTrajes          () const;
     void      cambiarTraje          (int indice);
     int       getEscenarioX         () const;

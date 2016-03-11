@@ -264,3 +264,22 @@ void ActorManager::actualizarVisualizacion ()
     actorVisualizado->getEstado ();
   }
 }
+
+/**
+ * \brief   Devuelve la referencia del actor dado como índice de la lista.
+ */
+Actor *  ActorManager::getActor (int indice)
+{
+  Actor *                   actor = NULL;
+  list<Actor*>::iterator    iter;
+  
+  // Si el índice dado no corresponde con el número de actores devuelve NULL.
+  if (indice < actors.size())
+  {
+    iter = get_begin_iterator ();
+    for (int  i = 0; i < indice; i++, iter++){};
+    actor = *iter;
+  }
+  return actor;
+}
+

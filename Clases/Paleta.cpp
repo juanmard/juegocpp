@@ -18,7 +18,7 @@ Paleta::Paleta()
 {
   piel = new Suelo (this, 2);
   set_actor_graphic (piel);
-  set_name (Nombres::paleta);
+  setCodigo (Nombres::paleta);
   set_x (0);
   set_y (SCREEN_H - 70);
   set_is_detected (true);
@@ -32,7 +32,7 @@ Paleta::Paleta (Almacen &almacen)
 {
   piel = new Suelo (this, almacen, 2);
   set_actor_graphic (piel);
-  set_name (Nombres::paleta);
+  setCodigo (Nombres::paleta);
   set_x (0);
   set_y (SCREEN_H - 70);
   set_is_detected (true);
@@ -70,7 +70,7 @@ void Paleta::do_action (ControllableObject::action_t act, int magnitude)
  */
 void  Paleta::hit (Actor *who, int damage)
 {
-  switch (who->getNombre ())
+  switch (who->getCodigo ())
   {
     // Si tropezamos con un ladrillo. Aumentamos el tamaño.
     case Nombres::ladrillo:

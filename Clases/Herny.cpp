@@ -42,7 +42,7 @@ Herny::Herny (Almacen &almacen)
     skin->add_frame(almacen.GetBitmap("sprite_106"), 0, 0, 10);
     set_actor_graphic (skin);
 
-    set_name (Nombres::herny);
+    setCodigo (Nombres::herny);
     set_x(SCREEN_W/2);
     set_y(SCREEN_H/2);
 	set_is_detected(true);
@@ -71,7 +71,7 @@ Herny::Herny ()
   skin->add_frame(sprites->GetBitmap("jugador_05"), 0, 0, 20);
   set_actor_graphic (skin);
 
-  set_name (Nombres::herny);
+  setCodigo (Nombres::herny);
   set_x(SCREEN_W/2);
   set_y(SCREEN_H/2);
   set_is_detected(true);
@@ -188,7 +188,7 @@ void Herny::CambiarEstado ()
  */
 void  Herny::hit  (Actor *who, int damage)
 {
-   switch (who->getNombre ())
+   switch (who->getCodigo ())
    {
        case Nombres::pelota:
            estado = Herny::eliminar;

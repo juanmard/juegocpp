@@ -24,7 +24,7 @@ verRibete (true)
  */
 StageManager::~StageManager ()
 {
-  destroy_bitmap(buffer);
+  destroy_bitmap (buffer);
 }
 
 /**

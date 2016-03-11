@@ -64,7 +64,7 @@ Ladrillo::~Ladrillo(void)
  */
 void  Ladrillo::hit  (Actor *who, int damage)
 {
-   switch (who->getNombre ())
+   switch (who->getCodigo ())
    {
        case Nombres::pelota:
            /**
@@ -109,7 +109,7 @@ void  Ladrillo::hit  (Actor *who, int damage)
  */
 void    Ladrillo::crear_ladrillo (void)
 {
-  this->set_name (Nombres::ladrillo);
+  this->setCodigo (Nombres::ladrillo);
   this->set_actor_graphic (chaqueta);
   this->set_is_detected(true);
   //this->set_team(ENEMY);

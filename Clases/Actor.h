@@ -1,5 +1,5 @@
-#ifndef ACTOR_H
-#define ACTOR_H
+#ifndef _ACTOR_H_
+#define _ACTOR_H_
 
 #include <allegro.h>
 // Se incluyen las cabeceras puesto que se necesita hacer referencia a tipos y
@@ -48,39 +48,40 @@ public:
         virtual void        update              ();
         virtual Actor *     clone               () const;
         virtual string &    getEstado           () const;
+        virtual string &    getNombre           () const;
     
         /* \warning: Estos dos estados deben ser incluídos en uno. */
-        virtual void            CambiarEstado       ();
-        virtual void            ActualizarEstado    ();
-        virtual void            init                ();
-        void                    draw_block          (BITMAP *pantalla);
-        int                     get_x               ();
-        int                     get_y               ();
-        int                     get_w               ();
-        int                     get_h               ();
-        void                    set_x               (int pos_x);
-        void                    set_y               (int pos_y);
-        void                    set_wh              (int w_tmp, int h_tmp);
-        void                    set_color           (int color_tmp);
-        int                     get_color           (void);
-        void                    set_actor_graphic   (ActorGraphic *ag);
-        ActorGraphic *          get_actor_graphic   () const;
-        int                     get_graph_x         ();
-        int                     get_graph_y         ();
-        Mask *                  get_graph_mask          (void);
-        void                    set_is_detected         (bool tf);
-        bool                                    get_is_detected         (void);
+        virtual void                            CambiarEstado           ();
+        virtual void                            ActualizarEstado        ();
+        virtual void                            init                    ();
+        void                                    draw_block              (BITMAP *pantalla);
+        int                                     get_x                   ();
+        int                                     get_y                   ();
+        int                                     get_w                   ();
+        int                                     get_h                   ();
+        void                                    set_x                   (int pos_x);
+        void                                    set_y                   (int pos_y);
+        void                                    set_wh                  (int w_tmp, int h_tmp);
+        void                                    set_color               (int color_tmp);
+        int                                     get_color               ();
+        void                                    set_actor_graphic       (ActorGraphic *ag);
+        ActorGraphic *                          get_actor_graphic       () const;
+        int                                     get_graph_x             ();
+        int                                     get_graph_y             ();
+        Mask *                                  get_graph_mask          ();
+        void                                    set_is_detected         (bool tf);
+        bool                                    get_is_detected         ();
         void                                    set_power               (int pow);
-        int                                     get_power               (void);
+        int                                     get_power               ();
         void                                    set_collision_method    (CollisionManager::collision_method_t cm);
-        CollisionManager::collision_method_t    get_collision_method    (void);
+        CollisionManager::collision_method_t    get_collision_method    ();
         virtual void                            hit                     (Actor *who, int damage);
         void                                    set_team                (Game::team_t tm);
-        Game::team_t                            get_team                (void);
+        Game::team_t                            get_team                ();
         void                                    set_tiempo              (unsigned int tiempo);
-        Actor::estado_t                         get_Estado              (void);
-        Nombres::codigo                         getNombre               (void);
-        void                                    set_name                (Nombres::codigo nuevo_nombre);
+        Actor::estado_t                         get_Estado              ();
+        Nombres::codigo                         getCodigo               ();
+        void                                    setCodigo               (Nombres::codigo nuevo_nombre);
         bool                                    isIntersectado          (Bloque bloque);
         void                                    draw                    (StageManager *stageManager);
         void                                    draw_block              (StageManager *stageManager);
@@ -97,12 +98,12 @@ public:
         /**
          * Código del nombre del actor.
          */
-        Nombres::codigo     nombre;
-        ActorGraphic *      agraph;
-        int                 power;
-        Game::team_t        team;
-        bool                is_detectable;
-        CollisionManager::collision_method_t collision_method;
+        Nombres::codigo                         nombre;
+        ActorGraphic *                          agraph;
+        int                                     power;
+        Game::team_t                            team;
+        bool                                    is_detectable;
+        CollisionManager::collision_method_t    collision_method;
 };
 
 #endif

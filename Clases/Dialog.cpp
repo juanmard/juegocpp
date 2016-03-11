@@ -6,9 +6,6 @@
 //#define PRUEBAS
 //#define DEBUG
 
-// \todo    Hacer el enum propio de la clase, no global.
-enum {scr=0, pantalla=0, menu=1, lista=4, bitmap=5, pos=13, nombre=15, caja=6, ultimo=16};
-
 // Inicialización de las variables estáticas de la clase.
 // Diálogo general de la GUI del editor.
 DIALOG Dialog::dialog[] =
@@ -18,7 +15,7 @@ DIALOG Dialog::dialog[] =
    { d_menu_proc,            0,   0,   640, 15,  7,   15,  0,    D_SELECTED | D_GOTFOCUS | D_GOTMOUSE, 0,   0,   Dialog::menu_editor,                     NULL, NULL },
    { d_text_proc,            344, 328, 100, 8,   14,  219, 0,    0,                                    0,   0,   const_cast<char*>("Lista de actores: "), NULL, NULL },
    { d_text_proc,            8,   360, 32,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Estado:"),           NULL, NULL },
-   { d_list_proc,            344, 340, 144, 92,  50,  219, 0,    0,                                    0,   0,   NULL,                                    NULL, NULL },
+   { Dialog::lista_callback, 344, 340, 144, 92,  50,  219, 0,    0,                                    0,   0,   NULL,                                    NULL, NULL },
    { d_bitmap_proc,          500, 336, 104, 96,  0,   0,   0,    0,                                    0,   0,   NULL,                                    NULL, NULL },
    { d_box_proc,             92,  336, 128, 80,  16,  164, 0,    0,                                    0,   0,   NULL,                                    NULL, NULL },
    { d_text_proc,            100, 360, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("andando"),           NULL, NULL },
@@ -123,10 +120,6 @@ actor (NULL)
     dlg_actor[2].dp2 = (void*)Dialog::clbk_prueba_slider;
     dlg_actor[2].dp3 = manager;
 
-    // Inicializamos la lista de trajes de prueba.
-    dlg_actor[3].dp = (void*)Dialog::cb_prueba_lista;
-    dlg_actor[3].dp3 = manager;
-    
     // Inicializamos las llamadas del menú contextual.
     // Parece ser que incluir la referencia directa no funciona, hay que pasar por
     // un procedimiento estático.
@@ -134,9 +127,10 @@ actor (NULL)
     mnu_actor[1].dp = this;
     mnu_actor[2].dp = this;
 
-  // Inicializamos la lista de pruebas.
-  dialog[lista].dp = (void*)Dialog::cb_prueba_lista;
+  // Inicializamos la lista de actores.
+  dialog[lista].dp = (void *) Dialog::getterListaActores;
   dialog[lista].dp3 = manager;
+
   // Bitmap
   dialog[bitmap].dp = manager->getBuffer ();
 
@@ -183,7 +177,7 @@ void Dialog::show (void)
   while (salida != D_CLOSE)
   {
     salida = do_dialog (dialog,-1);
-    if ( salida == -1)
+    if (salida == -1)
     {
       salida = quit ();
     }
@@ -462,7 +456,7 @@ void  Dialog::actualizarValoresActor ()
 
     // Actualizamos el valor de los controles.
     dialog[pos].dp = const_cast <char*> (str.c_str());
-    dialog[nombre].dp = const_cast<char *>(Nombres::Imprimir (actor->getNombre()).c_str());
+    dialog[nombre].dp = const_cast<char *>((actor->getNombre ()).c_str());
   }
   else
   {

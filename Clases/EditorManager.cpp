@@ -157,38 +157,20 @@ Actor *  EditorManager::getActor (int x, int y) const
 }
 
 /**
- * Devuelve el número de trajes disponibles en el vestuario.
+ * \brief   Devuelve el nombre del actor dado como índice.
+ * \param   indice    Índice dentro de la lista de actores.
+ * \return  Devuelve la cadena de caracteres que contiene el nombre del actor.
  */
-int  EditorManager::getNumTrajes () const
+char *  EditorManager::getNombreActor (int indice) const
 {
-  // Debería consultar a la clase vestuario.
-  // return game->vestuario.GetNumTrajes ();
-  return 4;
-}
-
-/**
- * Devuelve el nombre del traje dado como índice.
- */
-char *  EditorManager::getNombreTraje (int indice) const
-{
-  // Debería consultar a la clase vestuario.
-  // return game->vestuario.getNombreTraje (indice);
-  switch (indice)
+  Actor *actor = game->actor_manager->getActor (indice);
+  if (actor)
   {
-    case 0:
-        return const_cast<char *>("Traje 0");
-        break;
-    case 1:
-        return const_cast<char *>("Traje 1");
-        break;
-    case 2:
-        return const_cast<char *>("Traje 2");
-        break;
-    case 3:
-        return const_cast<char *>("Traje 3");
-        break;
-      default:
-        return const_cast<char *>("actor");
+    return const_cast<char *>(actor->getNombre().c_str());
+  }
+  else
+  {
+    return const_cast<char *>("sin nombre");
   }
 }
 
