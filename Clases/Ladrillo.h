@@ -15,8 +15,17 @@ public:
             Ladrillo    (int x, int y);
             ~Ladrillo   (void);
     void    hit         (Actor *who, int damage);
+    void    update      (void);
 
 private:
+    /**
+     * \brief Definición de los distintos estados del ladrillo.
+     *        Reservamos los diez primeros estados para estados generales de la clase "Actor"
+     */
+    //typedef 
+    enum {ESPERA=10, EN_CAIDA}; 
+    // estado_t;
+
     void        crear_ladrillo (void);
 
     Bitmap     *chaqueta;

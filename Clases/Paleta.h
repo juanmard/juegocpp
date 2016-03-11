@@ -21,7 +21,8 @@ public:
     Paleta (void);
     ~Paleta (void);
 
-    void do_action (ControllableObject::action_t act, int magnitude);
+    void do_action  (ControllableObject::action_t act, int magnitude);
+    void hit        (Actor *who, int damage);
 
 protected:
         Suelo *piel;

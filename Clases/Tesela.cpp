@@ -34,14 +34,24 @@ void Tesela::SetDibujo (BITMAP *imagen)
     dibujo = imagen;
 }
 
-void Tesela::SetX (int x_tmp)
+void Tesela::Set_x (int x_tmp)
 {
     x = x_tmp;
 }
 
-void Tesela::SetY (int y_tmp)
+void Tesela::Set_y (int y_tmp)
 {
     y = y_tmp;
+}
+
+int Tesela::Get_x (void)
+{
+    return x;
+}
+
+int Tesela::Get_y (void)
+{
+    return y;
 }
 
 void Tesela::draw (BITMAP *pantalla)

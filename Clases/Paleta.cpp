@@ -30,3 +30,27 @@ void Paleta::do_action (ControllableObject::action_t act, int magnitude)
     if (x<0) x=0;
     if (x>SCREEN_W-get_w()) x=SCREEN_W-get_w();
 }
+
+void Paleta::hit (Actor *who, int damage)
+{
+   switch (who->get_name())
+   {
+       /**
+        * Si tropezamos con un ladrillo. Aumentamos el tamaño.
+        */
+       case Nombres::ladrillo:
+           if (piel->Get_size () < 8)
+           {
+                piel->Set_size(piel->Get_size()+1);
+                this->set_wh(32*piel->Get_size()+20,15);
+           }
+           break;
+
+       case Nombres::pelota:
+           //piel->Set_size(0);
+           break;
+
+       default:
+           break;
+   }
+}

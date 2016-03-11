@@ -24,14 +24,15 @@ public:
      * \brief   Estados posibles del actor.
      * \todo    Se debe poder heredar, incluir estados desde los hijos. Investigar.
      *          De esta forma eliminaríamos la clase "Nombres" que no me gusta nada.
+     *          27-nov-09 - No me gusta nada, pero ésta no es una solución para los estados de los actores.
      */
-    typedef enum estados{
+    typedef int estado_t;
+    enum estados{
         actuar,     /* El actor está actuando y quiere seguir actuando. */
         eliminar,   /* El actor quiere ser eliminado de la obra. */
         salir,      /* El actor quiere salir del escenario (no se elimina). */ 
         crear       /* El actor quiere crear otro actor (debería estar en su clase "GeneratorActor"). */ 
-    } estado_t;
-
+    };
 
 public:
                         Actor               ();
@@ -67,9 +68,8 @@ public:
         Game::team_t                            get_team                (void);
         void                                    set_tiempo              (unsigned int tiempo);
         Actor::estado_t                         get_Estado              (void);
-
-        Nombres::codigo         get_name               (void);
-        void            set_name               (Nombres::codigo nuevo_nombre);
+        Nombres::codigo                         get_name                (void);
+        void                                    set_name                (Nombres::codigo nuevo_nombre);
 
     protected:
         int             x, y;

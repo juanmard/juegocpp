@@ -13,8 +13,10 @@ public:
             Tesela      (Mosaico *padre, BITMAP *imagen, int x_tmp=0, int y_tmp=0, bool mirror_tmp=false);
     void    draw        (BITMAP *bmp);
     void    SetDibujo   (BITMAP *imagen);
-    void    SetX        (int x_tmp);
-    void    SetY        (int y_tmp);
+    void    Set_x       (int x_tmp);
+    void    Set_y       (int y_tmp);
+    int     Get_x       (void);
+    int     Get_y       (void);
     void    Guardar     (void);
 
 private:

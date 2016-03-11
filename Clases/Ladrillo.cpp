@@ -45,6 +45,33 @@ void  Ladrillo::hit  (Actor *who, int damage)
             * \todo    Crear clases separadas para objetos de sonido.
             */
            play_sample (peloteo,200,128,800,FALSE);
+
+           /**
+            * Cambiamos el estado del ladrillo para que caiga.
+            */
+           this->estado = EN_CAIDA;
+           break;
+
+       case Nombres::ladrillo:
+           //estado = Ladrillo::EN_CAIDA;
+           //set_y(get_y()+3);
+           break;
+       
+       case Nombres::paleta:
+           play_sample (peloteo,200,128,500,FALSE);
+           estado = Actor::eliminar;
+           break;
+
+       default:
+           /*
+           set_y(get_y()+1);
+           if (this->estado == Ladrillo::EN_CAIDA)
+           {
+               play_sample (peloteo,200,128,500,FALSE);
+               //set_y(get_y()+10);
+               this->estado = ESPERA;
+           }
+           */
            break;
    }
 }
@@ -67,4 +94,29 @@ void    Ladrillo::crear_ladrillo (void)
     this->set_collision_method(CollisionManager::PP_COLLISION);
     this->set_wh (32,15);
     this->tiempo_estado=30;
+    this->estado = Ladrillo::ESPERA;
+}
+
+/**
+ * \brief   Máquina de estados de la clase.
+ */
+void  Ladrillo::update  (void)
+{
+    switch (estado)
+    {
+    /* \brief El ladrillo cae libremente en este estado.
+     * \todo Añadir física al juego, en este caso se necesitaría la aceleración de la gravedad.
+     */
+    case EN_CAIDA:
+        this->set_y (this->get_y()+2);
+        if (get_y()>600)
+        {
+            estado = Actor::eliminar;
+        }
+        break;
+
+    case ESPERA:
+    default:
+        break;
+    }
 }

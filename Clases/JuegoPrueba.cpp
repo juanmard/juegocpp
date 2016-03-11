@@ -80,9 +80,8 @@ void JuegoPrueba::main()
     control_p2->set_owner(paleta);
     actor_manager->add(paleta);
 
-    Pelota *pelota = new Pelota();
+    Pelota *pelota = new Pelota(actor_manager);
     pelota->set_y (170);
-    pelota->manager = actor_manager;
     actor_manager->add(pelota);
 
     /**

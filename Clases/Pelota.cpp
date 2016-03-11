@@ -6,7 +6,8 @@
  * \todo Incluir rebote si tropieza con algún tipo de suelo.
  * \todo Incluir sonidos en el rebote.
  */
-Pelota::Pelota(void)
+Pelota::Pelota(ActorManager *actor_manager):
+DirectorActor (actor_manager)
 {
     DatFile &sprites = DatFile("sprites.dat");
     tomate = new Bitmap(this, sprites.GetBitmap("tomate"));
@@ -27,8 +28,6 @@ Pelota::Pelota(void)
     this->direccion_x = 2;
     this->direccion_y = 2;
     this->tiempo_estado=30;
-
-    
 }
 
 /**
@@ -82,11 +81,13 @@ void  Pelota::hit  (Actor *who, int damage)
    switch (who->get_name())
    {
        /**
-        * \brief    Si tropezamos con la paleta...
+        * Si tropezamos con un ladrillo. Cambiamos la dirección de rebote y
+        * eliminamos el ladrillo de la escena.
         */
        case Nombres::ladrillo:
+           // set_actor_graphic (tomate);
            direccion_y = -direccion_y;
-           manager->del(who);
+           //Elimina (who);
            break;
 
        case Nombres::herny:
@@ -103,12 +104,12 @@ void  Pelota::hit  (Actor *who, int damage)
            break;
 
        case Nombres::paleta:
+            // set_actor_graphic (granada);
        default:
             /**
              * \brief   Sonido de rebote de prueba.
              * \todo    Crear clases separadas para objetosde sonido.
              */
-             //set_actor_graphic (granada);
              direccion_y = -direccion_y;
              play_sample (rebote,200,128,1500,FALSE);
              break;

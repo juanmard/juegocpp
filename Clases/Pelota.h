@@ -7,11 +7,11 @@
 class Pelota : public DirectorActor
 {
 public:
-    Pelota(void);
-    ~Pelota(void);
-    void CambiarEstado (void);
-    void ActualizarEstado (void);
-    void hit (Actor *who, int damage);
+            Pelota              (ActorManager *actor_manager);
+            ~Pelota             (void);
+    void    CambiarEstado       (void);
+    void    ActualizarEstado    (void);
+    void    hit                 (Actor *who, int damage);
 
 protected:
     /**

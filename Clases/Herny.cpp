@@ -22,7 +22,7 @@ Herny::Herny (void)
     this->set_wh (26,36);
 
 //    this->tiempo_estado = 400;
-    this->tiempo_estado = 0; //Desactivamos el jugador para pruebas.
+//    this->tiempo_estado = 0; //Desactivamos el jugador para pruebas.
     this->actual = Herny::de_pie;
     this->siguiente = Herny::cayendo;
 }

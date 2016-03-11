@@ -3,17 +3,19 @@
 
 /**
  * \class   DirectorActor
- * \brief   Actor que puede generar otros actores.
- * \details Para generar otros actores necesita un acceso al "ActorManager"
- *          que lo controla.
+ * \brief   Actor que puede generar o controlar otros actores.
+ * \details Para generar y cotrolar otros actores necesita un acceso a la clase "ActorManager"
+ *          que lo controla a él mismo.
  */
 class DirectorActor : public Actor
 {
 public:
-                        DirectorActor      (void);
-                        ~DirectorActor     (void);
-    ActorManager        *manager;
+                DirectorActor      (void);
+                DirectorActor      (ActorManager *actor_manager);
+                ~DirectorActor     (void);
+        void    Elimina            (Actor *);
 
 private:
+    ActorManager        *manager;
     //Actor    *hijo;
 };
