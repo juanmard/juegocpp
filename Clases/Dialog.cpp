@@ -51,9 +51,9 @@ MENU Dialog::mnu_ayuda[] =
 // Menú de edición.
 MENU Dialog::menu_editor [] =
 {
-  { const_cast<char*>("&Fichero"), NULL, Dialog::mnu_fichero, 0, NULL },
-  { const_cast<char*>("&Editar"),  NULL, Dialog::mnu_actor,   0, NULL },
-  { const_cast<char*>("&Ayuda"),   NULL, Dialog::mnu_ayuda,   0, NULL },
+  { const_cast<char*>("&Fichero"), NULL, Dialog::mnu_fichero,    0, NULL },
+  { const_cast<char*>("&Editar"),  NULL, &Dialog::mnu_actor[3],  0, NULL },
+  { const_cast<char*>("&Ayuda"),   NULL, Dialog::mnu_ayuda,      0, NULL },
   { NULL, NULL, NULL, 0, NULL }
 };
 
@@ -61,6 +61,7 @@ MENU Dialog::menu_editor [] =
 MENU Dialog::mnu_actor [] =
 {
   { const_cast<char*>("sin nombre"),   Dialog::cb_menu_opciones,  NULL,          0, NULL },
+  { const_cast<char*>("Prueba"),       Dialog::cb_menu_opciones,  NULL, D_DISABLED, NULL },
   { const_cast<char*>(""),             Dialog::cb_menu_opciones,  NULL, D_DISABLED, NULL },
   { const_cast<char*>("&Mover"),       Dialog::cb_menu_opciones,  NULL, D_DISABLED, NULL },
   { const_cast<char*>("&Duplicar"),    Dialog::cb_menu_opciones,  NULL,          0, NULL },
@@ -82,9 +83,6 @@ ref_x (0), ref_y(0)
   // Se inicializan los colores de la GUI.
   gui_fg_color = makecol(255,255,255);
   gui_bg_color = makecol(128,128,128);
-
-  // Menú
-  mnu_actor[1].dp = this;
 
   // Se inicializan parámetros de los "callback".
   dialog[scr].dp = this;
@@ -108,12 +106,15 @@ ref_x (0), ref_y(0)
   // Color de la caja que borra los valores.
   dialog[caja].fg = makecol (128,128,128);
 
+  // Menú para duplicar.
+  mnu_actor[4].dp = this;
+
   // Hacemos una prueba de menú dinámico.
-  menu_dinamico.add ("Etiqueta 1");
-  menu_dinamico.add ("Etiqueta 2");
-  menu_dinamico.add ("Etiqueta 3");
-  menu_dinamico.add ("Etiqueta 4");
-  mnu_actor[0].child = &menu_dinamico;
+  menu_dinamico.add ("Etiqueta 1 - Opciones", NULL, NULL, NULL, D_DISABLED);
+  menu_dinamico.add ("Etiqueta 2 - Padre", NULL, NULL, &mnu_actor[3]);
+  menu_dinamico.add ("Etiqueta 3 - Duplicar", Dialog::cb_menu_opciones, this);
+  menu_dinamico.add ("Etiqueta 4", Dialog::about);
+  mnu_actor[0].child = menu_dinamico;
 }
 
 /**
@@ -178,6 +179,8 @@ void Dialog::menu_contextual (int x, int y)
   {
     actor->getNombre (nombre);
     mnu_actor[0].text=const_cast<char*>(nombre.c_str());
+    mnu_actor[1].flags = 0;
+    mnu_actor[1].child = actor->getMenu();
   }
   else
   {

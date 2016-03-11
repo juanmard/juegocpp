@@ -1,5 +1,6 @@
 #include "Ladrillo.h"
 #include "Almacen.h"
+#include "Dialog.h"
 
 /**
  * \brief   Constructor que crea un objeto golpeable por la pelota en el juego.
@@ -157,4 +158,18 @@ Ladrillo *  Ladrillo::clone() const
 void  Ladrillo::getNombre (string &strNombre) const
 {
   strNombre = Nombres::Imprimir (nombre);
+}
+
+/**
+ * \brief   Obtiene el menú de opciones del actor.
+ */
+Menu &  Ladrillo::getMenu () const
+{
+  // Obtenemos el menú más general de los actores.
+  Menu &nuevo = Actor::getMenu ();
+
+  // Añadimos las opciones propias del 'Ladrillo'.
+  // Se llama al procedimiento 'about' de prueba.
+  nuevo.add ("Ladrillo - About", Dialog::about);
+  return nuevo;
 }

@@ -152,7 +152,7 @@ class Dialog
      *          en ese caso las variables si pueden ser protected o private.
      *
      */
-    static int about ()
+    static int about (void)
     {
        alert("* Editor - Juego ++ *",
              "",

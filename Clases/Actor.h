@@ -8,6 +8,7 @@
 #include "Game.h"
 #include "Nombres.h"
 #include "Bloque.h"
+#include "Menu.h"
 
 class ActorGraphic;
 class Mask;
@@ -51,6 +52,7 @@ public:
     void                getWH               (string &dimensiones) const;
     virtual void        getEstado           (string &estado) const;
     virtual void        getNombre           (string &nombre) const;
+    virtual Menu &      getMenu             () const;
 
     /* \warning: Estos dos estados deben ser incluídos en uno. */
     virtual void                            CambiarEstado           ();

@@ -2,6 +2,7 @@
 #include "Actor.h"
 #include "ActorGraphic.h"
 #include "StageManager.h"
+#include "Dialog.h"
 
 /**
  * \brief   Constructor por omisión de la clase. 
@@ -337,7 +338,7 @@ void  Actor::getEstado (string &estado) const
  */
 void  Actor::getNombre (string &nombre) const
 {
-  nombre = "sin nombre";
+  nombre = "Sin nombre";
 };
 
 /**
@@ -349,3 +350,16 @@ void  Actor::setMostrarBloque (bool mostrar)
 {
   mostrarBloque = mostrar;
 }
+
+/**
+ * \brief   Obtiene un menú con las acciones posibles según el tipo de actor.
+ * \warning Esto se utiliza para el editor. Es posible que no sea conveniente mezclarlo con la clase genérica del Actor.
+ */
+Menu &  Actor::getMenu () const
+{
+  Menu *menu = new Menu();
+  menu->add("Actor - Mover");
+  menu->add("Actor - Tamaño");
+  return *menu;
+}
+

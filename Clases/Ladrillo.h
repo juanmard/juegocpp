@@ -20,6 +20,7 @@ public:
     void                update      ();
     virtual Ladrillo *  clone       () const;
     void                getNombre   (string &strNombre) const;
+    virtual Menu &      getMenu     () const;
 
 private:
     /**
