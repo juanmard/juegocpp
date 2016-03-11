@@ -19,16 +19,17 @@
 #include "StageManager.h"
 #include "Dialog.h"
 
-DIALOG Actor::dlg_actor[]=
+DIALOG Actor::dlg_actor[] =
 {
    /* (proc)            (x) (y)  (w)  (h)  (fg) (bg) (key) (flags) (d1) (d2) (dp)                            (dp2) (dp3) */
    { d_box_proc,        8,  336, 616, 240, 67,  243, 0,    0,      0,   0,   NULL,                           NULL, NULL },
    { Actor::callback,   8,  320, 80,  16,  67,  243, 0,    0,      0,   0,   (void*)"Pesta 01",              NULL, NULL },
    { d_text_proc,       16, 344, 168, 8,   67,  243, 0,    0,      0,   0,   (void*)"Propiedades de actor:", NULL, NULL },
    { d_shadow_box_proc, 24, 360, 320, 192, 67,  243, 0,    0,      0,   0,   NULL,                           NULL, NULL },
+   { d_text_proc,       32, 368, 56,  8,   67,  243, 0,    0,      0,   0,   (void*)"Nombre:",               NULL, NULL },
    { d_text_proc,       32, 384, 80,  8,   67,  243, 0,    0,      0,   0,   (void*)"Posicion:",             NULL, NULL },
    { d_text_proc,       32, 400, 136, 8,   67,  243, 0,    0,      0,   0,   (void*)"Grafico asociado:",     NULL, NULL },
-   { d_text_proc,       32, 368, 56,  8,   67,  243, 0,    0,      0,   0,   (void*)"Nombre:",               NULL, NULL },
+   { d_slider_proc,     32, 528, 280, 16,  67,  243, 0,    0,      16,  4,   NULL,                           NULL, NULL },
    { NULL,              0,  0,   0,   0,   0,   0,   0,    0,      0,   0,   NULL,                           NULL, NULL }
 };
 
@@ -36,19 +37,37 @@ DIALOG Actor::dlg_actor[]=
  * \brief   Constructor por omisión de la clase. 
  * \details No asigna gráfico y no se sitúa en el tiempo. 
  */
-Actor::Actor()Actor::dlg_actor[] =
+Actor::Actor():
+agraph(NULL),
+estado(actuar),
+tiempo_estado(0),
+mostrarBloque (false)
 {
-   /* (proc)            (x) (y)  (w)  (h)  (fg) (bg) (key) (flags) (d1) (d2) (dp)                            (dp2) (dp3) */
-   { d_box_proc,        8,  336, 616, 240, 67,  243, 0,    0,      0,   0,   NULL,                           NULL, NULL },
-   { Actor::callback,   8,  320, 80,  16,  67,  243, 0,    0,      0,   0,   (void*)"Pesta 01",              NULL, NULL },
-   { d_text_proc,       16, 344, 168, 8,   67,  243, 0,    0,      0,   0,   (void*)"Propiedades de actor:", NULL, NULL },
-   { d_shadow_box_proc, 24, 360, 320, 192, 67,  243, 0,    0,      0,   0,   NULL,                           NULL, NULL },
-   { d_text_proc,       32, 384, 80,  8,   67,  243, 0,    0,      0,   0,   (void*)"Posicion:",             NULL, NULL },
-   { d_text_proc,       32, 400, 136, 8,   67,  243, 0,    0,      0,   0,   (void*)"Grafico asociado:",     NULL, NULL },
-   { d_text_proc,       32, 368, 56,  8,   67,  243, 0,    0,      0,   0,   (void*)"Nombre:",               NULL, NULL },
-   { d_slider_proc,     32, 528, 280, 16,  67,  243, 0,    0,      16,  4,   NULL,                           NULL, NULL },
-   { NULL,              0,  0,   0,   0,   0,   0,   0,    0,      0,   0,   NULL,                           NULL, NULL }
-};
+}
+
+/**
+ * \brief   Constructor copia de la clase.
+ */
+Actor::Actor(const Actor &copia):
+nombre (copia.nombre),
+x(copia.x), y(copia.y),
+h(copia.h), w(copia.w),
+color(copia.color),
+collision_method(copia.collision_method),
+is_detectable(copia.is_detectable),
+//~ agraph(copia.agraph),
+estado(copia.estado),
+tiempo_estado(copia.tiempo_estado),
+power(copia.power),
+team(copia.team),
+mostrarBloque (copia.mostrarBloque)
+{
+    // Duplicamos la parte gráfica del actor a copiar y se la asiganmos al nuevo.
+    // Para ello...
+    // 1. Conseguimos la parte gráfica del actor a copiar.
+    // 2. Duplicamos la parte gráfica dando como propietario el nuevo actor.
+    // 3. Asignamos la parte gráfica duplicada al nuevo actor.
+    set_actor_graphic(copia.get_actor_graphic()->clone (this));
 }
 
 /**
@@ -362,6 +381,12 @@ void  Actor::getNombre (string &nombre) const
   nombre = "Sin nombre";
 };
 
+string  Actor::getNombre () const
+{
+  return "Sin nombre";
+};
+
+
 /**
  * \brief   Cambia si se desea mostrar el bloque (posición y dimensiones) del actor
  *          en pantalla.
@@ -429,10 +454,22 @@ void  Actor::mensajeErrorGrafico () const
  */
 vector<DIALOG> &  Actor::getDIALOG ()
 {
+  // Prueba de DIALOG. Llenamos el vector de DIALOG's.
+  // Usamos la plantilla global.
   vec_actor.clear ();
   for (int i=0; i<=7; i++)
   {
-    vec_actor.push_back (dlg_actor[i]);
+    vec_actor.push_back(dlg_actor[i]);
   }
+
+  // Rellenamos con los datos del objeto.
+  string *cadena = new string("Nombre: " + getNombre());
+  vec_actor[4].dp = const_cast<char*>(cadena->c_str());
+  ostringstream posicion;
+  posicion << "Posición: " << x << "," << y;
+  string *pos = new string (posicion.str());
+  vec_actor[5].dp = const_cast<char*>(pos->c_str());
+  string *grafico = new string("Gráfico: " + agraph->getString());
+  vec_actor[6].dp = const_cast<char*>(grafico->c_str());
   return vec_actor;
 };
