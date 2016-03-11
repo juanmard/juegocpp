@@ -5,24 +5,25 @@
  * \brief   Constructor de copia de la clase.
  */
 Mosaico::Mosaico(const Mosaico &copia, Actor *propietario):
-ActorGraphic (propietario),
-teselas(copia.teselas)
+ActorGraphic (propietario)
 {
-    list<Tesela *>::iterator tmp_iter = teselas.begin();
-    (*tmp_iter)->Set_x(20);
-    
-    // Se genera una nueva lista y se copian las teleslas.
+    // Se genera una nueva lista y se copian las teleslas con el nuevo propietario.
     // \todo Encapsular esto en una clase propia de lista de Teselas.
-    //;
-    //list<Tesela *>::iterator inicio;
-    //list<Tesela *>::iterator fin;
+    list<Tesela *>::iterator tmp_iter;
+    list<Tesela *>::iterator inicio;
+    list<Tesela *>::iterator fin;
 
-    //inicio = teselas.begin();
-    //fin = teselas.end();
-    //for (tmp_iter=inicio; tmp_iter!=fin; tmp_iter++)
-    //{
-    //    this->add_primera_Tesela (new Tesela(**tmp_iter,this));
-    //}    
+    // Se definen los iteradores. Se necesita quitar el carácter constante
+    // del mosaico 'copia'.
+    inicio = const_cast<Mosaico &>(copia).teselas.begin();
+    fin = const_cast<Mosaico &>(copia).teselas.end();
+
+    // Se recorre toda la lista de Teselas y se genera la nueva lista con el 
+    // nuevo mosaico propietario (this).
+    for (tmp_iter=inicio; tmp_iter!=fin; tmp_iter++)
+    {
+        add_ultima_Tesela (new Tesela(**tmp_iter,this));
+    }
 }
 
 Mosaico::Mosaico(Actor *aowner):
