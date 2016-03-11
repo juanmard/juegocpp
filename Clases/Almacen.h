@@ -7,6 +7,7 @@
 #define _ALMACEN_H_
 
 #include <allegro.h>
+#include <stdio.h>
 #include <string>
 
 using namespace std;

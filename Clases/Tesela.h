@@ -2,6 +2,7 @@
 #define TESELA_H
 
 #include <allegro.h>
+#include <stdio.h>
 #include "Mosaico.h"
 
 class Mosaico;
