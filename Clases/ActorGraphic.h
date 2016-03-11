@@ -1,10 +1,13 @@
 #ifndef ACTORGRAPHIC_H
 #define ACTORGRAPHIC_H
 
+#include <string>
 #include <allegro.h>
 
 class Actor;
 class Mask;
+
+using namespace std;
 
 /** 
  * \brief   Controla la parte gráfica del actor.
@@ -25,6 +28,7 @@ class ActorGraphic
         virtual int             get_y           ();
         virtual Mask*           get_mask        ();
         virtual ActorGraphic *  clone           (Actor *propietario) const;
+        virtual string          getString       () const;
 
     protected:
         Actor *owner;

@@ -1,3 +1,4 @@
+#include <sstream>
 #include "Sprite.h"
 #include "Actor.h"
 #include "Mask.h"
@@ -143,10 +144,12 @@ void Sprite::draw (int x, int y, BITMAP *bmp)
 
 /**
  * \brief   Cambia la variable de reflejo.
+ * \todo  Sustituir la variable 'mirror' por un vector que haga el giro en cualquier ángulo
+ *        y en cualquier dirección.
  */
 void Sprite::setMirror (bool paramMirror)
 {
-    mirror = paramMirror;
+  mirror = paramMirror;
 }
 
 /**
@@ -165,3 +168,28 @@ void Sprite::notMirror ()
     mirror != mirror;
 }
 
+/**
+ * \brief   Entrega una cadena con la estructura y propiedades del objeto.
+ */
+string  Sprite::getString () const
+{
+  ostringstream cadena;
+
+  // Se incluye la estructura del padre.
+  cadena  << ActorGraphic::getString ();
+
+  // Se incluyen las propiedades de Sprite.
+  cadena  << "Tipo: Sprite\n" \
+          << "NumFrames: " << frames.size () << "\n" \
+          << "Frame actual: " << actual_frame << "\n" \
+          << "Tick actual: " << actual_tick << "\n" \
+          << "Ángulo: " << mirror << "\n";
+
+  // Se incluyen los valores de los Frames.
+  for (int i=0; i<frames.size (); i++)
+  {
+    cadena << "Frame " << i << " {" << frames[i].getString () << "}\n";
+  }
+
+  return (cadena.str());
+}

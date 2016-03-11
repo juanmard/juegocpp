@@ -1,3 +1,17 @@
+/**
+ *  \file     Actor.cpp
+ *  \brief    Prueba del "framework" de un juego.
+ *
+ *  \details  La clase instancia un tipo de juego de prueba con todos los controladores posibles.
+ *            La primera versión de la instancia se utiliza para actualizar el juego de plataformas
+ *            programado antiguamente en C "puro y duro".
+ *
+ *  \author   Juan Manuel Rico
+ *  \date     diciembre 2010
+ *  \version  1.00
+ *
+ *  \todo     Comentar todas estas clases y funciones más detalladamente.
+ */
 #include <sstream>
 #include "Actor.h"
 #include "ActorGraphic.h"
@@ -362,4 +376,23 @@ Menu &  Actor::getMenu () const
   menu->add("Actor - Tamaño");
   return *menu;
 }
+
+/**
+ * \brief   Devuelve una cadena de texto con la estructura y propiedades del actor.
+ */
+string  Actor::getString () const
+{
+  ostringstream cadena;
+  string nombre;
+
+  getNombre (nombre);
+  cadena << nombre << " {\n" \
+         << "Posición <" << x << "," << y << ">\n" \
+         << "Bloque <" << w << "," << h << ">\n" \
+         << "Gráfico {\n" \
+         << agraph->getString () \
+         << "}\n" \
+         << "}\n";
+  return (cadena.str ());
+};
 

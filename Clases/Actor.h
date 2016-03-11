@@ -53,6 +53,7 @@ public:
     virtual void        getEstado           (string &estado) const;
     virtual void        getNombre           (string &nombre) const;
     virtual Menu &      getMenu             () const;
+    string              getString           () const;
 
     /* \warning: Estos dos estados deben ser incluídos en uno. */
     virtual void                            CambiarEstado           ();
@@ -93,13 +94,13 @@ public:
     void                                    setMostrarBloque        (bool mostrar);
 
   protected:
+    Nombres::codigo                         nombre;
     int                                     x, y;
     int                                     w, h;
     int                                     color;
     unsigned int                            tiempo_estado;
     estado_t                                estado;
     bool                                    mostrarBloque;
-    Nombres::codigo                         nombre;
     ActorGraphic *                          agraph;
     int                                     power;
     Game::team_t                            team;

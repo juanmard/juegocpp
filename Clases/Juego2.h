@@ -8,6 +8,7 @@
 */
 
 #include "Game.h"
+#include "Mapa.h"
 
 /** 
  * \brief   Juego de prueba heredado de Game.

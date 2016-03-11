@@ -1,4 +1,3 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * linux
  * Copyright (C) Juanma Rico 2010 <juanmard@gmail.com>
@@ -8,7 +7,7 @@
 #pragma once
 
 #include <allegro.h>
-#include <list>
+
 using namespace std;
 
 class Actor;
@@ -43,7 +42,7 @@ public:
 	void 	Draw 			(ActorManager actorManager);
 
 private:
-	Bloque 		marco;
+	Bloque  marco;
 	BITMAP 	*pantalla;
 };
 

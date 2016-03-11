@@ -31,6 +31,7 @@
 #include  "Loro.h"
 #include  "Mago.h"
 #include  "Ben.h"
+#include <iostream>
 
 /**
  * \brief   Crea el objeto del juego.
@@ -207,10 +208,19 @@ void Juego2::main()
     }
 
     // Se comprueba la visualización de los bloques.
-    if (key[KEY_B])
+    if (key[KEY_V])
     {
       stage_manager->setVerBloques (!stage_manager->getVerBloques ());
-      key[KEY_B] = false;
+      key[KEY_V] = false;
+    }
+
+    // Parte de código para pruebas del juego.
+    if (key[KEY_T])
+    {
+      Mapa mapa_prb;
+      mapa_prb.Read (*actor_manager);
+      cout << mapa_prb.getString ();
+      key[KEY_T] = false;
     }
   }
 
@@ -225,7 +235,7 @@ int main ()
 {
   Juego2 game;
   srand(time(NULL));
-  game.set_name("Test del Marco de Trabajo");
+  game.set_name("Test del juego");
   game.init(GFX_AUTODETECT_WINDOWED, 640,480,8);
   return 0;
 }

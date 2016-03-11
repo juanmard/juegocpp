@@ -1,3 +1,4 @@
+#include <sstream>
 #include "ActorGraphic.h"
 #include "Actor.h"
 
@@ -67,4 +68,17 @@ Mask * ActorGraphic::get_mask ()
  */
 ActorGraphic *  ActorGraphic::clone  (Actor *propietario) const
 {
+}
+
+/**
+ * \brief   Entrega la estructura del gráfico en forma de cadena de caracteres.
+ */
+string  ActorGraphic::getString  () const
+{
+  ostringstream cadena;
+  string propietario;
+
+  owner->getNombre (propietario);
+  cadena << "Propietario: " << propietario << "\n";
+  return (cadena.str());
 }

@@ -1,9 +1,24 @@
+<<<<<<< HEAD
 
 # Ficheros compilados (*.o y *.a).
+=======
+# Ficheros compilados (*.o, *.a y *.Po).
+>>>>>>> bd206e6... Se actualiza a Anjuta 2.32 y se crean nuevas clases.
 *.[oa]
 
 # Ficheros temporales del editor.
 *~
 
+<<<<<<< HEAD
 # Base de datos de símbolos de anjuta.
 # linux/.anjuta_sym_db.db
+=======
+# Ficheros binarios.
+linux/src/juego
+
+# Base de datos de símbolos de anjuta.
+linux/.anjuta_sym_db.db
+
+# Ficheros de dependencias.
+linux/src/.deps/*
+>>>>>>> bd206e6... Se actualiza a Anjuta 2.32 y se crean nuevas clases.

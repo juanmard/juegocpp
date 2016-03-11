@@ -226,7 +226,7 @@ list<Actor*>::iterator ActorManager::get_end_iterator()
 /**
  * \brief   Devuelve una lista de punteros de actores que interseccionan con un bloque.
  */
-list<Actor *>  ActorManager::GetActores (Bloque bloque)
+list<Actor *>  ActorManager::GetActores (Bloque &bloque)
 {
   list<Actor *>               listaInterseccion;
   list<Actor *>::iterator     indice;

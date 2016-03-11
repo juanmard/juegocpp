@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+
 /*
  * linux
  * Copyright (C) Juanma Rico 2010 <juanmard@gmail.com>
@@ -19,6 +19,7 @@
 
 #include "Escenario.h"
 #include "ActorManager.h"
+#include <list>
 
 /**
  * \brief		Constructor de la clase. Esta clase NO ES NECESARIA, esta función la realiza y la debe realizar la clase StageManager.
@@ -59,7 +60,7 @@ void Escenario::Mover (int x, int y)
  */
 void Escenario::Draw (ActorManager actorManager)
 {
-	list<Actor *>	listaActoresDibujar;
+	list<Actor *>  listaActoresDibujar;
 
 	// Se comprueba la intersección del bloque del escenario con los bloques
 	// de los actores. Esta acción se le pide que la realice el actorManager y éste devuelve una

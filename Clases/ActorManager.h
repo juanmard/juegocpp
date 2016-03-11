@@ -28,7 +28,7 @@ class ActorManager
     int                     num_actors            ();
     list<Actor*>::iterator  get_begin_iterator    ();
     list<Actor*>::iterator  get_end_iterator      ();
-    list<Actor *>           GetActores            (Bloque bloque);
+    list<Actor *>           GetActores            (Bloque &bloque);
     void                    setVisualizar         (Actor *paramActor);
     Actor *                 getActor              (int indice);
 

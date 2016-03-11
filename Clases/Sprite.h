@@ -3,6 +3,7 @@
 
 #include "ActorGraphic.h"
 #include <allegro.h>
+#include <sstream>
 #include <vector>
 
 using namespace std;
@@ -32,23 +33,30 @@ class Sprite : public ActorGraphic
         void                setMirror   (bool paramMirror);
         bool                getMirror   ();
         void                notMirror   ();
+        virtual string      getString   () const;
 
     protected:
-//        typedef struct Frame
-        struct Frame
+        class Frame
         {
-            BITMAP *bmp;
-            Mask *mask;
-            int cx;
-            int cy;
-            int ticks;
+            public:
+                string  getString () const
+                {
+                  ostringstream cadena;
+                  cadena  << "Pos <" << cx << "," << cy << "> " << "Ticks: " << ticks;
+                  return (cadena.str());
+                };
+
+            public:
+              BITMAP *bmp;
+              Mask *mask;
+              int cx;
+              int cy;
+              int ticks;
         };
-        
-        vector<Frame> frames;
-        int actual_tick, actual_frame;
-    // \todo  Sustituir por un vector que haga el giro en cualquier ángulo
-    //        y en cualquier dirección.
-    bool  mirror;
+
+        vector<Frame>   frames;
+        int             actual_tick, actual_frame;
+        bool            mirror;
 };
 
 #endif
