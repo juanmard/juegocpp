@@ -11,7 +11,7 @@ using namespace std;
 class Nombres
 {
   public:
-    enum codigo {pelota, paleta, herny, jugador, enemigo, ladrillo, mago, ben};
+    enum codigo {pelota, paleta, herny, jugador, enemigo, ladrillo, mago, ben, camello};
 
   public:
           Nombres     ();
@@ -21,6 +21,7 @@ class Nombres
    * \brief   Convierte el código de un nombre en una cadena imprimible de caracteres.
    * \todo    Utilizar un operador de conversión de tipos para este método.
    *          En lugar de usar el 'switch' utilizar una estructura 'stl' tipo 'map'.
+   *          Esto mismo se hizo para referenciar los punteros y los nombres de los Bitmaps en la clase 'Almacen'.
    */
   static string  Imprimir (const codigo cod_nombre)
   {
@@ -36,6 +37,7 @@ class Nombres
       case ladrillo:  cadena = "Ladrillo";    break;
       case mago:      cadena = "Mago";        break;
       case ben:       cadena = "Ben";         break;
+      case camello:   cadena = "Camello";     break;
       default:        cadena = "Sin nombre";  break;
     }
     return cadena;

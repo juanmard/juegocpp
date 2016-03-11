@@ -217,9 +217,21 @@ void Juego2::main()
     // Parte de código para pruebas del juego.
     if (key[KEY_T])
     {
+      // Probamos la generación del mapa de actores.
       Mapa mapa_prb;
       mapa_prb.Read (*actor_manager);
       cout << mapa_prb.getString ();
+
+      // Probamos el nuevo constructor de Bitmap basado en el almacén.
+      Actor *camello = new Actor ();
+      Bitmap *bmp_camello = new Bitmap (camello, storage_manager, "sprite_107");
+      camello->set_x (130);
+      camello->set_y (195);
+      camello->set_wh (63,44);
+      camello->setCodigo (Nombres::camello); // No funciona pues no hemos definido un 'getNombre' virtual específico.
+      camello->set_actor_graphic (bmp_camello);
+      actor_manager->add(camello);
+      cout << "Bitmap: " << bmp_camello->getImagen () << " Nombre: " << storage_manager->getName (bmp_camello->getImagen()) << endl;
       key[KEY_T] = false;
     }
   }

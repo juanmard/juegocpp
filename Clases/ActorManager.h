@@ -32,8 +32,9 @@ class ActorManager
     void                    setVisualizar         (Actor *paramActor);
     Actor *                 getActor              (int indice);
 
-protected:
+  protected:
     void      actualizarVisualizacion   ();
+    void      avisoActorSinGrafico (Actor *a) const;
 
   protected:
     Game *                  game;

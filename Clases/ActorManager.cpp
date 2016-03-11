@@ -2,6 +2,7 @@
 #include "ActorManager.h"
 #include "Actor.h"
 #include <algorithm>
+#include <iostream>
 
 ActorManager::ActorManager (Game *g):
 game (g),
@@ -50,10 +51,17 @@ ActorManager::~ActorManager()
 
 /**
  * \brief   Añade un nuevo actor.
+ * \details Se debe avisar de los actores que no tienen parte gráfica. 
  */
 void ActorManager::add(Actor *a)
 {
+  // Se comprueba si el actor que se quiere añadir a la lista tiene parte gráfica.
+  // Si no la tiene se emite un aviso por consola. Se añade pues pueden existir "actores invisibles" en el juego.
   to_create.push_back (a);
+  if (a->get_actor_graphic () == NULL)
+  {
+    avisoActorSinGrafico (a);
+  }
 }
 
 /**
@@ -159,7 +167,7 @@ void ActorManager::update ()
 {
   list<Actor*>::iterator tmp_iter;
 
-  // Se actualiza el estado del actor.
+  // Se actualiza el estado del actor (¿¿Lo que se visualiza es el bloque??).
   actualizarVisualizacion ();
 
   /*
@@ -281,5 +289,15 @@ Actor *  ActorManager::getActor (int indice)
     actor = *iter;
   }
   return actor;
+}
+
+/**
+ * \brief   Muestra en consola el aviso de un actor sin parte gráfica.
+ */
+void  ActorManager::avisoActorSinGrafico (Actor *a) const
+{
+  string nombre;
+  a->getNombre (nombre);
+  cout << "AVISO: Añadido actor \"" << nombre << "\" sin componente gráfica." << endl;
 }
 

@@ -93,6 +93,9 @@ public:
     Bloque &                                getBloque               ();
     void                                    setMostrarBloque        (bool mostrar);
 
+  private:
+    void                                    mensajeErrorGrafico     () const;
+
   protected:
     Nombres::codigo                         nombre;
     int                                     x, y;

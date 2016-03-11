@@ -13,6 +13,7 @@
  *  \todo     Comentar todas estas clases y funciones más detalladamente.
  */
 #include <sstream>
+#include <iostream>
 #include "Actor.h"
 #include "ActorGraphic.h"
 #include "StageManager.h"
@@ -69,9 +70,10 @@ Actor::~Actor()
  *          Delega esta función en el objeto gráfico.
  * \todo    Crear clase "Pantalla" para independizar del Bitmap de Allegro.
  */
-void Actor::draw(BITMAP *bmp)
+void Actor::draw (BITMAP *bmp)
 {
-  agraph->draw(bmp);
+  // Se dibuja si tiene parte gráfica.
+  if (agraph) agraph->draw (bmp);
 }
 
 /**
@@ -117,8 +119,9 @@ void Actor::set_tiempo (unsigned int tiempo)
 
 void Actor::update()
 {
-  // Actualiza la parte gráfica.
-  agraph->update();
+  // Se comprueba si existe la parte gráfica.
+  // Si existe, se actualiza.
+  if (agraph) agraph->update();
 
   // Actualiza los estados del actor.
   if (tiempo_estado)
@@ -132,9 +135,13 @@ void Actor::update()
   }
 }
 
+/**
+ * \brief   Inicializa la parte gráfica del actor.
+ */
 void Actor::init()
 {
-    agraph->init();
+  // Se comprueba que el actor tiene parte gráfica.
+  if (agraph) agraph->init();
 }
 
 void Actor::set_x(int pos_x)
@@ -280,7 +287,7 @@ void Actor::draw (StageManager *stageManager)
     int rely = y - stageManager->getY();
 
     // Se dibuja en el escenario en la posición calculada.
-    agraph->draw (relx,rely,stageManager->getBuffer());
+    if (agraph) agraph->draw (relx,rely,stageManager->getBuffer());
 }
 
 /**
@@ -349,6 +356,11 @@ void  Actor::getEstado (string &estado) const
 /**
  * \brief   Obtiene el nombre del actor.
  * \param   dimensiones   Cadena para ser rellenada con el nombre.
+ * \todo    Para compatibilizar con elformato estándar 'std' crear un método
+ *          que devuelva la cadena en lugar de recibirla como parámetro:
+ *            - string  Actor::getNombre () const;
+ *          Lo que nos permitiría hacer cosas como:
+ *            - cout << "El nombre del actor es " << actor.getNombre();
  */
 void  Actor::getNombre (string &nombre) const
 {
@@ -385,14 +397,33 @@ string  Actor::getString () const
   ostringstream cadena;
   string nombre;
 
+  // Se obtienen las propiedades del actor.
   getNombre (nombre);
-  cadena << nombre << " {\n" \
-         << "Posición <" << x << "," << y << ">\n" \
-         << "Bloque <" << w << "," << h << ">\n" \
-         << "Gráfico {\n" \
-         << agraph->getString () \
-         << "}\n" \
-         << "}\n";
-  return (cadena.str ());
+  cadena << nombre << " {" << endl \
+         << "Posición <" << x << "," << y << ">" << endl \
+         << "Bloque <" << w << "," << h << ">" <<endl;
+
+  // Se obtiene la parte gráfica del actor.
+  if (agraph)
+  {
+   cadena << "Gráfico {" << endl \
+         <<  agraph->getString () \
+         << "}" <<endl;
+  }
+
+  // Se cierra la cadena.
+  cadena << "}" << endl;
+
+  // Se devuelve la cadena.
+  return cadena.str ();
 };
 
+/**
+ * \brief   Muestra en consola el error de no tener asignado una parte gráfica.
+ */
+void  Actor::mensajeErrorGrafico () const
+{
+  string nombre;
+  getNombre (nombre);
+  cout << "ERROR: Actor \"" << nombre << "\" sin componente gráfica." << endl;
+}

@@ -7,7 +7,8 @@
 Bitmap::Bitmap (Actor *aowner, BITMAP *bmp) :
 ActorGraphic (aowner),
 fuente (bmp),
-nombre ("Sin nombre")
+nombre ("Sin nombre"),
+almacen (NULL)
 {
 }
 
@@ -17,8 +18,21 @@ nombre ("Sin nombre")
 Bitmap::Bitmap (Actor *aowner, BITMAP *bmp, string nombreParam) :
 ActorGraphic (aowner),
 fuente (bmp),
+nombre (nombreParam),
+almacen (NULL)
+{
+}
+
+/**
+ * \brief   Constructor de la clase. Utiliza el almacén de recursos.
+ */
+Bitmap::Bitmap (Actor *aowner, Almacen *almacenParam, const string nombreParam):
+ActorGraphic (aowner),
+almacen (almacenParam),
 nombre (nombreParam)
 {
+//  fuente = almacenParam[nombreParam];
+  fuente = almacenParam->GetBitmap (nombreParam);
 }
 
 /**
@@ -55,15 +69,21 @@ void Bitmap::draw   (int x, int y, BITMAP *destino)
 }
 
 /**
- * \brief   Devuelve la estructura del objeto en forma de cadena.
- * \todo    Debemos referenciar todos los Bitmap del juego en una zona de memoria
- *          extraídos de un fichero de tipo DatFile mediante su nombre, ya que
- *          muchos objetos utilizan los mismos Bitmap's.
+ * \brief   Devuelve la estructura básica del objeto en forma de cadena.
  */
 string  Bitmap::getString () const
 {
   ostringstream cadena;
-  cadena  << "Bitmap >> " << nombre << "\n";
+  cadena  << "Bitmap >> " << nombre << endl;
   return cadena.str();
 }
 
+/**
+ * \brief   Devuelve la zona de memoria donde está la imagen.
+ * \details También se podría utilizar el nombre y el almacén para obtener este mismo dato:
+ *          return almacen->GetBitmap (nombre);
+ */
+BITMAP *  Bitmap::getImagen () const
+{
+  return fuente;
+};
