@@ -90,6 +90,9 @@ Dialog::Dialog (EditorManager *editor)
     dlg_actor = new DlgActor(this);
     dialog[0].dp3 = dlg_actor;
 
+    dlg_ventana2 = new VentanaALG ("Otra prueba de fondo...",0,0,SCREEN_W,SCREEN_H);
+    dlg_ventana = new VentanaALG("Prueba",100,100,120,120);
+
     // Se apunta a ese diálogo en el menú del objeto.
     // \todo Sustituir el 3 por enum. pj. "menu_objeto[propiedades].dp = ..."
 //    menu_objeto[3].dp = dlg_actor->get_callback ();
@@ -202,8 +205,12 @@ void    Dialog::mostrar_actor   ()
     // \todo    ¿No deberíamos dar la posición x e y para obtener el actor?
     //          Esto nos muestra el actor marcado como editado... peligroso
     //          que no sea justo el que está bajo la x y la y.
+    
     dlg_actor->load (owner->get_actor());
     dlg_actor->show();
+    
+    dlg_ventana2->show();
+    dlg_ventana->show ();
     owner->redibuja();
 }
 

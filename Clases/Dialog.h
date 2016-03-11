@@ -2,10 +2,12 @@
 
 #include <allegro.h>
 #include "EditorManager.h"
+#include "VentanaALG.h"
 #include "DlgActor.h"
 
 class EditorManager;
 class DlgActor;
+class VentanaALG;
 
 /**
  * \brief       Muestra una pequeña GUI para editar los objetos del juego.
@@ -34,6 +36,8 @@ protected:
 
 		EditorManager   *owner;
         DlgActor        *dlg_actor;
+        VentanaALG      *dlg_ventana;
+        VentanaALG      *dlg_ventana2;
 
 public:
         /*
