@@ -78,9 +78,11 @@ DIALOG dialog[] =
 
 DIALOG dlg_propiedades[] =
 {
-   /* (proc)             (x)  (y) (w)  (h)  (fg) (bg) (key) (flags)                           (d1) (d2) (dp)                                    (dp2) (dp3) */
-   { d_text_proc,        470,  60, 160, 20,  2,   33,  0,    0,                                0,   0,   const_cast<char*>("  Propiedades  "), NULL, NULL },
-   { NULL,                 0,   0,  0,   0,   0,   0,   0,    0,                                0,   0,   NULL,                                   NULL, NULL }
+   /* (proc)        (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags) (d1) (d2) (dp)             (dp2) (dp3) */
+   { d_box_proc,    153, 88,  238, 142, 2,   3,   0,    0,      0,   0,   NULL,            NULL, NULL },
+   { d_button_proc, 325, 194, 55,  26,  2,   3,   0,    0,      0,   0,   const_cast<char*>("Cerrar"), NULL, NULL },
+   { d_text_proc,   161, 98,  115, 11,  2,   3,   0,    0,      0,   0,   const_cast<char*>("Propiedades"),     NULL, NULL },
+   { NULL,          0,   0,   0,   0,   0,   0,   0,    0,      0,   0,   NULL,            NULL, NULL }
 };
 
 /**
@@ -88,6 +90,7 @@ DIALOG dlg_propiedades[] =
  */
 int propiedades (void)
 {
+    // Se inicializan los colores de la GUI.
     do_dialog (dlg_propiedades,-1);
     return D_O_K;
 }

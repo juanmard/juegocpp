@@ -17,10 +17,11 @@ Actor * ActorManager::get_actor (int x, int y)
     // Comprobar el bucle, es posible que el primero no lo compruebe si es el único de la lista.
     while (encontrado == NULL && actors_iter != actors.end()) 
     {
-        if (    (x >= (*actors_iter)->get_x())
-             && (y >= (*actors_iter)->get_y())
-             && (x <= ((*actors_iter)->get_x() + (*actors_iter)->get_w()))
-             && (y <= ((*actors_iter)->get_y() + (*actors_iter)->get_h())) )
+        if ( !(  (x <= (*actors_iter)->get_x())
+             || (y <= (*actors_iter)->get_y())
+             || (x >= ((*actors_iter)->get_x() + (*actors_iter)->get_w()))
+             || (y >= ((*actors_iter)->get_y() + (*actors_iter)->get_h()))
+             ))
         {
             encontrado = *actors_iter;
         }
