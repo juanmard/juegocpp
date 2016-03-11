@@ -43,6 +43,7 @@ class EditorManager
     int       getNumActores         () const;
     void      setRibete             (Bloque bloque) const;
     void      borrarPantalla        () const;
+    void      centrarActor          (int indice) const;
 
   protected:
     Game *      game;

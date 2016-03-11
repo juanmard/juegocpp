@@ -34,31 +34,33 @@ class Dialog
     enum {scr=0, pantalla=0, menu=1, lista=4, bitmap=5, pos=13, nombre=15, caja=6, ultimo=16};
 
   public:
-                    Dialog          (EditorManager *editor);
-                    ~Dialog         ();
-        void        show            ();
-        void        draw            ();
-        void        mouse_out       ();
-        void        mouse_in        ();
-        int         propiedades     ();
+                Dialog          (EditorManager *editor);
+                ~Dialog         ();
+    void        show            ();
+    void        draw            ();
+    void        mouse_out       ();
+    void        mouse_in        ();
+    int         propiedades     ();
+    void        setActor        (Actor *actor);
 
-protected:
-        void        menu_contextual         (int x, int y);
-        void        mover_kbd               (int code);
-        void        mover_kbd_escenario     (int code);
-        void        prueba_click            ();
-        void        prueba_dblclk           ();
-        void        mover_actor             ();
-        int         DuplicarActor           (int x, int y);
-        int         CambiarTraje            ();
-        void        actualizarValoresActor  ();
-        void        dibujarCuadrado         (Bloque cuadro, int color);
-  
-        EditorManager   *manager;
-        Actor *         actor;
-        DlgActor        *dlg_actor2;
-        VentanaALG      *dlg_ventana;
-        VentanaALG      *dlg_ventana2;
+  protected:
+    void        menu_contextual         (int x, int y);
+    void        mover_kbd               (int code);
+    void        mover_kbd_escenario     (int code);
+    void        prueba_click            ();
+    void        prueba_dblclk           ();
+    void        mover_actor             ();
+    int         DuplicarActor           (int x, int y);
+    int         CambiarTraje            ();
+    void        actualizarValoresActor  ();
+    void        dibujarCuadrado         (Bloque cuadro, int color);
+    void        centrarActor            (int indice);
+
+    EditorManager   *manager;
+    Actor *         actor;
+    DlgActor        *dlg_actor2;
+    VentanaALG      *dlg_ventana;
+    VentanaALG      *dlg_ventana2;
 
 public:
         /*
@@ -337,12 +339,12 @@ public:
      */
     static int lista_callback (int msg, DIALOG *d, int c)
     {
-      // Se sitúa el puntero del objeto en 'dp3' pues en 'dp' 
+      // Se sitúa el puntero del manager en 'dp3' pues en 'dp' 
       // debe estar el 'getter' de la lista.
       if (d[0].dp3)
       {
         // Creamos una referencia temporal al objeto actual.
-        EditorManager &objeto = *(static_cast<EditorManager *>(d[0].dp3));
+        EditorManager &manager = *(static_cast<EditorManager *>(d[0].dp3));
 
         // Se guarda el índice para comprobar cuando cambia.
         static int indice_ant = d[0].d1;
@@ -353,14 +355,14 @@ public:
           case MSG_IDLE:
               if (d[0].d1 != indice_ant)
               {
-                alert (const_cast<char *>(objeto.getNombreActor (d[0].d1)), "", "Teclado", "&Continuar", NULL, 'c', 0);
+                manager.centrarActor (d[0].d1);
                 indice_ant = d[0].d1;
               }
               break;
 
           default:
-              // Procesamos el resto de los mensajes como una caja por omisión.
-              return d_list_proc (msg,d,c);
+              // Procesamos el resto de los mensajes.
+              return d_list_proc (msg, d, c);
         }
         return D_O_K;
       }

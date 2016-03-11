@@ -32,6 +32,8 @@ class StageManager
     void      rellenarBuffer  ();
     void      dibujarCuadrado (Bloque cuadro, int color);
     void      setRibete       (Bloque ribete);
+    Bloque &  getRibete       ();
+    Bloque &  getMarco        ();
 
   protected:
     void      actualizarSeguimiento     ();

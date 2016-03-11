@@ -200,3 +200,21 @@ void  StageManager::setRibete (Bloque ribeteParam)
   ribete.setXY (ribeteParam.getX (), ribeteParam.getY ());
   ribete.setWH (ribeteParam.getW (), ribeteParam.getH ());
 }
+
+/**
+ * \brief   Obtiene la referencia al marco del escenario.
+ * \return  Devuelve el bloque que define al marco.
+ */
+Bloque &  StageManager::getMarco ()
+{
+  return marco;
+}
+
+/**
+ * \brief   Obtiene la referencia al ribete del escenario.
+ * \return  Devuelve el bloque que define al ribete.
+ */
+Bloque &  StageManager::getRibete ()
+{
+  return ribete;
+}

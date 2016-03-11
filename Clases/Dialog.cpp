@@ -86,7 +86,8 @@ MENU Dialog::mnu_actor [] =
  */
 Dialog::Dialog (EditorManager *editor):
 manager (editor),
-actor (NULL)
+actor (NULL),
+ref_x (0), ref_y(0)
 {
     // Se inicializan los colores de la GUI.
     gui_fg_color = makecol(255,255,255);
@@ -471,4 +472,22 @@ void  Dialog::actualizarValoresActor ()
     dialog[pos].dp = const_cast <char*> (str.c_str());
     dialog[nombre].dp = const_cast<char *>("Escenario");
   }
+}
+
+/**
+ * \brief   Centramos el actor pasado como índice en una lista en el escenario.
+ * \param   indice    Índice del actor en la lista.
+ */
+void  Dialog::centrarActor (int indice)
+{
+  manager->centrarActor (indice);
+}
+
+/**
+ * \brief   Se toma el actor del que mostrar sus propiedades.
+ */
+void  Dialog::setActor (Actor *actorMostrar)
+{
+  actor = actorMostrar;
+  actualizarValoresActor ();
 }

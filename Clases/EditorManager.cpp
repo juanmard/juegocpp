@@ -285,3 +285,29 @@ void  EditorManager::borrarPantalla () const
 {
   clear_to_color(screen, makecol (128, 128, 128));
 }
+
+/**
+ * \brief   Centra el actor pasado como índice en el escenario.
+ */
+void  EditorManager::centrarActor (int indice) const
+{
+  // Se toma el actor de la lista dado por el índice.
+  Actor * actor = game->actor_manager->getActor (indice);
+
+  // Si el actor existe.
+  if (actor)
+  {
+    // Se toman los bloques del marco y el ribete.
+    Bloque &  marco = game->stage_manager->getMarco ();
+    Bloque &  ribete = game->stage_manager->getRibete ();
+    // Se igualan las dimensiones del marco a las del ribete.
+    // De esta forma queda el actor en el centro de la pantalla.
+    marco.setWH (ribete.getW (), ribete.getH ());
+    // Se centra el marco alrededor del actor.
+    marco.centrar (actor->getBloque());
+    // Se le indica a la gui que edite el actor.
+    gui->setActor (actor);
+    // Se le indica a la gui que actualice las nuevas propiedades.
+    gui->draw ();
+  }
+}
