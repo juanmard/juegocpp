@@ -24,22 +24,22 @@ Herny::Herny (Almacen &almacen)
     // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
     Sprite *skin = new Sprite(this);    
 /*
-    skin->add_frame(almacen.GetBitmap("sprite_058"), 10, 10, 10);
-    skin->add_frame(almacen.GetBitmap("sprite_059"), 10, 10, 30);
-    skin->add_frame(almacen.GetBitmap("sprite_060"), 0, 0, 10);
-    skin->add_frame(almacen.GetBitmap("sprite_061"), 0, 0, 10);
-    skin->add_frame(almacen.GetBitmap("sprite_062"), 0, 0, 20);
+    skin->add_frame(almacen.getBitmap("sprite_058"), 10, 10, 10);
+    skin->add_frame(almacen.getBitmap("sprite_059"), 10, 10, 30);
+    skin->add_frame(almacen.getBitmap("sprite_060"), 0, 0, 10);
+    skin->add_frame(almacen.getBitmap("sprite_061"), 0, 0, 10);
+    skin->add_frame(almacen.getBitmap("sprite_062"), 0, 0, 20);
 */
-    skin->add_frame(almacen.GetBitmap("sprite_097"), 0, 0, 10);
-    skin->add_frame(almacen.GetBitmap("sprite_098"), 0, 0, 10);
-    skin->add_frame(almacen.GetBitmap("sprite_099"), 0, 0, 10);
-    skin->add_frame(almacen.GetBitmap("sprite_100"), 0, 0, 10);
-    skin->add_frame(almacen.GetBitmap("sprite_101"), 0, 0, 10);
-    skin->add_frame(almacen.GetBitmap("sprite_102"), 0, 0, 10);
-    skin->add_frame(almacen.GetBitmap("sprite_103"), 0, 0, 10);
-    skin->add_frame(almacen.GetBitmap("sprite_104"), 0, 0, 10);
-    skin->add_frame(almacen.GetBitmap("sprite_105"), 0, 0, 10);
-    skin->add_frame(almacen.GetBitmap("sprite_106"), 0, 0, 10);
+    skin->add_frame(almacen.getBitmap("sprite_097"), 0, 0, 10);
+    skin->add_frame(almacen.getBitmap("sprite_098"), 0, 0, 10);
+    skin->add_frame(almacen.getBitmap("sprite_099"), 0, 0, 10);
+    skin->add_frame(almacen.getBitmap("sprite_100"), 0, 0, 10);
+    skin->add_frame(almacen.getBitmap("sprite_101"), 0, 0, 10);
+    skin->add_frame(almacen.getBitmap("sprite_102"), 0, 0, 10);
+    skin->add_frame(almacen.getBitmap("sprite_103"), 0, 0, 10);
+    skin->add_frame(almacen.getBitmap("sprite_104"), 0, 0, 10);
+    skin->add_frame(almacen.getBitmap("sprite_105"), 0, 0, 10);
+    skin->add_frame(almacen.getBitmap("sprite_106"), 0, 0, 10);
     set_actor_graphic (skin);
 
     setCodigo (Nombres::herny);
@@ -137,14 +137,14 @@ void Herny::CambiarEstado (Almacen &almacen)
             set_tiempo(400);
             siguiente = cayendo;
             set_color(6);
-            this->set_actor_graphic (new Bitmap (this,almacen.GetBitmap("sprite_065")));
+            this->set_actor_graphic (new Bitmap (this,almacen.getBitmap("sprite_065")));
         break;
 
     case cayendo:
             set_tiempo(100);
             siguiente = de_pie;
             set_color(3);
-            this->set_actor_graphic (new Bitmap (this,almacen.GetBitmap("sprite_069")));
+            this->set_actor_graphic (new Bitmap (this,almacen.getBitmap("sprite_069")));
          break;
 
     default:    

@@ -67,25 +67,29 @@ void    Mosaico::del_primera_Tesela (void)
 
 void Mosaico::draw (BITMAP *pantalla)
 {
-    list<Tesela *>::iterator tmp_iter;
+    list<Tesela *>::iterator it;
 
     // Dibuja todas las teselas del mosaico.
-    for (tmp_iter=teselas.begin(); tmp_iter!=teselas.end(); tmp_iter++)
+    for (it=teselas.begin(); it!=teselas.end(); it++)
     {
-        (*tmp_iter)->draw (pantalla);
+        (*it)->draw (pantalla);
     }
 }
 
+/**
+ * \brief Dibuja las teselas del mosaico.
+ */
 void Mosaico::draw (int x, int y, BITMAP *pantalla)
 {
-    list<Tesela *>::iterator tmp_iter;
+    list<Tesela *>::iterator it;
 
     // Dibuja todas las teselas del mosaico.
-    for (tmp_iter=teselas.begin(); tmp_iter!=teselas.end(); tmp_iter++)
+    for (it=teselas.begin(); it!=teselas.end(); it++)
     {
-        (*tmp_iter)->draw (x,y,pantalla);
+        (*it)->draw (x,y,pantalla);
     }
 }
+
 /**
  * \brief Mueve la tesela elegida según un incremento de 'y' y de 'x'.
  */
@@ -124,11 +128,19 @@ Mosaico *   Mosaico::clone  (Actor *propietario) const
 
 /**
  * \brief   Clona un mosaico completo.
+ * \warning No podemos hacer el método constante debido a la inicialización de los
+ *          iteradores constantes (Investigar).
  */
-string  Mosaico::getString () const
+string  Mosaico::getString ()
 {
   ostringstream cadena;
+  int i;
+  list<Tesela *>::iterator it;
 
-  cadena << "Mosaico prueba:" << last_Tesela ()->getString ();
+  cadena << "Mosaico >> " << endl;
+  for (i=0, it=teselas.begin(); it!=teselas.end(); it++, i++)
+  {
+    cadena << "Tesela " << i << " " << (*it)->getString ();
+  }
   return cadena.str ();
 }

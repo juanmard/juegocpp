@@ -25,9 +25,9 @@ class Almacen
                 Almacen     (string paramNombreFichero);
                 Almacen     ();
                 ~Almacen    ();
-    BITMAP *    GetBitmap   (string nombreBitmap);
-    BITMAP *    GetBitmap   (int indice);
-    RGB *       GetPalette  (string nombrePaleta);
+    BITMAP *    getBitmap   (string nombreBitmap);
+    BITMAP *    getBitmap   (int indice);
+    RGB *       getPalette  (string nombrePaleta);
     string      getName     (BITMAP *puntero);
 
   private:

@@ -169,6 +169,6 @@ string  Tesela::getString () const
 {
   ostringstream cadena;
 
-  cadena << "{ " << x << "," << y << " " << dibujo << " dibujoPrueba: " << dibujoPrueba->getString() << " }" << endl;
+  cadena << "{" << x << "," << y << ", " << (mirror?"true":"false") << "} " << dibujoPrueba->getString();
   return cadena.str ();
 };

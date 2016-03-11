@@ -23,53 +23,53 @@ sentido(1)
   // Guardamos el sprite para cada estado.
   // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
   sprites[andando_der] = new Sprite(this);
-  sprites[andando_der]->add_frame(almacen.GetBitmap("ben10_002"), 0, 0, 10);
-  sprites[andando_der]->add_frame(almacen.GetBitmap("ben10_003"), 0, 0, 10);
-  sprites[andando_der]->add_frame(almacen.GetBitmap("ben10_004"), 0, 0, 10);
-  sprites[andando_der]->add_frame(almacen.GetBitmap("ben10_005"), 0, 0, 10);
+  sprites[andando_der]->add_frame(almacen.getBitmap("ben10_002"), 0, 0, 10);
+  sprites[andando_der]->add_frame(almacen.getBitmap("ben10_003"), 0, 0, 10);
+  sprites[andando_der]->add_frame(almacen.getBitmap("ben10_004"), 0, 0, 10);
+  sprites[andando_der]->add_frame(almacen.getBitmap("ben10_005"), 0, 0, 10);
   sprites[andando_der]->init ();
 
   sprites[andando_izq] = new Sprite(this);
-  sprites[andando_izq]->add_frame(almacen.GetBitmap("ben10_006"), 0, 0, 10);
-  sprites[andando_izq]->add_frame(almacen.GetBitmap("ben10_007"), 0, 0, 10);
-  sprites[andando_izq]->add_frame(almacen.GetBitmap("ben10_008"), 0, 0, 10);
-  sprites[andando_izq]->add_frame(almacen.GetBitmap("ben10_009"), 0, 0, 10);
+  sprites[andando_izq]->add_frame(almacen.getBitmap("ben10_006"), 0, 0, 10);
+  sprites[andando_izq]->add_frame(almacen.getBitmap("ben10_007"), 0, 0, 10);
+  sprites[andando_izq]->add_frame(almacen.getBitmap("ben10_008"), 0, 0, 10);
+  sprites[andando_izq]->add_frame(almacen.getBitmap("ben10_009"), 0, 0, 10);
   sprites[andando_izq]->init ();
 
   sprites[esperando_der] = new Sprite(this);
-  sprites[esperando_der]->add_frame(almacen.GetBitmap("ben10_000"), 0, 0, 10);
+  sprites[esperando_der]->add_frame(almacen.getBitmap("ben10_000"), 0, 0, 10);
   sprites[esperando_der]->init ();
 
   sprites[esperando_izq] = new Sprite(this);
-  sprites[esperando_izq]->add_frame(almacen.GetBitmap("ben10_001"), 0, 0, 10);
+  sprites[esperando_izq]->add_frame(almacen.getBitmap("ben10_001"), 0, 0, 10);
   sprites[esperando_izq]->init ();
 
   sprites[cayendo_der] = new Sprite(this);
-  sprites[cayendo_der]->add_frame(almacen.GetBitmap("ben10_021"), 0, 0, 10);
+  sprites[cayendo_der]->add_frame(almacen.getBitmap("ben10_021"), 0, 0, 10);
   sprites[cayendo_der]->init ();
 
   sprites[cayendo_izq] = new Sprite(this);
-  sprites[cayendo_izq]->add_frame(almacen.GetBitmap("ben10_020"), 0, 0, 10);
+  sprites[cayendo_izq]->add_frame(almacen.getBitmap("ben10_020"), 0, 0, 10);
   sprites[cayendo_izq]->init ();
 
   sprites[disparando_der] = new Sprite(this);
-  sprites[disparando_der]->add_frame(almacen.GetBitmap("ben10_010"), 15, -4, 10);
-  sprites[disparando_der]->add_frame(almacen.GetBitmap("ben10_011"), 15, -4, 8);
-  sprites[disparando_der]->add_frame(almacen.GetBitmap("ben10_012"), 15, -4, 10);
+  sprites[disparando_der]->add_frame(almacen.getBitmap("ben10_010"), 15, -4, 10);
+  sprites[disparando_der]->add_frame(almacen.getBitmap("ben10_011"), 15, -4, 8);
+  sprites[disparando_der]->add_frame(almacen.getBitmap("ben10_012"), 15, -4, 10);
   sprites[disparando_der]->init ();
 
   sprites[disparando_izq] = new Sprite(this);
-  sprites[disparando_izq]->add_frame(almacen.GetBitmap("ben10_013"), 15, -4, 10);
-  sprites[disparando_izq]->add_frame(almacen.GetBitmap("ben10_014"), 15, -4, 8);
-  sprites[disparando_izq]->add_frame(almacen.GetBitmap("ben10_015"), 15, -4, 10);
+  sprites[disparando_izq]->add_frame(almacen.getBitmap("ben10_013"), 15, -4, 10);
+  sprites[disparando_izq]->add_frame(almacen.getBitmap("ben10_014"), 15, -4, 8);
+  sprites[disparando_izq]->add_frame(almacen.getBitmap("ben10_015"), 15, -4, 10);
   sprites[disparando_izq]->init ();
 
   sprites[saltando_der] = new Sprite(this);
-  sprites[saltando_der]->add_frame(almacen.GetBitmap("ben10_016"), 0, 0, 10);
+  sprites[saltando_der]->add_frame(almacen.getBitmap("ben10_016"), 0, 0, 10);
   sprites[saltando_der]->init ();
 
   sprites[saltando_izq] = new Sprite(this);
-  sprites[saltando_izq]->add_frame(almacen.GetBitmap("ben10_017"), 0, 0, 10);
+  sprites[saltando_izq]->add_frame(almacen.getBitmap("ben10_017"), 0, 0, 10);
   sprites[saltando_izq]->init ();
 
   Sprites_t sprite_act = estado2Sprite (estado);

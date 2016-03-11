@@ -25,10 +25,10 @@ class Mosaico : public ActorGraphic
         Tesela *            last_Tesela         () const;
         void                swap_Tesela         (Tesela *tesela_1, Tesela *tesela_2);
         virtual Mosaico *   clone               (Actor *propietario) const;
-        virtual string      getString           () const;
+        string              getString           ();
 
     private:
-      list<Tesela *> teselas;
-      list<Tesela *>::iterator teselas_iter;
+      list<Tesela *>            teselas;
+      list<Tesela *>::iterator  it;
 };
 #endif

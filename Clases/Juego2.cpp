@@ -76,7 +76,7 @@ void Juego2::main()
   control_p2->set_actionperipheral(Paleta::RIGHT, kboard, KEY_RIGHT, Peripheral::ON_PRESSING);
 
   // sprites->SetPalette (0);
-  set_palette (storage_manager->GetPalette ("SPRITES"));
+  set_palette (storage_manager->getPalette ("SPRITES"));
 
   // Se crea Aladino de prueba.
   Herny *aladino = new Herny(*storage_manager);
@@ -220,7 +220,6 @@ void Juego2::main()
       // Probamos el nuevo constructor de Bitmap basado en el almacén.
       Actor *camello = new Actor ();
       Bitmap::setAlmacen (storage_manager);
-//      Bitmap *bmp_camello = new Bitmap (camello, storage_manager, "sprite_107");
       Bitmap *bmp_camello = new Bitmap (camello, "sprite_107");
       camello->set_x (130);
       camello->set_y (195);
@@ -236,17 +235,17 @@ void Juego2::main()
       arbol->set_y (250);
       arbol->set_wh (32,15);
       Mosaico *hojas = new Mosaico (arbol);
-      hojas->add_primera_Tesela (new Tesela (hojas, "pre2_417"));
-      hojas->add_primera_Tesela (new Tesela (hojas, "pre2_416", 12, 20));
-      hojas->add_primera_Tesela (new Tesela (hojas, "pre2_416", 12, -20, true));
+      hojas->add_ultima_Tesela (new Tesela (hojas, "pre2_417"));
+      hojas->add_ultima_Tesela (new Tesela (hojas, "pre2_416", 12, 20));
+      hojas->add_ultima_Tesela (new Tesela (hojas, "pre2_416", 12, -20, true));
       arbol->set_actor_graphic (hojas);
       actor_manager->add(arbol);
-      cout << "Mosaico de hojas: " << hojas->getString () << endl;
-      
+      cout << "Mosaico de hojas: " << endl << hojas->getString () << endl;
+
       // Probamos la generación del mapa de actores.
       Mapa mapa_prb;
       mapa_prb.Read (*actor_manager);
-      //cout << mapa_prb.getString ();
+      // cout << mapa_prb.getString ();
 
       key[KEY_T] = false;
     }

@@ -71,7 +71,7 @@ Almacen::~Almacen ()
  * \brief   Devuelve un BITMAP como recurso dando el nonbre del bitmap.
  * \details Este procedimiento se simplifica gracias a la carga previa en la clase 'map'.
  */
-BITMAP *  Almacen::GetBitmap (string nombreBitmap)
+BITMAP *  Almacen::getBitmap (string nombreBitmap)
 {
   return bitmaps[nombreBitmap];
 }
@@ -82,7 +82,7 @@ BITMAP *  Almacen::GetBitmap (string nombreBitmap)
  * \todo    Controlar que el recurso solicitado es realmente un BITMAP.
  * \warning Procedimiento obsoleto. Se mantiene por compatibilidad. No utilizar en el futuro.
  */
-BITMAP * Almacen::GetBitmap(int indice)
+BITMAP * Almacen::getBitmap(int indice)
 {
   return (BITMAP *) fichero[indice].dat;
 }
@@ -91,7 +91,7 @@ BITMAP * Almacen::GetBitmap(int indice)
  * \brief   Devuelve un puntero a un array de 256 estructuras RGB (Paleta).
  * \details Este procedimiento se simplifica gracias a la carga previa en la clase 'map'.
  */
-RGB *  Almacen::GetPalette (string nombrePaleta)
+RGB *  Almacen::getPalette (string nombrePaleta)
 {
   return paletas[nombrePaleta];
 }

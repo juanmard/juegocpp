@@ -17,9 +17,9 @@ Loro::Loro (Almacen &almacen)
 {
     // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
     Sprite *skin = new Sprite(this);    
-    skin->add_frame(almacen.GetBitmap("sprite_042"), 0, 13, 10);
-    skin->add_frame(almacen.GetBitmap("sprite_043"), 0,  0, 10);
-    skin->add_frame(almacen.GetBitmap("sprite_044"), 0,  3, 10);
+    skin->add_frame(almacen.getBitmap("sprite_042"), 0, 13, 10);
+    skin->add_frame(almacen.getBitmap("sprite_043"), 0,  0, 10);
+    skin->add_frame(almacen.getBitmap("sprite_044"), 0,  3, 10);
     set_actor_graphic (skin);
 
     setCodigo (Nombres::herny);

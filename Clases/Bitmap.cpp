@@ -36,7 +36,7 @@ almacen (almacenParam),
 nombre (nombreParam)
 {
 //  fuente = almacenParam[nombreParam];
-  fuente = almacenParam->GetBitmap (nombreParam);
+  fuente = almacenParam->getBitmap (nombreParam);
 }
 
 /**
@@ -44,8 +44,10 @@ nombre (nombreParam)
  */
 Bitmap::Bitmap (Actor *aowner, const string nombreParam):
 ActorGraphic (aowner),
-nombre (nombreParam)
+nombre (nombreParam),
+almacen (NULL)
 {
+  fuente = almacenGlobal->getBitmap (nombreParam);
 }
 
 /**
@@ -103,11 +105,11 @@ void  Bitmap::draw (int x, int y, BITMAP *destino, bool mirror)
   {
     if (mirror)
     {
-      draw_sprite_h_flip (destino, almacenGlobal->GetBitmap (nombre), x, y);
+      draw_sprite_h_flip (destino, almacenGlobal->getBitmap (nombre), x, y);
     }
     else
     {
-      draw_sprite (destino, almacenGlobal->GetBitmap (nombre), x, y);
+      draw_sprite (destino, almacenGlobal->getBitmap (nombre), x, y);
     }
   }
   else
@@ -122,16 +124,27 @@ void  Bitmap::draw (int x, int y, BITMAP *destino, bool mirror)
 string  Bitmap::getString () const
 {
   ostringstream cadena;
-  cadena  << "Bitmap >> " << nombre << " >> Almacén general: " << almacenGlobal << endl;
+  cadena  << "Bitmap >> " << nombre << endl;
   return cadena.str();
 }
 
 /**
  * \brief   Devuelve la zona de memoria donde está la imagen.
  * \details También se podría utilizar el nombre y el almacén para obtener este mismo dato:
- *          return almacen->GetBitmap (nombre);
+ *           - return almacen->getBitmap (nombre);
+ *          Éste es el que debe quedar cuando eliminemos el resto de parámetros.
  */
 BITMAP *  Bitmap::getImagen () const
 {
-  return fuente;
+  if (fuente)
+  {
+    return fuente;
+  }
+  else
+  {
+    if (almacenGlobal)
+    {
+      return almacenGlobal->getBitmap (nombre);
+    }
+  }
 };
