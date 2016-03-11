@@ -1,4 +1,21 @@
 #include "Dialog.h"
+ 
+/* Inicialización de las variables estáticas de la clase. */
+// Menú fichero.
+MENU Dialog::mnu_fichero[] =
+{
+   { "&Salir \tF2",       Dialog::quit,  NULL,      0,  NULL  },
+   { NULL,                        NULL,  NULL,      0,  NULL  }
+};
+
+// Menú ayuda.
+MENU Dialog::mnu_ayuda[] =
+{
+    { "&About \tF1",     Dialog::about,  NULL,      0,  NULL  },
+    { NULL,                       NULL,  NULL,      0,  NULL  }
+};
+
+
 
 // Declaración de procedimientos.
 int d_pantalla_proc (int msg, DIALOG *d, int c);
@@ -7,55 +24,17 @@ int menu_callback (void);
 //_declspec(dllimport) int __cdecl d_menu_proc (int msg,DIALOG *d, int c);
 
 /**
- * \brief   Salida de prueba.
- */
- int quit(void)
-{
-   if (alert("¿Salir del editor?", NULL, NULL, "&Sí", "&No", 's', 'n') == 1)
-      return D_CLOSE;
-   else
-      return D_O_K;
-}
-
-/*
- * Acerca de ...
- */
-int about(void)
-{
-   alert("* Editor - Juego ++ *",
-         "",
-         "Editor basado en Allegro - Juanma Rico 2009",
-         "Ok", 0, 0, 0); 
-   return D_O_K;
-}
-
-/**
  * \brief Submenu de ayuda del editor.
  */
-MENU mnu_ayuda[] =
-{
-   { "&About \tF1",     about,  NULL,      0,  NULL  },
-   { NULL,               NULL,  NULL,      0,  NULL  }
-};
-
-/**
- * \brief Submenu de ayuda del editor.
- */
-MENU mnu_fichero[] =
-{
-   { "&Salir \tF2",      quit,  NULL,      0,  NULL  },
-   { NULL,               NULL,  NULL,      0,  NULL  }
-};
-
 /**
  * \brief Menú principal de edición.
  */
 MENU menu_editor [] =
 {
-   { "&Fichero",  NULL,   mnu_fichero,  0,   NULL  },
-   { "&Editar",   NULL,     mnu_ayuda,  0,   NULL  },
-   { "&Ayuda",    NULL,     mnu_ayuda,  0,   NULL  },
-   { NULL,        NULL,          NULL,  0,   NULL  }
+    { "&Fichero",  NULL, Dialog::mnu_fichero,  0,   NULL  },
+    { "&Editar",   NULL,   Dialog::mnu_ayuda,  0,   NULL  },
+    { "&Ayuda",    NULL,   Dialog::mnu_ayuda,  0,   NULL  },
+    { NULL,        NULL,                NULL,  0,   NULL  }
 };
 
 /**
@@ -72,21 +51,15 @@ MENU menu_objeto [] =
 DIALOG dialog[] =
 {
    /* (proc)             (x)  (y) (w)  (h)  (fg) (bg) (key) (flags)                           (d1) (d2) (dp)                                    (dp2) (dp3) */
-   { d_pantalla_proc,      0,   0, 800, 600, 2,   34,  0,    0,                                0,   0,   NULL,                                   NULL, NULL },
-   { d_menu_proc,          0,   0,  348, 12,  7,   15,  0,    D_SELECTED|D_GOTFOCUS|D_GOTMOUSE, 0,   0,   menu_editor,                            NULL, NULL },
-   { d_text_proc,        470,  20, 160, 20,  2,   33,  0,    0,                                0,   0,   const_cast<char*>("  Modo Edición  "), NULL, NULL },
-   { NULL,                 0,   0,  0,   0,   0,   0,   0,    0,                                0,   0,   NULL,                                   NULL, NULL }
-};
+   { d_pantalla_proc,      0,   0,  800, 600,  2,   34,  0,    0,                                    0,   0,   NULL,                                   NULL, NULL },
+   { d_menu_proc,          0,   0,  348,  12,  7,   15,  0,    D_SELECTED | D_GOTFOCUS | D_GOTMOUSE, 0,   0,   menu_editor,                            NULL, NULL },
+   { d_text_proc,        470,  20,  160,  20,  2,   33,  0,    0,                                    0,   0,   const_cast<char*>("  Modo Edición  "),  NULL, NULL },
+   { NULL,                 0,   0,    0,   0,  0,    0,  0,    0,                                    0,   0,   NULL,                                   NULL, NULL }
+};                                  
 
 /**
  * \brief   Propiedades.
  */
-int propiedades (void)
-{
-    // Se inicializan los colores de la GUI.
-//    dlg_actor->show();    
-    return D_O_K;
-}
 
 /**
  * \brief   Función CallBack para control de los objetos de pantalla.
@@ -192,10 +165,6 @@ int menu_callback(void)
    return D_O_K;
 }
 
-
-
-
-
 /**
  * \brief   Construye la clase que servirá de GUI para editar un juego.
  */
@@ -211,6 +180,9 @@ Dialog::Dialog (EditorManager *editor)
     // Se inicializan parámetros de los "callback".
     // \todo    Enum para referencias a "dialog". 
     dialog[0].dp = owner;
+
+    // Pruebas para incluir en la clase.
+    //mnu_ayuda[0].proc = &Dialog::about;
 
     // Se crea un diálogo para el actor vacío.
 //    dlg_actor = new DlgActor();

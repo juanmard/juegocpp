@@ -33,10 +33,4 @@ void AirCraft::do_action (ControllableObject::action_t act, int magnitude)
 
 void  AirCraft::hit  (Actor *who, int damage)
 {
-   switch (who->get_name())
-   {
-       default:
-           //estado = AirCraft::eliminar;
-           break;
-   }
 }
