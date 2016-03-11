@@ -3,6 +3,7 @@
  * Copyright (C) Juanma Rico 2010 <juanmard@gmail.com>
  */
 #include "Almacen.h"
+#include "AlmacenGUI.h"
 
 /**
  * \brief   Constructor del almacén dando el nombre del fichero de datos a cargar.
@@ -49,34 +50,16 @@ Almacen::Almacen (string paramNombreFichero)
     }
   }
 
-
-  // Esto iría en la inicialización de la clase 'AlmacenGUI'.
-  dlg_plantilla[1].dp3 = (void *) this;
-  dlg_plantilla[2].dp = const_cast<char *>((new string("Almacén: \"" + nombreFichero + "\""))->c_str());
-  dlg_plantilla[3].dp = screen;
-
-  dlg.clear ();
-  dlg.push_back (dlg_plantilla[0]);
-  dlg.push_back (dlg_plantilla[1]);
-  dlg.push_back (dlg_plantilla[2]);
-  dlg.push_back (dlg_plantilla[3]);
-};
-
-/* Prueba GUI Almacen */
-DIALOG Almacen::dlg_plantilla[] = 
-{
-     /* (proc)          (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags) (d1) (d2) (dp)                        (dp2) (dp3) */
-   { d_box_proc,        584, 176, 208, 248, 67, 243,   0,    0,      0,   0,   NULL,                          NULL, NULL },
-   { Almacen::callback, 592, 200, 192, 56,  67, 243,   0,    0,      0,   0,   (void *) Almacen::list_getter, NULL, NULL },
-   { d_text_proc,       592, 184, 128, 8,   67, 243,   0,    0,      0,   0,   (void *)"Almacén : ",          NULL, NULL },
-   { d_bitmap_proc,     592, 264, 192, 152, 67, 243,   0,    0,      0,   0,   NULL,                          NULL, NULL },
-   { NULL,                0,   0,   0,   0,  0,   0,   0,    0,      0,   0,   NULL,                          NULL, NULL }
+  // Se crea una GUI para esta clase.
+  gui = new AlmacenGUI (*this);
 };
 
 /**
  * \brief   Constructor por omisión.
  */
-Almacen::Almacen ()
+Almacen::Almacen ():
+nombreFichero (NULL),
+gui (NULL)
 {
 };
 
@@ -103,7 +86,6 @@ BITMAP *  Almacen::getBitmap (string nombreBitmap)
  * \brief   Devuelve un BITMAP como recurso dando el número identificativo indicado 
  *          en el fichero de cabecera generado por Grabber.
  * \todo    Controlar que el recurso solicitado es realmente un BITMAP.
- * \warning Procedimiento obsoleto. Se mantiene por compatibilidad. No utilizar en el futuro.
  */
 BITMAP * Almacen::getBitmap(int indice)
 {
@@ -111,6 +93,14 @@ BITMAP * Almacen::getBitmap(int indice)
 }
 
 /**
+ * \brief   Devuelve el nombre de un recurso según el índice en el fichero.
+ */
+string Almacen::getNombre (int indice) const
+{
+  return get_datafile_property(&fichero[indice], DAT_ID('N','A','M','E'));
+}
+
+ /**
  * \brief   Devuelve un puntero a un array de 256 estructuras RGB (Paleta).
  * \details Este procedimiento se simplifica gracias a la carga previa en la clase 'map'.
  */
@@ -152,5 +142,21 @@ string  Almacen::getName (BITMAP *puntero)
  */
 vector<DIALOG> &  Almacen::getDIALOG ()
 {
-  return dlg;
+  return gui->getGUI ();
+}
+
+/**
+ * \brief   Obtiene el número total de recursos en el almacén.
+ */
+unsigned int  Almacen::getSize () const
+{
+  return (bitmaps.size () + paletas.size () + sonidos.size ());
+}
+
+/**
+ * \brief   Obtiene el nombre del fichero desde donde se han cargado los recursos del almacén.
+ */
+string  Almacen::getNombre () const
+{
+  return nombreFichero;
 }
