@@ -1,6 +1,8 @@
 #include "Sprite.h"
+#include "Actor.h"
+#include "Mask.h"
 
-Sprite::Sprite(Actor *aowner) : ActorGraphic(aowner)
+Sprite::Sprite (Actor *aowner) : ActorGraphic(aowner)
 {
 }
 

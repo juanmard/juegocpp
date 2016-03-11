@@ -1,4 +1,5 @@
 #include "Suelo.h"
+#include "Actor.h"
 
 Suelo::Suelo (Actor *aowner, int new_size) : Mosaico (aowner)
 {
