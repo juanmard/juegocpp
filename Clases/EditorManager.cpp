@@ -301,3 +301,11 @@ void  EditorManager::getEscenarioXY (string &posicion) const
   ss << "(" << marco.getX () << ", " << marco.getY () << ")";
   posicion = ss.str ();
 }
+
+/**
+ * \brief   Obtiene el almacén de recursos.
+ */
+Almacen &  EditorManager::getAlmacen () const
+{
+  return *(game->storage_manager);
+}

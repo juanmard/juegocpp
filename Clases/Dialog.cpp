@@ -434,16 +434,18 @@ int  Dialog::comprobarTecla (int code)
       pesta.clear ();
       pesta.push_back (dlg_tmp1);
       pesta.push_back (dlg_tmp2);
+
+      // Obtenemos el vector de diálogos del actor.
       if (actor)
       {
-        // Obtenemos el vector de diálogos del actor.
         vector<DIALOG> &vec_actor = actor->getDIALOG();
-        for (int i=0; i < vec_actor.size(); i++)
-        {
-          pesta.push_back (vec_actor[i]);
-        }
-        cout << "pesta: " << pesta.size() << " vec_actor: " << vec_actor.size () << endl;
+        pesta.insert (pesta.end(), vec_actor.begin(), vec_actor.end());
       }
+
+      // Probamos el diálogo del Almacén.
+      vector <DIALOG> &vec_actor = (manager->getAlmacen()).getDIALOG();
+      pesta.insert (pesta.end(), vec_actor.begin(), vec_actor.end());
+
       pesta.push_back (fin);
       popup_dialog (&pesta[0],-1);
     }

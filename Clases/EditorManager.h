@@ -3,6 +3,7 @@
 #include <allegro.h>
 #include <string>
 #include "Bloque.h"
+#include "Almacen.h"
 
 using namespace std;
 
@@ -49,6 +50,7 @@ class EditorManager
     void      centrarActor          (int indice) const;
     void      setColorRibete        (int color);
     void      getEscenarioXY        (string &posicion) const;
+    Almacen & getAlmacen            () const;
 
   protected:
     Game *      game;

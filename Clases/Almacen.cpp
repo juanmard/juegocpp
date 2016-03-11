@@ -48,7 +48,29 @@ Almacen::Almacen (string paramNombreFichero)
       }
     }
   }
+
+
+  // Esto iría en la inicialización de la clase 'AlmacenGUI'.
+  dlg_plantilla[1].dp3 = (void *) this;
+  dlg_plantilla[2].dp = const_cast<char *>((new string("Almacén: \"" + nombreFichero + "\""))->c_str());
+  dlg_plantilla[3].dp = screen;
+
+  dlg.clear ();
+  dlg.push_back (dlg_plantilla[0]);
+  dlg.push_back (dlg_plantilla[1]);
+  dlg.push_back (dlg_plantilla[2]);
+  dlg.push_back (dlg_plantilla[3]);
 };
+
+/* Prueba GUI Almacen */
+DIALOG Almacen::dlg_plantilla[] = 
+{
+   { d_box_proc,        352, 360, 256, 192, 67, 243,   0,    0,      0,   0,   NULL,                           NULL, NULL },
+   { Almacen::callback, 360, 392, 240, 56,  67, 243,   0,    0,      0,   0,   (void*)Almacen::list_getter,    NULL, NULL },
+   { d_text_proc,       360, 376, 128, 8,   67, 243,   0,    0,      0,   0,   (void*)"Almacén: ",             NULL, NULL },
+   { d_bitmap_proc,     360, 456, 240, 88,  67, 243,   0,    0,      0,   0,   NULL,                           NULL, NULL }
+};
+
 
 /**
  * \brief   Constructor por omisión.
@@ -122,4 +144,12 @@ string  Almacen::getName (BITMAP *puntero)
   // cout << "Puntero de bitmap a buscar: " << puntero << endl \
   //      << "Nombre asociado en 'map': " << nombre << endl;
   return nombre;
+}
+
+/**
+ * \brief   Pasa de un dialog estático a otro dinámico.
+ */
+vector<DIALOG> &  Almacen::getDIALOG ()
+{
+  return dlg;
 }
