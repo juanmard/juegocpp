@@ -29,9 +29,12 @@ class EditorManager
         void    resaltar         (int x, int y);
         void    editar            (int x, int y);
         void    mover           (int x, int y);
+        // TODO: A sustituir por Actor &get_actor (x,y);
         Actor  *get_actor       ();
         bool    is_editando     ();
-
+        
+        Actor   &    getActor       (int x, int y);
+        
 
 protected:
 		Game    *game;

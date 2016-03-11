@@ -153,3 +153,13 @@ bool  EditorManager::is_editando ()
         return false;
     }
 }
+/**
+ * \brief   Devuelve una referencia al actor situado en el punto x,y de la
+ *            pantalla. Normalmente para editarlo.
+ *  \todo  Es posible que exista más de un actor en ese punto, luego
+ *            debería devolver una lista de actores.
+ */
+Actor &  EditorManager::getActor (int x, int y)
+{
+    return *(game->actor_manager->get_actor (x,y-14));
+}

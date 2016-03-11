@@ -1,5 +1,7 @@
 #pragma once
 
+#include <sstream>
+#include <string.h>
 #include <allegro.h>
 #include "EditorManager.h"
 #include "VentanaALG.h"
@@ -177,11 +179,9 @@ public:
 
                 // Mensaje que se produce repetidamente mientras no exista otro.
                 case MSG_IDLE:
-                        if ((mouse_ant_x == mouse_x) && (mouse_ant_y == mouse_y) )
-                        {
-                            // El ratón no se ha movido.
-                        }
-                        else
+                        // Comprobamos si se ha movido el ratón.
+                        if ( !((mouse_ant_x == mouse_x) && 
+                                (mouse_ant_y == mouse_y)) )
                         {
                             // El ratón se ha movido. Lo actualizamos y movemos el actor.
                             mouse_ant_x = mouse_x;

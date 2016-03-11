@@ -55,9 +55,9 @@ DIALOG Dialog::dialog[] =
 
 DIALOG Dialog::dialog_objeto [] =
 {
-   /* (proc)                   (x),  (y),   (w),    (h),  (fg),  (bg), (key),                                                             (flags),   (d1),  (d2),                                                          (dp),   (dp2), (dp3)     */
-   { d_textbox_proc,       0, 100,  300,  200,    7,     15,        0,    D_SELECTED | D_GOTFOCUS | D_GOTMOUSE,       0,       0,                                   Dialog::menu_editor,   NULL, NULL },
-   { d_text_proc,         470,   20,  160,    20,    2,     33,        0,                                                                     0,       0,       0,    const_cast<char*>("  Modo Edición  "),   NULL, NULL },
+   /* (proc)                   (x),  (y),   (w),    (h),  (fg),  (bg), (key),  (flags),   (d1),  (d2),  (dp),   (dp2), (dp3)     */
+   { d_text_proc,         0,      100,  300,  200,  7,  15,  0, 0, 0, 0, const_cast<char*>("x, y"),                    NULL, NULL },
+//   { d_text_proc,         470,  20,    160,  20,    2,  33,  0, 0, 0, 0, const_cast<char*>("  Modo Edición  "), NULL, NULL },
    { NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL}
 };                                  
 
@@ -96,6 +96,11 @@ Dialog::Dialog (EditorManager *editor)
 
     // Se apunta a ese diálogo en el menú del objeto.
     //menu_objeto[3].dp = editor->get_actor ();
+
+    // Inicializamos las propiedades del objeto.
+    dialog_objeto[0].fg = makecol(255,255,255);
+    dialog_objeto[0].bg = makecol (0,0,255);
+
 }
 
 Dialog::~Dialog (void)
@@ -232,7 +237,7 @@ void    Dialog::mover_kbd   (int code)
         }
         actor->set_x(actor_x);
         actor->set_y(actor_y);
-        manager->redibuja ();
+        draw ();
     }
 };
 
@@ -294,6 +299,14 @@ void    Dialog::draw   ()
     // Nota: Esto no es necesario de momento, sólo mostramos el marco.
     mostrar_marco ();
 
+    // Mostramos la posición actual del actor en un cuadro de texto.
+    // \todo    Deberíamos comprobar que estamos editando y moviendo un actor.
+    if (manager->is_editando())
+    {
+        // Le decimos a la posición sobre el cursor que se muestre.
+        object_message(&dialog_objeto[0], MSG_DRAW, 0);
+    }
+
     // Vuelve a mostrar el ratón.
     mouse_in ();
 }
@@ -307,6 +320,17 @@ void    Dialog::mover_actor  (void)
         // Eliminamos la referencia tomada respecto al actor a la posición actual del ratón y movemos el actor.
         // Se hace esto para evitar el movimiento del actor respecto a la posición del ratón.
         manager->mover(mouse_x + ref_x, mouse_y + ref_y);
+
+        // Convertimos la posición a una cadena y la ponemos en el objeto
+        //  para mostrarlo más tarde como texto junto al cursor.
+        std::stringstream posicion;
+        posicion << mouse_x + ref_x <<  ", " << mouse_y + ref_y;
+        std::string str = posicion.str();
+        dialog_objeto[0].dp = const_cast <char*> (str.c_str());
+
+        // Movemos la posición de la cadena cerca del cursor.
+        dialog_objeto[0].x=mouse_x+15;
+        dialog_objeto[0].y=mouse_y-10;
 }
 
 void Dialog::prueba_dblclk ()
