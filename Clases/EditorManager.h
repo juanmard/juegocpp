@@ -44,6 +44,7 @@ class EditorManager
     void      setRibete             (Bloque bloque) const;
     void      borrarPantalla        () const;
     void      centrarActor          (int indice) const;
+    void      setColorRibete        (int color);
 
   protected:
     Game *      game;

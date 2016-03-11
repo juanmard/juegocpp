@@ -10,6 +10,7 @@ StageManager::StageManager (Game *g, int w = SCREEN_W, int h = SCREEN_H):
 game (g),
 marco (0, 0, w, h),
 ribete (0, 0, w, h),
+colorRibete (makecol (255, 0, 0)),
 actorSeguido (NULL),
 verBloques (false),
 verInfo (false),
@@ -115,7 +116,7 @@ void StageManager::draw ()
 {
   rellenarBuffer ();
   if (verInfo) ribete.setY (20);
-  if (verRibete) rect (buffer, 0, 0, ribete.getW () - 1, ribete.getH () -1, makecol (255, 0, 0));
+  if (verRibete) rect (buffer, 0, 0, ribete.getW () - 1, ribete.getH () -1, colorRibete);
   blit (buffer, screen, 0, 0, 
         ribete.getX (), ribete.getY (),
         ribete.getW (), ribete.getH ());
@@ -218,3 +219,13 @@ Bloque &  StageManager::getRibete ()
 {
   return ribete;
 }
+
+/**
+ * \brief   Cambia el color del ribete.
+ * \param   colorRibete   Color del ribete.
+ */
+void  StageManager::setColorRibete (int color)
+{
+  colorRibete = color;
+}
+

@@ -48,13 +48,14 @@ class Dialog
     void        mover_kbd               (int code);
     void        mover_kbd_escenario     (int code);
     void        prueba_click            ();
-    void        prueba_dblclk           ();
+    void        prueba_dclick           ();
     void        mover_actor             ();
     void        duplicarActor           ();
     int         CambiarTraje            ();
     void        actualizarValoresActor  ();
     void        dibujarCuadrado         (Bloque cuadro, int color);
     void        centrarActor            (int indice);
+    void        setColorRibete          (int color);
 
     EditorManager   *manager;
     Actor *         actor;
@@ -282,17 +283,37 @@ public:
         switch (msg)
         {
            // En caso de que se pulse una tecla...
+          case MSG_XCHAR:
+              // Devolviendo D_USED_CHAR evitamos el 'broadcast' 
+              // del código al resto de controles.
+              return D_USED_CHAR;
+
           case MSG_CHAR:
           case MSG_UCHAR:
-          case MSG_XCHAR:
               //objeto.mover_kbd (c);
               objeto.mover_kbd_escenario (c);
               break;
 
-            // El mensaje nos indica que debemos dibujar el control.
+          case MSG_WANTFOCUS:
+              // Devolviendo D_WANTFOCUS indicamos que queremos el foco.
+              return D_WANTFOCUS;
+
+          case MSG_GOTFOCUS:
+              // Si tenemos el foco cambiamos el color del ribete a rojo.
+              objeto.setColorRibete (makecol (0, 255, 0));
+              objeto.draw ();
+              return D_O_K;
+
+          case MSG_LOSTFOCUS:
+              // Si perdemos el foco cambiamos el color del ribete a verde.
+              objeto.setColorRibete (makecol (255, 0, 0));
+              objeto.draw ();
+              return D_O_K;
+
+          // El mensaje nos indica que debemos dibujar el control.
           case MSG_DRAW:
               objeto.draw ();
-              break;
+              return D_O_K;
 
           // Mensaje cuando se presiona el botón derecho del ratón.
           case MSG_RPRESS:
@@ -303,11 +324,11 @@ public:
 
           case MSG_CLICK:
               //objeto.prueba_click ();
-              objeto.prueba_dblclk ();
+              objeto.prueba_click ();
               break;
 
           case MSG_DCLICK:
-              objeto.prueba_click ();
+              objeto.prueba_dclick ();
               break;
 
           // Mensaje que se produce repetidamente mientras no exista otro.
@@ -319,8 +340,12 @@ public:
                       // El ratón se ha movido. Lo actualizamos y movemos el actor.
                       mouse_ant_x = mouse_x;
                       mouse_ant_y = mouse_y;
-                      objeto.mover_actor ();
-                      objeto.draw (); 
+                      if (key[KEY_LCONTROL])
+                      {
+                        // objeto.tomarReferencia ();
+                        objeto.mover_actor ();
+                        objeto.draw ();
+                      }
                   }
                   break;
         }

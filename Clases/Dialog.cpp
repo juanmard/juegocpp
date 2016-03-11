@@ -277,7 +277,7 @@ void    Dialog::mover_kbd   (int code)
 /**
  * \brief Prueba el click de ratón resaltando el contorno del objeto en el que se produce.
  */
-void  Dialog::prueba_click ()
+void  Dialog::prueba_dclick ()
 {
 }
 
@@ -299,7 +299,8 @@ void  Dialog::draw ()
   // Si hay un actor en edición se dibujan sus ¿nuevos? valores.
   if (actor)
   {
-    // \todo  Realizar una única petición al EditorManager.
+    // \todo  Realizar una única petición al EditorManager esto realiza un doble
+    //        volcado en pantalla.
     int x = dialog[0].x; int y = dialog[0].y;
     int w = dialog[0].w; int h = dialog[0].h;
     int xAct = actor->get_x () - manager->getEscenarioX ();// + dialog[pantalla].x;
@@ -340,7 +341,7 @@ void  Dialog::mover_actor  (void)
 /**
  * \brief   Prueba de click con el ratón.
  */
-void Dialog::prueba_dblclk ()
+void Dialog::prueba_click ()
 {
   if (manager)
   {
@@ -419,16 +420,16 @@ void    Dialog::mover_kbd_escenario   (int code)
     switch ((code & 0xff))
     {
     case 'w':
-        y -= 1;
+        y -= 4;
         break;
     case 's':
-        y += 1;
+        y += 4;
         break;
     case 'a':
-        x -= 1;
+        x -= 4;
         break;
     case 'd':
-        x += 1;
+        x += 4;
         break;
     case 'f':
     case 'F':
@@ -492,4 +493,12 @@ void  Dialog::setActor (Actor *actorMostrar)
 {
   actor = actorMostrar;
   actualizarValoresActor ();
+}
+
+/**
+ * \brief   Se cambia el color del ribete.
+ */
+void  Dialog::setColorRibete (int color)
+{
+  manager->setColorRibete (color);
 }

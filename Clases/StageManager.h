@@ -33,6 +33,7 @@ class StageManager
     void      dibujarCuadrado (Bloque cuadro, int color);
     void      setRibete       (Bloque ribete);
     Bloque &  getRibete       ();
+    void      setColorRibete  (int color);
     Bloque &  getMarco        ();
 
   protected:
@@ -42,6 +43,7 @@ class StageManager
     Game *    game;             // Referencia al juego.
     BITMAP *  buffer;           // Buffer principal a volcar en pantalla.
     Bloque    ribete;           // Marco dentro de las coordenadas de la pantalla.
+    int       colorRibete;      // Color del ribete.
     Bloque    marco;            // Marco dentro de las coordenadas del juego.
     Actor *   actorSeguido;     // Actor al que se le realiza el seguimiento.
     bool      verBloques;       // Muestra los bloques de los actores.

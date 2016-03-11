@@ -307,4 +307,12 @@ void  EditorManager::centrarActor (int indice) const
     // Se le indica a la gui que actualice las nuevas propiedades.
     gui->draw ();
   }
+};
+
+/**
+ * \brief   Centra el actor pasado como índice en el escenario.
+ */
+void  EditorManager::setColorRibete (int color)
+{
+  game->stage_manager->setColorRibete (color);
 }
