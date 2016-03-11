@@ -1,4 +1,4 @@
-﻿#include "Mosaico.h"
+#include "Mosaico.h"
 
 
 Mosaico::Mosaico(Actor *aowner) : ActorGraphic (aowner)

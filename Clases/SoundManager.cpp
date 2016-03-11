@@ -4,7 +4,7 @@
 SoundManager::SoundManager ()
 {
    /**
-    * \brief    Iniciamos el sonido según el tipo de compilación.
+    * \brief    Iniciamos el sonido segÃºn el tipo de compilaciÃ³n.
     * \todo     Organizar un poco mejor esto, capturar el error si se produce.
     */
     #ifdef _WIN32
@@ -27,10 +27,10 @@ SoundManager::SoundManager ()
 
       /** 
        * \brief Cargamos samples de prueba.
-       * \todo      Esta clase es el "SoundManager" esta no es su misión.
-       *            Debemos crear objetos "Sonido" y heredar "Sample" de él para que esta
+       * \todo      Esta clase es el "SoundManager" esta no es su misiÃ³n.
+       *            Debemos crear objetos "Sonido" y heredar "Sample" de Ã©l para que esta
        *            clase pueda manipularlos y controlarlos, algo similar a lo que se hace
-       *            con la parte gráfica de los actores.
+       *            con la parte grÃ¡fica de los actores.
        *            Esto es una simple prueba. Cuando funcione debe ser completamente modificado.
        */
 //      recursos = DatFile("sprites.dat");

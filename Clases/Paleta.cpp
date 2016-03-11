@@ -36,7 +36,7 @@ void Paleta::hit (Actor *who, int damage)
    switch (who->get_name())
    {
        /**
-        * Si tropezamos con un ladrillo. Aumentamos el tamaño.
+        * Si tropezamos con un ladrillo. Aumentamos el tamaÃ±o.
         */
        case Nombres::ladrillo:
            if (piel->Get_size () < 8)

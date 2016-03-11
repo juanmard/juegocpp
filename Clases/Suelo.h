@@ -10,7 +10,7 @@ public:
         Suelo (Actor *aowner, int size);
 
         /**
-         * Procedimientos para controlar el tamaño.
+         * Procedimientos para controlar el tamaÃ±o.
          */
         void    Set_size   (int size);
         int     Get_size   (void);

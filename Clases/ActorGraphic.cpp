@@ -17,12 +17,12 @@ void ActorGraphic::init()
 {
 }
 
-/** Dibuja la parte gr·fica del actor en "bmp".
+/** Dibuja la parte gr√°fica del actor en "bmp".
  *  
- *  Normalmente esta funciÛn es sobreescrita por el 
+ *  Normalmente esta funci√≥n es sobreescrita por el 
  *  hijo que hereda (Sprite, Bitmap, pixel...).
  *
- *  @param bmp - BITMAP en donde se dibuja la parte gr·fica del actor.
+ *  @param bmp - BITMAP en donde se dibuja la parte gr√°fica del actor.
  *
  */
 void ActorGraphic::draw(BITMAP *bmp)

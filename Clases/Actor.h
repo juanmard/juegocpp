@@ -1,4 +1,4 @@
-﻿#ifndef ACTOR_H
+#ifndef ACTOR_H
 #define ACTOR_H
 
 #include <allegro.h>
@@ -10,10 +10,10 @@
 class ActorGraphic;
 
 /** 
- * Elemento básico con dinámica dentro del juego.
- * Esta clase tiene como misión definir los elementos con dinámica propia en el juego.
- * Se encarga de controlar todas las fases: Creación, actualización y destrucción de los actores que intervienen
- * en el juego (Jugadores, enemigos, plataformas móviles,...)
+ * \brief   Elemento básico con dinámica dentro del juego.
+ * \details Esta clase tiene como misión definir los elementos con dinámica propia en el juego.
+ *          Se encarga de controlar todas las fases: Creación, actualización y destrucción de 
+ *          los actores que intervienen en el juego (Jugadores, enemigos, plataformas móviles,...)
  *
  */
 class Actor

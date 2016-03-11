@@ -1,9 +1,9 @@
 #include "Game.h"
 
 /*------------------------------------------------------------------------------*/
-/* Variables y funciones globales para sincronizar juego en distintas máquinas. */
+/* Variables y funciones globales para sincronizar juego en distintas mÃ¡quinas. */
 /*------------------------------------------------------------------------------*/
-// TODO: Integrar en la clase "Game" como funciones y variables estáticas.
+// TODO: Integrar en la clase "Game" como funciones y variables estÃ¡ticas.
 void tick_count();
 
 /* Las variables que modifiquen las funciones timer de allegro tienen que
@@ -11,7 +11,7 @@ void tick_count();
  */
 volatile int tick;
 
-/* Función definida como "timer" de allegro. */
+/* FunciÃ³n definida como "timer" de allegro. */
 void tick_count()
 {
 	tick++;
@@ -39,12 +39,12 @@ void Game::init(int gfx_mode, int w, int h, int col)
 	install_keyboard();
 	install_timer();
 
-	/* Protegemos variables e instalamos interrupción del "timer" (14 para ejecutar 70 veces por segundo).*/
+	/* Protegemos variables e instalamos interrupciÃ³n del "timer" (14 para ejecutar 70 veces por segundo).*/
 	LOCK_VARIABLE(tick);
 	LOCK_FUNCTION(tick_count);
 	install_int(&tick_count, 14);
 	
-	/* Entramos en modo gráfico. */
+	/* Entramos en modo grÃ¡fico. */
 	set_color_depth(col);
 	if (set_gfx_mode(gfx_mode,w, h, 0,0)<0)
 	{
@@ -90,10 +90,10 @@ void Game::create_stagemanager()
 
 /**
  * \brief   Crea en el juego un controlador de sonidos.
- * \warning Se debería pensar si este es el lugar apropiado para crearlo.
- *          - ¿Forma parte del juego?
- *          - ¿No es parte del controlador de escenario ("StageManager")?
- *          - ¿Se debe crear un controlador de "efectos" independiente?
+ * \warning Se deberÃ­a pensar si este es el lugar apropiado para crearlo.
+ *          - Â¿Forma parte del juego?
+ *          - Â¿No es parte del controlador de escenario ("StageManager")?
+ *          - Â¿Se debe crear un controlador de "efectos" independiente?
  */
 void Game::create_soundmanager()
 {
@@ -114,7 +114,7 @@ void Game::create_collisionmanager ()
 
 void Game::start()
 {
-	/* Inicializamos la sincronización con el juego. */
+	/* Inicializamos la sincronizaciÃ³n con el juego. */
 	actual_tick=tick;
 	old_tick=tick;
 	max_frame_skip=15;
@@ -144,7 +144,7 @@ string Game::get_name()
 
 void Game::update()
 {
-	/* Se actualiza el ciclo lógico. */
+	/* Se actualiza el ciclo lÃ³gico. */
     if (actual_tick<=tick)
     {
         actor_manager->update();
@@ -164,7 +164,7 @@ void Game::update()
 		old_tick=tick;
 	}
 
-	/* Se actualiza el ciclo gráfico. */
+	/* Se actualiza el ciclo grÃ¡fico. */
 	if ((actual_tick>=tick) || (frame_skip>max_frame_skip))
 	{
 		stage_manager->update();

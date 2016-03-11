@@ -1,4 +1,4 @@
-﻿#ifndef DATFILE_H
+#ifndef DATFILE_H
 #define DATFILE_H
 
 #include <allegro.h>
@@ -7,10 +7,11 @@
 using namespace std;
 
 /**
- * \class  DatFile
- * \brief  Clase que maneja los recursos creados por "Grabber".
- * \todo   - Crear métodos "GetSample" y "SetSample" para manejo de sonidos.
- *         - Modificar el nombre de la clase para que refleje su asociación con
+ * \class   DatFile
+ * \brief   Clase que maneja los recursos creados por "Grabber".
+ * \todo   
+ *          - Crear métodos "GetSample" y "SetSample" para manejo de sonidos.
+ *          - Modificar el nombre de la clase para que refleje su asociación con
  *             "Grabber" (algo como "FileGrabber").
  */
 class DatFile

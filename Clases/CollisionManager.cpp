@@ -18,7 +18,7 @@ void CollisionManager::update ()
         iter2++;
         while ( iter2 != end )
         {
-            // Comprueba la intersección.
+            // Comprueba la intersecciÃ³n.
             if ( Bounding((*iter1), (*iter2)) )
             {
                 (*iter1)->hit ((*iter2),1);

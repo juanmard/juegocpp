@@ -5,8 +5,8 @@
 #include "Nombres.h"
 
 /**
- * \brief   Ladrillo para ser golpeado por la pelota del juego.
- * \todo    Añadir posibilidad de lanzar objetos al jugador, de desviar la pelota, etc...
+ * \brief   Actor para ser golpeado por la pelota del juego.
+ * \todo    AÃ±adir posibilidad de lanzar objetos al jugador, de desviar la pelota, etc...
  */
 class Ladrillo :  public Actor
 {
@@ -19,7 +19,7 @@ public:
 
 private:
     /**
-     * \brief Definición de los distintos estados del ladrillo.
+     * \brief DefiniciÃ³n de los distintos estados del ladrillo.
      *        Reservamos los diez primeros estados para estados generales de la clase "Actor"
      */
     //typedef 

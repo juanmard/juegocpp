@@ -33,7 +33,7 @@ class Herny : public ControllableActor
         } Estados;
 
         /**
-         * Constructor del actor principal ("Herny") sin par·metros.
+         * Constructor del actor principal ("Herny") sin par√°metros.
          */
         Herny (void);
     

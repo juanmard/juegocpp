@@ -1,6 +1,6 @@
 #pragma once
 
-/* Define la compilaciÛn de forma est·tica.
+/* Define la compilaci√≥n de forma est√°tica.
  * \todo Automatizar esto en el marco de trabajo ("FrameWork") para
  *       que pueda ser elegido desde "Game.cpp".
 #define ALLEGRO_STATICLINK

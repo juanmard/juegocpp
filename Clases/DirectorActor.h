@@ -5,7 +5,7 @@
  * \class   DirectorActor
  * \brief   Actor que puede generar o controlar otros actores.
  * \details Para generar y cotrolar otros actores necesita un acceso a la clase "ActorManager"
- *          que lo controla a él mismo.
+ *          que lo controla a Ã©l mismo.
  */
 class DirectorActor : public Actor
 {

@@ -24,15 +24,15 @@ private:
     int     x, y;
     BITMAP *dibujo;
 
-    // TODO: Igual sería bueno incluir los 360 grados de giro.
-    //       En lugar de únicamente la simetría en x.
+    // TODO: Igual serÃ­a bueno incluir los 360 grados de giro.
+    //       En lugar de Ãºnicamente la simetrÃ­a en x.
     bool mirror;
 
-    /* TODO: Igual sería conveniente generar una clase con estos bloques.
+    /* TODO: Igual serÃ­a conveniente generar una clase con estos bloques.
      *       Y ser estos los que se interseccionan. De esta forma un actor puede estar
-     *       compuesto de varios bloques y afinar la intersección.
+     *       compuesto de varios bloques y afinar la intersecciÃ³n.
      *       Se pueden dibujar estos contornos para referencia. Para las teselas
-     *       sólo se necesitan las referencias enlazadas.
+     *       sÃ³lo se necesitan las referencias enlazadas.
      *
     typedef struct Bloque
     {

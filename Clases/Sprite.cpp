@@ -18,7 +18,7 @@ void Sprite::add_frame(BITMAP *bmp, int cx, int cy, int ticks)
     tmp_frame.cy=cy;
     tmp_frame.ticks=ticks;
 
-    /* Crea la máscara. */
+    /* Crea la mÃ¡scara. */
     tmp_frame.mask=new Mask;
     tmp_frame.mask->create(bmp);
 

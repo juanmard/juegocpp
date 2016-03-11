@@ -90,7 +90,7 @@ void ActorManager::update()
     list<Actor*>::iterator tmp_iter;
 
      /*
-      * TODO: Hacer un "move_all_to_stage" para pasar los actores en bambalinas a escena y asÌ
+      * TODO: Hacer un "move_all_to_stage" para pasar los actores en bambalinas a escena y as√≠
       *        eliminar las dos funciones "add_all_to_create" y "del_all_to_del" por separado. 
       */
 
@@ -106,17 +106,17 @@ void ActorManager::update()
         switch ((*tmp_iter)->get_Estado())
         {
         case Actor::eliminar:
-                /* Si quiere ser eliminado se aÒade a la lista para eliminarlo. */
+                /* Si quiere ser eliminado se a√±ade a la lista para eliminarlo. */
                 del ((*tmp_iter));
                 break;
 
         case Actor::crear:
                 /**
-                 * Si quiere crear alg˙n objeto se le pregunta por el hijo y se aÒade
+                 * Si quiere crear alg√∫n objeto se le pregunta por el hijo y se a√±ade
                  * a la lista.
                  * \warning    No se comprueba que el actor pueda hacer esto. Es decir,
                  *             no se comprueba que sea de la clase "GeneratorActor".
-                 *             En teorÌa si puede mandar ese mensaje es que es de esta clase.
+                 *             En teor√≠a si puede mandar ese mensaje es que es de esta clase.
                  */
                 Actor *tmp = (*tmp_iter);
                 //add (tmp->get_hijo());
@@ -129,7 +129,7 @@ void ActorManager::update()
     }
     
     /* Elimina todos los actores en espera. */
-    /* TODO: La llamada a esta funciÛn no tiene sentido si ya est·n los actores en escena. */
+    /* TODO: La llamada a esta funci√≥n no tiene sentido si ya est√°n los actores en escena. */
     del_all_to_del();
 }
 

@@ -18,11 +18,11 @@ void Tesela::Guardar (void)
 {
   FILE    *handle;
 
-  // TODO: Crear una clase de fichero y pasar el nombre del fichero por par·metros.
+  // TODO: Crear una clase de fichero y pasar el nombre del fichero por par√°metros.
   handle = fopen ("clases.txt","w");
 
   fprintf (handle, "%s","<Tesela>\n{\n");
-  // HabrÌa que guardar el nombre o algo significativo de la imagen.
+  // Habr√≠a que guardar el nombre o algo significativo de la imagen.
   fprintf (handle, "x,y: %d, %d\n", x, y);
   fprintf (handle, "mirror: %s\n",mirror?"true":"false");
   fprintf (handle, "}\n");
@@ -56,12 +56,12 @@ int Tesela::Get_y (void)
 
 void Tesela::draw (BITMAP *pantalla)
 {
-  // Se calcula la posiciÛn respecto al padre.
+  // Se calcula la posici√≥n respecto al padre.
   int x_tmp = x + mosaico_padre->get_x ();
   int y_tmp = y + mosaico_padre->get_y ();
 
 
-  // Se comprueba la direcciÛn de la tesela para dibujarla.
+  // Se comprueba la direcci√≥n de la tesela para dibujarla.
   if (mirror)
   {
     draw_sprite_h_flip (pantalla, dibujo, x_tmp, y_tmp);    

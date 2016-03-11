@@ -5,6 +5,9 @@
 
 class Game;
 
+/**
+ * \brief   Controlador de la escena del juego.
+ */
 class StageManager
 {
     public:

@@ -25,8 +25,8 @@ void Mask::create(BITMAP *bmp)
     for (int j=0; j<bmp->h; j++)
         sp_mask[j]=new unsigned long int[((bmp->w)>>5)+1];
     
-    // creación de la mascara de bits
-    // Desde aquí hacia abajo este método funciona como "caja negra" para mi
+    // creaciÃ³n de la mascara de bits
+    // Desde aquÃ­ hacia abajo este mÃ©todo funciona como "caja negra" para mi
     int x1, y1, z; /* Used to span through pixels within the sprite */
     int p; /* Holds return value from getpixel() */
     for (y1=0; y1<(bmp->h); y1++) /* Now go through each pixel of the sprite. */

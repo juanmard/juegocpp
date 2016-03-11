@@ -1,9 +1,9 @@
 #include "Pelota.h"
 
 /**
- * \brief Crea la pelota que se encargará de rebotar por la pantalla.
- * \todo Eliminar la creación contínua del objeto "sprite".
- * \todo Incluir rebote si tropieza con algún tipo de suelo.
+ * \brief Crea la pelota que se encargarÃ¡ de rebotar por la pantalla.
+ * \todo Eliminar la creaciÃ³n contÃ­nua del objeto "sprite".
+ * \todo Incluir rebote si tropieza con algÃºn tipo de suelo.
  * \todo Incluir sonidos en el rebote.
  */
 Pelota::Pelota(ActorManager *actor_manager):
@@ -38,8 +38,8 @@ Pelota::~Pelota(void)
 }
 
 /**
- * \brief   Actualiza la posición de la pelota.
- * \todo    Cambiar la animación cuando se produce el rebote.
+ * \brief   Actualiza la posiciÃ³n de la pelota.
+ * \todo    Cambiar la animaciÃ³n cuando se produce el rebote.
  */
 void Pelota::ActualizarEstado (void)
 {
@@ -60,20 +60,20 @@ void Pelota::ActualizarEstado (void)
 
 /**
  * \brief   Cambia el estado de la pelota. 
- * \todo    Función a eliminar.
+ * \todo    FunciÃ³n a eliminar.
  */
 void Pelota::CambiarEstado (void)
 {
 }
 
 /**
- * \brief   Intersección de la pelota con otro actor de la escena.
- * \param   who Puntero al actor que provoca la colisión.
- * \param   damage Daño que se produce en la colisión. 
- * \todo    Se necesita calcular no sólo la energía con la que colisionan los
- *          objetos(damage), sino con qué inclinación colisionan.
- * \todo    Añadir un descritor (¿Quizás un "enum" en actor?) para interrogar
- *          al actor por su nombre (suelo, pelota, etc) y así sirva de "filtro"
+ * \brief   IntersecciÃ³n de la pelota con otro actor de la escena.
+ * \param   who Puntero al actor que provoca la colisiÃ³n.
+ * \param   damage DaÃ±o que se produce en la colisiÃ³n. 
+ * \todo    Se necesita calcular no sÃ³lo la energÃ­a con la que colisionan los
+ *          objetos(damage), sino con quÃ© inclinaciÃ³n colisionan.
+ * \todo    AÃ±adir un descritor (Â¿QuizÃ¡s un "enum" en actor?) para interrogar
+ *          al actor por su nombre (suelo, pelota, etc) y asÃ­ sirva de "filtro"
  *          en las colisiones.
  */
 void  Pelota::hit  (Actor *who, int damage)
@@ -81,7 +81,7 @@ void  Pelota::hit  (Actor *who, int damage)
    switch (who->get_name())
    {
        /**
-        * Si tropezamos con un ladrillo. Cambiamos la dirección de rebote y
+        * Si tropezamos con un ladrillo. Cambiamos la direcciÃ³n de rebote y
         * eliminamos el ladrillo de la escena.
         */
        case Nombres::ladrillo:
@@ -91,7 +91,7 @@ void  Pelota::hit  (Actor *who, int damage)
            break;
 
        case Nombres::herny:
-            /** \todo Añadir un estado general en el actor que lo identifique
+            /** \todo AÃ±adir un estado general en el actor que lo identifique
              *        el ActorManager y lo marque para borrar de la lista de actores.
              */
            /*
@@ -117,7 +117,7 @@ void  Pelota::hit  (Actor *who, int damage)
 
 
   /**
-   * \todo  Crear clase para mostrar mensajes de depuración en pantalla.
+   * \todo  Crear clase para mostrar mensajes de depuraciÃ³n en pantalla.
    * \todo  Un convertidor a cadena para los nombres de los actores.
    */
   rectfill (screen, SCREEN_W-100,0,SCREEN_W,14,0);

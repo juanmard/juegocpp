@@ -2,14 +2,14 @@
  *  \brief Prueba del "framework" de un juego.
  *
  *  La clase instancia un tipo de juego de prueba con todos los controladores posibles.
- *  La primera versión de la instancia se utiliza para actualizar el juego de plataformas
+ *  La primera versiÃ³n de la instancia se utiliza para actualizar el juego de plataformas
  *  programado antiguamente en C "puro y duro".
  *
  *  \author Juan Manuel Rico
  *  \date    Julio de 2009
  *  \version 1.00
  *
- *  \todo Comentar todas estas clases y funciones más detalladamente.
+ *  \todo Comentar todas estas clases y funciones mÃ¡s detalladamente.
  */
 
 #include "JuegoPrueba.h"
@@ -25,7 +25,7 @@ void JuegoPrueba::main()
     control_p1->add_action_name(AirCraft::LEFT, "Izquierda");
     control_p1->add_action_name(AirCraft::RIGHT,"Derecha");
 
-    /* Creamos un periférico y asociamos control y propietario. */
+    /* Creamos un perifÃ©rico y asociamos control y propietario. */
     Keyboard *kboard=new Keyboard;
     control_p1->set_actionperipheral(AirCraft::DOWN, kboard, KEY_DOWN, Peripheral::ON_PRESSING);
     control_p1->set_actionperipheral(AirCraft::UP, kboard, KEY_UP, Peripheral::ON_PRESSING);
@@ -85,7 +85,7 @@ void JuegoPrueba::main()
     actor_manager->add(pelota);
 
     /**
-     * \brief   Añadimos una fila de ladrillos de prueba.
+     * \brief   AÃ±adimos una fila de ladrillos de prueba.
      */
     for (int j=0; j<=2; j++)
     {    
@@ -123,7 +123,7 @@ void JuegoPrueba::main()
     actor_manager->add(prueba_suelo);
 
 
-    /* Se añade el control creado al manejador de controles. */
+    /* Se aÃ±ade el control creado al manejador de controles. */
     control_manager->add_control(control_p2);
     // control_manager->add_control(control_p1);
     control_manager->add_peripheral(kboard);

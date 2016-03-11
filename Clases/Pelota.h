@@ -15,21 +15,21 @@ public:
 
 protected:
     /**
-     * \brief   direccion_x y direccion_y, modelan la direcciÛn y cantidad 
-     *          de pixels con que se mueve la pelota en cada direcciÛn.
+     * \brief   direccion_x y direccion_y, modelan la direcci√≥n y cantidad 
+     *          de pixels con que se mueve la pelota en cada direcci√≥n.
      *
-     * \details SerÌa algo semejante a un vector de velocidad.
+     * \details Ser√≠a algo semejante a un vector de velocidad.
      *
      * \todo    Modelar mejor estos valores generales de velocidad para todos
      *          los objetos. Crear unas clases independientes para estas magnitudes
-     *          serÌa lo adecuado.
+     *          ser√≠a lo adecuado.
      */
     int direccion_x, direccion_y;
 
     /**
      * \brief   tomate, granada y estrella son los punteros a distintos objetos tipo BITMAP.
      *
-     * \details Estos se utilizan para asignar como la parte gr·fica
+     * \details Estos se utilizan para asignar como la parte gr√°fica
      *          del actor. Se cargan al crear el objeto.
      *
      * \todo    Estos objetos, que son como el "vestuario"

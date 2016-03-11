@@ -4,7 +4,7 @@
 #include "Nombres.h"
 
 /**
- * \brief       Actor que cambia la dirección de la pelota.
+ * \brief       Actor que cambia la direcciÃ³n de la pelota.
  * \details     Es controlable mediante el teclado.
  *
  */

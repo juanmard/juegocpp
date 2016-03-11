@@ -54,7 +54,7 @@ void Herny::do_action (ControllableActor::action_t act, int magnitude)
 }
 
 //TODO: No me gusta tener duplicados los estados.
-//      Sería conveniente unirlos en un solo procedimiento.
+//      SerÃ­a conveniente unirlos en un solo procedimiento.
 void Herny::ActualizarEstado (void)
 {
     switch (actual)
@@ -97,11 +97,11 @@ void Herny::CambiarEstado (void)
     }
 }
 /**
- * \brief   Intersección del herny con otro actor de la escena.
- * \param   who Puntero al actor que provoca la colisión.
- * \param   damage Daño que se produce en la colisión. 
- * \todo    Se necesita calcular no sólo la energía con la que colisionan los
- *          objetos(damage), sino con qué inclinación colisionan.
+ * \brief   IntersecciÃ³n del herny con otro actor de la escena.
+ * \param   who Puntero al actor que provoca la colisiÃ³n.
+ * \param   damage DaÃ±o que se produce en la colisiÃ³n. 
+ * \todo    Se necesita calcular no sÃ³lo la energÃ­a con la que colisionan los
+ *          objetos(damage), sino con quÃ© inclinaciÃ³n colisionan.
  */
 void  Herny::hit  (Actor *who, int damage)
 {

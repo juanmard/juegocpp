@@ -47,7 +47,7 @@ void StageManager::draw()
 	 * Volcamos el buffer en pantalla. Se dejan 14 pixel por arriba
 	 * para mostrar los fps.
 	 *
-	 * TODO: Opción para mostrar los fps y dejar estos 14 pixels.
+	 * TODO: OpciÃ³n para mostrar los fps y dejar estos 14 pixels.
 	 */
 	blit(buffer, screen, 0,0,0,14,SCREEN_W, SCREEN_H);
 }

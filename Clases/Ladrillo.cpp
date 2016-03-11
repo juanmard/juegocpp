@@ -4,10 +4,10 @@
  * \brief   Constructor que crea un objeto golpeable por la pelota en el juego.
  * \todo    Muchas cosas por hacer:
  *          - Eliminar la forma de obtener el sample. Crear un objeto propio de
- *            sonido para independizar lo más posible de Allegro.
+ *            sonido para independizar lo mÃ¡s posible de Allegro.
  *          - Eliminar la carga del fichero de recursos "sprites.dat".
  *          - No me gusta como se identifica a los objetos, pues para crear un
- *            objeto hay que acordarse de añadir el nombre en la clase "Nombres".
+ *            objeto hay que acordarse de aÃ±adir el nombre en la clase "Nombres".
  */
 Ladrillo::Ladrillo(void)
 {
@@ -29,11 +29,11 @@ Ladrillo::~Ladrillo(void)
 }
 
 /**
- * \brief   Intersección del ladrillo con otro actor de la escena.
- * \param   who Puntero al actor que provoca la colisión.
- * \param   damage Daño que se produce en la colisión. 
- * \todo    Se necesita calcular no sólo la energía con la que colisionan los
- *          objetos(damage), sino con qué inclinación colisionan.
+ * \brief   IntersecciÃ³n del ladrillo con otro actor de la escena.
+ * \param   who Puntero al actor que provoca la colisiÃ³n.
+ * \param   damage DaÃ±o que se produce en la colisiÃ³n. 
+ * \todo    Se necesita calcular no sÃ³lo la energÃ­a con la que colisionan los
+ *          objetos(damage), sino con quÃ© inclinaciÃ³n colisionan.
  */
 void  Ladrillo::hit  (Actor *who, int damage)
 {
@@ -77,7 +77,7 @@ void  Ladrillo::hit  (Actor *who, int damage)
 }
 
 /**
- * \brief   Se llama desde el constructor para generar las características
+ * \brief   Se llama desde el constructor para generar las caracterÃ­sticas
  *          generales del ladrillo (de forma predeterminada).
  */
 void    Ladrillo::crear_ladrillo (void)
@@ -98,14 +98,14 @@ void    Ladrillo::crear_ladrillo (void)
 }
 
 /**
- * \brief   Máquina de estados de la clase.
+ * \brief   MÃ¡quina de estados de la clase.
  */
 void  Ladrillo::update  (void)
 {
     switch (estado)
     {
     /* \brief El ladrillo cae libremente en este estado.
-     * \todo Añadir física al juego, en este caso se necesitaría la aceleración de la gravedad.
+     * \todo AÃ±adir fÃ­sica al juego, en este caso se necesitarÃ­a la aceleraciÃ³n de la gravedad.
      */
     case EN_CAIDA:
         this->set_y (this->get_y()+2);

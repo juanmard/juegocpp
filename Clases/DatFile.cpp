@@ -1,8 +1,9 @@
-﻿#include "DatFile.h"
+#include "DatFile.h"
 
 /**
- * \brief Constructor encargado de cargar el fichero de recursos.
- * \todo    - Controlar mejor los errores. En modo DEBUG si no encuentra
+ * \brief   Constructor encargado de cargar el fichero de recursos.
+ * \todo    
+ *          - Controlar mejor los errores. En modo DEBUG si no encuentra
  *            el fichero, abrir una ventana para pedir se localice el
  *            fichero de recursos.
  *          - Controlar la carga se un único fichero de recurso para evitar
@@ -78,7 +79,8 @@ void  *DatFile::GetDat(int number)
 
 /**
  * \brief   Devuelve un BITMAP como recurso dando el nonbre del recurso. 
- * \todo    - Controlar que el recurso solicitado es realmente una paleta de colores.
+ * \todo    
+ *          - Controlar que el recurso solicitado es realmente una paleta de colores.
  *          - No volver a cargar el fichero de recursos.      
  */
 void DatFile::SetPalette (int number)
