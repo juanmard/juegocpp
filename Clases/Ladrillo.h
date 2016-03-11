@@ -14,6 +14,7 @@ public:
                         Ladrillo    (const Ladrillo &copia);
                         Ladrillo    (void);
                         Ladrillo    (int x, int y);
+                        Ladrillo    (int x, int y, Almacen &almacen);
                         ~Ladrillo   ();
     void                hit         (Actor *who, int damage);
     void                update      ();

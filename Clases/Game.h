@@ -57,13 +57,14 @@ class Game
 		int     max_frame_skip;
 		bool    paused;
 
-		void	        start           		(void);
-		void	        shutdown                (string message);
-        virtual void    create_actormanager     (void);
-        virtual void    create_stagemanager     (void);
-        virtual void    create_soundmanager     (void);
-        virtual void    create_controlmanager   (void);
-        virtual void    create_collisionmanager (void);
+		void	          start           		    ();
+		void	          shutdown                (string message);
+    virtual void    create_actormanager     ();
+    virtual void    create_stagemanager     ();
+    virtual void    create_soundmanager     ();
+    virtual void    create_controlmanager   ();
+    virtual void    create_collisionmanager ();
+    virtual void    create_storage          ();
 };
 
 #endif

@@ -29,6 +29,22 @@ peloteo(copia.peloteo)
  */
 Ladrillo::Ladrillo(int x, int y)
 {
+    DatFile *sprites = new DatFile("sprites.dat");
+    chaqueta = new Bitmap(this, sprites->GetBitmap("suelo_2"));
+    // A eliminar - Para pruebas de sonido.
+    peloteo = (SAMPLE *) sprites->GetDat (76);
+    crear_ladrillo ();
+    set_x (x);
+    set_y (y);
+}
+
+/**
+ * \brief   Constructor para situar el ladrillo a la vez que lo creamos 
+ *          utilizando los recursos del almacén.
+ */
+Ladrillo::Ladrillo(int x, int y, Almacen &almacen)
+{
+    chaqueta = new Bitmap(this, almacen.GetBitmap("sprite_041"));
     crear_ladrillo ();
     set_x (x);
     set_y (y);
@@ -54,7 +70,7 @@ void  Ladrillo::hit  (Actor *who, int damage)
             * \brief   Sonido de rebote de prueba.
             * \todo    Crear clases separadas para objetos de sonido.
             */
-           play_sample (peloteo,200,128,800,FALSE);
+           //play_sample (peloteo,200,128,800,FALSE);
 
            /**
             * Cambiamos el estado del ladrillo para que caiga.
@@ -68,7 +84,7 @@ void  Ladrillo::hit  (Actor *who, int damage)
            break;
        
        case Nombres::paleta:
-           play_sample (peloteo,200,128,500,FALSE);
+           //play_sample (peloteo,200,128,500,FALSE);
            estado = Actor::eliminar;
            break;
 
@@ -92,19 +108,14 @@ void  Ladrillo::hit  (Actor *who, int damage)
  */
 void    Ladrillo::crear_ladrillo (void)
 {
-    DatFile *sprites = new DatFile("sprites.dat");
-    chaqueta = new Bitmap(this, sprites->GetBitmap("suelo_2"));
-    // A eliminar - Para pruebas de sonido.
-    peloteo = (SAMPLE *) sprites->GetDat (76);
-
-    this->set_name (Nombres::ladrillo);
-    this->set_actor_graphic (chaqueta);
-	this->set_is_detected(true);
-    //this->set_team(ENEMY);
-    this->set_collision_method(CollisionManager::PP_COLLISION);
-    this->set_wh (32,15);
-    this->tiempo_estado=30;
-    this->estado = Ladrillo::ESPERA;
+  this->set_name (Nombres::ladrillo);
+  this->set_actor_graphic (chaqueta);
+  this->set_is_detected(true);
+  //this->set_team(ENEMY);
+  this->set_collision_method(CollisionManager::PP_COLLISION);
+  this->set_wh (32,15);
+  this->tiempo_estado=30;
+  this->estado = Ladrillo::ESPERA;
 }
 
 /**
@@ -138,3 +149,4 @@ Ladrillo *  Ladrillo::clone() const
 {
     return (new Ladrillo (*this));
 };
+

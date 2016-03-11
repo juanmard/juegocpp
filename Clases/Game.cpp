@@ -51,7 +51,7 @@ void Game::init(int gfx_mode, int w, int h, int col)
 {
 	allegro_init();
 	install_keyboard();
-    install_mouse();
+  install_mouse();
 	install_timer();
 
 	/* Protegemos variables e instalamos interrupción del "timer" (14 para ejecutar 70 veces por segundo).*/
@@ -70,12 +70,10 @@ void Game::init(int gfx_mode, int w, int h, int col)
 	/* Creamos manejadores del juego. */
 	create_actormanager();
 	create_stagemanager();
-    create_soundmanager ();
-    create_controlmanager();
-    create_collisionmanager ();
-
-    /* Creamos el almacén de recursos. */
-    almacen = new Almacen("sprites.dat");
+  create_soundmanager ();
+  create_controlmanager();
+  create_collisionmanager ();
+  create_storage ();
     
 	/* Se empieza el juego. */
 	start();
@@ -89,6 +87,7 @@ void Game::shutdown (string message="Gracias por jugar")
 //    if (sound_manager) delete sound_manager;
     if (control_manager) delete control_manager;
     if (collision_manager) delete collision_manager;
+    if (almacen) delete almacen;
 
     set_gfx_mode(GFX_TEXT,0,0,0,0);
 	cout << name << endl;
@@ -215,4 +214,13 @@ void Game::play (void)
 bool Game::is_paused (void)
 {
 	return paused;
+}
+
+/**
+ * \brief   Se crea el almacén por omisión.
+ */
+void Game::create_storage ()
+{
+    // Creamos el almacén de recursos.
+    //almacen = new Almacen("sprites.dat");
 }
