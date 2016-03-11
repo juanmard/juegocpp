@@ -9,10 +9,11 @@
 StageManager::StageManager (Game *g, int w = SCREEN_W, int h = SCREEN_H):
 game (g),
 marco (0, 0, w, h),
-ribete (0, 0, SCREEN_W, SCREEN_H),
+ribete (0, 0, w, h),
 actorSeguido (NULL),
 verBloques (false),
-verInfo (false)
+verInfo (false),
+verRibete (true)
 {
   buffer = create_bitmap (SCREEN_W, SCREEN_H);
 }
@@ -116,23 +117,14 @@ void StageManager::draw (BITMAP *cuadro)
 
 /**
  * \brief   Dibuja el escenario.
- * \details Para ello recorre la lista de actores y les manda dibujase en el buffer
+ * \details Para ello recorre la lista de actores y les manda dibujarse en el buffer
  *          que posteriormente se vuelca en la pantalla ('screen' de Allegro).
  */
 void StageManager::draw ()
 {
   rellenarBuffer ();
-  /*
-   * Volcamos el buffer en pantalla. Se dejan 14 pixel por arriba
-   * para mostrar los fps.
-   *
-   * \todo Opción para mostrar los fps y dejar estos 14 pixels.
-   */
-  ribete.setY (0);
-  if (verInfo)
-  {
-    ribete.setY (20);
-  }
+  if (verInfo) ribete.setY (20);
+  if (verRibete) rect (buffer, 0, 0, ribete.getW () - 1, ribete.getH () -1, makecol (255, 0, 0));
   blit (buffer, screen, 0, 0, 
         ribete.getX (), ribete.getY (),
         ribete.getW (), ribete.getH ());

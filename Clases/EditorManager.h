@@ -47,9 +47,12 @@ class EditorManager
     BITMAP *  getBuffer             ();
     void      ActualizarEscenario   ();
     void      dibujarCuadrado       (Bloque cuadro, int color);
+    int       getNumActores         () const;
+    void      setRibete             (Bloque bloque) const;
+    void      borrarPantalla        () const;
 
   protected:
-  Game *      game;
-  Dialog *    gui;
-  Actor *     actor_editado;
+    Game *      game;
+    Dialog *    gui;
+    Actor *     actor_editado;
 };

@@ -42,12 +42,18 @@ void  EditorManager::activate ()
   // Se para el bucle del juego.
   game->pause ();
 
+  // Guardamos el ribete actual del juego.
+//  Bloque ribete_ant (game->stage_manager->getRibete ());
+  Bloque ribete_ant (0, 0, SCREEN_W, SCREEN_H-100);
+  
   // Se hace visible el menú de edición.
   gui->show ();
 
-  // Cuando se termina de editar, ocultamos el ratón y se vuelve al juego.
-  gui->mouse_out ();
-  game->play ();
+  // Cuando se termina de editar:
+  game->stage_manager->setRibete (ribete_ant);    //  1 - Se recupera el ribete.
+  gui->mouse_out ();                              //  2 - Ocultamos el ratón.
+  borrarPantalla ();                              //  3 - Borramos la pantalla.
+  game->play ();                                  //  4 - Se vuelve al juego.
 }
 
 /**
@@ -262,6 +268,8 @@ char *  EditorManager::getNombreTraje (int indice) const
     case 3:
         return const_cast<char *>("Traje 3");
         break;
+      default:
+        return const_cast<char *>("actor");
   }
 }
 
@@ -347,16 +355,42 @@ void  EditorManager::ActualizarEscenario ()
  */
 void  EditorManager::dibujarEscenario (Bloque cuadro)
 {
-  game->stage_manager->draw (cuadro);
+//  game->stage_manager->draw (cuadro);
+  game->stage_manager->draw ();
 }
 
 /**
  * \brief   Se dibuja un cuadrado referido a la posición actual del escenario.
  * \param   cuadro  Bloque cuya posición vendrá referida respecto a la posición 
-  *                 actual del escenario.
+ *                  actual del escenario.
  */
 void  EditorManager::dibujarCuadrado (Bloque cuadro, int color)
 {
   game->stage_manager->dibujarCuadrado (cuadro, color);
 }
 
+/**
+ * \brief   Obtiene el número de actores actualmente en la lista.
+ */
+int  EditorManager::getNumActores () const
+{
+  return game->actor_manager->num_actors ();
+}
+
+/**
+ * \brief   Cambia el marco que se muestra en pantalla (ribete) del escenario.
+ * \todo    Indicar también el color que se utiliza.
+ */
+void  EditorManager::setRibete (Bloque bloque) const
+{
+  return game->stage_manager->setRibete(bloque);
+}
+
+/**
+ * \brief   Cambia el marco que se muestra en pantalla (ribete) del escenario.
+ * \todo    Indicar también el color que se utiliza.
+ */
+void  EditorManager::borrarPantalla () const
+{
+  clear_to_color(screen, makecol (128, 128, 128));
+}

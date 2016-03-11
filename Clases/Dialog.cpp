@@ -7,7 +7,7 @@
 //#define DEBUG
 
 // \todo    Hacer el enum propio de la clase, no global.
-enum {pantalla=0, lista=4, bitmap=5, pos=13, nombre=15, caja=6, ultimo=16};
+enum {scr=0, pantalla=0, lista=4, bitmap=5, pos=13, nombre=15, caja=6, ultimo=16};
 
 // Inicialización de las variables estáticas de la clase.
 // Diálogo general de la GUI del editor.
@@ -16,10 +16,10 @@ DIALOG Dialog::dialog[] =
    /* (proc)                 (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags)                               (d1) (d2) (dp)                                   (dp2) (dp3) */
    { Dialog::marco_callback, 16,  24,  612, 300, 254, 50,  0,    0,                                    0,   0,   NULL,                                  NULL, NULL },
    { d_menu_proc,            0,   0,   640, 15,  7,   15,  0,    D_SELECTED | D_GOTFOCUS | D_GOTMOUSE, 0,   0,   Dialog::menu_editor,                   NULL, NULL },
-   { d_text_proc,            534, 342, 80,  16,  14,  219, 0,    0,                                    0,   0,   const_cast<char*>("  Modo Edicion  "), NULL, NULL },
+   { d_text_proc,            344, 328, 80,  16,  14,  219, 0,    0,                                    0,   0,   const_cast<char*>("  Modo Edicion  "), NULL, NULL },
    { d_text_proc,            8,   360, 32,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Estado:"),         NULL, NULL },
-   { d_list_proc,            385, 342, 144, 60,  50,  219, 0,    0,                                    0,   0,   NULL,                                  NULL, NULL },
-   { d_bitmap_proc,          552, 412, 83,  64,  0,   0,   0,    0,                                    0,   0,   NULL,                                  NULL, NULL },
+   { d_list_proc,            344, 344, 144, 60,  50,  219, 0,    0,                                    0,   0,   NULL,                                  NULL, NULL },
+   { d_bitmap_proc,          500, 336, 128, 132, 0,   0,   0,    0,                                    0,   0,   NULL,                                  NULL, NULL },
    { d_box_proc,             92,  336, 128, 80,  16,  164, 0,    0,                                    0,   0,   NULL,                                  NULL, NULL },
    { d_text_proc,            100, 360, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("andando"),         NULL, NULL },
    { d_text_proc,            8,   372, 40,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Anterior:"),       NULL, NULL },
@@ -177,10 +177,24 @@ Dialog::~Dialog (void)
 void Dialog::show (void)
 {
   // Se borra la pantalla.
-  clear_to_color (screen, makecol(128,128,128));
+  manager->borrarPantalla ();
+
+  // Se modifica el tamaño del escenario mostrado (ribete) y se ajusta a la GUI.
+  manager->setRibete (Bloque (dialog[scr].x, dialog[scr].y,
+                              dialog[scr].w, dialog[scr].h));
 
   // Se hace visible el menú de edición.
-  do_dialog (dialog,-1);
+  // Si se pulsa ESC debemos mostrar el mensaje de cierre 'quit'.
+  // Repetimos el bucle hasta que en el mensaje de cierre se elija "Sí".
+  int salida = D_O_K;
+  while (salida != D_CLOSE)
+  {
+    salida = do_dialog (dialog,-1);
+    if ( salida == -1)
+    {
+      salida = quit ();
+    }
+  }
 
 // Hacemos unas pruebas independientes de la definición de la clase.
 #ifdef  PRUEBAS
@@ -385,18 +399,8 @@ void  Dialog::draw ()
   // Oculta el ratón para no dejar rastros por pantalla ni parpadeos.
   mouse_out ();
 
-  // Se dibuja el escenario y un contorno.
-  // \todo  Se debería agrupar en una única petición al EditorManager.
-  //        y el EditorManager hacer la petición al StageManager para que
-  //        se dibujaran los cuadrados sobre el buffer original y luego realizar
-  //        el volcado ('Blit') sobre la pantalla. De esta forma se evitaría el
-  //        parpadeo de los gráficos debidos a más de un volcado por ciclo.
-  int x = dialog[0].x; int y = dialog[0].y;
-  int w = dialog[0].w; int h = dialog[0].h;
-  manager->dibujarEscenario (Bloque (x, y, w, h));
-  // manager->dibujarEscenario ();
-  rect (manager->getBuffer (), 0, 0, w-1, h-1, makecol (255, 0, 0));
-  blit (manager->getBuffer (), screen, 0, 0, x, y, w, h);
+  // Se dibuja el escenario.
+  manager->dibujarEscenario ();
 
   // Redibujar los propios controles de la GUI.
   //int error;
@@ -406,6 +410,8 @@ void  Dialog::draw ()
   if (actor)
   {
     // \todo  Realizar una única petición al EditorManager.
+    int x = dialog[0].x; int y = dialog[0].y;
+    int w = dialog[0].w; int h = dialog[0].h;
     int xAct = actor->get_x () - manager->getEscenarioX ();// + dialog[pantalla].x;
     int yAct = actor->get_y () - manager->getEscenarioY ();// + dialog[pantalla].y;
     int wAct = actor->get_w ();
@@ -535,6 +541,7 @@ void    Dialog::mover_kbd_escenario   (int code)
         break;
     case 'f':
     case 'F':
+        // \warning   Se actualiza dos veces la pantalla, en 'step' y en 'draw'.
         manager->step ();
         actualizarValoresActor ();
         draw ();

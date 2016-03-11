@@ -46,4 +46,5 @@ class StageManager
     Actor *   actorSeguido;     // Actor al que se le realiza el seguimiento.
     bool      verBloques;       // Muestra los bloques de los actores.
     bool      verInfo;          // Muestra las informaciones del juego.
+    bool      verRibete;        // Muestra el ribete en pantalla.
 };

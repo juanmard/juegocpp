@@ -145,7 +145,7 @@ public:
                 // Si index es cero o positivo debe devolver la cadena del nombre del traje.
                 if (index < 0)
                 {
-                    *list_size = manager.getNumTrajes ();
+                    *list_size = manager.getNumActores ();
                     return NULL;
                 }
                 else
@@ -346,6 +346,7 @@ public:
             //return d_menu_proc (msg,d,c);
           
             // Procesamos los mensajes como una caja por omisión.
-              return d_box_proc (msg,d,c);
+            return d_box_proc (msg,d,c);
+            //return D_O_K;
         }
 };
