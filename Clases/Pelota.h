@@ -6,7 +6,7 @@
 
 class Pelota : public DirectorActor
 {
-public:
+  public:
                         Pelota              (const Pelota &copia);
                         Pelota              (ActorManager *actor_manager);
                         ~Pelota             (void);
@@ -14,7 +14,7 @@ public:
     void                ActualizarEstado    (void);
     void                hit                 (Actor *who, int damage);
     virtual Pelota *    clone               () const;
-    
+    void                getNombre           (string &strNombre) const;
 
 protected:
     /**

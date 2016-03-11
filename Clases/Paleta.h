@@ -22,6 +22,7 @@ class Paleta : public ControllableActor
     void                do_action   (ControllableObject::action_t act, int magnitude);
     void                hit         (Actor *who, int damage);
     virtual Paleta *    clone       () const;
+    void                getNombre   (string &strNombre) const;
 
   protected:
     Suelo *   piel;

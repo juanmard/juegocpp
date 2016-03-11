@@ -137,3 +137,11 @@ Pelota *    Pelota::clone () const
 {
     return (new Pelota(*this));
 };
+
+/**
+ * \brief   Obtiene el nombre en forma de cadena de texto. 
+ */
+void  Pelota::getNombre (string &strNombre) const
+{
+  strNombre = Nombres::Imprimir (nombre);
+}

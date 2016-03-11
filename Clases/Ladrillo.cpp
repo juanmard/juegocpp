@@ -151,3 +151,10 @@ Ladrillo *  Ladrillo::clone() const
     return (new Ladrillo (*this));
 };
 
+/**
+ * \brief   Obtiene el nombre en forma de cadena de texto. 
+ */
+void  Ladrillo::getNombre (string &strNombre) const
+{
+  strNombre = Nombres::Imprimir (nombre);
+}

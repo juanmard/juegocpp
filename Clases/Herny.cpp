@@ -203,3 +203,11 @@ Herny *  Herny::clone () const
 {
     return (new Herny (*this));
 }
+
+/**
+ * \brief   Obtiene el nombre en forma de cadena de texto. 
+ */
+void  Herny::getNombre (string &strNombre) const
+{
+  strNombre = Nombres::Imprimir (nombre);
+};

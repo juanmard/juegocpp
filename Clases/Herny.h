@@ -13,24 +13,12 @@ class Herny : public ControllableActor
         /**
          * Redefinimos las acciones para este actor.
          */
-        typedef enum
-        {
-            DOWN,
-            UP,
-            LEFT,
-            RIGHT,
-            JUMP
-        } action_t;
+        typedef enum {DOWN, UP, LEFT, RIGHT, JUMP} action_t;
 
         /**
          * \todo    Generalizar los estados en una clase e incluirlos en la definicion general de "Actor".
          */
-        typedef enum
-        {
-            de_pie,
-            cayendo,
-            saltando
-        } Estados;
+        typedef enum {de_pie, cayendo, saltando} Estados;
 
                             Herny               ();
                             Herny               (Almacen &almacen);
@@ -41,11 +29,11 @@ class Herny : public ControllableActor
         void                ActualizarEstado    ();
         void                hit                 (Actor *who, int damage);
         virtual Herny *     clone               () const;
+        void                getNombre           (string &strNombre) const;
 
-   
-    protected:
-        Sprite *skin;
-        Estados actual, siguiente;
+  protected:
+        Sprite *    skin;
+        Estados     actual, siguiente;
 };
 
 

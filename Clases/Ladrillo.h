@@ -19,7 +19,8 @@ public:
     void                hit         (Actor *who, int damage);
     void                update      ();
     virtual Ladrillo *  clone       () const;
-    
+    void                getNombre   (string &strNombre) const;
+
 private:
     /**
      * \brief Definición de los distintos estados del ladrillo.

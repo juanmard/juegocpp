@@ -1,4 +1,3 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * linux
  * Copyright (C) Juanma Rico 2010 <juanmard@gmail.com>
@@ -52,4 +51,12 @@ void Loro::do_action (ControllableActor::action_t act, int magnitude)
 			
         case JUMP:  y-=4; break;
     }
+};
+
+/**
+ * \brief   Obtiene el nombre en forma de cadena de texto. 
+ */
+void  Loro::getNombre (string &strNombre) const
+{
+  strNombre = Nombres::Imprimir (nombre);
 }

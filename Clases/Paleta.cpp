@@ -102,3 +102,11 @@ Paleta *  Paleta::clone () const
 {
   return (new Paleta (*this));
 };
+
+/**
+ * \brief   Obtiene el nombre en forma de cadena de texto. 
+ */
+void  Paleta::getNombre (string &strNombre) const
+{
+  strNombre = Nombres::Imprimir (nombre);
+}
