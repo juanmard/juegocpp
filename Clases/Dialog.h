@@ -7,11 +7,14 @@
 #include "DialogALG.h"
 #include "BoxALG.h"
 #include "TextALG.h"
+#include "MenuALG.h"
+#include "ItemALG.h"
 
 class EditorManager;
 class DlgActor;
 class VentanaALG;
 class DialogALG;
+class ItemALG;
 
 /**
  * \brief       Muestra una pequeña GUI para editar los objetos del juego.

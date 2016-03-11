@@ -134,6 +134,14 @@ void Dialog::show (void)
     control4->set_xy (300,100);
     prueba.add(*control4);
         
+    MenuALG *control5 = new MenuALG();
+    control5->set_xy (300,100);
+    ItemALG *item1= new ItemALG();
+    control5->add(*item1);
+    prueba.add(*control5);
+
+    
+
     prueba.show();
     //do_menu(menu_editor, 0, 0);
 }

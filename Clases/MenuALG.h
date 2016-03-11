@@ -17,29 +17,31 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _ControlALG_H_
-#define _ControlALG_H_
+#ifndef  _MenuALG_H_
+#define _MenuALG_H_
 
-#include <allegro.h>
-#include  "DialogALG.h"
+#include <vector>
+#include  "ControlALG.h"
+#include  "ItemALG.h"
 
-class DialogALG;
+class ItemALG;
 
-class ControlALG
+class MenuALG : public ControlALG
 {
 public:
-								ControlALG 		(DialogALG *padre);
-								ControlALG 		();
-								~ControlALG  	();
-								// Conversor de tipos para DIALOG.
-									operator DIALOG &() {return control;};
-	virtual void		draw				();
-	void						set_xy (int x, int y);
+						MenuALG 	();
+						~MenuALG  ();
+	operator 	DIALOG &() {return control;};
+	void 			add (ItemALG item);
 
-	
+	virtual void		draw ();
+
 protected:
-	DIALOG	    control;
-	DialogALG     *padre;
+	vector<MENU>::iterator 		iter;
+	vector<MENU>					items;
+	static	MENU						item_fin[];
+	//static	MENU						item_fin;
+	static	MENU						prueba_menu[];
 };
 
-#endif // _ControlALG_H_
+#endif 
