@@ -13,6 +13,7 @@ class Bitmap : public ActorGraphic
         void    draw    (BITMAP *destino);
         int     get_w   ();
         int     get_h   ();
+        Bitmap *    duplicar (Actor *propietario);
 
     protected:
         BITMAP *    fuente;

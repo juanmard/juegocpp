@@ -1,5 +1,12 @@
 #include "Pelota.h"
 
+/*
+ *
+ */
+//Pelota::Pelota(const Pelota &copia):DirectorActor(this)
+//{
+//}
+
 /**
  * \brief Crea la pelota que se encargará de rebotar por la pantalla.
  * \todo Eliminar la creación contínua del objeto "sprite".
@@ -123,3 +130,12 @@ void  Pelota::hit  (Actor *who, int damage)
   rectfill (screen, SCREEN_W-100,0,SCREEN_W,14,0);
   textprintf (screen, font, SCREEN_W-100,0,-1, "Hit: %d", who->get_name());
 }
+
+/**
+ * \brief   Duplica el actor Pelota.
+ */
+Pelota *    Pelota::duplicar        ()
+{
+//    return (new Pelota(this));
+    return this;
+};

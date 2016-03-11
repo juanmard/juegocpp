@@ -182,13 +182,25 @@ void EditorManager::SetActorY (int y)
  */
 void    EditorManager::DuplicarActor (int x, int y)
 {
+    // Obtenemos la referencia al actor bajo el ratón.
     // La pantalla está desplazada 14 pixels hacia abajo.
-    Actor &actor = *(game->actor_manager->get_actor (x,y-14));
-    //if (actor)
+    Actor *actor = game->actor_manager->get_actor (x,y-14);
+
+    // Se comprueba que la referencia existe.
+    if (actor != NULL)
     {
-        Actor &nuevo = *(new Actor (actor));
-        nuevo.set_x (nuevo.get_x()+10);
-        nuevo.set_y (nuevo.get_y()+10);
-        game->actor_manager->add(&nuevo);
+        // Se crea un nuevo actor en memoria basándose en el elegido.
+        Actor *nuevo = actor->duplicar();
+
+        // Se desplaza para visualizarlo.
+        nuevo->set_x (nuevo->get_x()+10);
+        nuevo->set_y (nuevo->get_y()+10);
+
+        // Se añade a la lista de actores.
+        game->actor_manager->add(nuevo);
+
+        // Se actualiza la lista de actores creados para hacerlos visibles.
+        // \todo Hacer friend estos procedimientos para usarlos sólo desde los "Manager"
+        game->actor_manager->add_all_to_create ();
     }
 }

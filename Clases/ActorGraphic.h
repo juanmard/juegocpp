@@ -13,16 +13,18 @@ class Mask;
 class ActorGraphic
 {
     public:
-                        ActorGraphic    (Actor *a);
-        virtual         ~ActorGraphic   ();
-        virtual void    init            ();
-        virtual void    update          ();
-        virtual void    draw            (BITMAP *bmp);
-        virtual int     get_w           ();
-        virtual int     get_h           ();
-        virtual int     get_x           ();
-        virtual int     get_y           ();
-        virtual Mask*   get_mask        ();
+                                ActorGraphic    (const ActorGraphic &agraph);
+                                ActorGraphic    (Actor *a);
+        virtual                 ~ActorGraphic   ();
+        virtual void            init            ();
+        virtual void            update          ();
+        virtual void            draw            (BITMAP *bmp);
+        virtual int             get_w           ();
+        virtual int             get_h           ();
+        virtual int             get_x           ();
+        virtual int             get_y           ();
+        virtual Mask*           get_mask        ();
+        virtual ActorGraphic *  duplicar        (Actor *propietario);
 
     protected:
         Actor *owner;

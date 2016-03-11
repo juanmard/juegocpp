@@ -1,9 +1,9 @@
 
 #include "StageManager.h"
 
-StageManager::StageManager (Game *g, int w, int h)
+StageManager::StageManager (Game *g, int w, int h):
+game (g) 
 {
-	game=g;
     marco.x=0;
     marco.y=0;
 	marco.w=w;
@@ -34,14 +34,17 @@ void StageManager::update()
 void StageManager::draw()
 {
 	Actor *tmp;
-	game->actor_manager->rewind();
+
+    // Se sitúa la lista de actores al inicio.
+    game->actor_manager->rewind();
+
     // Coloreamos de azul (2 en la paleta) el fondo.
     clear_to_color (buffer, 2);
 
     // Se recorre la lista de actores y se dibuja en el buffer del escenario.
     // \todo  Comprobar los actores que se encuentran dentro del marco del
-    //            escenario (intersección de un bloque con otro) y dibujar sólo esos
-    //            actores.
+    //        escenario (intersección de un bloque con otro) y dibujar sólo esos
+    //        actores.
     while ((tmp = game->actor_manager->next())!= NULL)
 	{
         tmp->draw (buffer);

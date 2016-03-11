@@ -25,3 +25,8 @@ int Bitmap::get_h()
 {
     return fuente->h;
 }
+
+Bitmap *  Bitmap::duplicar  (Actor *propietario)
+{
+    return (new Bitmap(propietario,fuente));
+}

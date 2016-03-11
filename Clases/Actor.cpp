@@ -21,12 +21,18 @@ h(copia.h), w(copia.w),
 color(copia.color),
 collision_method(copia.collision_method),
 is_detectable(copia.is_detectable),
-agraph(copia.agraph),
+//~ agraph(copia.agraph),
 estado(copia.estado),
 tiempo_estado(copia.tiempo_estado),
 power(copia.power),
 team(copia.team)
 {
+    // Duplicamos la parte gráfica del actor a copiar y se la asiganmos al nuevo.
+    // Para ello...
+    // 1. Conseguimos la parte gráfica del actor a copiar.
+    // 2. Duplicamos la parte gráfica dando como propietario el nuevo actor.
+    // 3. Asignamos la parte gráfica duplicada al nuevo actor.
+    set_actor_graphic(copia.get_actor_graphic()->duplicar (this));
 }
 
 /**
@@ -138,6 +144,17 @@ void Actor::set_actor_graphic(ActorGraphic *ag)
     agraph=ag;
 }
 
+/**
+ * \brief   Devuelve la referencia al objeto ActorGraphic.
+ */
+ActorGraphic *  Actor::get_actor_graphic () const
+{
+    return agraph;
+}
+
+/**
+ *
+ */
 int Actor::get_color (void)
 {
     return color;
@@ -197,4 +214,11 @@ void Actor::set_name (Nombres::codigo new_name)
 Actor::estado_t  Actor::get_Estado (void)
 {
     return estado;
+}
+
+/**
+ *  \brief  Duplica el actor actual.
+ */
+Actor * Actor::duplicar ()
+{
 }

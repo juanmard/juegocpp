@@ -11,12 +11,14 @@
 class Ladrillo :  public Actor
 {
 public:
+            Ladrillo    (const Ladrillo &copia);
             Ladrillo    (void);
             Ladrillo    (int x, int y);
             ~Ladrillo   (void);
     void    hit         (Actor *who, int damage);
     void    update      (void);
-
+    Ladrillo *      duplicar ();
+    
 private:
     /**
      * \brief Definición de los distintos estados del ladrillo.

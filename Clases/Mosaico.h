@@ -13,6 +13,7 @@ class Tesela;
 class Mosaico : public ActorGraphic
 {
     public:
+                    //Mosaico             (const Mosaico &copia);
                     Mosaico             (Actor *actor_asociado);
         void        draw                (BITMAP *pantalla);
         void        add_primera_Tesela  (Tesela *nueva);

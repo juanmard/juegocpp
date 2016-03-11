@@ -1,6 +1,16 @@
 #include "Mosaico.h"
 
 
+/**
+ * \brief   Constructor de copia de la clase.
+ */
+//Mosaico::Mosaico(const Mosaico &copia)
+//:
+//ActorGraphic (copia.owner),
+//teselas (copia.teselas)
+//{
+//}
+
 Mosaico::Mosaico(Actor *aowner) : ActorGraphic (aowner)
 {
 }

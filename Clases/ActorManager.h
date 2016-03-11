@@ -35,6 +35,8 @@ class ActorManager
         list<Actor*>            to_del;
         list<Actor*>            to_create;
 
+//friend: 
+public:
         void                    add_all_to_create   ();
         void                    del_all_to_del      ();
 };
