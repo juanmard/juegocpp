@@ -44,6 +44,35 @@ Herny::Herny (Almacen &almacen)
     siguiente = Herny::cayendo;
 }
 
+/**
+ * Constructor por omisión. Mantenemos por compatibilidad.
+ */
+Herny::Herny ()
+{
+  DatFile *sprites = new DatFile("sprites.dat");
+  // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
+  Sprite *skin = new Sprite(this);    
+  skin->add_frame(sprites->GetBitmap("jugador_01"), 10, 10, 10);
+  skin->add_frame(sprites->GetBitmap("jugador_02"), 10, 10, 30);
+  skin->add_frame(sprites->GetBitmap("jugador_03"), 0, 0, 10);
+  skin->add_frame(sprites->GetBitmap("jugador_04"), 0, 0, 10);
+  skin->add_frame(sprites->GetBitmap("jugador_05"), 0, 0, 20);
+  set_actor_graphic (skin);
+
+  set_name (Nombres::herny);
+  set_x(SCREEN_W/2);
+  set_y(SCREEN_H/2);
+  set_is_detected(true);
+  //set_team(ENEMY);
+  set_collision_method(CollisionManager::PP_COLLISION);
+  set_wh (26,36);
+
+  //    tiempo_estado = 400;
+  //    tiempo_estado = 0; //Desactivamos el jugador para pruebas.
+  actual = Herny::de_pie;
+  siguiente = Herny::cayendo;
+}
+
 void Herny::do_action (ControllableActor::action_t act, int magnitude)
 {
     switch (act)
@@ -112,6 +141,35 @@ void Herny::CambiarEstado (Almacen &almacen)
         break;
     }
 }
+
+/**
+ * \brief   Cambia el estado del jugador. Mantenemos por compatibilidad. 
+ */
+void Herny::CambiarEstado ()
+{
+    DatFile *sprites = new DatFile("sprites.dat");
+    actual = siguiente;
+    switch (siguiente)
+    {
+    case de_pie:
+            set_tiempo(400);
+            siguiente = cayendo;
+            set_color(6);
+            this->set_actor_graphic (new Bitmap (this,sprites->GetBitmap("jugador_01")));
+        break;
+
+    case cayendo:
+            set_tiempo(100);
+            siguiente = de_pie;
+            set_color(3);
+            this->set_actor_graphic (new Bitmap (this,sprites->GetBitmap("jugador_15")));
+         break;
+
+    default:    
+        break;
+    }
+}
+
 /**
  * \brief   Intersección del herny con otro actor de la escena.
  * \param   who Puntero al actor que provoca la colisión.

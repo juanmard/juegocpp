@@ -32,9 +32,11 @@ class Herny : public ControllableActor
             saltando
         } Estados;
 
+                            Herny               ();
                             Herny               (Almacen &almacen);
                             Herny               (const Herny &copia);    
         void                do_action           (ControllableActor::action_t act, int magnitude);
+        void                CambiarEstado       ();
         void                CambiarEstado       (Almacen &almacen);
         void                ActualizarEstado    ();
         void                hit                 (Actor *who, int damage);

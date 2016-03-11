@@ -49,23 +49,28 @@ Almacen::~Almacen ()
  */
 BITMAP * Almacen::GetBitmap (string paramNombreRecurso)
 {
-    DATAFILE *	tmp_dat;
-    BITMAP *	tmp_bmp = NULL;
+  DATAFILE *	tmp_dat;
+  BITMAP *	tmp_bmp = NULL;
 
-    // Se comprueba si el fichero existe.
-    if (fichero)
-    {
-        // Se obtiene el objeto del fichero.
-        tmp_dat = load_datafile_object (nombreFichero.c_str(), paramNombreRecurso.c_str() );
+  // Se comprueba si el fichero existe.
+  if (fichero)
+  {
+	// Se obtiene el objeto del fichero.
+	tmp_dat = load_datafile_object (nombreFichero.c_str(), paramNombreRecurso.c_str() );
 
-        // Se comprueba que realmente es de tipo BITMAP.
-        // TODO: Comprobar por qué no funciona esta comparación.
-        //if (tmp_dat->type != DAT_BITMAP)
-        //{
-            tmp_bmp = (BITMAP *) tmp_dat->dat;
-        //}
-    }
-    return (BITMAP *)tmp_bmp;
+	// Se comprueba que realmente es de tipo BITMAP.
+	// \todo Comprobar por qué no funciona esta comparación.
+	//if (tmp_dat->type != DAT_BITMAP)
+	if (tmp_dat)
+	{
+	  tmp_bmp = (BITMAP *) tmp_dat->dat;
+	}
+	else
+	{
+	  printf ("No se encuentra el recurso %s en el fichero %s", paramNombreRecurso.c_str(), nombreFichero.c_str());
+	}
+  }
+  return (BITMAP *)tmp_bmp;
 };
 
 /**
@@ -84,21 +89,26 @@ BITMAP * Almacen::GetBitmap(int indice)
  */
 RGB * Almacen::GetPalette (string nombrePaleta)
 {
-    DATAFILE *	tmpDat;
-    RGB *	   	tmpRGB = NULL;
+  DATAFILE *	tmpDat;
+  RGB *		   	tmpRGB = NULL;
 
-    // Se comprueba si el fichero existe y ha sido abierto.
-    if (fichero)
-    {
-        // Se obtiene el objeto del fichero.
-        tmpDat = load_datafile_object (nombreFichero.c_str(), nombrePaleta.c_str() );
+  // Se comprueba si el fichero existe y ha sido abierto.
+  if (fichero)
+  {
+	// Se obtiene el objeto del fichero.
+	tmpDat = load_datafile_object (nombreFichero.c_str(), nombrePaleta.c_str());
 
-        // Se comprueba que realmente es de tipo RGB.
-        // TODO: Comprobar por qué no funciona esta comparación.
-        //if (tmpDat->type != DAT_RGB)
-        //{
-            tmpRGB = (RGB *) tmpDat->dat;
-        //}
-    }
-    return (RGB *)tmpRGB;
+	// Se comprueba que realmente es de tipo RGB.
+	// TODO: Comprobar por qué no funciona esta comparación.
+	//if (tmpDat->type != DAT_RGB)
+	if (tmpDat)
+	{
+	  tmpRGB = (RGB *) tmpDat->dat;
+	}
+	else
+	{
+	  printf ("No se encuentra el recurso %s en el fichero %s", nombrePaleta.c_str(), nombreFichero.c_str());
+	}
+  }
+  return (RGB *)tmpRGB;
 };

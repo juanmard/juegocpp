@@ -60,13 +60,13 @@ void JuegoPrueba::main()
   AirCraft *b=new AirCraft;
   BITMAP *bmp, *bmp2, *bmp3;
 
-  //DatFile *sprites = new DatFile("sprites.dat");
+  DatFile *sprites = new DatFile("sprites.dat");
   bmp = load_bitmap("nave.pcx", tmp);
   bmp2 = load_bitmap("nave2.pcx", tmp);
   bmp3 = load_bitmap("nave3.pcx", tmp);
 
-  // sprites->SetPalette (0);
-  set_palette (almacen->GetPalette ("SPRITES"));
+  sprites->SetPalette (0);
+  //set_palette (almacen->GetPalette ("SPRITES"));
 
   // TODO: Comprobar que existe el fichero y que el "bmp" se ha cargado correctamente.
   // if (bmp != NULL) { };
@@ -74,10 +74,10 @@ void JuegoPrueba::main()
 
   // Se genera un Sprite de prueba.
   Sprite *sp=new Sprite(a);
-  sp->add_frame(almacen->GetBitmap(12), 0, 0, 10);
-  sp->add_frame(almacen->GetBitmap(20), 0, 0, 30);
-  sp->add_frame(almacen->GetBitmap(21), 0, 0, 10);
-  sp->add_frame(almacen->GetBitmap(22), 0, 0, 10);
+  sp->add_frame(sprites->GetBitmap(12), 0, 0, 10);
+  sp->add_frame(sprites->GetBitmap(20), 0, 0, 30);
+  sp->add_frame(sprites->GetBitmap(21), 0, 0, 10);
+  sp->add_frame(sprites->GetBitmap(22), 0, 0, 10);
   a->set_x(SCREEN_W/2);
   a->set_y(SCREEN_H/2);
   a->set_actor_graphic (sp);
@@ -88,7 +88,7 @@ void JuegoPrueba::main()
   actor_manager->add(a);
 
   // Se crea Herny de prueba.
-  Herny *jugador = new Herny(*almacen);
+  Herny *jugador = new Herny();
   jugador->set_y (280);
   control_p1->set_owner(jugador);
   actor_manager->add(jugador);
@@ -118,7 +118,7 @@ void JuegoPrueba::main()
   }
 
   // Añadimos actor de prueba con el mensaje EVERSOFT.
-  Bitmap *bitm2=new Bitmap(b, almacen->GetBitmap("EVERSOFT"));
+  Bitmap *bitm2=new Bitmap(b, sprites->GetBitmap("EVERSOFT"));
   b->set_x(110);
   b->set_y(210);
   b->set_actor_graphic(bitm2);
@@ -132,7 +132,7 @@ void JuegoPrueba::main()
   AirCraft *c = new AirCraft ();
   c->set_x(210);
   c->set_y(210);
-  c->set_actor_graphic(new Bitmap(c, almacen->GetBitmap("demon")));
+  c->set_actor_graphic(new Bitmap(c, sprites->GetBitmap("demon")));
   c->set_is_detected(true);
   c->set_collision_method(CollisionManager::PP_COLLISION);
   c->set_wh (50,60);

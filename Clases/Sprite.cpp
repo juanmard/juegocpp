@@ -30,13 +30,14 @@ void Sprite::init()
 void Sprite::add_frame(BITMAP *bmp, int cx, int cy, int ticks)
 {
     Frame tmp_frame;
-    tmp_frame.bmp=bmp;
-    tmp_frame.cx=cx;
-    tmp_frame.cy=cy;
-    tmp_frame.ticks=ticks;
+  
+    tmp_frame.bmp = bmp;
+    tmp_frame.cx = cx;
+    tmp_frame.cy = cy;
+    tmp_frame.ticks = ticks;
 
     /* Crea la máscara. */
-    tmp_frame.mask=new Mask;
+    tmp_frame.mask = new Mask;
     tmp_frame.mask->create(bmp);
 
     /* Guarda el marco (frame) en la lista. */
@@ -45,12 +46,12 @@ void Sprite::add_frame(BITMAP *bmp, int cx, int cy, int ticks)
 
 void Sprite::update()
 {
-    if (frames.size()<=1) return;
-    if (actual_tick>frames[actual_frame].ticks)
+    if (frames.size() <= 1) return;
+    if (actual_tick > frames[actual_frame].ticks)
     {
-        actual_tick=0;
+        actual_tick = 0;
         actual_frame++;
-        if (actual_frame>=(int)frames.size()) actual_frame=0;
+        if (actual_frame >= (int)frames.size()) actual_frame=0;
     }
     else
     {
