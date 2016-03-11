@@ -13,14 +13,16 @@ class Tesela;
 class Mosaico : public ActorGraphic
 {
     public:
-                    Mosaico         (Actor *actor_asociado);
-        void        draw            (BITMAP *pantalla);
-        void        add_Tesela      (Tesela *nueva);
-        void        move_Tesela     (int inc_x, int inc_y, Tesela *elegida);
-        Tesela *    last_Tesela     (void);
+                    Mosaico             (Actor *actor_asociado);
+        void        draw                (BITMAP *pantalla);
+        void        add_primera_Tesela  (Tesela *nueva);
+        void        add_ultima_Tesela   (Tesela *nueva);
+        void        move_Tesela         (int inc_x, int inc_y, Tesela *elegida);
+        Tesela *    last_Tesela         (void);
+        void        swap_Tesela         (Tesela *tesela_1, Tesela *tesela_2);
 
     private:
-   		list<Tesela *> skins;
-		list<Tesela *>::iterator skins_iter;
+   		list<Tesela *> teselas;
+		list<Tesela *>::iterator teselas_iter;
 };
 #endif

@@ -9,7 +9,7 @@
  *  \date    Julio de 2009
  *  \version 1.00
  *
- *  \warning TODO: Comentar todas estas clases y funciones más detalladamente.
+ *  \todo Comentar todas estas clases y funciones más detalladamente.
  */
 
 #include "JuegoPrueba.h"

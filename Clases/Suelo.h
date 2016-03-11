@@ -19,7 +19,6 @@ private:
         int    size;
         BITMAP *suelo_1;
         BITMAP *suelo_2;
-        Tesela  *terminal_final;
 };
 
 #endif

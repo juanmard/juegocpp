@@ -16,12 +16,12 @@ Suelo::Suelo (Actor *aowner, int new_size) : Mosaico (aowner)
     int i;
     for (i=0; i<new_size; i++)
     {
-        add_Tesela (new Tesela (this, suelo_2, 32*i, 0));
+        add_ultima_Tesela (new Tesela (this, suelo_2, 32*i, 0));
     }
     
     // Añadimos las plataformas terminales al suelo.
-    add_Tesela (new Tesela (this, suelo_1, 0, 1));
-    add_Tesela (new Tesela (this, suelo_1, 32*new_size-10, 1, true));
+    add_ultima_Tesela (new Tesela (this, suelo_1, 0, 1));
+    add_ultima_Tesela (new Tesela (this, suelo_1, 32*new_size-10, 1, true));
 
     // Adaptamos el ancho y el alto del actor padre.
     // TODO: Igual esto no es deseable si queremos hacer un suelo "falso", es decir,
@@ -30,9 +30,6 @@ Suelo::Suelo (Actor *aowner, int new_size) : Mosaico (aowner)
 
     // Una vez creado actualizamos la variable del tamaño.
     size = new_size;
-
-    // Guardamos la última Tesela para poder modificar su tamaño.
-    terminal_final = last_Tesela ();
 }
 
 /**
@@ -45,17 +42,18 @@ int Suelo::Get_size (void)
 
 /**
  * \brief Modifica el tamaño actual del suelo.
+ * \todo Permitir cambio en cualquier sentido (mayor o menor) y de cualquier tamaño.
  */
 void Suelo::Set_size (int new_size)
 {
     // Sólo funciona si el nuevo tamaño es mayor al antiguo.
     int num = new_size - size;
 
-    // Añadimos una Tesela.
-    add_Tesela(new Tesela (this, suelo_2, 32*size));
-
     // Movemos el terminal.
-    move_Tesela (32*num, 0, terminal_final);
+    move_Tesela (32*num, 0, last_Tesela());
+
+    // Añadimos una Tesela.
+    add_primera_Tesela(new Tesela (this, suelo_2, 32*size));
 
     // Mover el terminal al final del mosaico para quede
     // sobre las demás teselas al dibujar en pantalla.

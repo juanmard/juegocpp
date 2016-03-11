@@ -2,7 +2,7 @@
 
 Paleta::Paleta(void)
 {
-    this->piel = new Suelo(this,4);    
+    this->piel = new Suelo(this,2);    
     this->set_name (Nombres::paleta);
     this->set_x(0);
     this->set_y(SCREEN_H - 70);
@@ -47,7 +47,7 @@ void Paleta::hit (Actor *who, int damage)
            break;
 
        case Nombres::pelota:
-           //piel->Set_size(0);
+           piel->Set_size(2);
            break;
 
        default:
