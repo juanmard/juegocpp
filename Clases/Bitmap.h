@@ -13,7 +13,7 @@ class Bitmap : public ActorGraphic
         void                draw    (BITMAP *destino);
         int                 get_w   ();
         int                 get_h   ();
-        virtual Bitmap *    clone   (Actor *propietario);
+        virtual Bitmap *    clone   (Actor *propietario) const;
 
     protected:
         BITMAP *    fuente;

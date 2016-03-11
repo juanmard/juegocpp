@@ -13,8 +13,9 @@ class Actor;
 class Suelo : public Mosaico
 {
 public:
-        Suelo (Actor *aowner, int size);
-
+                        Suelo   (const Suelo &copia, Actor *propietario);
+                        Suelo   (Actor *aowner, int size);
+        virtual Suelo * clone   (Actor *propietario) const;
         /**
          * Procedimientos para controlar el tamaño.
          */

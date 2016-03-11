@@ -134,7 +134,7 @@ void JuegoPrueba::main()
     c->set_wh (10,20);
     actor_manager->add(c);
 
-	AirCraft *prueba_suelo=new AirCraft;
+	Ladrillo *prueba_suelo=new Ladrillo();
 	prueba_suelo->set_x(100);
 	prueba_suelo->set_y(300);
     prueba_suelo->set_actor_graphic(new Suelo(prueba_suelo,6));

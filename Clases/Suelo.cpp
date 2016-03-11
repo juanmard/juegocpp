@@ -1,7 +1,19 @@
 #include "Suelo.h"
 #include "Actor.h"
 
-Suelo::Suelo (Actor *aowner, int new_size) : Mosaico (aowner)
+/**
+ * Constructor de copia.
+ */
+Suelo::Suelo (const Suelo &copia, Actor *propietario):
+Mosaico (copia, propietario),
+size (copia.size),
+suelo_1 (copia.suelo_1),
+suelo_2 (copia.suelo_2)
+{
+}
+
+Suelo::Suelo (Actor *aowner, int new_size):
+Mosaico (aowner)
 {
     // \todo Dejar de cargar continuamente el fichero de "sprites".
     //       Incluir quizás en los parámetros de creación del actor.
@@ -83,4 +95,12 @@ void Suelo::Set_size (int new_size)
         // Actualizamos el tamaño actual.
         size = new_size;
     }
+}
+
+/**
+ * Clona el objeto.
+ */
+Suelo *  Suelo::clone (Actor *propietario) const
+{
+    return (new Suelo(*this, propietario));
 }

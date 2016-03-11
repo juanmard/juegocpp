@@ -23,7 +23,7 @@ class ActorGraphic
         virtual int             get_x           ();
         virtual int             get_y           ();
         virtual Mask*           get_mask        ();
-        virtual ActorGraphic *  clone           (Actor *propietario);
+        virtual ActorGraphic *  clone           (Actor *propietario) const;
 
     protected:
         Actor *owner;

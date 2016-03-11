@@ -58,6 +58,6 @@ Mask * ActorGraphic::get_mask ()
 /**
  * \brief   Duplica la parte gráfica del actor y le asigna el nuevo propietario.
  */
-ActorGraphic *  ActorGraphic::clone  (Actor *propietario)
+ActorGraphic *  ActorGraphic::clone  (Actor *propietario) const
 {
 }

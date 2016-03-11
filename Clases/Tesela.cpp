@@ -1,10 +1,27 @@
 #include "Tesela.h"
 
+/**
+ * \brief   Constructor copia. Se permite cambiar el padre de la nueva Tesela.
+ */
+Tesela::Tesela(const Tesela &copia, Mosaico *padre):
+mosaico_padre(padre),
+x(copia.x), y(copia.y),
+dibujo(copia.dibujo),
+mirror(copia.mirror)
+{
+}
+
+/**
+ * Constructor de clase.
+ */
 Tesela::Tesela(Mosaico *padre)
 {
     mosaico_padre = padre;
 }
 
+/**
+ * Constructor de clase.
+ */
 Tesela::Tesela (Mosaico *padre, BITMAP *imagen, int x_tmp, int y_tmp, bool mirror_tmp)
 {
     mosaico_padre = padre;
@@ -14,6 +31,9 @@ Tesela::Tesela (Mosaico *padre, BITMAP *imagen, int x_tmp, int y_tmp, bool mirro
     mirror = mirror_tmp;
 };
 
+/**
+ * Guarda en un fichero las teselas.
+ */
 void Tesela::Guardar (void)
 {
   FILE    *handle;
@@ -29,37 +49,54 @@ void Tesela::Guardar (void)
   fclose (handle);
 };
 
+/**
+ * Cambiamos el dibujo de la Tesela.
+ */
 void Tesela::SetDibujo (BITMAP *imagen)
 {
     dibujo = imagen;
 }
 
+/**
+ * Cambiamos la x de la Tesela referida al mosaico padre.
+ */
 void Tesela::Set_x (int x_tmp)
 {
     x = x_tmp;
 }
 
+/**
+ * Cambiamos la y de la Tesela referida al mosaico padre.
+ */
 void Tesela::Set_y (int y_tmp)
 {
     y = y_tmp;
 }
 
+/**
+ * Obtenemos la x de la Tesela referida al mosaico padre.
+ */
 int Tesela::Get_x (void)
 {
     return x;
 }
 
+/**
+ * Obtenemos la y de la Tesela referida al mosaico padre.
+ */
 int Tesela::Get_y (void)
 {
     return y;
 }
 
+/**
+ * Se dibuja la Tesela referida al mosaico padre.
+ */
 void Tesela::draw (BITMAP *pantalla)
 {
   // Se calcula la posición respecto al padre.
   int x_tmp = x + mosaico_padre->get_x ();
   int y_tmp = y + mosaico_padre->get_y ();
-
 
   // Se comprueba la dirección de la tesela para dibujarla.
   if (mirror)
@@ -72,3 +109,10 @@ void Tesela::draw (BITMAP *pantalla)
   }
 }
 
+/**
+ * Se clona la Tesela asignándole un nuevo mosaico padre.
+ */
+Tesela * Tesela::clone (Mosaico *padre) const
+{
+    return (new Tesela(*this, padre));
+}

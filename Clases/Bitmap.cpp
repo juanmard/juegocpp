@@ -33,7 +33,7 @@ int Bitmap::get_h()
 /**
  * \brief   Clona el objeto.
  */
-Bitmap *  Bitmap::clone  (Actor *propietario)
+Bitmap *  Bitmap::clone  (Actor *propietario) const
 {
     return (new Bitmap(propietario,fuente));
 }
