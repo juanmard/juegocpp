@@ -24,6 +24,7 @@
 #include "Pelota.h"
 #include "Paleta.h"
 #include "Ladrillo.h"
+#include "EditorManager.h"
 
 class JuegoPrueba :	public Game
 {

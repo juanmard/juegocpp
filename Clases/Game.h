@@ -36,32 +36,36 @@ class Game
 						Game		();
 		virtual			~Game		();
 		virtual void	init		(int gfx_mode, int w, int h, int col);
-		virtual void	main		();
+		virtual void	main		(void);
+        void	        pause		(void);
+		void	        play		(void);
+		bool	        is_paused	(void);
 		void			set_name	(string name);
-		string			get_name	();
-		void update					();
+		string			get_name	(void);
+		void            update		(void);
 
 	protected:
-		string name;
-		int gfx_w,gfx_h;
-		int colors;
-		
-		void		set_max_frame_skip	(int max_fs);
+		string  name;
+		int     gfx_w, gfx_h;
+		int     colors;
+
+        void		set_max_frame_skip	(int max_fs);
 
 	private:
-		int actual_tick;
-		int old_tick;
-		int graphic_tick;
-		int frame_skip;
-		int max_frame_skip;
+		int     actual_tick;
+		int     old_tick;
+		int     graphic_tick;
+		int     frame_skip;
+		int     max_frame_skip;
+		bool    paused;
 
-		void	        start					();
+		void	        start					(void);
 		void	        shutdown				(string message);
-        virtual void    create_actormanager     ();
-        virtual void    create_stagemanager     ();
-        virtual void    create_soundmanager   ();
-        virtual void    create_controlmanager   ();
-        virtual void    create_collisionmanager ();
+        virtual void    create_actormanager     (void);
+        virtual void    create_stagemanager     (void);
+        virtual void    create_soundmanager     (void);
+        virtual void    create_controlmanager   (void);
+        virtual void    create_collisionmanager (void);
 };
 
 #endif

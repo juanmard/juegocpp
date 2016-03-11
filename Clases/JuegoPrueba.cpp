@@ -84,6 +84,12 @@ void JuegoPrueba::main()
     pelota->set_y (170);
     actor_manager->add(pelota);
 
+    Ladrillo *ladrillo2 = new Ladrillo(10,0);
+
+    ladrillo2->set_color (34);
+    this->actor_manager->add (ladrillo2);
+
+
     /**
      * \brief   Añadimos una fila de ladrillos de prueba.
      */
@@ -128,17 +134,59 @@ void JuegoPrueba::main()
     // control_manager->add_control(control_p1);
     control_manager->add_peripheral(kboard);
 
-    while (!key[KEY_ESC]) update();
-	destroy_bitmap(bmp);
+
+    // Se crea el EditorManager básico para comenzar con las pruebas.
+    EditorManager   editor(this);
+
+    // Bucle principal del juego.
+    while (!key[KEY_ESC])
+    {
+        // Si no está en pausa se actualiza el juego.
+        if (!is_paused())
+        {
+            update();
+        }
+
+        // Se prueba el editor.
+        if (key[KEY_E])
+        {
+            editor.activate ();
+        }
+        
+        // Se pausa y despausa el juego a modo de prueba.
+        if (key[KEY_P])
+        {
+            if (is_paused ())
+            {
+                play ();
+            }
+            else
+            {
+                pause ();
+            }
+            key[KEY_P]=false;
+        }
+    }
+
+    // Destruye los bitmaps.
+    // \warning Debe estar en el destructor.
+    destroy_bitmap(bmp);
 }
 
+/**
+ * \brief   "main" principal que inicia el juego.   
+ */
 int main()
 {
 	JuegoPrueba game;
 	srand(time(NULL));
 	game.set_name("Test del Marco de Trabajo");
-	//game.init(GFX_AUTODETECT, 640,480,16);
-	game.init(GFX_AUTODETECT_WINDOWED, 640,480,8);
+	//game.init(GFX_AUTODETECT, 640,480,16);   //Full-Screen
+	/**
+     * \todo    Mantener estos cuatro parámetros como propiedades de "Game" y así poder ser
+     *          consultadas por otras clases (pj. EditorManager).
+     */
+    game.init(GFX_AUTODETECT_WINDOWED, 640,480,8);
     return 0;
 }
 END_OF_MAIN ();

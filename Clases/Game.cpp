@@ -3,7 +3,9 @@
 /*------------------------------------------------------------------------------*/
 /* Variables y funciones globales para sincronizar juego en distintas máquinas. */
 /*------------------------------------------------------------------------------*/
-// TODO: Integrar en la clase "Game" como funciones y variables estáticas.
+/**
+ * \todo    Integrar en la clase "Game" como funciones y variables estáticas.
+ */
 void tick_count();
 
 /* Las variables que modifiquen las funciones timer de allegro tienen que
@@ -11,7 +13,10 @@ void tick_count();
  */
 volatile int tick;
 
-/* Función definida como "timer" de allegro. */
+/**
+ * \brief   Función definida como "timer" de Allegro.
+ * \todo    Independizar de la biblioteca Allegro mediante clases.
+ */
 void tick_count()
 {
 	tick++;
@@ -46,7 +51,7 @@ void Game::init(int gfx_mode, int w, int h, int col)
 	
 	/* Entramos en modo gráfico. */
 	set_color_depth(col);
-	if (set_gfx_mode(gfx_mode,w, h, 0,0)<0)
+	if (set_gfx_mode(gfx_mode, w, h, 0, 0) < 0)
 	{
 		shutdown("No se pudo inicializar modo grafico");
 		return;
@@ -118,14 +123,15 @@ void Game::start()
 	actual_tick=tick;
 	old_tick=tick;
 	max_frame_skip=15;
+    paused = false;
 
 	/* Se llama al procedimiento principal. */
-	main();
+    main();
 	shutdown();
 }
 
-/*
- * Procedimiento predeterminado "main" si no se sobreescribe en el hijo.
+/**
+ * \brief   Procedimiento predeterminado "main" si no se sobreescribe en el hijo.
  */
 void Game::main()
 {
@@ -137,12 +143,12 @@ void Game::set_name(string n)
 	name = n;
 }
 
-string Game::get_name()
+string Game::get_name   (void)
 {
 	return name;
 }
 
-void Game::update()
+void Game::update   (void)
 {
 	/* Se actualiza el ciclo lógico. */
     if (actual_tick<=tick)
@@ -183,3 +189,17 @@ void Game::set_max_frame_skip (int max_fs)
 	max_frame_skip = max_fs;
 }
 
+void Game::pause (void)
+{
+	paused = true;
+}
+
+void Game::play (void)
+{
+	paused = false;
+}
+
+bool Game::is_paused (void)
+{
+	return paused;
+}

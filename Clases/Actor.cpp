@@ -22,8 +22,9 @@ Actor::~Actor()
 }
 
 /**
- * Visualiza el aspecto gráfico del actor.
- * Delega esta función en el objeto gráfico.
+ * \brief   Visualiza el aspecto gráfico del actor.
+ *          Delega esta función en el objeto gráfico.
+ * \todo    Crear clase "Pantalla" para independizar del Bitmap de Allegro.
  */
 void Actor::draw(BITMAP *bmp)
 {
