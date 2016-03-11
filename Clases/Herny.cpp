@@ -3,14 +3,14 @@
 
 Herny::Herny (void)
 {
-    DatFile &sprites = DatFile("sprites.dat");
+    DatFile *sprites = new DatFile("sprites.dat");
     Sprite *skin = new Sprite(this);
     
-    skin->add_frame(sprites.GetBitmap("jugador_01"), 0, 0, 10);
-    skin->add_frame(sprites.GetBitmap("jugador_02"), 0, 0, 30);
-    skin->add_frame(sprites.GetBitmap("jugador_03"), 0, 0, 10);
-    skin->add_frame(sprites.GetBitmap("jugador_04"), 0, 0, 10);
-    skin->add_frame(sprites.GetBitmap("jugador_05"), 0, 0, 20);
+    skin->add_frame(sprites->GetBitmap("jugador_01"), 0, 0, 10);
+    skin->add_frame(sprites->GetBitmap("jugador_02"), 0, 0, 30);
+    skin->add_frame(sprites->GetBitmap("jugador_03"), 0, 0, 10);
+    skin->add_frame(sprites->GetBitmap("jugador_04"), 0, 0, 10);
+    skin->add_frame(sprites->GetBitmap("jugador_05"), 0, 0, 20);
 
     this->set_name (Nombres::herny);
     this->set_x(SCREEN_W/2);
@@ -73,7 +73,7 @@ void Herny::ActualizarEstado (void)
 
 void Herny::CambiarEstado (void)
 {
-    DatFile &sprites = DatFile("sprites.dat");
+    DatFile *sprites = new DatFile("sprites.dat");
 
     actual = siguiente;
     switch (siguiente)
@@ -82,14 +82,14 @@ void Herny::CambiarEstado (void)
             set_tiempo(400);
             siguiente = cayendo;
             set_color(6);
-            this->set_actor_graphic (new Bitmap (this,sprites.GetBitmap("jugador_01")));
+            this->set_actor_graphic (new Bitmap (this,sprites->GetBitmap("jugador_01")));
         break;
 
     case cayendo:
             set_tiempo(100);
             siguiente = de_pie;
             set_color(3);
-            this->set_actor_graphic (new Bitmap (this,sprites.GetBitmap("jugador_15")));
+            this->set_actor_graphic (new Bitmap (this,sprites->GetBitmap("jugador_15")));
          break;
 
     default:    

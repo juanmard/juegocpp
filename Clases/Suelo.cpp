@@ -7,9 +7,9 @@ Suelo::Suelo (Actor *aowner, int new_size) : Mosaico (aowner)
     //       O crear una clase que sea "Vestuario" común a todos los
     //       actores de la escena desde el Juego principal (o quizás
     //       desde el "ActorManager".
-    DatFile &file_dat = DatFile("sprites.dat");
-    suelo_1 = file_dat.GetBitmap("suelo_1");
-    suelo_2 = file_dat.GetBitmap("suelo_2");
+    DatFile *file_dat = new DatFile("sprites.dat");
+    suelo_1 = file_dat->GetBitmap("suelo_1");
+    suelo_2 = file_dat->GetBitmap("suelo_2");
 
 
     // Generamos el suelo según el tamaño solicitado.

@@ -89,7 +89,15 @@ void DatFile::SetPalette (int number)
     //if (file[number].type != DAT_PALETTE)
     //{
     DATAFILE *objeto = load_datafile_object("sprites.dat", "SPRITES");
-    set_palette ((RGB *)objeto->dat);
+    if (objeto!=NULL)
+    {
+        set_palette ((RGB *)objeto->dat);
 //      set_palette ((RGB *)file[number].dat);
+    }
+    else
+    {
+       // ¿Accesible el datafile? Error gordo!!!
+       // Avisar!!!
+    }
     //};
 }

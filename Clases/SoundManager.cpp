@@ -19,7 +19,7 @@ SoundManager::SoundManager ()
       if (detect_digi_driver(DIGI_JACK)) allegro_message ("Encontrado \"JACK sound driver\"");
       if (detect_digi_driver(DIGI_OSS)) allegro_message ("Encontrado \"Open Sound System\"");
       if (detect_digi_driver(DIGI_ESD)) allegro_message ("Encontrado \"Enlightened Sound Daemon\"");
-      if (install_sound(DIGI_OSS, MIDI_NONE, NULL) != 0)
+      if (install_sound(DIGI_ARTS, MIDI_NONE, NULL) != 0)
       {
         allegro_message("Error initialising sound system\n%s\n", allegro_error);
       }    

@@ -82,10 +82,10 @@ void  Ladrillo::hit  (Actor *who, int damage)
  */
 void    Ladrillo::crear_ladrillo (void)
 {
-    DatFile &sprites = DatFile("sprites.dat");
-    chaqueta = new Bitmap(this, sprites.GetBitmap("suelo_2"));
+    DatFile *sprites = new DatFile("sprites.dat");
+    chaqueta = new Bitmap(this, sprites->GetBitmap("suelo_2"));
     // A eliminar - Para pruebas de sonido.
-    peloteo = (SAMPLE *) sprites.GetDat (76);
+    peloteo = (SAMPLE *) sprites->GetDat (76);
 
     this->set_name (Nombres::ladrillo);
     this->set_actor_graphic (chaqueta);

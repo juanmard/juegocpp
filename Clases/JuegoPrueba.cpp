@@ -43,13 +43,13 @@ void JuegoPrueba::main()
 	AirCraft *b=new AirCraft;
 	BITMAP *bmp, *bmp2, *bmp3;
 
-    DatFile &sprites = DatFile("sprites.dat");
+    DatFile *sprites = new DatFile("sprites.dat");
     bmp = load_bitmap("nave.pcx", tmp);
 	bmp2 = load_bitmap("nave2.pcx", tmp);
 	bmp3 = load_bitmap("nave3.pcx", tmp);
     //Bitmap *bitm=new Bitmap(a, bmp);
 
-    sprites.SetPalette (0);
+    sprites->SetPalette (0);
  	
     // TODO: Comprobar que existe el fichero y que el "bmp" se ha cargado correctamente.
 	// if (bmp != NULL) { };
@@ -58,10 +58,10 @@ void JuegoPrueba::main()
     Sprite *sp=new Sprite(a);
 //    sp->add_frame(bmp2, 0, 0, 10);
 //    sp->add_frame(bmp3, 0, 0, 30);
-    sp->add_frame(sprites.GetBitmap(19), 0, 0, 10);
-    sp->add_frame(sprites.GetBitmap(20), 0, 0, 30);
-    sp->add_frame(sprites.GetBitmap(21), 0, 0, 10);
-    sp->add_frame(sprites.GetBitmap(22), 0, 0, 10);
+    sp->add_frame(sprites->GetBitmap(19), 0, 0, 10);
+    sp->add_frame(sprites->GetBitmap(20), 0, 0, 30);
+    sp->add_frame(sprites->GetBitmap(21), 0, 0, 10);
+    sp->add_frame(sprites->GetBitmap(22), 0, 0, 10);
     a->set_x(SCREEN_W/2);
     a->set_y(SCREEN_H/2);
     a->set_actor_graphic (sp);
@@ -95,7 +95,7 @@ void JuegoPrueba::main()
         }
     }
 
-    Bitmap *bitm2=new Bitmap(b, sprites.GetBitmap("EVERSOFT"));
+    Bitmap *bitm2=new Bitmap(b, sprites->GetBitmap("EVERSOFT"));
 	b->set_x(110);
 	b->set_y(210);
     b->set_actor_graphic(bitm2);
@@ -108,7 +108,7 @@ void JuegoPrueba::main()
     AirCraft *c = new AirCraft();
 	c->set_x(210);
 	c->set_y(210);
-    c->set_actor_graphic(new Bitmap(c, sprites.GetBitmap("demon")));
+    c->set_actor_graphic(new Bitmap(c, sprites->GetBitmap("demon")));
 	c->set_is_detected(true);
     //c->set_team(ENEMY);
     c->set_collision_method(CollisionManager::PP_COLLISION);

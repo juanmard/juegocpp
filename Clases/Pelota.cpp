@@ -9,13 +9,13 @@
 Pelota::Pelota(ActorManager *actor_manager):
 DirectorActor (actor_manager)
 {
-    DatFile &sprites = DatFile("sprites.dat");
-    tomate = new Bitmap(this, sprites.GetBitmap("tomate"));
-    granada = new Bitmap(this, sprites.GetBitmap("granada"));
-    estrella = new Bitmap(this, sprites.GetBitmap("estrella"));
+    DatFile *sprites = new DatFile("sprites.dat");
+    granada = new Bitmap(this, sprites->GetBitmap("granada"));
+    tomate = new Bitmap(this, sprites->GetBitmap("tomate"));
+    estrella = new Bitmap(this, sprites->GetBitmap("estrella"));
     
     // A eliminar - Para pruebas de sonido.
-    rebote = (SAMPLE *) sprites.GetDat (77);
+    rebote = (SAMPLE *) sprites->GetDat (77);
 
     this->set_name (Nombres::pelota);
     this->set_x(0);
