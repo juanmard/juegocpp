@@ -279,3 +279,21 @@ void  EditorManager::CambiarTraje (int indice)
     }
     actor_editado->set_actor_graphic (bitm2);
 }
+
+/**
+ * \brief  Mueve el escenario a la posición dada por (x,y).
+ */
+void    EditorManager::MoverEscenario (int x, int y)
+{
+    game->stage_manager->move(x,y);
+}
+
+int    EditorManager::GetEscenarioX ()
+{
+    return game->stage_manager->GetX();
+}
+
+int    EditorManager::GetEscenarioY ()
+{
+    return game->stage_manager->GetY();
+}

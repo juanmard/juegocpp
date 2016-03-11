@@ -37,10 +37,13 @@ class EditorManager
         char *  GetNombreTraje  (int indice);
         int     GetNumTrajes    ();
         void    CambiarTraje    (int indice);
+        int     GetEscenarioX   ();
+        int     GetEscenarioY   ();
+        void    MoverEscenario  (int x, int y);
 
 
     protected:
-		Game *      game;
+        Game *      game;
 		Dialog *    gui;
         Actor *     actor_editado;
 };

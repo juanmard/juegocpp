@@ -42,6 +42,7 @@ protected:
         void        mostrar_marco       ();
         void        menu_contextual     (int x, int y);
         void        mover_kbd           (int code);
+        void        mover_kbd_escenario (int code);
         void        prueba_click        ();
         void        prueba_dblclk       ();
         void        mostrar_actor       ();
@@ -280,7 +281,8 @@ public:
                 case MSG_CHAR:
                 case MSG_UCHAR:
                 case MSG_XCHAR:
-                    objeto.mover_kbd (c);
+//                    objeto.mover_kbd (c);
+                    objeto.mover_kbd_escenario (c);
                     break;
 
                 case MSG_DRAW:

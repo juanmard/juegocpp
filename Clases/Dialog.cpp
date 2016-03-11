@@ -459,3 +459,30 @@ int  Dialog::CambiarTraje ()
     }
     return D_O_K; 
 };
+
+/**
+ *  \brief  Mueve con el teclado el escenario.
+ */
+void    Dialog::mover_kbd_escenario   (int code)
+{
+    int x = manager->GetEscenarioX ();
+    int y = manager->GetEscenarioY ();
+    switch ((code & 0xff))
+    {
+    case 'w':
+        y -= 1;
+        break;
+    case 's':
+        y += 1;
+        break;
+    case 'a':
+        x -= 1;
+        break;
+    case 'd':
+        x += 1;
+        break;
+    }
+    manager->MoverEscenario(x,y);
+    draw ();
+};
+
