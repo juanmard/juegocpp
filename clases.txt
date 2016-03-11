@@ -1,5 +1,0 @@
-<Tesela>
-{
-x,y: 0,0
-Mirror: false
-}
