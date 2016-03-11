@@ -116,33 +116,30 @@ void  EditorManager::setActorY (int y)
 }
 
 /**
- * \brief   Duplica el actor que se encuentra en la posición (x,y).
+ * \brief   Duplica el actor pasado como puntero.
  */
-void  EditorManager::duplicarActor (int x, int y)
+void  EditorManager::duplicarActor (Actor *actor)
 {
-  // Obtenemos la referencia al actor bajo el ratón.
-  // La pantalla está desplazada 14 pixels hacia abajo.
-  Actor *actor = game->actor_manager->get_actor (x, y);
-
   // Se comprueba que la referencia existe.
-  if (actor != NULL)
+  if (actor)
   {
-    // Prueba de tipos.
-    //alert("Clase de tipo:", "", typeid(*actor).name(), "Ok", NULL, 0, 0);
-
     // Se crea un nuevo actor en memoria basándose en el elegido.
     Actor *nuevo = actor->clone ();
 
-    // Se desplaza para visualizarlo.
-    nuevo->set_x (nuevo->get_x () + 10);
-    nuevo->set_y (nuevo->get_y () + 10);
+    // Si se ha creado correctamente...
+    if (nuevo)
+    {
+      // Se desplaza para visualizarlo.
+      nuevo->set_x (nuevo->get_x () + 10);
+      nuevo->set_y (nuevo->get_y () + 10);
 
-    // Se añade a la lista de actores.
-    game->actor_manager->add (nuevo);
+      // Se añade a la lista de actores.
+      game->actor_manager->add (nuevo);
 
-    // Se actualiza la lista de actores creados para hacerlos visibles.
-    // \todo Hacer friend estos procedimientos para usarlos sólo desde los "Manager"
-    game->actor_manager->add_all_to_create ();
+      // Se actualiza la lista de actores creados para hacerlos visibles.
+      // \todo Hacer friend estos procedimientos para usarlos sólo desde los "Manager"
+      game->actor_manager->add_all_to_create ();
+    }
   }
 }
 

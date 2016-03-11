@@ -237,7 +237,7 @@ Actor::estado_t  Actor::get_Estado (void)
 /**
  * \brief   Clona un actor.
  */
-Actor * Actor::clone () const {};
+Actor * Actor::clone () const {return NULL;};
 
 /**
  * \brief   Comprueba si el actor intersecciona con el bloque pasado como parámetro.

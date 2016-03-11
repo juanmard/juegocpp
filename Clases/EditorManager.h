@@ -23,7 +23,7 @@ class EditorManager
               ~EditorManager        ();
     void      activate              ();
     void      dibujarEscenario      ();
-    void      duplicarActor         (int x, int y);
+    void      duplicarActor         (Actor *);
     void      moverActor            (int x, int y);
     int       getActorX             () const;
     int       getActorY             () const;

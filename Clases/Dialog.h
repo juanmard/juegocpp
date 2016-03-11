@@ -82,33 +82,30 @@ public:
         int     prb_x, prb_y;
 
 
-        /*
-         * \brief   Procedimiento callback del menú contextual.
-         */
-        static int cb_menu_opciones (void)
-        {
-            // Dialogo de prueba.
-            //alert("Selected menu item:", "", active_menu->text, "Ok", NULL, 0, 0);
+    /**
+     * \brief   Procedimiento callback del menú contextual.
+     */
+    static int cb_menu_opciones (void)
+    {
+      // Dialogo de prueba.
+      alert("Selected menu item:", "", active_menu->text, "Ok", NULL, 0, 0);
 
-            // Se comprueba que se ha inicializado correctamente el menú con el
-            // puntero 'this' al objeto instanciado.
-            if (active_menu->dp)
-            {
-                // Creamos una referencia temporal al objeto instanciado.
-                Dialog &objeto = *(static_cast<Dialog *>(active_menu->dp));
+      // Se comprueba que se ha inicializado correctamente el menú con el
+      // puntero 'this' al objeto instanciado.
+      if (active_menu->dp)
+      {
+        // Creamos una referencia temporal al objeto instanciado.
+        Dialog &objeto = *(static_cast<Dialog *>(active_menu->dp));
 
-                // Si usamos este mismo método para todas las opciones del
-                // menú contextual tenemos que seleccionar qué tipo de opción es.
-                // Comparando 'active_menu->text' con la opción.
-
-                // Suponemos que es la opción de duplicar.
-                objeto.DuplicarActor (objeto.prb_x, objeto.prb_y);
-
-                // Si fuera la opción de cambiar traje.
-                objeto.CambiarTraje ();
-            }
-            return D_O_K;
-        }
+        // Si usamos este mismo método para todas las opciones del
+        // menú contextual tenemos que seleccionar qué tipo de opción es.
+        // Comparando 'active_menu->text' con la opción.
+        
+        // Suponemos que es la opción de duplicar.
+        objeto.DuplicarActor (mouse_x, mouse_y);
+      }
+      return D_O_K;
+    }
 
 
         /*

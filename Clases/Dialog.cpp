@@ -375,9 +375,10 @@ void Dialog::prueba_dblclk ()
 */
 int  Dialog::DuplicarActor (int x, int y)
 {
+  // Si hay un actor seleccionado para editar...
   if (actor)
   {
-    manager->duplicarActor (x, y);
+    manager->duplicarActor (actor);
   }
   return D_O_K; 
 };
