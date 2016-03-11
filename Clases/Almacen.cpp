@@ -15,7 +15,8 @@ Almacen::Almacen (string paramNombreFichero)
   {
     // No se encontró el fichero. Borramos la cadena del nombre. Avisamos en consola.
     nombreFichero.clear ();
-    cout << "No se pudo acceder al fichero de datos: " << paramNombreFichero << endl;
+    cout << "ERROR: No se pudo acceder al fichero de datos: \"" << paramNombreFichero << "\"" << endl \
+         << "Compruebe que se encuentra en el mismo directorio que el juego." << endl;
   }
   else
   {
@@ -58,14 +59,16 @@ Almacen::Almacen ()
 
 /**
  * \brief   Destructor por omisión.
+ * \todo    Liberar los recursos correctamente.
  */
 Almacen::~Almacen ()
 {
   // Liberar los recursos del fichero.
+  // Liberar los recursos 'map'.
 };
 
 /**
- * \brief   Devuelve un BITMAP como recurso dando el nonbre del recurso.
+ * \brief   Devuelve un BITMAP como recurso dando el nonbre del bitmap.
  * \details Este procedimiento se simplifica gracias a la carga previa en la clase 'map'.
  */
 BITMAP *  Almacen::GetBitmap (string nombreBitmap)
@@ -73,11 +76,11 @@ BITMAP *  Almacen::GetBitmap (string nombreBitmap)
   return bitmaps[nombreBitmap];
 }
 
-
 /**
  * \brief   Devuelve un BITMAP como recurso dando el número identificativo indicado 
  *          en el fichero de cabecera generado por Grabber.
  * \todo    Controlar que el recurso solicitado es realmente un BITMAP.
+ * \warning Procedimiento obsoleto. Se mantiene por compatibilidad. No utilizar en el futuro.
  */
 BITMAP * Almacen::GetBitmap(int indice)
 {
@@ -95,7 +98,9 @@ RGB *  Almacen::GetPalette (string nombrePaleta)
 
 /**
  * \brief   Devuelve el nombre asociado al puntero en 'bitmaps'.
- * \details Se utiliza para guardar el bitmap como cadena.
+ * \details Recorre todo el 'map' y compara los punteros hasta encontrar el dado por parámetro.
+ *          Procedimiento lento. Se utiliza para guardar el bitmap como cadena, que sólo se usa
+ *          en casos puntuales del juego.
  */
 string  Almacen::getName (BITMAP *puntero)
 {
