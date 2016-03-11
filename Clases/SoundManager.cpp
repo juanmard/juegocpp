@@ -14,10 +14,10 @@ SoundManager::SoundManager ()
         allegro_message("Error inicializando el sistema de sonido.\n%s\n", allegro_error);
       }
     #else
-      if (detect_digi_driver(DIGI_ARTS)) allegro_message ("Encontrado \"aRts (Analog Real-Time Synthesizer)\"");
-      if (detect_digi_driver(DIGI_ALSA)) allegro_message ("Encontrado \"ALSA sound driver\"");
-      if (detect_digi_driver(DIGI_JACK)) allegro_message ("Encontrado \"JACK sound driver\"");
-      if (detect_digi_driver(DIGI_OSS)) allegro_message ("Encontrado \"Open Sound System\"");
+      //if (detect_digi_driver(DIGI_ARTS)) allegro_message ("Encontrado \"aRts (Analog Real-Time Synthesizer)\"");
+      //if (detect_digi_driver(DIGI_ALSA)) allegro_message ("Encontrado \"ALSA sound driver\"");
+      //if (detect_digi_driver(DIGI_JACK)) allegro_message ("Encontrado \"JACK sound driver\"");
+      //if (detect_digi_driver(DIGI_OSS)) allegro_message ("Encontrado \"Open Sound System\"");
       if (detect_digi_driver(DIGI_ESD)) allegro_message ("Encontrado \"Enlightened Sound Daemon\"");
       if (install_sound(DIGI_ARTS, MIDI_NONE, NULL) != 0)
       {

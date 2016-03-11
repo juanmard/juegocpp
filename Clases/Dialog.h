@@ -4,6 +4,8 @@
 #include "EditorManager.h"
 #include "VentanaALG.h"
 #include "DlgActor.h"
+#include "DialogALG.h"
+#include "BoxALG.h"
 
 class EditorManager;
 class DlgActor;
