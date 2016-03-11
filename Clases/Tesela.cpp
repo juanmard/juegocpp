@@ -35,6 +35,20 @@ Tesela::Tesela (Mosaico *padre, BITMAP *imagen, int x_tmp, int y_tmp, bool mirro
 };
 
 /**
+ * Constructor de clase. Usando el 'Bitmap' propio.
+ */
+Tesela::Tesela (Mosaico *padre, string nombreImagen, int xParam, int yParam, bool mirrorParam):
+mosaico_padre (padre),
+dibujo (NULL),
+x (xParam),
+y (yParam),
+mirror (mirrorParam)
+{
+  dibujoPrueba = new Bitmap (padre->getActor(), nombreImagen);
+};
+
+
+/**
  * Guarda en un fichero las teselas.
  */
 void Tesela::Guardar (void)
@@ -129,14 +143,22 @@ void Tesela::draw (int relX, int relY, BITMAP *pantalla)
   int x_tmp = x + relX;
   int y_tmp = y + relY;
 
-  // Se comprueba la dirección de la tesela para dibujarla.
-  if (mirror)
+  // Se comprueba el bitmap que estamos usando.
+  if (dibujo)
   {
-    draw_sprite_h_flip (pantalla, dibujo, x_tmp, y_tmp);    
+    // Se comprueba la dirección de la tesela para dibujarla.
+    if (mirror)
+    {
+      draw_sprite_h_flip (pantalla, dibujo, x_tmp, y_tmp);    
+    }
+    else
+    {
+      draw_sprite (pantalla, dibujo, x_tmp, y_tmp);    
+    }
   }
   else
   {
-    draw_sprite (pantalla, dibujo, x_tmp, y_tmp);    
+    dibujoPrueba->draw (x_tmp, y_tmp, pantalla);
   }
 }
 
@@ -147,6 +169,6 @@ string  Tesela::getString () const
 {
   ostringstream cadena;
 
-  cadena << "{ " << x << "," << y << " " << dibujo << "}" << endl;
+  cadena << "{ " << x << "," << y << " " << dibujo << " dibujoPrueba: " << dibujoPrueba->getString() << " }" << endl;
   return cadena.str ();
 };

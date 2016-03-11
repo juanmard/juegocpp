@@ -66,14 +66,14 @@ Mask * ActorGraphic::get_mask ()
 /**
  * \brief   Duplica la parte gráfica del actor y le asigna el nuevo propietario.
  */
-ActorGraphic *  ActorGraphic::clone  (Actor *propietario) const
+ActorGraphic *  ActorGraphic::clone (Actor *propietario) const
 {
 }
 
 /**
  * \brief   Entrega la estructura del gráfico en forma de cadena de caracteres.
  */
-string  ActorGraphic::getString  () const
+string  ActorGraphic::getString () const
 {
   ostringstream cadena;
   string propietario;
@@ -81,4 +81,12 @@ string  ActorGraphic::getString  () const
   owner->getNombre (propietario);
   cadena << "Propietario: " << propietario << "\n";
   return (cadena.str());
+}
+
+/**
+ * \brief   Entrega el actor asociado a esta parte gráfica.
+ */
+Actor *  ActorGraphic::getActor () const
+{
+  return owner;
 }

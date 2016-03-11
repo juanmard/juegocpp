@@ -230,11 +230,23 @@ void Juego2::main()
       actor_manager->add(camello);
       cout << "Bitmap: " << bmp_camello->getImagen () << " Nombre: " << storage_manager->getName (bmp_camello->getImagen()) << endl;
 
+      // Se prueba el uso del Bitmap en la Tesela.
+      Actor *arbol = new Actor ();
+      arbol->set_x (130);
+      arbol->set_y (250);
+      arbol->set_wh (32,15);
+      Mosaico *hojas = new Mosaico (arbol);
+      hojas->add_primera_Tesela (new Tesela (hojas, "pre2_417"));
+      hojas->add_primera_Tesela (new Tesela (hojas, "pre2_416", 12, 20));
+      hojas->add_primera_Tesela (new Tesela (hojas, "pre2_416", 12, -20, true));
+      arbol->set_actor_graphic (hojas);
+      actor_manager->add(arbol);
+      cout << "Mosaico de hojas: " << hojas->getString () << endl;
+      
       // Probamos la generación del mapa de actores.
       Mapa mapa_prb;
       mapa_prb.Read (*actor_manager);
-      cout << mapa_prb.getString ();
-
+      //cout << mapa_prb.getString ();
 
       key[KEY_T] = false;
     }
