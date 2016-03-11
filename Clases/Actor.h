@@ -82,6 +82,7 @@ public:
         void                                    set_name                (Nombres::codigo nuevo_nombre);
         bool                                    isIntersectado          (Escenario::Bloque bloque);
         void                                    draw                    (StageManager *stageManager);
+        void                                    draw_block              (StageManager *stageManager);
     
     protected:
         int             x, y;

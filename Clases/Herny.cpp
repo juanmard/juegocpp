@@ -64,8 +64,8 @@ Herny::Herny ()
   DatFile *sprites = new DatFile("sprites.dat");
   // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
   Sprite *skin = new Sprite(this);    
-  skin->add_frame(sprites->GetBitmap("jugador_01"), 10, 10, 10);
-  skin->add_frame(sprites->GetBitmap("jugador_02"), 10, 10, 30);
+  skin->add_frame(sprites->GetBitmap("jugador_01"), 0, 0, 10);
+  skin->add_frame(sprites->GetBitmap("jugador_02"), 0, 0, 30);
   skin->add_frame(sprites->GetBitmap("jugador_03"), 0, 0, 10);
   skin->add_frame(sprites->GetBitmap("jugador_04"), 0, 0, 10);
   skin->add_frame(sprites->GetBitmap("jugador_05"), 0, 0, 20);
@@ -99,16 +99,14 @@ void Herny::do_action (ControllableActor::action_t act, int magnitude)
 
         case LEFT:
             x-=1;
+            static_cast<Sprite *>(agraph)->setMirror (true);
             break;
 
         case RIGHT:
             x+=1;
+            static_cast<Sprite *>(agraph)->setMirror (false);
             break;
     }
-    if (x<0) x=0;
-    if (x>SCREEN_W-get_w()) x=SCREEN_W-get_w();
-    if (y<0) y=0;
-    if (y>SCREEN_H-get_h()) y=SCREEN_H-get_h();
 }
 
 //TODO: No me gusta tener duplicados los estados.

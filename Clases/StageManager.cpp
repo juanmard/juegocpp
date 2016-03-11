@@ -93,13 +93,14 @@ void StageManager::draw()
     // Cuando se pide dibujar al actor y se le pasa el StageManager,
     //  debe dibujarse referido al marco del escenario.
     tmp->draw (this);
+    tmp->draw_block (this);
 
     // Si se le pasa el buffer se dibujará de manera absoluta, como si
     // el marco estuviera siempre en la posición 0,0.
     //tmp->draw (buffer);
 
     // Se dibujan los bloques de referencia del actor.
-    tmp->draw_block (buffer);
+    //tmp->draw_block (buffer);
   }
 
   /*

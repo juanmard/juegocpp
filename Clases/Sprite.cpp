@@ -19,7 +19,7 @@ mirror (copia.mirror)
  */
 Sprite::Sprite (Actor *aowner):
 ActorGraphic(aowner),
-mirror (true)
+mirror (false)
 {
 }
 

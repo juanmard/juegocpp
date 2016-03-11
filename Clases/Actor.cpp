@@ -261,3 +261,15 @@ void Actor::draw (StageManager *stageManager)
     agraph->draw (relx,rely,stageManager->GetBuffer());
 }
 
+/**
+ * \brief   Visualiza el bloque de referencia del actor referida al escenario.
+ */
+void Actor::draw_block (StageManager *stageManager)
+{
+    // Se calcula la posición relativa del actor al escenario. 
+    int relx = x - stageManager->GetX();
+    int rely = y - stageManager->GetY();
+
+    // Se dibuja en el escenario en la posición calculada.
+    rect (stageManager->GetBuffer(),relx,rely,w+relx,h+rely,color);
+}
