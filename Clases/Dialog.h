@@ -23,6 +23,9 @@ class ItemALG;
  *              objetos deben ser encomendadas a la clase "EditorManager".
  * \todo        Compatibilizar los "callback" globales mediante funciones estáticas de la clase.
  *              Ej. "Dialog::d_pantalla_proc" en las definiciones de "dialog".
+ * \todo    Generalizar este entorno para que sirviera para cualquier librería y no sólo para Allegro.
+ *              Para esto necesitamos "Diálogos", "Ventanas" y "Menús" generales, evitando las funciones de
+ *              Allegro en ellas.
  */
 class Dialog
 {
@@ -103,38 +106,44 @@ public:
          */
         static int marco_callback (int msg, DIALOG *d, int c)
         {
-            // Si ya está inicializado el objeto...
+            // Si ya está inicializado el objeto (puntero existe), podemos crear una referencia  al objeto y utilizar sus métodos.
+            // Si no está inicializado el objeto ignoramos el mensaje.
             if (d[0].dp)
             {
+                // Creamos una referencia temporal al objeto actual.
+                Dialog &objeto = *(static_cast<Dialog *>(d[0].dp));
+
                 // Seleccionamos los mensajes.
                 switch (msg)
                 {
+                 // En caso de que se pulse una tecla...
                 case MSG_CHAR:
                 case MSG_UCHAR:
                 case MSG_XCHAR:
-                    static_cast<Dialog *>(d[0].dp)->mover_kbd (c);
+                    objeto.mover_kbd (c);
                     break;
 
                 case MSG_DRAW:
-                    static_cast<Dialog *>(d[0].dp)->mostrar_marco ();
+                    objeto.mostrar_marco ();
                     break;
 
                 case MSG_RPRESS:
-                    static_cast<Dialog *>(d[0].dp)->menu_contextual ();
+                    objeto.menu_contextual ();
                     break;
 
                 case MSG_CLICK:
-                    static_cast<Dialog *>(d[0].dp)->prueba_click ();
+                    objeto.prueba_click ();
                     break;
 
                 case MSG_DCLICK:
-                    static_cast<Dialog *>(d[0].dp)->mostrar_actor ();
+                    objeto.mostrar_actor ();
                     break;
-
                 }
             }
-            // No funciona. Error de acceso.
+            // No funciona. Error de acceso. No podemos enviar el mensaje al padre.
             //return d_menu_proc (msg,d,c);
+
+            // Como no podemos enviar el mensaje al padre, damos el visto bueno y por procesados todos los mensajes.
             return D_O_K;
         }
 };

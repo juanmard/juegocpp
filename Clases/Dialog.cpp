@@ -1,17 +1,18 @@
+
 #include "Dialog.h"
  
 /* Inicialización de las variables estáticas de la clase. */
 // Menú fichero.
 MENU Dialog::mnu_fichero[] =
 {
-   { "&Salir \tF2",       Dialog::quit,  NULL,      0,  NULL  },
+   {  const_cast<char*>("&Salir \tF2"),       Dialog::quit,  NULL,      0,  NULL  },
    { NULL,                        NULL,  NULL,      0,  NULL  }
 };
 
 // Menú ayuda.
 MENU Dialog::mnu_ayuda[] =
 {
-    { "&About \tF1",     Dialog::about,  NULL,      0,  NULL  },
+    {  const_cast<char*>("&About \tF1"),     Dialog::about,  NULL,      0,  NULL  },
     { NULL,                       NULL,  NULL,      0,  NULL  }
 };
 
@@ -31,10 +32,10 @@ int menu_callback (void);
  */
 MENU menu_editor [] =
 {
-    { "&Fichero",  NULL, Dialog::mnu_fichero,  0,   NULL  },
-    { "&Editar",   NULL,   Dialog::mnu_ayuda,  0,   NULL  },
-    { "&Ayuda",    NULL,   Dialog::mnu_ayuda,  0,   NULL  },
-    { NULL,        NULL,                NULL,  0,   NULL  }
+    {  const_cast<char*>("&Fichero"),  NULL, Dialog::mnu_fichero,   0,   NULL  },
+    {  const_cast<char*>("&Editar"),    NULL,   Dialog::mnu_ayuda,  0,   NULL  },
+    {  const_cast<char*>("&Ayuda"),    NULL,   Dialog::mnu_ayuda,  0,   NULL  },
+    {                                           NULL,    NULL,                        NULL,  0,   NULL  }
 };
 
 /**
@@ -42,9 +43,9 @@ MENU menu_editor [] =
  */
 MENU menu_objeto [] =
 {
-   { "&Mover",          menu_callback,   NULL,  0,   NULL  },
-   { "&Tamaño",         menu_callback,   NULL,  0,   NULL  },
-   { "&Propiedades",    menu_callback,   NULL,  0,   NULL  },
+   {  const_cast<char*>("&Mover"),            menu_callback,   NULL,  0,   NULL  },
+   {  const_cast<char*>("&Tamaño"),          menu_callback,   NULL,  0,   NULL  },
+   {  const_cast<char*>("&Propiedades"),   menu_callback,   NULL,  0,   NULL  },
    { NULL,              NULL,   NULL,  0,   NULL  }
 };
 
@@ -114,46 +115,49 @@ Dialog::~Dialog (void)
 void Dialog::show (void)
 {
     // Se hace visible el menú de edición.
-    // do_dialog (dialog,-1);
+    do_dialog (dialog,-1);
 
-    // Hacemos unas pruebas cuando salgamos.
+// Hacemos unas pruebas independientes de la definición de la clase.
+#ifdef  PRUEBAS
     DialogALG prueba;
 
-    BoxALG *control1 = new BoxALG();
-    prueba.add(*control1);
+    BoxALG &control_caja = *(new BoxALG());
+//    prueba.add(control_caja);
     
-    BoxALG *control2 = new BoxALG();
-    control2->set_xy (200,200);
-    prueba.add(*control2);
+    control_caja = *(new BoxALG());
+    control_caja.set_xy (200,200);
+ //   prueba.add(control_caja);
     
-    BoxALG *control3 = new BoxALG();
-    control3->set_xy (300,100);
-    prueba.add(*control3);
+    control_caja = *(new BoxALG());
+    control_caja.set_xy (300,100);
+ //   prueba.add(control_caja);
         
-    TextALG *control4 = new TextALG();
-    control4->set_xy (300,100);
-    prueba.add(*control4);
+    TextALG &control_texto = *(new TextALG());
+    control_texto.set_xy (400,100);
+  //  prueba.add(control_texto);
         
-    MenuALG *control5 = new MenuALG();
-    control5->set_xy (300,100);
-    ItemALG *item1= new ItemALG();
-    control5->add(*item1);
-    ItemALG *item2= new ItemALG("Prueba2");
-    //item2->add(*control5);
-    control5->add(*item2);
-    prueba.add(*control5);
-
-    //do_menu (*control5,10,10);
+    MenuALG &control_menu = *(new MenuALG());
+    control_menu.set_xy (300,50);
+    ItemALG &menu_item = *(new ItemALG());
+    control_menu.add(menu_item);
+    
+    menu_item = *(new ItemALG("Prueba2"));
+    control_menu.add(menu_item);
+    prueba.add(control_menu);
 
     prueba.show();
 
-    ItemALG *item3 = new ItemALG("Prueba3");
-    control5->add(*item3);
-    prueba.add(*control5);
+    // Después de pulsar 'ESC' modificamos el dialogo de prueba y lo volvemos a mostrar.
+    menu_item = *(new ItemALG("Prueba3"));
+    control_menu.add(menu_item);
+    prueba.add(control_menu);
 
     prueba.show();
-    //do_menu(menu_editor, 0, 0);
-}
+
+    // Eliminamos la tecla 'ESC' del buffer de teclado.
+    key[KEY_ESC]=false;
+#endif
+ }
 
 void Dialog::mouse_out (void)
 {
@@ -161,12 +165,16 @@ void Dialog::mouse_out (void)
     show_mouse (NULL);
 }
 
+
+/**
+ * \brief   Muestra el marco del diálogo para propósitos de depuración.
+ */
 void Dialog::mostrar_marco ()
 {
     rect (screen, dialog[0].x, dialog[0].y, 
-                  dialog[0].x + dialog[0].w,
-                  dialog[0].y + dialog[0].h,
-                  dialog[0].bg);
+                        dialog[0].x + dialog[0].w,
+                        dialog[0].y + dialog[0].h,
+                        dialog[0].bg);
 }
 
 /**
@@ -216,26 +224,34 @@ void    Dialog::mover_kbd   (int code)
     }
 };
 
+/**
+ * \brief Prueba el click de ratón resaltando el contorno del objeto en el que se produce.
+ */
 void    Dialog::prueba_click    ()
 {
-        // Dibujamos los objetos.
+        // Comprobamos que el Diálogo tiene un "Manager" asociado.
+        // - Si existe lo utilizamos para resaltar el objeto.
+        // - Si no existe mostramos un mensaje de advertencia en pantalla.
         if (owner)
         {
-            owner->redibuja ();
+            // Le decimos al "Manager" que resalte el objeto.
+            owner->resaltar (mouse_x, mouse_y);
+            
+#ifdef DEBUG
+            // Mostramos en pantalla el mensaje para comprobar la posición del ratón.
+            gui_textout(screen, "* Aquí está", mouse_x, mouse_y, 0xFFFF, FALSE);
+#endif
         }
         else
         {
-            gui_textout(screen, "NO SE HA INICIALIZADO LA REFERENCIA AL JUEGO!!!",
-                        SCREEN_W/2, SCREEN_H/2, 0xFFFF, TRUE);
+            gui_textout(screen,  const_cast<char*>("NO SE HA INICIALIZADO LA REFERENCIA AL JUEGO!!!"), SCREEN_W/2, SCREEN_H/2, 0xFFFF, TRUE);
         }
+ }
 
-        // Resaltamos el objeto que apunta.
-        owner->resaltar (mouse_x, mouse_y);
-
-        // Mostramos en pantalla el mensaje.
-        gui_textout(screen, "* Aquí está", mouse_x, mouse_y, 0xFFFF, FALSE);
-}
-
+/**
+ * \brief   Carga el actor marcado en un actor temporal para modificar sus propiedades.
+ *            ¿Es necesario esto para algo?
+ */
 void    Dialog::mostrar_actor   ()
 {
     // Cargamos las propiedades del actor marcado.

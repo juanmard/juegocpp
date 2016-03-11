@@ -47,7 +47,7 @@ MenuALG::MenuALG ()
 	// Inicializamos la parte de menu.
     control.proc = MenuALG::callback;
 	control.x=control.y=100;
-	control.h=control.w=100;
+	control.h=control.w=0;
 	control.fg = makecol(255,255,255);
 	control.bg = makecol(128,128,128);
 

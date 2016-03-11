@@ -34,22 +34,27 @@ DialogALG::~DialogALG ()
 
 void	DialogALG::show ()
 {
-	// No podemos usar "do_dialog" y generamos nuestra propia función.
-	// allegro_message ("prueba[0]: %d\nprueba[1]: %d\nprueba[2]: %d\n", prueba[0], prueba[1], prueba[2]);
-
-//	for ( iter=controles.begin() ; iter < controles.end(); iter++ )
-//	{
-//		object_message (*iter, MSG_DRAW, 0);
-//	}
-//	allegro_message ("Pausa para pruebas.");
-
+#ifdef DEBUG
+	// Mostramos los tres primeros punteros de los controles.
 	allegro_message ("prueba[0]: %d\nprueba[1]: %d\nprueba[2]: %d\n", controles[0].proc, controles[1].proc, controles[2].proc);
+#endif
+		
+	// Hacemos un dialogo Allegro con la lista de controles.
+	// (Allegro enviará el mensaje DRAW a cada control automáticamente).
 	do_dialog (&controles[0],-1);
 }
 
-void DialogALG::add (ControlALG control)
+/*
+ * \brief Añadimos un control al diálogo.
+ */
+void DialogALG::add (ControlALG nuevo_control)
 {
+	// Quitamos el control terminador de la lista de controles.
 	controles.pop_back ();
-	controles.push_back (control);
+	
+	// Añadimos el nuevo objeto control.
+	controles.push_back (nuevo_control);
+
+	// Añadimos de nuevo el control terminador.
 	controles.push_back  (control_fin);
 };

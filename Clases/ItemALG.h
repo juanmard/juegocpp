@@ -38,7 +38,7 @@ public:
 	
 protected:
     string          texto;
-	MenuALG         *menu_hijo;
+	MenuALG     *menu_hijo;
     MENU		    item;
 
 };

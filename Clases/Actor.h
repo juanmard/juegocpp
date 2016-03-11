@@ -89,4 +89,4 @@ public:
         CollisionManager::collision_method_t collision_method;
 };
 
-#endif ACTOR_H
+#endif

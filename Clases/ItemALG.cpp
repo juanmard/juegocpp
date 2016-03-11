@@ -27,6 +27,7 @@ ItemALG::ItemALG (string texto_rec)
 	item.child = NULL;
 	item.flags = 0;
 	item.dp = this;
+	menu_hijo = NULL;
 };
 
 ItemALG::ItemALG ()
@@ -36,6 +37,7 @@ ItemALG::ItemALG ()
 	item.child = NULL;
 	item.flags = 0;
 	item.dp = this;
+	menu_hijo = NULL;
 };
 
 ItemALG::~ItemALG ()
