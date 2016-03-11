@@ -13,7 +13,6 @@ class Mask;
 class ActorGraphic
 {
     public:
-                                ActorGraphic    (const ActorGraphic &agraph);
                                 ActorGraphic    (Actor *a);
         virtual                 ~ActorGraphic   ();
         virtual void            init            ();
@@ -24,7 +23,7 @@ class ActorGraphic
         virtual int             get_x           ();
         virtual int             get_y           ();
         virtual Mask*           get_mask        ();
-        virtual ActorGraphic *  duplicar        (Actor *propietario);
+        virtual ActorGraphic *  clone           (Actor *propietario);
 
     protected:
         Actor *owner;

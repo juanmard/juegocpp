@@ -1,11 +1,18 @@
 #include "Pelota.h"
 
-/*
- *
+/**
+ * \brief   Constructor de copia.
  */
-//Pelota::Pelota(const Pelota &copia):DirectorActor(this)
-//{
-//}
+Pelota::Pelota (const Pelota &copia):
+DirectorActor(copia),
+direccion_x(copia.direccion_x),
+direccion_y(copia.direccion_y),
+tomate(copia.tomate),
+granada(copia.granada),
+estrella(copia.estrella),
+rebote(copia.rebote)
+{
+}
 
 /**
  * \brief Crea la pelota que se encargará de rebotar por la pantalla.
@@ -134,8 +141,7 @@ void  Pelota::hit  (Actor *who, int damage)
 /**
  * \brief   Duplica el actor Pelota.
  */
-Pelota *    Pelota::duplicar        ()
+Pelota *    Pelota::clone () const
 {
-//    return (new Pelota(this));
-    return this;
+    return (new Pelota(*this));
 };

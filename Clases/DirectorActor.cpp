@@ -1,6 +1,14 @@
 #include "DirectorActor.h"
 #include "ActorManager.h"
 
+/**
+ * \brief   Constructor de copia.
+ */
+DirectorActor::DirectorActor (const DirectorActor &copia):
+Actor(copia),
+manager(copia.manager)
+{
+}
 
 DirectorActor::DirectorActor(void)
 {
@@ -22,4 +30,11 @@ DirectorActor::~DirectorActor(void)
 void DirectorActor::Elimina  (Actor *who)
 {
     manager->del(who);
+}
+
+/**
+ * \brief   Clona el objeto.
+ */
+DirectorActor * DirectorActor::clone () const
+{
 }

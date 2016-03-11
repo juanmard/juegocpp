@@ -32,7 +32,7 @@ team(copia.team)
     // 1. Conseguimos la parte gráfica del actor a copiar.
     // 2. Duplicamos la parte gráfica dando como propietario el nuevo actor.
     // 3. Asignamos la parte gráfica duplicada al nuevo actor.
-    set_actor_graphic(copia.get_actor_graphic()->duplicar (this));
+    set_actor_graphic(copia.get_actor_graphic()->clone (this));
 }
 
 /**

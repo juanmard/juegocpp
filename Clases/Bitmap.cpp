@@ -1,9 +1,13 @@
 
 #include "Bitmap.h"
 
-Bitmap::Bitmap(Actor *aowner, BITMAP *bmp) : ActorGraphic(aowner)
+/**
+ *  Constructor de la clase.
+ */
+Bitmap::Bitmap(Actor *aowner, BITMAP *bmp) :
+ActorGraphic(aowner),
+fuente(bmp)
 {
-    fuente = bmp;
 }
 
 /**
@@ -26,7 +30,10 @@ int Bitmap::get_h()
     return fuente->h;
 }
 
-Bitmap *  Bitmap::duplicar  (Actor *propietario)
+/**
+ * \brief   Clona el objeto.
+ */
+Bitmap *  Bitmap::clone  (Actor *propietario)
 {
     return (new Bitmap(propietario,fuente));
 }

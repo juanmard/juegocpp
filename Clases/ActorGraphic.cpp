@@ -1,14 +1,9 @@
 #include "ActorGraphic.h"
 #include "Actor.h"
 
-//~ ActorGraphic::ActorGraphic (const ActorGraphic &agraph)
-//~ owner(agraph.owner)
-//~ {
-//~ }
-
-ActorGraphic::ActorGraphic(Actor *a)
+ActorGraphic::ActorGraphic (Actor *a):
+owner(a)
 {
-    owner=a;
 }
 
 ActorGraphic::~ActorGraphic()
@@ -63,6 +58,6 @@ Mask * ActorGraphic::get_mask ()
 /**
  * \brief   Duplica la parte gráfica del actor y le asigna el nuevo propietario.
  */
-ActorGraphic *  ActorGraphic::duplicar  (Actor *propietario)
+ActorGraphic *  ActorGraphic::clone  (Actor *propietario)
 {
 }

@@ -7,13 +7,14 @@
 class Pelota : public DirectorActor
 {
 public:
-//            Pelota              (const Pelota &copia);
-            Pelota              (ActorManager *actor_manager);
-            ~Pelota             (void);
-    void    CambiarEstado       (void);
-    void    ActualizarEstado    (void);
-    void    hit                 (Actor *who, int damage);
-    Pelota *    duplicar        ();
+                        Pelota              (const Pelota &copia);
+                        Pelota              (ActorManager *actor_manager);
+                        ~Pelota             (void);
+    void                CambiarEstado       (void);
+    void                ActualizarEstado    (void);
+    void                hit                 (Actor *who, int damage);
+    virtual Pelota *    clone               () const;
+    
 
 protected:
     /**

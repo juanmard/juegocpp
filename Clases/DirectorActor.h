@@ -12,12 +12,13 @@ class ActorManager;
 class DirectorActor : public Actor
 {
 public:
-                DirectorActor      (void);
-                DirectorActor      (ActorManager *actor_manager);
-                ~DirectorActor     (void);
-        void    Elimina            (Actor *);
+                                    DirectorActor      (const DirectorActor &copia);
+                                    DirectorActor      ();
+                                    DirectorActor      (ActorManager *actor_manager);
+                                    ~DirectorActor     ();
+        virtual DirectorActor *     clone              () const;
+        void                        Elimina            (Actor *);
 
 private:
-    ActorManager        *manager;
-    //Actor    *hijo;
+    ActorManager *  manager;
 };
