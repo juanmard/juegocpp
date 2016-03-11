@@ -1,6 +1,10 @@
 #include "Bitmap.h"
 #include <sstream>
 
+
+// Inicializamos el almacén global de la clase.
+Almacen *  Bitmap::almacenGlobal = NULL;
+
 /**
  *  Constructor de la clase.
  */
@@ -36,23 +40,38 @@ nombre (nombreParam)
 }
 
 /**
+ * \brief   Constructor de la clase. Utiliza únicamente el nombre del Bitmap.
+ */
+Bitmap::Bitmap (Actor *aowner, const string nombreParam):
+ActorGraphic (aowner),
+nombre (nombreParam)
+{
+}
+
+/**
  * \brief   Dibuja el 'bitmap' fuente (el 'bitmap' dado al crear el objeto), en el
  *          'bitmap' destino (pasado por parámetro), normalmente la pantalla
  *          o un 'buffer' intermedio.
  */
 void Bitmap::draw   (BITMAP *destino)
 {
-    draw_sprite (destino, fuente, get_x(), get_y());
+  draw_sprite (destino, fuente, get_x(), get_y());
 }
 
+/**
+ * \brief   Entrega el valor de la anchura del Bitmap.
+ */
 int Bitmap::get_w()
 {
-    return fuente->w;
+  return fuente->w;
 }
 
+/**
+ * \brief   Entrega el valor de la altura del Bitmap.
+ */
 int Bitmap::get_h()
 {
-    return fuente->h;
+  return fuente->h;
 }
 
 /**
@@ -60,12 +79,25 @@ int Bitmap::get_h()
  */
 Bitmap *  Bitmap::clone  (Actor *propietario) const
 {
-    return (new Bitmap(propietario,fuente));
+  return (new Bitmap(propietario,fuente));
 }
 
+/**
+ * \brief   Dibuja el bitmap en la zona de memoria dada como destino.
+ * \warning Se mantienen las dos formas de dibujar: Usando al almacén global y el BITMAP fuente.
+ *          En un futuro la línea es mantener todos punteros BITMAP en el almacén y referenciarlos
+ *          únicamente con su nombre. En ese momento se eliminará la propiedad 'fuente' de la clase.
+ */
 void Bitmap::draw   (int x, int y, BITMAP *destino)
 {
+  if (almacenGlobal)
+  {
+    draw_sprite (destino, almacenGlobal->GetBitmap (nombre), x, y);
+  }
+  else
+  {
     draw_sprite (destino, fuente, x, y);
+  }
 }
 
 /**
@@ -74,7 +106,7 @@ void Bitmap::draw   (int x, int y, BITMAP *destino)
 string  Bitmap::getString () const
 {
   ostringstream cadena;
-  cadena  << "Bitmap >> " << nombre << endl;
+  cadena  << "Bitmap >> " << nombre << " >> Almacén general: " << almacenGlobal << endl;
   return cadena.str();
 }
 

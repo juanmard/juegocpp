@@ -10,20 +10,26 @@
  */
 class Bitmap : public ActorGraphic
 {
-    public:
-                            Bitmap      (Actor *aowner, BITMAP *bmp);
-                            Bitmap      (Actor *aowner, BITMAP *bmp, string nombreParam);
-                            Bitmap      (Actor *aowner, Almacen *almacen, const string nombre);
-        void                draw        (BITMAP *destino);
-        void                draw        (int x, int y, BITMAP *destino);
-        int                 get_w       ();
-        int                 get_h       ();
-        virtual Bitmap *    clone       (Actor *propietario) const;
-        virtual string      getString   () const;
-        BITMAP *            getImagen   () const;
+  public:
+                        Bitmap      (Actor *aowner, BITMAP *bmp);
+                        Bitmap      (Actor *aowner, string nombreParam);
+                        Bitmap      (Actor *aowner, BITMAP *bmp, string nombreParam);
+                        Bitmap      (Actor *aowner, Almacen *almacen, const string nombre);
+    void                draw        (BITMAP *destino);
+    void                draw        (int x, int y, BITMAP *destino);
+    int                 get_w       ();
+    int                 get_h       ();
+    virtual Bitmap *    clone       (Actor *propietario) const;
+    virtual string      getString   () const;
+    BITMAP *            getImagen   () const;
+    static  void        setAlmacen  (Almacen *almacen) {almacenGlobal = almacen;};
 
-    protected:
-        string      nombre;
-        Almacen *   almacen;
-        BITMAP *    fuente;
+  protected:
+    // Almacén para todos los objetos de la clase Bitmap.
+    static  Almacen *   almacenGlobal;
+
+  protected:
+    string      nombre;
+    Almacen *   almacen;
+    BITMAP *    fuente;
 };

@@ -27,7 +27,7 @@ void ActorGraphic::init()
  *  @param bmp - BITMAP en donde se dibuja la parte gráfica del actor.
  *
  */
-void ActorGraphic::draw(BITMAP *bmp)
+void ActorGraphic::draw (BITMAP *bmp)
 {
 }
 
