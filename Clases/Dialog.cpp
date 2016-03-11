@@ -427,7 +427,26 @@ int  Dialog::comprobarTecla (int code)
     // Zona de pruebas.
     {
       cout << "Funciona la zona de pruebas." << endl;
-
+      static vector<DIALOG> pesta;
+      DIALOG dlg_tmp1 = {d_box_proc,    16, 352, 608, 224,  0,   0,   0,    0,      0,   0,   NULL,              NULL, NULL };
+      DIALOG dlg_tmp2 = {d_button_proc, 16, 352,  80,  16,  1,   0,   0,    0,      0,   0,   (void*)"Pesta 01", NULL, NULL };
+      DIALOG fin =      { NULL,          0,   0,   0,   0,  0,   0,   0,    0,      0,   0,   NULL,              NULL, NULL };
+      pesta.clear ();
+      pesta.push_back (dlg_tmp1);
+      pesta.push_back (dlg_tmp2);
+      if (actor)
+      {
+        // Obtenemos el vector de diálogos del actor.
+        vector<DIALOG> &vec_actor = actor->getDIALOG();
+        // Guardamos un puntero al último.
+        vector<DIALOG>::iterator ultimo = pesta.end ();
+        pesta.resize (pesta.size() + vec_actor.size());
+        // Copiamos el del actor.
+        copy (vec_actor.begin(), vec_actor.end(), ultimo);
+        cout << "pesta: " << pesta.size() << " vec_actor: " << vec_actor.size () << endl;
+      }
+      pesta.push_back (fin);
+      popup_dialog (&pesta[0],-1);
     }
     salida = D_USED_CHAR;
     break;

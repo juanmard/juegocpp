@@ -92,6 +92,7 @@ public:
     void                                    draw_block              (StageManager *stageManager);
     Bloque &                                getBloque               ();
     void                                    setMostrarBloque        (bool mostrar);
+    /*virtual*/ vector<DIALOG> &            getDIALOG               ();
 
   private:
     void                                    mensajeErrorGrafico     () const;
@@ -109,6 +110,27 @@ public:
     Game::team_t                            team;
     bool                                    is_detectable;
     CollisionManager::collision_method_t    collision_method;
+
+    // Prueba de DIALOG.
+    vector<DIALOG> vec_actor;
+
+  public:
+    static DIALOG dlg_actor[];
+    /**
+     * \brief   Callback de las coordenadas.
+     */
+    static int callback (int msg, DIALOG *d, int c)
+    {
+      // Se procesan los mensajes.
+      switch (msg)
+      {
+        case MSG_LPRESS:
+            dlg_actor[3].bg = 6;
+            //object_message(&dlg_actor[3], MSG_DRAW, 0);
+            break;
+      }
+      return d_button_proc (msg, d, c);
+    };
 };
 
 #endif
