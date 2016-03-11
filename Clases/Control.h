@@ -19,18 +19,18 @@ class Control
 			Peripheral::event_t new_event;
 		} association_t;
 	
-	    void	add_action_name			(ControllableObject::action_t act, string str);
-	    void	add_association			(association_t asoc);
-	    void	set_actionperipheral	(ControllableObject::action_t act,	Peripheral* peri, Peripheral::component_t comp,	Peripheral::event_t e);
-	    void	set_owner				(ControllableObject*);
-	    void	update					();
-	    string	get_name_action			(ControllableObject::action_t);
-	    void	reset					();
+    void	  add_action_name			  (ControllableObject::action_t act, string str);
+    void	  add_association			  (association_t asoc);
+    void	  set_actionperipheral	(ControllableObject::action_t act,	Peripheral* peri, Peripheral::component_t comp,	Peripheral::event_t e);
+    void	  set_owner				      (ControllableObject*);
+    void	  update					      ();
+    string	get_name_action			  (ControllableObject::action_t);
+    void	  reset					        ();
 
-    protected:
-	    ControllableObject *owner;
-	    list<association_t> associations;
-	    list<association_t>::iterator associations_iter;
+  protected:
+    ControllableObject *            owner;
+    list<association_t>             associations;
+    list<association_t>::iterator   associations_iter;
 };
 
 #endif

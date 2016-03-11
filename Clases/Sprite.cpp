@@ -9,7 +9,8 @@ Sprite::Sprite (const Sprite &copia, Actor *aowner):
 ActorGraphic(aowner),
 frames (copia.frames),
 actual_tick (copia.actual_tick),
-actual_frame (copia.actual_frame)
+actual_frame (copia.actual_frame),
+mirror (copia.mirror)
 {
 }
 
@@ -17,7 +18,8 @@ actual_frame (copia.actual_frame)
  * Constructor pot omisión.
  */
 Sprite::Sprite (Actor *aowner):
-ActorGraphic(aowner)
+ActorGraphic(aowner),
+mirror (true)
 {
 }
 
@@ -64,9 +66,18 @@ void Sprite::update()
  */
 void Sprite::draw(BITMAP *bmp)
 {
-  draw_sprite(bmp, frames[actual_frame].bmp,
-                   get_x() - frames[actual_frame].cx,
-                   get_y() - frames[actual_frame].cy);
+  if (mirror)
+  {
+    draw_sprite_h_flip (bmp,  frames[actual_frame].bmp,
+                        get_x() - frames[actual_frame].cx,
+                        get_y() - frames[actual_frame].cy);
+  }
+  else
+  {
+    draw_sprite (bmp, frames[actual_frame].bmp,
+                 get_x() - frames[actual_frame].cx,
+                 get_y() - frames[actual_frame].cy);
+  }
 }
 
 int Sprite::get_w()
@@ -103,12 +114,46 @@ Sprite * Sprite::clone (Actor *propietario) const
 }
 
 /**
- * draw - Dibuja en el BITMAP 
+ * \brief   draw - Dibuja en el BITMAP 
+ * \details Según esté o no activo la variable 'mirror' se dibujará en espejo.
  */
 void Sprite::draw (int x, int y, BITMAP *bmp)
-{    
-draw_sprite(bmp, frames[actual_frame].bmp, 
+{
+  if (mirror)
+  {
+    draw_sprite_h_flip (bmp, frames[actual_frame].bmp, 
+                        x - frames[actual_frame].cx,
+                        y - frames[actual_frame].cy);
+  }
+  else
+  {
+    draw_sprite (bmp, frames[actual_frame].bmp, 
                  x - frames[actual_frame].cx,
                  y - frames[actual_frame].cy);
+  }
+}
+
+/**
+ * \brief   Cambia la variable de reflejo.
+ */
+void Sprite::setMirror (bool paramMirror)
+{
+    mirror = paramMirror;
+}
+
+/**
+ * \brief   Obtine la variable de reflejo.
+ */
+bool Sprite::getMirror ()
+{
+  return mirror;
+}
+
+/**
+ * \brief   Cambia la variable de reflejo al valor negado del existente.
+ */
+void Sprite::notMirror ()
+{
+    mirror != mirror;
 }
 

@@ -1,6 +1,6 @@
 #include "Control.h"
 
-void Control::add_action_name(ControllableObject::action_t act, string str)
+void Control::add_action_name (ControllableObject::action_t act, string str)
 {
     association_t asoc;
     asoc.act = act;

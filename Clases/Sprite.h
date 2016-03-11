@@ -29,6 +29,9 @@ class Sprite : public ActorGraphic
         int                 get_y       ();
         void                add_frame   (BITMAP *bmp, int cx, int cy, int ticks);
         Mask *              get_mask    ();
+        void                setMirror   (bool paramMirror);
+        bool                getMirror   ();
+        void                notMirror   ();
 
     protected:
         typedef struct Frame
@@ -42,6 +45,9 @@ class Sprite : public ActorGraphic
         
         vector<Frame> frames;
         int actual_tick, actual_frame;
+    // \todo  Sustituir por un vector que haga el giro en cualquier ángulo
+    //        y en cualquier dirección.
+    bool  mirror;
 };
 
 #endif
