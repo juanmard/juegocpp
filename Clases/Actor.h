@@ -1,4 +1,4 @@
-#ifndef ACTOR_H
+Ôªø#ifndef ACTOR_H
 #define ACTOR_H
 
 #include <allegro.h>
@@ -10,10 +10,10 @@
 class ActorGraphic;
 
 /** 
- * Elemento b·sico con din·mica dentro del juego.
- * Esta clase tiene como misiÛn definir los elementos con din·mica propia en el juego.
- * Se encarga de controlar todas las fases: CreaciÛn, actualizaciÛn y destrucciÛn de los actores que intervienen
- * en el juego (Jugadores, enemigos, plataformas mÛviles,...)
+ * Elemento b√°sico con din√°mica dentro del juego.
+ * Esta clase tiene como misi√≥n definir los elementos con din√°mica propia en el juego.
+ * Se encarga de controlar todas las fases: Creaci√≥n, actualizaci√≥n y destrucci√≥n de los actores que intervienen
+ * en el juego (Jugadores, enemigos, plataformas m√≥viles,...)
  *
  */
 class Actor
@@ -23,15 +23,15 @@ public:
      * \enum
      * \brief   Estados posibles del actor.
      * \todo    Se debe poder heredar, incluir estados desde los hijos. Investigar.
-     *          De esta forma eliminarÌamos la clase "Nombres" que no me gusta nada.
-     *          27-nov-09 - No me gusta nada, pero Èsta no es una soluciÛn para los estados de los actores.
+     *          De esta forma eliminar√≠amos la clase "Nombres" que no me gusta nada.
+     *          27-nov-09 - No me gusta nada, pero √©sta no es una soluci√≥n para los estados de los actores.
      */
     typedef int estado_t;
     enum estados{
-        actuar,     /* El actor est· actuando y quiere seguir actuando. */
+        actuar,     /* El actor est√° actuando y quiere seguir actuando. */
         eliminar,   /* El actor quiere ser eliminado de la obra. */
         salir,      /* El actor quiere salir del escenario (no se elimina). */ 
-        crear       /* El actor quiere crear otro actor (deberÌa estar en su clase "GeneratorActor"). */ 
+        crear       /* El actor quiere crear otro actor (deber√≠a estar en su clase "GeneratorActor"). */ 
     };
 
 public:
@@ -39,7 +39,7 @@ public:
         virtual         ~Actor              ();
         virtual void    draw                (BITMAP *bmp);
         virtual void    update              ();
-        /* \warning: Estos dos estados deben ser incluÌdos en uno. */
+        /* \warning: Estos dos estados deben ser inclu√≠dos en uno. */
         virtual void    CambiarEstado       ();
         virtual void    ActualizarEstado    ();
         virtual void    init                ();
@@ -79,7 +79,7 @@ public:
         estado_t        estado;
         
         /**
-         * CÛdigo del nombre del actor.
+         * C√≥digo del nombre del actor.
          */
         Nombres::codigo     nombre;
         ActorGraphic *      agraph;

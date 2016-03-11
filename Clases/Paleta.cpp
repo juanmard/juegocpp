@@ -47,8 +47,12 @@ void Paleta::hit (Actor *who, int damage)
            break;
 
        case Nombres::pelota:
-           piel->Set_size(2);
-           break;
+           if (piel->Get_size () > 2)
+           {
+              piel->Set_size(piel->Get_size()-1);
+              set_wh (32*piel->Get_size() + 20, 15);
+           }
+          break;
 
        default:
            break;

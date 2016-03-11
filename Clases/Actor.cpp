@@ -1,8 +1,8 @@
-#include "Actor.h"
+ï»¿#include "Actor.h"
 
 /**
  * Crea e l actor.
- * Predeterminadamente no asigna gráfico y no se sitúa en el tiempo. 
+ * Predeterminadamente no asigna grÃ¡fico y no se sitÃºa en el tiempo. 
  */
 
 Actor::Actor()
@@ -14,7 +14,7 @@ Actor::Actor()
 
 /**
  * Destruye el actor.
- * Si tiene asignado un gráfico lo elimina.
+ * Si tiene asignado un grÃ¡fico lo elimina.
  */
 Actor::~Actor()
 {
@@ -22,8 +22,8 @@ Actor::~Actor()
 }
 
 /**
- * Visualiza el aspecto gráfico del actor.
- * Delega esta función en el objeto gráfico.
+ * Visualiza el aspecto grÃ¡fico del actor.
+ * Delega esta funciÃ³n en el objeto grÃ¡fico.
  */
 void Actor::draw(BITMAP *bmp)
 {
@@ -31,7 +31,7 @@ void Actor::draw(BITMAP *bmp)
 }
 
 /**
- * Visualiza las dimensiones del actor mediante un rectángulo.
+ * Visualiza las dimensiones del actor mediante un rectÃ¡ngulo.
  * Utiliza la propiedad 'color' para ello.
  */
 void Actor::draw_block (BITMAP *pantalla)
@@ -73,7 +73,7 @@ void Actor::set_tiempo (unsigned int tiempo)
 
 void Actor::update()
 {
-    // Actualiza la parte gráfica.
+    // Actualiza la parte grÃ¡fica.
     agraph->update();
 
     // Actualiza los estados del actor.
@@ -156,8 +156,8 @@ int Actor::get_graph_y()
 }
 
 /**
- * \brief   Método para obtener el código del nombre.
- * \param   Nombres::codigo     Código del nombre a devolver.
+ * \brief   MÃ©todo para obtener el cÃ³digo del nombre.
+ * \param   Nombres::codigo     CÃ³digo del nombre a devolver.
  */
 Nombres::codigo Actor::get_name (void)
 {
@@ -165,7 +165,7 @@ Nombres::codigo Actor::get_name (void)
 };
 
 /**
- * \brief   Método para modificar el nombre.
+ * \brief   MÃ©todo para modificar el nombre.
  * \param   new_name    Nombre nuevo para sustituir.
  */
 void Actor::set_name (Nombres::codigo new_name)
@@ -174,7 +174,7 @@ void Actor::set_name (Nombres::codigo new_name)
 };
 
 /**
- * \brief   Método para obtener el estado actual del actor.
+ * \brief   MÃ©todo para obtener el estado actual del actor.
  */
 Actor::estado_t  Actor::get_Estado (void)
 {

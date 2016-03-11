@@ -1,11 +1,11 @@
-#include "DatFile.h"
+ï»¿#include "DatFile.h"
 
 /**
  * \brief Constructor encargado de cargar el fichero de recursos.
  * \todo    - Controlar mejor los errores. En modo DEBUG si no encuentra
  *            el fichero, abrir una ventana para pedir se localice el
  *            fichero de recursos.
- *          - Controlar la carga se un único fichero de recurso para evitar
+ *          - Controlar la carga se un Ãºnico fichero de recurso para evitar
  *            duplicaciones en memoria.
  */
 DatFile::DatFile(string file_name)
@@ -13,7 +13,7 @@ DatFile::DatFile(string file_name)
    file = load_datafile(file_name.c_str ());
    if (!file)
    {
-     //No se encontró el fichero.
+     //No se encontrÃ³ el fichero.
      name = "";
    }
    else
@@ -24,7 +24,7 @@ DatFile::DatFile(string file_name)
 
 /**
  * \brief   Destructor que debe descargar de memoria el recurso y cerrar el fichero.
- * \todo    Problemas al descargar un recurso si está duplicado, controlar este proceso.    
+ * \todo    Problemas al descargar un recurso si estÃ¡ duplicado, controlar este proceso.    
  */
 DatFile::~DatFile(void)
 {
@@ -32,7 +32,7 @@ DatFile::~DatFile(void)
 }
 
 /**
- * \brief   Devuelve un BITMAP como recurso dando el número identificativo indicado 
+ * \brief   Devuelve un BITMAP como recurso dando el nÃºmero identificativo indicado 
  *          en el fichero de cabecera generado por Grabber.
  * \todo    Controlar que el recurso solicitado es realmente un BITMAP.
  */
@@ -57,7 +57,7 @@ BITMAP *DatFile::GetBitmap(string name_bitmap)
         tmp_dat = load_datafile_object( name.c_str(), name_bitmap.c_str() );
 
         // Se comprueba que realmente es de tipo BITMAP.
-        // TODO: Comprobar por qué no funciona esta comparación.
+        // TODO: Comprobar por quÃ© no funciona esta comparaciÃ³n.
         //if (tmp_dat->type != DAT_BITMAP)
         //{
             tmp_bmp = (BITMAP *) tmp_dat->dat;
@@ -67,8 +67,8 @@ BITMAP *DatFile::GetBitmap(string name_bitmap)
 }
 
 /**
- * \brief   Obtiene un recurso cualquiera dando el número identificativo.
- * \todo    Se debería eliminar por inconsistencia de tipos. Se utiliza de momento
+ * \brief   Obtiene un recurso cualquiera dando el nÃºmero identificativo.
+ * \todo    Se deberÃ­a eliminar por inconsistencia de tipos. Se utiliza de momento
  *          pruebas dentro del programa.
  */
 void  *DatFile::GetDat(int number)

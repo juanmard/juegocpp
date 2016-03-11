@@ -1,39 +1,39 @@
-#include "Suelo.h"
+Ôªø#include "Suelo.h"
 
 Suelo::Suelo (Actor *aowner, int new_size) : Mosaico (aowner)
 {
     // TODO: Dejar de cargar continuamente el fichero de "sprites".
-    //       Incluir quiz·s en los par·metros de creaciÛn del actor.
-    //       O crear una clase que sea "Vestuario" com˙n a todos los
-    //       actores de la escena desde el Juego principal (o quiz·s
+    //       Incluir quiz√°s en los par√°metros de creaci√≥n del actor.
+    //       O crear una clase que sea "Vestuario" com√∫n a todos los
+    //       actores de la escena desde el Juego principal (o quiz√°s
     //       desde el "ActorManager".
     DatFile &file_dat = DatFile("sprites.dat");
     suelo_1 = file_dat.GetBitmap("suelo_1");
     suelo_2 = file_dat.GetBitmap("suelo_2");
 
 
-    // Generamos el suelo seg˙n el tamaÒo solicitado.
+    // Generamos el suelo seg√∫n el tama√±o solicitado.
     int i;
     for (i=0; i<new_size; i++)
     {
         add_ultima_Tesela (new Tesela (this, suelo_2, 32*i, 0));
     }
     
-    // AÒadimos las plataformas terminales al suelo.
+    // A√±adimos las plataformas terminales al suelo.
     add_ultima_Tesela (new Tesela (this, suelo_1, 0, 1));
     add_ultima_Tesela (new Tesela (this, suelo_1, 32*new_size-10, 1, true));
 
     // Adaptamos el ancho y el alto del actor padre.
     // TODO: Igual esto no es deseable si queremos hacer un suelo "falso", es decir,
-    //       que no sea tan extenso como lo que muestra el gr·fico.
+    //       que no sea tan extenso como lo que muestra el gr√°fico.
     aowner->set_wh(32*new_size+20,15);
 
-    // Una vez creado actualizamos la variable del tamaÒo.
+    // Una vez creado actualizamos la variable del tama√±o.
     size = new_size;
 }
 
 /**
- * \brief Obtiene el tamaÒo actual del suelo.
+ * \brief Obtiene el tama√±o actual del suelo.
  */
 int Suelo::Get_size (void)
 {
@@ -41,24 +41,45 @@ int Suelo::Get_size (void)
 }
 
 /**
- * \brief Modifica el tamaÒo actual del suelo.
- * \todo Permitir cambio en cualquier sentido (mayor o menor) y de cualquier tamaÒo.
+ * \brief   Modifica el tama√±o actual del suelo.
+ * \details El tama√±o del suelo se mide por la cantidad de bloques que tiene,
+ *          no se incluyen los terminales del suelo.
+ * \todo    Insertar y borrar las teselas del suelo por detr√°s de los dos 
+ *          suelos terminales y as√≠ mantener la coherencia del mosaico guardado
+ *          y el mostrado en pantalla.
  */
 void Suelo::Set_size (int new_size)
 {
-    // SÛlo funciona si el nuevo tamaÒo es mayor al antiguo.
+    // Se calcula la diferencia de tama√±os, es decir,
+    // el n√∫mero de bloques a incluir o eliminar.
     int num = new_size - size;
 
-    // Movemos el terminal.
-    move_Tesela (32*num, 0, last_Tesela());
+    // Si el tama√±o es en realidad nuevo...
+    if (num != 0)
+    {
+        // Movemos el terminal derecho (√∫ltimo) a la nueva posici√≥n.
+        move_Tesela (32*num, 0, last_Tesela());
 
-    // AÒadimos una Tesela.
-    add_primera_Tesela(new Tesela (this, suelo_2, 32*size));
+        // Si el tama√±o es mayor...
+        if (num > 0)
+        {
+            // A√±adimos o quitamos teselas del "suelo_2".
+            for (int i=0; i<num; i++)
+            {   
+                add_primera_Tesela(new Tesela (this, suelo_2, 32*(size+i)));
+            }
+        }
+        // Si el tama√±o es menor...
+        else
+        {
+            num = -num;
+            for (int i=0; i<num; i++)
+            {   
+                del_primera_Tesela ();
+            }
+        }
 
-    // Mover el terminal al final del mosaico para quede
-    // sobre las dem·s teselas al dibujar en pantalla.
-    // swap_Tesela (terminal_final, last_Tesela());
-
-    // Actualizamos el tamaÒo actual.
-    size = new_size;
+        // Actualizamos el tama√±o actual.
+        size = new_size;
+    }
 }

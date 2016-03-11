@@ -1,4 +1,4 @@
-#include "Mosaico.h"
+ï»¿#include "Mosaico.h"
 
 
 Mosaico::Mosaico(Actor *aowner) : ActorGraphic (aowner)
@@ -6,12 +6,12 @@ Mosaico::Mosaico(Actor *aowner) : ActorGraphic (aowner)
 }
 
 /**
- * \brief   Añade una nueva tesela al final de la lista.
- * \details Al añadirse al final de la lista es la
- *          última tesela en dibujarse, quedando por
+ * \brief   AÃ±ade una nueva tesela al final de la lista.
+ * \details Al aÃ±adirse al final de la lista es la
+ *          Ãºltima tesela en dibujarse, quedando por
  *          delante del resto.
- * \param   nueva   Puntero a la tesela a añadir.
- * \todo    Integrar "add_ultima_Tesela" y "add_primera_Tesela" en una única
+ * \param   nueva   Puntero a la tesela a aÃ±adir.
+ * \todo    Integrar "add_ultima_Tesela" y "add_primera_Tesela" en una Ãºnica
  *          "add_Tesela (Tesela *nueva, Posicion pos = Mosaico::Delante)".
  */
 void    Mosaico::add_ultima_Tesela (Tesela *nueva)
@@ -20,15 +20,23 @@ void    Mosaico::add_ultima_Tesela (Tesela *nueva)
 };    
 
 /**
- * \brief   Añade una nueva tesela al inicio de la lista.
- * \details Al añadirse al inicio de la lista es la
+ * \brief   AÃ±ade una nueva tesela al inicio de la lista.
+ * \details Al aÃ±adirse al inicio de la lista es la
  *          primera tesela en dibujarse, quedando por
- *          detrás del resto.
- * \param   nueva   Puntero a la tesela a añadir.
+ *          detrÃ¡s del resto.
+ * \param   nueva   Puntero a la tesela a aÃ±adir.
  */
 void    Mosaico::add_primera_Tesela (Tesela *nueva)
 {
     teselas.push_front (nueva);
+};    
+
+/**
+ * \brief   Borra una tesela al inicio de la lista.
+ */
+void    Mosaico::del_primera_Tesela (void)
+{
+    teselas.erase (teselas.begin());
 };    
 
 void Mosaico::draw (BITMAP *pantalla)
@@ -43,7 +51,7 @@ void Mosaico::draw (BITMAP *pantalla)
 }
 
 /**
- * \brief Mueve la tesela elegida según un incremento de 'y' y de 'x'.
+ * \brief Mueve la tesela elegida segÃºn un incremento de 'y' y de 'x'.
  */
 void    Mosaico::move_Tesela     (int inc_x, int inc_y, Tesela *elegida)
 {
@@ -52,7 +60,7 @@ void    Mosaico::move_Tesela     (int inc_x, int inc_y, Tesela *elegida)
 }
 
 /**
- * \brief Devuelve la última tesela añadida.
+ * \brief Devuelve la Ãºltima tesela aÃ±adida.
  */
 Tesela *    Mosaico::last_Tesela     (void)
 {
@@ -62,8 +70,8 @@ Tesela *    Mosaico::last_Tesela     (void)
 /**
  * \brief   Intercambia dos Teselas.
  * \todo   
- *         - Sobrecargar esta función con los índices de las teselas.
- *         - Desarrollar la función si fuera necesaria. 
+ *         - Sobrecargar esta funciÃ³n con los Ã­ndices de las teselas.
+ *         - Desarrollar la funciÃ³n si fuera necesaria. 
  */
 void    Mosaico::swap_Tesela     (Tesela *tesela_1, Tesela *tesela_2)
 {

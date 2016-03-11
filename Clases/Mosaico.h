@@ -17,6 +17,7 @@ class Mosaico : public ActorGraphic
         void        draw                (BITMAP *pantalla);
         void        add_primera_Tesela  (Tesela *nueva);
         void        add_ultima_Tesela   (Tesela *nueva);
+        void        del_primera_Tesela  (void);
         void        move_Tesela         (int inc_x, int inc_y, Tesela *elegida);
         Tesela *    last_Tesela         (void);
         void        swap_Tesela         (Tesela *tesela_1, Tesela *tesela_2);
