@@ -40,10 +40,31 @@ public:
 
 protected:
 	vector<MENU>::iterator 		iter;
-	vector<MENU>					items;
-	static	MENU						item_fin[];
-	//static	MENU						item_fin;
-	static	MENU						prueba_menu[];
+	vector<MENU>				items;
+	static	MENU				item_fin[];
+	//static	MENU			item_fin;
+	static	MENU				prueba_menu[];
+
+    /**
+     * Call back de la clase.
+     */
+    static  int callback (int msg, DIALOG *d, int c)
+    {
+        // Si ya está inicializado el objeto...
+        if (d[0].dp3)
+        {
+            MenuALG *obj = static_cast<MenuALG *>(d[0].dp3);
+            // Seleccionamos los mensajes.
+            switch (msg)
+            {
+            case MSG_START:
+                // Inicializamos el menu para enviar al procedimiento predeterminado.
+                d[0].dp = &(obj->items[0]);
+                break;
+            }
+        }
+        return d_menu_proc (msg,d,c);
+    };
 };
 
 #endif 

@@ -24,16 +24,23 @@
 #include <string>
 #include  "MenuALG.h"
 
+class MenuALG;
+
 class ItemALG
 {
 public:
-								ItemALG 		(string text);
-								ItemALG 		();
-								~ItemALG  	();
-				operator	MENU &() {return item;};
+			    ItemALG 		(string texto);
+			    ItemALG 		();
+			    ~ItemALG  	    ();
+                operator MENU & () {return item;};
+    void        add             (MenuALG nuevo);
+
 	
 protected:
-	MENU		    item;
+    string          texto;
+	MenuALG         *menu_hijo;
+    MENU		    item;
+
 };
 
 #endif // _ItemALG_H_

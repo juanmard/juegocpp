@@ -19,9 +19,10 @@
 
 #include "ItemALG.h"
 
-ItemALG::ItemALG (string text)
+ItemALG::ItemALG (string texto_rec)
 {
-	item.text = const_cast<char *>(text.c_str());
+    texto = texto_rec;
+	item.text = const_cast<char *>(texto.data());
 	item.proc = NULL;
 	item.child = NULL;
 	item.flags = 0;
@@ -41,3 +42,11 @@ ItemALG::~ItemALG ()
 {
 };
 
+void ItemALG::add (MenuALG nuevo)
+{
+    // Esto falla, pues es posible que la variable "nuevo" se pierda.
+    // Lo más lógico es crear un objeto de MenuALG nuevo con "new" e igualarlo al objeto
+    // recibido como parámetro (al igual que pasaba con el texto del item).
+    menu_hijo = &nuevo;
+	item.child = *menu_hijo;
+};
