@@ -87,7 +87,7 @@ ref_x (0), ref_y(0)
   dialog[scr].dp = this;
   dialog[scr].dp2 = manager;
   dialog[pos].dp3 = this;
-  dialog[dimensiones].dp3 = this;
+  dialog[dim].dp3 = this;
 
   // Se  inicializa el ancho del menú.
   dialog[menu].w = SCREEN_W;
@@ -201,7 +201,7 @@ void  Dialog::draw ()
   // Actualizamos las propiedades del actor.
   object_message(&dialog[nombre], MSG_DRAW, 0);
   object_message(&dialog[pos], MSG_DRAW, 0);
-  object_message(&dialog[dimensiones], MSG_DRAW, 0);
+  object_message(&dialog[dim], MSG_DRAW, 0);
   object_message(&dialog[estado], MSG_DRAW, 0);
 
   // Vuelve a mostrar el ratón.
@@ -270,42 +270,32 @@ void  Dialog::actualizarValoresActor ()
   // Si hay un actor que se está editando...
   if (actor)
   {
-    // Construimos la cadena de posición.
-    // \todo      Crear un procedimiento que devuelva la cadena dados dos valores.
-    // \warning   Estamos creando cadenas que no eliminamos!!!
-    //            Debemos modificar una única cadena que sea variable de la clase.
-    std::stringstream posicion;
-    posicion  << actor->get_x ()
-              <<  ", "
-              << actor->get_y ();
-    std::string str1 = posicion.str();
-
-    // Construimos la cadena de las dimensiones.
-    std::stringstream dim;
-    dim << actor->get_w ()
-                <<  ", "
-                << actor->get_h ();
-    std::string str2 = dim.str();
-
     // Actualizamos el valor de los controles.
+    // \warning   Estamos creando cadenas que no eliminamos!!!
     // \warning   Esto debemos eliminarlo pues estos punteros
     //            siempre deben apuntar a la misma cadena.
-    dialog[pos].dp = const_cast <char*> (str1.c_str());
-    dialog[dimensiones].dp = const_cast <char*> (str2.c_str());
+    // \warning   Tras pensar vemos que esta asignación no puede
+    //            eliminarse pues la función se crea una cadena
+    //            temporal que debe ser siempre reasignada.
+    // \warning   Pensar como provocar el borrado de estas cadenas.
+    //            ¿Quizás con un delete 'dialog[pos].dp'?. No, eso sólo borraría
+    //            la cadena creada con la función 'c_str()', pero la devuelta por
+    //            el 'getXY' que es de tipo 'string' no se borraría. 
+    dialog[pos].dp = const_cast <char*> ((actor->getXY ()).c_str());
+    dialog[dim].dp = const_cast <char*> ((actor->getWH ()).c_str());
     dialog[estado].dp = const_cast <char*> ((actor->getEstado ()).c_str());
     dialog[nombre].dp = const_cast<char *>((actor->getNombre ()).c_str());
   }
   else
   {
     // Construimos la cadena de posición.
-    std::stringstream posicion;
-    posicion << manager->getEscenarioX ()
+    stringstream  stream;
+    stream << manager->getEscenarioX ()
              <<  ", "
              << manager->getEscenarioY ();
-    std::string str = posicion.str();
 
     // Actualizamos el valor de los controles.
-    dialog[pos].dp = const_cast <char*> (str.c_str());
+    dialog[pos].dp = const_cast <char*> (stream.str().c_str());
     dialog[nombre].dp = const_cast<char *>("Escenario");
   }
 }

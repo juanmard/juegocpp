@@ -49,7 +49,9 @@ public:
         virtual Actor *     clone               () const;
         virtual string &    getEstado           () const;
         virtual string &    getNombre           () const;
-    
+        string &            getWH               () const;
+        string &            getXY               () const;
+
         /* \warning: Estos dos estados deben ser incluídos en uno. */
         virtual void                            CambiarEstado           ();
         virtual void                            ActualizarEstado        ();

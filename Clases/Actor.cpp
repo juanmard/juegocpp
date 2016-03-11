@@ -1,3 +1,4 @@
+#include <sstream>
 #include "Actor.h"
 #include "ActorGraphic.h"
 #include "StageManager.h"
@@ -300,3 +301,24 @@ string &  Actor::getNombre () const
   return *(new std::string (Nombres::Imprimir (nombre)));
 };
 
+/**
+ * \brief   Obtiene las dimensiones del actor en una cadena.
+ */
+string &  Actor::getWH () const
+{
+  stringstream  ss;
+  ss << "(" << w << ", " << h << ")";
+//  ss << w << ", " << h;
+  return *(new string (ss.str()));
+};
+
+/**
+ * \brief   Obtiene la posición del actor en una cadena.
+ */
+string &  Actor::getXY () const
+{
+  stringstream  ss;
+  ss << "(" << x << ", " << y << ")";
+//  ss << x << ", " << y;
+  return *(new string (ss.str()));
+};
