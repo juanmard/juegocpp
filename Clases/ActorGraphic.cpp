@@ -1,4 +1,5 @@
 #include "ActorGraphic.h"
+#include "Actor.h"
 
 ActorGraphic::ActorGraphic(Actor *a)
 {

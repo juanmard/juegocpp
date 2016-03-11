@@ -3,6 +3,10 @@
 
 #include "ControllableActor.h"
 
+/** 
+ * \brief   Modela una nave espacial como actor controlable.
+ * \details Esta clase modela una nave espacial para probar los actores controlables.
+ */
 class AirCraft : public ControllableActor
 {
     public:

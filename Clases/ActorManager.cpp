@@ -1,16 +1,17 @@
 
-#include "Actor.h"
 #include "ActorManager.h"
+#include "Actor.h"
 #include <algorithm>
 
-ActorManager::ActorManager(Game *g)
+ActorManager::ActorManager (Game *g)
 {
 	game = g;
 }
 
 /**
  * \brief   Devuelve el actor cuyas coordenadas en pantalla son (x,y).
- * \todo    Preveer que en un futuro debe devolver una lista de actores.
+ * \todo    Preveer que en un futuro debe devolver una lista de actores, pues
+ *          el punto puede interseccionar a más de un actor.
  */
 Actor * ActorManager::get_actor (int x, int y)
 {
