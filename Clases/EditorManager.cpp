@@ -35,7 +35,7 @@ EditorManager::~EditorManager()
  * \details Al activar el modo edición del juego se debe:
  *          - Parar el bucle normal del juego.
  *          - Generar un menu con las propiedades de edición.
- *          - Activar un bucle propio únicamente de la parte gráfica.
+ *          - Activar un bucle propio.
  */
 void  EditorManager::activate ()
 {
@@ -43,7 +43,7 @@ void  EditorManager::activate ()
   game->pause ();
  
   // Guardamos el ribete actual del juego.
-  //  Bloque ribete_ant (game->stage_manager->getRibete ());
+  //Bloque ribete_ant (game->stage_manager->getRibete ());
   Bloque ribete_ant (0, 0, SCREEN_W, SCREEN_H-100);
   
   // Se hace visible el menú de edición.
@@ -130,8 +130,8 @@ void  EditorManager::duplicarActor (Actor *actor)
     if (nuevo)
     {
       // Se desplaza para visualizarlo.
-      nuevo->set_x (nuevo->get_x () + 10);
-      nuevo->set_y (nuevo->get_y () + 10);
+      nuevo->set_x (nuevo->get_x () - 10);
+      nuevo->set_y (nuevo->get_y () - 10);
 
       // Se añade a la lista de actores.
       game->actor_manager->add (nuevo);

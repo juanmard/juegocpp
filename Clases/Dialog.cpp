@@ -1,84 +1,70 @@
-
 #include "Dialog.h"
 #include "DlgActor.h"
 #include "VentanaALG.h"
-
-//#define PRUEBAS
-//#define DEBUG
 
 // Inicialización de las variables estáticas de la clase.
 // Diálogo general de la GUI del editor.
 DIALOG Dialog::dialog[] =
 {
-   /* (proc)                 (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags)                               (d1) (d2) (dp)                                     (dp2) (dp3) */
-   { Dialog::marco_callback, 16,  24,  612, 300, 254, 50,  0,    0,                                    0,   0,   NULL,                                    NULL, NULL },
-   { d_menu_proc,            0,   0,   640, 15,  7,   15,  0,    D_SELECTED | D_GOTFOCUS | D_GOTMOUSE, 0,   0,   Dialog::menu_editor,                     NULL, NULL },
-   { d_text_proc,            344, 328, 100, 8,   14,  219, 0,    0,                                    0,   0,   const_cast<char*>("Lista de actores: "), NULL, NULL },
-   { d_text_proc,            8,   360, 32,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Estado:"),           NULL, NULL },
-   { Dialog::lista_callback, 344, 340, 144, 92,  50,  219, 0,    0,                                    0,   0,   NULL,                                    NULL, NULL },
-   { d_bitmap_proc,          500, 336, 104, 96,  0,   0,   0,    0,                                    0,   0,   NULL,                                    NULL, NULL },
-   { d_box_proc,             92,  336, 128, 80,  16,  164, 0,    0,                                    0,   0,   NULL,                                    NULL, NULL },
-   { d_text_proc,            100, 360, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("andando"),           NULL, NULL },
-   { d_text_proc,            8,   372, 40,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Anterior:"),         NULL, NULL },
-   { d_text_proc,            100, 372, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("disparando"),        NULL, NULL },
-   { d_text_proc,            8,   384, 40,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Siguiente:"),        NULL, NULL },
-   { d_text_proc,            100, 384, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("saltando"),          NULL, NULL },
-   { d_text_proc,            8,   400, 40,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Posicion:"),         NULL, NULL },
-   { d_text_proc,            100, 400, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("00X, 00Y"),          NULL, NULL },
-   { d_text_proc,            8,   344, 32,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Nombre:"),           NULL, NULL },
-   { d_text_proc,            100, 344, 82,  8,   50,  219, 0,    0,                                    0,   0,   const_cast<char *>("Sin nombre"),        NULL, NULL },
-   { NULL,                   0,   0,   0,   0,   0,   0,   0,    0,                                    0,   0,   NULL,                                    NULL, NULL }
-};
-
-// Diálogo de objeto.
-DIALOG Dialog::dlg_actor [] =
-{
-   /* (proc)             (x),  (y),  (w),  (h), (fg),  (bg), (key),  (flags),   (d1),  (d2),  (dp),                                (dp2), (dp3)     */
-   { d_text_proc,          0,  100,  300,  200,    7,    15,     0,        0,      0,     0, const_cast<char*>("x, y"),             NULL, NULL },
-   { d_slider_proc,       20,  200,   20,  160,    2,    33,     0,        0,    100,    50,                                  NULL, NULL, NULL },
-   { d_slider_proc,       60,  200,   20,  160,    2,    33,     0,        0,    100,    50,                                  NULL, NULL, NULL },
-    // Prueba para la lista de trajes. dp se actualiza en el constructor y apunta al procedimiento para obtener información de la lista.
-   { Dialog::mi_list_proc, 0,   40,   120, 200,    2,    33,     0,        0,    100,    50,                                  NULL, NULL, NULL },
-   { d_text_proc,        470,   20,  160,   20,    2,    33,     0,        0,      0,     0, const_cast<char*>("  Modo Edición  "), NULL, NULL },
-   { NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL }
+   /* (proc)                 (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags) (d1) (d2) (dp)                                     (dp2) (dp3) */
+   { Dialog::marco_callback, 16,  24,  612, 300, 254, 50,  0,    0,      0,   0,   NULL,                                    NULL, NULL },
+   { d_menu_proc,            0,   0,   640, 15,  7,   15,  0,    0,      0,   0,   Dialog::menu_editor,                     NULL, NULL },
+   { d_text_proc,            344, 328, 100, 8,   14,  219, 0,    0,      0,   0,   const_cast<char*>("Lista de actores: "), NULL, NULL },
+   { d_text_proc,            8,   380, 32,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("Estado:"),           NULL, NULL },
+   { Dialog::lista_callback, 344, 340, 144, 92,  50,  219, 0,    0,      0,   0,   NULL,                                    NULL, NULL },
+   { d_bitmap_proc,          500, 336, 104, 96,  0,   0,   0,    0,      0,   0,   NULL,                                    NULL, NULL },
+   { d_box_proc,             100, 336, 156, 112, 16,  164, 0,    0,      0,   0,   NULL,                                    NULL, NULL },
+   { d_text_proc,            108, 380, 82,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("andando"),           NULL, NULL },
+   { d_text_proc,            12,  420, 40,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("Anterior:"),         NULL, NULL },
+   { d_text_proc,            108, 420, 82,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("disparando"),        NULL, NULL },
+   { d_text_proc,            12,  432, 40,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("Siguiente:"),        NULL, NULL },
+   { d_text_proc,            108, 432, 82,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("saltando"),          NULL, NULL },
+   { d_text_proc,            8,   368, 40,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("Posicion:"),         NULL, NULL },
+   { d_text_proc,            108, 368, 82,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("00X, 00Y"),          NULL, NULL },
+   { d_text_proc,            8,   344, 32,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("Nombre:"),           NULL, NULL },
+   { d_text_proc,            108, 344, 82,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("Sin nombre"),        NULL, NULL },
+   { d_check_proc,           348, 436, 112, 12,  50,  219, 0,    0,      1,   0,   const_cast<char *>("Centrar en pantalla"), NULL, NULL },
+   { d_text_proc,            8,   356, 40,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("Dimensiones:"),      NULL, NULL },
+   { d_text_proc,            108, 356, 82,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("00X, 00Y"),          NULL, NULL },
+   { NULL,                   0,   0,   0,   0,   0,   0,   0,    0,      0,   0,   NULL,                                    NULL, NULL }
 };
 
 // Menú fichero.
 MENU Dialog::mnu_fichero[] =
 {
-   { const_cast<char*>("&Abrir mapa"),   Dialog::quit, NULL, D_DISABLED, NULL },
-   { const_cast<char*>("&Guardar mapa"), Dialog::quit, NULL, D_DISABLED, NULL },
-   { const_cast<char*>(""),              Dialog::quit, NULL, D_DISABLED, NULL },
-   { const_cast<char*>("&Salir\tF2"),    Dialog::quit, NULL,          0, NULL },
-   { NULL, NULL, NULL, 0, NULL }
+  { const_cast<char*>("&Abrir mapa"),   Dialog::quit, NULL, D_DISABLED, NULL },
+  { const_cast<char*>("&Guardar mapa"), Dialog::quit, NULL, D_DISABLED, NULL },
+  { const_cast<char*>(""),              Dialog::quit, NULL, D_DISABLED, NULL },
+  { const_cast<char*>("&Salir\tF2"),    Dialog::quit, NULL,          0, NULL },
+  { NULL, NULL, NULL, 0, NULL }
 };
 
 // Menú ayuda.
 MENU Dialog::mnu_ayuda[] =
 {
-    { const_cast<char*>("&Manual\tF1"), Dialog::about, NULL, D_DISABLED, NULL },
-    { const_cast<char*>("&Sobre..."),   Dialog::about, NULL,          0, NULL },
-    { NULL, NULL, NULL, 0, NULL }
+  { const_cast<char*>("&Manual\tF1"), Dialog::about, NULL, D_DISABLED, NULL },
+  { const_cast<char*>("&Sobre..."),   Dialog::about, NULL,          0, NULL },
+  { NULL, NULL, NULL, 0, NULL }
 };
 
 // Menú de edición.
 MENU Dialog::menu_editor [] =
 {
-    { const_cast<char*>("&Fichero"), NULL, Dialog::mnu_fichero, 0, NULL },
-    { const_cast<char*>("&Editar"),  NULL, Dialog::mnu_actor,   0, NULL },
-    { const_cast<char*>("&Ayuda"),   NULL, Dialog::mnu_ayuda,   0, NULL },
-    { NULL, NULL, NULL, 0, NULL }
+  { const_cast<char*>("&Fichero"), NULL, Dialog::mnu_fichero, 0, NULL },
+  { const_cast<char*>("&Editar"),  NULL, Dialog::mnu_actor,   0, NULL },
+  { const_cast<char*>("&Ayuda"),   NULL, Dialog::mnu_ayuda,   0, NULL },
+  { NULL, NULL, NULL, 0, NULL }
 };
 
 // Menú del objeto.
 MENU Dialog::mnu_actor [] =
 {
-   { const_cast<char*>("&Mover"),       Dialog::menu_callback,      NULL,          0, NULL },
-   { const_cast<char*>("&Duplicar"),    Dialog::cb_menu_opciones,   NULL,          0, NULL },
-   { const_cast<char*>("&Traje"),       Dialog::cb_menu_opciones,   NULL,          0, NULL },
-   { const_cast<char*>("&Tamaño"),      Dialog::menu_callback,      NULL, D_DISABLED, NULL },
-   { const_cast<char*>("&Propiedades"), Dialog::menu_callback,      NULL,          0, NULL },
-   { NULL, NULL, NULL, 0, NULL }
+  { const_cast<char*>("&Mover"),       Dialog::cb_menu_opciones,  NULL, D_DISABLED, NULL },
+  { const_cast<char*>("&Duplicar"),    Dialog::cb_menu_opciones,  NULL,          0, NULL },
+  { const_cast<char*>("&Traje"),       Dialog::cb_menu_opciones,  NULL, D_DISABLED, NULL },
+  { const_cast<char*>("&Tamaño"),      Dialog::cb_menu_opciones,  NULL, D_DISABLED, NULL },
+  { const_cast<char*>("&Propiedades"), Dialog::cb_menu_opciones,  NULL, D_DISABLED, NULL },
+  { NULL, NULL, NULL, 0, NULL }
 };
 
 /**
@@ -87,46 +73,22 @@ MENU Dialog::mnu_actor [] =
 Dialog::Dialog (EditorManager *editor):
 manager (editor),
 actor (NULL),
+moviendoActor (false),
 ref_x (0), ref_y(0)
 {
-    // Se inicializan los colores de la GUI.
-    gui_fg_color = makecol(255,255,255);
-    gui_bg_color = makecol(128,128,128);
+  // Se inicializan los colores de la GUI.
+  gui_fg_color = makecol(255,255,255);
+  gui_bg_color = makecol(128,128,128);
 
-    // Se  inicializa el ancho del menú.
-    dialog[menu].w = SCREEN_W;
+  // Menú
+  mnu_actor[1].dp = this;
 
-    // Se inicializan parámetros de los "callback".
-    // \todo    Enum para referencias a "dialog". 
-    dialog[scr].dp = this;
-    dialog[scr].dp2 = manager;
+  // Se inicializan parámetros de los "callback".
+  dialog[scr].dp = this;
+  dialog[scr].dp2 = manager;
 
-    // Se crea un diálogo para el actor vacío.
-    dlg_actor2 = new DlgActor(this);
-    dialog[scr].dp3 = dlg_actor;
-
-    dlg_ventana2 = new VentanaALG ("Otra prueba de fondo...",0,0,SCREEN_W,SCREEN_H);
-    dlg_ventana = new VentanaALG ("Prueba",100,100,120,120);
-
-    // Se apunta a ese diálogo en el menú del objeto.
-    //mnu_actor[3].dp = editor->get_actor ();
-
-    // Inicializamos las propiedades del actor.
-    dlg_actor[0].fg = makecol (255,255,255);
-    dlg_actor[0].bg = makecol (0,0,255);
-
-    // Inicializamos el slider de prueba.
-    dlg_actor[1].dp2 = (void*)Dialog::clbk_prueba_slider;
-    dlg_actor[1].dp3 = manager;
-    dlg_actor[2].dp2 = (void*)Dialog::clbk_prueba_slider;
-    dlg_actor[2].dp3 = manager;
-
-    // Inicializamos las llamadas del menú contextual.
-    // Parece ser que incluir la referencia directa no funciona, hay que pasar por
-    // un procedimiento estático.
-    //    mnu_actor[1].proc = reinterpret_cast<int(*)()>(&Dialog::DuplicarActor);
-    mnu_actor[1].dp = this;
-    mnu_actor[2].dp = this;
+  // Se  inicializa el ancho del menú.
+  dialog[menu].w = SCREEN_W;
 
   // Inicializamos la lista de actores.
   dialog[lista].dp = (void *) Dialog::getterListaActores;
@@ -136,11 +98,8 @@ ref_x (0), ref_y(0)
   dialog[bitmap].dp = manager->getBuffer ();
 
   // Color del fondo de los controles.
-  for (int i = pantalla; i < ultimo; i++)
-  {
-    dialog[i].bg = makecol (128,128,128);
-  }
-  
+  for (int i = scr; i < ultimo; i++) dialog[i].bg = makecol (128,128,128);
+
   // Color de la caja que borra los valores.
   dialog[caja].fg = makecol (128,128,128);
 }
@@ -160,7 +119,7 @@ Dialog::~Dialog (void)
  * \details Al activar el modo edición del juego se debe:
  *          - Parar el bucle normal del juego.
  *          - Generar un menu con las propiedades de edición.
- *          - Activar un bucle propio únicamente de la parte gráfica.
+ *          - Activar un bucle propio.
  */
 void Dialog::show (void)
 {
@@ -172,17 +131,9 @@ void Dialog::show (void)
                               dialog[scr].w, dialog[scr].h));
 
   // Se hace visible el menú de edición.
-  // Si se pulsa ESC debemos mostrar el mensaje de cierre 'quit'.
-  // Repetimos el bucle hasta que en el mensaje de cierre se elija "Sí".
+  // El valor de la salida depende del control que la provocó.
   int salida = D_O_K;
-  while (salida != D_CLOSE)
-  {
-    salida = do_dialog (dialog,-1);
-    if (salida == -1)
-    {
-      salida = quit ();
-    }
-  }
+  salida = do_dialog (dialog, scr);
 }
 
 /**
@@ -206,79 +157,11 @@ void Dialog::mouse_in (void)
  */
 void Dialog::menu_contextual (int x, int y)
 {
-    // Elegimos el menú adecuado: actor, lista de actores, fondo... según el tipo de objeto.
+  // Elegimos el menú adecuado: actor, lista de actores, fondo... 
+  // según el tipo de objeto.
 
-    // Para pruebas suponemos que el objeto elegido es un actor.
-    //switch (objeto->tipo)
-    //{
-    //    case actor:
-    //    {
-            // Resaltamos el actor.
-//            manager->resaltarActor (x, y);
-
-            // Para hacer pruebas con el slider editamos el actor.
-//            manager->editarActor (x, y);
-
-            // Mostramos el menu del actor en la posición del ratón.
-            do_menu (mnu_actor, x, y);
-
-            // Obtenemos la opción elegida. Podemos usar la opción de Allegro "active_menu->Text".
-            // Según la opción elegida ejecutar una u otra función.
-            // O bien, en la definición del menú poner la función estática de la clase a ejecutar
-            // Al elegir la opción.
-            // Si la opción es obtener las propiedades del actor, lo suyo sería abrir un control
-            // nuevo con todas las propiedades para modificarlas, las propiedades se deben pedir al "manager".
-            // Algo así:
-            // dlg_actor[pos_x]=manager->getActorX ();
-            // dlg_actor[heigth]=manager->getActorH ();
-            
-    //      }
-    //  }
-}
-
-/**
- *  \brief  Mueve con el teclado el actor actual en edición.
- */
-void    Dialog::mover_kbd   (int code)
-{
-//    if (manager->editandoActor())
-    {
-        int actor_x = manager->getActorX ();
-        int actor_y = manager->getActorY ();
-        switch ((code & 0xff))
-        {
-        case 'w':
-            actor_y -= 1;
-            break;
-        case 's':
-            actor_y += 1;
-            break;
-        case 'a':
-            actor_x -= 1;
-            break;
-        case 'd':
-            actor_x += 1;
-            break;
-        }
-        manager->setActorX(actor_x);
-        manager->setActorY(actor_y);
-        draw ();
-
-        // Forzamos muestre las coordenadas también con las teclas.
-        // Esto habrá que eliminarlo, sólo se debe dibujar en un lugar.
-        /*
-        dialog_objeto[0].x = actor_x;
-        dialog_objeto[0].y = actor_y;        
-        object_message(&dialog_objeto[0], MSG_DRAW, 0);
-        */
-    }
-};
-
-/**
- * \brief Prueba el click de ratón resaltando el contorno del objeto en el que se produce.
- */
-void  Dialog::prueba_dclick ()
-{
+  // Mostramos el menu del actor en la posición del ratón.
+  do_menu (mnu_actor, x, y);
 }
 
 /**
@@ -315,8 +198,9 @@ void  Dialog::draw ()
   object_message(&dialog[caja], MSG_DRAW, 0);
   // Actualizamos las propiedades del actor.
   object_message(&dialog[nombre], MSG_DRAW, 0);
-  object_message(&dialog[estado], MSG_DRAW, 0);
   object_message(&dialog[pos], MSG_DRAW, 0);
+  object_message(&dialog[dimensiones], MSG_DRAW, 0);
+  object_message(&dialog[estado], MSG_DRAW, 0);
 
   // Vuelve a mostrar el ratón.
   mouse_in ();
@@ -329,7 +213,7 @@ void  Dialog::mover_actor  (void)
 {
   // Eliminamos la referencia tomada respecto al actor a la posición actual del ratón y movemos el actor.
   // Se hace esto para evitar el movimiento del actor respecto a la posición del ratón.
-//  manager->moverActor (mouse_x + ref_x + manager->getEscenarioX (), mouse_y + ref_y + manager->getEscenarioY ());
+  //  manager->moverActor (mouse_x + ref_x + manager->getEscenarioX (), mouse_y + ref_y + manager->getEscenarioY ());
   if (actor)
   {
     actor->set_x (mouse_x + ref_x + manager->getEscenarioX ());
@@ -372,66 +256,9 @@ void  Dialog::duplicarActor ()
   if (actor)
   {
     manager->duplicarActor (actor);
+    draw ();
   }
 }
-
-/**
-* \brief    Cambia el traje del actor que actualmente se esté editando.
-* \todo     Esto no es una acción propia de la GUI, debe estar como acción en el EditorManager.
-*/
-int  Dialog::CambiarTraje ()
-{
-    // Se le pregunta al EditorManager si está editando un actor actualmente.
-//    if (manager->editandoActor())
-    {
-        // Si se está ediando un actor...
-        // 1 - Preguntar por la lista de trajes que hay en la clase "Vestuario"
-        //     mediante el EditorManager.
-        // Esto lo hace directamente desde la función callback de la lista (cb_prueba_lista)
-
-        // 2 - La GUI debe crear un control de lista.
-        do_dialog (&dlg_actor[3],-1); // Usamos como prueba una parte del dlg_actor.
-
-        // 3 - Llenar el control de lista con los posibles trajes.
-        // Esto también se hace directamente desde la función callback de la lista.
-        
-        // 4 - Según nos movemos por la lista indicar al EditorManager que debe cambiar
-        //     el traje del actor y mostrar el cambio.
-    }
-    return D_O_K; 
-};
-
-/**
- *  \brief  Mueve con el teclado el escenario.
- */
-void    Dialog::mover_kbd_escenario   (int code)
-{
-    int x = manager->getEscenarioX ();
-    int y = manager->getEscenarioY ();
-    switch ((code & 0xff))
-    {
-    case 'w':
-        y -= 4;
-        break;
-    case 's':
-        y += 4;
-        break;
-    case 'a':
-        x -= 4;
-        break;
-    case 'd':
-        x += 4;
-        break;
-    case 'f':
-    case 'F':
-        // \warning   Se actualiza dos veces la pantalla, en 'step' y en 'draw'.
-        manager->step ();
-        actualizarValoresActor ();
-        break;
-    }
-    manager->moverEscenario (x, y);
-    draw ();
-};
 
 /**
  * \brief   Actualizamos los valores del actor en pantalla.
@@ -442,14 +269,23 @@ void  Dialog::actualizarValoresActor ()
   if (actor)
   {
     // Construimos la cadena de posición.
+    // \todo  Crear un procedimiento que devuelva la cadena dados dos valores.
     std::stringstream posicion;
-    posicion << actor->get_x ()
-             <<  ", "
-             << actor->get_y ();
-    std::string str = posicion.str();
+    posicion  << actor->get_x ()
+              <<  ", "
+              << actor->get_y ();
+    std::string str1 = posicion.str();
+
+    // Construimos la cadena de las dimensiones.
+    std::stringstream dim;
+    dim << actor->get_w ()
+                <<  ", "
+                << actor->get_h ();
+    std::string str2 = dim.str();
 
     // Actualizamos el valor de los controles.
-    dialog[pos].dp = const_cast <char*> (str.c_str());
+    dialog[pos].dp = const_cast <char*> (str1.c_str());
+    dialog[dimensiones].dp = const_cast <char*> (str2.c_str());
     dialog[estado].dp = const_cast <char*> ((actor->getEstado ()).c_str());
     dialog[nombre].dp = const_cast<char *>((actor->getNombre ()).c_str());
   }
@@ -499,8 +335,16 @@ void  Dialog::setColorRibete (int color)
  */
 void  Dialog::tomarReferencia ()
 {
-  ref_x = actor->get_x() - manager->getEscenarioX () - mouse_x;
-  ref_y = actor->get_y() - manager->getEscenarioY () - mouse_y;
+  if (actor)
+  {
+    ref_x = actor->get_x() - manager->getEscenarioX () - mouse_x;
+    ref_y = actor->get_y() - manager->getEscenarioY () - mouse_y;
+  }
+  else
+  {
+    ref_x = manager->getEscenarioX () + mouse_x;
+    ref_y = manager->getEscenarioY () + mouse_y;
+  }
 }
 
 /**
@@ -512,10 +356,66 @@ void  Dialog::moverEscenario ()
   // con el ratón, movemos el escenario.
   if ((actor == NULL) && key[KEY_LCONTROL])
   {
-    int x =  mouse_x; //manager->getEscenarioX () - dialog[scr].x - rel_scr_y; 
-    int y =  mouse_y; //manager->getEscenarioY () - mouse_y - dialog[scr].y - rel_scr_y; 
-
+    int x = ref_x - mouse_x;
+    int y = ref_y - mouse_y;
     manager->moverEscenario (x, y);
+    draw ();
+  }
+};
+
+/**
+ * \brief   Comprueba la tecla pulsada.
+ * \param   code    Código de la tecla pulsada.
+ * \return  - 'D_O_K' para seguir siendo procesada.
+ *          - 'D_USED_CHAR' si ya no necesita seguir siendo procesada.
+ *          - 'D_CLOSED' si se desea cerrar la GUI.
+ */
+int  Dialog::comprobarTecla (int code)
+{
+  int salida = D_O_K;
+  int x = manager->getEscenarioX ();
+  int y = manager->getEscenarioY ();
+
+  // Se comprueba el 'scancode'
+  switch (code >> 8)
+  {
+    case KEY_UP:    y -= 6; salida = D_USED_CHAR; break;
+    case KEY_DOWN:  y += 6; salida = D_USED_CHAR; break;
+    case KEY_LEFT:  x -= 6; salida = D_USED_CHAR; break;
+    case KEY_RIGHT: x += 6; salida = D_USED_CHAR; break;
+    case KEY_ESC:   salida = quit(); break;
+    default:        salida = D_O_K;
+  }
+
+  // Se comprueba el código ASCII.
+  switch (code & 0xff)
+  {
+    case 'w': y -= 4; break;
+    case 's': y += 4; break;
+    case 'a': x -= 4; break;
+    case 'd': x += 4; break;
+    case 'f':
+    case 'F':
+        // \warning   Se actualiza dos veces la pantalla, en 'step' y en 'draw'.
+        manager->step ();
+        actualizarValoresActor ();
+        break;
+  }
+
+  manager->moverEscenario (x, y);
+  draw ();
+  return salida;
+};
+
+/**
+ * \brief   Comprueba el movimiento del ratón.
+ */
+void  Dialog::moverMouse ()
+{
+  moverEscenario ();
+  if (moviendoActor)
+  {
+    mover_actor ();
     draw ();
   }
 };
