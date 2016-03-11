@@ -8,6 +8,7 @@
 
 #include <allegro.h>
 #include <stdio.h>
+#include <iostream>
 #include <string>
 #include <map>
 
@@ -30,13 +31,28 @@ class Almacen
     RGB *       GetPalette  (string nombrePaleta);
 
   protected:
+    /**
+     * \brief   Función que se llama automáticamente al cargar un fichero de datos.
+     * \details La función se encarga de emparejar los nombres de los bitmaps con
+     *          el puntero a los datos.
+     */
+    static void callback (DATAFILE *datFile)
+    {
+      static map<string, DATAFILE *>   bitmaps;
+      string nombre = get_datafile_property(datFile, DAT_ID('N','A','M','E'));
+
+      bitmaps[nombre] = (DATAFILE *) datFile->dat;
+      // Otras posibilidades de añaidr el elemento...
+      //bitmaps.insert (pair<string,DATAFILE *>(nombre,(DATAFILE *) datFile->dat));
+      //bitmaps.insert (make_pair(nombre,(DATAFILE *) datFile->dat));
+      //bitmaps.insert (map<string,DATAFILE *>::value_type(nombre,(DATAFILE *) datFile->dat));
+      cout << "DataFile >> " << nombre << "," << bitmaps[nombre] << endl;
+    }
 
   private:
-    DATAFILE *  fichero;
-    string      nombreFichero;
-    // habría que rellenar con los bitmaps del fichero.
-    // Para acceder sería: bitmaps["sprite_041"]
-    map<string, DATAFILE *>    bitmaps;
+    DATAFILE *                fichero;
+    string                    nombreFichero;
+    map<string, DATAFILE *>   bitmaps;
 };
 
 #endif // _ALMACEN_H_

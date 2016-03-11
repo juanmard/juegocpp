@@ -4,16 +4,18 @@
  */
 
 #include "Almacen.h"
-#include <iostream>
 
 Almacen::Almacen (string paramNombreFichero)
 {
-  fichero = load_datafile(paramNombreFichero.c_str ());
-  // \todo Se podría utilizar el "load_datafile_callback" para guardar nombres y
-  //       punteros al mapa "bitmaps" a la vez que se carga el fichero en memoria.
-  //       Ver: http://es.tldp.org/Allegro-es/web/online/alleg028.html#load_datafile_callback
-  //       Sería algo como: fichero = load_datafile_callback(paramNombreFichero.c_str (), callback_estática_clase);
-  //       Donde " static void callback_estatica_clase (DATAFILE *dat) { }" se definiría en 'Almacen.h'.
+  /* \todo Se podría utilizar el "load_datafile_callback" para guardar nombres y
+   *       punteros al mapa "bitmaps" a la vez que se carga el fichero en memoria.
+   *       Ver: http://es.tldp.org/Allegro-es/web/online/alleg028.html#load_datafile_callback
+   *       Sería algo como: fichero = load_datafile_callback(paramNombreFichero.c_str (), callback_estática_clase);
+   *       Donde " static void callback_estatica_clase (DATAFILE *dat) { }" se definiría en 'Almacen.h'.
+   */
+  fichero = load_datafile_callback (paramNombreFichero.c_str (), Almacen::callback);
+
+//  fichero = load_datafile(paramNombreFichero.c_str ());
   if (!fichero)
   {
     //No se encontró el fichero.
