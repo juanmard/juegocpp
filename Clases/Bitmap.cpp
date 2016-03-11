@@ -53,7 +53,7 @@ nombre (nombreParam)
  *          'bitmap' destino (pasado por parámetro), normalmente la pantalla
  *          o un 'buffer' intermedio.
  */
-void Bitmap::draw   (BITMAP *destino)
+void  Bitmap::draw (BITMAP *destino)
 {
   draw_sprite (destino, fuente, get_x(), get_y());
 }
@@ -88,11 +88,27 @@ Bitmap *  Bitmap::clone  (Actor *propietario) const
  *          En un futuro la línea es mantener todos punteros BITMAP en el almacén y referenciarlos
  *          únicamente con su nombre. En ese momento se eliminará la propiedad 'fuente' de la clase.
  */
-void Bitmap::draw   (int x, int y, BITMAP *destino)
+
+// Mantenemos este procedimiento por compatibilidad (No entiendo porqué no funciona el parámetro por omisión)
+// Ahora lo entiendo... no funciona porque el procedimiento que se hereda de 'ActorGraphic' es sin el parámetro.
+void  Bitmap::draw (int x, int y, BITMAP *destino)
+{
+  draw (x,y,destino,false);
+}
+//--------------------------------------------------
+
+void  Bitmap::draw (int x, int y, BITMAP *destino, bool mirror)
 {
   if (almacenGlobal)
   {
-    draw_sprite (destino, almacenGlobal->GetBitmap (nombre), x, y);
+    if (mirror)
+    {
+      draw_sprite_h_flip (destino, almacenGlobal->GetBitmap (nombre), x, y);
+    }
+    else
+    {
+      draw_sprite (destino, almacenGlobal->GetBitmap (nombre), x, y);
+    }
   }
   else
   {

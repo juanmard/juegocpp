@@ -16,6 +16,7 @@ class Bitmap : public ActorGraphic
                         Bitmap      (Actor *aowner, BITMAP *bmp, string nombreParam);
                         Bitmap      (Actor *aowner, Almacen *almacen, const string nombre);
     void                draw        (BITMAP *destino);
+    void                draw        (int x, int y, BITMAP *destino, bool mirror=false);
     void                draw        (int x, int y, BITMAP *destino);
     int                 get_w       ();
     int                 get_h       ();

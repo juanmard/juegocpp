@@ -158,7 +158,7 @@ void Tesela::draw (int relX, int relY, BITMAP *pantalla)
   }
   else
   {
-    dibujoPrueba->draw (x_tmp, y_tmp, pantalla);
+    dibujoPrueba->draw (x_tmp, y_tmp, pantalla, mirror);
   }
 }
 
