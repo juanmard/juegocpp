@@ -65,12 +65,13 @@ Almacen::Almacen (string paramNombreFichero)
 /* Prueba GUI Almacen */
 DIALOG Almacen::dlg_plantilla[] = 
 {
-   { d_box_proc,        352, 360, 256, 192, 67, 243,   0,    0,      0,   0,   NULL,                           NULL, NULL },
-   { Almacen::callback, 360, 392, 240, 56,  67, 243,   0,    0,      0,   0,   (void*)Almacen::list_getter,    NULL, NULL },
-   { d_text_proc,       360, 376, 128, 8,   67, 243,   0,    0,      0,   0,   (void*)"Almacén: ",             NULL, NULL },
-   { d_bitmap_proc,     360, 456, 240, 88,  67, 243,   0,    0,      0,   0,   NULL,                           NULL, NULL }
+     /* (proc)          (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags) (d1) (d2) (dp)                        (dp2) (dp3) */
+   { d_box_proc,        584, 176, 208, 248, 67, 243,   0,    0,      0,   0,   NULL,                          NULL, NULL },
+   { Almacen::callback, 592, 200, 192, 56,  67, 243,   0,    0,      0,   0,   (void *) Almacen::list_getter, NULL, NULL },
+   { d_text_proc,       592, 184, 128, 8,   67, 243,   0,    0,      0,   0,   (void *)"Almacén : ",          NULL, NULL },
+   { d_bitmap_proc,     592, 264, 192, 152, 67, 243,   0,    0,      0,   0,   NULL,                          NULL, NULL },
+   { NULL,                0,   0,   0,   0,  0,   0,   0,    0,      0,   0,   NULL,                          NULL, NULL }
 };
-
 
 /**
  * \brief   Constructor por omisión.

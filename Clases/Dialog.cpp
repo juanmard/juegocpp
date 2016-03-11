@@ -446,6 +446,10 @@ int  Dialog::comprobarTecla (int code)
       vector <DIALOG> &vec_actor = (manager->getAlmacen()).getDIALOG();
       pesta.insert (pesta.end(), vec_actor.begin(), vec_actor.end());
 
+      // Hacemos una prueba dinámica del dialogo principal.
+      // Se copia... ¡¡Funciona!!
+      //pesta.insert (pesta.end(), &dialog[0], &dialog[18]);
+
       pesta.push_back (fin);
       popup_dialog (&pesta[0],-1);
     }
@@ -496,13 +500,15 @@ int  Dialog::kdb_coordenadas (DIALOG *d, int code)
   // \warning   Hay que comprobar quién está llamando a esta función pues en este
   //            caso puede ser tanto la posicion como las dimensiones.
   //            Para probar comparamos los punteros de los controles.
+  // \warning   Esta comparación evita que funcione completamente la prueba dinámica de 'pesta'.
+  //            Lo ideal será crear una clase GUI para este tipo de vectores y asociar a ellos 
+  //            los valores que quiere modificar.
   if (d == &dialog[dimensiones])
   {
     x += actor->get_w ();
     y += actor->get_h ();
     actor->set_wh (x, y);
   }
-
   if (d == &dialog[posicion])
   {
     x += actor->get_x ();
