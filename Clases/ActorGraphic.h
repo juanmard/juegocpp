@@ -18,6 +18,7 @@ class ActorGraphic
         virtual void            init            ();
         virtual void            update          ();
         virtual void            draw            (BITMAP *bmp);
+        virtual void            draw            (int x, int y, BITMAP *bmp);
         virtual int             get_w           ();
         virtual int             get_h           ();
         virtual int             get_x           ();

@@ -1,4 +1,5 @@
 #include "Herny.h"
+#include "Almacen.h"
 #include "Bitmap.h"
 
 /**
@@ -17,15 +18,15 @@ siguiente (copia.siguiente)
 /**
  * Constructor por omisión.
  */
-Herny::Herny (void)
+Herny::Herny (Almacen &almacen)
 {
-    DatFile *sprites = new DatFile("sprites.dat");
+    //DatFile *sprites = new DatFile("sprites.dat");
     Sprite *skin = new Sprite(this);    
-    skin->add_frame(sprites->GetBitmap("jugador_01"), 0, 0, 10);
-    skin->add_frame(sprites->GetBitmap("jugador_02"), 0, 0, 30);
-    skin->add_frame(sprites->GetBitmap("jugador_03"), 0, 0, 10);
-    skin->add_frame(sprites->GetBitmap("jugador_04"), 0, 0, 10);
-    skin->add_frame(sprites->GetBitmap("jugador_05"), 0, 0, 20);
+    skin->add_frame(almacen.GetBitmap("jugador_01"), 0, 0, 10);
+    skin->add_frame(almacen.GetBitmap("jugador_02"), 0, 0, 30);
+    skin->add_frame(almacen.GetBitmap("jugador_03"), 0, 0, 10);
+    skin->add_frame(almacen.GetBitmap("jugador_04"), 0, 0, 10);
+    skin->add_frame(almacen.GetBitmap("jugador_05"), 0, 0, 20);
     set_actor_graphic (skin);
 
     set_name (Nombres::herny);
@@ -86,10 +87,9 @@ void Herny::ActualizarEstado (void)
     }
 }
 
-void Herny::CambiarEstado (void)
+void Herny::CambiarEstado (Almacen &almacen)
 {
-    DatFile *sprites = new DatFile("sprites.dat");
-
+    //DatFile *sprites = new DatFile("sprites.dat");
     actual = siguiente;
     switch (siguiente)
     {
@@ -97,14 +97,14 @@ void Herny::CambiarEstado (void)
             set_tiempo(400);
             siguiente = cayendo;
             set_color(6);
-            this->set_actor_graphic (new Bitmap (this,sprites->GetBitmap("jugador_01")));
+            this->set_actor_graphic (new Bitmap (this,almacen.GetBitmap("jugador_01")));
         break;
 
     case cayendo:
             set_tiempo(100);
             siguiente = de_pie;
             set_color(3);
-            this->set_actor_graphic (new Bitmap (this,sprites->GetBitmap("jugador_15")));
+            this->set_actor_graphic (new Bitmap (this,almacen.GetBitmap("jugador_15")));
          break;
 
     default:    

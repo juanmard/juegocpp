@@ -37,3 +37,9 @@ Bitmap *  Bitmap::clone  (Actor *propietario) const
 {
     return (new Bitmap(propietario,fuente));
 }
+
+void Bitmap::draw   (int x, int y, BITMAP *destino)
+{
+    draw_sprite (destino, fuente, x, y);
+}
+

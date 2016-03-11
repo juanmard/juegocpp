@@ -7,6 +7,7 @@
 #include "CollisionManager.h"
 #include "Game.h"
 #include "Nombres.h"
+#include "Escenario.h"
 
 class ActorGraphic;
 class Mask;
@@ -67,7 +68,7 @@ public:
         int                     get_graph_x         ();
         int                     get_graph_y         ();
         Mask *                  get_graph_mask          (void);
-        void                                    set_is_detected         (bool tf);
+        void                    set_is_detected         (bool tf);
         bool                                    get_is_detected         (void);
         void                                    set_power               (int pow);
         int                                     get_power               (void);
@@ -80,7 +81,9 @@ public:
         Actor::estado_t                         get_Estado              (void);
         Nombres::codigo                         get_name                (void);
         void                                    set_name                (Nombres::codigo nuevo_nombre);
-
+        bool                                    isIntersectado          (Escenario::Bloque bloque);
+        void                                    draw                    (StageManager *stageManager);
+    
     protected:
         int             x, y;
         int             h, w;

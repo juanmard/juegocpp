@@ -56,22 +56,24 @@ void JuegoPrueba::main()
 	AirCraft *b=new AirCraft;
 	BITMAP *bmp, *bmp2, *bmp3;
 
-    DatFile *sprites = new DatFile("sprites.dat");
+    //DatFile *sprites = new DatFile("sprites.dat");
     bmp = load_bitmap("nave.pcx", tmp);
 	bmp2 = load_bitmap("nave2.pcx", tmp);
 	bmp3 = load_bitmap("nave3.pcx", tmp);
 
-    sprites->SetPalette (0);
- 	// TODO: Comprobar que existe el fichero y que el "bmp" se ha cargado correctamente.
+    // sprites->SetPalette (0);
+    set_palette (almacen->GetPalette ("SPRITES"));
+    
+    // TODO: Comprobar que existe el fichero y que el "bmp" se ha cargado correctamente.
 	// if (bmp != NULL) { };
     //	 cout << "BMP cargado: " << bmp << endl;
 
     // Se genera un Sprite de preuba.
     Sprite *sp=new Sprite(a);
-    sp->add_frame(sprites->GetBitmap(12), 0, 0, 10);
-    sp->add_frame(sprites->GetBitmap(20), 0, 0, 30);
-    sp->add_frame(sprites->GetBitmap(21), 0, 0, 10);
-    sp->add_frame(sprites->GetBitmap(22), 0, 0, 10);
+    sp->add_frame(almacen->GetBitmap(12), 0, 0, 10);
+    sp->add_frame(almacen->GetBitmap(20), 0, 0, 30);
+    sp->add_frame(almacen->GetBitmap(21), 0, 0, 10);
+    sp->add_frame(almacen->GetBitmap(22), 0, 0, 10);
     a->set_x(SCREEN_W/2);
     a->set_y(SCREEN_H/2);
     a->set_actor_graphic (sp);
@@ -81,7 +83,7 @@ void JuegoPrueba::main()
     a->set_wh (10,20);
     actor_manager->add(a);
 
-    Herny *jugador = new Herny();
+    Herny *jugador = new Herny(*almacen);
     jugador->set_y (280);
     control_p1->set_owner(jugador);
     actor_manager->add(jugador);

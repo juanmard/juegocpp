@@ -20,6 +20,7 @@ class Sprite : public ActorGraphic
                             Sprite      (Actor *aowner);
         virtual Sprite *    clone       (Actor *propietario) const;
         void                draw        (BITMAP *bmp);
+        void                draw        (int x, int y, BITMAP *bmp);
         void                update      ();
         void                init        ();
         int                 get_w       ();

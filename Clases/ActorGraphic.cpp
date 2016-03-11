@@ -30,6 +30,13 @@ void ActorGraphic::draw(BITMAP *bmp)
 {
 }
 
+/** Dibuja la parte gráfica en la posición x, y en "bmp".
+ *  
+ */
+void ActorGraphic::draw (int x, int y, BITMAP *bmp)
+{
+}
+
 int ActorGraphic::get_w()
 {
     return 0;

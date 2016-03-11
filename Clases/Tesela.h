@@ -14,6 +14,7 @@ public:
                         Tesela      (Mosaico *padre, BITMAP *imagen, int x_tmp=0, int y_tmp=0, bool mirror_tmp=false);
     virtual Tesela *    clone       (Mosaico *padre) const;    
     void                draw        (BITMAP *bmp);
+    void                draw        (int relX, int relY, BITMAP *pantalla);
     void                SetDibujo   (BITMAP *imagen);
     void                Set_x       (int x_tmp);
     void                Set_y       (int y_tmp);

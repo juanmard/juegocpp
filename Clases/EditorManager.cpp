@@ -241,16 +241,16 @@ char *  EditorManager::GetNombreTraje (int indice)
     switch (indice)
     {
         case 0:
-            return "Traje 0";
+            return const_cast<char *>("Traje 0");
             break;
         case 1:
-            return "Traje 1";
+            return const_cast<char *>("Traje 1");
             break;
         case 2:
-            return "Traje 2";
+            return const_cast<char *>("Traje 2");
             break;
         case 3:
-            return "Traje 3";
+            return const_cast<char *>("Traje 3");
             break;
     }
 }

@@ -115,6 +115,7 @@ int ActorManager::num_actors()
 	return actors.size();
 }
 
+
 void ActorManager::update()
 {
     list<Actor*>::iterator tmp_iter;
@@ -172,3 +173,24 @@ list<Actor*>::iterator ActorManager::get_end_iterator()
 {
     return actors.end();
 }
+
+/**
+ * \brief   Devuelve una lista de punteros de actores que interseccionan con un bloque.
+ */
+list<Actor *>  ActorManager::GetActores (Escenario::Bloque bloque)
+{
+    list<Actor *>               listaInterseccion;
+    list<Actor *>::iterator     indice;
+
+    /* Actualiza ahora los actores en escena. */
+    for (indice=actors.begin(); indice!=actors.end(); indice++)
+    {
+        // Comprobamos que el actor intersecciona con el bloque.
+        if ((*indice)->isIntersectado (bloque))
+        {
+            // Añadimos el actor a la nueva lista a devolver.
+            listaInterseccion.push_back (*indice);
+        }
+    }
+    return listaInterseccion;
+};

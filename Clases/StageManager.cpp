@@ -4,8 +4,8 @@
 StageManager::StageManager (Game *g, int w, int h):
 game (g) 
 {
-    marco.x=0;
-    marco.y=0;
+    marco.x=20;
+    marco.y=20;
 	marco.w=w;
 	marco.h=h;
 	buffer=create_bitmap(SCREEN_W, SCREEN_H);
@@ -24,6 +24,16 @@ int StageManager::w()
 int StageManager::h()
 {
 	return marco.h;
+}
+
+int StageManager::GetX()
+{
+	return marco.x;
+}
+
+int StageManager::GetY()
+{
+	return marco.y;
 }
 
 void StageManager::update()
@@ -47,9 +57,12 @@ void StageManager::draw()
     //        actores.
     while ((tmp = game->actor_manager->next())!= NULL)
 	{
-        tmp->draw (buffer);
+        //tmp->draw (buffer);
         tmp->draw_block (buffer);
-	}
+        // Cuando al actor se le pasa el StageManager, debe dibujarse referido al marco
+        // del escenario. (Probar)
+        tmp->draw (this);
+    }
 
 	/*
 	 * Volcamos el buffer en pantalla. Se dejan 14 pixel por arriba
@@ -57,7 +70,7 @@ void StageManager::draw()
 	 *
 	 * \todo Opción para mostrar los fps y dejar estos 14 pixels.
 	 */
-	blit(buffer, screen, 0,0,0,14,SCREEN_W, SCREEN_H);
+	blit(buffer, screen, 0, 0, 0,14,SCREEN_W, SCREEN_H);
 	//blit(buffer, screen, 0,0,0,0,SCREEN_W, SCREEN_H);
 }
 
@@ -68,4 +81,12 @@ void StageManager::move (int x, int y)
 {
     marco.x=x;
     marco.y=y;
+}
+
+/** Devuelve el buffer del escenario.
+ *
+ */
+BITMAP * StageManager::GetBuffer ()
+{
+    return buffer;
 }

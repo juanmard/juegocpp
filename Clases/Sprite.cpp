@@ -99,3 +99,13 @@ Sprite * Sprite::clone (Actor *propietario) const
 {
     return (new Sprite(*this, propietario));
 }
+
+/**
+ * draw - Dibuja en el BITMAP 
+ */
+void Sprite::draw (int x, int y, BITMAP *bmp)
+{
+    
+    draw_sprite(bmp, frames[actual_frame].bmp, x, y);
+}
+

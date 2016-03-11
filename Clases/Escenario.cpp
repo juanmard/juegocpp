@@ -18,6 +18,7 @@
  */
 
 #include "Escenario.h"
+#include "ActorManager.h"
 
 /**
  * \brief		Constructor de la clase. Esta clase NO ES NECESARIA, esta función la realiza y la debe realizar la clase StageManager.
@@ -52,3 +53,21 @@ void Escenario::Mover (int x, int y)
 		marco.y = y;
 }
 
+/**
+ * \brief	Dibuja los actores y los decorados que se encuentran en ese momento 
+ *			dentro del escenario.
+ */
+void Escenario::Draw (ActorManager actorManager)
+{
+	list<Actor *>	listaActoresDibujar;
+
+	// Se comprueba la intersección del bloque del escenario con los bloques
+	// de los actores. Esta acción se le pide que la realice el actorManager y éste devuelve una
+	// lista de actores a dibujar.
+	listaActoresDibujar = actorManager.GetActores (marco);
+	
+	// Se recorre la lista de actores y se dibuja en la pantalla.
+	// 		Si listaActoresDibujar fuera una clase se usaría la acción: listaActoresDibujar.Draw (pantalla);
+	// 		En este caso debemos realizar el bucle la clase Escenario.
+	
+}

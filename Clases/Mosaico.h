@@ -16,6 +16,7 @@ class Mosaico : public ActorGraphic
                             Mosaico             (const Mosaico &copia, Actor *propietario);
                             Mosaico             (Actor *actor_asociado);
         void                draw                (BITMAP *pantalla);
+        void                draw                (int x, int y, BITMAP *pantalla);
         void                add_primera_Tesela  (Tesela *nueva);
         void                add_ultima_Tesela   (Tesela *nueva);
         void                del_primera_Tesela  ();

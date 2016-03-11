@@ -76,6 +76,16 @@ void Mosaico::draw (BITMAP *pantalla)
     }
 }
 
+void Mosaico::draw (int x, int y, BITMAP *pantalla)
+{
+    list<Tesela *>::iterator tmp_iter;
+
+    // Dibuja todas las teselas del mosaico.
+    for (tmp_iter=teselas.begin(); tmp_iter!=teselas.end(); tmp_iter++)
+    {
+        (*tmp_iter)->draw (x,y,pantalla);
+    }
+}
 /**
  * \brief Mueve la tesela elegida según un incremento de 'y' y de 'x'.
  */

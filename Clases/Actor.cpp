@@ -1,5 +1,6 @@
 #include "Actor.h"
 #include "ActorGraphic.h"
+#include "StageManager.h"
 
 /**
  * Constructor por omisión de la clase. No asigna gráfico y no se sitúa en el tiempo. 
@@ -220,4 +221,26 @@ Actor::estado_t  Actor::get_Estado (void)
  * \brief   Clona un actor.
  */
 Actor * Actor::clone () const {};
+
+/**
+ * \brief   Comprueba si el actor intersecciona con el bloque pasado como parámetro.
+ */
+bool  Actor::isIntersectado  (Escenario::Bloque bloque)
+{
+    return (true);
+}
+
+/**
+ * \brief   Visualiza el aspecto gráfico del actor referida al escenario.
+ *          Delega esta función en el objeto gráfico.
+ */
+void Actor::draw(StageManager *stageManager)
+{
+    // Se calcula la posición relativa del actor al escenario. 
+    int relx = x - stageManager->GetX();
+    int rely = y - stageManager->GetY();
+
+    // Se dibuja en el escenario en la posición calculada.
+    agraph->draw (relx,rely,stageManager->GetBuffer());
+}
 

@@ -116,3 +116,24 @@ Tesela * Tesela::clone (Mosaico *padre) const
 {
     return (new Tesela(*this, padre));
 }
+
+/**
+ * Se dibuja la Tesela referida a un punto relativo dado.
+ */
+void Tesela::draw (int relX, int relY, BITMAP *pantalla)
+{
+  // Se calcula la posición respecto al padre.
+  int x_tmp = x + relX;
+  int y_tmp = y + relY;
+
+  // Se comprueba la dirección de la tesela para dibujarla.
+  if (mirror)
+  {
+    draw_sprite_h_flip (pantalla, dibujo, x_tmp, y_tmp);    
+  }
+  else
+  {
+    draw_sprite (pantalla, dibujo, x_tmp, y_tmp);    
+  }
+}
+

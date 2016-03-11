@@ -2,6 +2,7 @@
 #define ACTORMANAGER_H
 
 #include <list>
+#include "Escenario.h"
 
 using namespace std;
 
@@ -27,6 +28,7 @@ class ActorManager
 		int		                  num_actors		    ();
         list<Actor*>::iterator    get_begin_iterator    ();
         list<Actor*>::iterator    get_end_iterator      ();
+        list<Actor *>             GetActores            (Escenario::Bloque bloque);
 
 	protected:
 		Game *                  game;

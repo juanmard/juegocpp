@@ -73,6 +73,8 @@ void Game::init(int gfx_mode, int w, int h, int col)
     create_soundmanager ();
     create_controlmanager();
     create_collisionmanager ();
+
+    /* Creamos el almacén de recursos. */
     almacen = new Almacen("sprites.dat");
     
 	/* Se empieza el juego. */
