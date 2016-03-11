@@ -47,6 +47,7 @@ protected:
         void        mostrar_actor       ();
         void        mover_actor         ();
         int         DuplicarActor       (int x, int y);
+        int         CambiarTraje        ();
     
 		EditorManager   *manager;
         DlgActor        *dlg_actor2;
@@ -94,6 +95,9 @@ public:
 
                 // Suponemos que es la opción de duplicar.
                 objeto.DuplicarActor (objeto.prb_x, objeto.prb_y);
+
+                // Si fuera la opción de cambiar traje.
+                objeto.CambiarTraje ();
             }
             return D_O_K;
         }
@@ -121,6 +125,36 @@ public:
             broadcast_dialog_message (MSG_DRAW, 0);
             */
             return D_O_K;
+        }
+
+        /*
+         * Prueba lista. Debe tener la forma del d_list_proc: char *foobar(int index, int *list_size);
+         */
+        static char *cb_prueba_lista (int index, int *list_size)
+        {
+            // Si index es negativo debe devolver NULL e indicar el tamaño de la lista.
+            if (index<0)
+            {
+                // Esto se le preguntaría al manager.
+                // list_size = manager->GetNumTrajes ();
+                *list_size = 3;
+                return NULL;
+            }
+
+            // Si index es cero o positivo debe devolver la cadena del nombre del traje.
+            // return manager->GetNameTraje (index);
+            switch (index)
+            {
+                case 0:
+                    return "traje 0";
+                    break;
+                case 1:
+                    return "traje 1";
+                    break;
+                case 2:
+                    return "traje 2";
+                    break;
+            }
         }
 
         /*

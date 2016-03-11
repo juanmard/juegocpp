@@ -25,6 +25,8 @@ DIALOG Dialog::dlg_actor [] =
    { d_text_proc,        470,   20,  160,   20,    2,    33,     0,        0,      0,     0, const_cast<char*>("  Modo Edición  "), NULL, NULL },
    { d_slider_proc,       20,  200,   20,  160,    2,    33,     0,        0,    100,    50,                                  NULL, NULL, NULL },
    { d_slider_proc,       60,  200,   20,  160,    2,    33,     0,        0,    100,    50,                                  NULL, NULL, NULL },
+    // Prueba para la lista de trajes. dp se actualiza en el constructor y apunta al procedimiento para obtener información de la lista.
+   { d_list_proc,        160,  200,   80,  160,    2,    33,     0,        0,    100,    50,                                  NULL, NULL, NULL },
    { NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL }
 };                                  
 
@@ -60,6 +62,7 @@ MENU Dialog::mnu_actor [] =
 {
    { const_cast<char*>("&Mover"),       Dialog::menu_callback,      NULL,          0, NULL },
    { const_cast<char*>("&Duplicar"),    Dialog::cb_menu_opciones,   NULL,          0, NULL },
+   { const_cast<char*>("&Traje"),       Dialog::cb_menu_opciones,   NULL,          0, NULL },
    { const_cast<char*>("&Tamaño"),      Dialog::menu_callback,      NULL, D_DISABLED, NULL },
    { const_cast<char*>("&Propiedades"), Dialog::menu_callback,      NULL,          0, NULL },
    { NULL, NULL, NULL, 0, NULL }
@@ -111,11 +114,15 @@ Dialog::Dialog (EditorManager *editor)
     dlg_actor[3].dp2 = (void*)Dialog::clbk_prueba_slider;
     dlg_actor[3].dp3 = manager;
 
+    // Inicializamos la lista de trajes de prueba.
+    dlg_actor[4].dp = (void*)Dialog::cb_prueba_lista;
+    
     // Inicializamos las llamadas del menú contextual.
     // Parece ser que incluir la referencia directa no funciona, hay que pasar por
     // un procedimiento estático.
     //    mnu_actor[1].proc = reinterpret_cast<int(*)()>(&Dialog::DuplicarActor);
     mnu_actor[1].dp = this;
+    mnu_actor[2].dp = this;
 }
 
 /**
@@ -180,7 +187,7 @@ void Dialog::show (void)
     // Eliminamos la tecla 'ESC' del buffer de teclado.
     key[KEY_ESC]=false;
 #endif
- }
+}
 
 /**
  * Oculta el puntero del ratón.
@@ -415,6 +422,7 @@ void Dialog::prueba_dblclk ()
 
 /**
 * \brief    Duplica un actor que se encuentra bajo la posición local x,y.
+* \todo     Esto no es una acción propia de la GUI, debe estar como acción en el EditorManager.
 */
 int  Dialog::DuplicarActor (int x, int y)
 {
@@ -425,3 +433,22 @@ int  Dialog::DuplicarActor (int x, int y)
     return D_O_K; 
 };
 
+/**
+* \brief    Cambia el traje del actor que actualmente se esté editando.
+* \todo     Esto no es una acción propia de la GUI, debe estar como acción en el EditorManager.
+*/
+int  Dialog::CambiarTraje ()
+{
+    // Se le pregunta al EditorManager si está editando un actor actualmente.
+    if (manager->EditandoActor())
+    {
+        // Si se está ediando un actor...
+        // 1 - Preguntar por la lista de trajes que hay en la clase "Vestuario"
+        //     mediante el EditorManager.
+        // 2 - La GUI debe crear un control de lista.
+        // 3 - Llenar el control de lista con los posibles trajes.
+        // 4 - Según nos movemos por la lista indicar al EditorManager que debe cambiar
+        //     el traje del actor y mostrar el cambio.
+    }
+    return D_O_K; 
+};

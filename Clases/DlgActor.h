@@ -58,6 +58,9 @@ protected:
                 switch (msg)
                 {
                 case MSG_DCLICK:
+// Mandar antes el mensaje al padre para poder mover toda la ventana por la pantalla
+// y no únicamente por la propia ventana.
+//                    object_message(&((obj->owner)->dialog[0]), MSG_DCLICK, c);
                     obj->msg_dclick ();
                     break;
 
