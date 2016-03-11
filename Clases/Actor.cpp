@@ -2,8 +2,7 @@
 #include "ActorGraphic.h"
 
 /**
- * Crea el actor.
- * Por omisión no asigna gráfico y no se sitúa en el tiempo. 
+ * Constructor por omisión de la clase. No asigna gráfico y no se sitúa en el tiempo. 
  */
 Actor::Actor():
 agraph(NULL),
@@ -13,7 +12,7 @@ tiempo_estado(0)
 }
 
 /**
- * \brief   Constructor de copia de la clase.
+ * \brief   Constructor copia de la clase.
  */
 Actor::Actor(const Actor &copia):
 nombre (copia.nombre),

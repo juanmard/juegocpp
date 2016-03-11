@@ -183,12 +183,12 @@ void EditorManager::SetActorY (int y)
 void    EditorManager::DuplicarActor (int x, int y)
 {
     // La pantalla está desplazada 14 pixels hacia abajo.
-    Actor *actor = game->actor_manager->get_actor (x,y-14);
-    if (actor)
+    Actor &actor = *(game->actor_manager->get_actor (x,y-14));
+    //if (actor)
     {
-        Actor *nuevo = new Actor (*actor);
-        nuevo->set_x (nuevo->get_x()+10);
-        nuevo->set_y (nuevo->get_y()+10);
-        game->actor_manager->add(nuevo);
+        Actor &nuevo = *(new Actor (actor));
+        nuevo.set_x (nuevo.get_x()+10);
+        nuevo.set_y (nuevo.get_y()+10);
+        game->actor_manager->add(&nuevo);
     }
 }
