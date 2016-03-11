@@ -17,13 +17,12 @@ Ladrillo::Ladrillo(void)
 /**
  * \brief Constructor de copia.
  */
-Ladrillo::Ladrillo(const Ladrillo &copia):
-//Actor (reinterpret_cast<Actor &>(this)),
-chaqueta (copia.chaqueta),
-peloteo (copia.peloteo)
+Ladrillo::Ladrillo (const Ladrillo &copia):
+Actor (copia),
+chaqueta(copia.chaqueta),
+peloteo(copia.peloteo)
 {
 }
-
 
 /**
  * \brief   Constructor para situar el ladrillo a la vez que lo creamos.
@@ -132,7 +131,10 @@ void  Ladrillo::update  (void)
     }
 }
 
-Ladrillo * Ladrillo::duplicar ()
+/**
+ * \brief   Clona el objeto.
+ */
+Ladrillo *  Ladrillo::clone() const
 {
-    return (new Ladrillo(&(*this)));
-}
+    return (new Ladrillo (*this));
+};

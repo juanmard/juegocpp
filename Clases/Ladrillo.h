@@ -11,13 +11,13 @@
 class Ladrillo :  public Actor
 {
 public:
-            Ladrillo    (const Ladrillo &copia);
-            Ladrillo    (void);
-            Ladrillo    (int x, int y);
-            ~Ladrillo   (void);
-    void    hit         (Actor *who, int damage);
-    void    update      (void);
-    Ladrillo *      duplicar ();
+                        Ladrillo    (const Ladrillo &copia);
+                        Ladrillo    (void);
+                        Ladrillo    (int x, int y);
+                        ~Ladrillo   ();
+    void                hit         (Actor *who, int damage);
+    void                update      ();
+    virtual Ladrillo *  clone       () const;
     
 private:
     /**

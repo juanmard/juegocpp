@@ -39,10 +39,14 @@ public:
 public:
                         Actor               (const Actor &copia);
                         Actor               ();
-        virtual         ~Actor              ();
-        virtual void    draw                (BITMAP *bmp);
-        virtual void    update              ();
-        virtual Actor * duplicar            ();
+        /// Operador de asignación.
+        Actor&    operator=           (const Actor &copia);
+
+        /// Destructor.
+        virtual             ~Actor              ();
+        virtual void        draw                (BITMAP *bmp);
+        virtual void        update              ();
+        virtual Actor *     clone               () const;
     
         /* \warning: Estos dos estados deben ser incluídos en uno. */
         virtual void            CambiarEstado       ();

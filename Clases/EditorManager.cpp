@@ -190,7 +190,7 @@ void    EditorManager::DuplicarActor (int x, int y)
     if (actor != NULL)
     {
         // Se crea un nuevo actor en memoria basándose en el elegido.
-        Actor *nuevo = actor->duplicar();
+        Actor *nuevo = actor->clone();      
 
         // Se desplaza para visualizarlo.
         nuevo->set_x (nuevo->get_x()+10);

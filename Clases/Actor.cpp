@@ -217,8 +217,7 @@ Actor::estado_t  Actor::get_Estado (void)
 }
 
 /**
- *  \brief  Duplica el actor actual.
+ * \brief   Clona un actor.
  */
-Actor * Actor::duplicar ()
-{
-}
+Actor * Actor::clone () const {};
+
