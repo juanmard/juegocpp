@@ -99,7 +99,7 @@ Dialog::Dialog (EditorManager *editor)
 
     // Inicializamos las propiedades del objeto.
     dialog_objeto[0].fg = makecol(255,255,255);
-    dialog_objeto[0].bg = makecol (0,0,255);
+    dialog_objeto[0].bg = makecol (0,0,255); //bitmap_mask_color (screen); 
 
 }
 
@@ -303,6 +303,14 @@ void    Dialog::draw   ()
     // \todo    Deberíamos comprobar que estamos editando y moviendo un actor.
     if (manager->is_editando())
     {
+        //~ Prueba fallida para hacer trasparente las letras.
+        //~ BITMAP *copia;
+        //~ int w=dialog_objeto[0].w;
+        //~ int h=dialog_objeto[0].h;
+        //~ copia=create_bitmap (h,w);
+        //~ blit (screen, copia, mouse_x, mouse_y, 0, 0, w, h);
+        //~ blit (copia, screen, 0,0,mouse_x+100, mouse_y+100, w, h);
+        
         // Le decimos a la posición sobre el cursor que se muestre.
         object_message(&dialog_objeto[0], MSG_DRAW, 0);
     }

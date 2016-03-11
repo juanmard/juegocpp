@@ -1,22 +1,27 @@
+
 #include "Bitmap.h"
 
 Bitmap::Bitmap(Actor *aowner, BITMAP *bmp) : ActorGraphic(aowner)
 {
-    bitmap=bmp;
+    fuente = bmp;
 }
 
-
-void Bitmap::draw(BITMAP *bmp)
+/**
+ * \brief       Dibuja el 'bitmap' fuente (el 'bitmap' dado al crear el objeto), en el
+ *                'bitmap' destino (pasado por parámetro), normalmente la pantalla
+ *                o un 'buffer' intermedio.
+ */
+void Bitmap::draw   (BITMAP *destino)
 {
-    draw_sprite(bmp, bitmap, get_x(), get_y());
+    draw_sprite (destino, fuente, get_x(), get_y());
 }
 
 int Bitmap::get_w()
 {
-    return bitmap->w;
+    return fuente->w;
 }
 
 int Bitmap::get_h()
 {
-    return bitmap->h;
+    return fuente->h;
 }
