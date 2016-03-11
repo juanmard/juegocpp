@@ -26,33 +26,16 @@ class Almacen
                 Almacen     (string paramNombreFichero);
                 Almacen     ();
                 ~Almacen    ();
-    BITMAP *    GetBitmap   (string paramNombreRecurso);
+    BITMAP *    GetBitmap   (string nombreBitmap);
     BITMAP *    GetBitmap   (int indice);
     RGB *       GetPalette  (string nombrePaleta);
-
-  protected:
-    /**
-     * \brief   Función que se llama automáticamente al cargar un fichero de datos.
-     * \details La función se encarga de emparejar los nombres de los bitmaps con
-     *          el puntero a los datos.
-     */
-    static void callback (DATAFILE *datFile)
-    {
-      static map<string, DATAFILE *>   bitmaps;
-      string nombre = get_datafile_property(datFile, DAT_ID('N','A','M','E'));
-
-      bitmaps[nombre] = (DATAFILE *) datFile->dat;
-      // Otras posibilidades de añaidr el elemento...
-      //bitmaps.insert (pair<string,DATAFILE *>(nombre,(DATAFILE *) datFile->dat));
-      //bitmaps.insert (make_pair(nombre,(DATAFILE *) datFile->dat));
-      //bitmaps.insert (map<string,DATAFILE *>::value_type(nombre,(DATAFILE *) datFile->dat));
-      cout << "DataFile >> " << nombre << "," << bitmaps[nombre] << endl;
-    }
 
   private:
     DATAFILE *                fichero;
     string                    nombreFichero;
-    map<string, DATAFILE *>   bitmaps;
+    map<string, BITMAP *>     bitmaps;
+    map<string, RGB *>        paletas;
+    map<string, SAMPLE *>     sonidos;
 };
 
 #endif // _ALMACEN_H_

@@ -13,17 +13,46 @@ Almacen::Almacen (string paramNombreFichero)
    *       Sería algo como: fichero = load_datafile_callback(paramNombreFichero.c_str (), callback_estática_clase);
    *       Donde " static void callback_estatica_clase (DATAFILE *dat) { }" se definiría en 'Almacen.h'.
    */
-  fichero = load_datafile_callback (paramNombreFichero.c_str (), Almacen::callback);
+  // Se prueba y funciona, pero no se puedo luego acceder a la variable estática desde
+  // instanciado.
+  // fichero = load_datafile_callback (paramNombreFichero.c_str (), Almacen::callback);
 
-//  fichero = load_datafile(paramNombreFichero.c_str ());
+  fichero = load_datafile (paramNombreFichero.c_str ());
   if (!fichero)
   {
-    //No se encontró el fichero.
-    nombreFichero = "";
+    // No se encontró el fichero. Dejamos el nombre como cadena vacía.
+    nombreFichero.clear ();
+    cout << "No se pudo acceder al fichero de datos: " << paramNombreFichero << endl;
   }
   else
   {
-    nombreFichero = paramNombreFichero.c_str();
+    // Se pudo cargar el fichero de datos en memoria. Guardamos el nombre del fichero.
+    nombreFichero = paramNombreFichero;
+
+    // Recorremos los datos y emparejamos nombres con punteros de bitmaps.
+    string nombre;
+    for (int i=0; fichero[i].type != DAT_END; i++)
+    {
+      nombre = get_datafile_property(&fichero[i], DAT_ID('N','A','M','E'));
+      switch (fichero[i].type)
+      {
+        case DAT_BITMAP: 
+              bitmaps[nombre] = (BITMAP *) fichero[i].dat;
+              cout << "Bitmap >> " << nombre << "," << bitmaps[nombre] << endl;
+              break;
+        case DAT_PALETTE: 
+              paletas[nombre] = (RGB *) fichero[i].dat;
+              cout << "Paleta >> " << nombre << "," << paletas[nombre] << endl;
+              break;
+        case DAT_SAMPLE: 
+              sonidos[nombre] = (SAMPLE *) fichero[i].dat;
+              cout << "Sonido >> " << nombre << "," << sonidos[nombre] << endl;
+              break;
+        default:
+              cout << "DAT desconocido >> " << nombre << "," << fichero[i].dat << endl;
+              break;
+      }
+    }
   }
 };
 
@@ -52,6 +81,17 @@ Almacen::~Almacen ()
    }
    // no encontrado...
 */
+
+/**
+ * \brief   Devuelve un BITMAP como recurso dando el nonbre del recurso.
+ * \details Este procedimiento se simplifica gracias a la carga previa en la clase 'map'.
+ */
+BITMAP *  Almacen::GetBitmap (string nombreBitmap)
+{
+  return bitmaps[nombreBitmap];
+}
+
+/*
 BITMAP * Almacen::GetBitmap (string paramNombreRecurso)
 {
   DATAFILE *  tmp_dat;
@@ -80,6 +120,8 @@ BITMAP * Almacen::GetBitmap (string paramNombreRecurso)
   return (BITMAP *)tmp_bmp;
 };
 
+*/
+
 /**
  * \brief   Devuelve un BITMAP como recurso dando el número identificativo indicado 
  *          en el fichero de cabecera generado por Grabber.
@@ -94,6 +136,15 @@ BITMAP * Almacen::GetBitmap(int indice)
  * \brief   Devuelve una paleta de colores dando el nonbre de la paleta. 
  * \todo    Controlar que el recurso solicitado es realmente una PALETA.
  */
+/**
+ * \brief   Devuelve un puntero a un array de 256 estructuras RGB (Paleta).
+ * \details Este procedimiento se simplifica gracias a la carga previa en la clase 'map'.
+ */
+RGB *  Almacen::GetPalette (string nombrePaleta)
+{
+  return paletas[nombrePaleta];
+}
+/*
 RGB * Almacen::GetPalette (string nombrePaleta)
 {
   DATAFILE *  tmpDat;
@@ -121,3 +172,4 @@ RGB * Almacen::GetPalette (string nombrePaleta)
   }
   return (RGB *)tmpRGB;
 };
+*/
