@@ -242,7 +242,7 @@ Actor * Actor::clone () const {};
 /**
  * \brief   Comprueba si el actor intersecciona con el bloque pasado como parámetro.
  */
-bool  Actor::isIntersectado  (Escenario::Bloque bloque)
+bool  Actor::isIntersectado  (Bloque bloque)
 {
     return (true);
 }

@@ -12,89 +12,97 @@
 
 
 /**
- * \brief	Constructor por omisión.
+ * \brief    Constructor por omisión.
  */
 Mago::Mago (Almacen &almacen):
 estado(andando),
 estado_sig(andando),
 timer(0)
 {
-	// Guardamos el sprite para cada estado.
-    // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
-	sprites[andando] = new Sprite(this);    
-    sprites[andando]->add_frame(almacen.GetBitmap("sprite_088"), 0, 0, 10);
-	sprites[andando]->init ();
-	
-	sprites[esperando] = new Sprite(this);    
-    sprites[esperando]->add_frame(almacen.GetBitmap("sprite_084"), 0, 0, 10);
-    sprites[esperando]->add_frame(almacen.GetBitmap("sprite_084"), 2, 0, 10);
-	sprites[esperando]->init ();
+  // Guardamos el sprite para cada estado.
+  // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
+  sprites[andando] = new Sprite(this);    
+  sprites[andando]->add_frame(almacen.GetBitmap("sprite_088"), 0, 0, 10);
+  sprites[andando]->init ();
 
-	sprites[cayendo] = new Sprite(this);    
-    sprites[cayendo]->add_frame(almacen.GetBitmap("sprite_089"), 0, 0, 10);
-	sprites[cayendo]->init ();
+  sprites[esperando] = new Sprite(this);    
+  sprites[esperando]->add_frame(almacen.GetBitmap("sprite_084"), 0, 0, 10);
+  sprites[esperando]->add_frame(almacen.GetBitmap("sprite_084"), 2, 0, 10);
+  sprites[esperando]->init ();
 
-	sprites[disparando] = new Sprite(this);    
-    sprites[disparando]->add_frame(almacen.GetBitmap("sprite_085"), 0, 0, 2);
-    sprites[disparando]->add_frame(almacen.GetBitmap("sprite_088"), 0, 0, 4);
-	sprites[disparando]->init ();
+  sprites[cayendo] = new Sprite(this);    
+  sprites[cayendo]->add_frame(almacen.GetBitmap("sprite_089"), 0, 0, 10);
+  sprites[cayendo]->init ();
 
-	set_actor_graphic (sprites[estado]);
-	set_name (Nombres::mago);
-    set_x(SCREEN_W/3);
-    set_y(SCREEN_H/2);
-	set_is_detected (false);
-    set_collision_method(CollisionManager::PP_COLLISION);
-    set_wh (40,42);
+  sprites[disparando] = new Sprite(this);    
+  sprites[disparando]->add_frame(almacen.GetBitmap("sprite_085"), 0, 0, 2);
+  sprites[disparando]->add_frame(almacen.GetBitmap("sprite_088"), 0, 0, 4);
+  sprites[disparando]->init ();
+
+  sprites[saltando] = new Sprite(this);    
+  sprites[saltando]->add_frame(almacen.GetBitmap("sprite_087"), 0, 0, 10);
+  sprites[saltando]->init ();
+
+  set_actor_graphic (sprites[estado]);
+  set_name (Nombres::mago);
+  set_x(SCREEN_W/3);
+  set_y(SCREEN_H/2);
+  set_is_detected (false);
+  set_collision_method(CollisionManager::PP_COLLISION);
+  set_wh (40,42);
 };
 
 /**
- * \brief	Acciones del mago.
+ * \brief   Acciones del mago.
  */
 void Mago::do_action (ControllableActor::action_t act, int magnitude)
 {
-    switch (act)
-    {
-        case DOWN:
-			y+=1;
-			break;
+  switch (act)
+  {
+    case DOWN:
+      break;
 
-		case UP:
-		    if (estado==esperando) estado=andando;
-			y-=1;
-			break;
+    case UP:
+      break;
 
-		case LEFT:
-		  x-=1;
-		  sprites[estado]->setMirror (true);
-		  break;
-			
-        case RIGHT:
-		  x+=1;
-		  sprites[estado]->setMirror (false);
-		  break;
-			
-        case JUMP:  
-		  y-=4; 
-		  estado=cayendo;
-		  break;
-			
-        case SPELL:
-		  estado = disparando;
-		  break;
-    }
+    case LEFT:
+      x-=1;
+      sprites[estado]->setMirror (true);
+      break;
+
+    case RIGHT:
+      x+=1;
+      sprites[estado]->setMirror (false);
+      break;
+
+    case JUMP:
+      if ((estado!=saltando) && (estado!=cayendo))
+      {
+        estado = saltando;
+        timer = 50;
+        estado_sig = cayendo;
+      }
+      break;
+
+    case SPELL:
+      estado = disparando;
+      break;
+  }
 }
 
 /**
- * \brief	Actualizamos los estados del mago.
+ * \brief   Actualizamos los estados del mago.
  */
 void Mago::update ()
 {
+  // Actualiza el sprite según el estado.
+  set_actor_graphic (sprites[estado]);
+
   // Actualiza la parte gráfica.
   agraph->update();
 
   // Actualiza los estados dependientes del temporizador.
-  // \todo	Generalizar este proceso para la clase Actor.
+  // \todo  Generalizar este proceso para la clase Actor.
   if (timer)
   {
     timer--;
@@ -103,37 +111,58 @@ void Mago::update ()
       estado = estado_sig;
     }
   }
-  else
+
+  // Actualiza los estados dependientes de otros estados.
+  switch (estado)
   {
-	// Actualiza los estados dependientes de otros estados.
-	switch (estado)
-	{
-		case cayendo:
-			// Comprobar que no hay intersección con suelo.
-			// Si hay intersección con suelo, alinear y cambiar a estado "esperando".
-			// Si no hay intersección disminuir la posición en altura según la gravedad
-			// existente.
-			y+=1;
-			if (y>360) estado = esperando;
-			break;
-			
-		case esperando:
-			// Se comprueba que hay suelo bajo él.
-			// Si no hay suelo se cambia el estado a 'cayendo'.
-			// Se activa un temporizador, si pasa el tiempo del temporizador se
-			// cambia el estado a 'entretenido'.
-			break;
+    case cayendo:
+      y+=2;
+      if (y>400) estado = esperando;
+      // {
+      // Comprobar que no hay intersección con suelo.
+      //  - Creamos un bloque temporal por debajo del jugador.
+      //Bloque debajo (x,y+h,w,10);
+      //  - Comprobamos las intersecciones del bloque con los bloques de los
+      //    actores.
+      //if (debajo.isInterseccionado (actorManager, suelo));
+      // Si hay intersección con suelo, alinear y cambiar a estado "esperando".
+      // Si no hay intersección disminuir la posición en altura según la gravedad
+      // existente.
+      //}
+      break;
 
-		case andando:
-			break;
+    case esperando:
+      // Se comprueba que hay suelo bajo él.
+      // Si no hay suelo se cambia el estado a 'cayendo'.
+      // Se activa un temporizador, si pasa el tiempo del temporizador se
+      // cambia el estado a 'entretenido'.
+      break;
 
-		case disparando:
-			timer = 100;
-			estado_sig = andando;
-			break;
-	}
+    case andando:
+      break;
+
+    case saltando:
+      y-=2;
+      break;
+
+    case disparando:
+      break;
   }
-		
-  // Actualiza el sprite según el estado.
-  set_actor_graphic (sprites[estado]);
 }
+
+/**
+ * \brief   Intersección del mago con otro actor de la escena.
+ * \param   who Puntero al actor que provoca la colisión.
+ * \param   damage Daño que se produce en la colisión. 
+ */
+void  Mago::hit  (Actor *who, int damage)
+{
+  switch (who->get_name())
+  {
+    case Nombres::paleta:
+      y = who->get_y () - h;
+      estado = andando;
+      break;
+  }
+}
+

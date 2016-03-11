@@ -174,8 +174,7 @@ void Herny::CambiarEstado ()
             set_color(3);
             this->set_actor_graphic (new Bitmap (this,sprites->GetBitmap("jugador_15")));
          break;
-
-    default:    
+    default:
         break;
     }
 }

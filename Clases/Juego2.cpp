@@ -130,11 +130,11 @@ void Juego2::main()
     }
   }
 
-  // Se añade un Ladrillo de prueba pero con piel de Suelo.
-  Ladrillo *prueba_suelo = new Ladrillo();
+  // Se añade una paleta de prueba pero con piel de Suelo.
+  Paleta *prueba_suelo = new Paleta();
   prueba_suelo->set_x(100);
   prueba_suelo->set_y(300);
-  prueba_suelo->set_actor_graphic(new Suelo(prueba_suelo,6));
+  prueba_suelo->set_actor_graphic(new Suelo(prueba_suelo,8));
   actor_manager->add(prueba_suelo);
 
   // Se añade el control de prueba creado para el loro, al manejador de controles.

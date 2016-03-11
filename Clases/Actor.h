@@ -7,7 +7,7 @@
 #include "CollisionManager.h"
 #include "Game.h"
 #include "Nombres.h"
-#include "Escenario.h"
+#include "Bloque.h"
 
 class ActorGraphic;
 class Mask;
@@ -80,7 +80,7 @@ public:
         Actor::estado_t                         get_Estado              (void);
         Nombres::codigo                         get_name                (void);
         void                                    set_name                (Nombres::codigo nuevo_nombre);
-        bool                                    isIntersectado          (Escenario::Bloque bloque);
+        bool                                    isIntersectado          (Bloque bloque);
         void                                    draw                    (StageManager *stageManager);
         void                                    draw_block              (StageManager *stageManager);
     
