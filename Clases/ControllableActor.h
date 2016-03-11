@@ -7,6 +7,15 @@
 
 class ControllableActor : public Actor, public ControllableObject
 {
+public:
+    // Constructor de copia.
+    ControllableActor   (const ControllableActor &copia):
+    Actor(copia),
+    ControllableObject(copia)
+    {};
+        
+    // Constructor por omisión.
+    ControllableActor (){};
 };
 
 #endif

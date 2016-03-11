@@ -5,7 +5,8 @@
  */
 Paleta::Paleta (const Paleta &copia):
 ControllableActor(copia),
-piel(piel)
+piel(copia.piel),
+do_action(copia.do_action)
 {
 }
 
