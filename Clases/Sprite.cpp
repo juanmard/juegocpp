@@ -100,17 +100,17 @@ int Sprite::get_h()
 
 int Sprite::get_x()
 {
-    return ActorGraphic::get_x()-(frames[actual_frame].cx);
+  return ActorGraphic::get_x()-(frames[actual_frame].cx);
 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                
+
 int Sprite::get_y()
 {
-    return ActorGraphic::get_y()-(frames[actual_frame].cy);
+  return ActorGraphic::get_y()-(frames[actual_frame].cy);
 }
 
 Mask *Sprite::get_mask()
 {
-    return frames[actual_frame].mask;
+  return frames[actual_frame].mask;
 }
 
 /**

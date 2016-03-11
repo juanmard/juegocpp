@@ -3,7 +3,8 @@
 
 #include "ActorGraphic.h"
 #include <allegro.h>
-#include <sstream>
+#include <string.h>
+#include "Frame.h"
 #include <vector>
 
 using namespace std;
@@ -16,47 +17,29 @@ class Actor;
  */ 
 class Sprite : public ActorGraphic
 {
-    public:
-                            Sprite      (const Sprite &copia, Actor *aowner);
-                            Sprite      (Actor *aowner);
-        virtual Sprite *    clone       (Actor *propietario) const;
-        void                draw        (BITMAP *bmp);
-        void                draw        (int x, int y, BITMAP *bmp);
-        void                update      ();
-        void                init        ();
-        int                 get_w       ();
-        int                 get_h       ();
-        int                 get_x       ();
-        int                 get_y       ();
-        void                add_frame   (BITMAP *bmp, int cx, int cy, int ticks);
-        Mask *              get_mask    ();
-        void                setMirror   (bool paramMirror);
-        bool                getMirror   ();
-        void                notMirror   ();
-        virtual string      getString   () const;
+public:
+                      Sprite      (const Sprite &copia, Actor *aowner);
+                      Sprite      (Actor *aowner);
+  virtual Sprite *    clone       (Actor *propietario) const;
+  void                draw        (BITMAP *bmp);
+  void                draw        (int x, int y, BITMAP *bmp);
+  void                update      ();
+  void                init        ();
+  int                 get_w       ();
+  int                 get_h       ();
+  int                 get_x       ();
+  int                 get_y       ();
+  void                add_frame   (BITMAP *bmp, int cx, int cy, int ticks);
+  Mask *              get_mask    ();
+  void                setMirror   (bool paramMirror);
+  bool                getMirror   ();
+  void                notMirror   ();
+  virtual string      getString   () const;
 
-    protected:
-        class Frame
-        {
-            public:
-                string  getString () const
-                {
-                  ostringstream cadena;
-                  cadena  << "Pos <" << cx << "," << cy << "> " << "Ticks: " << ticks;
-                  return (cadena.str());
-                };
-
-            public:
-              BITMAP *bmp;
-              Mask *mask;
-              int cx;
-              int cy;
-              int ticks;
-        };
-
-        vector<Frame>   frames;
-        int             actual_tick, actual_frame;
-        bool            mirror;
+protected:
+  vector<Frame>   frames;
+  int             actual_tick, actual_frame;
+  bool            mirror;
 };
 
 #endif
