@@ -223,9 +223,9 @@ void Juego2::main()
  */
 int main ()
 {
-	Juego2 game;
-	srand(time(NULL));
-	game.set_name("Test del Marco de Trabajo");
+  Juego2 game;
+  srand(time(NULL));
+  game.set_name("Test del Marco de Trabajo");
   game.init(GFX_AUTODETECT_WINDOWED, 640,480,8);
   return 0;
 }

@@ -112,19 +112,19 @@ class Dialog
     {
       if (dialog[lista].dp3)
       {
-        // Creamos una referencia temporal al 'manager' del objeto actual.
-        EditorManager &manager = *(static_cast<EditorManager *>(dialog[lista].dp3));
-
+        // Creamos una referencia temporal al objeto.
+        Dialog &objeto = *(static_cast<Dialog *>(dialog[lista].dp3));
+        
         // Si 'index' es negativo debe devolver NULL e indicar el tamaño de la lista.
         // Si 'index' es cero o positivo debe devolver la cadena del nombre del actor.
         if (index < 0)
         {
-          *list_size = manager.getNumActores ();
+          *list_size = objeto.manager->getNumActores ();
           return NULL;
         }
         else
         {
-          return manager.getNombreActor (index);
+          return objeto.manager->getNombreActor (index);
         }
       }
     };
@@ -266,11 +266,12 @@ class Dialog
     static int callback_lista (int msg, DIALOG *d, int c)
     {
       // Se sitúa el puntero del manager en 'dp3' pues en 'dp' 
-      // debe estar el 'getter' de la lista.
+      // debe estar el 'getter' de la lista y en 'dp2' el array de la selección.
       if (d[0].dp3)
       {
         // Creamos una referencia temporal al objeto actual.
-        EditorManager &manager = *(static_cast<EditorManager *>(d[0].dp3));
+        Dialog &objeto = *(static_cast<Dialog *>(d[0].dp3));
+        //EditorManager &manager = *(static_cast<EditorManager *>(d[0].dp3));
 
         // Se guarda el índice para comprobar cuando cambia.
         static int indice_ant = d[0].d1;
@@ -281,14 +282,14 @@ class Dialog
           case MSG_IDLE:
               if (d[0].d1 != indice_ant)
               {
-                manager.centrarActor (d[0].d1);
+                objeto.centrarActor (d[0].d1);
                 indice_ant = d[0].d1;
               }
               return D_O_K;
 
           case MSG_GOTMOUSE:
           case MSG_LOSTMOUSE:
-                manager.centrarActor (d[0].d1);
+                objeto.centrarActor (d[0].d1);
                 indice_ant = d[0].d1;
                 break;
         }

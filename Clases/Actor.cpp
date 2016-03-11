@@ -10,7 +10,8 @@
 Actor::Actor():
 agraph(NULL),
 estado(actuar),
-tiempo_estado(0)
+tiempo_estado(0),
+mostrarBloque (false)
 {
 }
 
@@ -28,7 +29,8 @@ is_detectable(copia.is_detectable),
 estado(copia.estado),
 tiempo_estado(copia.tiempo_estado),
 power(copia.power),
-team(copia.team)
+team(copia.team),
+mostrarBloque (copia.mostrarBloque)
 {
     // Duplicamos la parte gráfica del actor a copiar y se la asiganmos al nuevo.
     // Para ello...
@@ -54,7 +56,7 @@ Actor::~Actor()
  */
 void Actor::draw(BITMAP *bmp)
 {
-    agraph->draw(bmp);
+  agraph->draw(bmp);
 }
 
 /**
@@ -154,7 +156,7 @@ void Actor::set_actor_graphic (ActorGraphic *ag)
  */
 ActorGraphic *  Actor::get_actor_graphic () const
 {
-    return agraph;
+  return agraph;
 }
 
 /**
@@ -248,7 +250,8 @@ Actor * Actor::clone () const {return NULL;};
  */
 bool  Actor::isIntersectado  (Bloque bloque)
 {
-    return (true);
+  // \todo  Desarrollar el código.
+  return (true);
 }
 
 /**
@@ -267,15 +270,22 @@ void Actor::draw (StageManager *stageManager)
 
 /**
  * \brief   Visualiza el bloque de referencia del actor referida al escenario.
+ * \warning   Quizás este procedimiento es más adecuado que esté en la clase
+ *            'StageManager' ya que es la que debe saber dibujar cuadrados en el 
+ *            escenario.
  */
 void Actor::draw_block (StageManager *stageManager)
 {
+  // Si la propiedad del actor indica que mostremos el bloque lo mostramos.
+  if (mostrarBloque)
+  {
     // Se calcula la posición relativa del actor al escenario. 
-    int relx = x - stageManager->getX();
-    int rely = y - stageManager->getY();
+    int relx = x - stageManager->getX ();
+    int rely = y - stageManager->getY ();
 
     // Se dibuja en el escenario en la posición calculada.
-    rect (stageManager->getBuffer(),relx,rely,w+relx,h+rely,color);
+    rect (stageManager->getBuffer(), relx, rely, w + relx, h + rely, color);
+  }
 }
 
 /**
@@ -287,44 +297,6 @@ Bloque &  Actor::getBloque ()
   Bloque *tmp = new Bloque (x, y, w, h);
   return *tmp;
 }
-
-/**
- * \brief   Obtiene el estado actual del actor.
- */
-string &  Actor::getEstado () const 
-{
-  return *(new std::string ("sin nombre"));
-};
-
-/**
- * \brief   Obtiene el estado actual del actor.
- */
-string &  Actor::getNombre () const
-{
-  return *(new std::string (Nombres::Imprimir (nombre)));
-};
-
-/**
- * \brief   Obtiene las dimensiones del actor en una cadena.
- */
-string &  Actor::getWH () const
-{
-  stringstream  ss;
-//  ss << "(" << w << ", " << h << ")";
-  ss << w << ", " << h;
-  return *(new string (ss.str()));
-};
-
-/**
- * \brief   Obtiene la posición del actor en una cadena.
- */
-string &  Actor::getXY () const
-{
-  stringstream  ss;
-//  ss << "(" << x << ", " << y << ")";
-  ss << x << ", " << y;
-  return *(new string (ss.str()));
-};
 
 /**
  * \brief   Obtiene la posición del actor y actualiza la cadena pasada por parámetro.
@@ -367,3 +339,13 @@ void  Actor::getNombre (string &nombre) const
 {
   nombre = "sin nombre";
 };
+
+/**
+ * \brief   Cambia si se desea mostrar el bloque (posición y dimensiones) del actor
+ *          en pantalla.
+ * \param   mostrar   Si es 'true' se mostrará y si es 'false' no se mostrará.
+ */
+void  Actor::setMostrarBloque (bool mostrar)
+{
+  mostrarBloque = mostrar;
+}

@@ -1,6 +1,7 @@
 #include "Dialog.h"
 #include "DlgActor.h"
 #include "VentanaALG.h"
+#include "resize.h"
 
 // Inicialización de las variables estáticas de la clase.
 // Diálogo general de la GUI del editor.
@@ -94,7 +95,7 @@ ref_x (0), ref_y(0)
 
   // Inicializamos la lista de actores.
   dialog[lista].dp = (void *) Dialog::getterListaActores;
-  dialog[lista].dp3 = manager;
+  dialog[lista].dp3 = this;
 
   // Bitmap
   dialog[bitmap].dp = manager->getBuffer ();
@@ -181,25 +182,6 @@ void  Dialog::draw ()
   //int error;
   //dialog_message (&dialog[1], MSG_DRAW, 0, &error);
 
-  // Si hay un actor en edición se dibujan sus dimensiones con un cuadrado verde.
-  if (actor)
-  {
-    // \warning   Esto hay que eliminarlo pues se realiza una doble petición de
-    //            volcado en pantalla. Mejor que cada actor decida si mostrar
-    //            sus límites al dibujar el escenario con una variable booleana
-    //            para cada actor.
-    // \todo  Realizar una única petición al EditorManager esto realiza un doble
-    //        volcado en pantalla.
-    int x = dialog[scr].x; int y = dialog[scr].y;
-    int w = dialog[scr].w; int h = dialog[scr].h;
-    int xAct = actor->get_x () - manager->getEscenarioX ();// + dialog[pantalla].x;
-    int yAct = actor->get_y () - manager->getEscenarioY ();// + dialog[pantalla].y;
-    int wAct = actor->get_w ();
-    int hAct = actor->get_h ();
-    rect (manager->getBuffer (), xAct, yAct, xAct+wAct, yAct+hAct, makecol(0,255,0));
-    blit (manager->getBuffer (), screen, 0, 0, x, y, w, h);
-  }
-
   // Usamos la caja para borrar los valores anteriores.
   object_message(&dialog[caja], MSG_DRAW, 0);
   // Actualizamos las propiedades del actor.
@@ -235,19 +217,24 @@ void Dialog::prueba_click ()
 {
   if (manager)
   {
+    // Si hay un actor editándose desactivamos el actor actualmente activo.
+    if (actor) actor->setMostrarBloque (false);
+
+    // Se busca el otro actor.
     actor = manager->getActor (mouse_x - dialog[scr].x + manager->getEscenarioX (),
                                mouse_y - dialog[scr].y + manager->getEscenarioY ());
 
-    // Si encontramos el actor bajo el ratón, guardamos sus propiedades.
+    // Si encontramos el actor bajo el ratón, activamos el nuevo actor.
     if (actor)
     {
       // Tomamos la referencia del ratón respecto al actor.
       tomarReferencia ();
-    }
-    // Se actualizan los valores en la GUI del actor recién encontrado.
-    actualizarValoresActor ();
 
-    // Dibujamos de nuevo la GUI.
+      // Activamos el nuevo actor.
+      setActor (actor);
+    }
+
+   // Dibujamos de nuevo la GUI.
     draw ();
   }
 };
@@ -307,6 +294,11 @@ void  Dialog::actualizarValoresActor ()
  */
 void  Dialog::centrarActor (int indice)
 {
+  // Si había actor anterior se desactiva.
+  if (actor) actor->setMostrarBloque (false);
+
+  // Se le pide al controlador de edición que centre (y active) el actor 
+  // con el índice dado.
   manager->centrarActor (indice);
 }
 
@@ -315,7 +307,14 @@ void  Dialog::centrarActor (int indice)
  */
 void  Dialog::setActor (Actor *actorMostrar)
 {
+  // Se copia el puntero.
   actor = actorMostrar;
+
+  // Se activa en verde el bloque del actor.
+  actor->set_color (makecol(0, 255, 0));
+  actor->setMostrarBloque (true);
+
+  // Se actualizan las propiedades del actor.
   actualizarValoresActor ();
 }
 
@@ -396,6 +395,11 @@ int  Dialog::comprobarTecla (int code)
         // \warning   Se actualiza dos veces la pantalla, en 'step' y en 'draw'.
         manager->step ();
         actualizarValoresActor ();
+        break;
+
+    case 'r':
+    case 'R':
+//        screen = reduce_mipmap (manager->getBuffer(), 2, 2);
         break;
   }
 

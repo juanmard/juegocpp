@@ -261,7 +261,7 @@ void ActorManager::actualizarVisualizacion ()
 {
   if (actorVisualizado != NULL)
   {
-    actorVisualizado->getEstado ();
+    actorVisualizado->getCodigo ();
   }
 }
 

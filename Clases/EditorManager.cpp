@@ -45,15 +45,19 @@ void  EditorManager::activate ()
   // Guardamos el ribete actual del juego.
   //Bloque ribete_ant (game->stage_manager->getRibete ());
   Bloque ribete_ant (0, 0, SCREEN_W, SCREEN_H-100);
-  
+
+  // Le decimos al escenario que queremos ver los bloques de los actores.
+  game->stage_manager->setVerBloques (true);
+
   // Se hace visible el menú de edición.
   gui->show ();
 
   // Cuando se termina de editar:
-  game->stage_manager->setRibete (ribete_ant);    //  1 - Se recupera el ribete.
-  gui->mouse_out ();                              //  2 - Ocultamos el ratón.
-  borrarPantalla ();                              //  3 - Borramos la pantalla.
-  game->play ();                                  //  4 - Se vuelve al juego.
+  game->stage_manager->setVerBloques (false);     //  1 - Ocultamos los bloques.
+  game->stage_manager->setRibete (ribete_ant);    //  2 - Se recupera el ribete.
+  gui->mouse_out ();                              //  3 - Ocultamos el ratón.
+  borrarPantalla ();                              //  4 - Borramos la pantalla.
+  game->play ();                                  //  5 - Se vuelve al juego.
 }
 
 /**
@@ -163,37 +167,14 @@ char *  EditorManager::getNombreActor (int indice) const
   Actor *actor = game->actor_manager->getActor (indice);
   if (actor)
   {
-    return const_cast<char *>(actor->getNombre().c_str());
+    string  strNombre;
+    actor->getNombre(strNombre);
+    return const_cast<char *>(strNombre.c_str());
   }
   else
   {
     return const_cast<char *>("sin nombre");
   }
-}
-
-/**
- * \brief Cambia el traje del actor activo por el traje dado por el índice.
- */
-void  EditorManager::cambiarTraje (int indice)
-{
-  //actor_editado->setTraje (game->vestuario.GetTraje (indice));
-
-  // A modo de prueba cargamos un gráfico y lo cambiamos.
-  DatFile *sprites = new DatFile ("sprites.dat");
-  Bitmap *bitm2;
-  switch (indice)
-  {
-    case 1:
-        bitm2 = new Bitmap (actor_editado, sprites->GetBitmap ("estrella"));
-        break;
-    case 2:
-        bitm2 = new Bitmap(actor_editado, sprites->GetBitmap ("tomate"));
-        break;
-    default:
-        bitm2 = new Bitmap(actor_editado, sprites->GetBitmap ("EVERSOFT"));
-        break;
-  }
-  actor_editado->set_actor_graphic (bitm2);
 }
 
 /**
@@ -248,16 +229,6 @@ void  EditorManager::ActualizarEscenario ()
 }
 
 /**
- * \brief   Se dibuja un cuadrado referido a la posición actual del escenario.
- * \param   cuadro  Bloque cuya posición vendrá referida respecto a la posición 
- *                  actual del escenario.
- */
-void  EditorManager::dibujarCuadrado (Bloque cuadro, int color)
-{
-  game->stage_manager->dibujarCuadrado (cuadro, color);
-}
-
-/**
  * \brief   Obtiene el número de actores actualmente en la lista.
  */
 int  EditorManager::getNumActores () const
@@ -275,8 +246,7 @@ void  EditorManager::setRibete (Bloque bloque) const
 }
 
 /**
- * \brief   Cambia el marco que se muestra en pantalla (ribete) del escenario.
- * \todo    Indicar también el color que se utiliza.
+ * \brief   Borra la pantalla de un color gris.
  */
 void  EditorManager::borrarPantalla () const
 {
@@ -294,6 +264,9 @@ void  EditorManager::centrarActor (int indice) const
   // Si el actor existe.
   if (actor)
   {
+    // \warning   Esto se hace todas las veces que se centra el actor
+    //            y sólo es necesario hacerlo una vez. Igualar las dimensiones
+    //            de 'marco' y 'ribete' antes de entrar en edición.
     // Se toman los bloques del marco y el ribete.
     Bloque &  marco = game->stage_manager->getMarco ();
     Bloque &  ribete = game->stage_manager->getRibete ();

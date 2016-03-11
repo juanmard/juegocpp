@@ -128,14 +128,6 @@ void  Pelota::hit  (Actor *who, int damage)
              play_sample (rebote,200,128,1500,FALSE);
              break;
    }
-
-
-  /**
-   * \todo  Crear clase para mostrar mensajes de depuración en pantalla.
-   * \todo  Un convertidor a cadena para los nombres de los actores.
-   */
-  rectfill (screen, SCREEN_W-100,0,SCREEN_W,14,0);
-  textprintf (screen, font, SCREEN_W-100,0,-1, "Hit: %d", who->getNombre ());
 }
 
 /**
