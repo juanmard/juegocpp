@@ -1,56 +1,15 @@
 #include "Dialog.h"
 
-/**
- * \brief   Función CallBack para control de los objetos de pantalla.
- * \param   d[0].dp     Debe contener una referencia al propietario.
- * \todo    
- *          - Eliminar el cero del acceso al array y encapsular con enum.
- *          - Crear una clase aparte que no dependa de las variables de Allegro.
- */
-int d_pantalla_proc (int msg, DIALOG *d, int c)
-{
-    // Se filtran mensajes.
-    switch (msg)
-    {
-    case MSG_CHAR:
-        return D_USED_CHAR;
-
-    case MSG_CLICK:
-        // Recuperamos la posición del ratón.
-        int x = gui_mouse_x();
-        int y = gui_mouse_y();
-        
-        // Dibujamos los objetos.
-        EditorManager *editor = (EditorManager *)(d[0].dp);
-        if (editor)
-        {
-            editor->redibuja ();
-        }
-        else
-        {
-            gui_textout(screen, "NO SE HA INICIALIZADO LA REFERENCIA AL JUEGO!!!", 30, SCREEN_H/2, 0xFFFF, FALSE);
-        }
-
-        // Resaltamos el objeto que apunta.
-        editor->resaltar (x,y);
-
-        // Mostramos en pantalla el mensaje.
-        gui_textout(screen, "* Aquí está", x, y, 0xFFFF, FALSE);
-        return D_O_K;
-    }
-
-    // Acciones predefinidas del menu.
-    // Da error de acceso.
-    //return d_menu_proc (msg,d,c);
-    return D_O_K;
-}
+// Declaración de procedimientos.
+int d_pantalla_proc (int msg, DIALOG *d, int c);
+int propiedades (void);
 
 /**
  * \brief   Salida de prueba.
  */
  int quit(void)
 {
-   if (alert("Salir del editor?", NULL, NULL, "&Sí", "&No", 's', 'n') == 1)
+   if (alert("¿Salir del editor?", NULL, NULL, "&Sí", "&No", 's', 'n') == 1)
       return D_CLOSE;
    else
       return D_O_K;
@@ -97,6 +56,17 @@ MENU menu_editor [] =
    { NULL,        NULL,          NULL,  0,   NULL  }
 };
 
+/**
+ * \brief Menú propiedades.
+ */
+MENU menu_objeto [] =
+{
+   { "&Mover",          NULL,   NULL,  0,   NULL  },
+   { "&Tamaño",         NULL,   NULL,  0,   NULL  },
+   { "&Propiedades",    propiedades,   NULL,  0,   NULL  },
+   { NULL,              NULL,   NULL,  0,   NULL  }
+};
+
 DIALOG dialog[] =
 {
    /* (proc)             (x)  (y) (w)  (h)  (fg) (bg) (key) (flags)                           (d1) (d2) (dp)                                    (dp2) (dp3) */
@@ -105,6 +75,88 @@ DIALOG dialog[] =
    { d_text_proc,        470,  20, 160, 20,  2,   33,  0,    0,                                0,   0,   const_cast<char*>("  Modo Edición  "), NULL, NULL },
    { NULL,                 0,   0,  0,   0,   0,   0,   0,    0,                                0,   0,   NULL,                                   NULL, NULL }
 };
+
+DIALOG dlg_propiedades[] =
+{
+   /* (proc)             (x)  (y) (w)  (h)  (fg) (bg) (key) (flags)                           (d1) (d2) (dp)                                    (dp2) (dp3) */
+   { d_text_proc,        470,  60, 160, 20,  2,   33,  0,    0,                                0,   0,   const_cast<char*>("  Propiedades  "), NULL, NULL },
+   { NULL,                 0,   0,  0,   0,   0,   0,   0,    0,                                0,   0,   NULL,                                   NULL, NULL }
+};
+
+/**
+ * \brief   Propiedades.
+ */
+int propiedades (void)
+{
+    do_dialog (dlg_propiedades,-1);
+    return D_O_K;
+}
+
+/**
+ * \brief   Función CallBack para control de los objetos de pantalla.
+ * \param   d[0].dp     Debe contener una referencia al propietario.
+ * \todo    
+ *          - Eliminar el cero del acceso al array y encapsular con enum.
+ *          - Crear una clase aparte que no dependa de las variables de Allegro.
+ */
+int d_pantalla_proc (int msg, DIALOG *d, int c)
+{
+    static int x;
+    static int y;
+    static EditorManager *editor = (EditorManager *)(d[0].dp);
+
+    x = gui_mouse_x();
+    y = gui_mouse_y();
+
+    // Se filtran mensajes.
+    switch (msg)
+    {
+    case MSG_CHAR:
+        return D_USED_CHAR;
+    
+    case MSG_DCLICK:
+        break;
+
+    case MSG_RPRESS:
+        // Resaltamos el objeto.
+        editor->resaltar (x,y);
+
+        // Según el objeto en ese momento apuntado.
+        // Desplegamos uno u otro menú.
+        // Si es un único objeto el del objeto.
+        do_menu (menu_objeto,x,y);
+
+        // Si es una lista de objetos.
+        //do_menu (menu_lista,x,y);
+
+        // Si se hace sobre el fondo.
+        //do_menu (menu_fondo,x,y);
+        break;
+
+    case MSG_CLICK:
+        // Dibujamos los objetos.
+        if (editor)
+        {
+            editor->redibuja ();
+        }
+        else
+        {
+            gui_textout(screen, "NO SE HA INICIALIZADO LA REFERENCIA AL JUEGO!!!", SCREEN_W/2, SCREEN_H/2, 0xFFFF, TRUE);
+        }
+
+        // Resaltamos el objeto que apunta.
+        editor->resaltar (x,y);
+
+        // Mostramos en pantalla el mensaje.
+        gui_textout(screen, "* Aquí está", x, y, 0xFFFF, FALSE);
+        return D_O_K;
+    }
+
+    // Acciones predefinidas del menu.
+    // Da error de acceso.
+    //return d_menu_proc (msg,d,c);
+    return D_O_K;
+}
 
 /**
  * \brief   Construye la clase que servirá de GUI para editar un juego.
@@ -125,8 +177,7 @@ Dialog::Dialog (EditorManager *editor)
 
 Dialog::~Dialog (void)
 {
-    // Se oculta el ratón.
-    show_mouse (NULL);
+    mouse_out ();
 
     // \todo Liberar memoria de todos los objetos utilizados.
 }
@@ -143,4 +194,10 @@ void Dialog::show (void)
     // Se hace visible el menú de edición.
     do_dialog (dialog,-1);
     //do_menu(menu_editor, 0, 0);
+}
+
+void Dialog::mouse_out (void)
+{
+    // Se oculta el ratón.
+    show_mouse (NULL);
 }

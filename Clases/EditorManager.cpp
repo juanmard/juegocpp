@@ -36,6 +36,7 @@ void EditorManager::activate ()
     gui->show ();
 
     // Se sale del editor y se vuelve al juego.
+    gui->mouse_out ();
     game->play ();
 }
 
@@ -78,13 +79,11 @@ void    EditorManager::redibuja (void)
  */
 void    EditorManager::resaltar (int x, int y)
 {
-    Actor *elegido;
-
     // La pantalla está desplazada 14 pixels hacia abajo.
-    elegido = game->actor_manager->get_actor (x,y-14);
-    if (elegido)
+    editando = game->actor_manager->get_actor (x,y-14);
+    if (editando)
     {   
-        elegido->set_color (!elegido->get_color());
+        editando->set_color (!editando->get_color());
     }
     redibuja ();
 }

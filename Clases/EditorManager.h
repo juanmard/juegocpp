@@ -31,5 +31,6 @@ class EditorManager
 protected:
 		Game    *game;
 		Dialog  *gui;
+        Actor   *editando;
         
 };

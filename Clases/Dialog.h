@@ -19,6 +19,7 @@ class Dialog
                 Dialog          (EditorManager *editor);
                 ~Dialog         (void);
         void    show            (void);
+        void    mouse_out       (void);
 
 protected:
 		EditorManager *owner;       
