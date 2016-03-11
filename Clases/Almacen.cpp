@@ -4,10 +4,16 @@
  */
 
 #include "Almacen.h"
+#include <iostream>
 
 Almacen::Almacen (string paramNombreFichero)
 {
   fichero = load_datafile(paramNombreFichero.c_str ());
+  // \todo Se podría utilizar el "load_datafile_callback" para guardar nombres y
+  //       punteros al mapa "bitmaps" a la vez que se carga el fichero en memoria.
+  //       Ver: http://es.tldp.org/Allegro-es/web/online/alleg028.html#load_datafile_callback
+  //       Sería algo como: fichero = load_datafile_callback(paramNombreFichero.c_str (), callback_estática_clase);
+  //       Donde " static void callback_estatica_clase (DATAFILE *dat) { }" se definiría en 'Almacen.h'.
   if (!fichero)
   {
     //No se encontró el fichero.
@@ -61,6 +67,8 @@ BITMAP * Almacen::GetBitmap (string paramNombreRecurso)
     if (tmp_dat)
     {
       tmp_bmp = (BITMAP *) tmp_dat->dat;
+      // Prueba para obtener el nombre.
+      std::cout << "Bitmap: " << get_datafile_property(tmp_dat, DAT_ID('N','A','M','E')) << std::endl;
     }
     else
     {
@@ -101,6 +109,8 @@ RGB * Almacen::GetPalette (string nombrePaleta)
     if (tmpDat)
     {
       tmpRGB = (RGB *) tmpDat->dat;
+      // Prueba para obtener el nombre de la paleta.
+      std::cout << "Paleta: " << get_datafile_property(tmpDat, DAT_ID('N','A','M','E')) << std::endl;
     }
     else
     {
