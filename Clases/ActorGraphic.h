@@ -1,5 +1,5 @@
-#ifndef ACTORGRAPHIC_H
-#define ACTORGRAPHIC_H
+#ifndef _ACTORGRAPHIC_H_
+#define _ACTORGRAPHIC_H_
 
 #include <string>
 #include <allegro.h>
