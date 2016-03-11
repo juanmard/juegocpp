@@ -151,6 +151,7 @@ void JuegoPrueba::main()
         if (key[KEY_E])
         {
             editor.activate ();
+            key[KEY_E]=false;
         }
         
         // Se pausa y despausa el juego a modo de prueba.

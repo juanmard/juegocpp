@@ -42,6 +42,7 @@ void Game::init(int gfx_mode, int w, int h, int col)
 {
 	allegro_init();
 	install_keyboard();
+    install_mouse();
 	install_timer();
 
 	/* Protegemos variables e instalamos interrupción del "timer" (14 para ejecutar 70 veces por segundo).*/
