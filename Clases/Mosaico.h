@@ -26,7 +26,7 @@ class Mosaico : public ActorGraphic
         virtual Mosaico *   clone               (Actor *propietario) const;
         
     private:
-   		list<Tesela *> teselas;
-		list<Tesela *>::iterator teselas_iter;
+      list<Tesela *> teselas;
+      list<Tesela *>::iterator teselas_iter;
 };
 #endif

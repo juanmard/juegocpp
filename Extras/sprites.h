@@ -1,85 +1,794 @@
-/* Allegro datafile object indexes, produced by grabber v4.2.1, MSVC */
-/* Datafile: c:\Documents and Settings\Juanma\Mis documentos\Proyectos\VC\Juego\sprites.dat */
-/* Date: Mon Dec 25 02:40:53 2006 */
+/* Allegro data file definitions, produced by dat2s v4.2.2, Unix */
+/* Input file: sprites3.dat */
+/* Date: Sun Dec 12 07:20:01 2010 */
 /* Do not hand edit! */
 
-#define SPRITES                          0        /* PAL  */
-#define cartel_1                         1        /* BMP  */
-#define cuchara                          2        /* BMP  */
-#define dragon_1                         3        /* BMP  */
-#define dragon_2                         4        /* BMP  */
-#define dragon_3                         5        /* BMP  */
-#define espada_h                         6        /* BMP  */
-#define espada_v                         7        /* BMP  */
-#define estrella                         8        /* BMP  */
-#define EVERSOFT                         9        /* BMP  */
-#define extra                            10       /* BMP  */
-#define garrote                          11       /* BMP  */
-#define granada                          12       /* BMP  */
-#define gusano_1                         13       /* BMP  */
-#define gusano_2                         14       /* BMP  */
-#define gusano_3                         15       /* BMP  */
-#define hueso_horz                       16       /* BMP  */
-#define hueso_incl                       17       /* BMP  */
-#define hueso_vert                       18       /* BMP  */
-#define jugador_01                       19       /* BMP  */
-#define jugador_02                       20       /* BMP  */
-#define jugador_03                       21       /* BMP  */
-#define jugador_04                       22       /* BMP  */
-#define jugador_05                       23       /* BMP  */
-#define jugador_06                       24       /* BMP  */
-#define jugador_07                       25       /* BMP  */
-#define jugador_08                       26       /* BMP  */
-#define jugador_09                       27       /* BMP  */
-#define jugador_10                       28       /* BMP  */
-#define jugador_11                       29       /* BMP  */
-#define jugador_12                       30       /* BMP  */
-#define jugador_13                       31       /* BMP  */
-#define jugador_14                       32       /* BMP  */
-#define jugador_15                       33       /* BMP  */
-#define jugador_16                       34       /* BMP  */
-#define jugador_17                       35       /* BMP  */
-#define jugador_18                       36       /* BMP  */
-#define jugador_19                       37       /* BMP  */
-#define jugador_20                       38       /* BMP  */
-#define jugador_21                       39       /* BMP  */
-#define jugador_22                       40       /* BMP  */
-#define jugador_23                       41       /* BMP  */
-#define jugador_24                       42       /* BMP  */
-#define jugador_25                       43       /* BMP  */
-#define jugador_26                       44       /* BMP  */
-#define Letra_A                          45       /* BMP  */
-#define Letra_C                          46       /* BMP  */
-#define Letra_E                          47       /* BMP  */
-#define Letra_H                          48       /* BMP  */
-#define Letra_L                          49       /* BMP  */
-#define Letra_O                          50       /* BMP  */
-#define Letra_P                          51       /* BMP  */
-#define Letra_R                          52       /* BMP  */
-#define Letra_S                          53       /* BMP  */
-#define Letra_V                          54       /* BMP  */
-#define loro_1                           55       /* BMP  */
-#define loro_2                           56       /* BMP  */
-#define loro_3                           57       /* BMP  */
-#define martillo                         58       /* BMP  */
-#define oro                              59       /* BMP  */
-#define oso_1                            60       /* BMP  */
-#define oso_2                            61       /* BMP  */
-#define oso_3                            62       /* BMP  */
-#define patata_1                         63       /* BMP  */
-#define patata_2                         64       /* BMP  */
-#define pera                             65       /* BMP  */
-#define puntos_200                       66       /* BMP  */
-#define puntos_20mil                     67       /* BMP  */
-#define semaforo_go                      68       /* BMP  */
-#define semaforo_stop                    69       /* BMP  */
-#define suelo_1                          70       /* BMP  */
-#define suelo_2                          71       /* BMP  */
-#define tomate                           72       /* BMP  */
-#define demon                            73       /* BMP  */
-#define uvas                             74       /* BMP  */
-#define AYUDA                            75       /* TXT  */
-#define disparo                          76       /* SAMP */
-#define rebote                           77       /* SAMP */
-#define recogida                         78       /* SAMP */
-
+extern BITMAP item_aladdin_000;
+extern BITMAP item_aladdin_001;
+extern BITMAP item_aladdin_002;
+extern BITMAP item_aladdin_003;
+extern BITMAP item_aladdin_004;
+extern BITMAP item_aladdin_005;
+extern BITMAP item_aladdin_006;
+extern BITMAP item_aladdin_007;
+extern BITMAP item_aladdin_008;
+extern BITMAP item_aladdin_009;
+extern BITMAP item_aladdin_010;
+extern BITMAP item_aladino_000;
+extern BITMAP item_aladino_001;
+extern BITMAP item_aladino_002;
+extern BITMAP item_aladino_003;
+extern BITMAP item_aladino_004;
+extern BITMAP item_aladino_005;
+extern BITMAP item_aladino_006;
+extern BITMAP item_aladino_007;
+extern BITMAP item_aladino_008;
+extern BITMAP item_aladino_009;
+extern BITMAP item_aladino_010;
+extern BITMAP item_aladino_011;
+extern BITMAP item_aladino_012;
+extern BITMAP item_aladino_013;
+extern BITMAP item_aladino_014;
+extern BITMAP item_aladino_015;
+extern BITMAP item_aladino_016;
+extern BITMAP item_aladino_017;
+extern BITMAP item_aladino_018;
+extern BITMAP item_aladino_019;
+extern BITMAP item_aladino_020;
+extern BITMAP item_aladino_021;
+extern BITMAP item_aladino_022;
+extern BITMAP item_aladino_023;
+extern BITMAP item_aladino_024;
+extern BITMAP item_aladino_025;
+extern BITMAP item_aladino_026;
+extern BITMAP item_aladino_027;
+extern BITMAP item_aladino_028;
+extern BITMAP item_aladino_029;
+extern BITMAP item_aladino_030;
+extern BITMAP item_aladino_031;
+extern BITMAP item_aladino_032;
+extern BITMAP item_aladino_033;
+extern BITMAP item_aladino_034;
+extern BITMAP item_aladino_035;
+extern BITMAP item_aladino_036;
+extern BITMAP item_aladino_037;
+extern BITMAP item_aladino_038;
+extern BITMAP item_aladino_039;
+extern BITMAP item_aladino_040;
+extern BITMAP item_aladino_041;
+extern BITMAP item_aladino_042;
+extern BITMAP item_aladino_043;
+extern BITMAP item_aladino_044;
+extern BITMAP item_aladino_045;
+extern BITMAP item_aladino_046;
+extern BITMAP item_aladino_047;
+extern BITMAP item_aladino_048;
+extern BITMAP item_aladino_049;
+extern BITMAP item_aladino_050;
+extern BITMAP item_aladino_051;
+extern BITMAP item_aladino_052;
+extern BITMAP item_aladino_053;
+extern BITMAP item_aladino_054;
+extern BITMAP item_aladino_055;
+extern BITMAP item_aladino_056;
+extern BITMAP item_aladino_057;
+extern BITMAP item_aladino_058;
+extern BITMAP item_aladino_059;
+extern BITMAP item_aladino_060;
+extern BITMAP item_aladino_061;
+extern BITMAP item_aladino_062;
+extern BITMAP item_aladino_063;
+extern BITMAP item_aladino_064;
+extern BITMAP item_aladino_065;
+extern BITMAP item_aladino_066;
+extern BITMAP item_aladino_067;
+extern BITMAP item_aladino_068;
+extern BITMAP item_aladino_069;
+extern BITMAP item_aladino_070;
+extern BITMAP item_aladino_071;
+extern BITMAP item_aladino_072;
+extern BITMAP item_aladino_073;
+extern BITMAP item_aladino_074;
+extern BITMAP item_aladino_075;
+extern BITMAP item_aladino_076;
+extern BITMAP item_aladino_077;
+extern BITMAP item_aladino_078;
+extern BITMAP item_aladino_079;
+extern BITMAP item_aladino_080;
+extern BITMAP item_aladino_081;
+extern BITMAP item_aladino_082;
+extern BITMAP item_aladino_083;
+extern BITMAP item_aladino_084;
+extern BITMAP item_aladino_085;
+extern BITMAP item_aladino_086;
+extern BITMAP item_aladino_087;
+extern BITMAP item_aladino_088;
+extern BITMAP item_aladino_089;
+extern BITMAP item_aladino_090;
+extern BITMAP item_aladino_091;
+extern BITMAP item_aladino_092;
+extern BITMAP item_aladino_093;
+extern BITMAP item_aladino_094;
+extern BITMAP item_aladino_095;
+extern BITMAP item_aladino_096;
+extern BITMAP item_aladino_097;
+extern BITMAP item_aladino_098;
+extern BITMAP item_aladino_099;
+extern BITMAP item_aladino_100;
+extern BITMAP item_aladino_101;
+extern BITMAP item_aladino_102;
+extern BITMAP item_aladino_103;
+extern BITMAP item_aladino_104;
+extern BITMAP item_aladino_105;
+extern BITMAP item_aladino_106;
+extern BITMAP item_aladino_107;
+extern BITMAP item_aladino_108;
+extern BITMAP item_aladino_109;
+extern BITMAP item_ben10_000;
+extern BITMAP item_ben10_001;
+extern BITMAP item_ben10_002;
+extern BITMAP item_ben10_003;
+extern BITMAP item_ben10_004;
+extern BITMAP item_ben10_005;
+extern BITMAP item_ben10_006;
+extern BITMAP item_ben10_007;
+extern BITMAP item_ben10_008;
+extern BITMAP item_ben10_009;
+extern BITMAP item_ben10_010;
+extern BITMAP item_ben10_011;
+extern BITMAP item_ben10_012;
+extern BITMAP item_ben10_013;
+extern BITMAP item_ben10_014;
+extern BITMAP item_ben10_015;
+extern BITMAP item_ben10_016;
+extern BITMAP item_ben10_017;
+extern BITMAP item_ben10_018;
+extern BITMAP item_ben10_019;
+extern BITMAP item_ben10_020;
+extern BITMAP item_ben10_021;
+extern BITMAP item_ben10_022;
+extern BITMAP item_ben10_023;
+extern BITMAP item_ben10_024;
+extern BITMAP item_ben10_025;
+extern BITMAP item_ben10_gm_000;
+extern BITMAP item_ben10_gm_001;
+extern BITMAP item_ben10_gm_002;
+extern BITMAP item_ben10_gm_003;
+extern BITMAP item_ben10_gm_004;
+extern BITMAP item_ben10_gm_005;
+extern BITMAP item_ben10_gm_006;
+extern BITMAP item_ben10_gm_007;
+extern BITMAP item_ben10_gm_008;
+extern BITMAP item_ben10_gm_009;
+extern BITMAP item_ben10_gm_010;
+extern BITMAP item_ben10_sf_000;
+extern BITMAP item_ben10_sf_001;
+extern BITMAP item_ben10_sf_002;
+extern BITMAP item_ben10_sf_003;
+extern BITMAP item_ben10_sf_004;
+extern BITMAP item_ben10_sf_005;
+extern BITMAP item_ben10_sf_006;
+extern BITMAP item_ben10_sf_007;
+extern BITMAP item_ben10_sf_008;
+extern BITMAP item_jackal_000;
+extern BITMAP item_jackal_001;
+extern BITMAP item_jackal_002;
+extern BITMAP item_jackal_003;
+extern BITMAP item_jackal_004;
+extern BITMAP item_jackal_005;
+extern BITMAP item_jackal_006;
+extern BITMAP item_jackal_007;
+extern BITMAP item_jackal_008;
+extern BITMAP item_jackal_009;
+extern BITMAP item_jackal_010;
+extern BITMAP item_jackal_011;
+extern BITMAP item_jackal_012;
+extern BITMAP item_jackal_013;
+extern BITMAP item_jackal_014;
+extern BITMAP item_jackal_015;
+extern BITMAP item_jackal_016;
+extern BITMAP item_jackal_017;
+extern BITMAP item_jackal_018;
+extern BITMAP item_jackal_019;
+extern BITMAP item_jackal_020;
+extern BITMAP item_jackal_021;
+extern BITMAP item_jackal_022;
+extern BITMAP item_jackal_023;
+extern BITMAP item_jackal_024;
+extern BITMAP item_jackal_025;
+extern BITMAP item_jackal_026;
+extern BITMAP item_jackal_027;
+extern BITMAP item_jackal_028;
+extern BITMAP item_jackal_029;
+extern BITMAP item_jackal_030;
+extern BITMAP item_jackal_031;
+extern BITMAP item_jackal_032;
+extern BITMAP item_jackal_033;
+extern BITMAP item_jackal_034;
+extern BITMAP item_jackal_035;
+extern BITMAP item_jackal_036;
+extern BITMAP item_jackal_037;
+extern BITMAP item_jackal_038;
+extern BITMAP item_jackal_039;
+extern BITMAP item_jackal_040;
+extern BITMAP item_jackal_041;
+extern BITMAP item_jackal_042;
+extern BITMAP item_jackal_043;
+extern BITMAP item_pre2_000;
+extern BITMAP item_pre2_001;
+extern BITMAP item_pre2_002;
+extern BITMAP item_pre2_003;
+extern BITMAP item_pre2_004;
+extern BITMAP item_pre2_005;
+extern BITMAP item_pre2_006;
+extern BITMAP item_pre2_007;
+extern BITMAP item_pre2_008;
+extern BITMAP item_pre2_009;
+extern BITMAP item_pre2_010;
+extern BITMAP item_pre2_011;
+extern BITMAP item_pre2_012;
+extern BITMAP item_pre2_013;
+extern BITMAP item_pre2_014;
+extern BITMAP item_pre2_015;
+extern BITMAP item_pre2_016;
+extern BITMAP item_pre2_017;
+extern BITMAP item_pre2_018;
+extern BITMAP item_pre2_019;
+extern BITMAP item_pre2_020;
+extern BITMAP item_pre2_021;
+extern BITMAP item_pre2_022;
+extern BITMAP item_pre2_023;
+extern BITMAP item_pre2_024;
+extern BITMAP item_pre2_025;
+extern BITMAP item_pre2_026;
+extern BITMAP item_pre2_027;
+extern BITMAP item_pre2_028;
+extern BITMAP item_pre2_029;
+extern BITMAP item_pre2_030;
+extern BITMAP item_pre2_031;
+extern BITMAP item_pre2_032;
+extern BITMAP item_pre2_033;
+extern BITMAP item_pre2_034;
+extern BITMAP item_pre2_035;
+extern BITMAP item_pre2_036;
+extern BITMAP item_pre2_037;
+extern BITMAP item_pre2_038;
+extern BITMAP item_pre2_039;
+extern BITMAP item_pre2_040;
+extern BITMAP item_pre2_041;
+extern BITMAP item_pre2_042;
+extern BITMAP item_pre2_043;
+extern BITMAP item_pre2_044;
+extern BITMAP item_pre2_045;
+extern BITMAP item_pre2_046;
+extern BITMAP item_pre2_047;
+extern BITMAP item_pre2_048;
+extern BITMAP item_pre2_049;
+extern BITMAP item_pre2_050;
+extern BITMAP item_pre2_051;
+extern BITMAP item_pre2_052;
+extern BITMAP item_pre2_053;
+extern BITMAP item_pre2_054;
+extern BITMAP item_pre2_055;
+extern BITMAP item_pre2_056;
+extern BITMAP item_pre2_057;
+extern BITMAP item_pre2_058;
+extern BITMAP item_pre2_059;
+extern BITMAP item_pre2_060;
+extern BITMAP item_pre2_061;
+extern BITMAP item_pre2_062;
+extern BITMAP item_pre2_063;
+extern BITMAP item_pre2_064;
+extern BITMAP item_pre2_065;
+extern BITMAP item_pre2_066;
+extern BITMAP item_pre2_067;
+extern BITMAP item_pre2_068;
+extern BITMAP item_pre2_069;
+extern BITMAP item_pre2_070;
+extern BITMAP item_pre2_071;
+extern BITMAP item_pre2_072;
+extern BITMAP item_pre2_073;
+extern BITMAP item_pre2_074;
+extern BITMAP item_pre2_075;
+extern BITMAP item_pre2_076;
+extern BITMAP item_pre2_077;
+extern BITMAP item_pre2_078;
+extern BITMAP item_pre2_079;
+extern BITMAP item_pre2_080;
+extern BITMAP item_pre2_081;
+extern BITMAP item_pre2_082;
+extern BITMAP item_pre2_083;
+extern BITMAP item_pre2_084;
+extern BITMAP item_pre2_085;
+extern BITMAP item_pre2_086;
+extern BITMAP item_pre2_087;
+extern BITMAP item_pre2_088;
+extern BITMAP item_pre2_089;
+extern BITMAP item_pre2_090;
+extern BITMAP item_pre2_091;
+extern BITMAP item_pre2_092;
+extern BITMAP item_pre2_093;
+extern BITMAP item_pre2_094;
+extern BITMAP item_pre2_095;
+extern BITMAP item_pre2_096;
+extern BITMAP item_pre2_097;
+extern BITMAP item_pre2_098;
+extern BITMAP item_pre2_099;
+extern BITMAP item_pre2_100;
+extern BITMAP item_pre2_101;
+extern BITMAP item_pre2_102;
+extern BITMAP item_pre2_103;
+extern BITMAP item_pre2_104;
+extern BITMAP item_pre2_105;
+extern BITMAP item_pre2_106;
+extern BITMAP item_pre2_107;
+extern BITMAP item_pre2_108;
+extern BITMAP item_pre2_109;
+extern BITMAP item_pre2_110;
+extern BITMAP item_pre2_111;
+extern BITMAP item_pre2_112;
+extern BITMAP item_pre2_113;
+extern BITMAP item_pre2_114;
+extern BITMAP item_pre2_115;
+extern BITMAP item_pre2_116;
+extern BITMAP item_pre2_117;
+extern BITMAP item_pre2_118;
+extern BITMAP item_pre2_119;
+extern BITMAP item_pre2_120;
+extern BITMAP item_pre2_121;
+extern BITMAP item_pre2_122;
+extern BITMAP item_pre2_123;
+extern BITMAP item_pre2_124;
+extern BITMAP item_pre2_125;
+extern BITMAP item_pre2_126;
+extern BITMAP item_pre2_127;
+extern BITMAP item_pre2_128;
+extern BITMAP item_pre2_129;
+extern BITMAP item_pre2_130;
+extern BITMAP item_pre2_131;
+extern BITMAP item_pre2_132;
+extern BITMAP item_pre2_133;
+extern BITMAP item_pre2_134;
+extern BITMAP item_pre2_135;
+extern BITMAP item_pre2_136;
+extern BITMAP item_pre2_137;
+extern BITMAP item_pre2_138;
+extern BITMAP item_pre2_139;
+extern BITMAP item_pre2_140;
+extern BITMAP item_pre2_141;
+extern BITMAP item_pre2_142;
+extern BITMAP item_pre2_143;
+extern BITMAP item_pre2_144;
+extern BITMAP item_pre2_145;
+extern BITMAP item_pre2_146;
+extern BITMAP item_pre2_147;
+extern BITMAP item_pre2_148;
+extern BITMAP item_pre2_149;
+extern BITMAP item_pre2_150;
+extern BITMAP item_pre2_151;
+extern BITMAP item_pre2_152;
+extern BITMAP item_pre2_153;
+extern BITMAP item_pre2_154;
+extern BITMAP item_pre2_155;
+extern BITMAP item_pre2_156;
+extern BITMAP item_pre2_157;
+extern BITMAP item_pre2_158;
+extern BITMAP item_pre2_159;
+extern BITMAP item_pre2_160;
+extern BITMAP item_pre2_161;
+extern BITMAP item_pre2_162;
+extern BITMAP item_pre2_163;
+extern BITMAP item_pre2_164;
+extern BITMAP item_pre2_165;
+extern BITMAP item_pre2_166;
+extern BITMAP item_pre2_167;
+extern BITMAP item_pre2_168;
+extern BITMAP item_pre2_169;
+extern BITMAP item_pre2_170;
+extern BITMAP item_pre2_171;
+extern BITMAP item_pre2_172;
+extern BITMAP item_pre2_173;
+extern BITMAP item_pre2_174;
+extern BITMAP item_pre2_175;
+extern BITMAP item_pre2_176;
+extern BITMAP item_pre2_177;
+extern BITMAP item_pre2_178;
+extern BITMAP item_pre2_179;
+extern BITMAP item_pre2_180;
+extern BITMAP item_pre2_181;
+extern BITMAP item_pre2_182;
+extern BITMAP item_pre2_183;
+extern BITMAP item_pre2_184;
+extern BITMAP item_pre2_185;
+extern BITMAP item_pre2_186;
+extern BITMAP item_pre2_187;
+extern BITMAP item_pre2_188;
+extern BITMAP item_pre2_189;
+extern BITMAP item_pre2_190;
+extern BITMAP item_pre2_191;
+extern BITMAP item_pre2_192;
+extern BITMAP item_pre2_193;
+extern BITMAP item_pre2_194;
+extern BITMAP item_pre2_195;
+extern BITMAP item_pre2_196;
+extern BITMAP item_pre2_197;
+extern BITMAP item_pre2_198;
+extern BITMAP item_pre2_199;
+extern BITMAP item_pre2_200;
+extern BITMAP item_pre2_201;
+extern BITMAP item_pre2_202;
+extern BITMAP item_pre2_203;
+extern BITMAP item_pre2_204;
+extern BITMAP item_pre2_205;
+extern BITMAP item_pre2_206;
+extern BITMAP item_pre2_207;
+extern BITMAP item_pre2_208;
+extern BITMAP item_pre2_209;
+extern BITMAP item_pre2_210;
+extern BITMAP item_pre2_211;
+extern BITMAP item_pre2_212;
+extern BITMAP item_pre2_213;
+extern BITMAP item_pre2_214;
+extern BITMAP item_pre2_215;
+extern BITMAP item_pre2_216;
+extern BITMAP item_pre2_217;
+extern BITMAP item_pre2_218;
+extern BITMAP item_pre2_219;
+extern BITMAP item_pre2_220;
+extern BITMAP item_pre2_221;
+extern BITMAP item_pre2_222;
+extern BITMAP item_pre2_223;
+extern BITMAP item_pre2_224;
+extern BITMAP item_pre2_225;
+extern BITMAP item_pre2_226;
+extern BITMAP item_pre2_227;
+extern BITMAP item_pre2_228;
+extern BITMAP item_pre2_229;
+extern BITMAP item_pre2_230;
+extern BITMAP item_pre2_231;
+extern BITMAP item_pre2_232;
+extern BITMAP item_pre2_233;
+extern BITMAP item_pre2_234;
+extern BITMAP item_pre2_235;
+extern BITMAP item_pre2_236;
+extern BITMAP item_pre2_237;
+extern BITMAP item_pre2_238;
+extern BITMAP item_pre2_239;
+extern BITMAP item_pre2_240;
+extern BITMAP item_pre2_241;
+extern BITMAP item_pre2_242;
+extern BITMAP item_pre2_243;
+extern BITMAP item_pre2_244;
+extern BITMAP item_pre2_245;
+extern BITMAP item_pre2_246;
+extern BITMAP item_pre2_247;
+extern BITMAP item_pre2_248;
+extern BITMAP item_pre2_249;
+extern BITMAP item_pre2_250;
+extern BITMAP item_pre2_251;
+extern BITMAP item_pre2_252;
+extern BITMAP item_pre2_253;
+extern BITMAP item_pre2_254;
+extern BITMAP item_pre2_255;
+extern BITMAP item_pre2_256;
+extern BITMAP item_pre2_257;
+extern BITMAP item_pre2_258;
+extern BITMAP item_pre2_259;
+extern BITMAP item_pre2_260;
+extern BITMAP item_pre2_261;
+extern BITMAP item_pre2_262;
+extern BITMAP item_pre2_263;
+extern BITMAP item_pre2_264;
+extern BITMAP item_pre2_265;
+extern BITMAP item_pre2_266;
+extern BITMAP item_pre2_267;
+extern BITMAP item_pre2_268;
+extern BITMAP item_pre2_269;
+extern BITMAP item_pre2_270;
+extern BITMAP item_pre2_271;
+extern BITMAP item_pre2_272;
+extern BITMAP item_pre2_273;
+extern BITMAP item_pre2_274;
+extern BITMAP item_pre2_275;
+extern BITMAP item_pre2_276;
+extern BITMAP item_pre2_277;
+extern BITMAP item_pre2_278;
+extern BITMAP item_pre2_279;
+extern BITMAP item_pre2_280;
+extern BITMAP item_pre2_281;
+extern BITMAP item_pre2_282;
+extern BITMAP item_pre2_283;
+extern BITMAP item_pre2_284;
+extern BITMAP item_pre2_285;
+extern BITMAP item_pre2_286;
+extern BITMAP item_pre2_287;
+extern BITMAP item_pre2_288;
+extern BITMAP item_pre2_289;
+extern BITMAP item_pre2_290;
+extern BITMAP item_pre2_291;
+extern BITMAP item_pre2_292;
+extern BITMAP item_pre2_293;
+extern BITMAP item_pre2_294;
+extern BITMAP item_pre2_295;
+extern BITMAP item_pre2_296;
+extern BITMAP item_pre2_297;
+extern BITMAP item_pre2_298;
+extern BITMAP item_pre2_299;
+extern BITMAP item_pre2_300;
+extern BITMAP item_pre2_301;
+extern BITMAP item_pre2_302;
+extern BITMAP item_pre2_303;
+extern BITMAP item_pre2_304;
+extern BITMAP item_pre2_305;
+extern BITMAP item_pre2_306;
+extern BITMAP item_pre2_307;
+extern BITMAP item_pre2_308;
+extern BITMAP item_pre2_309;
+extern BITMAP item_pre2_310;
+extern BITMAP item_pre2_311;
+extern BITMAP item_pre2_312;
+extern BITMAP item_pre2_313;
+extern BITMAP item_pre2_314;
+extern BITMAP item_pre2_315;
+extern BITMAP item_pre2_316;
+extern BITMAP item_pre2_317;
+extern BITMAP item_pre2_318;
+extern BITMAP item_pre2_319;
+extern BITMAP item_pre2_320;
+extern BITMAP item_pre2_321;
+extern BITMAP item_pre2_322;
+extern BITMAP item_pre2_323;
+extern BITMAP item_pre2_324;
+extern BITMAP item_pre2_325;
+extern BITMAP item_pre2_326;
+extern BITMAP item_pre2_327;
+extern BITMAP item_pre2_328;
+extern BITMAP item_pre2_329;
+extern BITMAP item_pre2_330;
+extern BITMAP item_pre2_331;
+extern BITMAP item_pre2_332;
+extern BITMAP item_pre2_333;
+extern BITMAP item_pre2_334;
+extern BITMAP item_pre2_335;
+extern BITMAP item_pre2_336;
+extern BITMAP item_pre2_337;
+extern BITMAP item_pre2_338;
+extern BITMAP item_pre2_339;
+extern BITMAP item_pre2_340;
+extern BITMAP item_pre2_341;
+extern BITMAP item_pre2_342;
+extern BITMAP item_pre2_343;
+extern BITMAP item_pre2_344;
+extern BITMAP item_pre2_345;
+extern BITMAP item_pre2_346;
+extern BITMAP item_pre2_347;
+extern BITMAP item_pre2_348;
+extern BITMAP item_pre2_349;
+extern BITMAP item_pre2_350;
+extern BITMAP item_pre2_351;
+extern BITMAP item_pre2_352;
+extern BITMAP item_pre2_353;
+extern BITMAP item_pre2_354;
+extern BITMAP item_pre2_355;
+extern BITMAP item_pre2_356;
+extern BITMAP item_pre2_357;
+extern BITMAP item_pre2_358;
+extern BITMAP item_pre2_359;
+extern BITMAP item_pre2_360;
+extern BITMAP item_pre2_361;
+extern BITMAP item_pre2_362;
+extern BITMAP item_pre2_363;
+extern BITMAP item_pre2_364;
+extern BITMAP item_pre2_365;
+extern BITMAP item_pre2_366;
+extern BITMAP item_pre2_367;
+extern BITMAP item_pre2_368;
+extern BITMAP item_pre2_369;
+extern BITMAP item_pre2_370;
+extern BITMAP item_pre2_371;
+extern BITMAP item_pre2_372;
+extern BITMAP item_pre2_373;
+extern BITMAP item_pre2_374;
+extern BITMAP item_pre2_375;
+extern BITMAP item_pre2_376;
+extern BITMAP item_pre2_377;
+extern BITMAP item_pre2_378;
+extern BITMAP item_pre2_379;
+extern BITMAP item_pre2_380;
+extern BITMAP item_pre2_381;
+extern BITMAP item_pre2_382;
+extern BITMAP item_pre2_383;
+extern BITMAP item_pre2_384;
+extern BITMAP item_pre2_385;
+extern BITMAP item_pre2_386;
+extern BITMAP item_pre2_387;
+extern BITMAP item_pre2_388;
+extern BITMAP item_pre2_389;
+extern BITMAP item_pre2_390;
+extern BITMAP item_pre2_391;
+extern BITMAP item_pre2_392;
+extern BITMAP item_pre2_393;
+extern BITMAP item_pre2_394;
+extern BITMAP item_pre2_395;
+extern BITMAP item_pre2_396;
+extern BITMAP item_pre2_397;
+extern BITMAP item_pre2_398;
+extern BITMAP item_pre2_399;
+extern BITMAP item_pre2_400;
+extern BITMAP item_pre2_401;
+extern BITMAP item_pre2_402;
+extern BITMAP item_pre2_403;
+extern BITMAP item_pre2_404;
+extern BITMAP item_pre2_405;
+extern BITMAP item_pre2_406;
+extern BITMAP item_pre2_407;
+extern BITMAP item_pre2_408;
+extern BITMAP item_pre2_409;
+extern BITMAP item_pre2_410;
+extern BITMAP item_pre2_411;
+extern BITMAP item_pre2_412;
+extern BITMAP item_pre2_413;
+extern BITMAP item_pre2_414;
+extern BITMAP item_pre2_415;
+extern BITMAP item_pre2_416;
+extern BITMAP item_pre2_417;
+extern BITMAP item_pre2_418;
+extern BITMAP item_pre2_419;
+extern BITMAP item_pre2_420;
+extern BITMAP item_pre2_421;
+extern BITMAP item_pre2_422;
+extern BITMAP item_pre2_423;
+extern BITMAP item_pre2_424;
+extern BITMAP item_pre2_425;
+extern BITMAP item_pre2_426;
+extern BITMAP item_pre2_427;
+extern BITMAP item_pre2_428;
+extern BITMAP item_pre2_429;
+extern BITMAP item_pre2_430;
+extern BITMAP item_pre2_431;
+extern BITMAP item_pre2_432;
+extern BITMAP item_pre2_433;
+extern BITMAP item_pre2_434;
+extern BITMAP item_pre2_435;
+extern BITMAP item_pre2_436;
+extern BITMAP item_pre2_437;
+extern BITMAP item_pre2_438;
+extern BITMAP item_pre2_439;
+extern BITMAP item_pre2_440;
+extern BITMAP item_pre2_441;
+extern BITMAP item_pre2_442;
+extern BITMAP item_pre2_443;
+extern BITMAP item_pre2_444;
+extern BITMAP item_pre2_445;
+extern BITMAP item_pre2_446;
+extern BITMAP item_pre2_447;
+extern BITMAP item_pre2_448;
+extern BITMAP item_pre2_449;
+extern BITMAP item_pre2_450;
+extern BITMAP item_pre2_451;
+extern BITMAP item_pre2_452;
+extern BITMAP item_pre2_453;
+extern BITMAP item_pre2_454;
+extern BITMAP item_pre2_455;
+extern BITMAP item_pre2_456;
+extern BITMAP item_pre2_457;
+extern BITMAP item_pre2_458;
+extern BITMAP item_pre2_459;
+extern BITMAP item_pre2_460;
+extern SAMPLE item_sound_001;
+extern SAMPLE item_sound_002;
+extern BITMAP item_sprite_000;
+extern BITMAP item_sprite_001;
+extern BITMAP item_sprite_002;
+extern BITMAP item_sprite_003;
+extern BITMAP item_sprite_004;
+extern BITMAP item_sprite_005;
+extern BITMAP item_sprite_006;
+extern BITMAP item_sprite_007;
+extern BITMAP item_sprite_008;
+extern BITMAP item_sprite_009;
+extern BITMAP item_sprite_010;
+extern BITMAP item_sprite_011;
+extern BITMAP item_sprite_012;
+extern BITMAP item_sprite_013;
+extern BITMAP item_sprite_014;
+extern BITMAP item_sprite_015;
+extern BITMAP item_sprite_016;
+extern BITMAP item_sprite_017;
+extern BITMAP item_sprite_018;
+extern BITMAP item_sprite_019;
+extern BITMAP item_sprite_020;
+extern BITMAP item_sprite_021;
+extern BITMAP item_sprite_022;
+extern BITMAP item_sprite_023;
+extern BITMAP item_sprite_024;
+extern BITMAP item_sprite_025;
+extern BITMAP item_sprite_026;
+extern BITMAP item_sprite_027;
+extern BITMAP item_sprite_028;
+extern BITMAP item_sprite_029;
+extern BITMAP item_sprite_030;
+extern BITMAP item_sprite_031;
+extern BITMAP item_sprite_032;
+extern BITMAP item_sprite_033;
+extern BITMAP item_sprite_034;
+extern BITMAP item_sprite_035;
+extern BITMAP item_sprite_036;
+extern BITMAP item_sprite_037;
+extern BITMAP item_sprite_038;
+extern BITMAP item_sprite_039;
+extern BITMAP item_sprite_040;
+extern BITMAP item_sprite_041;
+extern BITMAP item_sprite_042;
+extern BITMAP item_sprite_043;
+extern BITMAP item_sprite_044;
+extern BITMAP item_sprite_045;
+extern BITMAP item_sprite_046;
+extern BITMAP item_sprite_047;
+extern BITMAP item_sprite_048;
+extern BITMAP item_sprite_049;
+extern BITMAP item_sprite_050;
+extern BITMAP item_sprite_051;
+extern BITMAP item_sprite_052;
+extern BITMAP item_sprite_053;
+extern BITMAP item_sprite_054;
+extern BITMAP item_sprite_055;
+extern BITMAP item_sprite_056;
+extern BITMAP item_sprite_057;
+extern BITMAP item_sprite_058;
+extern BITMAP item_sprite_059;
+extern BITMAP item_sprite_060;
+extern BITMAP item_sprite_061;
+extern BITMAP item_sprite_062;
+extern BITMAP item_sprite_063;
+extern BITMAP item_sprite_064;
+extern BITMAP item_sprite_065;
+extern BITMAP item_sprite_066;
+extern BITMAP item_sprite_067;
+extern BITMAP item_sprite_068;
+extern BITMAP item_sprite_069;
+extern BITMAP item_sprite_070;
+extern BITMAP item_sprite_071;
+extern BITMAP item_sprite_072;
+extern BITMAP item_sprite_073;
+extern BITMAP item_sprite_074;
+extern BITMAP item_sprite_075;
+extern BITMAP item_sprite_076;
+extern BITMAP item_sprite_077;
+extern BITMAP item_sprite_078;
+extern BITMAP item_sprite_079;
+extern BITMAP item_sprite_080;
+extern BITMAP item_sprite_081;
+extern BITMAP item_sprite_082;
+extern BITMAP item_sprite_083;
+extern BITMAP item_sprite_084;
+extern BITMAP item_sprite_085;
+extern BITMAP item_sprite_086;
+extern BITMAP item_sprite_087;
+extern BITMAP item_sprite_088;
+extern BITMAP item_sprite_089;
+extern BITMAP item_sprite_090;
+extern BITMAP item_sprite_091;
+extern BITMAP item_sprite_092;
+extern BITMAP item_sprite_093;
+extern BITMAP item_sprite_094;
+extern BITMAP item_sprite_095;
+extern BITMAP item_sprite_096;
+extern BITMAP item_sprite_097;
+extern BITMAP item_sprite_098;
+extern BITMAP item_sprite_099;
+extern BITMAP item_sprite_100;
+extern BITMAP item_sprite_101;
+extern BITMAP item_sprite_102;
+extern BITMAP item_sprite_103;
+extern BITMAP item_sprite_104;
+extern BITMAP item_sprite_105;
+extern BITMAP item_sprite_106;
+extern BITMAP item_sprite_107;
+extern BITMAP item_sprite_108;
+extern BITMAP item_sprite_109;
+extern BITMAP item_sprite_110;
+extern BITMAP item_sprite_111;
+extern BITMAP item_sprite_112;
+extern PALETTE item_sprites;
+extern DATAFILE item_data[];

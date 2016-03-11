@@ -13,7 +13,7 @@ suelo_2 (copia.suelo_2)
 }
 
 /**
- * \brief   Constructor de primario.
+ * \brief   Constructor primario.
  */
 Suelo::Suelo (Actor *aowner, int new_size):
 Mosaico (aowner)

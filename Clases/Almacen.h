@@ -9,6 +9,7 @@
 #include <allegro.h>
 #include <stdio.h>
 #include <string>
+#include <map>
 
 using namespace std;
 
@@ -33,6 +34,9 @@ class Almacen
   private:
     DATAFILE *  fichero;
     string      nombreFichero;
+    // habría que rellenar con los bitmaps del fichero.
+    // Para acceder sería: bitmaps["sprite_041"]
+    map<string, DATAFILE *>    bitmaps;
 };
 
 #endif // _ALMACEN_H_

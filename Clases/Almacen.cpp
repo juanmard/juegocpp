@@ -32,6 +32,18 @@ Almacen::~Almacen ()
  * \brief   Devuelve un BITMAP como recurso dando el nonbre del recurso. 
  * \todo    Controlar que el recurso solicitado es realmente un BITMAP.
  */
+/* Forma alternativa para localizar un bitmap por el nombre.
+   Se puede recorrer una sola vez y guardar nombres y punteros en un std::map
+   para acceder más rápidamente.
+
+   for (i=0; dat[i].type != DAT_END; i++) {
+      if (stricmp(get_datafile_property(dat+i, DAT_ID('N','A','M','E')),
+                  "mi_objeto") == 0) {
+         // se encontró el objeto en el índice i
+      }
+   }
+   // no encontrado...
+*/
 BITMAP * Almacen::GetBitmap (string paramNombreRecurso)
 {
   DATAFILE *  tmp_dat;
@@ -85,7 +97,7 @@ RGB * Almacen::GetPalette (string nombrePaleta)
 
     // Se comprueba que realmente es de tipo RGB.
     // TODO: Comprobar por qué no funciona esta comparación.
-    //if (tmpDat->type != DAT_RGB)
+    //if (tmpDat->type != DAT_PALETTE)
     if (tmpDat)
     {
       tmpRGB = (RGB *) tmpDat->dat;
