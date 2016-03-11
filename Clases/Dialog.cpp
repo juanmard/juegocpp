@@ -2,6 +2,7 @@
 #include "DlgActor.h"
 #include "VentanaALG.h"
 #include "resize.h"
+#include <iostream>
 
 // Inicialización de las variables estáticas de la clase.
 // Diálogo general de la GUI del editor.
@@ -421,10 +422,15 @@ int  Dialog::comprobarTecla (int code)
         actualizarValoresActor ();
         break;
 
-    case 'r':
-    case 'R':
-//        screen = reduce_mipmap (manager->getBuffer(), 2, 2);
-        break;
+    case 't':
+    case 'T':
+    // Zona de pruebas.
+    {
+      cout << "Funciona la zona de pruebas." << endl;
+
+    }
+    salida = D_USED_CHAR;
+    break;
   }
 
   manager->moverEscenario (x, y);

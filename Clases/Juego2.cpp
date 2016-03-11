@@ -263,7 +263,7 @@ int main ()
   Juego2 game;
   srand(time(NULL));
   game.set_name("Test del juego");
-  game.init(GFX_AUTODETECT_WINDOWED, 640,480,8);
+  game.init(GFX_AUTODETECT_WINDOWED, 800,600,8);
   return 0;
 }
 END_OF_MAIN ();
