@@ -28,6 +28,7 @@ class Almacen
     BITMAP *    GetBitmap   (string nombreBitmap);
     BITMAP *    GetBitmap   (int indice);
     RGB *       GetPalette  (string nombrePaleta);
+    string      getName     (BITMAP *puntero);
 
   private:
     DATAFILE *                fichero;
