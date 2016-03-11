@@ -37,7 +37,6 @@ timer(0)
 	sprites[disparando] = new Sprite(this);    
     sprites[disparando]->add_frame(almacen.GetBitmap("sprite_085"), 0, 0, 2);
     sprites[disparando]->add_frame(almacen.GetBitmap("sprite_088"), 0, 0, 4);
-    sprites[disparando]->add_frame(almacen.GetBitmap("sprite_085"), 0, 0, 3);
 	sprites[disparando]->init ();
 
 	set_actor_graphic (sprites[estado]);
