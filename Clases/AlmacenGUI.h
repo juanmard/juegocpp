@@ -107,11 +107,13 @@ class AlmacenGUI
                 clear_to_color(fondo, 243);
                 d[2].dp = fondo;
                 object_message(&d[2], MSG_DRAW, 0);
-                d[2].dp = obj.almacen.getBitmap (d[0].d1);
                 destroy_bitmap (fondo);
+                
+                // Asignamos el recurso si es un bitmap.
+                BITMAP *bitmap = obj.almacen.getBitmap (d[0].d1);
+                if (bitmap) d[2].dp = obj.almacen.getBitmap (d[0].d1);
                 obj.indice_ant = d[0].d1;
                 return object_message(&d[2], MSG_DRAW, 0);
-//                return D_REDRAWME;
               }
               break;
 

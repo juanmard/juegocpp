@@ -85,11 +85,17 @@ BITMAP *  Almacen::getBitmap (string nombreBitmap)
 /**
  * \brief   Devuelve un BITMAP como recurso dando el número identificativo indicado 
  *          en el fichero de cabecera generado por Grabber.
- * \todo    Controlar que el recurso solicitado es realmente un BITMAP.
  */
 BITMAP * Almacen::getBitmap(int indice)
 {
-  return (BITMAP *) fichero[indice].dat;
+  if (fichero[indice].type == DAT_BITMAP)
+  {
+    return (BITMAP *) fichero[indice].dat;
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 /**
