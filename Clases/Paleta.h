@@ -2,6 +2,7 @@
 #include "Suelo.h"
 #include "ControllableActor.h"
 #include "Nombres.h"
+#include "Almacen.h"
 
 /**
  * \brief       Actor que cambia la dirección de la pelota.
@@ -10,21 +11,18 @@
  */
 class Paleta : public ControllableActor
 {
-public:
-        typedef enum
-        {
-            LEFT,
-            RIGHT
-        } action_t;
+  public:
+    typedef enum {LEFT, RIGHT} action_t;
 
-public:
+  public:
                         Paleta      (const Paleta &copia);
+                        Paleta      (Almacen &almacen);
                         Paleta      ();
                         ~Paleta     ();
     void                do_action   (ControllableObject::action_t act, int magnitude);
     void                hit         (Actor *who, int damage);
     virtual Paleta *    clone       () const;
-    
-protected:
-        Suelo *piel;
+
+  protected:
+    Suelo *   piel;
 };

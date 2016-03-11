@@ -9,7 +9,8 @@
 StageManager::StageManager (Game *g, int w = SCREEN_W, int h = SCREEN_H):
 game (g),
 marco (0, 0, w, h),
-actorSeguido (NULL)
+actorSeguido (NULL),
+verBloques(true)
 {
   buffer = create_bitmap (SCREEN_W, SCREEN_H);
 }
@@ -85,27 +86,21 @@ void StageManager::draw ()
   // \todo  Comprobar los actores que se encuentran dentro del marco del
   //        escenario (intersección de un bloque con otro) y dibujar sólo esos
   //        actores.
-  while ((tmp = game->actor_manager->next()) != NULL)
+  if (verBloques)
   {
-    // Cuando se pide dibujar al actor y se le pasa el StageManager,
-    //  debe dibujarse referido al marco del escenario.
-    tmp->draw (this);
-
-    // Se dibujan los bloques de referencia del actor.
-    // \todo  Dejar como una opción dentro de la clase. Hacer la comparación de
-    //        dicha opción fuera del bucle para que sea más eficiente.
-    tmp->draw_block (this);
-
-    // Si se le pasa el buffer se dibujará de manera absoluta, como si
-    // el marco estuviera siempre en la posición 0,0.
-    // Procedimiento a eliminar.
-    //tmp->draw (buffer);
-
-    // Se dibujan los bloques de referencia del actor.
-    // Procedimiento a eliminar.
-    //tmp->draw_block (buffer);
+    while ((tmp = game->actor_manager->next()) != NULL)
+    {
+      tmp->draw (this);
+      tmp->draw_block (this);
+    }
   }
-
+  else
+  {
+    while ((tmp = game->actor_manager->next()) != NULL)
+    {
+      tmp->draw (this);
+    }
+  }
   /*
    * Volcamos el buffer en pantalla. Se dejan 14 pixel por arriba
    * para mostrar los fps.
@@ -156,3 +151,20 @@ void StageManager::setSeguimiento (Actor *paramActor)
   actorSeguido = paramActor;
 }
 
+/**
+ * \brief   Cambia la activación de la visualización de los bloques.
+ * \param   activar   Si es 'true' activamos la actualización de los bloques.
+ */
+void  StageManager::setVerBloques (bool activar)
+{
+  verBloques = activar;
+}
+
+/**
+ * \brief   Obtiene el estado de la visualización de los bloques.
+ * \return  Si es 'true' es que los bloques están activos.
+ */
+bool  StageManager::getVerBloques ()
+{
+  return verBloques;
+}

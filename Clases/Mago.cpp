@@ -22,27 +22,28 @@ gravedad (10)
   // Guardamos el sprite para cada estado.
   // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
   sprites[andando] = new Sprite(this);
-  sprites[andando]->add_frame(almacen.GetBitmap("sprite_071"), 0, 0, 10);
-  sprites[andando]->add_frame(almacen.GetBitmap("sprite_072"), 0, 0, 10);
-  sprites[andando]->add_frame(almacen.GetBitmap("sprite_073"), 0, 0, 10);
+  sprites[andando]->add_frame(almacen.GetBitmap("ben10_002"), 0, 0, 10);
+  sprites[andando]->add_frame(almacen.GetBitmap("ben10_003"), 0, 0, 10);
+  sprites[andando]->add_frame(almacen.GetBitmap("ben10_004"), 0, 0, 10);
+  sprites[andando]->add_frame(almacen.GetBitmap("ben10_005"), 0, 0, 10);
   sprites[andando]->init ();
 
   sprites[esperando] = new Sprite(this);
-  sprites[esperando]->add_frame(almacen.GetBitmap("sprite_055"), 0, 0, 10);
-  sprites[esperando]->add_frame(almacen.GetBitmap("sprite_060"), 2, 0, 10);
+  sprites[esperando]->add_frame(almacen.GetBitmap("ben10_000"), 0, 0, 10);
   sprites[esperando]->init ();
 
   sprites[cayendo] = new Sprite(this);
-  sprites[cayendo]->add_frame(almacen.GetBitmap("sprite_069"), 0, 0, 10);
+  sprites[cayendo]->add_frame(almacen.GetBitmap("ben10_021"), 0, 0, 10);
   sprites[cayendo]->init ();
 
   sprites[disparando] = new Sprite(this);
-  sprites[disparando]->add_frame(almacen.GetBitmap("sprite_085"), 0, 0, 2);
-  sprites[disparando]->add_frame(almacen.GetBitmap("sprite_088"), 0, 0, 4);
+  sprites[disparando]->add_frame(almacen.GetBitmap("ben10_010"), 15, -4, 10);
+  sprites[disparando]->add_frame(almacen.GetBitmap("ben10_011"), 15, -4, 8);
+  sprites[disparando]->add_frame(almacen.GetBitmap("ben10_012"), 15, -4, 10);
   sprites[disparando]->init ();
 
   sprites[saltando] = new Sprite(this);
-  sprites[saltando]->add_frame(almacen.GetBitmap("sprite_054"), 0, 0, 10);
+  sprites[saltando]->add_frame(almacen.GetBitmap("ben10_016"), 0, 0, 10);
   sprites[saltando]->init ();
 
   set_actor_graphic (sprites[estado]);
@@ -51,7 +52,7 @@ gravedad (10)
   set_y(SCREEN_H/2);
   set_is_detected (false);
   set_collision_method(CollisionManager::PP_COLLISION);
-  set_wh (26,36);
+  set_wh (21,60);
 };
 
 /**
@@ -65,6 +66,14 @@ void Mago::do_action (ControllableActor::action_t act, int magnitude)
       break;
 
     case UP:
+      if ((estado!=saltando) && (estado!=cayendo))
+      {
+        sprites[saltando]->setMirror(sprites[estado]->getMirror ());
+        estado = saltando;
+        timer = 50;
+        estado_sig = cayendo;
+        gravedad = 10;
+      }
       break;
 
     case LEFT:
@@ -73,33 +82,32 @@ void Mago::do_action (ControllableActor::action_t act, int magnitude)
         sprites[estado]->setMirror (true);
         estado = andando;
       }
+      sprites[estado_sig]->setMirror (true);
       sprites[estado]->setMirror (true);
-      x-=1;
+      x-=2;
       break;
 
     case RIGHT:
-      if (estado == esperando)
-      {
+        if (estado == esperando)
+        {
+          sprites[estado]->setMirror (false);
+          estado = andando;
+        }
+        sprites[estado_sig]->setMirror (false);
         sprites[estado]->setMirror (false);
-        estado = andando;
-      }
-      sprites[estado]->setMirror (false);
-      x+=1;
-      break;
+        x+=2;
+        break;
 
     case JUMP:
-      if ((estado!=saltando) && (estado!=cayendo))
-      {
-        estado = saltando;
-        timer = 50;
-        estado_sig = cayendo;
-        gravedad = 10;
-      }
-      break;
+        if ((estado!=saltando) && (estado!=cayendo))
+        {
+          sprites[disparando]->setMirror(sprites[estado]->getMirror ());
+          estado = disparando;
+        }
+        break;
 
     case SPELL:
-      estado = disparando;
-      break;
+        break;
   }
 }
 
@@ -130,9 +138,9 @@ void Mago::update ()
   {
     case cayendo:
       y+=gravedad/3;
-      if (y>400)
+      if (y>1400)
       {
-        y = 400;
+        y = 1400;
         estado = disparando;
         timer = 100;
         estado_sig = saltando;
@@ -155,7 +163,7 @@ void Mago::update ()
       // Si no hay suelo se cambia el estado a 'cayendo'.
       // Se activa un temporizador, si pasa el tiempo del temporizador se
       // cambia el estado a 'entretenido'.
-//      break;
+      break;
 
     case andando:
       if (gravedad != 0) estado = cayendo;
@@ -164,7 +172,11 @@ void Mago::update ()
 
     case saltando:
       y-=2;
-      if (y <0) estado = cayendo;
+      if (y < 0)
+      {
+        estado = cayendo;
+        y = 0;
+      }
       break;
 
     case disparando:
@@ -181,7 +193,9 @@ void  Mago::hit  (Actor *who, int damage)
 {
   switch (who->get_name())
   {
+    case Nombres::pelota:
     case Nombres::paleta:
+    case Nombres::herny:
         if (estado == saltando)
         {
           estado = cayendo;

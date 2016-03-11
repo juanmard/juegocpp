@@ -1,8 +1,9 @@
-#ifndef SUELO_H
-#define SUELO_H
+#ifndef _SUELO_H_
+#define _SUELO_H_
 
 #include "Mosaico.h"
 #include <allegro.h>
+#include "Almacen.h"
 
 class Actor;
 
@@ -12,20 +13,18 @@ class Actor;
  */
 class Suelo : public Mosaico
 {
-public:
-                        Suelo   (const Suelo &copia, Actor *propietario);
-                        Suelo   (Actor *aowner, int size);
-        virtual Suelo * clone   (Actor *propietario) const;
-        /**
-         * Procedimientos para controlar el tamaño.
-         */
-        void    Set_size   (int size);
-        int     Get_size   (void);
+  public:
+                      Suelo     (const Suelo &copia, Actor *propietario);
+                      Suelo     (Actor *aowner, int size);
+                      Suelo     (Actor *aowner, Almacen &almacen, int size);
+    virtual Suelo *   clone     (Actor *propietario) const;
+    void              setSize   (int size);
+    int               getSize   (void);
 
-private:
-        int    size;
-        BITMAP *suelo_1;
-        BITMAP *suelo_2;
+  private:
+    int       size;
+    BITMAP *  suelo_1;
+    BITMAP *  suelo_2;
 };
 
 #endif

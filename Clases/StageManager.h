@@ -27,6 +27,8 @@ class StageManager
     void      draw            ();
     void      moverMarco      (int x, int y);
     void      setSeguimiento  (Actor *paramActor);
+    void      setVerBloques   (bool activar);
+    bool      getVerBloques   ();
 
   protected:
     void      actualizarSeguimiento ();
@@ -36,4 +38,5 @@ class StageManager
     BITMAP    *buffer;
     Bloque    marco;
     Actor     *actorSeguido;
+    bool      verBloques;
 };

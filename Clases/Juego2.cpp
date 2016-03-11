@@ -90,9 +90,17 @@ void Juego2::main()
   actor_manager->add(jugador);
 
   // Se crea la Paleta del juego.
-  Paleta *paleta = new Paleta();
-//  control_p2->set_owner (paleta);
+  Paleta *paleta = new Paleta(*almacen);
   actor_manager->add (paleta);
+
+  // Se crea un suelo de prueba.
+  Herny *prb = new Herny(*almacen);
+  prb->set_wh(400,20);
+  prb->set_x(-10);
+  prb->set_y(600);
+  prb->set_actor_graphic(new Suelo (prb,*almacen,18));
+  actor_manager->add (prb);
+
 
   // Se crea el loro de prueba.
   Loro *loro = new Loro (*almacen);
@@ -134,7 +142,7 @@ void Juego2::main()
   Paleta *prueba_suelo = new Paleta();
   prueba_suelo->set_x(100);
   prueba_suelo->set_y(300);
-  prueba_suelo->set_actor_graphic(new Suelo(prueba_suelo,8));
+  prueba_suelo->set_actor_graphic(new Suelo(prueba_suelo,*almacen,8));
   actor_manager->add(prueba_suelo);
 
   // Se añade el control de prueba creado para el loro, al manejador de controles.
@@ -184,11 +192,27 @@ void Juego2::main()
     // Se hace el seguimiento de la pantalla.
     if (key[KEY_S])
     {
-      stage_manager->setSeguimiento (mago);
+      if ((stage_manager->getX() != 0) || (stage_manager->getY() != 0))
+      {
+        stage_manager->moverMarco(0,0);
+        stage_manager->setSeguimiento (NULL);
+      }
+      else
+      {
+        stage_manager->setSeguimiento (mago);
+      }
       key[KEY_S] = false;
     }
 
+    // Se comprueba la visualización de los bloques.
+    if (key[KEY_B])
+    {
+      stage_manager->setVerBloques (!stage_manager->getVerBloques ());
+      key[KEY_B] = false;
+    }
   }
+
+  // Cerramos el juego fundiendo en negro.
   fade_out(2);
 }
 
