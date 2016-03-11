@@ -18,69 +18,68 @@
  */
 class DlgActor
 {
-	public:
-                DlgActor          (Actor *actor);
-                DlgActor          (Dialog *dlg);
-                ~DlgActor         (void);
-        void    show              (void);
-        void    load              (Actor *actor);
-        void    save              (void);
+  public:
+            DlgActor          (Actor *actor);
+            DlgActor          (Dialog *dlg);
+            ~DlgActor         ();
+    void    show              ();
+    void    load              (Actor *actor);
+    void    save              ();
 
-protected:
-        int             x_rel, y_rel;
-        int             x_ant, y_ant;
-        bool            enganchado;
-		Actor           *actor;
-        Dialog          *owner;
-        static DIALOG   dlg_propiedades[];
+  protected:
+    int             x_rel, y_rel;
+    int             x_ant, y_ant;
+    bool            enganchado;
+    Actor           *actor;
+    Dialog          *owner;
+    static DIALOG   dlg_propiedades[];
 
-        void            msg_idle            ();
-        void            msg_mousemove       ();
-        void            msg_click           ();
-        void            msg_dclick          ();
+    void            msg_idle            ();
+    void            msg_mousemove       ();
+    void            msg_click           ();
+    void            msg_dclick          ();
 
-        /**
-         * \brief   Callback Allegro de la clase.
-         * \todo    
-         *          - Añadir a las funciones los parámetros de entrada y de retorno.
-         *            Ej: return obj->msg_dclick(msg,d,c);
-         *          - Una vez detectado el mensaje, si no se ha procesado pasar al
-         *            padre. Ej: [int] owner->msg_owner (msg,d,c);
-         */
-        static int box_callback (int msg, DIALOG *d, int c)
+    /**
+    * \brief   Callback Allegro de la clase.
+    * \todo    
+    *          - Añadir a las funciones los parámetros de entrada y de retorno.
+    *            Ej: return obj->msg_dclick(msg,d,c);
+    *          - Una vez detectado el mensaje, si no se ha procesado pasar al
+    *            padre. Ej: [int] owner->msg_owner (msg,d,c);
+    */
+    static int box_callback (int msg, DIALOG *d, int c)
+    {
+      // Si ya está inicializado el objeto...
+      if (d[0].dp)
+      {
+        DlgActor *obj = static_cast<DlgActor *>(d[0].dp);
+
+        // Seleccionamos los mensajes.
+        switch (msg)
         {
-            // Si ya está inicializado el objeto...
-            if (d[0].dp)
-            {
-                DlgActor *obj = static_cast<DlgActor *>(d[0].dp);
+          case MSG_DCLICK:
+              // Mandar antes el mensaje al padre para poder mover toda la ventana por la pantalla
+              // y no únicamente por la propia ventana.
+              //                    object_message(&((obj->owner)->dialog[0]), MSG_DCLICK, c);
+              obj->msg_dclick ();
+              break;
 
-                // Seleccionamos los mensajes.
-                switch (msg)
-                {
-                case MSG_DCLICK:
-// Mandar antes el mensaje al padre para poder mover toda la ventana por la pantalla
-// y no únicamente por la propia ventana.
-//                    object_message(&((obj->owner)->dialog[0]), MSG_DCLICK, c);
-                    obj->msg_dclick ();
-                    break;
+          case MSG_CLICK:
+              obj->msg_click ();
+              break;
 
-                case MSG_CLICK:
-                    obj->msg_click ();
-                    break;
+          case MSG_MOUSEMOVE:
+              obj->msg_mousemove ();
+              break;
 
-                case MSG_MOUSEMOVE:
-                    obj->msg_mousemove ();
-                    break;
+          case MSG_IDLE:
+              obj->msg_idle ();
+              break;
 
-                case MSG_IDLE:
-                    obj->msg_idle ();
-                    break;
-
-                default:
-                    return d_box_proc (msg,d,c);
-                }
-            }
-            return D_O_K;
-        };
-
+          default:
+              return d_box_proc (msg,d,c);
+        }
+      }
+      return D_O_K;
+    }
 };

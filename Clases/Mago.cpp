@@ -66,13 +66,23 @@ void Mago::do_action (ControllableActor::action_t act, int magnitude)
       break;
 
     case LEFT:
-      x-=1;
+      if (estado == esperando)
+      {
+        sprites[estado]->setMirror (true);
+        estado = andando;
+      }
       sprites[estado]->setMirror (true);
+      x-=1;
       break;
 
     case RIGHT:
-      x+=1;
+      if (estado == esperando)
+      {
+        sprites[estado]->setMirror (false);
+        estado = andando;
+      }
       sprites[estado]->setMirror (false);
+      x+=1;
       break;
 
     case JUMP:
@@ -118,7 +128,13 @@ void Mago::update ()
   {
     case cayendo:
       y+=gravedad/3;
-      if (y>400) estado = esperando;
+      if (y>400)
+      {
+        y = 400;
+        estado = disparando;
+        timer = 100;
+        estado_sig = saltando;
+      }
       // {
       // Comprobar que no hay intersección con suelo.
       //  - Creamos un bloque temporal por debajo del jugador.
@@ -137,7 +153,7 @@ void Mago::update ()
       // Si no hay suelo se cambia el estado a 'cayendo'.
       // Se activa un temporizador, si pasa el tiempo del temporizador se
       // cambia el estado a 'entretenido'.
-      break;
+//      break;
 
     case andando:
       if (gravedad != 0) estado = cayendo;
@@ -146,6 +162,7 @@ void Mago::update ()
 
     case saltando:
       y-=2;
+      if (y <0) estado = cayendo;
       break;
 
     case disparando:
@@ -155,19 +172,28 @@ void Mago::update ()
 
 /**
  * \brief   Intersección del mago con otro actor de la escena.
- * \param   who Puntero al actor que provoca la colisión.
- * \param   damage Daño que se produce en la colisión. 
+ * \param   who       Puntero al actor que provoca la colisión.
+ * \param   damage    Daño que se produce en la colisión. 
  */
 void  Mago::hit  (Actor *who, int damage)
 {
   switch (who->get_name())
   {
     case Nombres::paleta:
-      //y = who->get_y () - h;
-      // El suelo anula la gravedad.
-      gravedad = 0;
-      estado = andando;
-      break;
+        if (estado == saltando)
+        {
+          estado = cayendo;
+          gravedad = 10;
+        }
+        else
+        {
+          // El suelo anula la gravedad propia del mago.
+          // \todo  Generalizar para todos los actores.
+          gravedad = 0;
+          y = who->get_y () - h;
+          estado = esperando;
+        }
+        break;
   }
 }
 
