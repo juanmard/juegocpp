@@ -44,12 +44,20 @@ int propiedades (void);
 int menu_callback (void);
 //_declspec(dllimport) int __cdecl d_menu_proc (int msg,DIALOG *d, int c);
 
-DIALOG dialog[] =
+DIALOG Dialog::dialog[] =
 {
    /* (proc)                      (x)  (y) (w)  (h)  (fg) (bg) (key) (flags)                           (d1) (d2) (dp)                                    (dp2) (dp3) */
    { Dialog::marco_callback,      0,    0, 300, 200,  2,   34,  0,    0,                                    0,   0,   NULL,                                   NULL, NULL },
    { d_menu_proc,                    0,    0, 300,             12,  7,   15,  0,    D_SELECTED | D_GOTFOCUS | D_GOTMOUSE, 0,   0,   Dialog::menu_editor,                            NULL, NULL },
    { d_text_proc,                   470,  20,  160,                      20,  2,   33,  0,    0,                                    0,   0,   const_cast<char*>("  Modo Edición  "),  NULL, NULL },
+   { NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL}
+};                                  
+
+DIALOG Dialog::dialog_objeto [] =
+{
+   /* (proc)                   (x),  (y),   (w),    (h),  (fg),  (bg), (key),                                                             (flags),   (d1),  (d2),                                                          (dp),   (dp2), (dp3)     */
+   { d_textbox_proc,       0, 100,  300,  200,    7,     15,        0,    D_SELECTED | D_GOTFOCUS | D_GOTMOUSE,       0,       0,                                   Dialog::menu_editor,   NULL, NULL },
+   { d_text_proc,         470,   20,  160,    20,    2,     33,        0,                                                                     0,       0,       0,    const_cast<char*>("  Modo Edición  "),   NULL, NULL },
    { NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL}
 };                                  
 
@@ -174,10 +182,10 @@ void Dialog::mostrar_marco ()
                         dialog[0].x + dialog[0].w,
                         dialog[0].y + dialog[0].h,
                         dialog[0].bg);
-    int des = 30;
+    int des = 10;
     rect (screen, dialog[0].x+des, dialog[0].y+des, 
                         dialog[0].x + dialog[0].w - des,
-                        dialog[0].y + dialog[0].h - des,
+                        dialog[0].y + dialog[0].h - des-14,
                         dialog[0].bg);
 }
 
@@ -306,7 +314,7 @@ void Dialog::prueba_dblclk ()
     if (manager)
     {
             // Le decimos al "Manager" que resalte el objeto.
-            //manager->resaltar (mouse_x, mouse_y);
+            manager->resaltar (mouse_x, mouse_y);
         
             // Editar puede también desactivar la edición... hay que cambiarlo.
             manager->editar (mouse_x, mouse_y);

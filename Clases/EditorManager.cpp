@@ -16,7 +16,7 @@ EditorManager::EditorManager(Game *g)
     gui = new Dialog(this);
 
     // No hay actor elegido.
-    editando = NULL;
+    actor_editado = NULL;
 }
 
 EditorManager::~EditorManager()
@@ -75,7 +75,7 @@ Game *EditorManager::get_game (void)
  */
 Actor *EditorManager::get_actor (void)
 {
-    return editando;
+    return actor_editado;
 }
 
 /**
@@ -92,16 +92,18 @@ void    EditorManager::redibuja (void)
 void    EditorManager::resaltar (int x, int y)
 {
     // La pantalla está desplazada 14 pixels hacia abajo.
-    editando = game->actor_manager->get_actor (x,y-14);
-    if (editando)
-    {   
-        editando->set_color (!editando->get_color());
-    }
-    // Redibuja la lista de actores.
-    redibuja ();
+    Actor *actor = game->actor_manager->get_actor (x,y-14);
+    if (actor)
+    {
+        // Cambiamos el color del marco.
+        actor->set_color (!actor->get_color());
 
-    // Redibuja la GUI.
-    gui->draw ();
+        // Redibuja la lista de actores.
+        redibuja ();
+
+        // Redibuja la GUI.
+        gui->draw ();
+    }
 }
 
 /**
@@ -109,16 +111,16 @@ void    EditorManager::resaltar (int x, int y)
  */
 void    EditorManager::editar (int x, int y)
 {
-    // Comprobamos que no está editando nada.
-    // - Si está editando se elimina la edición.
-    // - Si no está editando se captura el actor bajo la posición (x,y).
-    if (editando)
+    // Comprobamos que no está editado nada.
+    // - Si está editado se elimina la edición.
+    // - Si no está editado se captura el actor bajo la posición (x,y).
+    if (actor_editado)
     {
-        editando = NULL;
+        actor_editado = NULL;
     }
     else
     {
-        editando = game->actor_manager->get_actor (x,y-14);
+        actor_editado = game->actor_manager->get_actor (x,y-14);
     }
 }
 
@@ -127,13 +129,13 @@ void    EditorManager::editar (int x, int y)
  */
 void    EditorManager::mover (int x, int y)
 {
-    // Comprobamos que no está editando nada.
-    // - Si está editando se mueve.
-    // - Si no está editando se ignora.
-    if (editando)
+    // Comprobamos que no está editado nada.
+    // - Si está actor_editado se mueve.
+    // - Si no está actor_editado se ignora.
+    if (actor_editado)
     {
-        editando->set_x (x);
-        editando->set_y (y);
+        actor_editado->set_x (x);
+        actor_editado->set_y (y);
     }
 }
 
@@ -142,7 +144,7 @@ void    EditorManager::mover (int x, int y)
  */
 bool  EditorManager::is_editando ()
 {
-    if (editando)
+    if (actor_editado)
     {
         return true;
     }

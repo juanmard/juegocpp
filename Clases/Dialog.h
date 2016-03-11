@@ -62,6 +62,12 @@ public:
         static MENU     menu_editor[];
         static MENU     menu_objeto[];
 
+        // Diálogo principal. 
+        static DIALOG   dialog[];
+
+        // Diálogo de objeto. Se muestran las propiedades del objeto.
+        static DIALOG   dialog_objeto[];
+    
         // Referencias para el movimiento del ratón.
         int                    ref_x, ref_y;
 
@@ -76,6 +82,8 @@ public:
                 ustrzcpy(str, sizeof str, active_menu->text);
                 alert("Selected menu item:", "", ustrtok(str, "\t"), "Ok", NULL, 0, 0);
 
+            do_dialog (dialog_objeto,-1);
+            
              return D_O_K;
         }
 
