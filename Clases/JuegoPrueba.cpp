@@ -112,7 +112,7 @@ void JuegoPrueba::main()
     }
 
     // Añadimos actor de prueba con el mensaje EVERSOFT.
-    Bitmap *bitm2=new Bitmap(b, sprites->GetBitmap("EVERSOFT"));
+    Bitmap *bitm2=new Bitmap(b, almacen->GetBitmap("EVERSOFT"));
 	b->set_x(110);
 	b->set_y(210);
     b->set_actor_graphic(bitm2);
@@ -126,7 +126,7 @@ void JuegoPrueba::main()
     AirCraft *c = new AirCraft();
 	c->set_x(210);
 	c->set_y(210);
-    c->set_actor_graphic(new Bitmap(c, sprites->GetBitmap("demon")));
+    c->set_actor_graphic(new Bitmap(c, almacen->GetBitmap("demon")));
 	c->set_is_detected(true);
     //c->set_team(ENEMY);
     c->set_collision_method(CollisionManager::PP_COLLISION);

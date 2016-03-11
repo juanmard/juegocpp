@@ -18,7 +18,8 @@ class DatFile
 {
 public:
                 DatFile     (string name);
-                ~DatFile    (void);
+                DatFile     ();
+                ~DatFile    ();
     BITMAP *    GetBitmap   (int number);
     BITMAP *    GetBitmap   (string name_bitmap);
     void  *     GetDat      (int number);

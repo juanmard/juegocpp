@@ -23,11 +23,15 @@ DatFile::DatFile(string file_name)
    }
 }
 
+DatFile::DatFile()
+{
+}
+
 /**
  * \brief   Destructor que debe descargar de memoria el recurso y cerrar el fichero.
  * \todo    Problemas al descargar un recurso si está duplicado, controlar este proceso.    
  */
-DatFile::~DatFile(void)
+DatFile::~DatFile()
 {
 //    if (file) unload_datafile (file);
 }

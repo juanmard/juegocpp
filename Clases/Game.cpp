@@ -6,6 +6,7 @@
 #include "ControlManager.h"
 #include "CollisionManager.h"
 #include "SoundManager.h"
+#include "Almacen.h"
 
 /*------------------------------------------------------------------------------*/
 /* Variables y funciones globales para sincronizar juego en distintas máquinas. */
@@ -39,6 +40,7 @@ Game::Game()
     sound_manager=NULL;
     control_manager=NULL;
     collision_manager=NULL;
+    almacen=NULL;
 }
 
 Game::~Game()
@@ -71,7 +73,8 @@ void Game::init(int gfx_mode, int w, int h, int col)
     create_soundmanager ();
     create_controlmanager();
     create_collisionmanager ();
-
+    almacen = new Almacen("sprites.dat");
+    
 	/* Se empieza el juego. */
 	start();
 }

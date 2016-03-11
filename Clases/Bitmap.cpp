@@ -11,9 +11,9 @@ fuente(bmp)
 }
 
 /**
- * \brief       Dibuja el 'bitmap' fuente (el 'bitmap' dado al crear el objeto), en el
- *                'bitmap' destino (pasado por parámetro), normalmente la pantalla
- *                o un 'buffer' intermedio.
+ * \brief   Dibuja el 'bitmap' fuente (el 'bitmap' dado al crear el objeto), en el
+ *          'bitmap' destino (pasado por parámetro), normalmente la pantalla
+ *          o un 'buffer' intermedio.
  */
 void Bitmap::draw   (BITMAP *destino)
 {

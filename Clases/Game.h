@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <string>
+#include "Almacen.h"
 
 // Predefiniciones de clases.
 class ActorManager;
@@ -25,21 +26,22 @@ class Game
         }team_t;
 
 		ActorManager        *actor_manager;
-		StageManager       *stage_manager;
-		SoundManager      *sound_manager;
-        ControlManager     *control_manager;
+		StageManager        *stage_manager;
+		SoundManager        *sound_manager;
+        ControlManager      *control_manager;
         CollisionManager    *collision_manager;
-
-                               Game		();
-		virtual			   ~Game		();
-		virtual void    init		    (int gfx_mode, int w, int h, int col);
-		virtual void    main    		(void);
-        void	               pause        (void);
-		void	               play        	(void);
-		bool	               is_paused	(void);
-		void			       set_name	(string name);
-		string			       get_name	(void);
-		void                   update		(void);
+        Almacen             *almacen;
+        
+                        Game		();
+		virtual		   ~Game		();
+		virtual void    init	    (int gfx_mode, int w, int h, int col);
+		virtual void    main    	(void);
+        void	        pause       (void);
+		void	        play       	(void);
+		bool	        is_paused	(void);
+		void	        set_name	(string name);
+		string		    get_name	(void);
+		void            update		(void);
 
 	protected:
 		string      name;
@@ -55,12 +57,12 @@ class Game
 		int     max_frame_skip;
 		bool    paused;
 
-		void	                start           					(void);
-		void	                shutdown		        		(string message);
-        virtual void    create_actormanager    (void);
-        virtual void    create_stagemanager    (void);
-        virtual void    create_soundmanager   (void);
-        virtual void    create_controlmanager  (void);
+		void	        start           		(void);
+		void	        shutdown                (string message);
+        virtual void    create_actormanager     (void);
+        virtual void    create_stagemanager     (void);
+        virtual void    create_soundmanager     (void);
+        virtual void    create_controlmanager   (void);
         virtual void    create_collisionmanager (void);
 };
 
