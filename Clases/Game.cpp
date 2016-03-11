@@ -39,12 +39,12 @@ END_OF_FUNCTION(tick_count);
  */
 Game::Game ()
 {
-  actor_manager=NULL;
-  stage_manager=NULL;
-  sound_manager=NULL;
-  control_manager=NULL;
-  collision_manager=NULL;
-  almacen=NULL;
+  actor_manager = NULL;
+  stage_manager = NULL;
+  sound_manager = NULL;
+  control_manager = NULL;
+  collision_manager = NULL;
+  storage_manager = NULL;
 }
 
 /**
@@ -90,7 +90,7 @@ void Game::init (int gfx_mode, int w, int h, int col)
   create_soundmanager ();
   create_controlmanager ();
   create_collisionmanager ();
-  create_storage ();
+  create_storagemanager ();
 
   /* Se empieza el juego. */
   start ();
@@ -107,7 +107,7 @@ void Game::shutdown (string message = "Gracias por jugar")
   //    if (sound_manager) delete sound_manager;
   if (control_manager) delete control_manager;
   if (collision_manager) delete collision_manager;
-  if (almacen) delete almacen;
+  if (storage_manager) delete storage_manager;
 
   set_gfx_mode (GFX_TEXT,0,0,0,0);
   cout << name << endl;
@@ -220,8 +220,10 @@ void Game::update ()
   /* Si se ha cumplido un segundo, se actualizan los "fps" por pantalla. */
   if (tick-old_tick >= 70)
   {
-    rectfill (screen,0,0,400,14,0);
-    textprintf_ex (screen, font, 0,0,-1, makecol(255, 100, 200), "fps: %u frameskip:%u", graphic_tick, frame_skip);
+    rectfill (stage_manager->getBuffer(),0,0,400,14,0);
+    textprintf_ex (stage_manager->getBuffer(), font, 0,0,-1,
+                   makecol(255, 100, 200), 
+                   "fps: %u frameskip:%u", graphic_tick, frame_skip);
     graphic_tick = 0;
     old_tick = tick;
   }
@@ -230,7 +232,7 @@ void Game::update ()
   if ((actual_tick >= tick) || (frame_skip > max_frame_skip))
   {
     stage_manager->update ();
-    if (frame_skip>max_frame_skip) actual_tick = tick;
+    if (frame_skip > max_frame_skip) actual_tick = tick;
     graphic_tick++;
     frame_skip = 0;
   }
@@ -275,8 +277,8 @@ bool Game::is_paused (void)
 /**
  * \brief   Se crea el almacén por omisión.
  */
-void Game::create_storage ()
+void Game::create_storagemanager ()
 {
     // Creamos el almacén de recursos.
-    //almacen = new Almacen("sprites.dat");
+    //storage_manager = new Almacen("sprites3.dat");
 }

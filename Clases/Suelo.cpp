@@ -34,8 +34,8 @@ Mosaico (aowner)
   }
   
   // Añadimos las plataformas terminales al suelo.
-  add_ultima_Tesela (new Tesela (this, suelo_1, 0, 1));
-  add_ultima_Tesela (new Tesela (this, suelo_1, 32*new_size-10, 1, true));
+  add_ultima_Tesela (new Tesela (this, suelo_1, 0, 0));
+  add_ultima_Tesela (new Tesela (this, suelo_1, 32*new_size-10, 0, true));
 
   // Adaptamos el ancho y el alto del actor padre.
   // TODO: Igual esto no es deseable si queremos hacer un suelo "falso", es decir,
@@ -62,8 +62,8 @@ Mosaico (aowner)
   }
   
   // Añadimos las plataformas terminales al suelo.
-  add_ultima_Tesela (new Tesela (this, suelo_1, 0, 1));
-  add_ultima_Tesela (new Tesela (this, suelo_1, 32*new_size-10, 1, true));
+  add_ultima_Tesela (new Tesela (this, suelo_1, 0, 0));
+  add_ultima_Tesela (new Tesela (this, suelo_1, 32*new_size-10, 0, true));
 
   // Adaptamos el ancho y el alto del actor padre.
   // TODO: Igual esto no es deseable si queremos hacer un suelo "falso", es decir,

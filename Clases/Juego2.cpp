@@ -42,10 +42,10 @@ Juego2::Juego2 ()
 /**
  * \brief   Se crea el almacén para este juego.
  */
-void Juego2::create_storage ()
+void  Juego2::create_storagemanager ()
 {
-    // Creamos el almacén de recursos.
-    almacen = new Almacen("sprites3.dat");
+  // Creamos el almacén de recursos.
+  storage_manager = new Almacen("sprites3.dat");
 }
 
 /**
@@ -58,7 +58,7 @@ void Juego2::main()
 
   /* Creamos el control. */
   Control *control_p1=new Control;
-  
+
   /* Creamos un periférico y asociamos control y propietario. */
   Keyboard *kboard=new Keyboard;
   control_p1->set_actionperipheral(Loro::DOWN,  kboard, KEY_DOWN,  Peripheral::ON_PRESSING);
@@ -66,7 +66,7 @@ void Juego2::main()
   control_p1->set_actionperipheral(Loro::LEFT,  kboard, KEY_LEFT,  Peripheral::ON_PRESSING);
   control_p1->set_actionperipheral(Loro::RIGHT, kboard, KEY_RIGHT, Peripheral::ON_PRESSING);
   control_p1->set_actionperipheral(Loro::JUMP,  kboard, KEY_A, Peripheral::ON_PRESSING);
-  
+
   /* Creamos otro control de prueba. */
   Control *control_p2=new Control;
   control_p2->add_action_name(Paleta::LEFT, "Izquierda");
@@ -75,10 +75,10 @@ void Juego2::main()
   control_p2->set_actionperipheral(Paleta::RIGHT, kboard, KEY_RIGHT, Peripheral::ON_PRESSING);
 
   // sprites->SetPalette (0);
-  set_palette (almacen->GetPalette ("SPRITES"));
+  set_palette (storage_manager->GetPalette ("SPRITES"));
 
   // Se crea Aladino de prueba.
-  Herny *aladino = new Herny(*almacen);
+  Herny *aladino = new Herny(*storage_manager);
   aladino->set_y (280);
   aladino->set_x (380);
   //control_p1->set_owner(aladino);
@@ -91,20 +91,20 @@ void Juego2::main()
   actor_manager->add(jugador);
 
   // Se crea la Paleta del juego.
-  Paleta *paleta = new Paleta(*almacen);
+  Paleta *paleta = new Paleta(*storage_manager);
   actor_manager->add (paleta);
 
   // Se crea un suelo de prueba.
-  Herny *prb = new Herny(*almacen);
+  Herny *prb = new Herny(*storage_manager);
   prb->set_wh(400,20);
   prb->set_x(-10);
   prb->set_y(600);
-  prb->set_actor_graphic(new Suelo (prb,*almacen,18));
+  prb->set_actor_graphic(new Suelo (prb,*storage_manager,18));
   actor_manager->add (prb);
 
 
   // Se crea el loro de prueba.
-  Loro *loro = new Loro (*almacen);
+  Loro *loro = new Loro (*storage_manager);
 //  control_p1->set_owner (loro);
   actor_manager->add (loro);
 
@@ -122,7 +122,7 @@ void Juego2::main()
   control_p1->set_actionperipheral (Ben::RIGHT, kboard, KEY_RIGHT, Peripheral::ON_PRESSING);
   control_p1->set_actionperipheral (Ben::JUMP,  kboard, KEY_SPACE, Peripheral::ON_PRESSING);
   control_p1->set_actionperipheral (Ben::SPELL, kboard, KEY_A,     Peripheral::ON_PRESSING);
-  Ben *ben = new Ben (*almacen);
+  Ben *ben = new Ben (*storage_manager);
   control_p1->set_owner (ben);
   actor_manager->add (ben);
 
@@ -136,7 +136,7 @@ void Juego2::main()
   {    
     for (int i=1; i<=14; i++)
     {
-      actor_manager->add(new Ladrillo(i*40, 40+40*j, *almacen));
+      actor_manager->add(new Ladrillo(i*40, 40+40*j, *storage_manager));
     }
   }
 
@@ -144,7 +144,7 @@ void Juego2::main()
   Paleta *prueba_suelo = new Paleta();
   prueba_suelo->set_x(100);
   prueba_suelo->set_y(300);
-  prueba_suelo->set_actor_graphic(new Suelo(prueba_suelo,*almacen,8));
+  prueba_suelo->set_actor_graphic(new Suelo(prueba_suelo,*storage_manager,8));
   actor_manager->add(prueba_suelo);
 
   // Se añade el control de prueba creado para el loro, al manejador de controles.

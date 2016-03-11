@@ -27,7 +27,7 @@ class Game
     SoundManager        *sound_manager;
     ControlManager      *control_manager;
     CollisionManager    *collision_manager;
-    Almacen             *almacen;
+    Almacen             *storage_manager;
 
                     Game        ();
     virtual         ~Game       ();
@@ -62,7 +62,7 @@ class Game
     virtual void    create_soundmanager     ();
     virtual void    create_controlmanager   ();
     virtual void    create_collisionmanager ();
-    virtual void    create_storage          ();
+    virtual void    create_storagemanager   ();
 };
 
 #endif

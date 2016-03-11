@@ -373,15 +373,14 @@ void Dialog::prueba_dblclk ()
 * \brief    Duplica un actor que se encuentra bajo la posición local x,y.
 * \todo     Esto no es una acción propia de la GUI, debe estar como acción en el EditorManager.
 */
-int  Dialog::DuplicarActor (int x, int y)
+void  Dialog::duplicarActor ()
 {
   // Si hay un actor seleccionado para editar...
   if (actor)
   {
     manager->duplicarActor (actor);
   }
-  return D_O_K; 
-};
+}
 
 /**
 * \brief    Cambia el traje del actor que actualmente se esté editando.

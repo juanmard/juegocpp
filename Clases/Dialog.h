@@ -50,7 +50,7 @@ class Dialog
     void        prueba_click            ();
     void        prueba_dblclk           ();
     void        mover_actor             ();
-    int         DuplicarActor           (int x, int y);
+    void        duplicarActor           ();
     int         CambiarTraje            ();
     void        actualizarValoresActor  ();
     void        dibujarCuadrado         (Bloque cuadro, int color);
@@ -102,7 +102,7 @@ public:
         // Comparando 'active_menu->text' con la opción.
         
         // Suponemos que es la opción de duplicar.
-        objeto.DuplicarActor (mouse_x, mouse_y);
+        objeto.duplicarActor ();
       }
       return D_O_K;
     }

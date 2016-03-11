@@ -16,7 +16,7 @@
 class Juego2 : public Game
 {
   public:
-                  Juego2          ();
-    void          main            ();
-    void virtual  create_storage  ();
+                  Juego2                  ();
+    void          main                    ();
+    void virtual  create_storagemanager   ();
 };
