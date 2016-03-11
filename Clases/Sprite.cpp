@@ -2,7 +2,22 @@
 #include "Actor.h"
 #include "Mask.h"
 
-Sprite::Sprite (Actor *aowner) : ActorGraphic(aowner)
+/**
+ * Constructor de copia.
+ */
+Sprite::Sprite (const Sprite &copia, Actor *aowner):
+ActorGraphic(aowner),
+frames (copia.frames),
+actual_tick (copia.actual_tick),
+actual_frame (copia.actual_frame)
+{
+}
+
+/**
+ * Constructor pot omisión.
+ */
+Sprite::Sprite (Actor *aowner):
+ActorGraphic(aowner)
 {
 }
 
@@ -75,4 +90,12 @@ int Sprite::get_y()
 Mask *Sprite::get_mask()
 {
     return frames[actual_frame].mask;
+}
+
+/**
+ * Clona el objeto.
+ */
+Sprite * Sprite::clone (Actor *propietario) const
+{
+    return (new Sprite(*this, propietario));
 }

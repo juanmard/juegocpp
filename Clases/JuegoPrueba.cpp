@@ -60,18 +60,15 @@ void JuegoPrueba::main()
     bmp = load_bitmap("nave.pcx", tmp);
 	bmp2 = load_bitmap("nave2.pcx", tmp);
 	bmp3 = load_bitmap("nave3.pcx", tmp);
-    //Bitmap *bitm=new Bitmap(a, bmp);
 
     sprites->SetPalette (0);
- 	
-    // TODO: Comprobar que existe el fichero y que el "bmp" se ha cargado correctamente.
+ 	// TODO: Comprobar que existe el fichero y que el "bmp" se ha cargado correctamente.
 	// if (bmp != NULL) { };
-//	 cout << "BMP cargado: " << bmp << endl;
+    //	 cout << "BMP cargado: " << bmp << endl;
 
+    // Se genera un Sprite de preuba.
     Sprite *sp=new Sprite(a);
-//    sp->add_frame(bmp2, 0, 0, 10);
-//    sp->add_frame(bmp3, 0, 0, 30);
-    sp->add_frame(sprites->GetBitmap(19), 0, 0, 10);
+    sp->add_frame(sprites->GetBitmap(12), 0, 0, 10);
     sp->add_frame(sprites->GetBitmap(20), 0, 0, 30);
     sp->add_frame(sprites->GetBitmap(21), 0, 0, 10);
     sp->add_frame(sprites->GetBitmap(22), 0, 0, 10);
@@ -114,6 +111,7 @@ void JuegoPrueba::main()
         }
     }
 
+    // Añadimos actor de prueba con el mensaje EVERSOFT.
     Bitmap *bitm2=new Bitmap(b, sprites->GetBitmap("EVERSOFT"));
 	b->set_x(110);
 	b->set_y(210);
@@ -121,9 +119,10 @@ void JuegoPrueba::main()
 	b->set_is_detected(true);
     b->set_team(ENEMY);
     b->set_collision_method(CollisionManager::PP_COLLISION);
-    b->set_wh (10,20);
+    b->set_wh (40,30);
     actor_manager->add(b);
 
+    // Añadimos el demonio de prueba.
     AirCraft *c = new AirCraft();
 	c->set_x(210);
 	c->set_y(210);
@@ -131,10 +130,11 @@ void JuegoPrueba::main()
 	c->set_is_detected(true);
     //c->set_team(ENEMY);
     c->set_collision_method(CollisionManager::PP_COLLISION);
-    c->set_wh (10,20);
+    c->set_wh (50,60);
     actor_manager->add(c);
 
-	Ladrillo *prueba_suelo=new Ladrillo();
+    // Se añade un Ladrillo de prueba pero con piel de Suelo.
+    Ladrillo *prueba_suelo=new Ladrillo();
 	prueba_suelo->set_x(100);
 	prueba_suelo->set_y(300);
     prueba_suelo->set_actor_graphic(new Suelo(prueba_suelo,6));
@@ -142,13 +142,15 @@ void JuegoPrueba::main()
     actor_manager->add(prueba_suelo);
 
 
-    /* Se añade el control creado al manejador de controles. */
-    control_manager->add_control(control_p2);
+    // Se añade el control de prueba creado al manejador de controles.
     // control_manager->add_control(control_p1);
+    control_manager->add_control(control_p2);
+
+    // Se añede el periférico que realizará el control.
     control_manager->add_peripheral(kboard);
 
 
-    // Se crea el EditorManager básico para comenzar con las pruebas.
+    // Se crea el 'EditorManager' básico para comenzar con las pruebas.
     EditorManager   editor(this);
 
     // Bucle principal del juego.
@@ -163,8 +165,12 @@ void JuegoPrueba::main()
         // Se prueba el editor.
         if (key[KEY_E])
         {
+            // Se activa el editor.
             editor.activate ();
+
+            // Se borran las teclas pulsadas para evitar rellamadas.
             key[KEY_E]=false;
+            key[KEY_ESC]=false;
         }
         
         // Se pausa y despausa el juego a modo de prueba.
