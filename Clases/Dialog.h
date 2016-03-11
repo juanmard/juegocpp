@@ -25,6 +25,12 @@ class Dialog
         int         propiedades     ();
 
 protected:
+        void        mostrar_marco   ();
+        void        menu_contextual ();
+        void        mover_kbd       (int code);
+        void        prueba_click    ();
+        void        mostrar_actor   ();
+
 		EditorManager   *owner;
         DlgActor        *dlg_actor;
 
@@ -72,6 +78,52 @@ public:
               return D_CLOSE;
            else
               return D_O_K;
+        }
+
+        /**
+         * \brief   Método "callback" de mensajes recibidos por el marco del diálogo.
+         * \details Este método maneja todos los mensajes que se reciben dentro del marco que
+         *          se dibuja sobre la pantalla actual.
+         *          Es una función estática por compatibilidad con Allegro.
+         *          El campo "dp" debe contener un puntero al objeto instanciado de la clase.
+         *          Se procura que la parte estática sea mínima, pasando las llamadas a procesos
+         *          protegidos de la clase.
+         */
+        static int marco_callback (int msg, DIALOG *d, int c)
+        {
+            // Si ya está inicializado el objeto...
+            if (d[0].dp)
+            {
+                // Seleccionamos los mensajes.
+                switch (msg)
+                {
+                case MSG_CHAR:
+                case MSG_UCHAR:
+                case MSG_XCHAR:
+                    static_cast<Dialog *>(d[0].dp)->mover_kbd (c);
+                    break;
+
+                case MSG_DRAW:
+                    static_cast<Dialog *>(d[0].dp)->mostrar_marco ();
+                    break;
+
+                case MSG_RPRESS:
+                    static_cast<Dialog *>(d[0].dp)->menu_contextual ();
+                    break;
+
+                case MSG_CLICK:
+                    static_cast<Dialog *>(d[0].dp)->prueba_click ();
+                    break;
+
+                case MSG_DCLICK:
+                    static_cast<Dialog *>(d[0].dp)->mostrar_actor ();
+                    break;
+
+                }
+            }
+            // No funciona. Error de acceso.
+            //return d_menu_proc (msg,d,c);
+            return D_O_K;
         }
 };
 

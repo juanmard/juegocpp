@@ -20,8 +20,8 @@ class DlgActor
         void    show              (void);
         void    load              (Actor *actor);
         void    save              (void);
-        void    get_callback      (void);
 
 protected:
-		Actor *actor;       
+		Actor *actor;
+        static DIALOG DlgActor::dlg_propiedades[];
 };

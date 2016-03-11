@@ -50,108 +50,12 @@ MENU menu_objeto [] =
 
 DIALOG dialog[] =
 {
-   /* (proc)             (x)  (y) (w)  (h)  (fg) (bg) (key) (flags)                           (d1) (d2) (dp)                                    (dp2) (dp3) */
-   { d_pantalla_proc,      0,   0,  800, 600,  2,   34,  0,    0,                                    0,   0,   NULL,                                   NULL, NULL },
-   { d_menu_proc,          0,   0,  348,  12,  7,   15,  0,    D_SELECTED | D_GOTFOCUS | D_GOTMOUSE, 0,   0,   menu_editor,                            NULL, NULL },
-   { d_text_proc,        470,  20,  160,  20,  2,   33,  0,    0,                                    0,   0,   const_cast<char*>("  Modo Edición  "),  NULL, NULL },
-   { NULL,                 0,   0,    0,   0,  0,    0,  0,    0,                                    0,   0,   NULL,                                   NULL, NULL }
+   /* (proc)                      (x)  (y) (w)  (h)  (fg) (bg) (key) (flags)                           (d1) (d2) (dp)                                    (dp2) (dp3) */
+   { Dialog::marco_callback,      10,  10,  800, 600,  2,   34,  0,    0,                                    0,   0,   NULL,                                   NULL, NULL },
+   { d_menu_proc,                  0,   0,  348,  12,  7,   15,  0,    D_SELECTED | D_GOTFOCUS | D_GOTMOUSE, 0,   0,   menu_editor,                            NULL, NULL },
+   { d_text_proc,                470,  20,  160,  20,  2,   33,  0,    0,                                    0,   0,   const_cast<char*>("  Modo Edición  "),  NULL, NULL },
+   { NULL,                         0,   0,    0,   0,  0,    0,  0,    0,                                    0,   0,   NULL,                                   NULL, NULL }
 };                                  
-
-/**
- * \brief   Propiedades.
- */
-
-/**
- * \brief   Función CallBack para control de los objetos de pantalla.
- * \param   d[0].dp     Debe contener una referencia al propietario.
- * \todo    
- *          - Eliminar el cero del acceso al array y encapsular con enum.
- *          - Crear una clase aparte que no dependa de las variables de Allegro.
- */
-int d_pantalla_proc (int msg, DIALOG *d, int c)
-{
-    static int x;
-    static int y;
-    static EditorManager *editor = (EditorManager *)(d[0].dp);
- 
-    Actor *actor = editor->get_actor ();
-    x = gui_mouse_x();
-    y = gui_mouse_y();
-
-    // Se filtran mensajes.
-    switch (msg)
-    {
-    case MSG_CHAR:
-    case MSG_UCHAR:
-    case MSG_XCHAR:
-        if (actor)
-        {
-            int actor_x = actor->get_x ();
-            int actor_y = actor->get_y ();
-            switch ((c & 0xff))
-            {
-            case 'w':
-                actor_y -= 1;
-                break;
-            case 's':
-                actor_y += 1;
-                break;
-            case 'a':
-                actor_x -= 1;
-                break;
-            case 'd':
-                actor_x += 1;
-                break;
-            }
-            actor->set_x(actor_x);
-            actor->set_y(actor_y);
-            editor->redibuja ();
-        }
-        return D_O_K;
-    
-    case MSG_DCLICK:
-            break;
-
-    case MSG_RPRESS:
-        // Resaltamos el objeto.
-        editor->resaltar (x,y);
-
-        // Según el objeto en ese momento apuntado.
-        // Desplegamos uno u otro menú.
-        // Si es un único objeto el del objeto.
-        do_menu (menu_objeto,x,y);
-
-        // Si es una lista de objetos.
-        //do_menu (menu_lista,x,y);
-
-        // Si se hace sobre el fondo.
-        //do_menu (menu_fondo,x,y);
-        break;
-
-    case MSG_CLICK:
-        // Dibujamos los objetos.
-        if (editor)
-        {
-            editor->redibuja ();
-        }
-        else
-        {
-            gui_textout(screen, "NO SE HA INICIALIZADO LA REFERENCIA AL JUEGO!!!", SCREEN_W/2, SCREEN_H/2, 0xFFFF, TRUE);
-        }
-
-        // Resaltamos el objeto que apunta.
-        editor->resaltar (x,y);
-
-        // Mostramos en pantalla el mensaje.
-        gui_textout(screen, "* Aquí está", x, y, 0xFFFF, FALSE);
-        return D_O_K;
-    }
-
-    // Acciones predefinidas del menu.
-    // Da error de acceso.
-    //return d_menu_proc (msg,d,c);
-    return D_O_K;
-}
 
 /*
  * Menu de prueba.
@@ -179,13 +83,12 @@ Dialog::Dialog (EditorManager *editor)
 
     // Se inicializan parámetros de los "callback".
     // \todo    Enum para referencias a "dialog". 
-    dialog[0].dp = owner;
-
-    // Pruebas para incluir en la clase.
-    //mnu_ayuda[0].proc = &Dialog::about;
+    dialog[0].dp = this;
+    dialog[0].dp2 = owner;
 
     // Se crea un diálogo para el actor vacío.
-//    dlg_actor = new DlgActor();
+    dlg_actor = new DlgActor();
+    dialog[0].dp3 = dlg_actor;
 
     // Se apunta a ese diálogo en el menú del objeto.
     // \todo Sustituir el 3 por enum. pj. "menu_objeto[propiedades].dp = ..."
@@ -195,7 +98,6 @@ Dialog::Dialog (EditorManager *editor)
 Dialog::~Dialog (void)
 {
     mouse_out ();
-
     // \todo Liberar memoria de todos los objetos utilizados.
 }
 
@@ -217,4 +119,90 @@ void Dialog::mouse_out (void)
 {
     // Se oculta el ratón.
     show_mouse (NULL);
+}
+
+void Dialog::mostrar_marco ()
+{
+    rect (screen, dialog[0].x, dialog[0].y, 
+                  dialog[0].x + dialog[0].w,
+                  dialog[0].y + dialog[0].h,
+                  dialog[0].bg);
+}
+
+/**
+ *  \brief  Se encarga de seleccionar el menu contextual adecuado según la posición actual del ratón.
+ */
+void Dialog::menu_contextual ()
+{
+    // Resaltamos el objeto.
+    owner->resaltar (mouse_x, mouse_y);
+
+    // Elegimos el menú adecuado: actor, lista de actores, fondo...
+
+    // Mostramos el menu del objeto en la posición del ratón.
+    do_menu (menu_objeto, mouse_x, mouse_y);
+}
+
+/**
+ *  \brief  Mueve con el teclado el actor actual en edición.
+ */
+void    Dialog::mover_kbd   (int code)
+{
+    Actor *actor;
+
+    actor = owner->get_actor();
+    if (actor)
+    {
+        int actor_x = actor->get_x ();
+        int actor_y = actor->get_y ();
+        switch ((code & 0xff))
+        {
+        case 'w':
+            actor_y -= 1;
+            break;
+        case 's':
+            actor_y += 1;
+            break;
+        case 'a':
+            actor_x -= 1;
+            break;
+        case 'd':
+            actor_x += 1;
+            break;
+        }
+        actor->set_x(actor_x);
+        actor->set_y(actor_y);
+        owner->redibuja ();
+    }
+};
+
+void    Dialog::prueba_click    ()
+{
+        // Dibujamos los objetos.
+        if (owner)
+        {
+            owner->redibuja ();
+        }
+        else
+        {
+            gui_textout(screen, "NO SE HA INICIALIZADO LA REFERENCIA AL JUEGO!!!",
+                        SCREEN_W/2, SCREEN_H/2, 0xFFFF, TRUE);
+        }
+
+        // Resaltamos el objeto que apunta.
+        owner->resaltar (mouse_x, mouse_y);
+
+        // Mostramos en pantalla el mensaje.
+        gui_textout(screen, "* Aquí está", mouse_x, mouse_y, 0xFFFF, FALSE);
+}
+
+void    Dialog::mostrar_actor   ()
+{
+    // Cargamos las propiedades del actor marcado.
+    // \todo    ¿No deberíamos dar la posición x e y para obtener el actor?
+    //          Esto nos muestra el actor marcado como editado... peligroso
+    //          que no sea justo el que está bajo la x y la y.
+    dlg_actor->load (owner->get_actor());
+    dlg_actor->show();
+    owner->redibuja();
 }

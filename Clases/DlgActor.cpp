@@ -1,16 +1,18 @@
 #include "DlgActor.h"
 
 /**
- * \brief   Diálogo con el objeto actor.
- * \todo    Incluir esta variable en el entorno de "DlgActor".
+ * \brief   Inicialización de las variables estáticas.
  */
-DIALOG dlg_propiedades[] =
+DIALOG DlgActor::dlg_propiedades[] =
 {
-   /* (proc)        (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags) (d1) (d2) (dp)             (dp2) (dp3) */
-   { d_box_proc,    153, 88,  238, 142, 18,   4,   0,    0,      0,   0,   NULL,            NULL, NULL },
-   { d_button_proc, 325, 194, 55,  26,  18,   4,   0,    0,      0,   0,   const_cast<char*>("Cerrar"), NULL, NULL },
-   { d_text_proc,   161, 98,  115, 11,  18,   4,   0,    0,      0,   0,   const_cast<char*>("Propiedades"),     NULL, NULL },
-   { NULL,          0,   0,   0,   0,    0,   0,   0,    0,      0,   0,   NULL,            NULL, NULL }
+   /* (proc)         (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags) (d1) (d2) (dp)                              (dp2) (dp3) */
+   { d_box_proc,     380, 226, 249, 242, 18,  4,   0,    0,      0,   0,   NULL,                              NULL, NULL },
+   { d_button_proc,  568, 437, 55,  26,  18,  4,   0,    0,      0,   0,   const_cast<char*>("Cerrar"),       NULL, NULL },
+   { d_text_proc,    383, 230, 115, 11,  18,  4,   0,    0,      0,   0,   const_cast<char*>("Propiedades"),  NULL, NULL },
+   { d_textbox_proc, 401, 246, 211, 82,  18,  4,   0,    0,      0,   0,   const_cast<char*>("Escribe aquí"), NULL, NULL },
+   { d_slider_proc,  403, 335, 208, 13,  18,  4,   0,    0,      16,  4,   NULL,                              NULL, NULL },
+   { d_radio_proc,   405, 359, 14,  13,  18,  4,   0,    0,      0,   0,   const_cast<char*>("Activo"),       NULL, NULL },
+   { NULL,           0,   0,   0,   0,    0,  0,   0,    0,      0,   0,   NULL,                              NULL, NULL }
 };
 
 /**
@@ -41,13 +43,6 @@ DlgActor::~DlgActor (void)
 /**
  * \brief   Propiedades.
  */
-void    DlgActor::get_callback (void)
-{
-}
-
-/**
- * \brief   Propiedades.
- */
 void    DlgActor::show (void)
 {
     do_dialog (dlg_propiedades,-1);
@@ -58,6 +53,17 @@ void    DlgActor::show (void)
  */
 void    DlgActor::load (Actor *remoto)
 {
+    // Propiedades de prueba.
+    static char buffer[40];
+    if (remoto)
+    {
+        uszprintf(buffer, sizeof(buffer), "x, y: %d, %d\nColor: %d",
+                                          remoto->get_x(),
+                                          remoto->get_y(),
+                                          remoto->get_color());
+        //dlg_propiedades[3].dp = "Prueba, prueba...";
+        dlg_propiedades[3].dp = buffer;
+    }
 }
 
 /**
@@ -66,3 +72,4 @@ void    DlgActor::load (Actor *remoto)
 void DlgActor::save (void)
 {
 }
+
