@@ -446,6 +446,13 @@ int  Dialog::comprobarTecla (int code)
       vector <DIALOG> &vec_actor = (manager->getAlmacen()).getDIALOG();
       pesta.insert (pesta.end(), vec_actor.begin(), vec_actor.end());
 
+      // Probamos con dos almacenes.
+      Almacen *prueba = new Almacen ("sprites.dat");
+      vec_actor = prueba->getDIALOG();
+      centre_dialog(&vec_actor[0]);
+      pesta.insert (pesta.end(), vec_actor.begin(), vec_actor.end());
+
+
       // Hacemos una prueba dinámica del dialogo principal.
       // Se copia... ¡¡Funciona!!
       //pesta.insert (pesta.end(), &dialog[0], &dialog[18]);

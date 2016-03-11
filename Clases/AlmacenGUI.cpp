@@ -27,13 +27,18 @@ Almacen * AlmacenGUI::almacen_activo = NULL;
  * \brief   Constructor de la GUI para el almacén dado por parámetro.
  * \param   almacen   Referencia al almacén que se le asocia.
  */
-AlmacenGUI::AlmacenGUI (Almacen &almacen)
+AlmacenGUI::AlmacenGUI (Almacen &almacenParam):
+almacen (almacenParam)
 {
-  setAlmacen (almacen);
-  dlg_plantilla[1].dp3 = (void *) &almacen;
-  dlg_plantilla[2].dp = const_cast<char *>((new string("Almacén: \"" + almacen.getNombre() + "\""))->c_str());
+  // Hacemos activo el almacen recién creado.
+  activarAlmacen (almacenParam);
+
+  // Modificamos la plantilla para este almacén.
+  dlg_plantilla[1].dp3 = (void *) this;
+  dlg_plantilla[2].dp = const_cast<char *>((new string("Almacén: \"" + almacenParam.getNombre() + "\""))->c_str());
   dlg_plantilla[3].dp = screen;
 
+  // Guardamos la plantilla modificada (sin el terminal).
   dlg.clear ();
   dlg.push_back (dlg_plantilla[0]);
   dlg.push_back (dlg_plantilla[1]);
@@ -45,7 +50,7 @@ AlmacenGUI::AlmacenGUI (Almacen &almacen)
 /**
  * \brief   Constructor por omisión.
  * \details Mostramos simplemente la plantilla y la guardamos en 'dlg'.
- */
+ *
 AlmacenGUI::AlmacenGUI ()
 {
   dlg_plantilla[3].dp = screen;
@@ -55,6 +60,7 @@ AlmacenGUI::AlmacenGUI ()
   dlg.push_back (dlg_plantilla[2]);
   dlg.push_back (dlg_plantilla[3]);
 };
+*/
 
 /**
  * \brief   Destructor por omisión.
@@ -76,7 +82,7 @@ vector<DIALOG> &  AlmacenGUI::getGUI ()
 /**
  * \brief   Cambiamos el objeto 'almacen' a visualizar en la GUI.
  */
-void  AlmacenGUI::setAlmacen (Almacen &almacen)
+void  AlmacenGUI::activarAlmacen (Almacen &almacenParam)
 {
-  almacen_activo = &almacen;
+  almacen_activo = &almacenParam;
 }

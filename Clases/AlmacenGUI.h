@@ -34,26 +34,25 @@ using namespace std;
 class AlmacenGUI
 {
   public:
-                      AlmacenGUI     (Almacen &almacen);
+                      AlmacenGUI     (Almacen &almacenParam);
                       AlmacenGUI     ();
                       ~AlmacenGUI    ();
-    void              setAlmacen     (Almacen &almacen);
+    void              activarAlmacen (Almacen &almacenParam);
     vector<DIALOG> &  getGUI         ();
 
   private:
+    Almacen &         almacen;
     vector<DIALOG>    dlg;
+    int               indice_ant;
 
   public:
     static Almacen *almacen_activo;
     static DIALOG dlg_plantilla[];
     /**
      * \brief   Método para rellenar el diálogo de la lista.
-     * \todo    Eliminar la dependencia con la plantilla estática.
      */
     static char *  list_getter (int index, int *list_size)
     {
-      // NOTA: Para no referirnos a la plantilla estática (ha eliminar) podemos usar la variable
-      //       global de Allegro: 'active_dialog' y probar si funciona.
       if (almacen_activo)
       {
         // Si 'index' es negativo debe devolver NULL e indicar el tamaño de la lista.
@@ -83,31 +82,34 @@ class AlmacenGUI
       if (d[0].dp3)
       {
         // Creamos una referencia temporal al objeto actual.
-        Almacen &obj = *(static_cast<Almacen *>(d[0].dp3));
-
-        // Se guarda el índice actual de la lista para comprobar cuando cambia.
-        static int indice_ant = d[0].d1;
+        AlmacenGUI &obj = *(static_cast<AlmacenGUI *>(d[0].dp3));
 
         // Se procesan los mensajes.
         switch (msg)
         {
           case MSG_START:
-              almacen_activo = (Almacen *) d[0].dp3;
+              obj.indice_ant = 0;
+//              almacen_activo = &(obj.almacen);
+              break;
+
+          case MSG_DRAW:
+              almacen_activo = &(obj.almacen);
               break;
 
           case MSG_IDLE:
              // Si cambia el índice es que debemos actualizar el bitmap
               // y mandarle un mensaje para que se refresque.
-              if (d[0].d1 != indice_ant)
+              if (d[0].d1 != obj.indice_ant)
               {
                 // Limpiamos el fondo antes de volver a dibujar.
+                // Este bitmap lo podríamos hacer global a toda la clase.
                 BITMAP *fondo = create_bitmap (d[2].w,d[2].h);
                 clear_to_color(fondo, 243);
                 d[2].dp = fondo;
                 object_message(&d[2], MSG_DRAW, 0);
-                d[2].dp = obj.getBitmap (d[0].d1);
+                d[2].dp = obj.almacen.getBitmap (d[0].d1);
                 destroy_bitmap (fondo);
-                indice_ant = d[0].d1;
+                obj.indice_ant = d[0].d1;
                 return object_message(&d[2], MSG_DRAW, 0);
 //                return D_REDRAWME;
               }
@@ -116,7 +118,7 @@ class AlmacenGUI
           case MSG_GOTFOCUS:
               // Si tenemos el foco, puesto que este callback va en la lista, actualizamos
               // el almacén activo que lo tenemos guardado en 'dp3'.
-              almacen_activo = (Almacen *) d[0].dp3;
+              almacen_activo = &(obj.almacen);
               d[0].bg = 250;
               break;
 
