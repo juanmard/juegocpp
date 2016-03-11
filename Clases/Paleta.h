@@ -18,12 +18,13 @@ public:
         } action_t;
 
 public:
-    Paleta (void);
-    ~Paleta (void);
-
-    void do_action  (ControllableObject::action_t act, int magnitude);
-    void hit        (Actor *who, int damage);
-
+                        Paleta      (const Paleta &copia);
+                        Paleta      ();
+                        ~Paleta     ();
+    void                do_action   (ControllableObject::action_t act, int magnitude);
+    void                hit         (Actor *who, int damage);
+    virtual Paleta *    clone       () const;
+    
 protected:
         Suelo *piel;
 };

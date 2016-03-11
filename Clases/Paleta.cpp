@@ -1,6 +1,18 @@
 #include "Paleta.h"
 
-Paleta::Paleta(void)
+/**
+ * Constructor de copia.
+ */
+Paleta::Paleta (const Paleta &copia):
+ControllableActor(copia),
+piel(piel)
+{
+}
+
+/**
+ * Constructor por omisión.
+ */
+Paleta::Paleta()
 {
     this->piel = new Suelo(this,2);    
     this->set_name (Nombres::paleta);
@@ -58,3 +70,11 @@ void Paleta::hit (Actor *who, int damage)
            break;
    }
 }
+
+/**
+ * Clona el objeto.
+ */
+Paleta *    Paleta::clone  () const
+{
+    return (new Paleta(*this));
+};
