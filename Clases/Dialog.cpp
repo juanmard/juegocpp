@@ -18,10 +18,11 @@ DIALOG Dialog::dialog[] =
 // Diálogo de objeto.
 DIALOG Dialog::dlg_actor [] =
 {
-   /* (proc)             (x),  (y),  (w),  (h), (fg),  (bg), (key),  (flags),   (d1),  (d2),  (dp),                                                      (dp2), (dp3)     */
-   { d_text_proc,          0,  100,  300,  200,    7,    15,     0,        0,      0,     0, const_cast<char*>("x, y"),                                   NULL, NULL },
-   { d_text_proc,        470,   20,  160,   20,    2,    33,     0,        0,      0,     0, const_cast<char*>("  Modo Edición  "),                       NULL, NULL },
-   { d_slider_proc,       20,  200,  20,   160,    2,    33,     0,        0,    100,    50,                                  NULL,                       NULL, NULL },
+   /* (proc)             (x),  (y),  (w),  (h), (fg),  (bg), (key),  (flags),   (d1),  (d2),  (dp),                                (dp2), (dp3)     */
+   { d_text_proc,          0,  100,  300,  200,    7,    15,     0,        0,      0,     0, const_cast<char*>("x, y"),             NULL, NULL },
+   { d_text_proc,        470,   20,  160,   20,    2,    33,     0,        0,      0,     0, const_cast<char*>("  Modo Edición  "), NULL, NULL },
+   { d_slider_proc,       20,  200,   20,  160,    2,    33,     0,        0,    100,    50,                                  NULL, NULL, NULL },
+   { d_slider_proc,       60,  200,   20,  160,    2,    33,     0,        0,    100,    50,                                  NULL, NULL, NULL },
    { NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL }
 };                                  
 
@@ -47,17 +48,18 @@ MENU Dialog::mnu_ayuda[] =
 MENU Dialog::menu_editor [] =
 {
     { const_cast<char*>("&Fichero"), NULL, Dialog::mnu_fichero, 0, NULL },
-    { const_cast<char*>("&Editar"),  NULL,  Dialog::menu_actor, 0, NULL },
+    { const_cast<char*>("&Editar"),  NULL,  Dialog::mnu_actor, 0, NULL },
     { const_cast<char*>("&Ayuda"),   NULL,   Dialog::mnu_ayuda, 0, NULL },
     { NULL, NULL, NULL, 0, NULL }
 };
 
 // Menú del objeto.
-MENU Dialog::menu_actor [] =
+MENU Dialog::mnu_actor [] =
 {
    { const_cast<char*>("&Mover"),       Dialog::menu_callback,      NULL,          0, NULL },
+   { const_cast<char*>("&Duplicar"),    Dialog::cb_menu_opciones,   NULL,          0, NULL },
    { const_cast<char*>("&Tamaño"),      Dialog::menu_callback,      NULL, D_DISABLED, NULL },
-   { const_cast<char*>("&Propiedades"), Dialog::menu_contextual_cb, NULL,          0, NULL },
+   { const_cast<char*>("&Propiedades"), Dialog::menu_callback,      NULL,          0, NULL },
    { NULL, NULL, NULL, 0, NULL }
 };
 
@@ -95,19 +97,31 @@ Dialog::Dialog (EditorManager *editor)
     dlg_ventana = new VentanaALG("Prueba",100,100,120,120);
 
     // Se apunta a ese diálogo en el menú del objeto.
-    //menu_actor[3].dp = editor->get_actor ();
+    //mnu_actor[3].dp = editor->get_actor ();
 
     // Inicializamos las propiedades del actor.
     dlg_actor[0].fg = makecol(255,255,255);
     dlg_actor[0].bg = makecol (0,0,255);     //bitmap_mask_color (screen); 
 
     // Inicializamos el slider de prueba.
-    dlg_actor[2].dp2 = (void *)Dialog::clbk_prueba_slider;
+    dlg_actor[2].dp2 = (void*)Dialog::clbk_prueba_slider;
     dlg_actor[2].dp3 = manager;
+    dlg_actor[3].dp2 = (void*)Dialog::clbk_prueba_slider;
+    dlg_actor[3].dp3 = manager;
+
+    // Inicializamos las llamadas del menú contextual.
+    // Parece ser que incluir la referencia directa no funciona, hay que pasar por
+    // un procedimiento estático.
+    //    mnu_actor[1].proc = reinterpret_cast<int(*)()>(&Dialog::DuplicarActor);
+    mnu_actor[1].dp = this;
 }
 
+/**
+ * \brief   Destructor de la clase.
+ */
 Dialog::~Dialog (void)
 {
+    // Ocultamos el puntero del ratón.
     mouse_out ();
     // \todo Liberar memoria de todos los objetos utilizados.
 }
@@ -200,7 +214,7 @@ void Dialog::mostrar_marco ()
 /**
  *  \brief  Se encarga de seleccionar el menu contextual adecuado según la posición actual del ratón.
  */
-void Dialog::menu_contextual ()
+void Dialog::menu_contextual (int x, int y)
 {
     // Elegimos el menú adecuado: actor, lista de actores, fondo... según el tipo de objeto.
 
@@ -210,11 +224,13 @@ void Dialog::menu_contextual ()
     //    case actor:
     //    {
             // Resaltamos el actor.
-            manager->ResaltarActor (mouse_x, mouse_y);
+            manager->ResaltarActor (x, y);
+
+            // Para hacer pruebas con el slider editamos el actor.
+            manager->EditarActor (x, y);
 
             // Mostramos el menu del actor en la posición del ratón.
-            manager->EditarActor (mouse_x, mouse_y);
-            do_menu (menu_actor, mouse_x, mouse_y);
+            do_menu (mnu_actor, x, y);
 
             // Obtenemos la opción elegida. Podemos usar la opción de Allegro "active_menu->Text".
             // Según la opción elegida ejecutar una u otra función.
@@ -388,3 +404,16 @@ void Dialog::prueba_dblclk ()
             }
     }
 }
+
+/**
+* \brief    Duplica un actor que se encuentra bajo la posición local x,y.
+*/
+int  Dialog::DuplicarActor (int x, int y)
+{
+    if (manager->EditandoActor())
+    {
+        manager->DuplicarActor (x, y);
+    }
+    return D_O_K; 
+};
+

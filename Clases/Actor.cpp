@@ -5,12 +5,30 @@
  * Crea el actor.
  * Predeterminadamente no asigna gráfico y no se sitúa en el tiempo. 
  */
-
 Actor::Actor()
 {
     agraph = NULL;
     estado = actuar;
     tiempo_estado = 0;
+}
+
+
+Actor::Actor(Actor *copia)
+{
+    nombre = copia->nombre;
+    x = copia->x;
+    y = copia->y;
+    h = copia->h;
+    w = copia->w;
+    color = copia->color;
+    collision_method = copia->collision_method;
+    is_detectable = copia->is_detectable;
+    agraph = copia->agraph;
+    estado = copia->estado;
+    tiempo_estado = copia->tiempo_estado;
+    power = copia->power;
+    team = copia->team;
+    tiempo_estado = copia->tiempo_estado;
 }
 
 /**

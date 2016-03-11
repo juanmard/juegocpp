@@ -1,9 +1,9 @@
-#ifndef  ACTOR_H
+#ifndef ACTOR_H
 #define ACTOR_H
 
 #include <allegro.h>
 // Se incluyen las cabeceras puesto que se necesita hacer referencia a tipos y
-//  estructuras internas de la clase.
+//  estructuras internas de las clases.
 #include "CollisionManager.h"
 #include "Game.h"
 #include "Nombres.h"
@@ -37,9 +37,10 @@ public:
     };
 
 public:
-                                Actor                ();
-        virtual            ~Actor              ();
-        virtual void    draw                 (BITMAP *bmp);
+                        Actor               (Actor *copia);
+                        Actor               ();
+        virtual         ~Actor              ();
+        virtual void    draw                (BITMAP *bmp);
         virtual void    update              ();
         /* \warning: Estos dos estados deben ser incluídos en uno. */
         virtual void    CambiarEstado       ();

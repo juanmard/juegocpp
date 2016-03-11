@@ -26,6 +26,7 @@ class EditorManager
         void    redibuja        ();
         void    ResaltarActor   (int x, int y);
         void    EditarActor     (int x, int y);
+        void    DuplicarActor   (int x, int y);
         void    MoverActor      (int x, int y);
         bool    EditandoActor   ();
         int     GetActorX       ();

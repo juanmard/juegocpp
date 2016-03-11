@@ -41,15 +41,15 @@ class Dialog
         int         propiedades     ();
 
 protected:
-        void        mostrar_marco   ();
-        void        menu_contextual ();
-        void        mover_kbd       (int code);
-        void        prueba_click    ();
-        void        prueba_dblclk    ();
-        void        mostrar_actor   ();
-        void        mover_actor     ();
-
-
+        void        mostrar_marco       ();
+        void        menu_contextual     (int x, int y);
+        void        mover_kbd           (int code);
+        void        prueba_click        ();
+        void        prueba_dblclk       ();
+        void        mostrar_actor       ();
+        void        mover_actor         ();
+        int         DuplicarActor       (int x, int y);
+    
 		EditorManager   *manager;
         DlgActor        *dlg_actor2;
         VentanaALG      *dlg_ventana;
@@ -62,7 +62,7 @@ public:
         static MENU     mnu_fichero[];
         static MENU     mnu_ayuda[];
         static MENU     menu_editor[];
-        static MENU     menu_actor[];
+        static MENU     mnu_actor[];
 
         // Diálogo principal. 
         static DIALOG   dialog[];
@@ -72,14 +72,24 @@ public:
     
         // Referencias para el movimiento del ratón.
         int     ref_x, ref_y;
+        int     prb_x, prb_y;
 
 
         /*
          * \brief   Procedimiento callback del menú contextual.
          */
-        static int menu_contextual_cb (void)
+        static int cb_menu_opciones (void)
         {
             alert("Selected menu item:", "", active_menu->text, "Ok", NULL, 0, 0);
+            if (active_menu->dp)
+            {
+                // Creamos una referencia temporal al objeto actual.
+                Dialog &objeto = *(static_cast<Dialog *>(active_menu->dp));
+                // Seleccionamos qué tipo de opción es.
+                // Comparando active_menu->text con la opción.
+                // Suponemos que es la de duplicar.
+                objeto.DuplicarActor (objeto.prb_x,objeto.prb_y);
+            }
             return D_O_K;
         }
 
@@ -110,9 +120,17 @@ public:
                 EditorManager &manager = *(static_cast<EditorManager *>(dp3));
                 if (manager.EditandoActor())
                 {
+                    // Guardamos la posición actual, cambiamos la posición según el slider
+                    // y redibujamos los objetos.
                     static int actual_y = manager.GetActorY ();
                     manager.SetActorY( actual_y + (50-d2));
                     manager.redibuja ();
+
+                    // Mostramos de nuevo los sliders.
+                    //object_message(&dlg_actor[0], MSG_DRAW, 0);
+                    //object_message(&dlg_actor[1], MSG_DRAW, 0);
+                    object_message(&dlg_actor[2], MSG_DRAW, 0);
+                    object_message(&dlg_actor[3], MSG_DRAW, 0);
                 }
             }
             return D_O_K;
@@ -194,7 +212,9 @@ public:
                         
                 // Mensaje cuando se presiona el botón derecho del ratón.
                 case MSG_RPRESS:
-                    objeto.menu_contextual ();
+                    objeto.prb_x = mouse_x;
+                    objeto.prb_y = mouse_y;
+                    objeto.menu_contextual (mouse_x, mouse_y);
                     break;
 
                 case MSG_CLICK:
