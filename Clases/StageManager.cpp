@@ -80,7 +80,7 @@ void StageManager::draw()
 
   // Dibujamos los decorados de fondo.
   // Coloreamos de azul (2 en la paleta) el fondo.
-  clear_to_color (buffer, 67);
+  clear_to_color (buffer, 129);
 
   // Se recorre la lista de actores y se dibuja en el buffer del escenario.
   // \todo  Comprobar los actores que se encuentran dentro del marco del

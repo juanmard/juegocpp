@@ -63,8 +63,9 @@ void Sprite::update()
  */
 void Sprite::draw(BITMAP *bmp)
 {
-    
-    draw_sprite(bmp, frames[actual_frame].bmp, get_x(), get_y());
+  draw_sprite(bmp, frames[actual_frame].bmp,
+                   get_x() - frames[actual_frame].cx,
+                   get_y() - frames[actual_frame].cy);
 }
 
 int Sprite::get_w()
@@ -104,8 +105,9 @@ Sprite * Sprite::clone (Actor *propietario) const
  * draw - Dibuja en el BITMAP 
  */
 void Sprite::draw (int x, int y, BITMAP *bmp)
-{
-    
-    draw_sprite(bmp, frames[actual_frame].bmp, x, y);
+{    
+draw_sprite(bmp, frames[actual_frame].bmp, 
+                 x - frames[actual_frame].cx,
+                 y - frames[actual_frame].cy);
 }
 

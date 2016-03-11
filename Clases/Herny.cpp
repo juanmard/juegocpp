@@ -21,9 +21,10 @@ siguiente (copia.siguiente)
 Herny::Herny (Almacen &almacen)
 {
     //DatFile *sprites = new DatFile("sprites.dat");
+    // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
     Sprite *skin = new Sprite(this);    
-    skin->add_frame(almacen.GetBitmap("sprite_058"), 0, 0, 10);
-    skin->add_frame(almacen.GetBitmap("sprite_059"), 0, 0, 30);
+    skin->add_frame(almacen.GetBitmap("sprite_058"), 10, 10, 10);
+    skin->add_frame(almacen.GetBitmap("sprite_059"), 10, 10, 30);
     skin->add_frame(almacen.GetBitmap("sprite_060"), 0, 0, 10);
     skin->add_frame(almacen.GetBitmap("sprite_061"), 0, 0, 10);
     skin->add_frame(almacen.GetBitmap("sprite_062"), 0, 0, 20);
