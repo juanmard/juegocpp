@@ -142,7 +142,7 @@ void Actor::set_wh (int w_tmp, int h_tmp)
 
 void Actor::set_actor_graphic (ActorGraphic *ag)
 {
-    agraph=ag;
+  agraph=ag;
 }
 
 /**

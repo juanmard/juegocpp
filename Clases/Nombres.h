@@ -11,14 +11,7 @@ using namespace std;
 class Nombres
 {
 public:
-    enum codigo {
-                    pelota,
-                    paleta,
-                    herny,
-                    jugador,
-                    enemigo,
-                    ladrillo
-                };
+    enum codigo { pelota, paleta, herny, jugador, enemigo, ladrillo, mago };
 
 public:
             Nombres     (void);
@@ -40,6 +33,7 @@ public:
             case jugador: cadena = "Jugador"; break;
             case enemigo: cadena = "Enemigo"; break;
             case ladrillo: cadena = "Ladrillo"; break;
+            case mago: cadena = "Mago"; break;
             
             default:
                 cadena = "Sin nombre";

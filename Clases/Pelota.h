@@ -39,6 +39,6 @@ protected:
      *          del actor, deben ser guardados en clases accesibles por
      *          todos los actores para reutilizarlos en distintos actores.
      */
-    Bitmap *tomate, *granada, *estrella;
+    Bitmap  *tomate, *granada, *estrella;
     SAMPLE  *rebote;
 };
