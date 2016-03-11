@@ -1,6 +1,7 @@
 #ifndef SUELO_H
 #define SUELO_H
 
+#include <allegro.h>
 #include "Mosaico.h"
 
 class Suelo : public Mosaico
@@ -16,6 +17,9 @@ public:
 
 private:
         int    size;
+        BITMAP *suelo_1;
+        BITMAP *suelo_2;
+        Tesela  *terminal_final;
 };
 
 #endif
