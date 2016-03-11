@@ -110,3 +110,9 @@ void  Paleta::getNombre (string &strNombre) const
 {
   strNombre = Nombres::Imprimir (nombre);
 }
+
+string  Paleta::getNombre () const
+{
+//  return Nombres::Imprimir (nombre);
+  return "Paleta";
+}

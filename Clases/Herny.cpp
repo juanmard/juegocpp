@@ -211,3 +211,8 @@ void  Herny::getNombre (string &strNombre) const
 {
   strNombre = Nombres::Imprimir (nombre);
 };
+
+string  Herny::getNombre () const
+{
+  return Nombres::Imprimir (nombre);
+};

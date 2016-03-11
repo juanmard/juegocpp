@@ -30,6 +30,7 @@ class Herny : public ControllableActor
         void                hit                 (Actor *who, int damage);
         virtual Herny *     clone               () const;
         void                getNombre           (string &strNombre) const;
+        string              getNombre           () const;
 
   protected:
         Sprite *    skin;

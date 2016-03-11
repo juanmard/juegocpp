@@ -1,6 +1,16 @@
 #include "Ladrillo.h"
 #include "Almacen.h"
 #include "Dialog.h"
+#include <allegro.h>
+
+/* Prueba GUI Ladrillo */
+DIALOG Ladrillo::dlgGui[] = 
+{
+   { d_box_proc,        352, 360, 256, 192, 67, 243,   0,    0,      0,   0,   NULL,                           NULL, NULL },
+   { d_list_proc,       360, 392, 240, 56,  67, 243,   0,    0,      0,   0,   (void*)Ladrillo::dummy_getter,  NULL, NULL },
+   { d_text_proc,       360, 376, 128, 8,   67, 243,   0,    0,      0,   0,   (void*)"Prueba Ladrillo",       NULL, NULL },
+   { d_bitmap_proc,     360, 456, 240, 88,  67, 243,   0,    0,      0,   0,   NULL,                           NULL, NULL }
+};
 
 /**
  * \brief   Constructor que crea un objeto golpeable por la pelota en el juego.
@@ -165,6 +175,11 @@ void  Ladrillo::getNombre (string &strNombre) const
   strNombre = Nombres::Imprimir (nombre);
 }
 
+string  Ladrillo::getNombre () const
+{
+  return Nombres::Imprimir (nombre);
+}
+
 /**
  * \brief   Obtiene el menú de opciones del actor.
  */
@@ -177,4 +192,20 @@ Menu &  Ladrillo::getMenu () const
   // Se llama al procedimiento 'about' de prueba.
   nuevo.add ("Ladrillo - About", Dialog::about);
   return nuevo;
+}
+
+/**
+ * \brief   Añade al diálogo padre el diálogo de sus propiedades como Ladrillo.
+ * \warning Se añade a modo de prueba en la variable del padre (Actor).
+ */
+vector<DIALOG> &  Ladrillo::getDIALOG ()
+{
+  Actor::getDIALOG ();
+  vec_actor.push_back (dlgGui[0]);
+  vec_actor.push_back (dlgGui[1]);
+  vec_actor.push_back (dlgGui[2]);
+  vec_actor.push_back (dlgGui[3]);
+  vec_actor[vec_actor.size()-1].dp = chaqueta->getImagen();
+//  vec_actor[vec_actor.size()-3].dp = (void*)Ladrillo::dummy_getter;
+  return vec_actor;
 }

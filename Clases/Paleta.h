@@ -23,6 +23,7 @@ class Paleta : public ControllableActor
     void                hit         (Actor *who, int damage);
     virtual Paleta *    clone       () const;
     void                getNombre   (string &strNombre) const;
+    string              getNombre   () const;
 
   protected:
     Suelo *   piel;

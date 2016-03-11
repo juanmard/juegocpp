@@ -54,6 +54,8 @@ public:
     virtual void        getNombre           (string &nombre) const;
     virtual Menu &      getMenu             () const;
     string              getString           () const;
+    virtual string      getNombre           () const;
+
 
     /* \warning: Estos dos estados deben ser incluídos en uno. */
     virtual void                            CambiarEstado           ();
@@ -92,7 +94,7 @@ public:
     void                                    draw_block              (StageManager *stageManager);
     Bloque &                                getBloque               ();
     void                                    setMostrarBloque        (bool mostrar);
-    virtual vector<DIALOG> &                getDIALOG               ();
+    virtual  vector<DIALOG> &               getDIALOG               ();
 
   private:
     void                                    mensajeErrorGrafico     () const;
@@ -130,7 +132,8 @@ public:
             int obj;
             return dialog_message (&dlg_actor[0], MSG_DRAW, 0, &obj);
       }
-      return d_button_proc (msg, d, c);
+//      return d_button_proc (msg, d, c);
+      return d_box_proc (msg, d, c);
     };
 };
 

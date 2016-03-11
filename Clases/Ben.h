@@ -35,6 +35,7 @@ class Ben : public ControllableActor
     void      hit         (Actor *who, int damage);
     void      getEstado   (string &strEstado) const;
     void      getNombre   (string &strNombre) const;
+    string    getNombre   () const;
 
 
   private:

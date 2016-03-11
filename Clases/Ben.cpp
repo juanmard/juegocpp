@@ -341,3 +341,7 @@ void  Ben::getNombre (string &strNombre) const
   strNombre = Nombres::Imprimir (nombre);
 }
 
+string  Ben::getNombre () const
+{
+  return Nombres::Imprimir (nombre);
+}
