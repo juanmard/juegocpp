@@ -5,7 +5,8 @@
 using namespace std;
 
 /**
- * \class   Clase que ...
+ * \class   Nombres
+ * \brief   Clase que reúne todos los nombres de objetos del juego.
  */
 class Nombres
 {

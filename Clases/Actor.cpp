@@ -3,7 +3,8 @@
 #include "StageManager.h"
 
 /**
- * Constructor por omisión de la clase. No asigna gráfico y no se sitúa en el tiempo. 
+ * \brief   Constructor por omisión de la clase. 
+ * \details No asigna gráfico y no se sitúa en el tiempo. 
  */
 Actor::Actor():
 agraph(NULL),
@@ -56,8 +57,8 @@ void Actor::draw(BITMAP *bmp)
 }
 
 /**
- * Visualiza las dimensiones del actor mediante un rectángulo.
- * Utiliza la propiedad 'color' para ello.
+ * \brief   Visualiza las dimensiones del actor mediante un rectángulo.
+ *          Utiliza la propiedad 'color' para ello.
  */
 void Actor::draw_block (BITMAP *pantalla)
 {
@@ -98,26 +99,25 @@ void Actor::set_tiempo (unsigned int tiempo)
 
 void Actor::update()
 {
-    // Actualiza la parte gráfica.
-    agraph->update();
+  // Actualiza la parte gráfica.
+  agraph->update();
 
-    // Actualiza los estados del actor.
-    if (tiempo_estado)
+  // Actualiza los estados del actor.
+  if (tiempo_estado)
+  {
+    tiempo_estado--;
+    if (tiempo_estado == 0)
     {
-        tiempo_estado--;
-        if (tiempo_estado == 0)
-        {
-                CambiarEstado ();
-        }
-        ActualizarEstado ();
+      CambiarEstado ();
     }
+    ActualizarEstado ();
+  }
 }
 
 void Actor::init()
 {
     agraph->init();
 }
-
 
 void Actor::set_x(int pos_x)
 {
@@ -129,7 +129,7 @@ void Actor::set_color (int color_tmp)
     color = color_tmp;
 }
 
-void Actor::set_y(int pos_y)
+void Actor::set_y (int pos_y)
 {
     y=pos_y;
 }
@@ -140,7 +140,7 @@ void Actor::set_wh (int w_tmp, int h_tmp)
     h = h_tmp;
 }
 
-void Actor::set_actor_graphic(ActorGraphic *ag)
+void Actor::set_actor_graphic (ActorGraphic *ag)
 {
     agraph=ag;
 }
@@ -154,38 +154,56 @@ ActorGraphic *  Actor::get_actor_graphic () const
 }
 
 /**
- *
+ * \brief   Devuelve el color del actor.
  */
 int Actor::get_color (void)
 {
     return color;
 }
 
+/**
+ * \brief   Devuelve la componente x de la posición del actor.
+ */
 int Actor::get_x()
 {
     return x;
 }
 
+/**
+ * \brief   Devuelve la componente y de la posición del actor.
+ */
 int Actor::get_y()
 {
     return y;
 }
 
+/**
+ * \brief   Devuelve el ancho del actor.
+ */
 int Actor::get_w()
 {
     return w;
 }
 
+/**
+ * \brief   Devuelve el alto del actor.
+ */
 int Actor::get_h()
 {
     return h;
 }
 
+/**
+ * \brief   Devuelve la posición x del componente gráfico del actor.
+ */
 int Actor::get_graph_x()
 {
     return agraph->get_x();
 }
 
+/**
+ * \brief   Devuelve la posición y del componente gráfico del actor.
+ */
 int Actor::get_graph_y()
 {
     return agraph->get_y();
@@ -193,7 +211,6 @@ int Actor::get_graph_y()
 
 /**
  * \brief   Método para obtener el código del nombre.
- * \param   Nombres::codigo     Código del nombre a devolver.
  */
 Nombres::codigo Actor::get_name (void)
 {
@@ -234,7 +251,7 @@ bool  Actor::isIntersectado  (Escenario::Bloque bloque)
  * \brief   Visualiza el aspecto gráfico del actor referida al escenario.
  *          Delega esta función en el objeto gráfico.
  */
-void Actor::draw(StageManager *stageManager)
+void Actor::draw (StageManager *stageManager)
 {
     // Se calcula la posición relativa del actor al escenario. 
     int relx = x - stageManager->GetX();

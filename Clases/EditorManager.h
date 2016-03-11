@@ -17,33 +17,32 @@ class Dialog;
  */
 class EditorManager
 {
-	public:
-                EditorManager	(Game *g);
-                ~EditorManager	();
-        void    edit            ();
-        void    set             (int indice);
-        void    activate        ();
-        void    redibuja        ();
-        void    ResaltarActor   (int x, int y);
-        void    EditarActor     (int x, int y);
-        void    DuplicarActor   (int x, int y);
-        void    MoverActor      (int x, int y);
-        bool    EditandoActor   ();
-        int     GetActorX       ();
-        int     GetActorY       ();
-        void    SetActorX       (int x);
-        void    SetActorY       (int y);
-        Actor * get_actor       (int x, int y);
-        char *  GetNombreTraje  (int indice);
-        int     GetNumTrajes    ();
-        void    CambiarTraje    (int indice);
-        int     GetEscenarioX   ();
-        int     GetEscenarioY   ();
-        void    MoverEscenario  (int x, int y);
+  public:
+            EditorManager 	(Game *g);
+            ~EditorManager	();
+    void    edit            ();
+    void    set             (int indice);
+    void    activate        ();
+    void    redibuja        ();
+    void    ResaltarActor   (int x, int y);
+    void    EditarActor     (int x, int y);
+    void    DuplicarActor   (int x, int y);
+    void    MoverActor      (int x, int y);
+    bool    EditandoActor   ();
+    int     GetActorX       ();
+    int     GetActorY       ();
+    void    SetActorX       (int x);
+    void    SetActorY       (int y);
+    Actor * get_actor       (int x, int y);
+    char *  GetNombreTraje  (int indice);
+    int     GetNumTrajes    ();
+    void    CambiarTraje    (int indice);
+    int     GetEscenarioX   ();
+    int     GetEscenarioY   ();
+    void    MoverEscenario  (int x, int y);
 
-
-    protected:
-        Game *      game;
-		Dialog *    gui;
-        Actor *     actor_editado;
+  protected:
+    Game *      game;
+    Dialog *    gui;
+    Actor *     actor_editado;
 };

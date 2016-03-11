@@ -23,7 +23,6 @@ class Actor
 {
 public:
     /**
-     * \enum
      * \brief   Estados posibles del actor.
      * \todo    Se debe poder heredar, incluir estados desde los hijos. Investigar.
      *          De esta forma eliminaríamos la clase "Nombres" que no me gusta nada.
