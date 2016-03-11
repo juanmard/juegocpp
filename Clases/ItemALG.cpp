@@ -32,7 +32,7 @@ ItemALG::ItemALG (string texto_rec)
 
 ItemALG::ItemALG ()
 {
-	item.text = "&Menu prueba";
+	item.text = const_cast<char *>("&Menu prueba");
 	item.proc = NULL;
 	item.child = NULL;
 	item.flags = 0;
