@@ -1,4 +1,7 @@
 #include "Tesela.h"
+#include <sstream>
+
+using namespace std;
 
 /**
  * \brief   Constructor copia. Se permite cambiar el padre de la nueva Tesela.
@@ -137,3 +140,13 @@ void Tesela::draw (int relX, int relY, BITMAP *pantalla)
   }
 }
 
+/**
+ * \brief   Devuelve una cadena con la estructura de la tesela.
+ */
+string  Tesela::getString () const
+{
+  ostringstream cadena;
+
+  cadena << "{ " << x << "," << y << " " << dibujo << "}" << endl;
+  return cadena.str ();
+};

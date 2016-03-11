@@ -4,6 +4,9 @@
 #include "Mosaico.h"
 #include <allegro.h>
 #include "Almacen.h"
+#include <string>
+
+using namespace std;
 
 class Actor;
 
@@ -20,6 +23,7 @@ class Suelo : public Mosaico
     virtual Suelo *   clone     (Actor *propietario) const;
     void              setSize   (int size);
     int               getSize   (void);
+    virtual string    getString () const;
 
   private:
     int       size;

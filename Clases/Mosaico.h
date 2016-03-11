@@ -4,6 +4,7 @@
 #include "ActorGraphic.h"
 #include "DatFile.h"
 #include "Tesela.h"
+#include <string>
 #include <list>
 
 using namespace std;
@@ -21,10 +22,11 @@ class Mosaico : public ActorGraphic
         void                add_ultima_Tesela   (Tesela *nueva);
         void                del_primera_Tesela  ();
         void                move_Tesela         (int inc_x, int inc_y, Tesela *elegida);
-        Tesela *            last_Tesela         ();
+        Tesela *            last_Tesela         () const;
         void                swap_Tesela         (Tesela *tesela_1, Tesela *tesela_2);
         virtual Mosaico *   clone               (Actor *propietario) const;
-        
+        virtual string      getString           () const;
+
     private:
       list<Tesela *> teselas;
       list<Tesela *>::iterator teselas_iter;

@@ -1,5 +1,5 @@
 #include "Mosaico.h"
-
+#include <sstream>
 
 /**
  * \brief   Constructor de copia de la clase.
@@ -98,7 +98,7 @@ void    Mosaico::move_Tesela     (int inc_x, int inc_y, Tesela *elegida)
 /**
  * \brief Devuelve la última tesela añadida.
  */
-Tesela *    Mosaico::last_Tesela     (void)
+Tesela *  Mosaico::last_Tesela () const
 {
     return teselas.back();
 }
@@ -120,4 +120,15 @@ void    Mosaico::swap_Tesela     (Tesela *tesela_1, Tesela *tesela_2)
 Mosaico *   Mosaico::clone  (Actor *propietario) const
 {
     return (new Mosaico(*this,propietario));
+}
+
+/**
+ * \brief   Clona un mosaico completo.
+ */
+string  Mosaico::getString () const
+{
+  ostringstream cadena;
+
+  cadena << "Mosaico prueba:" << last_Tesela ()->getString ();
+  return cadena.str ();
 }

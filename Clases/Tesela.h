@@ -4,6 +4,7 @@
 #include <allegro.h>
 #include <stdio.h>
 #include "Mosaico.h"
+#include <string>
 
 class Mosaico;
 
@@ -22,11 +23,12 @@ public:
     int                 Get_x       (void);
     int                 Get_y       (void);
     void                Guardar     (void);
+    virtual string      getString   () const;
 
 private:
-    Mosaico *mosaico_padre;
-    int     x, y;
-    BITMAP *dibujo;
+    Mosaico * mosaico_padre;
+    int       x, y;
+    BITMAP *  dibujo;
 
     // \todo Igual sería bueno incluir los 360 grados de giro.
     //       En lugar de únicamente la simetría en x.

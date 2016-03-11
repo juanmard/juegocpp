@@ -31,18 +31,18 @@ Almacen::Almacen (string paramNombreFichero)
       {
         case DAT_BITMAP: 
               bitmaps[nombre] = (BITMAP *) fichero[i].dat;
-              cout << "Bitmap >> " << nombre << "," << bitmaps[nombre] << endl;
+              // cout << "Bitmap >> " << nombre << "," << bitmaps[nombre] << endl;
               break;
         case DAT_PALETTE: 
               paletas[nombre] = (RGB *) fichero[i].dat;
-              cout << "Paleta >> " << nombre << "," << paletas[nombre] << endl;
+              // cout << "Paleta >> " << nombre << "," << paletas[nombre] << endl;
               break;
         case DAT_SAMPLE: 
               sonidos[nombre] = (SAMPLE *) fichero[i].dat;
-              cout << "Sonido >> " << nombre << "," << sonidos[nombre] << endl;
+              // cout << "Sonido >> " << nombre << "," << sonidos[nombre] << endl;
               break;
         default:
-              cout << "DAT desconocido >> " << nombre << "," << fichero[i].dat << endl;
+              // cout << "DAT desconocido >> " << nombre << "," << fichero[i].dat << endl;
               break;
       }
     }
@@ -106,7 +106,7 @@ string  Almacen::getName (BITMAP *puntero)
   while ( (it!=bitmaps.end()) && nombre.empty() )
   {
     // Para 'debug' mostramos el proceso de búsqueda.
-    cout << it->first << " => " << it->second << endl;
+    // cout << it->first << " => " << it->second << endl;
     if (it->second == puntero)
     {
       nombre = it->first;
@@ -114,7 +114,7 @@ string  Almacen::getName (BITMAP *puntero)
     it++;
   }
   // Para 'debug' mostramos los valores finales.
-  cout << "Puntero de bitmap a buscar: " << puntero << endl \
-       << "Nombre asociado en 'map': " << nombre << endl;
+  // cout << "Puntero de bitmap a buscar: " << puntero << endl \
+  //      << "Nombre asociado en 'map': " << nombre << endl;
   return nombre;
 }

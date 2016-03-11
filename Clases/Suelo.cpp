@@ -1,5 +1,6 @@
 #include "Suelo.h"
 #include "Actor.h"
+#include <sstream>
 
 /**
  * \brief   Constructor de copia.
@@ -132,4 +133,15 @@ void  Suelo::setSize (int new_size)
 Suelo *  Suelo::clone (Actor *propietario) const
 {
     return (new Suelo(*this, propietario));
+}
+
+/**
+ * \brief   Devuelve la estructura básica del objeto en una cadena.
+ */
+string  Suelo::getString () const
+{
+  ostringstream cadena;
+
+  cadena << "Suelo >> Tamaño: " << size << " >> Suelo 1: " << suelo_1 << " >> Suelo 2: " << suelo_2 << endl;
+  return cadena.str ();
 }
