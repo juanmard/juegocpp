@@ -60,6 +60,8 @@ MENU Dialog::menu_editor [] =
 // Menú del objeto.
 MENU Dialog::mnu_actor [] =
 {
+  { const_cast<char*>("sin nombre"),   Dialog::cb_menu_opciones,  NULL, D_DISABLED, NULL },
+  { const_cast<char*>(""),             Dialog::cb_menu_opciones,  NULL, D_DISABLED, NULL },
   { const_cast<char*>("&Mover"),       Dialog::cb_menu_opciones,  NULL, D_DISABLED, NULL },
   { const_cast<char*>("&Duplicar"),    Dialog::cb_menu_opciones,  NULL,          0, NULL },
   { const_cast<char*>("&Traje"),       Dialog::cb_menu_opciones,  NULL, D_DISABLED, NULL },
@@ -162,6 +164,18 @@ void Dialog::menu_contextual (int x, int y)
 {
   // Elegimos el menú adecuado: actor, lista de actores, fondo... 
   // según el tipo de objeto.
+
+  // Como prueba mostranos el nombre del objeto en el menú.
+  string nombre;
+  if (actor)
+  {
+    actor->getNombre (nombre);
+    mnu_actor[0].text=const_cast<char*>(nombre.c_str());
+  }
+  else
+  {
+    mnu_actor[0].text=const_cast<char*>("Sin nombre");
+  }
 
   // Mostramos el menu del actor en la posición del ratón.
   do_menu (mnu_actor, x, y);

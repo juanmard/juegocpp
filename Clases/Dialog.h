@@ -298,7 +298,7 @@ class Dialog
     };
 
     /**
-     * \brief   Callback de la lista de actores.
+     * \brief   Callback de las coordenadas.
      */
     static int callback_coordenadas (int msg, DIALOG *d, int c)
     {
