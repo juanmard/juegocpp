@@ -35,10 +35,10 @@ class Dialog
                     Dialog          (EditorManager *editor);
                     ~Dialog         ();
         void        show            ();
-        void        draw                ();
+        void        draw            ();
         void        mouse_out       ();
-        void        mouse_in         ();
-        int         propiedades      ();
+        void        mouse_in        ();
+        int         propiedades     ();
 
 protected:
         void        mostrar_marco   ();
@@ -51,27 +51,37 @@ protected:
 
 
 		EditorManager   *manager;
-        DlgActor        *dlg_actor;
+        DlgActor        *dlg_actor2;
         VentanaALG      *dlg_ventana;
         VentanaALG      *dlg_ventana2;
 
 public:
         /*
-         * \brief   Variable estática del menu de ficheros.
+         * \brief   Variables estáticas del menú principal.
          */
         static MENU     mnu_fichero[];
         static MENU     mnu_ayuda[];
         static MENU     menu_editor[];
-        static MENU     menu_objeto[];
+        static MENU     menu_actor[];
 
         // Diálogo principal. 
         static DIALOG   dialog[];
 
-        // Diálogo de objeto. Se muestran las propiedades del objeto.
-        static DIALOG   dialog_objeto[];
+        // Diálogo de actor. Se muestran las propiedades del actor.
+        static DIALOG   dlg_actor[];
     
         // Referencias para el movimiento del ratón.
-        int                    ref_x, ref_y;
+        int     ref_x, ref_y;
+
+
+        /*
+         * \brief   Procedimiento callback del menú contextual.
+         */
+        static int menu_contextual_cb (void)
+        {
+            alert("Selected menu item:", "", active_menu->text, "Ok", NULL, 0, 0);
+            return D_O_K;
+        }
 
 
         /*
@@ -79,14 +89,33 @@ public:
          */
         static int menu_callback (void)
         {
-                // Líneas de prueba.
-                char str[256];
-                ustrzcpy(str, sizeof str, active_menu->text);
-                alert("Selected menu item:", "", ustrtok(str, "\t"), "Ok", NULL, 0, 0);
+            // Líneas de prueba.
+            char str[256];
+            ustrzcpy(str, sizeof str, active_menu->text);
+            alert("Selected menu item:", "", ustrtok(str, "\t"), "Ok", NULL, 0, 0);
 
-            do_dialog (dialog_objeto,-1);
-            
-             return D_O_K;
+            // Mostramos el diálogo del actor a modo de prueba.
+            do_dialog (dlg_actor,-1);            
+            return D_O_K;
+        }
+
+        /*
+         * Prueba slider.
+         */
+        static int clbk_prueba_slider (void *dp3, int d2)
+        {
+            if (dp3)
+            {
+                // Creamos una referencia temporal al manager del objeto actual.
+                EditorManager &manager = *(static_cast<EditorManager *>(dp3));
+                if (manager.EditandoActor())
+                {
+                    static int actual_y = manager.GetActorY ();
+                    manager.SetActorY( actual_y + (50-d2));
+                    manager.redibuja ();
+                }
+            }
+            return D_O_K;
         }
 
         /**

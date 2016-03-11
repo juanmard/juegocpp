@@ -1,9 +1,15 @@
-#ifndef  SUELO_H
+#ifndef SUELO_H
 #define SUELO_H
 
-#include <allegro.h>
 #include "Mosaico.h"
+#include <allegro.h>
 
+class Actor;
+
+/** 
+ * \brief   Gráfico de suelo modificable en tamaño para actores.
+ * \details Esta clase modela un suelo gráfico modificable en tamaño y basado en mosaicos.
+ */
 class Suelo : public Mosaico
 {
 public:

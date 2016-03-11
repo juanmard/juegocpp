@@ -23,20 +23,18 @@ class EditorManager
         void    edit            ();
         void    set             (int indice);
         void    activate        ();
-        Game   *get_game        ();
         void    redibuja        ();
-        void    resaltar         (int x, int y);
-        void    editar            (int x, int y);
-        void    mover           (int x, int y);
-        // TODO: A sustituir por Actor &get_actor (x,y);
-        Actor  *get_actor       ();
-        bool    is_editando     ();
-        
-        Actor   &    getActor       (int x, int y);
-        
+        void    ResaltarActor   (int x, int y);
+        void    EditarActor     (int x, int y);
+        void    MoverActor      (int x, int y);
+        bool    EditandoActor   ();
+        int     GetActorX       ();
+        int     GetActorY       ();
+        void    SetActorX       (int x);
+        void    SetActorY       (int y);
 
-protected:
-		Game    *game;
-		Dialog   *gui;
-        Actor    *actor_editado;
+    protected:
+		Game *      game;
+		Dialog *    gui;
+        Actor *     actor_editado;
 };

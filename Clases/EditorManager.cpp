@@ -64,24 +64,6 @@ void EditorManager::set (int indice)
 }
 
 /**
- * \brief   Devuelve la referencia al juego que se edita.
- * \todo    Eliminar en un futuro. Esto es pasarle lo que debe hacer "EditorManager" a otra clase.
- */
-Game *EditorManager::get_game (void)
-{
-    return game;
-}
-
-/**
- * \brief   Devuelve la referencia al juego que se edita.
- * \todo    Eliminar en un futuro. Esto es pasarle lo que debe hacer "EditorManager" a otra clase.
- */
-Actor *EditorManager::get_actor (void)
-{
-    return actor_editado;
-}
-
-/**
  * \brief   Redibuja la lista de objetos.
  */
 void    EditorManager::redibuja (void)
@@ -90,9 +72,9 @@ void    EditorManager::redibuja (void)
 }
 
 /**
- * \brief   Resalta el objeto que se encuentra en la posición (x,y).
+ * \brief   Resalta el actor que se encuentra en la posición (x,y).
  */
-void    EditorManager::resaltar (int x, int y)
+void    EditorManager::ResaltarActor (int x, int y)
 {
     // La pantalla está desplazada 14 pixels hacia abajo.
     Actor *actor = game->actor_manager->get_actor (x,y-14);
@@ -110,13 +92,15 @@ void    EditorManager::resaltar (int x, int y)
 }
 
 /**
- * \brief  Activa y desactiva la edición del objeto que se encuentra en la posición (x,y).
+ * \brief   Activa y desactiva la edición del actor que se encuentra en la posición (x,y).
+ * \details Si el actor estaba editándose se deja de editar, si no estaba editándose pasa
+ *          a editarse el que está en la posición x,y dada en coordenadas de pantalla local.
  */
-void    EditorManager::editar (int x, int y)
+void    EditorManager::EditarActor (int x, int y)
 {
     // Comprobamos que no está editado nada.
-    // - Si está editado se elimina la edición.
-    // - Si no está editado se captura el actor bajo la posición (x,y).
+    // - Si está editado, se elimina la edición eliminando el puntero.
+    // - Si no está editado se captura el puntero del actor bajo la posición (x,y).
     if (actor_editado)
     {
         actor_editado = NULL;
@@ -128,9 +112,9 @@ void    EditorManager::editar (int x, int y)
 }
 
 /**
- * \brief  Mueve el actor a la posición dada por (x,y).
+ * \brief  Mueve el actor a la posición dada por (x,y) en coordenadas locales de pantalla.
  */
-void    EditorManager::mover (int x, int y)
+void    EditorManager::MoverActor (int x, int y)
 {
     // Comprobamos que no está editado nada.
     // - Si está actor_editado se mueve.
@@ -143,9 +127,9 @@ void    EditorManager::mover (int x, int y)
 }
 
 /**
- * \brief  Nos dice si está editando un actor.
+ * \brief  Nos dice si hay algún actor editándose en el momento de la llamada.
  */
-bool  EditorManager::is_editando ()
+bool  EditorManager::EditandoActor ()
 {
     if (actor_editado)
     {
@@ -156,13 +140,39 @@ bool  EditorManager::is_editando ()
         return false;
     }
 }
+
 /**
- * \brief   Devuelve una referencia al actor situado en el punto x,y de la
- *            pantalla. Normalmente para editarlo.
- *  \todo  Es posible que exista más de un actor en ese punto, luego
- *            debería devolver una lista de actores.
+ * \brief   Devuelve la propiedad X del actor.
+ * \details Se supone que existe actor editando, si no fuera así daría error.
  */
-Actor &  EditorManager::getActor (int x, int y)
+int EditorManager::GetActorX ()
 {
-    return *(game->actor_manager->get_actor (x,y-14));
+    return actor_editado->get_x();
+}
+
+/**
+ * \brief   Devuelve la propiedad Y del actor.
+ * \details Se supone que existe actor editando, si no fuera así daría error.
+ */
+int EditorManager::GetActorY ()
+{
+    return actor_editado->get_y();
+}
+
+/**
+ * \brief   Modifica la propiedad X del actor.
+ * \details Supone que existe actor editando, si no fuera así daría error.
+ */
+void EditorManager::SetActorX (int x)
+{
+    actor_editado->set_x(x);
+}
+
+/**
+ * \brief   Modifica la propiedad Y del actor.
+ * \details Supone que existe actor editando, si no fuera así daría error.
+ */
+void EditorManager::SetActorY (int y)
+{
+    actor_editado->set_y(y);
 }

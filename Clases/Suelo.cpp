@@ -3,11 +3,11 @@
 
 Suelo::Suelo (Actor *aowner, int new_size) : Mosaico (aowner)
 {
-    // TODO: Dejar de cargar continuamente el fichero de "sprites".
+    // \todo Dejar de cargar continuamente el fichero de "sprites".
     //       Incluir quizás en los parámetros de creación del actor.
     //       O crear una clase que sea "Vestuario" común a todos los
     //       actores de la escena desde el Juego principal (o quizás
-    //       desde el "ActorManager".
+    //       desde el "ActorManager").
     DatFile *file_dat = new DatFile("sprites.dat");
     suelo_1 = file_dat->GetBitmap("suelo_1");
     suelo_2 = file_dat->GetBitmap("suelo_2");
