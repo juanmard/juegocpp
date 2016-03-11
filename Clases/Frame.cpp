@@ -28,7 +28,8 @@ string  Frame::getString () const
 {
   ostringstream cadena;
 
-  cadena  << "Pos <" << cx << "," << cy << "> " << "Ticks: " << ticks;
+  // El puntero 'bmp' hay que transformarlo en el nombre asociado en almacén.
+  cadena  << bmp << ", Pos <" << cx << "," << cy << "> " << "Ticks: " << ticks;
   return (cadena.str());
 };
 

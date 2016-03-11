@@ -176,14 +176,13 @@ string  Sprite::getString () const
   ostringstream cadena;
 
   // Se incluye la estructura del padre.
-  cadena  << ActorGraphic::getString ();
+  // cadena  << ActorGraphic::getString ();
 
   // Se incluyen las propiedades de Sprite.
-  cadena  << "Tipo: Sprite\n" \
-          << "NumFrames: " << frames.size () << "\n" \
-          << "Frame actual: " << actual_frame << "\n" \
-          << "Tick actual: " << actual_tick << "\n" \
-          << "Ángulo: " << mirror << "\n";
+  cadena  << "Sprite >> NumFrames: " << frames.size () \
+          << " >> Frame actual: " << actual_frame \
+          << " >> Tick actual: " << actual_tick \
+          << " >> Ángulo: " << mirror << endl;
 
   // Se incluyen los valores de los Frames.
   for (int i=0; i<frames.size (); i++)
