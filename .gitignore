@@ -1,0 +1,9 @@
+
+# Ficheros compilados (*.o y *.a).
+*.[oa]
+
+# Ficheros temporales del editor.
+*~
+
+# Base de datos de símbolos de anjuta.
+.anjuta_sym_db.db
