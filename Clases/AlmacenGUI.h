@@ -43,7 +43,13 @@ class AlmacenGUI
   private:
     Almacen &         almacen;
     vector<DIALOG>    dlg;
-    int               indice_ant;
+    void              moverMouse ();
+
+    // Estas propiedades no deberían pertenecer a esta clase, sino
+    // a unas subclases de tipo 'lista' y 'ventana'.
+    int   indice_ant;
+    int   x_ant, y_ant;
+    bool  activado;
 
   public:
     static Almacen *almacen_activo;
@@ -89,10 +95,10 @@ class AlmacenGUI
         {
           case MSG_START:
               obj.indice_ant = 0;
-//              almacen_activo = &(obj.almacen);
               break;
 
           case MSG_DRAW:
+              // Activamos el almacén correcto para dibujarlo.
               almacen_activo = &(obj.almacen);
               break;
 
@@ -120,7 +126,6 @@ class AlmacenGUI
           case MSG_GOTFOCUS:
               // Si tenemos el foco, puesto que este callback va en la lista, actualizamos
               // el almacén activo que lo tenemos guardado en 'dp3'.
-              almacen_activo = &(obj.almacen);
               d[0].bg = 250;
               break;
 
@@ -130,6 +135,76 @@ class AlmacenGUI
         }
       }
       return d_list_proc (msg, d, c);
+    }
+
+    /**
+     * \brief   Callback del contenedor (box).
+     * \details Este callback debería ir en otra clase como de tipo 'ventana'
+     *          que reflejara el movimiento de una ventana estándar.
+     */
+    static int callback_mov (int msg, DIALOG *d, int c)
+    {
+      // Se comprueba si el puntero del objeto está ya en 'dp3.
+      if (d[0].dp3)
+      {
+        // Creamos una referencia temporal al objeto actual.
+        AlmacenGUI &obj = *(static_cast<AlmacenGUI *>(d[0].dp3));
+
+        // Se procesan los mensajes.
+        switch (msg)
+        {
+          case MSG_START:
+              obj.activado = false;
+              break;
+
+          case MSG_IDLE:
+/*
+             // Se comprueba que se encuentra dentro de los límites.
+            if ( !((mouse_y < d[0].y) 
+                || (mouse_y > d[0].y + d[0].h)
+                || (mouse_x < d[0].x)
+                || (mouse_x > d[0].x + d[0].w))
+               )
+*/
+            if (obj.activado)
+           {
+              // Se comprueba si se ha movido el ratón.
+              if ( !((obj.x_ant == mouse_x) && 
+                     (obj.y_ant == mouse_y)) )
+              {
+                // El ratón se ha movido.
+                obj.x_ant = mouse_x;
+                obj.y_ant = mouse_y;
+                obj.moverMouse ();
+              }
+            }
+            break;
+
+          case MSG_DRAW:
+              break;
+
+          case MSG_LPRESS:
+              obj.activado = true;
+              d[0].bg = 250;
+              return D_REDRAW;
+
+          case MSG_LRELEASE:
+              obj.activado = false;
+              d[0].bg = 243;
+              return D_REDRAW;
+
+          case MSG_GOTMOUSE:
+              d[0].bg = 250;
+              obj.activado = true;
+              break;
+
+          case MSG_LOSTMOUSE:
+              d[0].bg = 243;
+              obj.activado = false;
+              break;
+         }
+      }
+      return d_box_proc (msg, d, c);
     }
 };
 
