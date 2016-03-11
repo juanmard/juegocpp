@@ -1,5 +1,5 @@
-#ifndef HERNY_H
-#define HERNY_H
+#ifndef _HERNY_H_
+#define _HERNY_H_
 
 #include "ControllableActor.h"
 #include "Sprite.h"

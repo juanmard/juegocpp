@@ -6,66 +6,63 @@
  * \details Se guarda la referencia al juego, se inicializa ancho y alto del marco
  *          y se crea el buffer como bitmap de Allegro.
  */
-StageManager::StageManager (Game *g, int w=SCREEN_W, int h=SCREEN_H):
+StageManager::StageManager (Game *g, int w = SCREEN_W, int h = SCREEN_H):
 game (g),
+marco (0, 0, w, h),
 actorSeguido (NULL)
 {
-  marco.x = 0;
-  marco.y = 0;
-	marco.w = w;
-	marco.h = h;
-	buffer = create_bitmap (SCREEN_W, SCREEN_H);
+  buffer = create_bitmap (SCREEN_W, SCREEN_H);
 }
 
 /**
  * \brief   Destructor de la clase.
  * \details Se libera la memoria del buffer creado como bitmap de Allegro.
  */
-StageManager::~StageManager()
+StageManager::~StageManager ()
 {
-	destroy_bitmap(buffer);
+  destroy_bitmap(buffer);
 }
 
 /**
  * \brief   Devuelve el ancho del marco.
  */
-int StageManager::GetW ()
+int StageManager::getW ()
 {
-	return marco.w;
+  return marco.getW ();
 }
 
 /**
  * \brief   Devuelve el alto del marco.
  */
-int StageManager::GetH ()
+int StageManager::getH ()
 {
-	return marco.h;
+  return marco.getH ();
 }
 
 /**
  * \brief   Devuelve la posición x del marco.
  */
-int StageManager::GetX()
+int StageManager::getX ()
 {
-	return marco.x;
+  return marco.getX ();
 }
 
 /**
  * \brief   Devuelve la posición y del marco.
  */
-int StageManager::GetY()
+int StageManager::getY ()
 {
-	return marco.y;
+  return marco.getY ();
 }
 
 /**
  * \brief   Actualiza el escenario.
  * \details Actualmente al actualizar el escenario únicamnente lo vuelve a dibujar.
  */
-void StageManager::update()
+void StageManager::update ()
 {
   actualizarSeguimiento ();
-	draw ();
+  draw ();
 }
 
 /**
@@ -73,12 +70,12 @@ void StageManager::update()
  * \details Para ello recorre la lista de actores y les manda dibujase en el buffer
  *          que posteriormente se vuelca en la pantalla ('screen' de Allegro).
  */
-void StageManager::draw()
+void StageManager::draw ()
 {
   Actor *tmp;
 
   // Se sitúa la lista de actores al inicio.
-  game->actor_manager->rewind();
+  game->actor_manager->rewind ();
 
   // Dibujamos los decorados de fondo.
   // Coloreamos de azul (2 en la paleta) el fondo.
@@ -88,18 +85,24 @@ void StageManager::draw()
   // \todo  Comprobar los actores que se encuentran dentro del marco del
   //        escenario (intersección de un bloque con otro) y dibujar sólo esos
   //        actores.
-  while ((tmp = game->actor_manager->next())!= NULL)
+  while ((tmp = game->actor_manager->next()) != NULL)
   {
     // Cuando se pide dibujar al actor y se le pasa el StageManager,
     //  debe dibujarse referido al marco del escenario.
     tmp->draw (this);
+
+    // Se dibujan los bloques de referencia del actor.
+    // \todo  Dejar como una opción dentro de la clase. Hacer la comparación de
+    //        dicha opción fuera del bucle para que sea más eficiente.
     tmp->draw_block (this);
 
     // Si se le pasa el buffer se dibujará de manera absoluta, como si
     // el marco estuviera siempre en la posición 0,0.
+    // Procedimiento a eliminar.
     //tmp->draw (buffer);
 
     // Se dibujan los bloques de referencia del actor.
+    // Procedimiento a eliminar.
     //tmp->draw_block (buffer);
   }
 
@@ -119,14 +122,13 @@ void StageManager::draw()
  */
 void StageManager::moverMarco (int x, int y)
 {
-  marco.x = x;
-  marco.y = y;
+  marco.setXY (x,y);
 }
 
 /**
  * \brief Devuelve el buffer del escenario.
  */
-BITMAP * StageManager::GetBuffer ()
+BITMAP * StageManager::getBuffer ()
 {
   return buffer;
 }
@@ -139,13 +141,7 @@ void StageManager::actualizarSeguimiento ()
 {
   if (actorSeguido != NULL)
   {
-    // \todo  Habría que centrar un marco en el otro, para ello crear un método en la
-    //        clase 'Bloque' y generalizar por fin ya esta clase. De momento vamos a
-    //        añadir un desplazamiento precalculado:
-    //  marco.centrar (actorSeguido->getBloque ());
-    int incx = (marco.w - actorSeguido->get_w())/2;
-    int incy = (marco.h - actorSeguido->get_h())/2;
-    moverMarco (actorSeguido->get_x() - incx, actorSeguido->get_y() - incy); 
+    marco.centrar (actorSeguido->getBloque ());
   }
 }
 

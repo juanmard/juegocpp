@@ -1,5 +1,5 @@
-#ifndef ACTORMANAGER_H
-#define ACTORMANAGER_H
+#ifndef _ACTORMANAGER_H_
+#define _ACTORMANAGER_H_
 
 #include <list>
 #include "Bloque.h"

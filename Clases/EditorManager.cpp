@@ -290,10 +290,10 @@ void    EditorManager::MoverEscenario (int x, int y)
 
 int    EditorManager::GetEscenarioX ()
 {
-    return game->stage_manager->GetX();
+    return game->stage_manager->getX ();
 }
 
 int    EditorManager::GetEscenarioY ()
 {
-    return game->stage_manager->GetY();
+    return game->stage_manager->getY ();
 }

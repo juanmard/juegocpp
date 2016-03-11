@@ -1,3 +1,4 @@
+
 #include "Game.h"
 #include <allegro.h>
 #include <iostream>
@@ -16,75 +17,89 @@
  */
 void tick_count();
 
-/* Las variables que modifiquen las funciones timer de allegro tienen que
- *  ser de tipo "volatile".
+/**
+ * Las variables que modifiquen las funciones 'timer' de Allegro tienen que
+ *  ser de tipo 'volatile'.
  */
 volatile int tick;
 
 /**
- * \brief   Función definida como "timer" de Allegro.
+ * \brief   Función definida como 'timer' de Allegro.
  * \todo    Independizar de la biblioteca Allegro mediante clases.
  */
 void tick_count()
 {
-	tick++;
+  tick++;
 }
 END_OF_FUNCTION(tick_count);
-/*------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------*/
 
-
-Game::Game()
+/**
+ * \brief   Constructor por omisión.
+ */
+Game::Game ()
 {
-    actor_manager=NULL;
-    stage_manager=NULL;
-    sound_manager=NULL;
-    control_manager=NULL;
-    collision_manager=NULL;
-    almacen=NULL;
+  actor_manager=NULL;
+  stage_manager=NULL;
+  sound_manager=NULL;
+  control_manager=NULL;
+  collision_manager=NULL;
+  almacen=NULL;
 }
 
-Game::~Game()
+/**
+ * \brief   Destructor por omisión.
+ */
+Game::~Game ()
 {
 }
 
-void Game::init(int gfx_mode, int w, int h, int col)
+/**
+ * \brief   Inicia el juego.
+ */
+void Game::init (int gfx_mode, int w, int h, int col)
 {
-	allegro_init();
-	install_keyboard();
-  install_mouse();
-	install_timer();
+  allegro_init ();
+  install_keyboard ();
+  install_mouse ();
+  install_timer ();
 
-	/* Protegemos variables e instalamos interrupción del "timer" (14 para ejecutar 70 veces por segundo).*/
-	LOCK_VARIABLE(tick);
-	LOCK_FUNCTION(tick_count);
-	install_int(&tick_count, 14);
-	
-	/* Entramos en modo gráfico. */
-	set_color_depth(col);
-	if (set_gfx_mode(gfx_mode, w, h, 0, 0) < 0)
-	{
-		shutdown("No se pudo inicializar modo grafico");
-		return;
-	}
+  /* Protegemos variables e instalamos interrupción del "timer".
+   * (14 para ejecutar 70 veces por segundo).
+   */
+  LOCK_VARIABLE (tick);
+  LOCK_FUNCTION (tick_count);
+  install_int (&tick_count, 14);
+
+  /* Entramos en modo gráfico. */
+  set_color_depth(col);
+  if (set_gfx_mode(gfx_mode, w, h, 0, 0) < 0)
+  {
+    shutdown("No se pudo inicializar modo gráfico");
+    return;
+  }
   else
   {
     gfx_w = w;
     gfx_h = h;
   }
 
-	/* Creamos manejadores del juego. */
-	create_actormanager();
-	create_stagemanager();
+  /* Creamos manejadores del juego. */
+  create_actormanager ();
+  create_stagemanager ();
   create_soundmanager ();
-  create_controlmanager();
+  create_controlmanager ();
   create_collisionmanager ();
   create_storage ();
-    
-	/* Se empieza el juego. */
-	start();
+
+  /* Se empieza el juego. */
+  start ();
 }
 
-void Game::shutdown (string message="Gracias por jugar")
+/**
+ * \brief   Da por terminado el juego.
+ */
+void Game::shutdown (string message = "Gracias por jugar")
 {
   /* Se borrran los controladores. */
   if (actor_manager) delete actor_manager;
@@ -94,20 +109,26 @@ void Game::shutdown (string message="Gracias por jugar")
   if (collision_manager) delete collision_manager;
   if (almacen) delete almacen;
 
-  set_gfx_mode(GFX_TEXT,0,0,0,0);
+  set_gfx_mode (GFX_TEXT,0,0,0,0);
   cout << name << endl;
   cout << message << endl;
-  allegro_exit();
+  allegro_exit ();
 }
 
-void Game::create_actormanager()
+/**
+ * \brief   Crea el controlador de actores.
+ */
+void Game::create_actormanager ()
 {
-	actor_manager = new ActorManager(this);
+  actor_manager = new ActorManager (this);
 }
 
-void Game::create_stagemanager()
+/**
+ * \brief   Crea el controlador del escenario.
+ */
+void Game::create_stagemanager ()
 {
-	stage_manager = new StageManager(this, gfx_w, gfx_h);
+  stage_manager = new StageManager (this, gfx_w, gfx_h);
 }
 
 /**
@@ -117,108 +138,138 @@ void Game::create_stagemanager()
  *          - ¿No es parte del controlador de escenario ("StageManager")?
  *          - ¿Se debe crear un controlador de "efectos" independiente?
  */
-void Game::create_soundmanager()
+void Game::create_soundmanager ()
 {
-//	sound_manager = new SoundManager(this);
-	sound_manager = new SoundManager();
+  //sound_manager = new SoundManager (this);
+  sound_manager = new SoundManager ();
 }
 
-void Game::create_controlmanager()
+/**
+ * \brief   Crea el controlador de controles.
+ */
+void Game::create_controlmanager ()
 {
-    control_manager = new ControlManager();
+    control_manager = new ControlManager ();
 }
 
+/**
+ * \brief   Crea el controlador de colisiones.
+ */
 void Game::create_collisionmanager ()
 {
     collision_manager = new CollisionManager (this);
 }
 
-
-void Game::start()
+/**
+ * \brief   Se inicia el juego.
+ */
+void Game::start ()
 {
-	/* Inicializamos la sincronización con el juego. */
-	actual_tick=tick;
-	old_tick=tick;
-	max_frame_skip=15;
-    paused = false;
+  /* Inicializamos la sincronización con el juego. */
+  actual_tick = tick;
+  old_tick = tick;
+  max_frame_skip = 15;
+  paused = false;
 
-	/* Se llama al procedimiento principal. */
-    main();
-	shutdown();
+  /* Se llama al procedimiento principal. */
+  main ();
+  shutdown ();
 }
 
 /**
  * \brief   Procedimiento predeterminado "main" si no se sobreescribe en el hijo.
  */
-void Game::main()
+void Game::main ()
 {
-	while (!key[KEY_ESC]);
+  while (!key[KEY_ESC]);
 }
 
-void Game::set_name(string n)
+/**
+ * \brief   Se cambia el nombre del juego.
+ */
+void Game::set_name (string n)
 {
-	name = n;
+  name = n;
 }
 
-string Game::get_name   (void)
+/**
+ * \brief   Se obtiene el nombre del juego.
+ */
+string Game::get_name ()
 {
-	return name;
+  return name;
 }
 
-void Game::update   (void)
+/**
+ * \brief   Se actualiza el estado del juego.
+ */
+void Game::update ()
 {
-	/* Se actualiza el ciclo lógico. */
-    if (actual_tick<=tick)
-    {
-        actor_manager->update();
+  /* Se actualiza el ciclo lógico. */
+  if (actual_tick <= tick)
+  {
+    // Se actualiza el estado de la lista de actores.
+    actor_manager->update ();
 
-        /* Se comprueba la existencia de los controladores para actualizarlos. */
-        if (collision_manager) collision_manager->update();
-        if (control_manager) control_manager->update();
-        actual_tick++;
-    }
+    /* Se comprueba la existencia de los controladores para actualizarlos. */
+    if (collision_manager) collision_manager->update ();
+    if (control_manager) control_manager->update ();
+    actual_tick++;
+  }
 
-	/* Si se ha cumplido un segundo, se actualizan los "fps" por pantalla. */
-	if (tick-old_tick >= 70)
-	{
-		rectfill (screen,0,0,400,14,0);
-		textprintf (screen, font, 0,0,-1, "fps: %u frameskip:%u", graphic_tick, frame_skip);
-		graphic_tick=0;
-		old_tick=tick;
-	}
+  /* Si se ha cumplido un segundo, se actualizan los "fps" por pantalla. */
+  if (tick-old_tick >= 70)
+  {
+    rectfill (screen,0,0,400,14,0);
+    textprintf (screen, font, 0,0,-1, "fps: %u frameskip:%u", graphic_tick, frame_skip);
+    graphic_tick = 0;
+    old_tick = tick;
+  }
 
-	/* Se actualiza el ciclo gráfico. */
-	if ((actual_tick>=tick) || (frame_skip>max_frame_skip))
-	{
-		stage_manager->update();
-		if (frame_skip>max_frame_skip) actual_tick=tick;
-		graphic_tick++;
-		frame_skip=0;
-	}
-	else
-	{
-		frame_skip++;
-	}
+  /* Se actualiza el ciclo gráfico. */
+  if ((actual_tick >= tick) || (frame_skip > max_frame_skip))
+  {
+    stage_manager->update ();
+    if (frame_skip>max_frame_skip) actual_tick = tick;
+    graphic_tick++;
+    frame_skip = 0;
+  }
+  else
+  {
+    frame_skip++;
+  }
 }
 
+/**
+ * \brief   Se cambian los máximos 'frames' para saltar.
+ */
 void Game::set_max_frame_skip (int max_fs)
 {
-	max_frame_skip = max_fs;
+  max_frame_skip = max_fs;
 }
 
-void Game::pause (void)
+/**
+ * \brief   Se pausa el juego.
+ */
+void Game::pause ()
 {
-	paused = true;
+  paused = true;
 }
 
-void Game::play (void)
+/**
+ * \brief   Se reanuda el juego.
+ */
+void Game::play ()
 {
-	paused = false;
+  paused = false;
 }
 
+/**
+ * \brief   Se comprueba si el juego está en pausa.
+ */
 bool Game::is_paused (void)
 {
-	return paused;
+  return paused;
 }
 
 /**

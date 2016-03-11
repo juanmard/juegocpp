@@ -254,11 +254,11 @@ bool  Actor::isIntersectado  (Bloque bloque)
 void Actor::draw (StageManager *stageManager)
 {
     // Se calcula la posición relativa del actor al escenario. 
-    int relx = x - stageManager->GetX();
-    int rely = y - stageManager->GetY();
+    int relx = x - stageManager->getX();
+    int rely = y - stageManager->getY();
 
     // Se dibuja en el escenario en la posición calculada.
-    agraph->draw (relx,rely,stageManager->GetBuffer());
+    agraph->draw (relx,rely,stageManager->getBuffer());
 }
 
 /**
@@ -267,9 +267,20 @@ void Actor::draw (StageManager *stageManager)
 void Actor::draw_block (StageManager *stageManager)
 {
     // Se calcula la posición relativa del actor al escenario. 
-    int relx = x - stageManager->GetX();
-    int rely = y - stageManager->GetY();
+    int relx = x - stageManager->getX();
+    int rely = y - stageManager->getY();
 
     // Se dibuja en el escenario en la posición calculada.
-    rect (stageManager->GetBuffer(),relx,rely,w+relx,h+rely,color);
+    rect (stageManager->getBuffer(),relx,rely,w+relx,h+rely,color);
 }
+
+/**
+ * \brief   Obtiene el bloque que define las dimensiones del actor.
+ * \todo    Integrar la clase 'Bloque' completamente en ésta y en otras clases.
+ */
+Bloque &  Actor::getBloque ()
+{
+  Bloque *tmp = new Bloque (x, y, w, h);
+  return *tmp;
+}
+

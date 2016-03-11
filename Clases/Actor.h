@@ -83,10 +83,11 @@ public:
         bool                                    isIntersectado          (Bloque bloque);
         void                                    draw                    (StageManager *stageManager);
         void                                    draw_block              (StageManager *stageManager);
-    
+        Bloque &                                getBloque               ();
+
     protected:
         int             x, y;
-        int             h, w;
+        int             w, h;
         int             color;
         unsigned int    tiempo_estado;
         estado_t        estado;

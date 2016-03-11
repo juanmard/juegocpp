@@ -1,5 +1,5 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef _GAME_H_
+#define _GAME_H_
 
 #include <string>
 
@@ -13,52 +13,50 @@ class Almacen;
 
 using namespace std;
 
-/* \brief   Clase que recoge las funciones básicas de un juego.
+/**
+ * \brief   Clase que recoge las funciones básicas de un juego.
  * \todo   Definir el tipo 'team_t' como una clase externa.
  */
 class Game
 {
-	public:
-        typedef enum
-        {
-            ALLY,
-            ENEMY
-        }team_t;
+  public:
+    typedef enum {ALLY, ENEMY} team_t;
 
-		ActorManager        *actor_manager;
-		StageManager        *stage_manager;
-		SoundManager        *sound_manager;
-        ControlManager      *control_manager;
-        CollisionManager    *collision_manager;
-        Almacen             *almacen;
-        
-                        Game		();
-		virtual		   ~Game		();
-		virtual void    init	    (int gfx_mode, int w, int h, int col);
-		virtual void    main    	(void);
-        void	        pause       (void);
-		void	        play       	(void);
-		bool	        is_paused	(void);
-		void	        set_name	(string name);
-		string		    get_name	(void);
-		void            update		(void);
+    ActorManager        *actor_manager;
+    StageManager        *stage_manager;
+    SoundManager        *sound_manager;
+    ControlManager      *control_manager;
+    CollisionManager    *collision_manager;
+    Almacen             *almacen;
 
-	protected:
-		string      name;
-		int         gfx_w, gfx_h;
-		int         colors;
-        void        set_max_frame_skip	(int max_fs);
+                    Game        ();
+    virtual         ~Game       ();
+    virtual void    init        (int gfx_mode, int w, int h, int col);
+    virtual void    main        ();
+    void            pause       ();
+    void            play        ();
+    bool            is_paused   ();
+    void            set_name    (string name);
+    string          get_name    ();
+    void            update      ();
 
-	private:
-		int     actual_tick;
-		int     old_tick;
-		int     graphic_tick;
-		int     frame_skip;
-		int     max_frame_skip;
-		bool    paused;
+  protected:
+    string      name;
+    int         gfx_w, gfx_h;
+    int         colors;
 
-		void	          start           		    ();
-		void	          shutdown                (string message);
+    void        set_max_frame_skip  (int max_fs);
+
+  private:
+    int     actual_tick;
+    int     old_tick;
+    int     graphic_tick;
+    int     frame_skip;
+    int     max_frame_skip;
+    bool    paused;
+
+    void            start                   ();
+    void            shutdown                (string message);
     virtual void    create_actormanager     ();
     virtual void    create_stagemanager     ();
     virtual void    create_soundmanager     ();
