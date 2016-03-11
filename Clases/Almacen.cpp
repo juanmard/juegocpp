@@ -2,25 +2,18 @@
  * linux
  * Copyright (C) Juanma Rico 2010 <juanmard@gmail.com>
  */
-
 #include "Almacen.h"
 
+/**
+ * \brief   Constructor del almacén dando el nombre del fichero de datos a cargar.
+ */
 Almacen::Almacen (string paramNombreFichero)
 {
-  /* \todo Se podría utilizar el "load_datafile_callback" para guardar nombres y
-   *       punteros al mapa "bitmaps" a la vez que se carga el fichero en memoria.
-   *       Ver: http://es.tldp.org/Allegro-es/web/online/alleg028.html#load_datafile_callback
-   *       Sería algo como: fichero = load_datafile_callback(paramNombreFichero.c_str (), callback_estática_clase);
-   *       Donde " static void callback_estatica_clase (DATAFILE *dat) { }" se definiría en 'Almacen.h'.
-   */
-  // Se prueba y funciona, pero no se puedo luego acceder a la variable estática desde
-  // instanciado.
-  // fichero = load_datafile_callback (paramNombreFichero.c_str (), Almacen::callback);
-
+  // Se intenta cargar el fichero de datos en memoria.
   fichero = load_datafile (paramNombreFichero.c_str ());
   if (!fichero)
   {
-    // No se encontró el fichero. Dejamos el nombre como cadena vacía.
+    // No se encontró el fichero. Borramos la cadena del nombre. Avisamos en consola.
     nombreFichero.clear ();
     cout << "No se pudo acceder al fichero de datos: " << paramNombreFichero << endl;
   }
@@ -29,7 +22,7 @@ Almacen::Almacen (string paramNombreFichero)
     // Se pudo cargar el fichero de datos en memoria. Guardamos el nombre del fichero.
     nombreFichero = paramNombreFichero;
 
-    // Recorremos los datos y emparejamos nombres con punteros de bitmaps.
+    // Recorremos los datos y emparejamos nombres con punteros de los distintos recursos.
     string nombre;
     for (int i=0; fichero[i].type != DAT_END; i++)
     {
@@ -56,10 +49,16 @@ Almacen::Almacen (string paramNombreFichero)
   }
 };
 
+/**
+ * \brief   Constructor por omisión.
+ */
 Almacen::Almacen ()
 {
 };
 
+/**
+ * \brief   Destructor por omisión.
+ */
 Almacen::~Almacen ()
 {
   // Liberar los recursos del fichero.

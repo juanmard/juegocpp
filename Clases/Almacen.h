@@ -2,7 +2,6 @@
  * linux
  * Copyright (C) Juanma Rico 2010 <juanmard@gmail.com>
  */
-
 #ifndef _ALMACEN_H_
 #define _ALMACEN_H_
 
