@@ -3,6 +3,8 @@
 // Declaración de procedimientos.
 int d_pantalla_proc (int msg, DIALOG *d, int c);
 int propiedades (void);
+int menu_callback (void);
+//_declspec(dllimport) int __cdecl d_menu_proc (int msg,DIALOG *d, int c);
 
 /**
  * \brief   Salida de prueba.
@@ -61,9 +63,9 @@ MENU menu_editor [] =
  */
 MENU menu_objeto [] =
 {
-   { "&Mover",          NULL,   NULL,  0,   NULL  },
-   { "&Tamaño",         NULL,   NULL,  0,   NULL  },
-   { "&Propiedades",    propiedades,   NULL,  0,   NULL  },
+   { "&Mover",          menu_callback,   NULL,  0,   NULL  },
+   { "&Tamaño",         menu_callback,   NULL,  0,   NULL  },
+   { "&Propiedades",    menu_callback,   NULL,  0,   NULL  },
    { NULL,              NULL,   NULL,  0,   NULL  }
 };
 
@@ -76,22 +78,13 @@ DIALOG dialog[] =
    { NULL,                 0,   0,  0,   0,   0,   0,   0,    0,                                0,   0,   NULL,                                   NULL, NULL }
 };
 
-DIALOG dlg_propiedades[] =
-{
-   /* (proc)        (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags) (d1) (d2) (dp)             (dp2) (dp3) */
-   { d_box_proc,    153, 88,  238, 142, 2,   3,   0,    0,      0,   0,   NULL,            NULL, NULL },
-   { d_button_proc, 325, 194, 55,  26,  2,   3,   0,    0,      0,   0,   const_cast<char*>("Cerrar"), NULL, NULL },
-   { d_text_proc,   161, 98,  115, 11,  2,   3,   0,    0,      0,   0,   const_cast<char*>("Propiedades"),     NULL, NULL },
-   { NULL,          0,   0,   0,   0,   0,   0,   0,    0,      0,   0,   NULL,            NULL, NULL }
-};
-
 /**
  * \brief   Propiedades.
  */
 int propiedades (void)
 {
     // Se inicializan los colores de la GUI.
-    do_dialog (dlg_propiedades,-1);
+//    dlg_actor->show();    
     return D_O_K;
 }
 
@@ -107,7 +100,8 @@ int d_pantalla_proc (int msg, DIALOG *d, int c)
     static int x;
     static int y;
     static EditorManager *editor = (EditorManager *)(d[0].dp);
-
+ 
+    Actor *actor = editor->get_actor ();
     x = gui_mouse_x();
     y = gui_mouse_y();
 
@@ -115,10 +109,35 @@ int d_pantalla_proc (int msg, DIALOG *d, int c)
     switch (msg)
     {
     case MSG_CHAR:
-        return D_USED_CHAR;
+    case MSG_UCHAR:
+    case MSG_XCHAR:
+        if (actor)
+        {
+            int actor_x = actor->get_x ();
+            int actor_y = actor->get_y ();
+            switch ((c & 0xff))
+            {
+            case 'w':
+                actor_y -= 1;
+                break;
+            case 's':
+                actor_y += 1;
+                break;
+            case 'a':
+                actor_x -= 1;
+                break;
+            case 'd':
+                actor_x += 1;
+                break;
+            }
+            actor->set_x(actor_x);
+            actor->set_y(actor_y);
+            editor->redibuja ();
+        }
+        return D_O_K;
     
     case MSG_DCLICK:
-        break;
+            break;
 
     case MSG_RPRESS:
         // Resaltamos el objeto.
@@ -161,6 +180,22 @@ int d_pantalla_proc (int msg, DIALOG *d, int c)
     return D_O_K;
 }
 
+/*
+ * Menu de prueba.
+ */
+int menu_callback(void)
+{
+   char str[256];
+
+   ustrzcpy(str, sizeof str, active_menu->text);
+   alert("Selected menu item:", "", ustrtok(str, "\t"), "Ok", NULL, 0, 0);
+   return D_O_K;
+}
+
+
+
+
+
 /**
  * \brief   Construye la clase que servirá de GUI para editar un juego.
  */
@@ -176,6 +211,13 @@ Dialog::Dialog (EditorManager *editor)
     // Se inicializan parámetros de los "callback".
     // \todo    Enum para referencias a "dialog". 
     dialog[0].dp = owner;
+
+    // Se crea un diálogo para el actor vacío.
+//    dlg_actor = new DlgActor();
+
+    // Se apunta a ese diálogo en el menú del objeto.
+    // \todo Sustituir el 3 por enum. pj. "menu_objeto[propiedades].dp = ..."
+//    menu_objeto[3].dp = dlg_actor->get_callback ();
 }
 
 Dialog::~Dialog (void)

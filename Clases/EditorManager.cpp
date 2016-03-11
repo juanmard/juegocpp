@@ -14,6 +14,9 @@ EditorManager::EditorManager(Game *g)
 
     // Referencia a la GUI.
     gui = new Dialog(this);
+
+    // No hay actor elegido.
+    editando = NULL;
 }
 
 EditorManager::~EditorManager()
@@ -64,6 +67,15 @@ void EditorManager::set (int indice)
 Game *EditorManager::get_game (void)
 {
     return game;
+}
+
+/**
+ * \brief   Devuelve la referencia al juego que se edita.
+ * \todo    Eliminar en un futuro. Esto es pasarle lo que debe hacer "EditorManager" a otra clase.
+ */
+Actor *EditorManager::get_actor (void)
+{
+    return editando;
 }
 
 /**

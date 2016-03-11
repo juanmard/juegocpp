@@ -2,8 +2,10 @@
 
 #include <allegro.h>
 #include "EditorManager.h"
+#include "DlgActor.h"
 
 class EditorManager;
+class DlgActor;
 
 /**
  * \brief       Muestra una pequeña GUI para editar los objetos del juego.
@@ -16,11 +18,13 @@ class EditorManager;
 class Dialog
 {
 	public:
-                Dialog          (EditorManager *editor);
-                ~Dialog         (void);
-        void    show            (void);
-        void    mouse_out       (void);
+                    Dialog          (EditorManager *editor);
+                    ~Dialog         (void);
+        void        show            (void);
+        void        mouse_out       (void);
+        int         propiedades     (void);
 
 protected:
-		EditorManager *owner;       
+		EditorManager   *owner;
+        DlgActor        *dlg_actor;
 };

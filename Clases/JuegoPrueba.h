@@ -1,10 +1,13 @@
 #pragma once
 
+
 /* Define la compilación de forma estática.
  * \todo Automatizar esto en el marco de trabajo ("FrameWork") para
  *       que pueda ser elegido desde "Game.cpp".
+
 #define ALLEGRO_STATICLINK
 */
+
 #include <allegro.h>
 #include "AirCraft.h"
 #include "Game.h"

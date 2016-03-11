@@ -27,6 +27,8 @@ class EditorManager
         Game   *get_game        (void);
         void    redibuja        (void);
         void    resaltar        (int x, int y);
+        Actor  *get_actor       (void);
+
 
 protected:
 		Game    *game;
