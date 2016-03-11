@@ -22,16 +22,18 @@ gravedad (10)
   // Guardamos el sprite para cada estado.
   // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
   sprites[andando] = new Sprite(this);
-  sprites[andando]->add_frame(almacen.GetBitmap("sprite_088"), 0, 0, 10);
+  sprites[andando]->add_frame(almacen.GetBitmap("sprite_071"), 0, 0, 10);
+  sprites[andando]->add_frame(almacen.GetBitmap("sprite_072"), 0, 0, 10);
+  sprites[andando]->add_frame(almacen.GetBitmap("sprite_073"), 0, 0, 10);
   sprites[andando]->init ();
 
   sprites[esperando] = new Sprite(this);
-  sprites[esperando]->add_frame(almacen.GetBitmap("sprite_084"), 0, 0, 10);
-  sprites[esperando]->add_frame(almacen.GetBitmap("sprite_084"), 2, 0, 10);
+  sprites[esperando]->add_frame(almacen.GetBitmap("sprite_055"), 0, 0, 10);
+  sprites[esperando]->add_frame(almacen.GetBitmap("sprite_060"), 2, 0, 10);
   sprites[esperando]->init ();
 
   sprites[cayendo] = new Sprite(this);
-  sprites[cayendo]->add_frame(almacen.GetBitmap("sprite_089"), 0, 0, 10);
+  sprites[cayendo]->add_frame(almacen.GetBitmap("sprite_069"), 0, 0, 10);
   sprites[cayendo]->init ();
 
   sprites[disparando] = new Sprite(this);
@@ -40,7 +42,7 @@ gravedad (10)
   sprites[disparando]->init ();
 
   sprites[saltando] = new Sprite(this);
-  sprites[saltando]->add_frame(almacen.GetBitmap("sprite_087"), 0, 0, 10);
+  sprites[saltando]->add_frame(almacen.GetBitmap("sprite_054"), 0, 0, 10);
   sprites[saltando]->init ();
 
   set_actor_graphic (sprites[estado]);
@@ -49,7 +51,7 @@ gravedad (10)
   set_y(SCREEN_H/2);
   set_is_detected (false);
   set_collision_method(CollisionManager::PP_COLLISION);
-  set_wh (40,42);
+  set_wh (26,36);
 };
 
 /**
