@@ -1,8 +1,5 @@
 #pragma once
 
-// Para pruebas... eliminar en un futuro.
-#include <typeinfo>
-
 #include <sstream>
 #include <string.h>
 #include <allegro.h>
@@ -56,12 +53,14 @@ class Dialog
     void        dibujarCuadrado         (Bloque cuadro, int color);
     void        centrarActor            (int indice);
     void        setColorRibete          (int color);
+    void        tomarReferencia         ();
+    void        moverEscenario          ();
 
-    EditorManager   *manager;
-    Actor *         actor;
-    DlgActor        *dlg_actor2;
-    VentanaALG      *dlg_ventana;
-    VentanaALG      *dlg_ventana2;
+    EditorManager *   manager;
+    Actor *           actor;
+    DlgActor *        dlg_actor2;
+    VentanaALG *      dlg_ventana;
+    VentanaALG *      dlg_ventana2;
 
 public:
         /*
@@ -81,7 +80,6 @@ public:
         // Referencias para el movimiento del ratón.
         int     ref_x, ref_y;
         int     prb_x, prb_y;
-
 
     /**
      * \brief   Procedimiento callback del menú contextual.
@@ -323,7 +321,6 @@ public:
               break;
 
           case MSG_CLICK:
-              //objeto.prueba_click ();
               objeto.prueba_click ();
               break;
 
@@ -342,10 +339,10 @@ public:
                       mouse_ant_y = mouse_y;
                       if (key[KEY_LCONTROL])
                       {
-                        // objeto.tomarReferencia ();
                         objeto.mover_actor ();
                         objeto.draw ();
                       }
+                      objeto.moverEscenario ();
                   }
                   break;
         }

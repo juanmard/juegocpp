@@ -345,23 +345,14 @@ void Dialog::prueba_click ()
 {
   if (manager)
   {
-    // Si hay actor editando, dejamos de editarlo.
+    actor = manager->getActor (mouse_x - dialog[0].x + manager->getEscenarioX (),
+                               mouse_y - dialog[0].y + manager->getEscenarioY ());
+
+    // Si encontramos el actor bajo el ratón, guardamos sus propiedades.
     if (actor)
     {
-      actor = NULL;
-    }
-    // Si actualmente no hay actor editando, lo buscamos bajo el ratón.
-    else
-    {
-      actor = manager->getActor (mouse_x - dialog[0].x + manager->getEscenarioX (),
-                                 mouse_y - dialog[0].y + manager->getEscenarioY ());
-      // Si encontramos el actor bajo el ratón, guardamos sus propiedades.
-      if (actor)
-      {
-        // Tomamos la referencia del ratón respecto al actor.
-        ref_x = actor->get_x() - manager->getEscenarioX () - mouse_x;
-        ref_y = actor->get_y() - manager->getEscenarioY () - mouse_y;
-      }
+      // Tomamos la referencia del ratón respecto al actor.
+      tomarReferencia ();
     }
     // Se actualizan los valores en la GUI del actor recién encontrado.
     actualizarValoresActor ();
@@ -369,7 +360,7 @@ void Dialog::prueba_click ()
     // Dibujamos de nuevo la GUI.
     draw ();
   }
-}
+};
 
 /**
 * \brief    Duplica un actor que se encuentra bajo la posición local x,y.
@@ -502,3 +493,29 @@ void  Dialog::setColorRibete (int color)
 {
   manager->setColorRibete (color);
 }
+
+/**
+ * \brief   Se toma la referencia del ratón respecto al actor.
+ */
+void  Dialog::tomarReferencia ()
+{
+  ref_x = actor->get_x() - manager->getEscenarioX () - mouse_x;
+  ref_y = actor->get_y() - manager->getEscenarioY () - mouse_y;
+}
+
+/**
+ * \brief   Se mueve el escenario según la posición del ratón.
+ */
+void  Dialog::moverEscenario ()
+{
+  // Si el actor no está activo y se está pulsando la tecla de mover
+  // con el ratón, movemos el escenario.
+  if ((actor == NULL) && key[KEY_LCONTROL])
+  {
+    int x =  mouse_x; //manager->getEscenarioX () - dialog[scr].x - rel_scr_y; 
+    int y =  mouse_y; //manager->getEscenarioY () - mouse_y - dialog[scr].y - rel_scr_y; 
+
+    manager->moverEscenario (x, y);
+    draw ();
+  }
+};
