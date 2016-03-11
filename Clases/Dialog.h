@@ -33,16 +33,20 @@ class Dialog
                     Dialog          (EditorManager *editor);
                     ~Dialog         ();
         void        show            ();
-        void        draw            ();
+        void        draw                ();
         void        mouse_out       ();
-        int         propiedades     ();
+        void        mouse_in         ();
+        int         propiedades      ();
 
 protected:
         void        mostrar_marco   ();
         void        menu_contextual ();
         void        mover_kbd       (int code);
         void        prueba_click    ();
+        void        prueba_dblclk    ();
         void        mostrar_actor   ();
+        void        mover_actor     ();
+
 
 		EditorManager   *owner;
         DlgActor        *dlg_actor;
@@ -55,6 +59,9 @@ public:
          */
         static MENU     mnu_fichero[];
         static MENU     mnu_ayuda[];
+
+        // Referencias para el movimiento del ratón.
+        int                    ref_x, ref_y;
 
         /**
          * \brief   Función estática de prueba para englobar las funciones en la clase.
@@ -113,6 +120,9 @@ public:
                 // Creamos una referencia temporal al objeto actual.
                 Dialog &objeto = *(static_cast<Dialog *>(d[0].dp));
 
+                // Posición anterior del ratón antes de llamar.
+                static int mouse_ant_x, mouse_ant_y;
+                
                 // Seleccionamos los mensajes.
                 switch (msg)
                 {
@@ -125,6 +135,7 @@ public:
 
                 case MSG_DRAW:
                     objeto.mostrar_marco ();
+                    objeto.draw ();
                     break;
 
                 case MSG_RPRESS:
@@ -132,12 +143,30 @@ public:
                     break;
 
                 case MSG_CLICK:
-                    objeto.prueba_click ();
+                    //objeto.prueba_click ();
+                    objeto.prueba_dblclk ();
                     break;
 
                 case MSG_DCLICK:
-                    objeto.mostrar_actor ();
+                    objeto.prueba_dblclk ();
                     break;
+
+                case MSG_IDLE:
+                        if ((mouse_ant_x == mouse_x) && (mouse_ant_y == mouse_y) )
+                        {
+                            // El ratón no se ha movido.
+                        }
+                        else
+                        {
+                            // El ratón se ha movido. Lo actualizamos y movemos el actor.
+                            mouse_ant_x = mouse_x;
+                            mouse_ant_y = mouse_y;
+                            objeto.mouse_out ();
+                            objeto.mover_actor ();
+                            objeto.draw ();
+ 
+                        }
+                        break;
                 }
             }
             // No funciona. Error de acceso. No podemos enviar el mensaje al padre.

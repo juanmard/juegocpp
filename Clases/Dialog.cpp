@@ -52,10 +52,10 @@ MENU menu_objeto [] =
 DIALOG dialog[] =
 {
    /* (proc)                      (x)  (y) (w)  (h)  (fg) (bg) (key) (flags)                           (d1) (d2) (dp)                                    (dp2) (dp3) */
-   { Dialog::marco_callback,      10,  10,  800, 600,  2,   34,  0,    0,                                    0,   0,   NULL,                                   NULL, NULL },
-   { d_menu_proc,                  0,   0,  348,  12,  7,   15,  0,    D_SELECTED | D_GOTFOCUS | D_GOTMOUSE, 0,   0,   menu_editor,                            NULL, NULL },
-   { d_text_proc,                470,  20,  160,  20,  2,   33,  0,    0,                                    0,   0,   const_cast<char*>("  Modo Edición  "),  NULL, NULL },
-   { NULL,                         0,   0,    0,   0,  0,    0,  0,    0,                                    0,   0,   NULL,                                   NULL, NULL }
+   { Dialog::marco_callback,      0,    0, 300, 200,  2,   34,  0,    0,                                    0,   0,   NULL,                                   NULL, NULL },
+   { d_menu_proc,                    0,    0, 300,             12,  7,   15,  0,    D_SELECTED | D_GOTFOCUS | D_GOTMOUSE, 0,   0,   menu_editor,                            NULL, NULL },
+   { d_text_proc,                   470,  20,  160,                      20,  2,   33,  0,    0,                                    0,   0,   const_cast<char*>("  Modo Edición  "),  NULL, NULL },
+   { NULL,                                 0,    0,      0,    0,  0,    0,  0,    0,                                    0,   0,   NULL,                                   NULL, NULL }
 };                                  
 
 /*
@@ -82,6 +82,15 @@ Dialog::Dialog (EditorManager *editor)
     gui_fg_color = makecol(255,255,255);
     gui_bg_color = makecol(128,128,128);
 
+    // Se inicializa el tamaño inicial de la ventana que recibe las llamadas.
+    dialog[0].x = 0;
+    dialog[0].y = 14;
+    dialog[0].h = SCREEN_H;
+    dialog[0].w = SCREEN_W;
+
+    // Se  inicializa el ancho del menú.
+    dialog[1].w = SCREEN_W;
+    
     // Se inicializan parámetros de los "callback".
     // \todo    Enum para referencias a "dialog". 
     dialog[0].dp = this;
@@ -165,6 +174,14 @@ void Dialog::mouse_out (void)
     show_mouse (NULL);
 }
 
+/**
+ * \brief   Muestra el ratón en pantalla.
+ */
+void Dialog::mouse_in (void)
+{
+    // Se oculta el ratón - Allegro.
+    show_mouse (screen);
+}
 
 /**
  * \brief   Muestra el marco del diálogo para propósitos de depuración.
@@ -267,8 +284,53 @@ void    Dialog::mostrar_actor   ()
     owner->redibuja();
 }
 
+/**
+ * \brief   Dibuja de nuevo la GUI.
+ */
 void    Dialog::draw   ()
 {
-    // Queda redibujar los propios controles.
+    // Oculta el ratón para no dejar rastros por pantalla.
+    mouse_out ();
+    
+    // Pide redibujar los objetos del juego.
     owner->redibuja();
+
+    // Redibujar los propios controles de la GUI.
+    // Nota: Esto no es necesario de momento.
+
+    // Vuelve a mostrar el ratón.
+    mouse_in ();
+}
+
+/**
+ * \brief   Mueve el actor activo a la posición especificada
+ *
+ */
+void    Dialog::mover_actor  (void)
+{
+        // Eliminamos la referencia tomada respecto al actor a la posición actual del ratón y movemos el actor.
+        // Se hace esto para evitar el movimiento del actor respecto a la posición del ratón.
+        owner->mover(mouse_x + ref_x, mouse_y + ref_y);
+}
+
+void Dialog::prueba_dblclk ()
+{
+    if (owner)
+    {
+            // Le decimos al "Manager" que resalte el objeto.
+            //owner->resaltar (mouse_x, mouse_y);
+        
+            // Editar puede también desactivar la edición... hay que cambiarlo.
+            owner->editar (mouse_x, mouse_y);
+
+            // Si la última petición de edición hizo que se editara...
+            if (owner->is_editando())
+            {
+                // Tomamos la referencia del ratón respecto al actor.
+                // ¿Esto no lo debería hacer el EditorManager (owner)?
+                Actor *actor = owner->get_actor ();
+                ref_x = actor->get_x () - mouse_x;
+                ref_y = actor->get_y() - mouse_y;
+            }
+    }
 }

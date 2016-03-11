@@ -99,3 +99,51 @@ void    EditorManager::resaltar (int x, int y)
     }
     redibuja ();
 }
+
+/**
+ * \brief  Activa y desactiva la edición del objeto que se encuentra en la posición (x,y).
+ */
+void    EditorManager::editar (int x, int y)
+{
+    // Comprobamos que no está editando nada.
+    // - Si está editando se elimina la edición.
+    // - Si no está editando se captura el actor bajo la posición (x,y).
+    if (editando)
+    {
+        editando = NULL;
+    }
+    else
+    {
+        editando = game->actor_manager->get_actor (x,y-14);
+    }
+}
+
+/**
+ * \brief  Mueve el actor a la posición dada por (x,y).
+ */
+void    EditorManager::mover (int x, int y)
+{
+    // Comprobamos que no está editando nada.
+    // - Si está editando se mueve.
+    // - Si no está editando se ignora.
+    if (editando)
+    {
+        editando->set_x (x);
+        editando->set_y (y);
+    }
+}
+
+/**
+ * \brief  Nos dice si está editando un actor.
+ */
+bool  EditorManager::is_editando ()
+{
+    if (editando)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}

@@ -20,19 +20,21 @@ class EditorManager
 {
 	public:
                 EditorManager	(Game *g);
-                ~EditorManager	(void);
-        void    edit            (void);
+                ~EditorManager	();
+        void    edit            ();
         void    set             (int indice);
-        void    activate        (void);
-        Game   *get_game        (void);
-        void    redibuja        (void);
-        void    resaltar        (int x, int y);
-        Actor  *get_actor       (void);
+        void    activate        ();
+        Game   *get_game        ();
+        void    redibuja        ();
+        void    resaltar         (int x, int y);
+        void    editar            (int x, int y);
+        void    mover           (int x, int y);
+        Actor  *get_actor       ();
+        bool    is_editando     ();
 
 
 protected:
 		Game    *game;
-		Dialog  *gui;
-        Actor   *editando;
-        
+		Dialog   *gui;
+        Actor    *editando;
 };
