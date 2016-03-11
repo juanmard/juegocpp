@@ -21,18 +21,25 @@
 #define _DIALOGALG_H_
 
 #include  <allegro.h>
+#include <vector>
+#include "ControlALG.h"
+
+using namespace std;
+
+class ControlALG;
 
 class DialogALG
 {
 public:
-	DialogALG 	(DIALOG *padre);
-	~DialogALG  ();
-	void		show ();
+	DialogALG 		();
+	~DialogALG  	();
+	void		show 	();
+	void     add		(ControlALG control);
 	
 protected:
-	DIALOG	yo;
-	DIALOG     *padre;
-
+	vector<DIALOG >::iterator 		iter;
+	vector<DIALOG >						controles;
+	static	DIALOG						control_fin;
 };
 
 #endif // _DIALOGALG_H_

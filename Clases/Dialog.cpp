@@ -114,7 +114,27 @@ Dialog::~Dialog (void)
 void Dialog::show (void)
 {
     // Se hace visible el menú de edición.
-    do_dialog (dialog,-1);
+    //do_dialog (dialog,-1);
+
+    // Hacemos unas pruebas cuando salgamos.
+    DialogALG prueba;
+
+    BoxALG *control1 = new BoxALG();
+    prueba.add(*control1);
+    
+    BoxALG *control2 = new BoxALG();
+    control2->set_xy (200,200);
+    prueba.add(*control2);
+    
+    BoxALG *control3 = new BoxALG();
+    control3->set_xy (300,100);
+    prueba.add(*control3);
+        
+    TextALG *control4 = new TextALG();
+    control4->set_xy (300,100);
+    prueba.add(*control4);
+        
+    prueba.show();
     //do_menu(menu_editor, 0, 0);
 }
 

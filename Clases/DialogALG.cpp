@@ -19,18 +19,13 @@
 
 #include "DialogALG.h"
 
-DialogALG::DialogALG (DIALOG *padre_rec)
+// Se inicializa la variable estática que marca el fin de los controles.
+DIALOG DialogALG::control_fin = {NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL};
+
+DialogALG::DialogALG ()
 {
-	padre=padre_rec;
-	yo.proc = d_shadow_box_proc;
-	yo.x=yo.y=100;
-	yo.h=yo.w=100;
-	yo.fg = makecol(255,255,255);
-	yo.bg = makecol(128,128,128);
-	yo.dp = NULL;
-	yo.dp2 = NULL;
-	yo.dp3 = this;
-	yo.flags = 0;
+	// Se pone el "control" terminador para Allegro.
+	controles.push_back  (control_fin);	
 };
 
 DialogALG::~DialogALG ()
@@ -39,17 +34,22 @@ DialogALG::~DialogALG ()
 
 void	DialogALG::show ()
 {
-	// Si no tiene padre, el hace de padre para el resto.
-	if (!padre)
-	{
-		do_dialog (&yo,-1);
-	}
-	else
-	{
-		// Envía un mensaje para que el padre se dibuje.
-			// objetct_message (padre, MSG_DRAW, 0);
+	// No podemos usar "do_dialog" y generamos nuestra propia función.
+	// allegro_message ("prueba[0]: %d\nprueba[1]: %d\nprueba[2]: %d\n", prueba[0], prueba[1], prueba[2]);
 
-		// Luego se dibuja él.
-			// objetct_message (&yo, MSG_DRAW, 0);
-	}
+//	for ( iter=controles.begin() ; iter < controles.end(); iter++ )
+//	{
+//		object_message (*iter, MSG_DRAW, 0);
+//	}
+//	allegro_message ("Pausa para pruebas.");
+
+	allegro_message ("prueba[0]: %d\nprueba[1]: %d\nprueba[2]: %d\n", controles[0].proc, controles[1].proc, controles[2].proc);
+	do_dialog (&controles[0],-1);
 }
+
+void DialogALG::add (ControlALG control)
+{
+	controles.pop_back ();
+	controles.push_back (control);
+	controles.push_back  (control_fin);
+};

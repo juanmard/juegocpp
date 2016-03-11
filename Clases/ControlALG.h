@@ -20,7 +20,10 @@
 #ifndef _ControlALG_H_
 #define _ControlALG_H_
 
+#include <allegro.h>
 #include  "DialogALG.h"
+
+class DialogALG;
 
 class ControlALG
 {
@@ -28,12 +31,18 @@ public:
 								ControlALG 		(DialogALG *padre);
 								ControlALG 		();
 								~ControlALG  	();
+								// Conversor de tipos para DIALOG.
+									operator DIALOG &() {return control;};
 	virtual void		draw				();
+	void						set_xy (int x, int y);
+
+// Pruebas para ControlALG terminador. Lo mejor sería que lo pusiera el diálogo que lo vaya a usar.
+								 void		set_NULL (){control.proc=NULL;};
+
 	
 protected:
 	DIALOG	    control;
 	DialogALG     *padre;
-
 };
 
 #endif // _ControlALG_H_

@@ -17,40 +17,18 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ControlALG.h"
+#ifndef  _TextALG_H_
+#define _TextALG_H_
 
-ControlALG::ControlALG (DialogALG *padre_rec)
+#include  "ControlALG.h"
+
+class TextALG : public ControlALG
 {
-	padre=padre_rec;
-	control.proc = d_shadow_box_proc;
-	control.x=control.y=100;
-	control.h=control.w=100;
-	control.fg = makecol(255,255,255);
-	control.bg = makecol(128,128,128);
-	control.dp = NULL;
-	control.dp2 = NULL;
-	control.dp3 = this;
-	control.flags = 0;
+public:
+	TextALG 	();
+	~TextALG  ();
+	virtual void		draw ();
+	
 };
 
-ControlALG::ControlALG ()
-{
-	padre=NULL;
-	control.proc=NULL;
-	control.flags=0;
-	control.dp3=this;
-};
-
-ControlALG::~ControlALG ()
-{
-};
-
-void	ControlALG::draw ()
-{
-}
-
-void	ControlALG::set_xy (int x, int y)
-{
-	control.x = x;
-	control.y = y;
-}
+#endif 

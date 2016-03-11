@@ -17,40 +17,31 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ControlALG.h"
+#include "TextALG.h"
 
-ControlALG::ControlALG (DialogALG *padre_rec)
+TextALG::TextALG ()
 {
-	padre=padre_rec;
-	control.proc = d_shadow_box_proc;
+	control.proc = d_text_proc;
 	control.x=control.y=100;
 	control.h=control.w=100;
 	control.fg = makecol(255,255,255);
 	control.bg = makecol(128,128,128);
-	control.dp = NULL;
+	control.dp =  static_cast<char *>("Prueba");
 	control.dp2 = NULL;
 	control.dp3 = this;
 	control.flags = 0;
 };
 
-ControlALG::ControlALG ()
-{
-	padre=NULL;
-	control.proc=NULL;
-	control.flags=0;
-	control.dp3=this;
-};
-
-ControlALG::~ControlALG ()
+TextALG::~TextALG ()
 {
 };
 
-void	ControlALG::draw ()
+void	TextALG::draw ()
 {
-}
+	// Dibujar al padre (comprobar que tiene padre).
+	// object_message (padre,MSG_DRAW,0);
 
-void	ControlALG::set_xy (int x, int y)
-{
-	control.x = x;
-	control.y = y;
+	// Y luego te dibujas tú por encima de tu padre.
+	object_message (&control, MSG_DRAW, 0);
+	//do_dialog (&control,-1);
 }
