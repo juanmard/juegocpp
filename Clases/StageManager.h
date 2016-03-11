@@ -15,33 +15,37 @@ class Game;
  */
 class StageManager
 {
+  private:
+    /**
+    * \brief   Estructura para bloque.
+    * \todo    Generalizar esta estructura en una clase e incluirla 
+    *          en el resto de clases junto con métodos como la intersección
+    *          entre bloques.
+    */
+    typedef struct {
+    int  x, y;
+    int  w, h;
+    } Bloque;
 
-    private:
-        /**
-         * \brief   Estructura para bloque.
-         * \todo    Generalizar esta estructura en una clase e incluirla 
-         *          en el resto de clases junto con métodos como la intersección
-         *          entre bloques.
-         */
-        typedef struct {
-            int  x, y;
-            int  w, h;
-        } Bloque;
+public:
+              StageManager    (Game *g, int w, int h);
+              ~StageManager   ();
+    int       GetW            ();
+    int       GetH            ();
+    int       GetX            ();
+    int       GetY            ();
+    BITMAP *  GetBuffer       ();
+    void      update          ();
+    void      draw            ();
+    void      moverMarco      (int x, int y);
+    void      setSeguimiento  (Actor *paramActor);
 
-    public:
-                  StageManager    (Game *g, int w, int h);
-                  ~StageManager   ();
-        int       GetW            ();
-        int       GetH            ();
-        int       GetX            ();
-        int       GetY            ();
-        BITMAP *  GetBuffer       ();
-        void      update          ();
-        void      draw            ();
-        void      MoverMarco      (int x, int y);
-
-    protected:
-        Game       *game;
-        BITMAP     *buffer;
-        Bloque      marco;
+  protected:
+    void      actualizarSeguimiento ();
+  
+  protected:
+    Game      *game;
+    BITMAP    *buffer;
+    Bloque    marco;
+    Actor     *actorSeguido;
 };

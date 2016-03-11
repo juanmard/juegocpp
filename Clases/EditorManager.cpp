@@ -285,7 +285,7 @@ void  EditorManager::CambiarTraje (int indice)
  */
 void    EditorManager::MoverEscenario (int x, int y)
 {
-    game->stage_manager->MoverMarco (x, y);
+    game->stage_manager->moverMarco (x, y);
 }
 
 int    EditorManager::GetEscenarioX ()

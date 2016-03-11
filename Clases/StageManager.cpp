@@ -6,8 +6,9 @@
  * \details Se guarda la referencia al juego, se inicializa ancho y alto del marco
  *          y se crea el buffer como bitmap de Allegro.
  */
-StageManager::StageManager (Game *g, int w, int h):
-game (g) 
+StageManager::StageManager (Game *g, int w=SCREEN_W, int h=SCREEN_H):
+game (g),
+actorSeguido (NULL)
 {
   marco.x = 0;
   marco.y = 0;
@@ -63,6 +64,7 @@ int StageManager::GetY()
  */
 void StageManager::update()
 {
+  actualizarSeguimiento ();
 	draw ();
 }
 
@@ -114,7 +116,7 @@ void StageManager::draw()
  * \brief  Mueve el marco del escenario a la posición especificada dentro de las
  *         coordenadas generalizadas del juego.
  */
-void StageManager::MoverMarco (int x, int y)
+void StageManager::moverMarco (int x, int y)
 {
   marco.x = x;
   marco.y = y;
@@ -127,3 +129,33 @@ BITMAP * StageManager::GetBuffer ()
 {
   return buffer;
 }
+
+/**
+ * \brief   Actualiza el seguimiento a un actor.
+ * \details Actualiza el seguimiento del marco del escenario sobre un actor.
+ */
+void StageManager::actualizarSeguimiento ()
+{
+  if (actorSeguido != NULL)
+  {
+    // \todo  Habría que centrar un marco en el otro, para ello crear un método en la
+    //        clase 'Bloque' y generalizar por fin ya esta clase. De momento vamos a
+    //        añadir un desplazamiento precalculado:
+    //  marco.centrar (actorSeguido->getBloque ());
+    int incx = (marco.w - actorSeguido->get_w())/2;
+    int incy = (marco.h - actorSeguido->get_h())/2;
+    moverMarco (actorSeguido->get_x() - incx, actorSeguido->get_y() - incy); 
+  }
+}
+
+/**
+ * \brief   Actualiza el seguimiento a un actor.
+ * \details Actualiza el seguimiento del marco del escenario sobre un actor.
+ * \param   paramActor  Puntero al actor al que se le hará el seguimiento del
+ *          escenario.
+ */
+void StageManager::setSeguimiento (Actor *paramActor)
+{
+  actorSeguido = paramActor;
+}
+

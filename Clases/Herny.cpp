@@ -23,11 +23,23 @@ Herny::Herny (Almacen &almacen)
     //DatFile *sprites = new DatFile("sprites.dat");
     // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
     Sprite *skin = new Sprite(this);    
+/*
     skin->add_frame(almacen.GetBitmap("sprite_058"), 10, 10, 10);
     skin->add_frame(almacen.GetBitmap("sprite_059"), 10, 10, 30);
     skin->add_frame(almacen.GetBitmap("sprite_060"), 0, 0, 10);
     skin->add_frame(almacen.GetBitmap("sprite_061"), 0, 0, 10);
     skin->add_frame(almacen.GetBitmap("sprite_062"), 0, 0, 20);
+*/
+    skin->add_frame(almacen.GetBitmap("sprite_097"), 0, 0, 10);
+    skin->add_frame(almacen.GetBitmap("sprite_098"), 0, 0, 10);
+    skin->add_frame(almacen.GetBitmap("sprite_099"), 0, 0, 10);
+    skin->add_frame(almacen.GetBitmap("sprite_100"), 0, 0, 10);
+    skin->add_frame(almacen.GetBitmap("sprite_101"), 0, 0, 10);
+    skin->add_frame(almacen.GetBitmap("sprite_102"), 0, 0, 10);
+    skin->add_frame(almacen.GetBitmap("sprite_103"), 0, 0, 10);
+    skin->add_frame(almacen.GetBitmap("sprite_104"), 0, 0, 10);
+    skin->add_frame(almacen.GetBitmap("sprite_105"), 0, 0, 10);
+    skin->add_frame(almacen.GetBitmap("sprite_106"), 0, 0, 10);
     set_actor_graphic (skin);
 
     set_name (Nombres::herny);

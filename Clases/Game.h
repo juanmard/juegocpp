@@ -2,7 +2,6 @@
 #define GAME_H
 
 #include <string>
-#include "Almacen.h"
 
 // Predefiniciones de clases.
 class ActorManager;
@@ -10,6 +9,7 @@ class StageManager;
 class SoundManager;
 class ControlManager;
 class CollisionManager;
+class Almacen;
 
 using namespace std;
 

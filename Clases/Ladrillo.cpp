@@ -1,4 +1,5 @@
 #include "Ladrillo.h"
+#include "Almacen.h"
 
 /**
  * \brief   Constructor que crea un objeto golpeable por la pelota en el juego.

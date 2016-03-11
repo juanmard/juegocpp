@@ -66,6 +66,11 @@ void Game::init(int gfx_mode, int w, int h, int col)
 		shutdown("No se pudo inicializar modo grafico");
 		return;
 	}
+  else
+  {
+    gfx_w = w;
+    gfx_h = h;
+  }
 
 	/* Creamos manejadores del juego. */
 	create_actormanager();
@@ -81,18 +86,18 @@ void Game::init(int gfx_mode, int w, int h, int col)
 
 void Game::shutdown (string message="Gracias por jugar")
 {
-    /* Se borrran los controladores. */
-    if (actor_manager) delete actor_manager;
-    if (stage_manager) delete stage_manager;
-//    if (sound_manager) delete sound_manager;
-    if (control_manager) delete control_manager;
-    if (collision_manager) delete collision_manager;
-    if (almacen) delete almacen;
+  /* Se borrran los controladores. */
+  if (actor_manager) delete actor_manager;
+  if (stage_manager) delete stage_manager;
+  //    if (sound_manager) delete sound_manager;
+  if (control_manager) delete control_manager;
+  if (collision_manager) delete collision_manager;
+  if (almacen) delete almacen;
 
-    set_gfx_mode(GFX_TEXT,0,0,0,0);
-	cout << name << endl;
-	cout << message << endl;
-	allegro_exit();
+  set_gfx_mode(GFX_TEXT,0,0,0,0);
+  cout << name << endl;
+  cout << message << endl;
+  allegro_exit();
 }
 
 void Game::create_actormanager()
