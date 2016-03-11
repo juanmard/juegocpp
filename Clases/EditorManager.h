@@ -1,7 +1,10 @@
 #pragma once
 
 #include <allegro.h>
+#include <string>
 #include "Bloque.h"
+
+using namespace std;
 
 class Game;
 class Actor;
@@ -45,6 +48,7 @@ class EditorManager
     void      borrarPantalla        () const;
     void      centrarActor          (int indice) const;
     void      setColorRibete        (int color);
+    void      getEscenarioXY        (string &posicion) const;
 
   protected:
     Game *      game;

@@ -28,8 +28,10 @@ class Dialog
 {
   public:
     // Enumerado de los controles para el diálogo.
-    enum {scr=0, pantalla=0, menu=1, lista=4, bitmap=5, caja=6 ,estado=7, pos=13,
-          nombre=15, dim=18, ultimo=19};
+    enum {scr=0, pantalla=0, 
+          menu=1, lista=4, bitmap=5, caja=6 ,estado=7, posicion=13,
+          nombre=15, dimensiones=18, 
+          ultimo=19};
 
   public:
                 Dialog          (EditorManager *editor);
@@ -59,6 +61,10 @@ class Dialog
 
     EditorManager *   manager;
     Actor *           actor;
+    string            strNombre;
+    string            strPosicion;
+    string            strDimensiones;
+    string            strEstado;
 
   public:
     // Diálogo principal. 
@@ -309,7 +315,8 @@ class Dialog
           case MSG_UCHAR:
           case MSG_XCHAR:
                 objeto.kdb_coordenadas (d, c);
-                return object_message (&d[0], MSG_DRAW, c);
+                objeto.draw ();
+                break;
 
           case MSG_WANTFOCUS:
               return D_WANTFOCUS;

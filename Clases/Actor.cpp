@@ -137,8 +137,11 @@ void Actor::set_y (int pos_y)
 
 void Actor::set_wh (int w_tmp, int h_tmp)
 {
-    w = w_tmp;
-    h = h_tmp;
+  // Las dimensiones no pueden ser negativas. Las hacemos cero en ese caso.
+  if (w_tmp < 0) w_tmp = 0;
+  if (h_tmp < 0) h_tmp = 0;
+  w = w_tmp;
+  h = h_tmp;
 }
 
 void Actor::set_actor_graphic (ActorGraphic *ag)
@@ -307,8 +310,8 @@ string &  Actor::getNombre () const
 string &  Actor::getWH () const
 {
   stringstream  ss;
-  ss << "(" << w << ", " << h << ")";
-//  ss << w << ", " << h;
+//  ss << "(" << w << ", " << h << ")";
+  ss << w << ", " << h;
   return *(new string (ss.str()));
 };
 
@@ -318,7 +321,49 @@ string &  Actor::getWH () const
 string &  Actor::getXY () const
 {
   stringstream  ss;
-  ss << "(" << x << ", " << y << ")";
-//  ss << x << ", " << y;
+//  ss << "(" << x << ", " << y << ")";
+  ss << x << ", " << y;
   return *(new string (ss.str()));
+};
+
+/**
+ * \brief   Obtiene la posición del actor y actualiza la cadena pasada por parámetro.
+ */
+void  Actor::getXY (string &posicion) const
+{
+  stringstream  ss;
+//  ss << "(" << x << ", " << y << ")";
+  ss << x << ", " << y;
+  posicion = ss.str();
+};
+
+/**
+ * \brief   Obtiene las dimensiones del actor y actualiza la cadena 
+ *          pasada por parámetro.
+ * \param   dimensiones   Cadena para ser rellenada con las dimensiones.
+ */
+void  Actor::getWH (string &dimensiones) const
+{
+  stringstream  ss;
+//  ss << "(" << w << ", " << h << ")";
+  ss << w << ", " << h;
+  dimensiones = ss.str();
+};
+
+/**
+ * \brief   Obtiene el estado actual del actor.
+ * \param   dimensiones   Cadena para ser rellenada con el estado.
+ */
+void  Actor::getEstado (string &estado) const
+{
+  estado = "sin estado";
+};
+
+/**
+ * \brief   Obtiene el nombre del actor.
+ * \param   dimensiones   Cadena para ser rellenada con el nombre.
+ */
+void  Actor::getNombre (string &nombre) const
+{
+  nombre = "sin nombre";
 };

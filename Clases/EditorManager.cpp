@@ -316,3 +316,15 @@ void  EditorManager::setColorRibete (int color)
 {
   game->stage_manager->setColorRibete (color);
 }
+
+/**
+ * \brief   Obtiene la posición del escenario y la vuelca en la cadena.
+ * \param   posicion    Cadena donde se guarda la posición del escenario.
+ */
+void  EditorManager::getEscenarioXY (string &posicion) const
+{
+  Bloque marco (game->stage_manager->getMarco ());
+  stringstream  ss;
+  ss << "(" << marco.getX () << ", " << marco.getY () << ")";
+  posicion = ss.str ();
+}

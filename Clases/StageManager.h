@@ -35,6 +35,7 @@ class StageManager
     Bloque &  getRibete       ();
     void      setColorRibete  (int color);
     Bloque &  getMarco        ();
+//    void      getXY           (string &posicion) const;
 
   protected:
     void      actualizarSeguimiento     ();

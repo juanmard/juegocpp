@@ -51,6 +51,10 @@ public:
         virtual string &    getNombre           () const;
         string &            getWH               () const;
         string &            getXY               () const;
+        void                getXY               (string &posicion) const;
+        void                getWH               (string &dimensiones) const;
+        virtual void        getEstado           (string &estado) const;
+        virtual void        getNombre           (string &nombre) const;
 
         /* \warning: Estos dos estados deben ser incluídos en uno. */
         virtual void                            CambiarEstado           ();

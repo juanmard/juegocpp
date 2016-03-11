@@ -86,8 +86,8 @@ ref_x (0), ref_y(0)
   // Se inicializan parámetros de los "callback".
   dialog[scr].dp = this;
   dialog[scr].dp2 = manager;
-  dialog[pos].dp3 = this;
-  dialog[dim].dp3 = this;
+  dialog[posicion].dp3 = this;
+  dialog[dimensiones].dp3 = this;
 
   // Se  inicializa el ancho del menú.
   dialog[menu].w = SCREEN_W;
@@ -181,9 +181,13 @@ void  Dialog::draw ()
   //int error;
   //dialog_message (&dialog[1], MSG_DRAW, 0, &error);
 
-  // Si hay un actor en edición se dibujan sus ¿nuevos? valores.
+  // Si hay un actor en edición se dibujan sus dimensiones con un cuadrado verde.
   if (actor)
   {
+    // \warning   Esto hay que eliminarlo pues se realiza una doble petición de
+    //            volcado en pantalla. Mejor que cada actor decida si mostrar
+    //            sus límites al dibujar el escenario con una variable booleana
+    //            para cada actor.
     // \todo  Realizar una única petición al EditorManager esto realiza un doble
     //        volcado en pantalla.
     int x = dialog[scr].x; int y = dialog[scr].y;
@@ -196,12 +200,12 @@ void  Dialog::draw ()
     blit (manager->getBuffer (), screen, 0, 0, x, y, w, h);
   }
 
-  // Usamos la caja para borrar.
+  // Usamos la caja para borrar los valores anteriores.
   object_message(&dialog[caja], MSG_DRAW, 0);
   // Actualizamos las propiedades del actor.
   object_message(&dialog[nombre], MSG_DRAW, 0);
-  object_message(&dialog[pos], MSG_DRAW, 0);
-  object_message(&dialog[dim], MSG_DRAW, 0);
+  object_message(&dialog[posicion], MSG_DRAW, 0);
+  object_message(&dialog[dimensiones], MSG_DRAW, 0);
   object_message(&dialog[estado], MSG_DRAW, 0);
 
   // Vuelve a mostrar el ratón.
@@ -271,32 +275,29 @@ void  Dialog::actualizarValoresActor ()
   if (actor)
   {
     // Actualizamos el valor de los controles.
-    // \warning   Estamos creando cadenas que no eliminamos!!!
-    // \warning   Esto debemos eliminarlo pues estos punteros
-    //            siempre deben apuntar a la misma cadena.
-    // \warning   Tras pensar vemos que esta asignación no puede
-    //            eliminarse pues la función se crea una cadena
-    //            temporal que debe ser siempre reasignada.
-    // \warning   Pensar como provocar el borrado de estas cadenas.
-    //            ¿Quizás con un delete 'dialog[pos].dp'?. No, eso sólo borraría
-    //            la cadena creada con la función 'c_str()', pero la devuelta por
-    //            el 'getXY' que es de tipo 'string' no se borraría. 
-    dialog[pos].dp = const_cast <char*> ((actor->getXY ()).c_str());
-    dialog[dim].dp = const_cast <char*> ((actor->getWH ()).c_str());
-    dialog[estado].dp = const_cast <char*> ((actor->getEstado ()).c_str());
-    dialog[nombre].dp = const_cast<char *>((actor->getNombre ()).c_str());
+    actor->getNombre (strNombre);
+    actor->getXY (strPosicion);
+    actor->getWH (strDimensiones);
+    actor->getEstado (strEstado);
+
+    // \warning   Según http://www.cppreference.com/wiki/string/start' las
+    //            cadenas generadas por el método 'c_str()' no es necesario
+    //            eliminarlas como objetos. Nos queda saber cual es el ámbito
+    //            de estas cadenas una vez generadas.
+    dialog[posicion].dp = const_cast <char *> (strPosicion.c_str ());
+    dialog[dimensiones].dp = const_cast <char *> (strDimensiones.c_str ());
+    dialog[estado].dp = const_cast <char *> (strEstado.c_str ());
+    dialog[nombre].dp = const_cast <char *> (strNombre.c_str ());
   }
   else
   {
     // Construimos la cadena de posición.
-    stringstream  stream;
-    stream << manager->getEscenarioX ()
-             <<  ", "
-             << manager->getEscenarioY ();
-
+    manager->getEscenarioXY (strPosicion);
+    strNombre = "Escenario";
+    
     // Actualizamos el valor de los controles.
-    dialog[pos].dp = const_cast <char*> (stream.str().c_str());
-    dialog[nombre].dp = const_cast<char *>("Escenario");
+    dialog[posicion].dp = const_cast <char *> (strPosicion.c_str());
+    dialog[nombre].dp = const_cast <char *> (strNombre.c_str());
   }
 }
 
@@ -422,30 +423,41 @@ void  Dialog::moverMouse ()
  */
 int  Dialog::kdb_coordenadas (DIALOG *d, int code)
 {
+  // Si no hay actor editándose mejor dejarlo.
   int salida = D_O_K;
-  int x, y, z, w;
-  
-  // Se extraen las coordenadas de la cadena.
-  // \warning   Se crea una nueva cadena cada vez, esto hace que se queden
-  //            cadenas sin eliminar y que se igualen coordenadas.
-  // \todo      Para evitar esto igual debemos cambiar directamente el actor.
-  std::stringstream cadena(static_cast<char *>(d->dp));
-  char coma;
-  cadena >> x >> coma >> y;
+  if (actor == NULL) return salida;
 
-  
-  // Se comprueba el 'scancode'
+    // Se comprueba el 'scancode'
+  int x = 0;
+  int y = 0;
   switch (code >> 8)
   {
-    case KEY_UP:    y -= 1; salida = D_USED_CHAR; break;
-    case KEY_DOWN:  y += 1; salida = D_USED_CHAR; break;
-    case KEY_LEFT:  x -= 1; salida = D_USED_CHAR; break;
-    case KEY_RIGHT: x += 1; salida = D_USED_CHAR; break;
+    case KEY_UP:    y = -1; salida = D_USED_CHAR; break;
+    case KEY_DOWN:  y = +1; salida = D_USED_CHAR; break;
+    case KEY_LEFT:  x = -1; salida = D_USED_CHAR; break;
+    case KEY_RIGHT: x = +1; salida = D_USED_CHAR; break;
+    case KEY_ESC:   salida = quit(); break;
   }
 
-  // Actualizamos la cadena.
-  cadena.clear ();
-  cadena << x << coma << " " << y;
-  d->dp = const_cast<char *>(cadena.str().c_str());
+  // \warning   Hay que comprobar quién está llamando a esta función pues en este
+  //            caso puede ser tanto la posicion como las dimensiones.
+  //            Para probar comparamos los punteros de los controles.
+  if (d == &dialog[dimensiones])
+  {
+    x += actor->get_w ();
+    y += actor->get_h ();
+    actor->set_wh (x, y);
+  }
+
+  if (d == &dialog[posicion])
+  {
+    x += actor->get_x ();
+    y += actor->get_y ();
+    actor->set_x (x);
+    actor->set_y (y);
+  }
+
+  // Actualizamos los valores en la gui.
+  actualizarValoresActor ();
   return salida;
 };

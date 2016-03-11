@@ -229,3 +229,15 @@ void  StageManager::setColorRibete (int color)
   colorRibete = color;
 }
 
+/**
+ * \brief   Obtiene la posición del marco y la vuelca en la cadena.
+ * \param   posicion    Cadena donde se guarda la posición marco del escenario.
+ *
+void  StageManager::getXY (string &posicion) const
+{
+  stringstream  ss;
+
+  ss << "(" << marco.getX() << ", " << marco.getY () << ")";
+  posicion = ss.str ();
+}
+*/
