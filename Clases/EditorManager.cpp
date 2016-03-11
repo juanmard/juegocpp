@@ -97,7 +97,11 @@ void    EditorManager::resaltar (int x, int y)
     {   
         editando->set_color (!editando->get_color());
     }
+    // Redibuja la lista de actores.
     redibuja ();
+
+    // Redibuja la GUI.
+    gui->draw ();
 }
 
 /**

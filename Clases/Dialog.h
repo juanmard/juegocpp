@@ -48,7 +48,7 @@ protected:
         void        mover_actor     ();
 
 
-		EditorManager   *owner;
+		EditorManager   *manager;
         DlgActor        *dlg_actor;
         VentanaALG      *dlg_ventana;
         VentanaALG      *dlg_ventana2;
@@ -59,9 +59,25 @@ public:
          */
         static MENU     mnu_fichero[];
         static MENU     mnu_ayuda[];
+        static MENU     menu_editor[];
+        static MENU     menu_objeto[];
 
         // Referencias para el movimiento del ratón.
         int                    ref_x, ref_y;
+
+
+        /*
+         * Menu de prueba.
+         */
+        static int menu_callback (void)
+        {
+                // Líneas de prueba.
+                char str[256];
+                ustrzcpy(str, sizeof str, active_menu->text);
+                alert("Selected menu item:", "", ustrtok(str, "\t"), "Ok", NULL, 0, 0);
+
+             return D_O_K;
+        }
 
         /**
          * \brief   Función estática de prueba para englobar las funciones en la clase.
@@ -134,10 +150,10 @@ public:
                     break;
 
                 case MSG_DRAW:
-                    objeto.mostrar_marco ();
                     objeto.draw ();
                     break;
-
+                        
+                // Mensaje cuando se presiona el botón derecho del ratón.
                 case MSG_RPRESS:
                     objeto.menu_contextual ();
                     break;
@@ -148,9 +164,10 @@ public:
                     break;
 
                 case MSG_DCLICK:
-                    objeto.prueba_dblclk ();
+                    //objeto.prueba_dblclk ();
                     break;
 
+                // Mensaje que se produce repetidamente mientras no exista otro.
                 case MSG_IDLE:
                         if ((mouse_ant_x == mouse_x) && (mouse_ant_y == mouse_y) )
                         {
@@ -161,10 +178,8 @@ public:
                             // El ratón se ha movido. Lo actualizamos y movemos el actor.
                             mouse_ant_x = mouse_x;
                             mouse_ant_y = mouse_y;
-                            objeto.mouse_out ();
                             objeto.mover_actor ();
-                            objeto.draw ();
- 
+                            objeto.draw (); 
                         }
                         break;
                 }
