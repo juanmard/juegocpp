@@ -150,8 +150,8 @@ void Juego2::mainGame ()
 
   // Se añade el control de prueba creado para el loro, al manejador de controles.
   control_manager->add_control(control_p1);
-  //control_manager->add_control(control_p2);
-
+   //control_manager->add_control(control_p2);
+  
   // Se añade el periférico que realizará el control.
   control_manager->add_peripheral(kboard);
 
@@ -160,7 +160,7 @@ void Juego2::mainGame ()
 
   // Iniciamos el juego pausado.
   update();
-  pause ();
+  //pause ();
 
   // Mostramos un breve mensaje en consola sobre las teclas.
   cout << "----------------------------------" << endl;
