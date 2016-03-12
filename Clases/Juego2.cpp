@@ -162,6 +162,19 @@ void Juego2::mainGame ()
   update();
   pause ();
 
+  // Mostramos un breve mensaje en consola sobre las teclas.
+  cout << "----------------------------------" << endl;
+  cout << "----    Teclas básicas        ----" << endl;
+  cout << "----------------------------------" << endl << endl;
+  cout << " P - Pausa el juego." << endl;
+  cout << " E - Entra en modo edición." << endl;
+  cout << " S - Se activa el seguimiento del jugador." << endl;
+  cout << " T - Realiza una prueba de gráficos." << endl;
+  cout << " V - Visualiza los bloques de los actores." << endl;
+  cout << " I - Consola interactiva." << endl;
+  cout << " ESC - Termina el juego." << endl;
+  cout << "----------------------------------" << endl << endl;
+
   // Bucle principal del juego.
   while (!key[KEY_ESC])
   {
@@ -250,27 +263,6 @@ void Juego2::mainGame ()
       Mapa mapa_prb;
       mapa_prb.Read (*actor_manager);
       // cout << mapa_prb.getString ();
-    }
-
-    // Se prueban las cadenas de datos de los objetos.
-    if (key[KEY_C])
-    {
-      cout << "-- Lista de todos los actores --" << endl \
-           << "--------------------------------" << endl;
-      cout << *actor_manager;
-      key[KEY_C] = false;
-    }
-
-    // Se prueba la grabación de las cadenas de datos de los objetos.
-    if (key[KEY_G])
-    {
-      ofstream outfile ("test.txt");
-      outfile << "-- Lista de todos los actores --" << endl \
-              << "--------------------------------" << endl;
-      outfile << *actor_manager;
-      outfile.close();
-      cout << "Grabados objetos en fichero \"test.txt\"" << endl;
-      key[KEY_G] = false;
     }
 
     // Se prueba la consola interactiva.
