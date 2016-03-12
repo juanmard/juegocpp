@@ -24,7 +24,7 @@
 class Loro : public ControllableActor
 {
 public:
-    /// @typedef Definición de acciones del loro.
+    /// @enum Definición de acciones del loro.
     typedef enum {
                 DOWN,   ///< El loro debe bajar.
                 UP,     ///< El loro debe subir.
@@ -32,6 +32,15 @@ public:
                 RIGHT,  ///< El loro debe moverse a la derecha.
                 JUMP    ///< El loro debe saltar.
                 } action_t;
+
+    /// @enum Definición de estados del loro.
+    typedef enum {
+                VOLANDO_DER,    ///< El loro está volando hacia la derecha.
+                VOLANDO_IZQ,    ///< El loro está volando hacia la izquierda.
+                FLOTANDO,       ///< El loro está flotando.
+                GIRANDO_DER,    ///< El loro está girando hacia la derecha.
+                GIRANDO_IZQ     ///< El loro está girando hacia la izquierda.
+                } state_t;
 
 public:
     /// Constructor básico.

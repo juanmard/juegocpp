@@ -18,9 +18,9 @@ Loro::Loro (Almacen &almacen)
     // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
     // Animación de la derecha.
     izquierda = new Sprite(this);
-    izquierda->add_frame(almacen.getBitmap("sprite_042"), 0, 13, 10);
-    izquierda->add_frame(almacen.getBitmap("sprite_043"), 0,  0, 10);
-    izquierda->add_frame(almacen.getBitmap("sprite_044"), 0,  3, 10);
+    izquierda->add_frame(almacen.getBitmap("sprite_042"), 0, 13, 100);
+    izquierda->add_frame(almacen.getBitmap("sprite_043"), 0,  0, 100);
+    izquierda->add_frame(almacen.getBitmap("sprite_044"), 0,  3, 100);
     izquierda->setMirror(true);
 
     // Animación de la izquierda.
@@ -31,9 +31,9 @@ Loro::Loro (Almacen &almacen)
 
     // Animación de giro.
     giro = new Sprite(this);
-    giro->add_frame(almacen.getBitmap("pre2_338"), 0, 0, 10);
-    giro->add_frame(almacen.getBitmap("pre2_338"), 0, 0, 10);
-    giro->add_frame(almacen.getBitmap("pre2_338"), 0, 0, 10);
+    giro->add_frame(almacen.getBitmap("pre2_338"), 0, 0, 100);
+    giro->add_frame(almacen.getBitmap("pre2_338"), 0, 0, 100);
+    giro->add_frame(almacen.getBitmap("pre2_338"), 0, 0, 100);
 
     // Animación de inicio.
     set_actor_graphic (derecha);
@@ -50,7 +50,23 @@ void Loro::do_action (ControllableActor::action_t act, int magnitude)
 {
     switch (act)
     {
-        case DOWN:  y+=1; break;
+        case DOWN:
+            // Prueba usando los estados del actor.
+            switch (estado)
+            {
+            case VOLANDO_DER:
+                estado = VOLANDO_DER;
+                this->set_actor_graphic(giro);
+                break;
+            case GIRANDO_DER:
+                estado = VOLANDO_DER;
+                this->set_actor_graphic(izquierda);
+                break;
+            };
+            //----------------------------------------
+            y+=1;
+            break;
+
         case UP:    y-=1; break;
         case LEFT:
           x-=1;
