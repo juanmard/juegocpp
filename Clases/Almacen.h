@@ -36,6 +36,7 @@ class Almacen
     string            getNombre     () const;
     unsigned int      getSize       () const;
     vector<DIALOG> &  getDIALOG     ();
+    void              addGUI        (vector<DIALOG> &dlg_padre);
 
   private:
     DATAFILE *                fichero;

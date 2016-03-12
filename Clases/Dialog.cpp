@@ -434,32 +434,31 @@ int  Dialog::comprobarTecla (int code)
       pesta.clear ();
       pesta.push_back (dlg_tmp1);
       pesta.push_back (dlg_tmp2);
+      pesta.push_back (fin);
 
       // Obtenemos el vector de diálogos del actor.
+/*
       if (actor)
       {
         vector<DIALOG> &vec_actor = actor->getDIALOG();
         pesta.insert (pesta.end(), vec_actor.begin(), vec_actor.end());
       }
-
-      // Probamos el diálogo del Almacén.
-      vector <DIALOG> &vec_actor = (manager->getAlmacen()).getDIALOG();
-      pesta.insert (pesta.end(), vec_actor.begin(), vec_actor.end()-1);
-//      *pesta.back() = vec_actor[0];
+*/
+      // Probamos añadiendo el diálogo del Almacén.
+      int idx = pesta.size ();
+      manager->getAlmacen().addGUI (pesta);
+      position_dialog (&pesta[idx-1],10,10);
       
       // Probamos con dos almacenes.
       Almacen *prueba = new Almacen ("sprites.dat");
-      vec_actor = prueba->getDIALOG();
-      centre_dialog(&vec_actor[0]);
-      pesta.insert (pesta.end(), vec_actor.begin(), vec_actor.end()-1);
-//      pesta[pesta.end()] = vec_actor;
-      
+      idx = pesta.size();
+      prueba->addGUI (pesta);
+      position_dialog (&pesta[idx-1],400,30);
 
       // Hacemos una prueba dinámica del dialogo principal.
       // Se copia... ¡¡Funciona!!
       //pesta.insert (pesta.end(), &dialog[0], &dialog[18]);
 
-      pesta.push_back (fin);
       popup_dialog (&pesta[0],-1);
     }
     return D_USED_CHAR;

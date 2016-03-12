@@ -49,7 +49,6 @@ Almacen::Almacen (string paramNombreFichero)
       }
     }
   }
-
   // Se crea una GUI para esta clase.
   gui = new AlmacenGUI (*this);
 };
@@ -165,4 +164,13 @@ unsigned int  Almacen::getSize () const
 string  Almacen::getNombre () const
 {
   return nombreFichero;
-}
+};
+
+/**
+ * \brief   Añade la GUI de la clase a la GUI padre.
+ */
+void  Almacen::addGUI (vector<DIALOG> &gui_padre)
+{
+  // Se crea una GUI para esta clase.
+  gui = new AlmacenGUI (*this, gui_padre);
+};

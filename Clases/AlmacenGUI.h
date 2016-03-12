@@ -35,15 +35,18 @@ class AlmacenGUI
 {
   public:
                       AlmacenGUI     (Almacen &almacenParam);
+                      AlmacenGUI     (Almacen &almacenParam, vector<DIALOG> &dlg_padre);
                       AlmacenGUI     ();
                       ~AlmacenGUI    ();
     void              activarAlmacen (Almacen &almacenParam);
     vector<DIALOG> &  getGUI         ();
+    void              addGUI         (vector<DIALOG> &padre);
 
   private:
     Almacen &         almacen;
+    unsigned int      pto_inserccion;
     vector<DIALOG>    dlg;
-    void              moverMouse ();
+    void              moverMouse (DIALOG *dlg);
 
     // Estas propiedades no deberían pertenecer a esta clase, sino
     // a unas subclases de tipo 'lista' y 'ventana'.
@@ -167,15 +170,15 @@ class AlmacenGUI
                )
 */
             if (obj.activado)
-           {
+            {
               // Se comprueba si se ha movido el ratón.
               if ( !((obj.x_ant == mouse_x) && 
                      (obj.y_ant == mouse_y)) )
-              {
+               {
                 // El ratón se ha movido.
                 obj.x_ant = mouse_x;
                 obj.y_ant = mouse_y;
-                obj.moverMouse ();
+                obj.moverMouse (d);
               }
             }
             break;
