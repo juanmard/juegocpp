@@ -1,3 +1,10 @@
+///
+/// @file ControllableActor.h
+/// @brief Fichero cabecera de la clase "ControllableActor".
+/// @author Juan Manuel Rico
+/// @date Marzo 2015
+/// @version 1.0.0
+///
 
 #ifndef CONTROLLABLEACTOR_H
 #define CONTROLLABLEACTOR_H
@@ -5,17 +12,19 @@
 #include "Actor.h"
 #include "ControllableObject.h"
 
-///@todo Limpiar los comentarios documentables de estas clases y utilizar
-///      la clase para ordenar y asumir toda la rama de Objetos Controlables (ControllableObject).
-
+/// @class Define un actor controlable mediante herencia.
+///
 class ControllableActor : public Actor, public ControllableObject
 {
 public:
-    // Constructor de copia.
-    ControllableActor   (const ControllableActor &copia):Actor(copia),ControllableObject(copia){};
-        
-    // Constructor por omisión.
-    ControllableActor (){};
+    /// Constructor por defecto.
+    ///
+    ControllableActor ();
+    
+    /// Constructor de copia.
+    /// @param copia  Referencia al actor que se desea copiar.
+    ///
+    ControllableActor   (const ControllableActor &copia);
 };
 
 #endif

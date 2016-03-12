@@ -22,7 +22,11 @@
 class Paleta : public ControllableActor
 {
 public:
-    typedef enum {LEFT, RIGHT} action_t;    ///< Acciones que puede realizar la Paleta.
+    /// @typedef Acciones que puede realizar la paleta.
+    typedef enum {
+            LEFT,       ///< Moverse a la izquierda.
+            RIGHT       ///< Moverse a la derecha.
+            } action_t;
 
 public:
     /// Constructor por defecto.
