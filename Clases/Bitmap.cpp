@@ -56,7 +56,8 @@ almacen (NULL)
  */
 void  Bitmap::draw (BITMAP *destino)
 {
-  draw_sprite (destino, fuente, get_x(), get_y());
+  //draw_sprite (destino, fuente, get_x(), get_y());
+  pivot_sprite_v_flip_lit(destino, fuente, get_x(), get_y(), 0, 0, 34, 128);
 }
 
 /**
@@ -113,6 +114,18 @@ void  Bitmap::draw (int x, int y, BITMAP *destino, bool mirror)
   }
   else
   {
+    // Rota los sprites...
+    //rotate_sprite(destino, fuente, x, y, ftofix(256.0/9));
+
+    // Dibuja sombras...
+    //draw_character_ex(destino, fuente, x+3, y+3, makecol(128, 128, 128), -1);
+
+    // Rota y escala...
+    //rotate_scaled_sprite(destino, fuente, x, y, ftofix(0.0), ftofix(2.0));
+
+    //Rota con pivote...
+    // pivot_sprite(destino, fuente, x, y, x+10, y-10, ftofix(10.0));
+    
     draw_sprite (destino, fuente, x, y);
   }
 }

@@ -573,6 +573,24 @@ void Juego2::mainGame ()
       while (!salida);
       key[KEY_I] = false;
     }
+    // Prueba de font.
+    //
+    if (key[KEY_F])
+    {
+        key[KEY_F] = false;
+        FONT *myfont;
+        PALETTE palette;
+
+        myfont = load_font("prueba-font.pcx", palette, NULL);
+        // set_palette (palette);
+        if (!myfont)
+            cout << "Couldn't load font!";
+        textout_centre_ex(screen, myfont, "¡Esto es mi prueba de letras!",
+                           SCREEN_W / 2, SCREEN_H / 2, 5, 223);
+        while (!key[KEY_F]);
+        destroy_font(myfont);
+        key[KEY_F] = false;
+    }
   }
 
     // Cerramos el juego fundiendo en negro.

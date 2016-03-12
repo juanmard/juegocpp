@@ -15,7 +15,7 @@ Ladrillo {
 Ladrillo {
     Chaqueta  "sprite_044"
     Peloteo   "sample_001"
-    Posición  <537, 26>
+    Posición  <521, 42>
 }
 
 Ladrillo {
@@ -102,8 +102,8 @@ Plataforma {
 
 
 Plataforma {
-    Posición    <56, 0>
-    Dimensiones <84, 15>
+    Posición    <363, 200>
+    Dimensiones <244, 15>
     Gráfico {
     Suelo {
         Tamaño 7
@@ -113,7 +113,7 @@ Plataforma {
 
 
 Plataforma {
-    Posición    <391, 228>
+    Posición    <112, 63>
     Dimensiones <84, 15>
     Gráfico {
     Suelo {
@@ -124,8 +124,8 @@ Plataforma {
 
 
 Plataforma {
-    Posición    <-27, 242>
-    Dimensiones <84, 15>
+    Posición    <-30, 243>
+    Dimensiones <180, 15>
     Gráfico {
     Suelo {
         Tamaño 5
@@ -135,7 +135,7 @@ Plataforma {
 
 
 Plataforma {
-    Posición    <-34, 22>
+    Posición    <-29, 21>
     Dimensiones <84, 15>
     Gráfico {
     Suelo {

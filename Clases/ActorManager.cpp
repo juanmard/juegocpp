@@ -79,7 +79,7 @@ void ActorManager::add(Actor *a)
   to_create.push_back (a);
   if (a->get_actor_graphic () == NULL)
   {
-    avisoActorSinGrafico (a);
+    avisoActorSinGrafico (*a);
   }
 }
 
@@ -179,60 +179,55 @@ int ActorManager::num_actors ()
   return actors.size ();
 }
 
-/**
- * \brief   Actualiza la lista de actores.
- */
 void ActorManager::update ()
 {
-  list<Actor*>::iterator tmp_iter;
+    list<Actor*>::iterator tmp_iter;
 
-  // Se actualiza el estado del actor (¿¿Lo que se visualiza es el bloque??).
-  actualizarVisualizacion ();
+    // Se actualiza el estado del actor (¿¿Lo que se visualiza es el bloque??).
+    actualizarVisualizacion ();
 
-  /*
-   * \todo  Hacer un "move_all_to_stage" para pasar los actores en bambalinas a escena y así
-   *        eliminar las dos funciones "add_all_to_create" y "del_all_to_del" por separado.
-   */
+    // Agrega al escenario a todos los actores en espera.
+    add_all_to_create();
 
-  /* Agrega al escenario a todos los actores en espera. */
-  add_all_to_create();
-
-  /* Actualiza ahora los actores en escena. */
-  for (tmp_iter=actors.begin(); tmp_iter!=actors.end(); tmp_iter++)
-  {
-    // Se actualiza el actor actual del bucle.
-    (*tmp_iter)->update ();
-
-    /* Se comprueba el estado del actor tras actualizar. */
-    switch ((*tmp_iter)->get_Estado())
+    // Actualiza ahora los actores en escena.
+    for (tmp_iter=actors.begin(); tmp_iter!=actors.end(); tmp_iter++)
     {
-    case Actor::eliminar:
-      /* Si quiere ser eliminado se añade a la lista para eliminarlo. */
-      del ((*tmp_iter));
-      break;
+        // Se actualiza el actor actual del bucle.
+        (*tmp_iter)->update ();
 
-    case Actor::crear:
-      /**
-      * Si quiere crear algún objeto se le pregunta por el hijo y se añade
-      * a la lista.
-      * \warning    No se comprueba que el actor pueda hacer esto. Es decir,
-      *             no se comprueba que sea de la clase "GeneratorActor".
-      *             En teoría si puede mandar ese mensaje es que es de esta clase.
-      */
-      //Actor *tmp = (*tmp_iter);
-      //add (tmp->get_hijo());
+        /// Se comprueba el estado del actor tras actualizar.
+        /// @note Se sospecha que esta parte fue una prueba que "no llegó a cuajar".
+        ///       Eliminar si se confirma.
+        switch ((*tmp_iter)->get_Estado())
+        {
+        case Actor::eliminar:
+            // Si quiere ser eliminado se añade a la lista para eliminarlo.
+            del ((*tmp_iter));
+            break;
 
-      /* Se cambia el estado del padre para que siga actuando. */
-      /* \todo Incluir un set_estado */
-      //(*tmp_iter)->set_estado = Actor::actuar;
-      break;
+        case Actor::crear:
+            ///
+            /// Si quiere crear algún objeto se le pregunta por el hijo y se añade a la lista.
+            /// @warning    No se comprueba que el actor pueda hacer esto. Es decir,
+            ///             no se comprueba que sea de la clase "GeneratorActor".
+            ///             En teoría si puede mandar ese mensaje es que es de esta clase.
+            ///
+            /// Actor *tmp = (*tmp_iter);
+            /// add (tmp->get_hijo());
+
+            /// Se cambia el estado del padre para que siga actuando.
+            /// @todo Incluir un set_estado 
+            /// @code
+            /// (*tmp_iter)->set_estado = Actor::actuar;
+            /// @endcode
+            break;
+        }
     }
-  }
 
-  /* Elimina todos los actores en espera. */
-  /* \todo  La llamada a esta función no tiene sentido si ya están los actores en escena. */
-  del_all_to_del();
-}
+    /// Elimina todos los actores en espera.
+    /// @note La llamada a esta función no tiene sentido si ya están los actores en escena.
+    del_all_to_del();
+};
 
 /**
  * \brief   Obtiene el iterador apuntando al actor incial.
@@ -281,16 +276,13 @@ void  ActorManager::setVisualizar (Actor *paramActor)
   actorVisualizado = paramActor;
 }
 
-/**
- * \brief   Actualiza la visualización del actor.
- */
 void ActorManager::actualizarVisualizacion ()
 {
   if (actorVisualizado != NULL)
   {
     actorVisualizado->getCodigo ();
   }
-}
+};
 
 /**
  * \brief   Devuelve la referencia del actor dado como índice de la lista.
@@ -310,16 +302,10 @@ Actor *  ActorManager::getActor (unsigned int indice)
   return actor;
 }
 
-/**
- * \brief   Muestra en consola el aviso de un actor sin parte gráfica.
- */
-void  ActorManager::avisoActorSinGrafico (Actor *a) const
+void  ActorManager::avisoActorSinGrafico (Actor& a) const
 {
-  string nombre;
-  a->getNombre (nombre);
-  cout << "AVISO: Añadido actor \"" << nombre << "\" sin componente gráfica." << endl;
-}
-
+    cout << "AVISO: Añadido actor \"" << a.getNombre () << "\" sin componente gráfica." << endl;
+};
 
 /**
  * \brief   Obtiene cadena representativa del objeto.
@@ -327,8 +313,8 @@ void  ActorManager::avisoActorSinGrafico (Actor *a) const
  */
 ostream & operator<< (ostream &os, const ActorManager &am)
 {
-  list<Actor*>::iterator  i;
-  list<Actor*>            lista;
+  list<Actor*>::iterator i;
+  list<Actor*> lista;
 
   lista = am.actors;
   os << "[Actores]" << std::endl \

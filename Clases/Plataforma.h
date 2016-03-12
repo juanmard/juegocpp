@@ -11,9 +11,10 @@
 
 #include "Actor.h"
 #include "Suelo.h"
-#include "Nombres.h"
-#include "Almacen.h"
 #include <string>
+#include "Vector2Di.h"
+#include "Vector2Df.h"
+#include "StageManager.h"
 
 /// @class Plataforma
 /// Suelo que se mueve bajo ciertos criterios.
@@ -78,8 +79,38 @@ public:
     ///
     std::ifstream& leer (std::ifstream& ifs);
 
-protected:
-    Suelo* grafico;     ///< Gráfico a mostrar por la plataforma. @note Esto no es necesario, ya existe una referencia al gráfico en el actor.
+    /// Dibuja la plataforma.
+    /// Para ello hereda de "Actor", lo ideal es que heredara de "DrawableObjectAllegro".
+    /// @note Se utiliza a modo de prueba, independizar de Allegro.
+    void draw (StageManager* stageManager);
+
+private:
+    /// Por ser objeto editable hereda el dibujo de control en pantalla.
+    ///
+    /// El control en la plataforma será fundamentalmente poder cambiar con el ratón los
+    /// puntos de origen y destino para cambiar el camino que sigue la plataforma en su movimiento.
+    /// Este procedimiento deberá dibujar una línea entre ambos puntos e indicar, con otra línea,
+    /// la velocidad actual que lleva la plataforma.
+    ///
+    /// @note Se dibuja empleando funciones de Allegro, para independizar la clase de estas funciones
+    ///       se debería utilizar una clase de objeto "DrawableObject" y de él un "DrawableObjectAllegro"
+    ///       de esta forma nuestra clase heredaría de DrawableObject y usaría las mismas funciones pero
+    ///       de forma transparente, algo como:
+    ///       @code
+    ///          line (Origen, Destino, color::rojo);
+    ///          flecha (Velocidad, actor.cdg(), color::rojo);
+    ///       @endcode
+    ///       Donde "line" y "flecha" estarían definidos en "DrawableObject" y definidos con las bibliotecas
+    ///       de Allegro en "DrawableObjectAllegro".
+    ///
+    void drawControl ();
+
+private:
+    Suelo* grafico;         ///< Gráfico a mostrar por la plataforma. @note Esto no es necesario, ya existe una referencia al gráfico en el actor.
+    Vector2Di origen;       ///< Origen del movimiento de la plataforma.
+    Vector2Di destino;      ///< Destino del movimiento de la plataforma.
+    Vector2Df velocidad;    ///< Vector velocidad en el movimiento de la plataforma.
+    bool activa;            ///< Indica si actualmente la plataforma está activa, en movimiento.
 };
 
 #endif _PLATAFORMA_H_

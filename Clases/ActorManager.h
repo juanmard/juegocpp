@@ -30,7 +30,15 @@ class ActorManager
     Actor *                     get_actor             (int x, int y);
     Actor *                     next                  ();
     Actor *                     current               ();
-    void                        update                ();
+
+    /// Actualiza la lista completa de actores.
+    ///
+    /// En este caso actualiza el aspecto y la física implicada.
+    /// @todo  Hacer un "move_all_to_stage" para pasar los actores de bambalinas a escena y así
+    ///        eliminar las dos funciones "add_all_to_create" y "del_all_to_del" por separado.
+    ///
+    void update ();
+
     int                         num_actors            ();
     list<Actor*>::iterator      get_begin_iterator    ();
     list<Actor*>::iterator      get_end_iterator      ();
@@ -50,8 +58,15 @@ class ActorManager
 
 
 protected:
-    void      actualizarVisualizacion ();
-    void      avisoActorSinGrafico (Actor *a) const;
+    /// Actualiza la visualización del actor.
+    /// @note No sé qué sentido tiene este procedimiento.
+    ///
+    void actualizarVisualizacion ();
+
+    /// Avisa de que se ha agregado un actor sin componente gráfica.
+    /// El aviso se realiza en la consola de salida.
+    ///
+    void avisoActorSinGrafico (Actor& a) const;
 
 protected:
     Game *                      game;

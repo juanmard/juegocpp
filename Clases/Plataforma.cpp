@@ -8,13 +8,22 @@
 
 #include "Plataforma.h"
 #include <sstream>
+#include <allegro.h>    ///< A modo de prueba.
 
 Plataforma::Plataforma (const Plataforma& copia):
-Actor(copia)
+Actor(copia),
+//origen (copia.getOrigen()),
+//destino (copia.getDestino()),
+//velocidad (copia.getVelocidad()),
+activa (true)
 {
     /// Una vez copiada la parte gráfica del actor en la inicialización
     /// la referenciamos en el parámetro 'grafico'.
-    /// @note Esto es absolutamente innecesario. 
+    /// @note Esto es absolutamente innecesario. La propiedad "Suelo" no es más que una copia
+    ///       del gráfico que guarda el actor en "agraph". Lo que sí hay que hacer es actualizar
+    ///       el actor propietario en el gráfico. Algo así:
+    ///       @code this->agraph->owner = this; @endcode
+    ///       De otra forma quedará una incongruencia entre actor, gráfico y propietario del gráfico.
     grafico = dynamic_cast<Suelo *>(this->agraph);
 };
 
@@ -27,6 +36,7 @@ Plataforma::Plataforma ()
     set_y (0);
     set_is_detected (true);
     set_collision_method (CollisionManager::PP_COLLISION);
+    activa=true;
 };
 
 Plataforma::Plataforma (Almacen& almacen):
@@ -47,10 +57,14 @@ Plataforma::~Plataforma (void)
 
 void Plataforma::hit (Actor* who, int damage)
 {
+    // Definir antes la zona de influencia con un bloque temporal
+    // que rodee a la plataforma.
+    this->activa = true;    ///< A modo de prueba.
     switch (who->getCodigo ())
     {
     // Si tropezamos con un ladrillo.
     case Nombres::ladrillo:
+        this->activa = true;    ///< A modo de prueba.
         break;
 
     // Si tropezamos con una pelota.
@@ -58,6 +72,7 @@ void Plataforma::hit (Actor* who, int damage)
         break;
 
     default:
+        this->activa = false; ///< A modo de prueba.
         break;
     }
 };
@@ -108,5 +123,29 @@ std::ifstream& Plataforma::leer (std::ifstream& ifs)
     // Activa   false
     //
     return ifs_tmp;
+};
+
+void Plataforma::drawControl ()
+{
+    // En espera de definir estas funciones:
+    //      line (origen, destino, color::rojo);
+    //      flecha (velocidad, actor.cdg(), color::rojo);
+    //      rectangulo (actor.bloque());
+    // En DrawableObject.
+
+    // Mientras tanto hacemos una prueba con Allegro.
+    origen.x = origen.y = 0;
+    destino.x = destino.y = 300;
+    velocidad.x = velocidad.y = 10.0 ;
+
+    line (screen, this->x, this->y, destino.x, destino.y, 123);
+};
+
+void Plataforma::draw (StageManager* stageManager)
+{
+    Actor::draw (stageManager);
+    if (this->activa) {
+        this->drawControl();
+    }
 };
 
