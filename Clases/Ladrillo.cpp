@@ -5,21 +5,21 @@
 #include <fstream>
 
 /**
- * \brief   Constructor que crea un objeto golpeable por la pelota en el juego.
- * \todo    Muchas cosas por hacer:
- *          - Eliminar la forma de obtener el sample. Crear un objeto propio de
- *            sonido para independizar lo más posible de Allegro.
- *          - Eliminar la carga del fichero de recursos "sprites.dat".
- *          - No me gusta como se identifica a los objetos, pues para crear un
- *            objeto hay que acordarse de añadir el nombre en la clase "Nombres".
+ * Constructor que crea un objeto golpeable por la pelota en el juego.
+ * @todo
+ *      - Eliminar la forma de obtener el sample. Crear un objeto propio de
+ *        sonido para independizar lo más posible de Allegro.
+ *      - Eliminar la carga del fichero de recursos "sprites.dat".
+ *      - No me gusta como se identifica a los objetos, pues para crear un
+ *        objeto hay que acordarse de añadir el nombre en la clase "Nombres".
  */
 Ladrillo::Ladrillo ()
 {
-    crear_ladrillo ();
+  crear_ladrillo ();
 }
 
 /**
- * \brief Constructor de copia.
+ * Constructor de copia.
  */
 Ladrillo::Ladrillo (const Ladrillo &copia):
 Actor (copia),
@@ -112,8 +112,8 @@ void  Ladrillo::hit  (Actor *who, int damage)
 }
 
 /**
- * \brief   Se llama desde el constructor para generar las características
- *          generales del ladrillo (de forma predeterminada).
+ * Genera las características generales del ladrillo (de forma predeterminada).
+ * @todo Eliminar su uso.
  */
 void    Ladrillo::crear_ladrillo ()
 {
@@ -162,7 +162,7 @@ Ladrillo *  Ladrillo::clone () const
 /**
  * \brief   Obtiene el nombre en forma de cadena de texto.
  */
-void  Ladrillo::getNombre (string &strNombre) const
+void  Ladrillo::getNombre (std::string &strNombre) const
 {
   strNombre = Nombres::Imprimir (nombre);
 }
@@ -170,7 +170,7 @@ void  Ladrillo::getNombre (string &strNombre) const
 /**
  * \brief   Devuelve el nombre del objeto.
  */
-string  Ladrillo::getNombre () const
+std::string  Ladrillo::getNombre () const
 {
   return Nombres::Imprimir (nombre);
 }
@@ -233,24 +233,37 @@ istream&  Ladrillo::prueba_iostream (istream &is, Ladrillo &a)
  */
 std::ifstream&  Ladrillo::leer (std::ifstream& ifs)
 {
-    string basura, comando, piel, sample;
+    string comando, piel, sample;
     int x, y;
 
-    ifs >> basura >> comando >> piel;
+    /* \todo    Se pueden comprobar los comandos antes de leer y asignar los valores. */
+    ifs.ignore(20,'{') >> comando;
+    /* \todo    Esto lee una cadena entre comillas. Declarar como comando. */
+    ifs.ignore(20,'\"');
+    std::getline (ifs,piel,'\"');
+
+#ifdef _DEBUG_LADRILLO
     std::cout << "Comando: " << comando << "\t Valor: " << piel << std::endl;
-    ifs >> comando >> sample;
+#endif
+
+    ifs >> comando;
+    ifs.ignore(20,'\"');
+    std::getline (ifs,sample,'\"');
+
+#ifdef _DEBUG_LADRILLO
     std::cout << "Comando: " << comando << "\t Valor: " << sample << std::endl;
-    ifs >> comando >> x >> y >> basura;
-    std::cout << "Comando: " << comando << "\t Valor: " << x << ", " << y << std::endl;
-  //ifs.ignore (10,'<');
-  //is >> a.x;
-  //is.ignore (10,',');
-  //is >> a.y;
-  //is.ignore (10,'<');
-  //is >> a.w;
-  //is.ignore (10,',');
-  //is >> a.h;
-  //is.ignore (10,'>');
+#endif
+
+    /* \todo  Realizar estas lecturas sobre una clase "vector":
+              ifs >> vector;  */
+    ifs >> comando;
+    ifs.ignore(20,'<') >> x;
+    ifs.ignore(20,',') >> y;
+    ifs.ignore(20,'}');
+
+#ifdef _DEBUG_LADRILLO
+    std::cout << "Comando: " << comando << "\t Valor: <" << x << ", " << y << ">" << std::endl;
+#endif
 
     Almacen *sprites = new Almacen("sprites3.dat");
     chaqueta = new Bitmap(this, sprites, piel);
@@ -258,24 +271,25 @@ std::ifstream&  Ladrillo::leer (std::ifstream& ifs)
     set_x (x);
     set_y (y);
 
-    // No es necesario ya que el ladrillo completa todos los valores del actor con la llamada "crear_ladrillo".
-//    return Actor::leer(ifs);
+    /* No es necesario llamar a la clase base Actor puesto que el ladrillo completa
+    todos los valores del actor con la llamada "crear_ladrillo". */
+    //return Actor::leer(ifs);
     return ifs;
 };
 
 /**
  */
-std::string  Ladrillo::getString () const
+std::string Ladrillo::getString () const
 {
   std::ostringstream cadena;
 
-  // Se genera una cade simple.
+  /* Se genera una cadena simple. */
   cadena << "Ladrillo {" << std::endl \
-         << "    Chaqueta  " << agraph->getString () << std::endl \
-         << "    Peloteo   " << "sample_001" << std::endl \
-         << "    Posición  " << x << "  " << y << std::endl \
+         << "    Chaqueta  \"" << agraph->getString () << "\"" << std::endl \
+         << "    Peloteo   \"" << "sample_001" << "\"" << std::endl \
+         << "    Posición  <" << x << ", " << y << ">" << std::endl \
          << "}" << std::endl;
 
-  // Se devuelve la cadena con el formato "string".
+  /* Se devuelve la cadena con el formato "string". */
   return cadena.str ();
 };

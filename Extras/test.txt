@@ -1,0 +1,56 @@
+[Actores]
+Cantidad 9
+Ladrillo {
+    Chaqueta  "sprite_041"
+    Peloteo   "sample_001"
+    Posición  <226, 243>
+}
+
+Ladrillo {
+    Chaqueta  "sprite_090"
+    Peloteo   "sample_001"
+    Posición  <176, 186>
+}
+
+Ladrillo {
+    Chaqueta  "sprite_044"
+    Peloteo   "sample_001"
+    Posición  <319, 207>
+}
+
+Ladrillo {
+    Chaqueta  "sprite_041"
+    Peloteo   "sample_001"
+    Posición  <161, 244>
+}
+
+Ladrillo {
+    Chaqueta  "sprite_041"
+    Peloteo   "sample_001"
+    Posición  <194, 244>
+}
+
+Ladrillo {
+    Chaqueta  "sprite_041"
+    Peloteo   "sample_001"
+    Posición  <258, 243>
+}
+
+Ladrillo {
+    Chaqueta  "sprite_041"
+    Peloteo   "sample_001"
+    Posición  <291, 243>
+}
+
+Ladrillo {
+    Chaqueta  "sprite_041"
+    Peloteo   "sample_001"
+    Posición  <324, 243>
+}
+
+Ladrillo {
+    Chaqueta  "Sin nombre"
+    Peloteo   "sample_001"
+    Posición  <382, 190>
+}
+
