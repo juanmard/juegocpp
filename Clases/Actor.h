@@ -63,10 +63,6 @@ class Actor
     virtual string      getNombre           () const;
     void                addEnlace           (DIALOG *enlace);
 
-    /* Métodos no miembros de la clase. */
-    friend ostream&     operator<<          (ostream &o, const Actor &a);
-
-
     /* \warning: Estos dos estados deben ser incluídos en uno. */
     virtual void                            CambiarEstado           ();
     virtual void                            ActualizarEstado        ();
@@ -130,6 +126,10 @@ class Actor
     Game::team_t                            team;
     bool                                    is_detectable;
     CollisionManager::collision_method_t    collision_method;
+
+  // Métodos amigos no-miembros de la clase.
+  friend  ostream&    operator<<    (ostream &os, const Actor &a);
+  friend  istream&    operator>>    (istream &is, Actor &a);
 };
 
 #endif

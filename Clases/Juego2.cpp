@@ -33,6 +33,7 @@
 #include  "Ben.h"
 #include <iostream>
 #include <fstream>
+#include <string>
 
 /**
  * \brief   Crea el objeto del juego.
@@ -275,8 +276,77 @@ void Juego2::mainGame ()
     // Se prueba la consola interactiva.
     if (key[KEY_I])
     {
+      // \todo Pasar los procesos de la consola interactiva a una clase independiente.
       cout << "----------------- Consola Interactiva -----------------" << endl;
-      cin >> *actor_manager;
+
+      char comandos[6][8]={
+          "help",
+          "nuevo",
+          "listar",
+          "grabar",
+          "pausa",
+          "quit"
+      };
+      char ayuda[6][60]={
+          "Obtiene ayuda de los comandos.",
+          "Crea nuevo actor. Ej: nombre {x,y} {w,h}",
+          "Muestra una lista de todos los actores.",
+          "Graba los actores en un fichero \"text.txt\".",
+          "Pausa y activa el juego.",
+          "Sale de la consola interactiva."
+          };
+
+      string comando;
+      bool salida = false;
+      do
+      {
+        comando.clear ();
+        cout << endl << "=> ";
+        cin >> comando;
+        if (!comando.compare("help"))
+        {
+          for (int i=0; i<5; i++)
+          {
+            cout << comandos[i] << " - " << ayuda[i] << endl;
+          }
+        }
+        else if (!comando.compare("nuevo"))
+        {
+          cout << "[nuevo]=> ";
+          cin >> *actor_manager;
+        }
+        else if (!comando.compare("grabar"))
+        {
+          ofstream outfile ("test.txt");
+          outfile << "-- Lista de todos los actores --" << endl \
+                  << "--------------------------------" << endl;
+          outfile << *actor_manager;
+          outfile.close();
+          cout << "Grabados objetos en fichero \"test.txt\"" << endl;
+        }
+        else if (!comando.compare("listar"))
+        {
+          cout << "--------------------------------" << endl \
+               << "-- Lista de todos los actores --" << endl \
+               << "--------------------------------" << endl \
+               << *actor_manager \
+               << "--------------------------------" << endl;
+        }
+        else if (!comando.compare("pausa"))
+        {
+          pause ();
+        }
+        else if (!comando.compare("quit"))
+        {
+          cout << endl << "Fin de consola interactiva." << endl;
+          salida = true;
+        }
+        else
+        {
+          cout << "Comando desconocido. Utilice \"help\" para ver los comandos disponibles." << endl;
+        }
+      }
+      while (!salida);
       key[KEY_I] = false;
     }
   }

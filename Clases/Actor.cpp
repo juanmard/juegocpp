@@ -477,3 +477,28 @@ ostream&  operator<< (ostream &o, const Actor &a)
     o << a.nombre << " {" << a.x << "," << a.y << "}" << " {" << a.w << "," << a.h << "}";
     return o;
 }
+
+/**
+ * \brief   Obtiene los objetos de un flujo de datos.
+ * \details Obtiene los valores de un nuevo actor en el flujo de datos y actualiza
+ *          el actor pasado por parámetro.
+ */
+istream&  operator>> (istream &is, Actor &a)
+{
+  // Extrae los valores del flujo formateado.
+  string nombre;
+  int x,y,w,h;
+  // Este nombre habría que convertirlo a tipo "Nombres::codigo"
+  is >> nombre;
+  is.ignore (10,'{');
+  is >> a.x;
+  is.ignore (10,',');
+  is >> a.y;
+  is.ignore (10,'{');
+  is >> a.w;
+  is.ignore (10,',');
+  is >> a.h;
+  is.ignore (10,'}');
+
+  return is;
+}

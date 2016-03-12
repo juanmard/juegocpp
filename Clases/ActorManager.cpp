@@ -325,28 +325,12 @@ ostream&  operator<< (ostream &os, const ActorManager &am)
  */
 istream&  operator>> (istream &is, ActorManager &am)
 {
-  string nombre;
-  int x,y,w,h;
-  is >> nombre;
-  is.ignore (10,'{');
-  is >> x;
-  is.ignore (10,',');
-  is >> y;
-  is.ignore (10,'{');
-  is >> w;
-  is.ignore (10,',');
-  is >> h;
-  is.ignore (10,'}');
-
   // Se crea y añade el nuevo actor.
   Actor *nuevo = new Actor();
-  nuevo->set_x (x);
-  nuevo->set_y (y);
-  nuevo->set_wh (w,h);
+  is >> *nuevo;
   am.add (nuevo);
 
   // Se muestra en pantalla un resumen.
-  cout << endl << "Nombre: " << nombre << " Pos: (" << nuevo->get_x() << "," << nuevo->get_y() \
-       << ") (" << nuevo->get_w() << "," << nuevo->get_h() << ")" << endl;
+  cout << endl << *nuevo << endl;
   return is;
 }
