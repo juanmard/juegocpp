@@ -162,11 +162,11 @@ public:
         // Si 'index' es cero o positivo debe devolver la cadena del nombre del actor.
         if (index < 0)
         {
-          *list_size = objeto.manager->getNumActores ();
+          *list_size = objeto.manager->get_num_actores ();
         }
         else
         {
-          string *cadena = new string(objeto.manager->getNombreActor (index));
+          string *cadena = new string(objeto.manager->get_nombre_actor (index));
           salida = const_cast<char *>(cadena->c_str());
         }
       }

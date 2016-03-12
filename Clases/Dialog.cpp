@@ -104,7 +104,7 @@ moviendoActor (false)
   dialog[lista].dp3 = this;
 
   // Bitmap
-  dialog[bitmap].dp = manager->getBuffer ();
+  dialog[bitmap].dp = manager->get_buffer ();
 
   // Color del fondo de los controles.
   for (int i = scr; i < ultimo; i++) dialog[i].bg = makecol (128,128,128);
@@ -147,10 +147,10 @@ Dialog::~Dialog (void)
 void Dialog::show (void)
 {
   // Se borra la pantalla.
-  manager->borrarPantalla ();
+  manager->borrar_pantalla ();
 
   // Se modifica el tamaño del escenario mostrado (ribete) y se ajusta a la GUI.
-  manager->setRibete (Bloque (dialog[scr].x, dialog[scr].y,
+  manager->set_ribete (Bloque (dialog[scr].x, dialog[scr].y,
                               dialog[scr].w, dialog[scr].h));
 
   // Se hace visible el menú de edición.
@@ -187,8 +187,7 @@ void Dialog::menu_contextual (int x, int y)
   string nombre;
   if (actor)
   {
-    actor->getNombre (nombre);
-    mnu_actor[0].text=const_cast<char*>(nombre.c_str());
+    mnu_actor[0].text=const_cast<char*>(actor->getNombre ().c_str());
     mnu_actor[1].flags = 0;
     mnu_actor[1].child = actor->getMenu();
   }
@@ -210,7 +209,7 @@ void  Dialog::draw ()
   //mouse_out ();
 
   // Se dibuja el escenario.
-  manager->dibujarEscenario ();
+  manager->dibujar_escenario ();
 
   // Redibujar los propios controles de la GUI.
   //int error;
@@ -238,8 +237,8 @@ void  Dialog::mover_actor  (void)
   //  manager->moverActor (mouse_x + ref_x + manager->getEscenarioX (), mouse_y + ref_y + manager->getEscenarioY ());
   if (actor)
   {
-    actor->set_x (mouse_x + ref_x + manager->getEscenarioX ());
-    actor->set_y (mouse_y + ref_y + manager->getEscenarioY ());
+    actor->set_x (mouse_x + ref_x + manager->get_escenario_x ());
+    actor->set_y (mouse_y + ref_y + manager->get_escenario_y ());
     actualizarValoresActor ();
   }
 }
@@ -255,8 +254,8 @@ void Dialog::prueba_click ()
     if (actor) actor->set_mostrar_bloque (false);
 
     // Se busca el otro actor.
-    actor = manager->getActor (mouse_x - dialog[scr].x + manager->getEscenarioX (),
-                               mouse_y - dialog[scr].y + manager->getEscenarioY ());
+    actor = manager->get_actor (mouse_x - dialog[scr].x + manager->get_escenario_x (),
+                               mouse_y - dialog[scr].y + manager->get_escenario_y ());
 
     // Si encontramos el actor bajo el ratón, activamos el nuevo actor.
     if (actor)
@@ -282,7 +281,7 @@ void  Dialog::duplicarActor ()
   // Si hay un actor seleccionado para editar...
   if (actor)
   {
-    manager->duplicarActor (actor);
+    manager->duplicar_actor (actor);
     draw ();
   }
 }
@@ -296,7 +295,6 @@ void  Dialog::actualizarValoresActor ()
   if (actor)
   {
     // Actualizamos el valor de los controles.
-    actor->getNombre (strNombre);
     actor->getXY (strPosicion);
     actor->getWH (strDimensiones);
     actor->getEstado (strEstado);
@@ -309,17 +307,13 @@ void  Dialog::actualizarValoresActor ()
     dialog[posicion].dp = const_cast <char *> (strPosicion.c_str ());
     dialog[dimensiones].dp = const_cast <char *> (strDimensiones.c_str ());
     dialog[estado].dp = const_cast <char *> (strEstado.c_str ());
-    dialog[nombre].dp = const_cast <char *> (strNombre.c_str ());
+    dialog[nombre].dp = const_cast <char *> (actor->get_nombre ().c_str ());
   }
   else
   {
-    // Construimos la cadena de posición.
-    manager->getEscenarioXY (strPosicion);
-    strNombre = "Escenario";
-
     // Actualizamos el valor de los controles.
-    dialog[posicion].dp = const_cast <char *> (strPosicion.c_str());
-    dialog[nombre].dp = const_cast <char *> (strNombre.c_str());
+    dialog[posicion].dp = const_cast <char *> (manager->get_escenario_xy ().c_str());
+    dialog[nombre].dp = const_cast <char *> ("Escenario");
   }
 }
 
@@ -334,7 +328,7 @@ void  Dialog::centrarActor (int indice)
 
   // Se le pide al controlador de edición que centre (y active) el actor
   // con el índice dado.
-  manager->centrarActor (indice);
+  manager->centrar_actor (indice);
 }
 
 /**
@@ -358,7 +352,7 @@ void  Dialog::setActor (Actor *actorMostrar)
  */
 void  Dialog::setColorRibete (int color)
 {
-  manager->setColorRibete (color);
+  manager->set_color_ribete (color);
 }
 
 /**
@@ -368,13 +362,13 @@ void  Dialog::tomarReferencia ()
 {
   if (actor)
   {
-    ref_x = actor->get_x() - manager->getEscenarioX () - mouse_x;
-    ref_y = actor->get_y() - manager->getEscenarioY () - mouse_y;
+    ref_x = actor->get_x() - manager->get_escenario_x () - mouse_x;
+    ref_y = actor->get_y() - manager->get_escenario_y () - mouse_y;
   }
   else
   {
-    ref_x = manager->getEscenarioX () + mouse_x;
-    ref_y = manager->getEscenarioY () + mouse_y;
+    ref_x = manager->get_escenario_x () + mouse_x;
+    ref_y = manager->get_escenario_y () + mouse_y;
   }
 }
 
@@ -389,7 +383,7 @@ void  Dialog::moverEscenario ()
   {
     int x = ref_x - mouse_x;
     int y = ref_y - mouse_y;
-    manager->moverEscenario (x, y);
+    manager->mover_escenario (x, y);
     draw ();
   }
 };
@@ -404,8 +398,8 @@ void  Dialog::moverEscenario ()
 int  Dialog::comprobarTecla (int code)
 {
   int salida = D_O_K;
-  int x = manager->getEscenarioX ();
-  int y = manager->getEscenarioY ();
+  int x = manager->get_escenario_x ();
+  int y = manager->get_escenario_y ();
 
   // Se comprueba el 'scancode'
   switch (code >> 8)
@@ -463,7 +457,7 @@ int  Dialog::comprobarTecla (int code)
 
       // Probamos añadiendo el diálogo del Almacén.
       int idx = pesta.size ();
-      manager->getAlmacen().addGUI (pesta);
+      manager->get_almacen().addGUI (pesta);
       position_dialog (&pesta[idx-1],590,320);
 
       // Probamos con dos almacenes.
@@ -484,7 +478,7 @@ int  Dialog::comprobarTecla (int code)
     break;
   }
 
-  manager->moverEscenario (x, y);
+  manager->mover_escenario (x, y);
   draw ();
   return salida;
 };
@@ -551,7 +545,7 @@ int  Dialog::kdb_coordenadas (DIALOG *d, int code)
 
 void Dialog::leerActores ()
 {
-    this->manager->game->actor_manager->deleteActors ();
+    this->manager->game->actor_manager->delete_actors ();
     this->manager->game->actor_manager->load ("test.txt");
     this->manager->game->actor_manager->add_all_to_create ();
     std::cout << "Lista de actores leídos." << std::endl;
