@@ -1,102 +1,117 @@
 [Actores]
-Cantidad 20
+Cantidad 21
 Ladrillo {
-    Chaqueta  "sprite_041"
-    Peloteo   "sample_001"
-    Posición  <235, 243>
+    Posición    <235, 243>
+    Dimensiones <32, 15>
+    Gráfico {
+sprite_041    }
 }
 
 Ladrillo {
-    Chaqueta  "sprite_090"
-    Peloteo   "sample_001"
-    Posición  <177, 187>
+    Posición    <191, 154>
+    Dimensiones <32, 15>
+    Gráfico {
+sprite_090    }
 }
 
 Ladrillo {
-    Chaqueta  "sprite_044"
-    Peloteo   "sample_001"
-    Posición  <521, 42>
+    Posición    <521, 42>
+    Dimensiones <32, 15>
+    Gráfico {
+sprite_044    }
 }
 
 Ladrillo {
-    Chaqueta  "sprite_041"
-    Peloteo   "sample_001"
-    Posición  <161, 244>
+    Posición    <161, 244>
+    Dimensiones <32, 15>
+    Gráfico {
+sprite_041    }
 }
 
 Ladrillo {
-    Chaqueta  "sprite_041"
-    Peloteo   "sample_001"
-    Posición  <199, 244>
+    Posición    <199, 244>
+    Dimensiones <32, 15>
+    Gráfico {
+sprite_041    }
 }
 
 Ladrillo {
-    Chaqueta  "sprite_041"
-    Peloteo   "sample_001"
-    Posición  <271, 243>
+    Posición    <271, 243>
+    Dimensiones <32, 15>
+    Gráfico {
+sprite_041    }
 }
 
 Ladrillo {
-    Chaqueta  "sprite_041"
-    Peloteo   "sample_001"
-    Posición  <306, 240>
+    Posición    <306, 240>
+    Dimensiones <32, 15>
+    Gráfico {
+sprite_041    }
 }
 
 Ladrillo {
-    Chaqueta  "sprite_041"
-    Peloteo   "sample_001"
-    Posición  <340, 240>
+    Posición    <340, 240>
+    Dimensiones <32, 15>
+    Gráfico {
+sprite_041    }
 }
 
 Ladrillo {
-    Chaqueta  "sprite_087"
-    Peloteo   "sample_001"
-    Posición  <499, 61>
+    Posición    <499, 61>
+    Dimensiones <32, 15>
+    Gráfico {
+sprite_087    }
 }
 
 Ladrillo {
-    Chaqueta  "sprite_090"
-    Peloteo   "sample_001"
-    Posición  <-11, -35>
+    Posición    <-11, -35>
+    Dimensiones <32, 15>
+    Gráfico {
+sprite_090    }
 }
 
 Ladrillo {
-    Chaqueta  "sprite_041"
-    Peloteo   "sample_001"
-    Posición  <282, 95>
+    Posición    <282, 95>
+    Dimensiones <32, 15>
+    Gráfico {
+sprite_041    }
 }
 
 Ladrillo {
-    Chaqueta  "sprite_044"
-    Peloteo   "sample_001"
-    Posición  <343, 48>
+    Posición    <343, 48>
+    Dimensiones <32, 15>
+    Gráfico {
+sprite_044    }
 }
 
 Ladrillo {
-    Chaqueta  "sprite_088"
-    Peloteo   "sample_001"
-    Posición  <315, 51>
+    Posición    <315, 51>
+    Dimensiones <32, 15>
+    Gráfico {
+sprite_088    }
 }
 
 Ladrillo {
-    Chaqueta  "sprite_041"
-    Peloteo   "sample_001"
-    Posición  <348, 95>
+    Posición    <348, 95>
+    Dimensiones <32, 15>
+    Gráfico {
+sprite_041    }
 }
 
 Ladrillo {
-    Chaqueta  "sprite_041"
-    Peloteo   "sample_001"
-    Posición  <315, 95>
+    Posición    <315, 95>
+    Dimensiones <32, 15>
+    Gráfico {
+sprite_041    }
 }
 
 Plataforma {
     Posición    <473, 102>
     Dimensiones <84, 15>
     Gráfico {
-    Suelo {
-        Tamaño 2
-    }
+Propietario: sin nombre
+Posición: [473, 102]
+Dimensiones: [0, 0]
     }
 }
 
@@ -105,9 +120,9 @@ Plataforma {
     Posición    <363, 200>
     Dimensiones <244, 15>
     Gráfico {
-    Suelo {
-        Tamaño 7
-    }
+Propietario: sin nombre
+Posición: [363, 200]
+Dimensiones: [0, 0]
     }
 }
 
@@ -116,9 +131,9 @@ Plataforma {
     Posición    <112, 63>
     Dimensiones <84, 15>
     Gráfico {
-    Suelo {
-        Tamaño 2
-    }
+Propietario: sin nombre
+Posición: [112, 63]
+Dimensiones: [0, 0]
     }
 }
 
@@ -127,9 +142,9 @@ Plataforma {
     Posición    <-30, 243>
     Dimensiones <180, 15>
     Gráfico {
-    Suelo {
-        Tamaño 5
-    }
+Propietario: sin nombre
+Posición: [-30, 243]
+Dimensiones: [0, 0]
     }
 }
 
@@ -138,10 +153,20 @@ Plataforma {
     Posición    <-29, 21>
     Dimensiones <84, 15>
     Gráfico {
-    Suelo {
-        Tamaño 2
-    }
+Propietario: sin nombre
+Posición: [-29, 21]
+Dimensiones: [0, 0]
     }
 }
 
+
+Loro {
+    Posición    <150, 400>
+    Dimensiones <36, 26>
+    Gráfico {
+Propietario: sin nombre
+Posición: [150, 400]
+Dimensiones: [0, 0]
+    }
+}
 
