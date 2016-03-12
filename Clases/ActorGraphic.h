@@ -142,7 +142,7 @@ public:
     ///
     bool is_free ();
 
-protected:
+public:
     /// Cambia el estado del gráfico, indicando si está o no libre para ser cambiado por otro.
     /// @param estate  Un booleano indicando si el gráfico deja o no de estar libre.
     ///

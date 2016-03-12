@@ -74,7 +74,7 @@ void  Ladrillo::hit  (Actor *who, int damage)
 
        case Nombres::paleta:
            // play_sample (peloteo,200,128,500,FALSE);
-           estado = Actor::eliminar;
+//           estado = Actor::eliminar;
            break;
 
        default:
@@ -100,7 +100,7 @@ void  Ladrillo::update ()
         this->set_y (this->get_y()+2);
         if (get_y()>600)
         {
-            estado = Actor::eliminar;
+//            estado = Actor::eliminar;
         }
         break;
 

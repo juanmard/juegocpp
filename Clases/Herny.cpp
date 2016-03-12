@@ -191,7 +191,7 @@ void  Herny::hit  (Actor *who, int damage)
    switch (who->getCodigo ())
    {
        case Nombres::pelota:
-           estado = Herny::eliminar;
+//           estado = Herny::eliminar;
            break;
        default:
         break;

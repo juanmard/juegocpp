@@ -54,13 +54,14 @@ void Sprite::update ()
     if (actual_tick > frames[actual_frame].ticks)
     {
         // Con el nuevo fotograma retenemos la aniamción.
-        // set_free (false);
+        if (actual_frame == 0) set_free (false);
         actual_tick = 0;
         actual_frame++;
         if (actual_frame >= (int)frames.size())
         {
             // Al terminar el ciclo de la animación libera el gráfico.
-            // set_free (true);
+            set_free (true);
+
             // Y prepara el gráfico para un nuevo ciclo.
             actual_frame=0;
         }
