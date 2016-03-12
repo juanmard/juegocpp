@@ -19,6 +19,13 @@
 ///
 class ControlManager
 {
+protected:
+    std::vector<Control*> controls;                         ///< Lista de controles a supervisar.
+    std::vector<Control*>::iterator controls_iter;          ///< Iterador de la lista de controles.
+    std::vector<Peripheral*> peripherals;                   ///< Lista de periféricos a supervisar.
+    std::vector<Peripheral*>::iterator peripherals_iter;    ///< Iterador de la lista de periféricos.
+    int old_state[MAXPERIPHERALS];                          ///< Lista de antiguos estados de los periféricos.
+
 public:
     /// Definición para guardar los distintos cambios en los
     /// componentes de los periféricos.
@@ -28,7 +35,8 @@ public:
         Peripheral* p;                  ///< Puntero al periférico donde se ha detectado el cambio.
         Peripheral::component_t comp;   ///< Componente que ha provocado el cambio.
     } change_t;
-    
+
+public:
     /// Constructor por defecto.
     ///
     ControlManager ();
@@ -72,13 +80,6 @@ public:
     /// Actualiza todos los controles.
     ///
     void update ();
-
-protected:
-    std::vector<Control*> controls;                         ///< Lista de controles a supervisar.
-    std::vector<Control*>::iterator controls_iter;          ///< Iterador de la lista de controles.
-    std::vector<Peripheral*> peripherals;                   ///< Lista de periféricos a supervisar.
-    std::vector<Peripheral*>::iterator peripherals_iter;    ///< Iterador de la lista de periféricos.
-    int old_state[MAXPERIPHERALS];                          ///< Lista de antiguos estados de los periféricos.
 };
 
 #endif
