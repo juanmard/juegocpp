@@ -5,39 +5,19 @@
  */
 
 #include "VectorGUI.h"
+#include "EscenarioGUI.h"
 #include <sstream>
 
 using std::ostringstream;
 
-DIALOG VectorGUI::dlg_plantilla[] =
-{
-   /* (proc)              (x) (y)  (w)  (h) (fg) (bg) (key) (flags) (d1) (d2) (dp)  (dp2) (dp3) */
-   { VectorGUI::callback, 40, 204, 108, 24, 67,  243, 0,    0,      0,   0,   NULL, NULL, NULL },
-   { NULL,                0,  0,   0,   0,  0,   0,   0,    0,      0,   0,   NULL, NULL, NULL }
-};
-
 /**
  * \brief   Constructor.
  */
-VectorGUI::VectorGUI(int &xParam, int &yParam, vector<DIALOG> &guiParam):
+VectorGUI::VectorGUI(int &xParam, int &yParam, EditorManager *editorParam, DIALOG *enlacesParam):
 x (xParam),
 y (yParam),
-guiPadre (&guiParam)
-{
-  // Modificamos la plantilla.
-  dlg_plantilla[inicio].dp3 = this;
-
-  // Se guarda el punto de insercción y añadimos la plantilla de la GUI al padre.
-  ptoInserccion = guiPadre->size ()-1;
-  guiPadre->insert (guiPadre->end()-1, &dlg_plantilla[inicio], &dlg_plantilla[fin]);
-};
-
-/**
- * \brief   Constructor.
- */
-VectorGUI::VectorGUI(int &xParam, int &yParam):
-x (xParam),
-y (yParam)
+editor (editorParam),
+enlaces (enlacesParam)
 {
 };
 
@@ -47,11 +27,14 @@ y (yParam)
  */
 int  VectorGUI::Teclado (int msg, DIALOG *d, int code)
 {
+  // Salida por omisión.
   int salida = D_O_K;
 
-  // Se comprueba el 'scancode' y se obtiene el incremento.
+  // Incrementos por omisión.
   int xInc = 0;
   int yInc = 0;
+
+  // Se comprueba el 'scancode' y se obtiene el incremento.
   switch (code >> 8)
   {
     case KEY_UP:    yInc = -1; salida = D_USED_CHAR; break;
@@ -64,7 +47,7 @@ int  VectorGUI::Teclado (int msg, DIALOG *d, int code)
   x += xInc;
   y += yInc;
 
-  // Actualizamos los valores en la gui.
+  // Actualizamos su representación en pantalla.
   object_message (d, MSG_DRAW, 0);
 
   // Se devuelve el código de salida.
@@ -85,8 +68,14 @@ int  VectorGUI::Draw (int msg, DIALOG *d, int code)
   os << x << "," << y;
   d->dp = const_cast<char *>(os.str().c_str ());
 
-  // Se escribe como un texto.
-  return d_text_proc (msg, d, code);
+  // Se dibuja como un texto.
+  d_text_proc (msg, d, code);
+
+  // Se actualizan los diálogos enlazados.
+  // \todo  Convertir en una lista de enlaces: while (enlaces.end())....
+  if (enlaces) object_message (enlaces, MSG_DRAW, 0);
+//  if (editor) editor->dibujarEscenario ();
+  return D_O_K;
 };
 
 /**
@@ -95,21 +84,39 @@ int  VectorGUI::Draw (int msg, DIALOG *d, int code)
  */
 int  VectorGUI::Wheel (int msg, DIALOG *d, int code)
 {
+  // Salida por omisión.
   int salida = D_O_K;
 
   // Actualizamos los valores referenciados por el vector según los clicks de la rueda.
   if (key[KEY_ALT])
   {
     y += code;
+    salida = D_REDRAWME;
   }
   else
   {
     x += code;
+    salida = D_REDRAWME;
   }
-
-  // Actualizamos los valores en la gui.
-  object_message (d, MSG_DRAW, 0);
 
   // Se devuelve el código de salida.
   return salida;
+};
+
+/**
+ * \brief   Añade un enlace a otro diálogo.
+ */
+void  VectorGUI::setEditor (EditorManager *editorParam)
+{
+  // enlaces.push_back (enlace);
+  editor = editorParam;
+};
+
+/**
+ * \brief   Añade un enlace a otro diálogo.
+ */
+void  VectorGUI::addEnlace (DIALOG *enlace)
+{
+  // enlaces.push_back (enlace);
+  enlaces = enlace;
 };

@@ -5,13 +5,13 @@
  */
 
 #include "EscenarioGUI.h"
+#include <sstream>
 
 /**
  * \brief   Constructor.
  */
-VectorGUI::VectorGUI(int &xParam, int &yParam):
-x (xParam),
-y (yParam)
+EscenarioGUI::EscenarioGUI (EditorManager &editorParam):
+editor (editorParam)
 {
 };
 
@@ -19,7 +19,7 @@ y (yParam)
  * \brief   Comprueba las teclas en el control del vector.
  * \return  El procesado de la tecla.
  */
-int  VectorGUI::Teclado (int msg, DIALOG *d, int code)
+int  EscenarioGUI::Keyboard (int msg, DIALOG *d, int code)
 {
   int salida = D_O_K;
 
@@ -35,8 +35,8 @@ int  VectorGUI::Teclado (int msg, DIALOG *d, int code)
   }
 
   // Actualizamos los valores referenciados por el vector.
-  x += xInc;
-  y += yInc;
+  //x += xInc;
+  //y += yInc;
 
   // Actualizamos los valores en la gui.
   object_message (d, MSG_DRAW, 0);
@@ -49,36 +49,29 @@ int  VectorGUI::Teclado (int msg, DIALOG *d, int code)
  * \brief   Dibuja los valores en la GUI.
  * \return  El valor al dibujar.
  */
-int  VectorGUI::Draw (int msg, DIALOG *d, int code)
+int  EscenarioGUI::Draw (int msg, DIALOG *d, int code)
 {
-  // Se borra el fondo.
-  rectfill (screen, d->x, d->y, d->x + d->w, d->y + d->h, gui_bg_color);
-
-  // Se actualizan los datos.
-  ostringstream os;
-  os << x << "," << y;
-  d->dp = const_cast<char *>(os.str().c_str ());
-
-  // Se escribe como un texto.
-  return d_text_proc (msg, d, code);
+  editor.setColorRibete (d->fg);
+  editor.dibujarEscenario ();
+  return D_O_K;
 };
 
 /**
  * \brief   Comprueba la rueda del ratón.
  * \return  El procesado de la rueda.
  */
-int  VectorGUI::Wheel (int msg, DIALOG *d, int code)
+int  EscenarioGUI::Wheel (int msg, DIALOG *d, int code)
 {
   int salida = D_O_K;
 
   // Actualizamos los valores referenciados por el vector según los clicks de la rueda.
   if (key[KEY_ALT])
   {
-    y += code;
+    //y += code;
   }
   else
   {
-    x += code;
+    //x += code;
   }
 
   // Actualizamos los valores en la gui.
@@ -88,3 +81,52 @@ int  VectorGUI::Wheel (int msg, DIALOG *d, int code)
   return salida;
 };
 
+/**
+ * \brief   Sigue los movimientos del ratón.
+ * \return  El valor obtenido al dibujar y actualizar el escenario.
+ */
+int  EscenarioGUI::MoveMouse (int msg, DIALOG *d, int code)
+{
+  // Si el editor nos dice que hay un actor atrapado por el ratón, movemos el actor.
+  if ( editor.isActorAtrapado () )
+  {
+    editor.moverActor (mouse_x, mouse_y);
+    editor.actualizarActor ();
+  }
+  else
+  {
+    // Si el atrapado es el decorado, se mueve el decorado.
+    if ( editor.isDecoradoAtrapado () )
+    {
+      editor.moverDecorado (mouse_x, mouse_y);
+      editor.actualizarDecorado ();
+    }
+  }
+
+  // Se actualizan la coordenadas.
+  // editor.setMensaje (os.str());
+  ostringstream os;
+  os  << "Globales: " << mouse_x << "," << mouse_y;
+  textout (screen, font, os.str().c_str(), 0, 300, gui_fg_color);
+
+  //return Draw (msg, d, code);
+};
+
+/**
+ * \brief   Sigue los movimientos del ratón.
+ * \return  El valor obtenido al dibujar y actualizar el escenario.
+ */
+int  EscenarioGUI::LMouse (int msg, DIALOG *d, int code)
+{
+  // Si hay un actor atrapado, lo liberamos.
+  // En otro caso, intentamos atrapar uno bajo el cursor.
+  if ( editor.isActorAtrapado () )
+  {
+//    editor.liberarActor ();
+  }
+  else
+  {
+//    editor.atraparActor (mouse_x, mouse_y);
+  }
+  return D_O_K;
+};

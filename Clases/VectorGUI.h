@@ -9,6 +9,7 @@
 
 #include <vector>
 #include <allegro.h>
+#include "EditorManager.h"
 
 using std::vector;
 
@@ -18,21 +19,19 @@ using std::vector;
 class VectorGUI
 {
   public:
-          VectorGUI (int &xParam, int &yParam);
-          VectorGUI (int &xParam, int &yParam, vector<DIALOG> &guiParam);
+
+          VectorGUI (int &xParam, int &yParam, EditorManager *editorParam=NULL, DIALOG *enlacesParam=NULL);
     int   Teclado   (int msg, DIALOG *d, int code);
     int   Draw      (int msg, DIALOG *d, int code);
     int   Wheel     (int msg, DIALOG *d, int code);
+    void  setEditor (EditorManager *editorParam);
+    void  addEnlace (DIALOG *enlace);
 
-  protected:
-    int &             x;
-    int &             y;
-    unsigned int      ptoInserccion;
-    vector<DIALOG> *  guiPadre;
-    
   private:
-    enum  {inicio=0, fin=1};
-    static DIALOG dlg_plantilla[];
+    int &   x;
+    int &   y;
+    EditorManager *  editor;
+    DIALOG *         enlaces;
 
   public:
     /**
@@ -46,7 +45,7 @@ class VectorGUI
         // Creamos una referencia temporal al objeto actual.
         VectorGUI &obj = *(static_cast<VectorGUI *>(d->dp3));
 
-        // Se procesan los mensajes.
+        // Se procesan los mensajes propios.
         switch (msg)
         {
           case MSG_CHAR:
@@ -75,6 +74,8 @@ class VectorGUI
             return obj.Wheel (msg, d, c);
         }
       }
+
+      // El resto de mensajes se procesan como si fuese un texto.
       return d_text_proc (msg, d, c);
     };
 };

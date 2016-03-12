@@ -309,3 +309,45 @@ Almacen &  EditorManager::getAlmacen () const
 {
   return *(game->storage_manager);
 }
+
+/**
+ * \brief   Dice si existe algún actor atrapado por el ratón.
+ */
+bool  EditorManager::isActorAtrapado () const
+{
+  return true;
+}
+
+/**
+ * \brief   Dice si existe un decorado atrapado por el ratón.
+ */
+bool  EditorManager::isDecoradoAtrapado () const
+{
+  return false;
+}
+
+/**
+ * \brief   Mueve el decorado a las posiciones globales 'x' e 'y'.
+ */
+void  EditorManager::moverDecorado (int x, int y)
+{
+}
+
+/**
+ * \brief   Actualiza las propiedades y el aspecto del actor editado.
+ */
+void  EditorManager::actualizarActor ()
+{
+  // Le pedimos a la gui que actualice el aspecto.
+  //gui->actualizarEscenario ();
+
+  // Le pedimos a la gui que actualice las propiedades.
+  //gui->actualizarPropiedades ();
+}
+
+/**
+ * \brief   Actualiza las propiedades y el aspecto del decorado editado.
+ */
+void  EditorManager::actualizarDecorado ()
+{
+}

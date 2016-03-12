@@ -53,6 +53,14 @@ class EditorManager
     void      getEscenarioXY        (string &posicion) const;
     Almacen & getAlmacen            () const;
 
+    // Nueva generación de métodos para GUI dinámica:
+    bool      isActorAtrapado       () const;
+    bool      isDecoradoAtrapado    () const;
+    //void      moverActor            (int x, int y);
+    void      moverDecorado         (int x, int y);
+    void      actualizarActor       ();
+    void      actualizarDecorado    ();
+
   protected:
     Game *      game;
     Dialog *    gui;

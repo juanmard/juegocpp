@@ -10,7 +10,7 @@
 #include "Bloque.h"
 #include "Menu.h"
 #include <vector>
-//#include "ActorGUI.h"
+#include "EditorManager.h"
 
 class ActorGraphic;
 class Mask;
@@ -100,6 +100,8 @@ class Actor
     Bloque &                                getBloque               ();
     void                                    setMostrarBloque        (bool mostrar);
     virtual  void                           addGUI                  (vector<DIALOG> &gui_padre);
+    virtual  void                           setEditor               (EditorManager *editor);
+    virtual  void                           addEnlace               (DIALOG *enlace);
 
   private:
     void                                    mensajeErrorGrafico     () const;

@@ -4,6 +4,8 @@
 #include <allegro.h>
 #include <vector>
 
+#include "EditorManager.h"
+
 class Actor;
 
 using std::vector;
@@ -14,16 +16,19 @@ using std::vector;
 class ActorGUI
 {
   public:
-    enum {navegador=0, nombre=10, posicion=11, dimensiones=12, grafico=13, tiempo=14, estado=15, slider=16, fin=17};
+    enum {inicio=0, nombre=10, posicion=11, dimensiones=12, grafico=13, tiempo=14, estado=15, slider=16, fin=17};
 
   public:
                     ActorGUI               (Actor &actor, vector<DIALOG> &gui_padre);
                     ActorGUI               ();
     virtual         ~ActorGUI              ();
+    virtual void    addEnlace              (DIALOG *enlace);
+    virtual void    setEditor              (EditorManager *editor);
 
   private:
     Actor &         actor;
     unsigned int    pto_inserccion;
+    vector<DIALOG> &gui;
 
   public:
     static DIALOG     dlg_plantilla[];

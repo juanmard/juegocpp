@@ -51,7 +51,8 @@ DIALOG   ActorGUI::dlg_plantilla[] =
  * \brief   Prueba para añadir la GUI de las propiedades del actor a una GUI padre.
  */
 ActorGUI::ActorGUI (Actor &a, vector<DIALOG> &gui_padre):
-actor (a)
+actor (a),
+gui (gui_padre)
 {
   // Si no hay otro hacemos activo el actor que estamos creando.
   if (!actor_activo)
@@ -81,7 +82,7 @@ actor (a)
 
   // Guardamos el punto de insercción y añadimos la GUI al padre.
   pto_inserccion = gui_padre.size ()-1;
-  gui_padre.insert (gui_padre.end()-1, &dlg_plantilla[navegador], &dlg_plantilla[fin]);
+  gui_padre.insert (gui_padre.end()-1, &dlg_plantilla[inicio], &dlg_plantilla[fin]);
 };
 
 /**
@@ -92,3 +93,26 @@ ActorGUI::~ActorGUI()
   // Liberar recursos.
 }
 
+/**
+ * \brief   Enlaza con punteros a otros diálogos que deben
+ *          actualizarse cuando se actualicen las propiedades del actor.
+ */
+void  ActorGUI::setEditor (EditorManager *editor)
+{
+  //enlaces.push_back (enlace);
+  static_cast<VectorGUI *>(gui [pto_inserccion + posicion].dp3)->setEditor (editor);
+  static_cast<VectorGUI *>(gui [pto_inserccion + dimensiones].dp3)->setEditor (editor);
+}
+
+/**
+ * \brief   Enlaza con punteros a otros diálogos que deben
+ *          actualizarse cuando se actualicen las propiedades del actor.
+ */
+void  ActorGUI::addEnlace (DIALOG *enlace)
+{
+  //enlaces.push_back (enlace);
+  // Enlazamos los dos tipos 'VectorGUI' con el 'EscenarioGUI'.
+  // En un futuro esto lo hará el 'EditorGUI'.
+  static_cast<VectorGUI *>(gui [pto_inserccion + posicion].dp3)->addEnlace (enlace);
+  static_cast<VectorGUI *>(gui [pto_inserccion + dimensiones].dp3)->addEnlace (enlace);
+}

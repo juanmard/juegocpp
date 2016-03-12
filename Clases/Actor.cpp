@@ -442,3 +442,19 @@ void  Actor::addGUI (vector<DIALOG> &gui_padre)
 {
   gui = new ActorGUI (*this, gui_padre);
 };
+
+/**
+ * \brief   Prueba para añadir un enlace a la GUI.
+ */
+void  Actor::setEditor (EditorManager  *editor)
+{
+  gui->setEditor (editor);
+};
+
+/**
+ * \brief   Prueba para añadir un enlace a la GUI.
+ */
+void  Actor::addEnlace (DIALOG *enlace)
+{
+  gui->addEnlace (enlace);
+};
