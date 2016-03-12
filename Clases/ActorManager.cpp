@@ -503,7 +503,9 @@ string  ActorManager::getArmario ()
  /**
   * \brief  Busca dentro del fichero la propiedad pasada por parámetro.
   * \param  propiedad   Referencia al nombre de la propiedad a buscar.
-  * \param  fs          Referencia al 'filestream' donde buscar.
+  * \param  inFile      Referencia al 'filestream' donde buscar.
+  * \return Posición de la propiedadd encontrada dentro del fichero.
+  *         Devuelve el valor "string::npos" si no encuentra la propiedad.
   *
   * \todo   Crear una clase de fichero heredada de 'ifstream' donde incluir este procedimiento
   *         de esta forma se evitaría enviar el 'ifstream' por parámetro.
@@ -514,9 +516,9 @@ std::size_t  ActorManager::buscar_propiedad  (const std::string &propiedad, std:
 
     // Se crea el formato de la propiedad dentro del fichero.
     // ej. "[Actores]"
-    busqueda += "[";
+    busqueda += '[';
     busqueda += propiedad;
-    busqueda += "]";
+    busqueda += ']';
 
     // Se busca la palabra creada.
     return buscar (propiedad,inFile);
@@ -525,8 +527,9 @@ std::size_t  ActorManager::buscar_propiedad  (const std::string &propiedad, std:
  /**
   * \brief  Busca dentro del fichero una palabra pasada por parámetro.
   * \param  palabra    Referencia al nombre de la propiedad a buscar.
-  * \param  fs          Referencia al 'filestream' donde buscar.
-  *
+  * \param  inFile     Referencia al 'filestream' donde buscar.
+  * \return Posición de la palabra encontrada dentro del fichero.
+  *         Devuelve el valor "string::npos" si no encuentra la palabra.
   * \todo   Crear una clase de fichero heredada de 'ifstream' donde incluir este procedimiento
   *         de esta forma se evitaría enviar el 'ifstream' por parámetro.
   */

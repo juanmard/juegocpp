@@ -11,7 +11,8 @@
 #include <allegro.h>
 
 /**
- * \class   Representa un vector en pantalla como dos números enteros en la misma línea y separados por una coma.
+ * \class   GUIVector
+ * \brief   Representa un vector en pantalla como dos números enteros en la misma línea y separados por una coma.
  *          Al pulsar las flechas del teclado derecha-izquierda o usar la rueda del ratón se modifica la posición x.
  *          Al pulsar las flechas del teclado arriba-abajo o usar la rueda del ratón junto con la tecla ALT se 
  *          modifica la posición y.

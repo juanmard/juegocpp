@@ -158,7 +158,7 @@ RGB *  Almacen::getPalette (string nombrePaleta)
  *          - En lugar de pasar como parámetro el puntero pasar una referencia constante al puntero
  *            y así evitar modificaciones accidentales del mismo.
  *          - Confirmar que se devuelve una cadena vacía si no se encuentra asociación con el puntero.
- *          - Usar una constante #DEBUG para el precompilador en lugar de comentarlas.
+ *          - Usar una constante DEBUG para el precompilador en lugar de comentarlas.
  */
 string  Almacen::getName (BITMAP *puntero)
 {

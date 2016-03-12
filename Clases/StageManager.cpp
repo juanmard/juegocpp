@@ -194,7 +194,7 @@ void  StageManager::dibujarCuadrado (Bloque cuadro, int color)
 
 /**
  * \brief   Define la zona límite del ribete a dibujar en pantalla.
- * \param   ribete   Bloque que define posición y tamaño a dibujar en pantalla.
+ * \param   ribeteParam     Bloque que define posición y tamaño a dibujar en pantalla.
  */
 void  StageManager::setRibete (Bloque ribeteParam)
 {
@@ -222,7 +222,7 @@ Bloque &  StageManager::getRibete ()
 
 /**
  * \brief   Cambia el color del ribete.
- * \param   colorRibete   Color del ribete.
+ * \param   color   Color del ribete.
  */
 void  StageManager::setColorRibete (int color)
 {
