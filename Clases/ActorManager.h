@@ -2,10 +2,12 @@
 #define _ACTORMANAGER_H_
 
 #include <list>
+#include <iostream>
 #include "Bloque.h"
 
 //using namespace std;
 using std::list;
+using std::ostream;
 
 class Actor;
 class Game;
@@ -33,6 +35,9 @@ class ActorManager
     void                    setVisualizar         (Actor *paramActor);
     Actor *                 getActor              (unsigned int indice);
 
+        // Funciones no-miembro de la clase.
+    friend    ostream&  operator<<   (ostream &o, const ActorManager &am);
+
   protected:
     void      actualizarVisualizacion   ();
     void      avisoActorSinGrafico (Actor *a) const;
@@ -45,7 +50,6 @@ class ActorManager
     list<Actor*>            to_create;
     Actor *                 actorVisualizado;
 
-  //friend: 
   public:
     void                    add_all_to_create   ();
     void                    del_all_to_del      ();

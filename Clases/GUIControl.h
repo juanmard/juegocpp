@@ -30,7 +30,7 @@ class GUIControl
   protected:
     vector<DIALOG *>    enlazados;
     bool                foco;
-    int           DrawEnlazados (int msg, DIALOG *d, int code);
+    int                 DrawEnlazados (int msg, DIALOG *d, int code);
 
   public:
     /**

@@ -244,12 +244,19 @@ void Juego2::mainGame ()
       Mapa mapa_prb;
       mapa_prb.Read (*actor_manager);
       // cout << mapa_prb.getString ();
+    }
 
-      key[KEY_T] = false;
+    // Se prueban las cadenas de datos de los objetos.
+    if (key[KEY_C])
+    {
+      cout << "-- Lista de todos los actores --" << endl \
+           << "--------------------------------" << endl;
+      cout << *actor_manager;
+      key[KEY_C] = false;
     }
   }
 
-  // Cerramos el juego fundiendo en negro.
+    // Cerramos el juego fundiendo en negro.
   fade_out(2);
 }
 

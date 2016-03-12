@@ -8,6 +8,9 @@
 #include "ControllableActor.h"
 #include "Almacen.h"
 #include "Sprite.h"
+#include <iostream>
+
+using namespace std;
 
 
 /**
@@ -335,7 +338,19 @@ void  Ben::getNombre (string &strNombre) const
   strNombre = Nombres::Imprimir (nombre);
 }
 
+/**
+ * \brief   Obtiene el nombre en forma de cadena de texto. 
+ */
 string  Ben::getNombre () const
 {
   return Nombres::Imprimir (nombre);
+}
+
+/**
+ * \brief   Obtiene cadena representativa del objeto. 
+ */
+ostream&  Ben::operator<< (ostream *sb)
+{
+    *sb << "Prueba de cadena desde \"Ben.cpp\"" << endl;
+    return *sb;
 }

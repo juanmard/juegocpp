@@ -1,9 +1,11 @@
 #pragma once
 
 #include <string>
+#include <iostream>
 
-//using namespace std;
-using std::string;
+using namespace std;
+//using std::string;
+//using std::ostream;
 
 /**
  * \class   Nombres
@@ -17,6 +19,9 @@ class Nombres
   public:
           Nombres     ();
           ~Nombres    ();
+
+          friend  ostream&  operator<< (ostream &o, const Nombres::codigo cod);
+
 
   /**
    * \brief   Convierte el código de un nombre en una cadena imprimible de caracteres.

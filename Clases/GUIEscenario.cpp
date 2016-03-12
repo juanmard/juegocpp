@@ -106,7 +106,7 @@ int  GUIEscenario::MoveMouse (int msg, DIALOG *d, int code)
   {
     editor.moverActor2 (local_x, local_y);
     Draw (msg, d, code);
-    DrawEnlazados (msg, d, code);
+//    DrawEnlazados (msg, d, code);
   }
   else
   {
@@ -127,11 +127,10 @@ int  GUIEscenario::MoveMouse (int msg, DIALOG *d, int code)
 
   // Se actualizan la coordenadas.
   // editor.setMensaje (os.str());
-/*
   ostringstream os;
   os  << "Globales: " << mouse_x << "," << mouse_y;
-  textout (screen, font, os.str().c_str(), 0, 300, gui_fg_color);
-*/
+  textout (screen, font, os.str().c_str(), 0, 400, gui_fg_color);
+
   return D_O_K;
 };
 

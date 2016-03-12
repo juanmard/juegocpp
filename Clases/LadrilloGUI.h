@@ -17,7 +17,7 @@ class LadrilloGUI
     void      rellenarGUI     (Ladrillo &ladrillo);
 
   private:
-    enum {inicio=0, bitmap=3, fin=4};
+    enum {inicio=0, bitmap=3, fin=5};
     unsigned int        pto_inserccion;
     vector<DIALOG> &    gui_padre;
     Ladrillo &          ladrillo;
@@ -29,7 +29,7 @@ public:
   {
     if (index < 0)
     {
-      *list_size = 5;
+      *list_size = 6;
       return NULL;
     }
     else
@@ -41,6 +41,7 @@ public:
         case 2:  return const_cast<char*>("tercero");
         case 3:  return const_cast<char*>("cuarto");
         case 4:  return const_cast<char*>("quinto");
+        case 5:  return const_cast<char*>("cordero");
         default: return const_cast<char*>("sin índice");
       }
     }

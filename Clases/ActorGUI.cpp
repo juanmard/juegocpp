@@ -19,7 +19,6 @@
 #include "ActorGraphic.h"
 #include "LadrilloGUI.h"
 #include "VectorGUI.h"
-//#include "ContadorGUI.h"
 #include "GUIContador.h"
 #include "GUIVector.h"
 #include "EscenarioGUI.h"
@@ -84,9 +83,13 @@ gui (gui_padre)
 
   // Tiempo de estado (Como un tipo Contador).
 //  dlg_plantilla[tiempo].dp3 = new ContadorGUI (a.tiempo_estado);
+  dlg_plantilla[tiempo].proc = GUIContador::callback;
   dlg_plantilla[tiempo].dp3 = new GUIContador (a.tiempo_estado);
+
   // prueba de GUIVector
+  dlg_plantilla[prueba].proc = GUIVector::callback;
   dlg_plantilla[prueba].dp3 = new GUIVector (a.x, a.y);
+
   // Enlazamos de prueba el GUIVector con otro.
   static_cast<GUIControl *>(dlg_plantilla[prueba].dp3)->addEnlace (&dlg_plantilla[posicion]);
 
@@ -101,36 +104,6 @@ gui (gui_padre)
 ActorGUI::~ActorGUI()
 {
   // Liberar recursos.
-}
-
-/**
- * \brief   Enlaza con punteros a otros diálogos que deben
- *          actualizarse cuando se actualicen las propiedades del actor.
- */
-void  ActorGUI::addEnlace (GUIEscenario *enlace)
-{
-  //enlaces.push_back (enlace);
-  // Enlazamos los dos tipos 'VectorGUI' con el 'EscenarioGUI'.
-  // En un futuro esto lo hará el 'EditorGUI'.
-//  static_cast<VectorGUI *>(gui [pto_inserccion + posicion].dp3)->addEnlace (enlace);
-//  static_cast<VectorGUI *>(gui [pto_inserccion + dimensiones].dp3)->addEnlace (enlace);
-
-  // Enlazamos en ambas direcciones. No debe ir aquí.
-//  (static_cast<EscenarioGUI *>(enlace->dp3))->addEnlace(&gui[pto_inserccion + posicion]);
-
-  // Pruebas de enlace con GUIEscenario.
-  //  static_cast<GUIControl *>(gui [pto_inserccion + prueba].dp3)->addEnlace (&gui [pto_inserccion + posicion]);
-//  static_cast<GUIControl *>(gui [pto_inserccion + prueba].dp3)->addEnlace (enlace);
-  static_cast<GUIControl *>(gui [pto_inserccion + prueba].dp3)->addEnlace (&gui [pto_inserccion + posicion]);
-  enlace->addEnlace (static_cast<DIALOG *>(&gui [pto_inserccion + prueba]));
-  enlace->addEnlace (static_cast<DIALOG *>(&gui [pto_inserccion + posicion]));
-}
-
-void  ActorGUI::addEnlace (DIALOG *enlace)
-{
-  // Pruebas de enlace con GUIEscenario.
-  static_cast<GUIControl *>(gui [pto_inserccion + prueba].dp3)->addEnlace (enlace);
-  
 }
 
 /**

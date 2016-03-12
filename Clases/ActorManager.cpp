@@ -301,3 +301,19 @@ void  ActorManager::avisoActorSinGrafico (Actor *a) const
   cout << "AVISO: Añadido actor \"" << nombre << "\" sin componente gráfica." << endl;
 }
 
+/**
+ * \brief   Obtiene cadena representativa del objeto.
+ * \details Es un procedimiento global.
+ */
+ostream&  operator<< (ostream &o, const ActorManager &am)
+{
+  list<Actor*>::iterator  i;
+  list<Actor*>            lista;
+
+  lista = am.actors;
+  for (i = lista.begin(); i != lista.end(); i++)
+  {
+      o << (Actor &) **i << endl;
+  }
+  return o;
+}

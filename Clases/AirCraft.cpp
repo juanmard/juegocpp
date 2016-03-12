@@ -14,7 +14,7 @@ image(copia.image)
  */
 AirCraft::AirCraft()
 {
-	image=NULL;
+  image = NULL;
 }
 
 /**

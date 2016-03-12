@@ -36,7 +36,7 @@ class Ben : public ControllableActor
     void      getEstado   (string &strEstado) const;
     void      getNombre   (string &strNombre) const;
     string    getNombre   () const;
-
+    ostream&  operator<<  (ostream *sb);
 
   private:
     Sprites_t     estado2Sprite     (Estados_t estado) const;

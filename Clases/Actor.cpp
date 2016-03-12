@@ -466,3 +466,16 @@ void  Actor::drawGUI ()
     gui->setActor (*this);
   }
 };
+
+/**
+ * \brief   Obtiene cadena representativa del objeto.
+ * \details Es un procedimiento global.
+ */
+ostream&  operator<< (ostream &o, const Actor &a)
+{
+//    o << "Prueba de cadena desde \"Actor.cpp\"" << endl;
+    o << a.nombre << endl;
+    o << "{" << a.x << "," << a.y << "}" << endl;
+    o << "{" << a.w << "," << a.h << "}" << endl;
+    return o;
+}

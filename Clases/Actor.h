@@ -62,6 +62,9 @@ class Actor
     string              getString           () const;
     virtual string      getNombre           () const;
 
+    /* Métodos no miembros de la clase. */
+    friend ostream&     operator<<          (ostream &o, const Actor &a);
+
 
     /* \warning: Estos dos estados deben ser incluídos en uno. */
     virtual void                            CambiarEstado           ();
@@ -102,8 +105,7 @@ class Actor
     void                                    setMostrarBloque        (bool mostrar);
     virtual  void                           addGUI                  (vector<DIALOG> &gui_padre);
     virtual  void                           drawGUI                 ();
-    virtual  void                           addEnlace               (GUIEscenario *enlace);
-    virtual  void                           addEnlace               (DIALOG *enlace);
+    virtual  ActorGUI *                     getGUI                  ();
 
 
   private:
