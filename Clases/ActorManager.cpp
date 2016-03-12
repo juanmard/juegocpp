@@ -456,7 +456,8 @@ string  ActorManager::getArmario ()
     // string version;
     // getline(fs,version);
     // if (!version.compare("JUEGO v2.0")) {return "El fichero de datos no está en la versión correcta)};
-    size_t pos = buscar_propiedad ("Actores", ifs);
+    //size_t pos = buscar_propiedad ("Actores", ifs);
+    buscar_propiedad ("Actores", ifs);
 
     // Se obtiene del fichero el comando y el valor.
     string comando, valor, clase;
