@@ -1,19 +1,14 @@
+///
+/// @file Paleta.cpp
+/// @brief Fichero definición de la clase "Paleta".
+/// @author Juan Manuel Rico
+/// @date Marzo 2015
+/// @version 1.0.0
+///
+
 #include "Paleta.h"
+#include "Nombres.h"
 
-/**
- * \brief   Constructor de copia.
- */
-Paleta::Paleta (const Paleta &copia):
-ControllableActor (copia)
-{
-  // Una vez copiada la parte gráfica del actor en la inicialización
-  // la referenciamos en el parámetro 'piel'.
-  piel = dynamic_cast<Suelo *>(agraph);
-}
-
-/**
- * \brief   Constructor por omisión.
- */
 Paleta::Paleta()
 {
   piel = new Suelo (this, 2);
@@ -23,11 +18,16 @@ Paleta::Paleta()
   set_y (SCREEN_H - 70);
   set_is_detected (true);
   set_collision_method (CollisionManager::PP_COLLISION);
-}
+};
 
-/**
- * \brief   Constructor por omisión.
- */
+Paleta::Paleta (const Paleta &copia):
+ControllableActor (copia)
+{
+  // Una vez copiada la parte gráfica del actor en la inicialización
+  // la referenciamos en el parámetro 'piel'.
+  piel = dynamic_cast<Suelo *>(agraph);
+};
+
 Paleta::Paleta (Almacen &almacen)
 {
   piel = new Suelo (this, almacen, 2);
@@ -37,18 +37,12 @@ Paleta::Paleta (Almacen &almacen)
   set_y (SCREEN_H - 70);
   set_is_detected (true);
   set_collision_method (CollisionManager::PP_COLLISION);
-}
+};
 
-/**
- * \brief   Destructor.
- */
 Paleta::~Paleta(void)
 {
-}
+};
 
-/**
- * \brief   Acciones como actor controlable.
- */
 void Paleta::do_action (ControllableObject::action_t act, int magnitude)
 {
   switch (act)
@@ -63,12 +57,9 @@ void Paleta::do_action (ControllableObject::action_t act, int magnitude)
   }
   if (x < 0) x = 0;
   if (x > SCREEN_W -get_w ()) x = SCREEN_W - get_w ();
-}
+};
 
-/**
- * \brief   Acciones ante colisiones.
- */
-void  Paleta::hit (Actor *who, int damage)
+void Paleta::hit (Actor *who, int damage)
 {
   switch (who->getCodigo ())
   {
@@ -93,26 +84,20 @@ void  Paleta::hit (Actor *who, int damage)
     default:
         break;
   }
-}
+};
 
-/**
- * \brief   Clona el objeto.
- */
-Paleta *  Paleta::clone () const
+Paleta* Paleta::clone () const
 {
   return (new Paleta (*this));
 };
 
-/**
- * \brief   Obtiene el nombre en forma de cadena de texto. 
- */
-void  Paleta::getNombre (string &strNombre) const
+void Paleta::getNombre (std::string &strNombre) const
 {
   strNombre = Nombres::Imprimir (nombre);
-}
+};
 
-string  Paleta::getNombre () const
+std::string Paleta::getNombre () const
 {
 //  return Nombres::Imprimir (nombre);
   return "Paleta";
-}
+};

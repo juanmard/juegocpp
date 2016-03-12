@@ -29,6 +29,7 @@ class Plataforma : public Actor
 public:
     /// Constructor de copia.
     /// @param copia Referencia a la plataforma que quiere ser copiada.
+    ///
     Plataforma (const Plataforma& copia);
 
     /// Constructor básico.
@@ -52,6 +53,7 @@ public:
 
     ///  Clona el objeto.
     /// @return Puntero a modo de referencia de la nueva plataforma creada.
+    ///
     Plataforma* clone () const;
 
     /// Obtiene el nombre en forma de cadena de texto.

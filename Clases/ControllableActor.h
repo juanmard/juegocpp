@@ -5,6 +5,9 @@
 #include "Actor.h"
 #include "ControllableObject.h"
 
+///@todo Limpiar los comentarios documentables de estas clases y utilizar
+///      la clase para ordenar y asumir toda la rama de Objetos Controlables (ControllableObject).
+
 class ControllableActor : public Actor, public ControllableObject
 {
 public:

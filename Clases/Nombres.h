@@ -7,6 +7,18 @@ using namespace std;
 //using std::string;
 //using std::ostream;
 
+///@todo Permitir añadir nombres en tiempo de ejecución.
+///      Para ello una variable global debería llevar la cuenta de los códigos generados por
+///      la clase y emparejar con la cadena 'string' que se le pase por referencia.
+///      @code
+///         Nombre::codigo = AñadirNombre ("Pelota");
+///      @endcode
+///      El codigo sería el mismo para todos los actores del mismo tipo, luego sería una variable
+///      estática de la clase ("Pelota", "Paleta", etc...)
+///      @code
+///         if (who->getCodigo() == Pelota::codigo) {} else {};
+///      @endcode
+///
 /**
  * \class   Nombres
  * \brief   Clase que reúne todos los nombres de objetos del juego.
