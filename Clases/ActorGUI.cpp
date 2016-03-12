@@ -85,10 +85,13 @@ gui (gui_padre)
   // Tiempo de estado (Como un tipo Contador).
 //  dlg_plantilla[tiempo].dp3 = new ContadorGUI (a.tiempo_estado);
   dlg_plantilla[tiempo].dp3 = new GUIContador (a.tiempo_estado);
-// prueba de GUIVector
+  // prueba de GUIVector
   dlg_plantilla[prueba].dp3 = new GUIVector (a.x, a.y);
-
-
+  // Enlazamos de prueba el GUIVector con otro.
+  static_cast<GUIControl *>(dlg_plantilla[prueba].dp3)->addEnlace (&dlg_plantilla[posicion]);
+//  static_cast<GUIControl *>(gui [pto_inserccion + prueba].dp3)->addEnlace (&gui [pto_inserccion + posicion]);
+//  static_cast<GUIControl *>(gui [pto_inserccion + prueba].dp3)->addEnlace (enlace);
+  
   // Guardamos el punto de insercción y añadimos la GUI al padre.
   pto_inserccion = gui_padre.size ()-1;
   gui_padre.insert (gui_padre.end()-1, &dlg_plantilla[inicio], &dlg_plantilla[fin]);

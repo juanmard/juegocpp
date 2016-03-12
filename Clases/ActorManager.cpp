@@ -45,7 +45,7 @@ Actor * ActorManager::get_actor (int x, int y)
  */
 ActorManager::~ActorManager()
 {
-  for (actors_iter=actors.begin(); actors_iter!=actors.end();	actors_iter++)
+  for (actors_iter=actors.begin(); actors_iter!=actors.end(); actors_iter++)
   delete (*actors_iter);
 }
 

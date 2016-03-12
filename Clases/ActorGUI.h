@@ -43,7 +43,7 @@ class ActorGUI
       switch (msg)
       {
         case MSG_LPRESS:
-            set_dialog_color(d, gui_fg_color, gui_bg_color);
+            set_dialog_color (d, gui_fg_color, gui_bg_color);
             int obj;
             return dialog_message (d, MSG_DRAW, 0, &obj);
       }
@@ -62,11 +62,11 @@ class ActorGUI
         // Si 'index' es cero o positivo debe devolver la cadena del nombre del actor.
         if (index < 0)
         {
-          *list_size = 4;
+          *list_size = 6;
         }
         else
         {
-          static char * prueba[] = {"uno", "dos", "tres", "cuatro"};
+          static char * prueba[] = {"uno", "dos", "tres", "cuatro", "cinco", "seis"};
           salida = prueba[index];
         }
       }

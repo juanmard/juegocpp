@@ -66,8 +66,7 @@ int  GUIVector::Draw (int msg, DIALOG *d, int code)
   d->dp = const_cast<char *>(os.str().c_str ());
 
   // Se dibuja como un texto.
-  d_text_proc (msg, d, code);
-  return D_O_K;
+  return d_text_proc (msg, d, code);
 };
 
 /**

@@ -7,6 +7,9 @@
 #define _GUICONTROL_H_
 
 #include <allegro.h>
+#include <vector>
+
+using std::vector;
 
 /**
  * \brief   Clase que sirve como base a controles más complejos bajo C++.
@@ -19,6 +22,11 @@ class GUIControl
     virtual int   Draw          (int msg, DIALOG *d, int code);
     virtual int   Wheel         (int msg, DIALOG *d, int code);
     virtual int   Omision       (int msg, DIALOG *d, int code);
+    int           DrawEnlazados (int msg, DIALOG *d, int code);
+    void          addEnlace     (DIALOG *enlace);
+
+  private:
+    vector<DIALOG *>    enlazados;
 
   public:
     /**
@@ -44,7 +52,9 @@ class GUIControl
             break;
 
           case MSG_DRAW:
-            return obj.Draw (msg, d, c);
+            obj.Draw (msg, d, c);
+            obj.DrawEnlazados (msg, d, c);
+            return D_O_K;
 
           case MSG_WANTFOCUS:
             return D_WANTFOCUS;
