@@ -58,9 +58,11 @@ public:
 
     /// Añade un control al formulario con cadena de texto asociada.
     /// @param tipo  Tipo de formulario a añadir.
-    /// @param picture  Imagen a mostrar como diálogo. @todo Hacer una clase para dejar esto como un control y no como un BITMAP de Allegro.
+    /// @param picture  Imagen a mostrar como diálogo.
     /// @param x  Posición x referida al formulario origen.
     /// @param y  Posición y referida al formulario origen.
+    ///
+    /// @todo Hacer una clase para dejar esto como un control y no como un BITMAP de Allegro.
     ///
     void add (control_t tipo, BITMAP* picture, int x, int y);
 

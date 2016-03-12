@@ -58,8 +58,8 @@ int  EscenarioGUI::Draw (int msg, DIALOG *d, int code)
 {
   show_mouse (NULL);
   // Actualizamos el ribete y dibujamos.
-  editor.setColorRibete (d->fg);
-  editor.dibujarEscenario ();
+  editor.set_color_ribete (d->fg);
+  editor.dibujar_escenario ();
 
   // Actualizamos los enlaces.
   if (enlaces) object_message (enlaces, MSG_DRAW, 0);
@@ -99,25 +99,25 @@ int  EscenarioGUI::Wheel (int msg, DIALOG *d, int code)
 int  EscenarioGUI::MoveMouse (int msg, DIALOG *d, int code)
 {
   // Si el editor nos dice que hay un actor atrapado por el ratón, movemos el actor.
-  if ( editor.isActorAtrapado () )
+  if ( editor.is_actor_atrapado () )
   {
-    editor.moverActor2 (local_x, local_y);
+    editor.mover_actor_2 (local_x, local_y);
     Draw (msg, d, code);
   }
   else
   {
     // Si no hay ningún actor fijo, se activa el actor bajo el cursor.
-    if ( !editor.isActorFijo () )
+    if ( !editor.is_actor_fijo () )
     {
-      editor.activarActor (local_x, local_y);
+      editor.activar_actor (local_x, local_y);
       Draw (msg, d, code);
     }
 
     // Si el atrapado es el decorado, se mueve el decorado.
-    if ( editor.isDecoradoAtrapado () )
+    if ( editor.is_decorado_atrapado () )
     {
-      editor.moverDecorado (local_x, local_y);
-      editor.actualizarDecorado ();
+      editor.mover_decorado (local_x, local_y);
+      editor.actualizar_decorado ();
     }
   }
 
@@ -139,13 +139,13 @@ int  EscenarioGUI::LPressMouse (int msg, DIALOG *d, int code)
 {
   // Si hay un actor atrapado, lo liberamos.
   // En otro caso, intentamos atrapar uno bajo el cursor.
-  if ( editor.isActorAtrapado () )
+  if ( editor.is_actor_atrapado () )
   {
-    editor.liberarActor ();
+    editor.liberar_actor ();
   }
   else
   {
-    editor.atraparActor (local_x, local_y);
+    editor.atrapar_actor (local_x, local_y);
   }
   Draw (msg, d, code);
   return D_O_K;
@@ -157,7 +157,7 @@ int  EscenarioGUI::LPressMouse (int msg, DIALOG *d, int code)
  */
 int  EscenarioGUI::DClick (int msg, DIALOG *d, int code)
 {
-  editor.fijarActor (local_x, local_y);
+  editor.fijar_actor (local_x, local_y);
   Draw (msg, d, code);
   return D_O_K;
 };

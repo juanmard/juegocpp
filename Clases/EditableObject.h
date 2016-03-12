@@ -13,18 +13,15 @@
 #ifndef _EDITABLEOBJECT_H_
 #define _EDITABLEOBJECT_H_
 
-//class Menu;
-//class Formulario;
-
 /// @class EditableObject
 /// Clase "completamente abstracta" que define el comportamiento de un objeto editable.
 ///
 class EditableObject
 {
 public:
-    ///
     /// Obtiene el menú con los comandos de edición del objeto.
     /// @return Menú con los comandos creados.
+    ///
     virtual Menu& getMenu () const = 0;
 
     /// Obtiene un formulario donde poder modificar los parámetros del objeto.

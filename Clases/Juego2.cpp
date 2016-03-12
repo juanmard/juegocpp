@@ -27,12 +27,36 @@ void Juego2::create_storage_manager ()
 
 void Juego2::mainGame ()
 {
+    // Pruebas de clases.
+    Vector2Df vector(1.0f,4.5f);
+    std::string cadena1, cadena2=" prueba...";
+    cadena1 << vector;
+    std::ostringstream canalCadena;
+    std::cout << cadena1;
+    canalCadena << cadena1;
+    canalCadena << cadena2;
+    canalCadena << vector;
+    std::cout << canalCadena.str() << std::endl;
+    std::cout << vector << std::endl;
+
+    Plataforma prueba(*storage_manager);
+    std::cout << prueba << std::endl;
+
+    Bloque prueba2 (1,2,3,4);
+    std::cout << prueba2;
+
+    std::fstream pruebatxt("prueba_objeto.txt",std::fstream::in | std::fstream::out | std::fstream::app);
+    pruebatxt << canalCadena.str() <<std::endl;
+    pruebatxt << vector << std::endl;
+    pruebatxt << prueba2 << std::endl;
+    pruebatxt.close ();
+
   // Se cambia la paleta de colores que se toma del almacén de recursos.
   set_palette (storage_manager->getPalette ("SPRITES"));
 
   // Se cargan actores desde fichero de prueba.
   // @todo Leer este mismo fichero desde el almacén de recursos.
-  this->actor_manager->load("test.txt");
+  this->actor_manager->load("test2.txt");
 
   // Se crea aparte un actor de tipo loro para pruebas.
   Loro *loro=new Loro(*storage_manager);
@@ -64,20 +88,6 @@ void Juego2::mainGame ()
   cout << " I - Consola interactiva." << endl;
   cout << " ESC - Termina el juego." << endl;
   cout << "----------------------------------" << endl << endl;
-
-    Vector2Df vector(1.0f,4.5f);
-    std::string cadena1, cadena2=" prueba...";
-    cadena1 << vector;
-    std::ostringstream canalCadena;
-    std::cout << cadena1;
-    canalCadena << cadena1;
-    canalCadena << cadena2;
-    canalCadena << vector;
-    std::cout << canalCadena.str() << std::endl;
-    std::cout << vector << std::endl;
-
-    Plataforma prueba(*storage_manager);
-    std::cout << prueba << std::endl;
 
   // Bucle principal del juego.
   while (!key[KEY_ESC])
@@ -296,7 +306,7 @@ void Juego2::mainGame ()
         }
         else if (!comando.compare("armario"))
         {
-          actor_manager->getArmario ();
+          actor_manager->get_armario ();
         }
         else if (!comando.compare("pausa"))
         {

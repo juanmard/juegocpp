@@ -59,8 +59,8 @@ int  GUIEscenario::Draw (int msg, DIALOG *d, int code)
   show_mouse (NULL);
 
   // Se actualiza el ribete y se dibuja.
-  editor.setColorRibete (d->fg);
-  editor.dibujarEscenario ();
+  editor.set_color_ribete (d->fg);
+  editor.dibujar_escenario ();
 
   // Se muestra el puntero del ratón.
   show_mouse (screen);
@@ -104,26 +104,26 @@ int  GUIEscenario::MoveMouse (int msg, DIALOG *d, int code)
   int local_y = mouse_y - d->y;
 
   // Si el editor nos dice que hay un actor atrapado por el ratón, movemos el actor.
-  if ( editor.isActorAtrapado () )
+  if ( editor.is_actor_atrapado () )
   {
-    editor.moverActor2 (local_x, local_y);
+    editor.mover_actor_2 (local_x, local_y);
     Draw (msg, d, code);
 //    DrawEnlazados (msg, d, code);
   }
   else
   {
     // Si no hay ningún actor fijo, se activa el actor bajo el cursor.
-    if ( !editor.isActorFijo () )
+    if ( !editor.is_actor_fijo () )
     {
-      editor.activarActor (local_x, local_y);
+      editor.activar_actor (local_x, local_y);
       Draw (msg, d, code);
     }
 
     // Si el atrapado es el decorado, se mueve el decorado.
-    if ( editor.isDecoradoAtrapado () )
+    if ( editor.is_decorado_atrapado () )
     {
-      editor.moverDecorado (local_x, local_y);
-      editor.actualizarDecorado ();
+      editor.mover_decorado (local_x, local_y);
+      editor.actualizar_decorado ();
     }
   }
 
@@ -144,9 +144,9 @@ int  GUIEscenario::LPressMouse (int msg, DIALOG *d, int code)
 {
   // Si hay un actor atrapado, lo liberamos.
   // En otro caso, intentamos atrapar uno bajo el cursor.
-  if ( editor.isActorAtrapado () )
+  if ( editor.is_actor_atrapado () )
   {
-    editor.liberarActor ();
+    editor.liberar_actor ();
   }
   else
   {
@@ -154,7 +154,7 @@ int  GUIEscenario::LPressMouse (int msg, DIALOG *d, int code)
     int local_x = mouse_x - d->x;
     int local_y = mouse_y - d->y;
 
-    editor.atraparActor (local_x, local_y);
+    editor.atrapar_actor (local_x, local_y);
   }
   Draw (msg, d, code);
   return D_O_K;
@@ -170,7 +170,7 @@ int  GUIEscenario::DClick (int msg, DIALOG *d, int code)
   int local_x = mouse_x - d->x;
   int local_y = mouse_y - d->y;
 
-  editor.fijarActor (local_x, local_y);
+  editor.fijar_actor (local_x, local_y);
   Draw (msg, d, code);
   return D_O_K;
 };
