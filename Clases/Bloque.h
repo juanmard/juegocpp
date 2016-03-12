@@ -9,6 +9,9 @@
 #ifndef _BLOQUE_H_
 #define _BLOQUE_H_
 
+#include "PrintableObject.h"
+#include <string>
+
 /// Modela un bloque genérico representado por una posición, una anchura y una altura.
 ///
 /// En el juego se usa para representar los límites de los actores en su parte física
@@ -16,7 +19,7 @@
 /// @todo Queda por utilizar la clase Vector2Di para representar mediante un vector,
 ///       al menos, la posición del bloque.
 ///
-class Bloque
+class Bloque : public PrintableObject
 {
 private:
     int x;              ///< Coordenada x de la posición que se representa en el bloque.
@@ -65,7 +68,7 @@ public:
     /// @param w  Nuevo ancho del bloque.
     /// @param h  Nuevo alto del bloque.
     ///
-    void set_wh (int w, int h);
+    void set_wh (unsigned int w, unsigned int h);
 
     /// Obtiene la coordenada x de la posición.
     /// @return Coordenada x de la posición.
@@ -92,6 +95,9 @@ public:
     ///
     void centrar (const Bloque& bloque);
 
+    /// Vuelca en una cadena las características del bloque.
+    /// @return Cadena con las características del bloque.
+    std::string & print() const;
 };
 
 #endif
