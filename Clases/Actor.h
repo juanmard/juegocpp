@@ -9,9 +9,12 @@
 #include "Nombres.h"
 #include "Bloque.h"
 #include "Menu.h"
+#include <vector>
+//#include "ActorGUI.h"
 
 class ActorGraphic;
 class Mask;
+class ActorGUI;
 
 /** 
  * \brief   Elemento básico con dinámica dentro del juego.
@@ -94,11 +97,11 @@ public:
     void                                    draw_block              (StageManager *stageManager);
     Bloque &                                getBloque               ();
     void                                    setMostrarBloque        (bool mostrar);
-    virtual  vector<DIALOG> &               getDIALOG               ();
     virtual  void                           addGUI                  (vector<DIALOG> &gui_padre);
 
   private:
     void                                    mensajeErrorGrafico     () const;
+    ActorGUI *                              gui;
 
   private:
     void                                    mensajeErrorGrafico     () const;
@@ -116,29 +119,6 @@ public:
     Game::team_t                            team;
     bool                                    is_detectable;
     CollisionManager::collision_method_t    collision_method;
-
-    // Prueba de DIALOG.
-    vector<DIALOG> vec_actor;
-
-  public:
-    static DIALOG dlg_actor[];
-    /**
-     * \brief   Callback de las coordenadas.
-     */
-    static int callback (int msg, DIALOG *d, int c)
-    {
-      // Se procesan los mensajes.
-      switch (msg)
-      {
-        case MSG_LPRESS:
-            set_dialog_color(&dlg_actor[0], 192, 242);
-//            position_dialog (&dlg_actor[0], 0, 0);
-            int obj;
-            return dialog_message (&dlg_actor[0], MSG_DRAW, 0, &obj);
-      }
-//      return d_button_proc (msg, d, c);
-      return d_box_proc (msg, d, c);
-    };
 };
 
 #endif

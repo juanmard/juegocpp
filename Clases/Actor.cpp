@@ -18,20 +18,7 @@
 #include "ActorGraphic.h"
 #include "StageManager.h"
 #include "Dialog.h"
-
-DIALOG Actor::dlg_actor[] =
-{
-   /* (proc)            (x) (y)  (w)  (h)  (fg) (bg) (key) (flags) (d1) (d2) (dp)                            (dp2) (dp3) */
-   { d_box_proc,        8,  336, 616, 240, 67,  243, 0,    0,      0,   0,   NULL,                           NULL, NULL },
-   { Actor::callback,   8,  320, 80,  16,  67,  243, 0,    0,      0,   0,   (void*)"Pesta 01",              NULL, NULL },
-   { d_text_proc,       16, 344, 168, 8,   67,  243, 0,    0,      0,   0,   (void*)"Propiedades de actor:", NULL, NULL },
-   { d_shadow_box_proc, 24, 360, 320, 192, 67,  243, 0,    0,      0,   0,   NULL,                           NULL, NULL },
-   { d_text_proc,       32, 368, 56,  8,   67,  243, 0,    0,      0,   0,   (void*)"Nombre:",               NULL, NULL },
-   { d_text_proc,       32, 384, 80,  8,   67,  243, 0,    0,      0,   0,   (void*)"Posicion:",             NULL, NULL },
-   { d_text_proc,       32, 400, 136, 8,   67,  243, 0,    0,      0,   0,   (void*)"Grafico asociado:",     NULL, NULL },
-   { d_slider_proc,     32, 528, 280, 16,  67,  243, 0,    0,      16,  4,   NULL,                           NULL, NULL },
-   { NULL,              0,  0,   0,   0,   0,   0,   0,    0,      0,   0,   NULL,                           NULL, NULL }
-};
+#include "ActorGUI.h"
 
 /**
  * \brief   Constructor por omisión de la clase. 
@@ -449,48 +436,9 @@ void  Actor::mensajeErrorGrafico () const
 }
 
 /**
- * \brief   Prueba para enviar la GUI de las propiedades del actor.
- * \todo    Pasar a una clase distinta y sin referencias a Allegro.
- */
-vector<DIALOG> &  Actor::getDIALOG ()
-{
-  // Prueba de DIALOG. Llenamos el vector de DIALOG's.
-  // Usamos la plantilla global.
-  vec_actor.clear ();
-  for (int i=0; i<=7; i++)
-  {
-    vec_actor.push_back(dlg_actor[i]);
-  }
-
-  // Rellenamos con los datos del objeto.
-  string *cadena = new string("Nombre: " + getNombre());
-  vec_actor[4].dp = const_cast<char*>(cadena->c_str());
-  ostringstream posicion;
-  posicion << "Posición: " << x << "," << y;
-  string *pos = new string (posicion.str());
-  vec_actor[5].dp = const_cast<char*>(pos->c_str());
-  string *grafico = new string("Gráfico: " + agraph->getString());
-  vec_actor[6].dp = const_cast<char*>(grafico->c_str());
-  return vec_actor;
-};
-
-/**
  * \brief   Prueba para añadir la GUI de las propiedades del actor a una GUI padre.
- * \todo    Pasar a una clase distinta y sin referencias a Allegro.
  */
 void  Actor::addGUI (vector<DIALOG> &gui_padre)
 {
-  // Rellenamos con los datos del objeto.
-  string *cadena = new string("Nombre: " + getNombre());
-  dlg_actor[4].dp = const_cast<char*>(cadena->c_str());
-  ostringstream posicion;
-  posicion << "Posición: " << x << "," << y;
-  string *pos = new string (posicion.str());
-  dlg_actor[5].dp = const_cast<char*>(pos->c_str());
-  string *grafico = new string("Gráfico: " + agraph->getString());
-  dlg_actor[6].dp = const_cast<char*>(grafico->c_str());
-
-  // Prueba de DIALOG. Llenamos el vector de DIALOG's.
-  // Usamos la plantilla global.
-  gui_padre.insert (gui_padre.end()-1, &dlg_actor[0], &dlg_actor[8]);
+  gui = new ActorGUI (*this, gui_padre);
 };

@@ -198,9 +198,10 @@ Menu &  Ladrillo::getMenu () const
  * \brief   Añade al diálogo padre el diálogo de sus propiedades como Ladrillo.
  * \warning Se añade a modo de prueba en la variable del padre (Actor).
  */
-vector<DIALOG> &  Ladrillo::getDIALOG ()
+void  Ladrillo::addGUI (vector<DIALOG> &gui_padre)
 {
-  Actor::getDIALOG ();
+/*
+   Actor::getDIALOG ();
   vec_actor.push_back (dlgGui[0]);
   vec_actor.push_back (dlgGui[1]);
   vec_actor.push_back (dlgGui[2]);
@@ -208,4 +209,5 @@ vector<DIALOG> &  Ladrillo::getDIALOG ()
   vec_actor[vec_actor.size()-1].dp = chaqueta->getImagen();
 //  vec_actor[vec_actor.size()-3].dp = (void*)Ladrillo::dummy_getter;
   return vec_actor;
+  */
 }

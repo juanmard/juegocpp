@@ -22,7 +22,7 @@ public:
     void                getNombre   (string &strNombre) const;
     string              getNombre   () const;
     virtual Menu &      getMenu     () const;
-    vector<DIALOG> &    getDIALOG   ();
+    void                addGUI      (vector<DIALOG> &gui_padre);
 
 private:
   /**
