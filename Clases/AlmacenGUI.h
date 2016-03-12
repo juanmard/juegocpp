@@ -53,6 +53,7 @@ class AlmacenGUI
     int   indice_ant;
     int   x_ant, y_ant;
     bool  activado;
+    bool  atrapado;
 
   public:
     static Almacen *almacen_activo;
@@ -158,51 +159,39 @@ class AlmacenGUI
         {
           case MSG_START:
               obj.activado = false;
+              obj.atrapado = false;
               break;
 
           case MSG_IDLE:
-/*
-             // Se comprueba que se encuentra dentro de los límites.
-            if ( !((mouse_y < d[0].y) 
-                || (mouse_y > d[0].y + d[0].h)
-                || (mouse_x < d[0].x)
-                || (mouse_x > d[0].x + d[0].w))
-               )
-*/
-            if (obj.activado)
-            {
               // Se comprueba si se ha movido el ratón.
-              if ( !((obj.x_ant == mouse_x) && 
-                     (obj.y_ant == mouse_y)) )
+              if ( (obj.x_ant != mouse_x) || 
+                   (obj.y_ant != mouse_y) )
                {
                 // El ratón se ha movido.
                 obj.x_ant = mouse_x;
                 obj.y_ant = mouse_y;
                 obj.moverMouse (d);
               }
-            }
             break;
 
           case MSG_DRAW:
               break;
 
           case MSG_LPRESS:
-              obj.activado = true;
+              obj.atrapado = true;
               d[0].bg = 250;
               return D_REDRAW;
 
           case MSG_LRELEASE:
-              obj.activado = false;
+              obj.atrapado = false;
               d[0].bg = 243;
               return D_REDRAW;
 
           case MSG_GOTMOUSE:
-              d[0].bg = 250;
               obj.activado = true;
               break;
 
           case MSG_LOSTMOUSE:
-              d[0].bg = 243;
               obj.activado = false;
               break;
          }
