@@ -107,7 +107,7 @@ ActorGUI::~ActorGUI()
  * \brief   Enlaza con punteros a otros diálogos que deben
  *          actualizarse cuando se actualicen las propiedades del actor.
  */
-void  ActorGUI::addEnlace (DIALOG *enlace)
+void  ActorGUI::addEnlace (GUIEscenario *enlace)
 {
   //enlaces.push_back (enlace);
   // Enlazamos los dos tipos 'VectorGUI' con el 'EscenarioGUI'.
@@ -120,9 +120,18 @@ void  ActorGUI::addEnlace (DIALOG *enlace)
 
   // Pruebas de enlace con GUIEscenario.
   //  static_cast<GUIControl *>(gui [pto_inserccion + prueba].dp3)->addEnlace (&gui [pto_inserccion + posicion]);
-  static_cast<GUIControl *>(gui [pto_inserccion + prueba].dp3)->addEnlace (enlace);
+//  static_cast<GUIControl *>(gui [pto_inserccion + prueba].dp3)->addEnlace (enlace);
+  static_cast<GUIControl *>(gui [pto_inserccion + prueba].dp3)->addEnlace (&gui [pto_inserccion + posicion]);
+  enlace->addEnlace (static_cast<DIALOG *>(&gui [pto_inserccion + prueba]));
+  enlace->addEnlace (static_cast<DIALOG *>(&gui [pto_inserccion + posicion]));
 }
 
+void  ActorGUI::addEnlace (DIALOG *enlace)
+{
+  // Pruebas de enlace con GUIEscenario.
+  static_cast<GUIControl *>(gui [pto_inserccion + prueba].dp3)->addEnlace (enlace);
+  
+}
 
 /**
  * \brief   Cambia el actor mostrado en esta GUI.

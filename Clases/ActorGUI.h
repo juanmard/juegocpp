@@ -3,7 +3,7 @@
 
 #include <allegro.h>
 #include <vector>
-
+#include "GUIEscenario.h"
 #include "EditorManager.h"
 
 class Actor;
@@ -22,6 +22,7 @@ class ActorGUI
                       ActorGUI               (Actor &actor, vector<DIALOG> &gui_padre);
                       ActorGUI               ();
     virtual           ~ActorGUI              ();
+    virtual void      addEnlace              (GUIEscenario *enlace);
     virtual void      addEnlace              (DIALOG *enlace);
     void              setActor               (Actor &a);
 

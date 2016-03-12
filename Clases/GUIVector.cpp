@@ -22,7 +22,7 @@ y (&yParam)
  * \brief   Comprueba las teclas en el control del vector.
  * \return  El procesado de la tecla.
  */
-int  GUIVector::Teclado (int msg, DIALOG *d, int code)
+int  GUIVector::Keyboard (int msg, DIALOG *d, int code)
 {
   // Salida por omisión.
   int salida = D_O_K;
@@ -45,10 +45,7 @@ int  GUIVector::Teclado (int msg, DIALOG *d, int code)
   *y += yInc;
 
   // Actualizamos su representación en pantalla.
-  object_message (d, MSG_DRAW, 0);
-
-  // Se devuelve el código de salida.
-  return salida;
+   return object_message (d, MSG_DRAW, 0);
 };
 
 /**

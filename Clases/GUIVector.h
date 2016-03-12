@@ -23,7 +23,7 @@ class GUIVector : public GUIControl
     void  setVector (int &xParam, int &yParam);
 
   private:
-    int   Teclado   (int msg, DIALOG *d, int code);
+    int   Keyboard  (int msg, DIALOG *d, int code);
     int   Draw      (int msg, DIALOG *d, int code);
     int   Wheel     (int msg, DIALOG *d, int code);
     int   Omision   (int msg, DIALOG *d, int code);

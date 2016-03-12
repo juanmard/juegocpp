@@ -11,6 +11,7 @@
 #include "Menu.h"
 #include <vector>
 #include "EditorManager.h"
+#include "GUIEscenario.h"
 
 class ActorGraphic;
 class Mask;
@@ -101,7 +102,9 @@ class Actor
     void                                    setMostrarBloque        (bool mostrar);
     virtual  void                           addGUI                  (vector<DIALOG> &gui_padre);
     virtual  void                           drawGUI                 ();
+    virtual  void                           addEnlace               (GUIEscenario *enlace);
     virtual  void                           addEnlace               (DIALOG *enlace);
+
 
   private:
     void                                    mensajeErrorGrafico     () const;

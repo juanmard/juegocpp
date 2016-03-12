@@ -29,6 +29,7 @@ class GUIControl
 
   protected:
     vector<DIALOG *>    enlazados;
+    bool                foco;
     int           DrawEnlazados (int msg, DIALOG *d, int code);
 
   public:
@@ -60,7 +61,7 @@ class GUIControl
                     // Se llama al método dedicado al movimiento del ratón.
                     obj.MoveMouse (msg, d, c);
                 }
-                break;
+                return D_O_K;
 
           case MSG_CHAR:
           case MSG_UCHAR:
@@ -71,8 +72,14 @@ class GUIControl
             break;
 
           case MSG_DRAW:
+            // Se llama al dibujo propio.
             obj.Draw (msg, d, c);
-            obj.DrawEnlazados (msg, d, c);
+
+            // Si tengo el foco, yo dibujo a los demás.
+            if (obj.foco)
+            {
+              obj.DrawEnlazados (msg, d, c);
+            }
             return D_O_K;
 
           case MSG_WANTFOCUS:
@@ -80,10 +87,12 @@ class GUIControl
 
           case MSG_GOTFOCUS:
             d->fg = makecol (255,0,0);
+            obj.foco = true;
             return D_O_K;
 
           case MSG_LOSTFOCUS:
             d->fg = gui_fg_color;
+            obj.foco = false;
             return D_O_K;
 
           case MSG_LPRESS:

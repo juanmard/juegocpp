@@ -106,6 +106,7 @@ int  GUIEscenario::MoveMouse (int msg, DIALOG *d, int code)
   {
     editor.moverActor2 (local_x, local_y);
     Draw (msg, d, code);
+    DrawEnlazados (msg, d, code);
   }
   else
   {

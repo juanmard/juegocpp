@@ -449,6 +449,11 @@ void  Actor::addGUI (vector<DIALOG> &gui_padre)
 /**
  * \brief   Prueba para añadir un enlace a la GUI.
  */
+void  Actor::addEnlace (GUIEscenario *enlace)
+{
+  gui->addEnlace (enlace);
+};
+
 void  Actor::addEnlace (DIALOG *enlace)
 {
   gui->addEnlace (enlace);

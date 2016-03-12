@@ -10,7 +10,8 @@
 /**
  * \brief   Constructor.
  */
-GUIControl::GUIControl ()
+GUIControl::GUIControl ():
+foco (false)
 {
   enlazados.clear ();
 };
@@ -92,7 +93,7 @@ int  GUIControl::DrawEnlazados (int msg, DIALOG *d, int code)
   for (iter = enlazados.begin(); iter != enlazados.end(); iter++)
   {
     object_message (*iter, MSG_DRAW, 0);
-    std::cout << "Dibujado enlace. " << *iter << std::endl;
+    //std::cout << "Dibujado enlace. " << *iter << std::endl;
   }
 };
 
@@ -102,6 +103,6 @@ int  GUIControl::DrawEnlazados (int msg, DIALOG *d, int code)
  */
 void  GUIControl::addEnlace (DIALOG *enlace)
 {
-  std::cout << "Añadido enlace." << std::endl;
   enlazados.push_back (enlace);
+  //std::cout << "Añadido enlace." << std::endl;
 };

@@ -456,6 +456,7 @@ int  Dialog::comprobarTecla (int code)
       if (actor)
       {
         actor->addGUI (pesta);
+        actor->addEnlace (static_cast<GUIEscenario *>(dlg_tmp3.dp3));
         actor->addEnlace (&pesta[2]);
       }
 
