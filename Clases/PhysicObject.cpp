@@ -1,6 +1,6 @@
 ///
 /// @file PhysicObject.cpp
-/// @brief Fichero de implementación de la clase "PhysicObject".
+/// @brief Fichero de implementaciÃ³n de la clase "PhysicObject".
 /// @author Juan Manuel Rico
 /// @date Noviembre 2015
 /// @version 1.0.0

@@ -1,6 +1,6 @@
 ///
 /// @file PrintableObject.cpp
-/// @brief Fichero de implementaci�n de la clase "PrintableObject".
+/// @brief Fichero de implementación de la clase "PrintableObject".
 /// @author Juan Manuel Rico
 /// @date Noviembre 2015
 /// @version 1.0.0
@@ -16,11 +16,11 @@ PrintableObject::~PrintableObject ()
 {
 };
 
-//std::string& PrintableObject::print (std::string& cadena) const
-//{
-//    return cadena;
-//};
-
+/// @todo En este caso las cadenas de salida son no-constantes para poder encadenar salidas de cadena.
+///       ¿Y si algún objeto no quiere modificar por ejemplo la cadena con su nombre?
+///       ¿Sería mejor hacer constantes las cadenas? ¿Funcionaría?... Probar:
+///       @code const std::string& operator<< (const std::string& cadena, const PrintableObject& objeto) @endcode
+///
 std::string& operator<< (std::string& cadena, const PrintableObject& objeto)
 {
     cadena.append (objeto.print ());

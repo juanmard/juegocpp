@@ -1,6 +1,6 @@
 ///
 /// @file PrintableObject.h
-/// @brief Fichero de definici髇 de la clase "PrintableObject".
+/// @brief Fichero de definici贸n de la clase "PrintableObject".
 /// @author Juan Manuel Rico
 /// @date Noviembre 2015
 /// @version 1.0.0
@@ -18,7 +18,7 @@
 class PrintableObject
 {
 private:
-    /// Imprime la representaci髇 del objeto en forma de cadena de texto.
+    /// Imprime la representaci贸n del objeto en forma de cadena de texto.
     /// @return Obtiene la cadena que representa al objeto.
     ///
     virtual std::string& print () const = 0;
@@ -33,19 +33,22 @@ public:
     virtual ~PrintableObject ();
 
     /// Sobrecarga de operador.
-    /// @param cadena  Cadena donde guardar la representaci髇 del objeto.
+    /// @param cadena  Cadena donde guardar la representaci贸n del objeto.
+    /// @param objeto  Referencia al objeto que se quiere representar.
     /// @return Cadena que se utiliza para encadenar llamadas al operador.
     ///
     friend std::string& operator<< (std::string& cadena, const PrintableObject& objeto); 
 
     /// Sobrecarga de operador.
-    /// @param osstream  Canal de cadena (string-stream) donde volcar la representaci髇 del objeto.
+    /// @param osstream  Canal de cadena (string-stream) donde volcar la representaci贸n del objeto.
+    /// @param objeto  Referencia al objeto que se quiere representar.
     /// @return Canal de cadena (string-stream) para continuar el volcado si es necesario.
     ///
     friend std::ostringstream& operator<< (std::ostringstream& osstream, const PrintableObject& objeto);
 
     /// Sobrecarga de operador.
-    /// @param ostream  Canal de salida donde volcar la representaci髇 del objeto.
+    /// @param ostream  Canal de salida donde volcar la representaci贸n del objeto.
+    /// @param objeto  Referencia al objeto que se quiere representar.
     /// @return Canal de salida para continuar el volcado si es necesario.
     ///
     friend std::ostream& operator<< (std::ostream& ostream, const PrintableObject& objeto);

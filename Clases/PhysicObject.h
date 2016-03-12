@@ -1,6 +1,6 @@
 ///
 /// @file PhysicObject.h
-/// @brief Fichero de definición de la clase "PhysicObject".
+/// @brief Fichero de definiciÃ³n de la clase "PhysicObject".
 /// @author Juan Manuel Rico
 /// @date Noviembre 2015
 /// @version 1.0.0
@@ -11,18 +11,18 @@
 
 #include "Vector2Df.h"
 
-/// Define un objeto físico-
+/// Define un objeto fÃ­sico-
 ///
-/// Se trata de conseguir un objeto que se comporta físicamente en un entorno.
+/// Se trata de conseguir un objeto que se comporta fÃ­sicamente en un entorno.
 ///
 class PhysicObject
 {
 private:
-    const static float g;       ///< Constante de gravedad, común para todos los objetos de la clase.
+    const static float g;       ///< Constante de gravedad, comÃºn para todos los objetos de la clase.
     Vector2Df velocidad;        ///< Vector velocidad del objeto.
-    Vector2Df cdg;              ///< Posición del centro de gravedad referido a la posición del objeto.
+    Vector2Df cdg;              ///< PosiciÃ³n del centro de gravedad referido a la posiciÃ³n del objeto.
     float masa;                 ///< Masa del objeto.
-    float area;                 ///< Área del objeto.
+    float area;                 ///< Ãrea del objeto.
     float volumen;              ///< Volumen del objeto.
     float mto_inercia;          ///< Momento de inercia del objeto.
 
