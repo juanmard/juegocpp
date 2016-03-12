@@ -49,6 +49,33 @@ int  GUIControl::Wheel (int msg, DIALOG *d, int code)
  * \brief   Envía mensaje por omisión.
  * \return  Mensaje.
  */
+int  GUIControl::MoveMouse (int msg, DIALOG *d, int code)
+{
+  return D_O_K;
+};
+
+/**
+ * \brief   Envía mensaje por omisión.
+ * \return  Mensaje.
+ */
+int  GUIControl::LPressMouse (int msg, DIALOG *d, int code)
+{
+  return D_O_K;
+};
+
+/**
+ * \brief   Envía mensaje por omisión.
+ * \return  Mensaje.
+ */
+int GUIControl::DClick (int msg, DIALOG *d, int code)
+{
+  return D_O_K;
+};
+
+/**
+ * \brief   Envía mensaje por omisión.
+ * \return  Mensaje.
+ */
 int  GUIControl::Omision (int msg, DIALOG *d, int code)
 {
   return D_O_K;
@@ -65,7 +92,7 @@ int  GUIControl::DrawEnlazados (int msg, DIALOG *d, int code)
   for (iter = enlazados.begin(); iter != enlazados.end(); iter++)
   {
     object_message (*iter, MSG_DRAW, 0);
-    std::cout << "Dibujado enlace." << std::endl;
+    std::cout << "Dibujado enlace. " << *iter << std::endl;
   }
 };
 

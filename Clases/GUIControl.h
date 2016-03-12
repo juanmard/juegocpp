@@ -21,12 +21,15 @@ class GUIControl
     virtual int   Keyboard      (int msg, DIALOG *d, int code);
     virtual int   Draw          (int msg, DIALOG *d, int code);
     virtual int   Wheel         (int msg, DIALOG *d, int code);
+    virtual int   MoveMouse     (int msg, DIALOG *d, int code);
+    virtual int   LPressMouse   (int msg, DIALOG *d, int code);
+    virtual int   DClick        (int msg, DIALOG *d, int code);
     virtual int   Omision       (int msg, DIALOG *d, int code);
-    int           DrawEnlazados (int msg, DIALOG *d, int code);
     void          addEnlace     (DIALOG *enlace);
 
-  private:
+  protected:
     vector<DIALOG *>    enlazados;
+    int           DrawEnlazados (int msg, DIALOG *d, int code);
 
   public:
     /**
@@ -43,6 +46,22 @@ class GUIControl
         // Se procesan los mensajes.
         switch (msg)
         {
+          // Mensaje que se produce repetidamente mientras no exista otro.
+          case MSG_IDLE:
+                static int    mouse_ant_x, mouse_ant_y;
+
+                // Se comprueba si se ha movido el ratón.
+                if ( !((mouse_ant_x == mouse_x) && (mouse_ant_y == mouse_y)) )
+                {
+                    // El ratón se ha movido, se guarda el movimiento.
+                    mouse_ant_x = mouse_x;
+                    mouse_ant_y = mouse_y;
+
+                    // Se llama al método dedicado al movimiento del ratón.
+                    obj.MoveMouse (msg, d, c);
+                }
+                break;
+
           case MSG_CHAR:
           case MSG_UCHAR:
           case MSG_XCHAR:
@@ -66,6 +85,12 @@ class GUIControl
           case MSG_LOSTFOCUS:
             d->fg = gui_fg_color;
             return D_O_K;
+
+          case MSG_LPRESS:
+            return obj.LPressMouse (msg, d, c);
+
+          case MSG_DCLICK:
+            return obj.DClick (msg, d, c);
 
           case MSG_WHEEL:
             return obj.Wheel (msg, d, c);

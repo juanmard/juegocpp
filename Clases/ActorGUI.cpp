@@ -89,9 +89,7 @@ gui (gui_padre)
   dlg_plantilla[prueba].dp3 = new GUIVector (a.x, a.y);
   // Enlazamos de prueba el GUIVector con otro.
   static_cast<GUIControl *>(dlg_plantilla[prueba].dp3)->addEnlace (&dlg_plantilla[posicion]);
-//  static_cast<GUIControl *>(gui [pto_inserccion + prueba].dp3)->addEnlace (&gui [pto_inserccion + posicion]);
-//  static_cast<GUIControl *>(gui [pto_inserccion + prueba].dp3)->addEnlace (enlace);
-  
+
   // Guardamos el punto de insercción y añadimos la GUI al padre.
   pto_inserccion = gui_padre.size ()-1;
   gui_padre.insert (gui_padre.end()-1, &dlg_plantilla[inicio], &dlg_plantilla[fin]);
@@ -114,11 +112,15 @@ void  ActorGUI::addEnlace (DIALOG *enlace)
   //enlaces.push_back (enlace);
   // Enlazamos los dos tipos 'VectorGUI' con el 'EscenarioGUI'.
   // En un futuro esto lo hará el 'EditorGUI'.
-  static_cast<VectorGUI *>(gui [pto_inserccion + posicion].dp3)->addEnlace (enlace);
-  static_cast<VectorGUI *>(gui [pto_inserccion + dimensiones].dp3)->addEnlace (enlace);
+//  static_cast<VectorGUI *>(gui [pto_inserccion + posicion].dp3)->addEnlace (enlace);
+//  static_cast<VectorGUI *>(gui [pto_inserccion + dimensiones].dp3)->addEnlace (enlace);
 
   // Enlazamos en ambas direcciones. No debe ir aquí.
-  (static_cast<EscenarioGUI *>(enlace->dp3))->addEnlace(&gui[pto_inserccion + posicion]);
+//  (static_cast<EscenarioGUI *>(enlace->dp3))->addEnlace(&gui[pto_inserccion + posicion]);
+
+  // Pruebas de enlace con GUIEscenario.
+  //  static_cast<GUIControl *>(gui [pto_inserccion + prueba].dp3)->addEnlace (&gui [pto_inserccion + posicion]);
+  static_cast<GUIControl *>(gui [pto_inserccion + prueba].dp3)->addEnlace (enlace);
 }
 
 

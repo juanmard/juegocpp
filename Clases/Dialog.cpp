@@ -3,7 +3,8 @@
 #include "VentanaALG.h"
 #include "resize.h"
 #include <iostream>
-#include "EscenarioGUI.h"
+//#include "EscenarioGUI.h"
+#include "GUIEscenario.h"
 
 // Inicialización de las variables estáticas de la clase.
 // Diálogo general de la GUI del editor.
@@ -438,8 +439,12 @@ int  Dialog::comprobarTecla (int code)
 
       DIALOG dlg_tmp3;
       dlg_tmp3 = dialog[0];
-      dlg_tmp3.proc = EscenarioGUI::callback;
-      dlg_tmp3.dp3 = new EscenarioGUI (*manager);
+//      dlg_tmp3.proc = EscenarioGUI::callback;
+//      dlg_tmp3.dp3 = new EscenarioGUI (*manager);
+
+      // Prueba de la nueva GUI.
+      dlg_tmp3.proc = GUIEscenario::callback;
+      dlg_tmp3.dp3 = new GUIEscenario (*manager);
 
       pesta.clear ();
       pesta.push_back (dlg_tmp1);
