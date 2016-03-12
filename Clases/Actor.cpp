@@ -503,3 +503,14 @@ istream&  operator>> (istream &is, Actor &a)
 
   return is;
 }
+
+/**
+ * \brief   Modifica los Lee los valores del actor de una cadena de texto.
+ * \details Se define como virtual para que cada tipo de actor se complete a sí mismo
+ *			con los valores que él conoce.
+ * 			Se compara el nombre del actor con el obtenido en la cadena. Si el actor
+ *          no se identifica con la cadena de su nombre, se rechazan dichos valores.
+ */
+void  Actor::setActor (string actor)
+{
+};

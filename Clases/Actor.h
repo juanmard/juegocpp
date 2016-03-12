@@ -88,7 +88,6 @@ class Actor
     int                                     get_power               ();
     void                                    set_collision_method    (CollisionManager::collision_method_t cm);
     CollisionManager::collision_method_t    get_collision_method    ();
-    virtual void                            hit                     (Actor *who, int damage);
     void                                    set_team                (Game::team_t tm);
     Game::team_t                            get_team                ();
     void                                    set_tiempo              (unsigned int tiempo);
@@ -103,7 +102,8 @@ class Actor
     virtual  void                           addGUI                  (vector<DIALOG> &gui_padre);
     virtual  void                           drawGUI                 ();
     virtual  ActorGUI *                     getGUI                  ();
-
+	virtual void                            hit                     (Actor *who, int damage);
+	virtual	void							leerActor				(char *[]);
 
   private:
     void                                    mensajeErrorGrafico     () const;
