@@ -13,15 +13,17 @@
 class EscenarioGUI
 {
   public:
-          EscenarioGUI  (EditorManager &editorParam);
+          EscenarioGUI  (EditorManager &editorParam, DIALOG *enlace=NULL);
     int   Keyboard      (int msg, DIALOG *d, int code);
     int   Draw          (int msg, DIALOG *d, int code);
     int   Wheel         (int msg, DIALOG *d, int code);
     int   MoveMouse     (int msg, DIALOG *d, int code);
     int   LMouse        (int msg, DIALOG *d, int code);
+    void  addEnlace     (DIALOG *enlace);
 
   protected:
     EditorManager &  editor;
+    DIALOG *         enlaces;
 
   public:
     /**

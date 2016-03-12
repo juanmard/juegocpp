@@ -20,6 +20,7 @@
 #include "LadrilloGUI.h"
 #include "VectorGUI.h"
 #include "ContadorGUI.h"
+#include "EscenarioGUI.h"
 
 using std::ostringstream;
 
@@ -100,8 +101,8 @@ ActorGUI::~ActorGUI()
 void  ActorGUI::setEditor (EditorManager *editor)
 {
   //enlaces.push_back (enlace);
-  static_cast<VectorGUI *>(gui [pto_inserccion + posicion].dp3)->setEditor (editor);
-  static_cast<VectorGUI *>(gui [pto_inserccion + dimensiones].dp3)->setEditor (editor);
+  static_cast<VectorGUI *>(gui[pto_inserccion + posicion].dp3)->setEditor (editor);
+  static_cast<VectorGUI *>(gui[pto_inserccion + dimensiones].dp3)->setEditor (editor);
 }
 
 /**
@@ -115,4 +116,46 @@ void  ActorGUI::addEnlace (DIALOG *enlace)
   // En un futuro esto lo hará el 'EditorGUI'.
   static_cast<VectorGUI *>(gui [pto_inserccion + posicion].dp3)->addEnlace (enlace);
   static_cast<VectorGUI *>(gui [pto_inserccion + dimensiones].dp3)->addEnlace (enlace);
+
+  // Enlazamos en ambas direcciones. No debe ir aquí.
+  (static_cast<EscenarioGUI *>(enlace->dp3))->addEnlace(&gui[pto_inserccion + posicion]);
 }
+
+
+/**
+ * \brief   Cambia el actor mostrado en esta GUI.
+ */
+void  ActorGUI::setActor (Actor &a)
+{
+  // Marcamos el actor activo para la clase.
+  actor_activo = NULL;
+
+  // Hacer más corto el nombre de la variable.
+  unsigned int pto = pto_inserccion;
+
+  // Actualizamos el nombre.
+  string *cadena = new string(a.getNombre());
+  gui[pto + nombre].dp = const_cast<char*>(cadena->c_str());
+
+  // NOTA: Esto debería ir todo en respuesta al mensaje MSG_DRAW e ir en una
+  //       clase distinta: TextoGUI.
+  rectfill (screen, gui[pto + nombre].x, gui[pto + nombre].y,
+            gui[pto + nombre].x + gui[pto + nombre].w,
+            gui[pto + nombre].y + gui[pto + nombre].h,
+            gui_bg_color);
+  object_message (&gui[pto + nombre], MSG_DRAW, 0);
+
+  // Gráfico:
+  ActorGraphic *graf = a.get_actor_graphic ();
+  cadena = new string(graf->getString());
+  *cadena = cadena->substr (0, cadena->find(" >>"));
+  gui[pto + grafico].dp = const_cast<char*>(cadena->c_str());
+  object_message (&gui[pto + grafico], MSG_DRAW, 0);
+
+  // Posición y Dimensiones.
+  // Se cambia la referencia del vector.
+  static_cast<VectorGUI *>(gui[pto + posicion].dp3)->setVector (a.x, a.y);
+  static_cast<VectorGUI *>(gui[pto + dimensiones].dp3)->setVector (a.w, a.h);
+  object_message (&gui[pto + posicion], MSG_DRAW, 0);
+  object_message (&gui[pto + dimensiones], MSG_DRAW, 0);
+};

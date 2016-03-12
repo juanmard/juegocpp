@@ -17,7 +17,8 @@
  */
 EditorManager::EditorManager(Game *g):
 game (g),
-actor_editado (NULL)
+actorAtrapado (NULL),
+actorActivado (NULL)
 {
   // Referencia a la GUI.
   gui = new Dialog(this);
@@ -74,12 +75,12 @@ void  EditorManager::dibujarEscenario ()
 void  EditorManager::moverActor (int x, int y)
 {
   // Comprobamos que no está editado nada.
-  // - Si está actor_editado se mueve.
-  // - Si no está actor_editado se ignora.
-  if (actor_editado)
+  // - Si está actorAtrapado se mueve.
+  // - Si no está actorAtrapado se ignora.
+  if (actorAtrapado)
   {
-    actor_editado->set_x (x);
-    actor_editado->set_y (y);
+    actorAtrapado->set_x (x);
+    actorAtrapado->set_y (y);
   }
 }
 
@@ -89,7 +90,7 @@ void  EditorManager::moverActor (int x, int y)
  */
 int  EditorManager::getActorX () const
 {
-  return actor_editado->get_x ();
+  return actorAtrapado->get_x ();
 }
 
 /**
@@ -98,7 +99,7 @@ int  EditorManager::getActorX () const
  */
 int  EditorManager::getActorY () const
 {
-  return actor_editado->get_y ();
+  return actorAtrapado->get_y ();
 }
 
 /**
@@ -107,7 +108,7 @@ int  EditorManager::getActorY () const
  */
 void  EditorManager::setActorX (int x)
 {
-  actor_editado->set_x (x);
+  actorAtrapado->set_x (x);
 }
 
 /**
@@ -116,7 +117,7 @@ void  EditorManager::setActorX (int x)
  */
 void  EditorManager::setActorY (int y)
 {
-  actor_editado->set_y (y);
+  actorAtrapado->set_y (y);
 }
 
 /**
@@ -315,7 +316,25 @@ Almacen &  EditorManager::getAlmacen () const
  */
 bool  EditorManager::isActorAtrapado () const
 {
-  return true;
+  bool salida = false;
+  if (actorAtrapado)
+  {
+    salida = true;
+  }
+  return salida;
+}
+
+/**
+ * \brief   Dice si el actor actual está activo.
+ */
+bool  EditorManager::isActorActivo () const
+{
+  bool salida = false;
+  if (actorActivado)
+  {
+    salida = true;
+  }
+  return salida;
 }
 
 /**
@@ -351,3 +370,63 @@ void  EditorManager::actualizarActor ()
 void  EditorManager::actualizarDecorado ()
 {
 }
+
+/**
+ * \brief   Atrapa el actor cuyo bloque se encuentre en las coordenadas especificadas.
+ */
+void  EditorManager::atraparActor (int x, int y)
+{
+  actorAtrapado = getActor (x, y);
+  if ( isActorAtrapado () )
+  {
+    actorAtrapado->set_color (makecol(255,0,0));
+    actorAtrapado->setMostrarBloque (true);
+  }
+}
+
+/**
+ * \brief   Libera el actor atrapado.
+ */
+void  EditorManager::liberarActor ()
+{
+  if ( isActorAtrapado () )
+  {
+    actorAtrapado->setMostrarBloque (false);
+    actorAtrapado = NULL;
+  }
+}
+
+/**
+ * \brief   Desactiva el actor activado.
+ */
+void  EditorManager::desactivarActor ()
+{
+  if ( isActorActivo () )
+  {
+    actorActivado->setMostrarBloque (false);
+    actorActivado = NULL;
+  }
+}
+
+/**
+ * \brief   Activar actor.
+ */
+void  EditorManager::activarActor (int x, int y)
+{
+  // Si hay un actor activo, desactivamos.
+  if ( isActorActivo () )
+  {
+    desactivarActor ();
+  }
+
+  // Obtenemos el nuevo actor bajo el ratón.
+  actorActivado = getActor (x,y);
+
+  // Si existe, mostramos el contorno en color verde y sus valores en la GUI.
+  if ( isActorActivo () )
+  {
+    actorActivado->set_color (makecol(0,255,0));
+    actorActivado->setMostrarBloque (true);
+    actorActivado->drawGUI ();
+  }
+};

@@ -447,13 +447,10 @@ int  Dialog::comprobarTecla (int code)
       pesta.push_back (dlg_tmp3);
       pesta.push_back (fin);
 
-
       // Obtenemos el vector de diálogos del actor.
       if (actor)
       {
         actor->addGUI (pesta);
-        //actor->setEditor (manager);
-        // Decidimos quedarnos con un enlace entre diálogos.
         actor->addEnlace (&pesta[2]);
       }
 

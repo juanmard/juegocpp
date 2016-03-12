@@ -10,8 +10,9 @@
 /**
  * \brief   Constructor.
  */
-EscenarioGUI::EscenarioGUI (EditorManager &editorParam):
-editor (editorParam)
+EscenarioGUI::EscenarioGUI (EditorManager &editorParam, DIALOG *enlace):
+editor (editorParam),
+enlaces (enlace)
 {
 };
 
@@ -51,8 +52,14 @@ int  EscenarioGUI::Keyboard (int msg, DIALOG *d, int code)
  */
 int  EscenarioGUI::Draw (int msg, DIALOG *d, int code)
 {
+  show_mouse (NULL);
+  // Actualizamos el ribete y dibujamos.
   editor.setColorRibete (d->fg);
   editor.dibujarEscenario ();
+
+  // Actualizamos los enlaces.
+  if (enlaces) object_message (enlaces, MSG_DRAW, 0);
+  show_mouse (screen);
   return D_O_K;
 };
 
@@ -91,10 +98,14 @@ int  EscenarioGUI::MoveMouse (int msg, DIALOG *d, int code)
   if ( editor.isActorAtrapado () )
   {
     editor.moverActor (mouse_x, mouse_y);
-    editor.actualizarActor ();
+    Draw (msg, d, code);
   }
   else
   {
+    // Se activa el actor bajo el ratón.
+    editor.activarActor (mouse_x, mouse_y);
+    Draw (msg, d, code);
+
     // Si el atrapado es el decorado, se mueve el decorado.
     if ( editor.isDecoradoAtrapado () )
     {
@@ -105,11 +116,12 @@ int  EscenarioGUI::MoveMouse (int msg, DIALOG *d, int code)
 
   // Se actualizan la coordenadas.
   // editor.setMensaje (os.str());
+/*
   ostringstream os;
   os  << "Globales: " << mouse_x << "," << mouse_y;
   textout (screen, font, os.str().c_str(), 0, 300, gui_fg_color);
-
-  //return Draw (msg, d, code);
+*/
+  return D_O_K;
 };
 
 /**
@@ -122,11 +134,22 @@ int  EscenarioGUI::LMouse (int msg, DIALOG *d, int code)
   // En otro caso, intentamos atrapar uno bajo el cursor.
   if ( editor.isActorAtrapado () )
   {
-//    editor.liberarActor ();
+    editor.liberarActor ();
   }
   else
   {
-//    editor.atraparActor (mouse_x, mouse_y);
+    editor.atraparActor (mouse_x, mouse_y);
   }
+  Draw (msg, d, code);
   return D_O_K;
+};
+
+/**
+ * \brief   Añade un enlace a otro diálogo.
+ * \details Este enlace se utiliza para actualizar el aspecto de otro diálogo
+ *          enlazado al cambio de éste.
+ */
+void  EscenarioGUI::addEnlace (DIALOG *enlace)
+{
+  enlaces = enlace;
 };

@@ -100,12 +100,14 @@ class Actor
     Bloque &                                getBloque               ();
     void                                    setMostrarBloque        (bool mostrar);
     virtual  void                           addGUI                  (vector<DIALOG> &gui_padre);
+    virtual  void                           drawGUI                 ();
     virtual  void                           setEditor               (EditorManager *editor);
     virtual  void                           addEnlace               (DIALOG *enlace);
 
   private:
     void                                    mensajeErrorGrafico     () const;
-    ActorGUI *                              gui;
+    // Generamos una sola GUI para todos los actores.
+    static ActorGUI *                       gui;
 
   private:
     void                                    mensajeErrorGrafico     () const;

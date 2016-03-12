@@ -20,6 +20,9 @@
 #include "Dialog.h"
 #include "ActorGUI.h"
 
+// Creamos una GUI única para todos los actores.
+ActorGUI *Actor::gui = NULL;
+
 /**
  * \brief   Constructor por omisión de la clase. 
  * \details No asigna gráfico y no se sitúa en el tiempo. 
@@ -457,4 +460,17 @@ void  Actor::setEditor (EditorManager  *editor)
 void  Actor::addEnlace (DIALOG *enlace)
 {
   gui->addEnlace (enlace);
+};
+
+/**
+ * \brief   Hace reflejar las propiedades del actor en la GUI.
+ */
+void  Actor::drawGUI ()
+{
+  // Si existe la GUI, solo hay que cambiar el actor.
+  // En otro caso, habría que crearla.
+  if (gui)
+  {
+    gui->setActor (*this);
+  }
 };

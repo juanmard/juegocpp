@@ -54,7 +54,12 @@ class EditorManager
     Almacen & getAlmacen            () const;
 
     // Nueva generación de métodos para GUI dinámica:
+    bool      isActorActivo         () const;
     bool      isActorAtrapado       () const;
+    void      atraparActor          (int x, int y);
+    void      activarActor          (int x, int y);
+    void      liberarActor          ();
+    void      desactivarActor       ();
     bool      isDecoradoAtrapado    () const;
     //void      moverActor            (int x, int y);
     void      moverDecorado         (int x, int y);
@@ -64,5 +69,6 @@ class EditorManager
   protected:
     Game *      game;
     Dialog *    gui;
-    Actor *     actor_editado;
+    Actor *     actorAtrapado;
+    Actor *     actorActivado;
 };

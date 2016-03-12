@@ -14,8 +14,8 @@ using std::ostringstream;
  * \brief   Constructor.
  */
 VectorGUI::VectorGUI(int &xParam, int &yParam, EditorManager *editorParam, DIALOG *enlacesParam):
-x (xParam),
-y (yParam),
+x (&xParam),
+y (&yParam),
 editor (editorParam),
 enlaces (enlacesParam)
 {
@@ -44,11 +44,14 @@ int  VectorGUI::Teclado (int msg, DIALOG *d, int code)
   }
 
   // Actualizamos los valores referenciados por el vector.
-  x += xInc;
-  y += yInc;
+  *x += xInc;
+  *y += yInc;
 
   // Actualizamos su representación en pantalla.
   object_message (d, MSG_DRAW, 0);
+
+  // Se actualizan los enlaces.
+  if (enlaces) object_message (enlaces, MSG_DRAW, 0);
 
   // Se devuelve el código de salida.
   return salida;
@@ -65,7 +68,7 @@ int  VectorGUI::Draw (int msg, DIALOG *d, int code)
 
   // Se actualizan los datos.
   ostringstream os;
-  os << x << "," << y;
+  os << *x << "," << *y;
   d->dp = const_cast<char *>(os.str().c_str ());
 
   // Se dibuja como un texto.
@@ -73,7 +76,9 @@ int  VectorGUI::Draw (int msg, DIALOG *d, int code)
 
   // Se actualizan los diálogos enlazados.
   // \todo  Convertir en una lista de enlaces: while (enlaces.end())....
-  if (enlaces) object_message (enlaces, MSG_DRAW, 0);
+  //        No deben ir aquí la actualización de los enlaces para no crear un
+  //        bucle con los enlazados.
+//  if (enlaces) object_message (enlaces, MSG_DRAW, 0);
 //  if (editor) editor->dibujarEscenario ();
   return D_O_K;
 };
@@ -84,23 +89,23 @@ int  VectorGUI::Draw (int msg, DIALOG *d, int code)
  */
 int  VectorGUI::Wheel (int msg, DIALOG *d, int code)
 {
-  // Salida por omisión.
-  int salida = D_O_K;
-
   // Actualizamos los valores referenciados por el vector según los clicks de la rueda.
   if (key[KEY_ALT])
   {
-    y += code;
-    salida = D_REDRAWME;
+    *y += code;
   }
   else
   {
-    x += code;
-    salida = D_REDRAWME;
+    *x += code;
   }
 
-  // Se devuelve el código de salida.
-  return salida;
+  // Actualizamos su representación en pantalla.
+  object_message (d, MSG_DRAW, 0);
+
+  // Se actualizan los enlaces.
+  if (enlaces) object_message (enlaces, MSG_DRAW, 0);
+
+  return D_O_K;
 };
 
 /**
@@ -120,3 +125,12 @@ void  VectorGUI::addEnlace (DIALOG *enlace)
   // enlaces.push_back (enlace);
   enlaces = enlace;
 };
+
+/**
+ * \brief   Se cambia el par de valores a los que se hace referencia en la GUI.
+ */
+void  VectorGUI::setVector (int &xParam, int &yParam)
+{
+  x = &xParam;
+  y = &yParam;
+}

@@ -24,6 +24,7 @@ class ActorGUI
     virtual         ~ActorGUI              ();
     virtual void    addEnlace              (DIALOG *enlace);
     virtual void    setEditor              (EditorManager *editor);
+    void            setActor               (Actor &a);
 
   private:
     Actor &         actor;
