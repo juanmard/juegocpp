@@ -20,8 +20,9 @@ int EditorManager::refY = 0;
  */
 EditorManager::EditorManager(Game *g):
 game (g),
-actorAtrapado (NULL),
-actorActivado (NULL),
+actor (NULL),
+actorActivado (false),
+actorAtrapado (false),
 actorFijado (false)
 {
   // Referencia a la GUI.
@@ -81,10 +82,10 @@ void  EditorManager::moverActor (int x, int y)
   // Comprobamos que no está editado nada.
   // - Si está actorAtrapado se mueve.
   // - Si no está actorAtrapado se ignora.
-  if (actorAtrapado)
+  if (actor)
   {
-    actorAtrapado->set_x (x);
-    actorAtrapado->set_y (y);
+    actor->set_x (x);
+    actor->set_y (y);
   }
 }
 
@@ -94,7 +95,7 @@ void  EditorManager::moverActor (int x, int y)
  */
 int  EditorManager::getActorX () const
 {
-  return actorAtrapado->get_x ();
+  return actor->get_x ();
 }
 
 /**
@@ -103,7 +104,7 @@ int  EditorManager::getActorX () const
  */
 int  EditorManager::getActorY () const
 {
-  return actorAtrapado->get_y ();
+  return actor->get_y ();
 }
 
 /**
@@ -112,7 +113,7 @@ int  EditorManager::getActorY () const
  */
 void  EditorManager::setActorX (int x)
 {
-  actorAtrapado->set_x (x);
+  actor->set_x (x);
 }
 
 /**
@@ -121,7 +122,7 @@ void  EditorManager::setActorX (int x)
  */
 void  EditorManager::setActorY (int y)
 {
-  actorAtrapado->set_y (y);
+  actor->set_y (y);
 }
 
 /**
@@ -320,12 +321,7 @@ Almacen &  EditorManager::getAlmacen () const
  */
 bool  EditorManager::isActorAtrapado () const
 {
-  bool salida = false;
-  if (actorAtrapado)
-  {
-    salida = true;
-  }
-  return salida;
+  return actorAtrapado;
 }
 
 /**
@@ -333,12 +329,7 @@ bool  EditorManager::isActorAtrapado () const
  */
 bool  EditorManager::isActorActivo () const
 {
-  bool salida = false;
-  if (actorActivado)
-  {
-    salida = true;
-  }
-  return salida;
+  return actorActivado;
 }
 
 /**
@@ -388,17 +379,22 @@ void  EditorManager::actualizarDecorado ()
  */
 void  EditorManager::atraparActor (int x, int y)
 {
-  actorAtrapado = getActor (x, y);
-  if ( isActorAtrapado () )
+  activarActor (x, y);
+  if ( isActorActivo () )
   {
     // Se cambia el color del bloque y se muestra.
-    actorAtrapado->set_color (makecol(255,0,0));
-    actorAtrapado->setMostrarBloque (true);
+    actor->set_color (makecol(255,0,0));
+    actor->setMostrarBloque (true);
 
     // Se guarda la posición relativa del punto de 'atrape'
     // dentro del bloque del actor.
-    refX = x - actorAtrapado->get_x();
-    refY = y - actorAtrapado->get_y();
+    refX = x - getLocalX (actor->get_x());
+    refY = y - getLocalY (actor->get_y());
+
+    // Se pasa a actor atrapado.
+    actorActivado = false;
+    actorFijado = false;
+    actorAtrapado = true;
   }
 }
 
@@ -407,23 +403,11 @@ void  EditorManager::atraparActor (int x, int y)
  */
 void  EditorManager::liberarActor ()
 {
-  if ( isActorAtrapado () )
-  {
-    actorAtrapado->setMostrarBloque (false);
-    actorAtrapado = NULL;
-  }
-}
-
-/**
- * \brief   Desactiva el actor activado.
- */
-void  EditorManager::desactivarActor ()
-{
-  if ( isActorActivo () )
-  {
-    actorActivado->setMostrarBloque (false);
-    actorActivado = NULL;
-  }
+  actor->setMostrarBloque (false);
+  actor = NULL;
+  actorActivado = false;
+  actorFijado = false;
+  actorAtrapado = false;
 }
 
 /**
@@ -431,21 +415,22 @@ void  EditorManager::desactivarActor ()
  */
 void  EditorManager::activarActor (int x, int y)
 {
-  // Si hay un actor activo, desactivamos.
+  // Si hay un actor activo, liberamos.
   if ( isActorActivo () )
   {
-    desactivarActor ();
+    liberarActor ();
   }
 
   // Obtenemos el nuevo actor bajo el ratón.
-  actorActivado = getActor (x,y);
+  actor = getActor (getGlobalX(x), getGlobalY(y));
 
   // Si existe, mostramos el contorno en color verde y sus valores en la GUI.
-  if ( isActorActivo () )
+  if (actor)
   {
-    actorActivado->set_color (makecol(0,255,0));
-    actorActivado->setMostrarBloque (true);
-    actorActivado->drawGUI ();
+    actor->set_color (makecol(0,255,0));
+    actor->setMostrarBloque (true);
+    actor->drawGUI ();
+    actorActivado = true;
   }
 };
 
@@ -458,17 +443,17 @@ void  EditorManager::fijarActor (int x, int y)
   activarActor (x, y);
   
   // Si se consiguió activar, cambiamos la variable para fijarlo.
-  // En otro caso, borramos la variable.
+  // En otro caso, liberamos.
   if ( isActorActivo () )
   {
+    actor->set_color (makecol(255,128,255));
+    actor->setMostrarBloque (true);
+    actorActivado = false;
     actorFijado = true;
-    actorActivado->set_color (makecol(128,128,255));
-    actorActivado->setMostrarBloque (true);
   }
   else
   {
-    actorFijado = false;
-    desactivarActor ();
+    liberarActor ();
   }
 };
 
@@ -479,11 +464,55 @@ void  EditorManager::fijarActor (int x, int y)
  */
 void EditorManager::moverActor2 (int x, int y)
 {
-  // Si el actor está atrapado, movemos teniendo encuenta la 
-  // referencia al bloque guardada. 
+  int posX, posY;
+
+  // Si el actor está atrapado, movemos teniendo en cuenta la 
+  // referencia guardada en el momento de la captura.
   if ( isActorAtrapado () )
   {
-    actorAtrapado->set_x (x - refX);
-    actorAtrapado->set_y (y - refY);
+    posX = x - refX;
+    posY = y - refY;
   }
+
+  // Hay que eliminar el desplazamiento del escenario.
+  posX = getGlobalX (posX);
+  posY = getGlobalY (posY);
+
+  // Finalmente, calculadas las coordenadas reales del juego, movemos el actor.
+  actor->set_x (posX);
+  actor->set_y (posY);
+};
+
+/**
+ * \brief   Devuelve la coordenada global dando la coordenada referida a la
+ *          posición del escenario.
+ */
+int  EditorManager::getGlobalX (int x)
+{
+  return ( x + getEscenarioX () );
+};
+
+/**
+ * \brief   Devuelve la coordenada global dando la coordenada referida a la
+ *          posición del escenario.
+ */
+int  EditorManager::getGlobalY (int y)
+{
+  return ( y + getEscenarioY () );
+};
+
+/**
+ * \brief   Devuelve la coordenada local dando la coordenada global del juego.
+ */
+int  EditorManager::getLocalX (int x)
+{
+  return ( x - getEscenarioX () );
+};
+
+/**
+ * \brief   Devuelve la coordenada local dando la coordenada global del juego.
+ */
+int  EditorManager::getLocalY (int y)
+{
+  return ( y - getEscenarioY () );
 };

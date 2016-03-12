@@ -61,20 +61,26 @@ class EditorManager
     void      activarActor          (int x, int y);
     void      fijarActor            (int x, int y);
     void      liberarActor          ();
-    void      desactivarActor       ();
     bool      isDecoradoAtrapado    () const;
     void      moverActor2           (int x, int y);
     void      moverDecorado         (int x, int y);
     void      actualizarActor       ();
     void      actualizarDecorado    ();
+    int       getGlobalX            (int x);
+    int       getGlobalY            (int y);
+    int       getLocalX             (int x);
+    int       getLocalY             (int y);
 
   private:
       static int refX, refY;
 
   protected:
+    //typedef enum {activado, fijado, atrapado} Estado;
     Game *      game;
     Dialog *    gui;
-    Actor *     actorAtrapado;
-    Actor *     actorActivado;
+    Actor *     actor;
+    //Estado      estado;
+    bool        actorActivado;
+    bool        actorAtrapado;
     bool        actorFijado;
 };
