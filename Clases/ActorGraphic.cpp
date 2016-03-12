@@ -2,6 +2,11 @@
 #include "ActorGraphic.h"
 #include "Actor.h"
 
+ActorGraphic::ActorGraphic ():
+owner(NULL)
+{
+};
+
 ActorGraphic::ActorGraphic (Actor *a):
 owner(a)
 {
@@ -71,18 +76,15 @@ ActorGraphic *  ActorGraphic::clone (Actor *propietario) const
 	return NULL;
 }
 
-/**
- * \brief   Entrega la estructura del gráfico en forma de cadena de caracteres.
- */
-string  ActorGraphic::getString () const
+std::string ActorGraphic::getString () const
 {
-  ostringstream cadena;
-  string propietario;
+    ostringstream cadena;
+    string propietario;
 
-  owner->getNombre (propietario);
-  cadena << "Propietario: " << propietario << "\n";
-  return (cadena.str());
-}
+    owner->getNombre (propietario);
+    cadena << "Propietario: " << propietario << "\n";
+    return (cadena.str());
+};
 
 /**
  * \brief   Entrega el actor asociado a esta parte gráfica.
@@ -91,3 +93,13 @@ Actor *  ActorGraphic::getActor () const
 {
   return owner;
 }
+
+std::ifstream& ActorGraphic::leer (std::ifstream& ifs)
+{
+    return ifs;
+};
+
+std::ifstream& operator>> (std::ifstream& ifs, ActorGraphic& grafico)
+{
+    return grafico.leer(ifs);
+};

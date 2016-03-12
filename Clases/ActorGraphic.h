@@ -17,7 +17,11 @@ using std::string;
  */
 class ActorGraphic
 {
-    public:
+public:
+    /// Constructor mínimo.
+    ///
+    ActorGraphic ();
+
                                 ActorGraphic    (Actor *a);
         virtual                 ~ActorGraphic   ();
         virtual void            init            ();
@@ -30,8 +34,34 @@ class ActorGraphic
         virtual int             get_y           ();
         virtual Mask*           get_mask        ();
         virtual ActorGraphic *  clone           (Actor *propietario) const;
-        virtual string          getString       () const;
-        virtual Actor *         getActor        () const;
+
+    /// Entrega la estructura del gráfico en forma de cadena de caracteres.
+    ///
+    /// Este procedimiento es virtual para que lo definan los gráficos derivados.
+    /// @return Cadena con las propiedades del gráfico.
+    /// @todo Esta estructura es muy similar a la que se encuentra en la rama de
+    ///       los actores, luego sería conveniente en agruparla en una clase común
+    ///       a modo de interfaz que comparten (p.j. PrintableObject).
+    ///
+    ///       Y para desligar el gráfico de su actor propietario sería conveniente
+    ///       que los gráficos tuvieran entidad propia derivando de "DrawableObject".
+    ///
+    virtual std::string getString () const;
+
+    /// Lee el gráfico de un fichero.
+    /// @param ifs Fichero desde el que leer las propiedades gráficas.
+    /// @return Referencia al fichero para poder encadenar lecturas.
+    ///
+    virtual std::ifstream& leer (std::ifstream& ifs);
+
+    /// Sobrecarga del operador >> para poder leer del fujo de datos del fichero.
+    /// @param ifs Fichero desde el que leer las propiedades gráficas.
+    /// @param grafico Parte gráfica del actor que se actualizará desde la lectura del fichero.
+    /// @return Referencia al fichero para poder encadenar lecturas.
+    ///
+    friend std::ifstream& operator>> (std::ifstream& ifs, ActorGraphic& grafico);
+
+    virtual Actor *         getActor        () const;
 
     protected:
         Actor *owner;
