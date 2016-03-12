@@ -1,6 +1,6 @@
 ///
 /// @file StageManager.cpp
-/// @brief Fichero de la clase "StageManager".
+/// @brief Fichero de implementación de la clase "StageManager".
 /// @author Juan Manuel Rico
 /// @date Octubre 2010
 /// @version 1.0.0

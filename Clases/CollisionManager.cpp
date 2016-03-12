@@ -3,7 +3,8 @@
 /// @brief Fichero de implementación de la clase "CollisionManager".
 /// @author Juan Manuel Rico
 /// @date Noviembre 2015
-/// @version 1.0.0
+/// @version
+///      - 1.0.0 Noviembre 2015
 ///
 
 #include "CollisionManager.h"
