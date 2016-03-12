@@ -19,33 +19,32 @@
 #include "ActorGraphic.h"
 #include "LadrilloGUI.h"
 #include "VectorGUI.h"
+#include "ContadorGUI.h"
 
 using std::ostringstream;
 
 Actor *  ActorGUI::actor_activo = NULL;
 DIALOG   ActorGUI::dlg_plantilla[] =
 {
-   /* (proc)             (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags) (d1) (d2) (dp)                          (dp2) (dp3) */
-   { ActorGUI::callback, 8,   314, 616, 20,  67,  243, 0,    0,      0,   0,   (void*)"Actor >>",            NULL, NULL },
-   { d_box_proc,         8,   336, 616, 240, 67,  243, 0,    0,      0,   0,   NULL,                         NULL, NULL },
-   { d_box_proc,         14,  342, 258, 192, 67,  243, 0,    0,      0,   0,   NULL,                         NULL, NULL },
-   { d_text_proc,        22,  346, 58,  8,   67,  243, 0,    0,      0,   0,   (void*)"Nombre:",             NULL, NULL },
-   { d_text_proc,        22,  358, 80,  8,   67,  243, 0,    0,      0,   0,   (void*)"Posicion:",           NULL, NULL },
-   { d_text_proc,        22,  368, 96,  8,   67,  243, 0,    0,      0,   0,   (void*)"Dimensiones: ",       NULL, NULL },
-   { d_text_proc,        22,  380, 72,  8,   67,  243, 0,    0,      0,   0,   (void*)"Grafico: ",           NULL, NULL },
-   { d_text_proc,        22,  390, 112, 8,   67,  243, 0,    0,      0,   0,   (void*)"Tiempo estado: ",     NULL, NULL },
-   { d_text_proc,        22,  402, 114, 8,   67,  243, 0,    0,      0,   0,   (void*)"Estado actual: ",     NULL, NULL },
-   { d_check_proc,       18,  492, 144, 12,  67,  243, 0,    0,      1,   0,   (void*)"Mostrar limites",     NULL, NULL },
-   { d_text_proc,        142, 346, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"Nombre actor",        NULL, NULL },
-//   { VectorGUI::callback, 142, 358, 122, 8,   67,  243, 0,    0,      0,   0,  (void*)"100, 100",            NULL, NULL },
-   { d_text_proc,        142, 358, 122, 8,   67,  243, 0,    0,      0,   0,  (void*)"100, 100",            NULL, NULL },
-   { d_text_proc,        142, 368, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100, 100",            NULL, NULL },
-   { ActorGUI::callback_graf,  142, 380, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"Sprite",              NULL, NULL },
-   { d_text_proc,              142, 390, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100",                 NULL, NULL },
-//   { d_list_proc,              142, 400, 122, 12,  67,  243, 0,    0,      0,   0,   (void*)ActorGUI::list_getter, NULL, NULL },
-   { d_list_proc,              142, 400, 122, 12,  67,  243, 0,    0,      0,   0,   (void*)LadrilloGUI::dummy_getter, NULL, NULL },
-   { d_slider_proc,            98,  512, 168, 16,  67,  243, 0,    0,      16,  4,   NULL,                         NULL, NULL },
-   { NULL,                     0,   0,   0,   0,   0,   0,   0,    0,      0,   0,   NULL,                         NULL, NULL }
+   /* (proc)                  (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags) (d1) (d2) (dp)                              (dp2) (dp3) */
+   { ActorGUI::callback,      8,   314, 616, 20,  67,  243, 0,    0,      0,   0,   (void*)"Actor >>",                NULL, NULL },
+   { d_box_proc,              8,   336, 616, 240, 67,  243, 0,    0,      0,   0,   NULL,                             NULL, NULL },
+   { d_box_proc,              14,  342, 258, 192, 67,  243, 0,    0,      0,   0,   NULL,                             NULL, NULL },
+   { d_text_proc,             22,  346, 58,  8,   67,  243, 0,    0,      0,   0,   (void*)"Nombre:",                 NULL, NULL },
+   { d_text_proc,             22,  358, 80,  8,   67,  243, 0,    0,      0,   0,   (void*)"Posicion:",               NULL, NULL },
+   { d_text_proc,             22,  368, 96,  8,   67,  243, 0,    0,      0,   0,   (void*)"Dimensiones: ",           NULL, NULL },
+   { d_text_proc,             22,  380, 72,  8,   67,  243, 0,    0,      0,   0,   (void*)"Grafico: ",               NULL, NULL },
+   { d_text_proc,             22,  390, 112, 8,   67,  243, 0,    0,      0,   0,   (void*)"Tiempo estado: ",         NULL, NULL },
+   { d_text_proc,             22,  402, 114, 8,   67,  243, 0,    0,      0,   0,   (void*)"Estado actual: ",         NULL, NULL },
+   { d_check_proc,            18,  492, 144, 12,  67,  243, 0,    0,      1,   0,   (void*)"Mostrar limites",         NULL, NULL },
+   { d_text_proc,             142, 346, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"Nombre actor",            NULL, NULL },
+   { VectorGUI::callback,     142, 358, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100, 100",                NULL, NULL },
+   { VectorGUI::callback,     142, 368, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100, 100",                NULL, NULL },
+   { ActorGUI::callback_graf, 142, 380, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"Sprite",                  NULL, NULL },
+   { ContadorGUI::callback,   142, 390, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100",                     NULL, NULL },
+   { d_list_proc,             142, 400, 122, 12,  67,  243, 0,    0,      0,   0,   (void*)LadrilloGUI::dummy_getter, NULL, NULL },
+   { d_slider_proc,           98,  512, 168, 16,  67,  243, 0,    0,      16,  4,   NULL,                             NULL, NULL },
+   { NULL,                    0,   0,   0,   0,   0,   0,   0,    0,      0,   0,   NULL,                             NULL, NULL }
 };
 
 /**
@@ -54,7 +53,7 @@ DIALOG   ActorGUI::dlg_plantilla[] =
 ActorGUI::ActorGUI (Actor &a, vector<DIALOG> &gui_padre):
 actor (a)
 {
-  // Si no hay otro hacemos activo el actor.
+  // Si no hay otro hacemos activo el actor que estamos creando.
   if (!actor_activo)
   {
     actor_activo = &a;
@@ -66,17 +65,10 @@ actor (a)
   string *cadena = new string(a.getNombre());
   dlg_plantilla[nombre].dp = const_cast<char*>(cadena->c_str());
 
-  // Posición:
-  ostringstream os;
-  os << a.get_x() << "," << a.get_y();
-  cadena = new string (os.str());
-  dlg_plantilla[posicion].dp = const_cast<char*>(cadena->c_str());
-
-  // Dimensiones:
-  os.str("");
-  os << a.get_w() << "," << a.get_h();
-  cadena = new string (os.str());
-  dlg_plantilla[dimensiones].dp = const_cast<char*>(cadena->c_str());
+  // Posición y Dimensiones (Tipo Vector).
+  // La clase debe ser 'friend' de 'Actor' para poder acceder a la referencia de sus propiedades.
+  dlg_plantilla[posicion].dp3 = new VectorGUI (a.x, a.y);
+  dlg_plantilla[dimensiones].dp3 = new VectorGUI (a.w, a.h);
 
   // Gráfico:
   ActorGraphic *graf = a.get_actor_graphic ();
@@ -84,16 +76,11 @@ actor (a)
   *cadena = cadena->substr (0, cadena->find(" >>"));
   dlg_plantilla[grafico].dp = const_cast<char*>(cadena->c_str());
 
+  // Tiempo de estado (Como un tipo Contador).
+  dlg_plantilla[tiempo].dp3 = new ContadorGUI (a.tiempo_estado);
+
   // Guardamos el punto de insercción y añadimos la GUI al padre.
   pto_inserccion = gui_padre.size ()-1;
-
-  // Coordenadas de prueba.
-//  dlg_plantilla[posicion].dp3 = new VectorGUI (a.x, a.y, gui_padre);
-//  dlg_plantilla[dimensiones].dp3 = new VectorGUI (a.w, a.h, gui_padre);
-  VectorGUI *guiTmp = new VectorGUI (a.x, a.y, gui_padre);
-  guiTmp = new VectorGUI (a.w, a.h, gui_padre);
-
-  // Añadimos la GUI de la plantilla.
   gui_padre.insert (gui_padre.end()-1, &dlg_plantilla[navegador], &dlg_plantilla[fin]);
 };
 

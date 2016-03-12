@@ -4,35 +4,24 @@
  * 
  */
 
-#ifndef _VECTORGUI_H_
-#define _VECTORGUI_H_
+#ifndef _CONTADORGUI_H_
+#define _CONTADORGUI_H_
 
-#include <vector>
 #include <allegro.h>
-
-using std::vector;
 
 /**
  *
  */
-class VectorGUI
+class ContadorGUI
 {
   public:
-          VectorGUI (int &xParam, int &yParam);
-          VectorGUI (int &xParam, int &yParam, vector<DIALOG> &guiParam);
-    int   Teclado   (int msg, DIALOG *d, int code);
-    int   Draw      (int msg, DIALOG *d, int code);
-    int   Wheel     (int msg, DIALOG *d, int code);
+          ContadorGUI   (unsigned int &contadorParam);
+    int   Keyboard      (int msg, DIALOG *d, int code);
+    int   Draw          (int msg, DIALOG *d, int code);
+    int   Wheel         (int msg, DIALOG *d, int code);
 
   protected:
-    int &             x;
-    int &             y;
-    unsigned int      ptoInserccion;
-    vector<DIALOG> *  guiPadre;
-    
-  private:
-    enum  {inicio=0, fin=1};
-    static DIALOG dlg_plantilla[];
+    unsigned int &    contador;
 
   public:
     /**
@@ -44,7 +33,7 @@ class VectorGUI
       if (d->dp3)
       {
         // Creamos una referencia temporal al objeto actual.
-        VectorGUI &obj = *(static_cast<VectorGUI *>(d->dp3));
+        ContadorGUI &obj = *(static_cast<ContadorGUI *>(d->dp3));
 
         // Se procesan los mensajes.
         switch (msg)
@@ -52,7 +41,7 @@ class VectorGUI
           case MSG_CHAR:
           case MSG_UCHAR:
           case MSG_XCHAR:
-            return obj.Teclado (msg, d, c);
+            return obj.Keyboard (msg, d, c);
 
           case MSG_START:
             break;
@@ -79,4 +68,4 @@ class VectorGUI
     };
 };
 
-#endif // _VECTORGUI_H_
+#endif // _CONTADORGUI_H_

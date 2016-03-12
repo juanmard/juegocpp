@@ -436,7 +436,9 @@ int  Dialog::comprobarTecla (int code)
       pesta.clear ();
       pesta.push_back (dlg_tmp1);
       pesta.push_back (dlg_tmp2);
+//      pesta.push_back (dialog[0]);
       pesta.push_back (fin);
+
 
       // Obtenemos el vector de diálogos del actor.
       if (actor)
@@ -447,7 +449,7 @@ int  Dialog::comprobarTecla (int code)
       // Probamos añadiendo el diálogo del Almacén.
       int idx = pesta.size ();
       manager->getAlmacen().addGUI (pesta);
-      position_dialog (&pesta[idx-1],590,330);
+      position_dialog (&pesta[idx-1],590,320);
       
       // Probamos con dos almacenes.
 /*

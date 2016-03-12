@@ -77,12 +77,15 @@ class ActorGUI
       {
         case MSG_LPRESS:
           break;
-          
-        case MSG_GOTMOUSE:
+
+        case MSG_WANTFOCUS:
+          return D_WANTFOCUS;
+
+        case MSG_GOTFOCUS:
           d->fg = makecol8 (255,0,0);
           return D_REDRAWME;
           
-        case MSG_LOSTMOUSE:
+        case MSG_LOSTFOCUS:
           d->fg = gui_fg_color;
           return D_REDRAWME;
       }

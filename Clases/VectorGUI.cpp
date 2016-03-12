@@ -22,14 +22,23 @@ DIALOG VectorGUI::dlg_plantilla[] =
 VectorGUI::VectorGUI(int &xParam, int &yParam, vector<DIALOG> &guiParam):
 x (xParam),
 y (yParam),
-guiPadre (guiParam)
+guiPadre (&guiParam)
 {
   // Modificamos la plantilla.
   dlg_plantilla[inicio].dp3 = this;
 
   // Se guarda el punto de insercción y añadimos la plantilla de la GUI al padre.
-  ptoInserccion = guiPadre.size ()-1;
-  guiPadre.insert (guiPadre.end()-1, &dlg_plantilla[inicio], &dlg_plantilla[fin]);
+  ptoInserccion = guiPadre->size ()-1;
+  guiPadre->insert (guiPadre->end()-1, &dlg_plantilla[inicio], &dlg_plantilla[fin]);
+};
+
+/**
+ * \brief   Constructor.
+ */
+VectorGUI::VectorGUI(int &xParam, int &yParam):
+x (xParam),
+y (yParam)
+{
 };
 
 /**
@@ -56,9 +65,9 @@ int  VectorGUI::Teclado (int msg, DIALOG *d, int code)
   y += yInc;
 
   // Actualizamos los valores en la gui.
-  object_message(d, MSG_DRAW, 0);
+  object_message (d, MSG_DRAW, 0);
 
-  // Enviamos el código
+  // Se devuelve el código de salida.
   return salida;
 };
 
@@ -66,12 +75,41 @@ int  VectorGUI::Teclado (int msg, DIALOG *d, int code)
  * \brief   Dibuja los valores en la GUI.
  * \return  El valor al dibujar.
  */
-int  VectorGUI::Dibujar (int msg, DIALOG *d, int code)
+int  VectorGUI::Draw (int msg, DIALOG *d, int code)
 {
-  ostringstream os;
+  // Se borra el fondo.
+  rectfill (screen, d->x, d->y, d->x + d->w, d->y + d->h, gui_bg_color);
 
+  // Se actualizan los datos.
+  ostringstream os;
   os << x << "," << y;
   d->dp = const_cast<char *>(os.str().c_str ());
+
+  // Se escribe como un texto.
   return d_text_proc (msg, d, code);
 };
 
+/**
+ * \brief   Comprueba la rueda del ratón.
+ * \return  El procesado de la rueda.
+ */
+int  VectorGUI::Wheel (int msg, DIALOG *d, int code)
+{
+  int salida = D_O_K;
+
+  // Actualizamos los valores referenciados por el vector según los clicks de la rueda.
+  if (key[KEY_ALT])
+  {
+    y += code;
+  }
+  else
+  {
+    x += code;
+  }
+
+  // Actualizamos los valores en la gui.
+  object_message (d, MSG_DRAW, 0);
+
+  // Se devuelve el código de salida.
+  return salida;
+};
