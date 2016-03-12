@@ -1,6 +1,11 @@
-/*
- * linux
- * Copyright (C) Juanma Rico 2010 <juanmard@gmail.com>
+/**
+ *  \file     Almacen.h
+ *  \brief    Fichero con el código de definición de la clase Almacen.
+ *
+ *  \author   Juan Manuel Rico
+ *  \date     Diciembre 2010
+ *  \version  1.00
+ *
  */
 #ifndef _ALMACEN_H_
 #define _ALMACEN_H_
@@ -14,13 +19,16 @@
 
 class AlmacenGUI;
 
-using namespace std;
+using std::map;
+using std::vector;
+using std::string;
 
 /**
  * \class   Almacen
- * \brief   Clase que maneja los recursos gráficos y de sonido.
- * \todo   
- *          - Crear métodos "GetSample" y "SetSample" para manejo de sonidos.
+ * \brief   Maneja los recursos (gráficos y sonidos) del juego.
+ * \details Esta clase nos debe dar acceso a los distintos recursos que necesita el juego.
+ *          Los recursos se obtienen de un fichero de tipo DAT generado por Grabber.
+ * \todo    Crear métodos "GetSample" y "SetSample" para manejo de sonidos.
  */
 class Almacen
 {

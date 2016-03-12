@@ -2,8 +2,8 @@
  *  \file     AlmacenGUI.cpp
  *  \brief    Fichero de implementación de la clase AlmacenGui.
  *
- *  \author  Juan Manuel Rico
- *  \date     diciembre 2010
+ *  \author   Juan Manuel Rico
+ *  \date     Diciembre 2010
  *  \version  1.00
  *
  */
@@ -27,13 +27,13 @@ Almacen * AlmacenGUI::almacen_activo = NULL;
 
 /**
  * \brief   Constructor de la GUI para el almacén dado por parámetro.
- * \param   almacen   Referencia al almacén que se le asocia.
+ * \param   almacenParam   Referencia al almacén que se le asocia.
  */
 AlmacenGUI::AlmacenGUI (Almacen &almacenParam):
 almacen (almacenParam),
 activado (false)
 {
-  // Si no hay otro hacemos activo el almacen recién creado.
+  // Si no hay otro hacemos activo el almacén recién creado.
   if (!almacen_activo)
   {
     activarAlmacen (almacenParam);

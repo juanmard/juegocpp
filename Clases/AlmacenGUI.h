@@ -1,6 +1,6 @@
 /**
  *  \file     AlmacenGUI.h
- *  \brief    GUI (graphical user interface) de la clase Almacen.
+ *  \brief    GUI (Graphical User Interface) de la clase 'Almacen'.
  *
  *  \details  La clase instancia de momento sólo la GUI para Allegro.
  *            Genera un vector (array) de estructuras DIALOG de Allegro.
@@ -8,8 +8,8 @@
  *            recursos que tiene el almacén, estos pueden ser seleccionados
  *            y explorados en la misma ventana.
  *
- *  \author  Juan Manuel Rico
- *  \date     diciembre 2010
+ *  \author   Juan Manuel Rico
+ *  \date     Diciembre 2010
  *  \version  1.00
  *
  *  \todo     Poder distinguir y explorar los recursos sonoros y de paleta.
@@ -26,7 +26,7 @@ using namespace std;
 /**
  * \class   AlmacenGUI
  * \brief   Clase que genera una GUI (Graphical User Interface) para la clase 'Almacen'.
- * \todo   
+ * \todo    Por hacer:
  *          - Posibilidad de explorar las paletas de colores.
  *          - Posibilidad de explorar sonidos.
  *          - Construirlo como una ventana independiente que se pueda mover por pantalla.
@@ -46,7 +46,7 @@ class AlmacenGUI
     Almacen &         almacen;
     unsigned int      pto_inserccion;
     vector<DIALOG>    dlg;
-    void              moverMouse (DIALOG *dlg);
+    void              moverMouse    (DIALOG *dlg);
 
     // Estas propiedades no deberían pertenecer a esta clase, sino
     // a unas subclases de tipo 'lista' y 'ventana'.
@@ -58,6 +58,7 @@ class AlmacenGUI
   public:
     static Almacen *almacen_activo;
     static DIALOG dlg_plantilla[];
+    
     /**
      * \brief   Método para rellenar el diálogo de la lista.
      */
@@ -82,9 +83,9 @@ class AlmacenGUI
     };
 
     /**
-     * \brief   Callback de la lista que es la que controla el resto del diálogo.
+     * \brief   Callback de la lista. Es la que controla el resto del diálogo.
      * \details Aunque es una función estática de la clase, esta funcionaría para
-     *          todos los objetos siempre que guardemos en d[0].dp3 el almacén al
+     *          todos los objetos siempre que guardemos en d[0].dp3 el objeto al
      *          que hace referencia.
      */
     static int callback (int msg, DIALOG *d, int c)
@@ -139,13 +140,18 @@ class AlmacenGUI
             break;
         }
       }
+
+      // El resto de mensajes se tratan como una lista estándar.
       return d_list_proc (msg, d, c);
-    }
+    };
 
     /**
      * \brief   Callback del contenedor (box).
-     * \details Este callback debería ir en otra clase como de tipo 'ventana'
-     *          que reflejara el movimiento de una ventana estándar.
+     * \details Este 'callback' debería ir en otra clase como de tipo 'ventana'
+     *          que reflejara el movimiento de una ventana estándar. Este
+     *          contenedor se usa para mover el diálogo completo.
+     *
+     * \todo    Separar este control como una ventana.
      */
     static int callback_mov (int msg, DIALOG *d, int c)
     {

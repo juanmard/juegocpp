@@ -1,3 +1,12 @@
+/**
+ *  \file     Actor.h
+ *  \brief    Fichero con el código de definición de la clase Actor.
+ *
+ *  \author   Juan Manuel Rico
+ *  \date     Diciembre 2010
+ *  \version  1.00
+ *
+ */
 #ifndef _ACTOR_H_
 #define _ACTOR_H_
 
@@ -63,7 +72,7 @@ class Actor
     virtual string      getNombre           () const;
     void                addEnlace           (DIALOG *enlace);
 
-    /* \warning: Estos dos estados deben ser incluídos en uno. */
+    /* \warning: Estos dos estados deben ser incluidos en uno. */
     virtual void                            CambiarEstado           ();
     virtual void                            ActualizarEstado        ();
     virtual void                            init                    ();
