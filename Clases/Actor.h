@@ -95,6 +95,7 @@ public:
     Bloque &                                getBloque               ();
     void                                    setMostrarBloque        (bool mostrar);
     virtual  vector<DIALOG> &               getDIALOG               ();
+    virtual  void                           addGUI                  (vector<DIALOG> &gui_padre);
 
   private:
     void                                    mensajeErrorGrafico     () const;

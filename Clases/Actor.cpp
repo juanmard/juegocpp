@@ -473,3 +473,24 @@ vector<DIALOG> &  Actor::getDIALOG ()
   vec_actor[6].dp = const_cast<char*>(grafico->c_str());
   return vec_actor;
 };
+
+/**
+ * \brief   Prueba para añadir la GUI de las propiedades del actor a una GUI padre.
+ * \todo    Pasar a una clase distinta y sin referencias a Allegro.
+ */
+void  Actor::addGUI (vector<DIALOG> &gui_padre)
+{
+  // Rellenamos con los datos del objeto.
+  string *cadena = new string("Nombre: " + getNombre());
+  dlg_actor[4].dp = const_cast<char*>(cadena->c_str());
+  ostringstream posicion;
+  posicion << "Posición: " << x << "," << y;
+  string *pos = new string (posicion.str());
+  dlg_actor[5].dp = const_cast<char*>(pos->c_str());
+  string *grafico = new string("Gráfico: " + agraph->getString());
+  dlg_actor[6].dp = const_cast<char*>(grafico->c_str());
+
+  // Prueba de DIALOG. Llenamos el vector de DIALOG's.
+  // Usamos la plantilla global.
+  gui_padre.insert (gui_padre.end()-1, &dlg_actor[0], &dlg_actor[8]);
+};
