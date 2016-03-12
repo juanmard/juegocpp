@@ -1,0 +1,19 @@
+[Propiedades]
+Version 1.0.0
+
+[Actores]
+Cantidad 2
+Actor {
+    Clase Ladrillo
+    Nombre "Ladrillo-001"
+    Posición <120,40>
+    Bloque <32,15>
+    Bitmap "sprite_041"
+}
+Actor {
+    Clase Ladrillo
+    Nombre "Ladrillo-002"
+    Posición <120,100>
+    Bloque <32,15>
+    Bitmap "sprite_041"
+}
