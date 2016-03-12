@@ -39,7 +39,7 @@ void  Mapa::Read (ActorManager &manager)
   Actor *actual = manager.next ();
   while (actual != NULL)
   {
-    buffer = buffer + " " + actual->getString ();
+    buffer = buffer + " " + actual->print ();
     actual = manager.next ();
   }
 }

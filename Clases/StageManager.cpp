@@ -8,7 +8,7 @@
 
 #include "StageManager.h"
 
-StageManager::StageManager (Game *g, int w = SCREEN_W, int h = SCREEN_H):
+StageManager::StageManager (Game* g, int w, int h):
 game (g),
 marco (0, 0, w, h),
 ribete (0, 0, w, h),
@@ -57,7 +57,7 @@ void StageManager::update ()
   draw ();
 };
 
-void  StageManager::rellenar_buffer ()
+void StageManager::rellenar_buffer ()
 {
   Actor* tmp;
 

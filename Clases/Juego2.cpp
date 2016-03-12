@@ -65,6 +65,20 @@ void Juego2::mainGame ()
   cout << " ESC - Termina el juego." << endl;
   cout << "----------------------------------" << endl << endl;
 
+    Vector2Df vector(1.0f,4.5f);
+    std::string cadena1, cadena2=" prueba...";
+    cadena1 << vector;
+    std::ostringstream canalCadena;
+    std::cout << cadena1;
+    canalCadena << cadena1;
+    canalCadena << cadena2;
+    canalCadena << vector;
+    std::cout << canalCadena.str() << std::endl;
+    std::cout << vector << std::endl;
+
+    Plataforma prueba(*storage_manager);
+    std::cout << prueba << std::endl;
+
   // Bucle principal del juego.
   while (!key[KEY_ESC])
   {

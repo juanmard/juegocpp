@@ -40,7 +40,7 @@ public:
     /// @param w  Ancho del escenario.
     /// @param h  Alto del esceanrio.
     ///
-    StageManager (Game* g, int w, int h);
+    StageManager (Game* g, int w = SCREEN_W, int h = SCREEN_H);
 
     /// Destructor.
     ///
