@@ -39,9 +39,9 @@ class ActorGUI
       switch (msg)
       {
         case MSG_LPRESS:
-            set_dialog_color(&d[0], 192, 242);
+            set_dialog_color(d, gui_fg_color, gui_bg_color);
             int obj;
-            return dialog_message (&d[0], MSG_DRAW, 0, &obj);
+            return dialog_message (d, MSG_DRAW, 0, &obj);
       }
       return d_box_proc (msg, d, c);
     };
@@ -66,7 +66,29 @@ class ActorGUI
           return prueba[index];
         }
       }
+
     };
+    /**
+     * \brief   Callback del texto de gráfico.
+     */
+    static int callback_graf (int msg, DIALOG *d, int c)
+    {
+      switch (msg)
+      {
+        case MSG_LPRESS:
+          break;
+          
+        case MSG_GOTMOUSE:
+          d->fg = makecol8 (255,0,0);
+          return D_REDRAWME;
+          
+        case MSG_LOSTMOUSE:
+          d->fg = gui_fg_color;
+          return D_REDRAWME;
+      }
+      return d_text_proc (msg, d, c);
+    };
+
 };
 
 #endif

@@ -33,11 +33,11 @@ DIALOG   ActorGUI::dlg_plantilla[] =
    { d_text_proc,        142, 346, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"Nombre actor",        NULL, NULL },
    { d_text_proc,        142, 358, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100, 100",            NULL, NULL },
    { d_text_proc,        142, 368, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100, 100",            NULL, NULL },
-   { d_text_proc,        142, 380, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"Sprite",              NULL, NULL },
-   { d_text_proc,        142, 390, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100",                 NULL, NULL },
-   { d_list_proc,        142, 400, 122, 12,  67,  243, 0,    0,      0,   0,   (void*)ActorGUI::list_getter, NULL, NULL },
-   { d_slider_proc,      98,  512, 168, 16,  67,  243, 0,    0,      16,  4,   NULL,                         NULL, NULL },
-   { NULL,               0,   0,   0,   0,   0,   0,   0,    0,      0,   0,   NULL,                         NULL, NULL }
+   { ActorGUI::callback_graf,  142, 380, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"Sprite",              NULL, NULL },
+   { d_text_proc,              142, 390, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100",                 NULL, NULL },
+   { d_list_proc,              142, 400, 122, 12,  67,  243, 0,    0,      0,   0,   (void*)ActorGUI::list_getter, NULL, NULL },
+   { d_slider_proc,            98,  512, 168, 16,  67,  243, 0,    0,      16,  4,   NULL,                         NULL, NULL },
+   { NULL,                     0,   0,   0,   0,   0,   0,   0,    0,      0,   0,   NULL,                         NULL, NULL }
 };
 
 /**
@@ -53,20 +53,15 @@ actor (a)
   }
 
   // Rellenamos con los datos del objeto. Esto debería ir en 'setActor ()' que muestra otro actor.
-//  string *cadena = new string(a.getNombre());
-  dlg_plantilla[nombre].dp = const_cast<char*>((new string(a.getNombre()))->c_str());
-/*
-  ostringstream posicion;
-  posicion << "Posición: " << x << "," << y;
-  string *pos = new string (posicion.str());
-  dlg_actor[6].dp = const_cast<char*>(pos->c_str());
-  string *grafico = new string("Gráfico: " + agraph->getString());
-  dlg_actor[7].dp = const_cast<char*>(grafico->c_str());
-*/
+  string *cadena = new string(a.getNombre());
+  dlg_plantilla[nombre].dp = const_cast<char*>(cadena->c_str());
+
   // Prueba de DIALOG. Llenamos el vector de DIALOG's.
   // Usamos la plantilla global.
   pto_inserccion = gui_padre.size ()-1;
   gui_padre.insert (gui_padre.end()-1, &dlg_plantilla[navegador], &dlg_plantilla[fin]);
+
+  delete (cadena);
 };
 
 /**

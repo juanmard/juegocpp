@@ -83,8 +83,9 @@ moviendoActor (false),
 ref_x (0), ref_y(0)
 {
   // Se inicializan los colores de la GUI.
-  gui_fg_color = makecol(255,255,255);
-  gui_bg_color = makecol(128,128,128);
+  gui_fg_color = makecol(44,44,211);
+  gui_bg_color = makecol(207,207,255);
+  gui_mg_color = makecol(105,56,36);
 
   // Se inicializan parámetros de los "callback".
   dialog[scr].dp = this;

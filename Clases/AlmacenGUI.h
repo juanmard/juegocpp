@@ -114,7 +114,7 @@ class AlmacenGUI
                 // Limpiamos el fondo antes de volver a dibujar.
                 // Este bitmap lo podríamos hacer global a toda la clase.
                 BITMAP *fondo = create_bitmap (d[2].w,d[2].h);
-                clear_to_color(fondo, 243);
+                clear_to_color(fondo, gui_bg_color);
                 d[2].dp = fondo;
                 object_message(&d[2], MSG_DRAW, 0);
                 destroy_bitmap (fondo);
@@ -128,14 +128,13 @@ class AlmacenGUI
               break;
 
           case MSG_GOTFOCUS:
-              // Si tenemos el foco, puesto que este callback va en la lista, actualizamos
-              // el almacén activo que lo tenemos guardado en 'dp3'.
-              d[0].bg = 250;
-              break;
+//              d->bg = gui_fg_color;
+//              return D_REDRAWME;
 
           case MSG_LOSTFOCUS:
-              d[0].bg = 243;
-              break;
+//              d->bg = gui_bg_color;
+//              return D_REDRAWME;
+            break;
         }
       }
       return d_list_proc (msg, d, c);
