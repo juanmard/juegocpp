@@ -338,7 +338,7 @@ Formulario& Actor::getFormulario () const
     return (*new Formulario());
 };
 
-std::string  Actor::getString () const
+std::string& Actor::print () const
 {
     std::ostringstream cadena;
 
@@ -358,8 +358,8 @@ std::string  Actor::getString () const
     // Se cierra la cadena.
     cadena << "}" << std::endl;
 
-    // Se devuelve la cadena creada en formato "std::string".
-    return cadena.str ();
+    // Se devuelve una copia de la cadena creada.
+    return *new std::string (cadena.str ());
 };
 
 void  Actor::mensajeErrorGrafico () const
@@ -387,13 +387,13 @@ void Actor::drawGUI ()
     }
 };
 
-std::ostream& operator<< (std::ostream &os, const Actor &actor)
-{
-//    os << "Prueba de cadena desde \"Actor.cpp\"" << endl;
-//    os << actor.nombre << " {" << actor.x << "," << actor.y << "}" << " {" << actor.w << "," << actor.h << "}";
-    os << actor.getString ();
-    return os;
-};
+//std::ostream& operator<< (std::ostream &os, const Actor &actor)
+//{
+////    os << "Prueba de cadena desde \"Actor.cpp\"" << endl;
+////    os << actor.nombre << " {" << actor.x << "," << actor.y << "}" << " {" << actor.w << "," << actor.h << "}";
+//    os << actor.print ();
+//    return os;
+//};
 
 std::istream& operator>> (istream& is, Actor& actor)
 {

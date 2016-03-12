@@ -11,6 +11,7 @@
 
 #include <allegro.h>
 #include "EditableObject.h"
+#include "PrintableObject.h"
 #include "Menu.h"
 #include "Formulario.h"
 #include "CollisionManager.h"
@@ -50,7 +51,7 @@ class ActorGUI;
 ///       virtual "grabar" (que utilizaría "getString") y así la clase y sus procedimientos serían
 ///       consistentes.
 ///
-class Actor : public EditableObject
+class Actor : public EditableObject, public PrintableObject
 {
 public:
     /// @todo Investigar si la definición de amistad de esta clase es necesaria.
@@ -232,7 +233,7 @@ public:
     /// su propia cadena. Se utiliza para escribir en ficheros y mostrar valores en pantalla.
     /// @return Cadena representativa del actor.
     ///
-    virtual std::string getString () const;
+    virtual std::string& print () const;
 
     /// Prueba para añadir un enlace a la GUI.
     /// @todo Eliminar de esta clase. Esto pertenece a la GUI y debería estar en dicha clase.
@@ -500,7 +501,7 @@ private:
     ///       Una de las últimas respuestas. Luego hay que eliminar esta forma de sobrecargar los operadores.
     ///       Pero parece no funcionar.
     ///
-    friend std::ostream& operator<< (std::ostream& os, const Actor& actor);
+    /// friend std::ostream& operator<< (std::ostream& os, const Actor& actor);
 
     /// Sobrecarga del operador de lectura.
     /// Métodos amigos no-miembros de la clase.

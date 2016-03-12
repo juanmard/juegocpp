@@ -1,17 +1,17 @@
 ///
 /// @file Vector2Df.h
-/// @brief Fichero cabecera de la clase "Vector2Df".
+/// @brief Fichero de definición de la clase "Vector2Df".
 /// @author Juan Manuel Rico
-/// @date Marzo 2015
-/// @version 1.0.0
+/// @date Noviembre 2015
+/// @version 1.0.1
 ///
 
 #ifndef _VECTOR2DF_H_
 #define _VECTOR2DF_H_
 
-//#include <string>
+#include "PrintableObject.h"
+#include <string>
 
-/// @class Vector2Df
 /// Modela un vector en 2D.
 ///
 /// Se utilizan componentes con números en coma flotante.
@@ -19,10 +19,14 @@
 /// Este vector se usará para cálculos intermedios de dicha posición, para vectores de velocidad, aceleración, etc.
 /// @note Queda por generalizar el concepto de vector (Vector2D) y generar otro para la posición y utilizarlo (Vector2Di).
 ///
-class Vector2Df
+class Vector2Df : public PrintableObject
 {
 public:
+    float x, y;     ///< Componentes del vector. Se dejan públicas para un mejor acceso.
+
+public:
     /// Constructor mínimo.
+    ///
     Vector2Df ();
 
     /// Constructor básico.
@@ -31,19 +35,10 @@ public:
     ///
     Vector2Df (float _x, float _y);
 
-    /// Lee un vector desde fichero.
-    ///
-
-    /// Escribe un vector en fichero.
-    ///
-
-    /// Sobrecarga del operador '>>'.
-    ///
-
-    /// Sobrecarga del operador '>>'.
-    ///
-public:
-    float x, y; ///< Componentes del vector. Se dejan públicas para un mejor acceso.
+private:
+    /// Escribe un vector en una cadena.
+    /// @return Referencia a la cadena creada con los valores del vector.
+    virtual std::string& print () const;
 };
 
-#endif //_Vector2DF_H_
+#endif

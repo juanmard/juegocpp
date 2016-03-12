@@ -8,7 +8,6 @@
 
 #include "Plataforma.h"
 #include <sstream>
-#include <allegro.h>    ///< A modo de prueba.
 
 Plataforma::Plataforma (const Plataforma& copia):
 Actor(copia),
@@ -93,18 +92,19 @@ std::string Plataforma::getNombre () const
     return "Plataforma";
 };
 
-std::string Plataforma::getString () const
+std::string& Plataforma::print () const
 {
     std::ostringstream cadena;
 
     // Vuelca la parte común del actor.
-    cadena << Actor::getString() << std::endl;
+    cadena << Actor::print () << std::endl;
 
     // Queda la parte propia por ser una plataforma.
     // VOrigen, VDestino, Activa...
+    //cadena << velocidad.print () << std::end;
 
     // Devuelve la cadena en formato "std::string".
-    return cadena.str ();
+    return *new std::string(cadena.str ());
 };
 
 std::ifstream& Plataforma::leer (std::ifstream& ifs)

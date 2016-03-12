@@ -10,6 +10,7 @@
 #define _PLATAFORMA_H_
 
 #include "Actor.h"
+#include "PhysicObject.h"
 #include "Suelo.h"
 #include <string>
 #include "Vector2Di.h"
@@ -23,13 +24,12 @@
 /// un punto final y vuelta. El movimiento puede ser activado y desactivado por la
 /// interacción de otros objetos.
 ///
-class Plataforma : public Actor
+class Plataforma : public Actor, public PhysicObject
 {
 private:
     Suelo* grafico;         ///< Gráfico a mostrar por la plataforma. @note Esto no es necesario, ya existe una referencia al gráfico en el actor.
     Vector2Di origen;       ///< Origen del movimiento de la plataforma.
     Vector2Di destino;      ///< Destino del movimiento de la plataforma.
-    Vector2Df velocidad;    ///< Vector velocidad en el movimiento de la plataforma.
     bool activa;            ///< Indica si actualmente la plataforma está activa, en movimiento.
 
 public:
@@ -78,7 +78,7 @@ public:
     /// @return Cadena formada con las propiedades.
     /// @note Reimplementa la función heredada de Actor.
     ///
-    std::string getString () const;
+    virtual std::string& print () const;
 
     /// Lee las propiedades de la plataforma desde un fichero.
     /// @param ifs Fichero desde donde se hace la lectura.
