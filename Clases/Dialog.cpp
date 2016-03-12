@@ -546,7 +546,7 @@ int  Dialog::kdb_coordenadas (DIALOG *d, int code)
 void Dialog::leerActores ()
 {
     this->manager->game->actor_manager->delete_actors ();
-    this->manager->game->actor_manager->load ("test.txt");
+//    this->manager->game->actor_manager->load ("test.txt");
     this->manager->game->actor_manager->add_all_to_create ();
     std::cout << "Lista de actores leídos." << std::endl;
 };

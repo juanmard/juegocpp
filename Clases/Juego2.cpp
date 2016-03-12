@@ -51,12 +51,17 @@ void Juego2::mainGame ()
     pruebatxt << prueba2 << std::endl;
     pruebatxt.close ();
 
+    Mapa mapa;
+    std::cout << mapa << std::endl;
+
   // Se cambia la paleta de colores que se toma del almacén de recursos.
   set_palette (storage_manager->getPalette ("SPRITES"));
 
   // Se cargan actores desde fichero de prueba.
   // @todo Leer este mismo fichero desde el almacén de recursos.
-  this->actor_manager->load("test2.txt");
+  // @todo Delegar esta función a la clase Mapa.
+  mapa.load (*new std::string("test2.txt"),*actor_manager);
+//  this->actor_manager->load("test2.txt");
 
   // Se crea aparte un actor de tipo loro para pruebas.
   Loro *loro=new Loro(*storage_manager);
@@ -235,11 +240,10 @@ void Juego2::mainGame ()
     //       controla los actores (ActorManager).
     if (key[KEY_M])
     {
-      // Por otra parte, se prueba del mapa de actores.
+      // Por otra parte, se prueba el mapa de actores.
       Mapa mapa_prb;
-      mapa_prb.Read (*actor_manager);
-      // cout << mapa_prb.getString ();
-      // cout << mapa_prb << endl;
+      mapa_prb.read (*actor_manager);
+      std::cout << std::endl << mapa_prb << std::endl;
 
       // Limpieza de teclado.
       key[KEY_M]=false;
