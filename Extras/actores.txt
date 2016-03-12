@@ -3,17 +3,13 @@ Version 1.0.0
 
 [Actores]
 Cantidad 2
-Actor {
-    Clase Ladrillo
-    Nombre "Ladrillo-001"
-    Posición <120,40>
-    Bloque <32,15>
-    Bitmap "sprite_041"
+Ladrillo {
+    Chaqueta  sprite_041
+    Peloteo   sample_001
+    Posición  10  10
 }
-Actor {
-    Clase Ladrillo
-    Nombre "Ladrillo-002"
-    Posición <120,100>
-    Bloque <32,15>
-    Bitmap "sprite_041"
+Ladrillo {
+    Chaqueta  sprite_042
+    Peloteo   sample_001
+    Posición  50  60
 }

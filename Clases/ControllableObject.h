@@ -22,8 +22,8 @@
  *                          virtual  void  do_action  (action_t action, int magnitude);
  *                  };
  *          \endcode
- *          Por tanto debemos eliminar el fichero "ControllableObject.cpp" del proyecto y modificar la 
- *          clase para que el tipo "action_t" se encuentre definido en otra clase.
+ *          Por tanto debemos eliminar el fichero "ControllableObject.cpp" del proyecto y quizás 
+ *          modificar la clase para que el tipo "action_t" se encuentre definido en otra clase.
  */
 class ControllableObject
 {

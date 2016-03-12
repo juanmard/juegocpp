@@ -12,7 +12,7 @@ using std::vector;
  * \brief   Actor para ser golpeado por la pelota del juego.
  * \todo    Añadir posibilidad de lanzar objetos al jugador, de desviar la pelota, etc...
  */
-class Ladrillo :  public Actor
+class Ladrillo : public Actor
 {
 public:
                         Ladrillo    (const Ladrillo &copia);
@@ -26,8 +26,25 @@ public:
     void                getNombre   (string &strNombre) const;
     string              getNombre   () const;
     virtual Menu &      getMenu     () const;
-    void                addGUI      (vector<DIALOG> &gui_padre);
-	istream&  prueba_iostream (istream &is, Ladrillo &a);
+
+    /**
+     */
+    void addGUI (vector<DIALOG> &gui_padre);
+
+    /**
+     * \brief   Obtiene una cadena representativa con las propiedades del ladrillo.
+     * \return  Cadena representativa del ladrillo.
+     */
+    std::string getString () const;
+
+    /**
+     */
+    istream&            prueba_iostream (istream &is, Ladrillo &a);
+
+    /**
+     * \brief   Definición de la lectura desde fichero.
+     */
+    std::ifstream& leer (std::ifstream& ifs);
 
 private:
   /**
@@ -36,7 +53,7 @@ private:
    */
   enum {ESPERA=10, EN_CAIDA}; 
 
-  void        crear_ladrillo (void);
-  Bitmap     *chaqueta;
-  SAMPLE     *peloteo;
+  void crear_ladrillo (void);
+  Bitmap    *chaqueta;
+  SAMPLE    *peloteo;
 };

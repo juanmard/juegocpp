@@ -326,16 +326,16 @@ void Juego2::mainGame ()
   -- Eliminamos objetos de prueba.*/
     
   // Añadimos una conjunto de ladrillos de prueba.
-  for (int j=0; j<=2; j++)
-  {    
-    for (int i=1; i<=14; i++)
-    {
-      actor_manager->add(new Ladrillo(i*40, 40+40*j, *storage_manager));
-    }
-  }
+  //for (int j=0; j<=2; j++)
+  //{    
+  //  for (int i=1; i<=14; i++)
+  //  {
+  //    actor_manager->add(new Ladrillo(i*40, 40+40*j, *storage_manager));
+  //  }
+  //}
 
   // Se prueba a cargar desde fichero.
-  this->actor_manager->load("actores2.txt");
+  this->actor_manager->load("test.txt");
 
  /* Eliminamos objetos de prueba
   // Se añade una paleta de prueba pero con piel de Suelo.
@@ -496,7 +496,7 @@ void Juego2::mainGame ()
     if (key[KEY_I])
     {
       // \todo Pasar los procesos de la consola interactiva a una clase independiente.
-      cout << "----------------- Consola Interactiva -----------------" << endl;
+      std::cout << "----------------- Consola Interactiva -----------------" << std::endl;
 
       char comandos[7][8]={
           "help",
@@ -506,7 +506,7 @@ void Juego2::mainGame ()
           "armario",
           "pausa",
           "quit"
-      };
+          };
       char ayuda[7][60]={
           "Obtiene ayuda de los comandos.",
           "Crea nuevo actor. Ej: nombre {x,y} {w,h}",
@@ -522,36 +522,34 @@ void Juego2::mainGame ()
       do
       {
         comando.clear ();
-        cout << endl << "=> ";
-        cin >> comando;
+        std::cout << std::endl << "=> ";
+        std::cin >> comando;
         if (!comando.compare("help"))
         {
           for (int i=0; i<7; i++)
           {
-            cout << comandos[i] << " - " << ayuda[i] << endl;
+            std::cout << comandos[i] << " - " << ayuda[i] << std::endl;
           }
         }
         else if (!comando.compare("nuevo"))
         {
-          cout << "[nuevo]=> ";
-	    cin >> *actor_manager;
+          std::cout << "[nuevo]=> ";
+          std::cin >> *actor_manager;
         }
         else if (!comando.compare("grabar"))
         {
-          ofstream outfile ("test.txt");
-          outfile << "-- Lista de todos los actores --" << endl \
-                  << "--------------------------------" << endl;
+          std::ofstream outfile ("test.txt");
           outfile << *actor_manager;
           outfile.close();
           cout << "Grabados objetos en fichero \"test.txt\"" << endl;
         }
         else if (!comando.compare("listar"))
         {
-          cout << "--------------------------------" << endl \
-               << "-- Lista de todos los actores --" << endl \
-               << "--------------------------------" << endl \
-               << *actor_manager \
-               << "--------------------------------" << endl;
+          std::cout << "--------------------------------" << std::endl \
+                    << "-- Lista de todos los actores --" << std::endl \
+                    << "--------------------------------" << std::endl \
+                    << *actor_manager \
+                    << "--------------------------------" << std::endl;
         }
         else if (!comando.compare("armario"))
         {
@@ -563,12 +561,12 @@ void Juego2::mainGame ()
         }
         else if (!comando.compare("quit"))
         {
-          cout << endl << "Fin de consola interactiva." << endl;
+          std::cout << std::endl << "Fin de consola interactiva." << std::endl;
           salida = true;
         }
         else
         {
-          cout << "Comando desconocido. Utilice \"help\" para ver los comandos disponibles." << endl;
+          std::cout << "Comando desconocido. Utilice \"help\" para ver los comandos disponibles." << std::endl;
         }
       }
       while (!salida);

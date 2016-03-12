@@ -60,3 +60,9 @@ AirCraft * AirCraft::clone () const
 {
     return (new AirCraft (*this));
 }
+
+std::ifstream& AirCraft::leer (std::ifstream &ifs)
+{
+    return ifs;
+}
+

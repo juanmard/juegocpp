@@ -315,12 +315,14 @@ void  ActorManager::avisoActorSinGrafico (Actor *a) const
 ostream & operator<< (ostream &os, const ActorManager &am)
 {
   list<Actor*>::iterator  i;
-  list<Actor*>                lista;
+  list<Actor*>            lista;
 
   lista = am.actors;
+  os << "[Actores]" << std::endl \
+     << "Cantidad " << lista.size () << std::endl;
   for (i = lista.begin(); i != lista.end(); i++)
   {
-      os << (Actor &) **i << endl;
+      os << (Actor &) **i << std::endl;
   }
   return os;
 }
@@ -342,11 +344,11 @@ istream&  operator>> (istream &is, ActorManager &am)
   is >> nombre;
   if (!nombre.compare("Ladrillo"))
   {
-	nuevo = new Ladrillo();
+    nuevo = new Ladrillo();
   }
   else
   {
-	nuevo = new Actor();
+    //nuevo = new Actor();
   }
   //is >> *nuevo;
   nuevo->prueba_iostream (is, *nuevo);
@@ -389,11 +391,11 @@ string  ActorManager::getArmario ()
 
 
 /**
+ * \brief   Carga la lista de actores desde un fichero de texto.
  * \details El formato del fichero debe ser el siguiente:
  * \code
- *
- *                  Actores 3
- *                  Actores 1
+ *                  [Actores]
+ *                  Cantidad 3
  *                  Ladrillo {
  *                       Nombre "Ladrillo-001"
  *                       Posición <120,40>
@@ -402,8 +404,8 @@ string  ActorManager::getArmario ()
  *                       }
  *                  Paleta {...}
  *                  Henry {...}
- *
  * \endcode
+ * \param   file    Referencia al nombre del fichero de texto.
  */
  void  ActorManager::load (const string &file)
 {
@@ -411,9 +413,8 @@ string  ActorManager::getArmario ()
     cout << "Prueba de carga de actores desde fichero." << endl << "Fichero a cargar: \"" << file << "\"" << endl;
 #endif
 
-    /* Se crea un nuevo fichero de lectura y se añaden excepciones. */
+    /* Se crea un nuevo fichero para lectura. */
     ifstream *fs = new ifstream();
-    fs->exceptions ();
 
     /* Se intenta abrir el fichero. */
     try
@@ -438,64 +439,72 @@ string  ActorManager::getArmario ()
     }
     catch (std::string error)
     {
-        cout << error << endl;
+        std::cout << error << std::endl;
         return;
     }
     catch (ifstream::failure e)
     {
-        cout << "Error al abrir el fichero: \"" << file << "\"" << endl;
-        cout << "Error: " << endl << e.what();
+        std::cout << "Error al abrir el fichero: \"" << file << "\"" << std::endl;
+        std::cout << "Error: " << std::endl << e.what();
         return;
     }
 
     /* Si se consigue localizar y abrir el fichero se continua procesando. */
-    cout << "Se procesa el fichero. " << endl;
+    std::cout << "Se procesa el fichero. " << std::endl;
 
     /// \todo   Una primera línea que compruebe la versión del fichero de datos.
     // string version;
     // getline(fs,version);
     // if (!version.compare("JUEGO v2.0")) {return "El fichero de datos no está en la versión correcta)};
-    int pos = buscar_propiedad ("Actores", *fs);
+    size_t pos = buscar_propiedad ("Actores", *fs);
 
     // Se obtiene del fichero el comando y el valor.
-    buscar ("Actor", *fs);
-    string comando, valor;
-    *fs >> comando >> valor;
-    cout << comando << "\t" << valor << "\t" << endl;
-    *fs >> comando >> valor;
-    cout << comando << "\t" << valor << "\t" << endl;
-    *fs >> comando >> valor;
-    cout << comando << "\t" << valor << "\t" << endl;
-    *fs >> comando >> valor;
-    cout << comando << "\t" << valor << "\t" << endl;
-    *fs >> comando >> valor;
-    cout << comando << "\t" << valor << "\t" << endl;
+    string comando, valor, clase;
+    int num;
 
-    // Si el comando es el correcto se utiliza el valor.
+    *fs >> std::skipws >> comando >> std::skipws >> num;
+    std::cout << "Comando: " << comando << "\tValor: " << num << "\t" << std::endl;
 
-    unsigned int actores=0;
-    if (!comando.compare("Actores"))
+    // Se crea un nuevo actor (vacío) de la clase pasada por parámetro, pero devolviendo
+    // la clase abstracta actor.
+    //Actor *actor = crear_actor (clase);
+    for (int i=0; i<num; i++)
     {
-        // actores = stoi(valores); //C++11
-        stringstream ss(valor); // Para C++98 se necesita stringstream.
-        ss >> actores;
-    }
-    else
-    {
-        cout << "El fichero no contiene lista de actores." << endl;
+        // Leer la clase del actor.
+        *fs >> std::skipws >> clase;
+        std::cout << "Clase: " << clase << std::endl << "Fin de clase" << std::endl;
+        // Se crea el actor de la clase leída.
+        Actor *actor = new Ladrillo();
+        // Se leen los valores del actor del fichero de texto.
+        *fs >> *actor;
+        // Se agrega el actor leido a la lista.
+        this->add (actor);
     }
 
-    // Según la lista de actores se leen los actores y se agregan.
-    for (std::size_t i=1; i<=actores; i++)
-    {
-        cout << "--- Actor " << i << " ---" << endl;
-        *fs >> comando >> valor;
-        if (!comando.compare ("Actor"))
-        {
-        *fs >> comando >> valor;
-        cout << valor;
-        }
-    }
+    //// Si el comando es el correcto se utiliza el valor.
+    //unsigned int actores=0;
+    //if (!comando.compare("Actores"))
+    //{
+    //    // actores = stoi(valores); //C++11
+    //    stringstream ss(valor); // Para C++98 se necesita stringstream.
+    //    ss >> actores;
+    //}
+    //else
+    //{
+    //    cout << "El fichero no contiene lista de actores." << endl;
+    //}
+
+    //// Según la lista de actores se leen los actores y se agregan.
+    //for (std::size_t i=1; i<=actores; i++)
+    //{
+    //    cout << "--- Actor " << i << " ---" << endl;
+    //    *fs >> comando >> valor;
+    //    if (!comando.compare ("Actor"))
+    //    {
+    //    *fs >> comando >> valor;
+    //    cout << valor;
+    //    }
+    //}
 
     fs->close();
 }
@@ -516,12 +525,17 @@ std::size_t  ActorManager::buscar_propiedad  (const std::string &propiedad, std:
 
     // Se crea el formato de la propiedad dentro del fichero.
     // ej. "[Actores]"
+    // NOTA: Intentar hacerlo de manera más limpia ignorando los caracteres hasta encontrar el primer caracter '['
+    //       con la función "ignore(256,'[');"
     busqueda += '[';
     busqueda += propiedad;
     busqueda += ']';
 
+    std::cout << "Se busca la propiedad: " << busqueda << std::endl;
+
     // Se busca la palabra creada.
-    return buscar (propiedad,inFile);
+    std::size_t pos = buscar (busqueda,inFile);
+    return pos;
 }
 
  /**
@@ -541,11 +555,11 @@ std::size_t  ActorManager::buscar  (const std::string &palabra, std::ifstream &i
     // Se toma línea por línea y se busca la palabra.
     while (getline(inFile,linea))
     {
-      cout << linea << endl;
+      std::cout << linea << std::endl;
       pos = linea.find(palabra);
       if (pos != string::npos) // string::npos is returned if string is not found
       {
-        cout << "Found! in " << pos << endl;
+        std::cout << "Found! in " << pos << std::endl;
         break;
       }
     }

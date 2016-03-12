@@ -119,13 +119,13 @@ void  Bitmap::draw (int x, int y, BITMAP *destino, bool mirror)
 
 /**
  * \brief   Devuelve la estructura básica del objeto en forma de cadena.
+ * \todo    Hacer este procedimiento virtual y que los distintos gráficos hereden
+ *          de una clase más genérica llamada "Gráfico" que es "Dibujable".
  */
-string  Bitmap::getString () const
+std::string  Bitmap::getString () const
 {
-  std::ostringstream cadena;
-  cadena  << "Bitmap >> " << nombre << std::endl;
-  return cadena.str();
-}
+  return nombre;
+};
 
 /**
  * \brief   Devuelve la zona de memoria donde está la imagen.

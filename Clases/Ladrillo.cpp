@@ -2,6 +2,7 @@
 #include "Almacen.h"
 #include "Dialog.h"
 #include <allegro.h>
+#include <fstream>
 
 /**
  * \brief   Constructor que crea un objeto golpeable por la pelota en el juego.
@@ -227,3 +228,54 @@ istream&  Ladrillo::prueba_iostream (istream &is, Ladrillo &a)
   return is;
 }
 
+/**
+ * \details Leer desde fichero.
+ */
+std::ifstream&  Ladrillo::leer (std::ifstream& ifs)
+{
+    string basura, comando, piel, sample;
+    int x, y;
+
+    ifs >> basura >> comando >> piel;
+    std::cout << "Comando: " << comando << "\t Valor: " << piel << std::endl;
+    ifs >> comando >> sample;
+    std::cout << "Comando: " << comando << "\t Valor: " << sample << std::endl;
+    ifs >> comando >> x >> y >> basura;
+    std::cout << "Comando: " << comando << "\t Valor: " << x << ", " << y << std::endl;
+  //ifs.ignore (10,'<');
+  //is >> a.x;
+  //is.ignore (10,',');
+  //is >> a.y;
+  //is.ignore (10,'<');
+  //is >> a.w;
+  //is.ignore (10,',');
+  //is >> a.h;
+  //is.ignore (10,'>');
+
+    Almacen *sprites = new Almacen("sprites3.dat");
+    chaqueta = new Bitmap(this, sprites, piel);
+    crear_ladrillo ();
+    set_x (x);
+    set_y (y);
+
+    // No es necesario ya que el ladrillo completa todos los valores del actor con la llamada "crear_ladrillo".
+//    return Actor::leer(ifs);
+    return ifs;
+};
+
+/**
+ */
+std::string  Ladrillo::getString () const
+{
+  std::ostringstream cadena;
+
+  // Se genera una cade simple.
+  cadena << "Ladrillo {" << std::endl \
+         << "    Chaqueta  " << agraph->getString () << std::endl \
+         << "    Peloteo   " << "sample_001" << std::endl \
+         << "    Posición  " << x << "  " << y << std::endl \
+         << "}" << std::endl;
+
+  // Se devuelve la cadena con el formato "string".
+  return cadena.str ();
+};
