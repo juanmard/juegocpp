@@ -63,7 +63,20 @@ public:
 
     virtual Actor *         getActor        () const;
 
-    protected:
+    /// Se modifica el actor propietario del gráfico.
+    /// @param propietario Actor nuevo propietario del gráfico.
+    /// @note Esta modificación puede generar una incongruencia, ya que el
+    ///       antiguo actor propietario puede quedar con un gráfico asignado
+    ///       que ya no es el suyo, mientras que el gráfico considera que
+    ///       ahora su propietario es otro.
+    ///
+    ///       Para evitar esta incongruencia únicamente se modificará el
+    ///       actor propietario si previamente el gráfico no tenía ninguno
+    ///       asignado.
+    ///
+    void setOwner (Actor& propietario);
+
+protected:
         Actor *owner;
 };
 

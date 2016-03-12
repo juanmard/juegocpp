@@ -95,7 +95,10 @@ std::string Plataforma::getString () const
 std::ifstream& Plataforma::leer (std::ifstream& ifs)
 {
     // Lee la parte común del actor.
-    return Actor::leer(ifs);
+    std::ifstream& ifs_tmp = Actor::leer(ifs);
+
+    // Forzamos las dimensiones del actor para que se ajusten al gráfico.
+    static_cast<Suelo*>(this->agraph)->ajustar ();
 
     // Lee la parte propia.
     // P.j. Los vectores de origen y destino del movimiento.
@@ -104,6 +107,6 @@ std::ifstream& Plataforma::leer (std::ifstream& ifs)
     // VDestino <12, 50>
     // Activa   false
     //
-    //return ifs;
+    return ifs_tmp;
 };
 

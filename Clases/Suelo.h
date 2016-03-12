@@ -80,6 +80,11 @@ public:
     ///
     std::string getString () const;
 
+    /// Ajusta el tamaño del actor propietario en función del tamaño del suelo.
+    /// @note Si en el momento de la llamada aún no tiene asignado un propietario
+    ///       no se hace nada.
+    void ajustar ();
+
 private:
     /// Lee las propiedades del suelo desde un fichero de lectura.
     /// @param Referencia al fichero de lectura.

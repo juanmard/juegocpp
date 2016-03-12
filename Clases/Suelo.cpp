@@ -45,14 +45,14 @@ Mosaico (aowner)
     add_ultima_Tesela (new Tesela (this, terminal, 0, 0));
     add_ultima_Tesela (new Tesela (this, terminal, 32*new_size-10, 0, true));
 
+    // Una vez creado actualizamos la variable del tamaño.
+    size = new_size;
+
     /// Adaptamos el ancho y el alto del actor padre.
     /// @note Igual esto no es deseable si queremos hacer un suelo "falso", es decir,
     ///       que no sea tan extenso como lo que muestra el gráfico.
     ///       Esto demuestra que es necesario desligar el gráfico del actor.
-    aowner->set_wh(32*new_size+20,15);
-
-    // Una vez creado actualizamos la variable del tamaño.
-    size = new_size;
+    ajustar ();
 };
 
 Suelo::Suelo (Actor* aowner, Almacen& almacen, int new_size):
@@ -72,13 +72,14 @@ Mosaico (aowner)
     add_ultima_Tesela (new Tesela (this, terminal, 0, 0));
     add_ultima_Tesela (new Tesela (this, terminal, 32*new_size-10, 0, true));
 
-    // Adaptamos el ancho y el alto del actor padre.
-    // TODO: Igual esto no es deseable si queremos hacer un suelo "falso", es decir,
-    //       que no sea tan extenso como lo que muestra el gráfico.
-    aowner->set_wh (32*new_size+20,15);
-
     // Una vez creado actualizamos la variable del tamaño.
     size = new_size;
+
+    // Adaptamos el ancho y el alto del actor padre.
+    // TODO: Igual esto no es deseable si queremos hacer un suelo "falso", es decir,
+    //       que no sea tan extenso como lo que muestra el gráfico o si queremos desligar
+    //       el actor del gráfico que lo.identifica.
+    ajustar ();
 };
 
 int  Suelo::getSize () const
@@ -128,7 +129,9 @@ void Suelo::setSize (int new_size)
 
     // Actualizamos al tamaño actual.
     size = new_size;
-    //if(aowner) aowner->set_wh (32*new_size+20,15);
+
+    // Ajustamos las dimensiones del actor propietario al dibujo.
+    ajustar ();
   }
 };
 
@@ -174,7 +177,7 @@ std::ifstream& Suelo::leer (std::ifstream& ifs)
 {
     std::string comando;
 
-    ifs >>  comando;
+    ifs >> comando;
     if (!comando.compare("Tamaño"))
     {
         int tam;
@@ -183,3 +186,9 @@ std::ifstream& Suelo::leer (std::ifstream& ifs)
     }
     return ifs;
 };
+
+void Suelo::ajustar ()
+{
+    if(owner) owner->set_wh (32*size+20,15);
+};
+

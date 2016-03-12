@@ -477,7 +477,7 @@ string  ActorManager::getArmario ()
     int num;
 
     ifs >> std::skipws >> comando >> std::skipws >> num;
-    std::cout << "Comando: " << comando << "\tValor: " << num << "\t" << std::endl;
+    // std::cout << "Comando: " << comando << "\tValor: " << num << "\t" << std::endl;
 
     // Se procesan el número de actores indicados (num).
     for (int i=0; i<num; i++)
@@ -496,7 +496,7 @@ string  ActorManager::getArmario ()
             ifs >> actor;
             ifs.ignore (100,'}');
 
-            // Se agrega el actor leido a la lista.
+            // Se agrega el actor leído a la lista.
             this->add (&actor);
         }
         catch (std::string error)
@@ -506,6 +506,8 @@ string  ActorManager::getArmario ()
             ifs.ignore (200,'}');
         }
     }
+    // Se preparan todos los actores agregados para actuar.
+    this->add_all_to_create ();
 
     // Se cierra el fichero.
     ifs.close();

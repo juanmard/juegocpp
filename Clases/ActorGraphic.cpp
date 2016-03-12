@@ -103,3 +103,9 @@ std::ifstream& operator>> (std::ifstream& ifs, ActorGraphic& grafico)
 {
     return grafico.leer(ifs);
 };
+
+void ActorGraphic::setOwner (Actor& propietario)
+{
+    if (!owner) this->owner = &propietario;
+};
+
