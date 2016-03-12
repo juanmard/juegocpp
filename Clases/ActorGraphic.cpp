@@ -40,27 +40,27 @@ void ActorGraphic::draw (int x, int y, BITMAP* bmp)
 {
 };
 
-int ActorGraphic::get_w ()
+unsigned int ActorGraphic::get_w () const
 {
     return 0;
 };
 
-int ActorGraphic::get_h ()
+unsigned int ActorGraphic::get_h () const
 {
     return 0;
 };
 
-int ActorGraphic::get_x ()
+int ActorGraphic::get_x () const
 {
     return (int)(owner->get_x());
 };
 
-int ActorGraphic::get_y ()
+int ActorGraphic::get_y () const
 {
     return (int)(owner->get_y());
 };
 
-Mask* ActorGraphic::get_mask ()
+Mask* ActorGraphic::get_mask () const
 {
     return NULL;
 };
@@ -70,14 +70,16 @@ ActorGraphic* ActorGraphic::clone (Actor* propietario) const
     return new ActorGraphic();
 };
 
-std::string ActorGraphic::print () const
+/// @todo Agrupar los valores de posición y dimensiones en un bloque,
+///       para así poder imprimir directamente en el formato del bloque.
+std::string& ActorGraphic::print () const
 {
     std::ostringstream cadena;
-    std::string propietario;
 
-    owner->getNombre (propietario);
-    cadena << "Propietario: " << propietario << "\n";
-    return (cadena.str());
+    cadena << "Propietario: " << owner->get_nombre() << std::endl;
+    cadena << "Posición: [" << get_x() << ", " << get_y() << "]" << std::endl;
+    cadena << "Dimensiones: [" << get_h() << ", " << get_w() << "]" << std::endl;
+    return *new std::string(cadena.str());
 };
 
 Actor* ActorGraphic::getActor () const

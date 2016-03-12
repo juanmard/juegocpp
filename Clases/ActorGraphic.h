@@ -10,6 +10,7 @@
 #define _ACTORGRAPHIC_H_
 
 #include <allegro.h>
+#include "PrintableObject.h"
 #include <string>
 #include <sstream>
 #include "Actor.h"
@@ -18,7 +19,7 @@
 ///
 /// Esta clase define la parte gráfica del actor.
 ///
-class ActorGraphic
+class ActorGraphic : public PrintableObject
 {
 protected:
     Actor* owner;       ///< Puntero al actor propietario del gráfico.
@@ -63,27 +64,27 @@ public:
     /// Obtener el ancho del gráfico.
     /// @return Ancho obtenido.
     ///
-    virtual int get_w ();
+    virtual unsigned int get_w () const;
 
     /// Obtener el alto del gráfico.
     /// @return Alto obtenido.
     ///
-    virtual int get_h ();
+    virtual unsigned int get_h () const;
 
     /// Obtener la posición x del propietario del gráfico.
     /// @return Posición x del propietario.
     ///
-    virtual int get_x ();
+    virtual int get_x () const;
 
     /// Obtener la posición y del propietario del gráfico.
     /// @return Posición y del propietario.
     ///
-    virtual int get_y ();
+    virtual int get_y () const;
 
     /// Obtiene la máscara del gráfico.
     /// @return Puntero a la máscara del gráfico.
     ///
-    virtual Mask* get_mask ();
+    virtual Mask* get_mask () const;
 
     /// Duplica la parte gráfica del actor y le asigna el nuevo propietario.
     /// @param propietario  Puntero del nuevo propietario al que asignar el duplicado.
@@ -102,7 +103,7 @@ public:
     ///       Y para desligar el gráfico de su actor propietario sería conveniente
     ///       que los gráficos tuvieran entidad propia derivando de "DrawableObject".
     ///
-    virtual std::string print () const;
+    virtual std::string& print () const;
 
     /// Lee el gráfico de un fichero.
     /// @param ifs Fichero desde el que leer las propiedades gráficas.
