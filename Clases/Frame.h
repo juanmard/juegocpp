@@ -29,6 +29,7 @@ public:
   string  getString   () const;
 
 public:
+  /* \todo    Cambiar este BITMAP que es un tipo de Allegro, por un tipo Bitmap propio. */
   BITMAP *bmp;
   Mask *mask;
   int cx;

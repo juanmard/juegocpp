@@ -3,12 +3,14 @@
 
 #include <list>
 #include <iostream>
+#include <string>
 #include "Bloque.h"
 
 //using namespace std;
 using std::list;
 using std::ostream;
 using std::istream;
+using std::string;
 
 class Actor;
 class Game;
@@ -35,6 +37,8 @@ class ActorManager
     list<Actor *>           GetActores            (Bloque &bloque);
     void                    setVisualizar         (Actor *paramActor);
     Actor *                 getActor              (unsigned int indice);
+    string                  getArmario            ();
+
 
   protected:
     void      actualizarVisualizacion   ();

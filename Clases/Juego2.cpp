@@ -271,19 +271,21 @@ void Juego2::mainGame ()
       // \todo Pasar los procesos de la consola interactiva a una clase independiente.
       cout << "----------------- Consola Interactiva -----------------" << endl;
 
-      char comandos[6][8]={
+      char comandos[7][8]={
           "help",
           "nuevo",
           "listar",
           "grabar",
+          "armario",
           "pausa",
           "quit"
       };
-      char ayuda[6][60]={
+      char ayuda[7][60]={
           "Obtiene ayuda de los comandos.",
           "Crea nuevo actor. Ej: nombre {x,y} {w,h}",
           "Muestra una lista de todos los actores.",
-          "Graba los actores en un fichero \"text.txt\".",
+          "Graba los actores en un fichero \"test.txt\".",
+          "Lista todos los objetos gráficos definidos en el juego.",
           "Pausa y activa el juego.",
           "Sale de la consola interactiva."
           };
@@ -297,7 +299,7 @@ void Juego2::mainGame ()
         cin >> comando;
         if (!comando.compare("help"))
         {
-          for (int i=0; i<5; i++)
+          for (int i=0; i<7; i++)
           {
             cout << comandos[i] << " - " << ayuda[i] << endl;
           }
@@ -323,6 +325,10 @@ void Juego2::mainGame ()
                << "--------------------------------" << endl \
                << *actor_manager \
                << "--------------------------------" << endl;
+        }
+        else if (!comando.compare("armario"))
+        {
+          actor_manager->getArmario ();
         }
         else if (!comando.compare("pausa"))
         {

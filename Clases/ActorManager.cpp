@@ -1,5 +1,6 @@
 
 #include "ActorManager.h"
+#include "ActorGraphic.h"
 #include "Actor.h"
 #include <algorithm>
 #include <iostream>
@@ -333,4 +334,33 @@ istream&  operator>> (istream &is, ActorManager &am)
   // Se muestra en pantalla un resumen.
   cout << endl << *nuevo << endl;
   return is;
+}
+
+/**
+ * \brief   Obtiene los distintos trajes de los actores.
+ * \details Obtiene los distintos objetos gráficos (trajes) de los actores.
+ *          Un traje para un mismo actor puede ser el mismo, luego lo ideal
+ *          sería definir una clase "Armario" donde se encuentren todos los
+ *          trajes a utilizar. En este caso se separaría en una clase distinta
+ *          y en esta clase iría este procedimiento.
+ * \todo    Crear una clase "Armario" donde se incluyeran todos los trajes que
+ *          utilizarán actores y decorado a lo largo del juego (atrezzo del juego).
+ */
+string  ActorManager::getArmario ()
+{
+  list<Actor*>::iterator  i;
+  list<Actor*>            lista;
+
+  ActorGraphic *agp;
+  lista = actors;
+  for (i = lista.begin(); i != lista.end(); i++)
+  {
+      agp = (*i)->get_actor_graphic ();
+      //cout << (*i)->getString () << endl;
+      if (agp)
+      {
+        cout << agp->getString ();
+      }
+  }
+  return "---";
 }
