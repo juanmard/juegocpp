@@ -27,11 +27,11 @@ class DlgActor
     void    save              ();
 
   protected:
+    Dialog          *owner;
     int             x_rel, y_rel;
     int             x_ant, y_ant;
     bool            enganchado;
     Actor           *actor;
-    Dialog          *owner;
     static DIALOG   dlg_propiedades[];
 
     void            msg_idle            ();
@@ -41,7 +41,7 @@ class DlgActor
 
     /**
     * \brief   Callback Allegro de la clase.
-    * \todo    
+    * \todo
     *          - Añadir a las funciones los parámetros de entrada y de retorno.
     *            Ej: return obj->msg_dclick(msg,d,c);
     *          - Una vez detectado el mensaje, si no se ha procesado pasar al

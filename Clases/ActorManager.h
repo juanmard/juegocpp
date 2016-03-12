@@ -15,17 +15,17 @@ using std::string;
 class Actor;
 class Game;
 
-/** 
+/**
  * \brief   Maneja y controla los actores de la escena.
  * \details Esta clase controla todos los actores y sus estados dentro de la escena.
  */
 class ActorManager
 {
   public:
-                            				ActorManager          (Game *g);
-                            				~ActorManager         ();
-    void                    			add                   		(Actor *a);
-    void                    			del                   		(Actor *a);
+                           				ActorManager          (Game *g);
+                           				~ActorManager         ();
+    void                    			add            		(Actor *a);
+    void                    			del                 		(Actor *a);
     void                    			rewind                		();
     Actor *                 			get_actor             	(int x, int y);
     Actor *                 			next                  		();
@@ -34,7 +34,7 @@ class ActorManager
     int                     			num_actors      			();
     list<Actor*>::iterator  get_begin_iterator  ();
     list<Actor*>::iterator  get_end_iterator     ();
-    list<Actor *>           		GetActores            	(Bloque &bloque);
+    list<Actor*>           	GetActores            	(Bloque & bloque);
     void                    			setVisualizar         	(Actor *paramActor);
     Actor *                 			getActor              	(unsigned int indice);
     string                  			getArmario            	();
@@ -48,7 +48,7 @@ class ActorManager
   protected:
     Game *                  			game;
     list<Actor*>            		actors;
-    list<Actor*>::iterator  actors_iter;
+    list<Actor*>::iterator    actors_iter;
     list<Actor*>            		to_del;
     list<Actor*>            		to_create;
     Actor *                 			actorVisualizado;

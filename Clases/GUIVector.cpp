@@ -1,7 +1,7 @@
 /*
  * linux
  * Copyright (C) Juanma Rico 2010 <juanmard@gmail.com>
- * 
+ *
  */
 
 #include "GUIVector.h"
@@ -45,7 +45,8 @@ int  GUIVector::Keyboard (int msg, DIALOG *d, int code)
   *y += yInc;
 
   // Actualizamos su representación en pantalla.
-   return object_message (d, MSG_DRAW, 0);
+  salida = object_message (d, MSG_DRAW, 0);
+  return salida;
 };
 
 /**

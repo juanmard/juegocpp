@@ -1,7 +1,7 @@
 #include "Dialog.h"
 #include "DlgActor.h"
 #include "VentanaALG.h"
-#include "resize.h"
+//#include "resize.h"
 #include <iostream>
 #include "GUIEscenario.h"
 #include "ActorGUI.h"
@@ -81,8 +81,8 @@ MENU Dialog::mnu_actor [] =
 Dialog::Dialog (EditorManager *editor):
 manager (editor),
 actor (NULL),
-moviendoActor (false),
-ref_x (0), ref_y(0)
+ref_x (0), ref_y(0),
+moviendoActor (false)
 {
   // Se inicializan los colores de la GUI.
   gui_fg_color = makecol(44,44,211);
@@ -175,7 +175,7 @@ void Dialog::mouse_in (void)
  */
 void Dialog::menu_contextual (int x, int y)
 {
-  // Elegimos el menú adecuado: actor, lista de actores, fondo... 
+  // Elegimos el menú adecuado: actor, lista de actores, fondo...
   // según el tipo de objeto.
 
   // Como prueba mostranos el nombre del objeto en el menú.
@@ -311,7 +311,7 @@ void  Dialog::actualizarValoresActor ()
     // Construimos la cadena de posición.
     manager->getEscenarioXY (strPosicion);
     strNombre = "Escenario";
-    
+
     // Actualizamos el valor de los controles.
     dialog[posicion].dp = const_cast <char *> (strPosicion.c_str());
     dialog[nombre].dp = const_cast <char *> (strNombre.c_str());
@@ -327,7 +327,7 @@ void  Dialog::centrarActor (int indice)
   // Si había actor anterior se desactiva.
   if (actor) actor->setMostrarBloque (false);
 
-  // Se le pide al controlador de edición que centre (y active) el actor 
+  // Se le pide al controlador de edición que centre (y active) el actor
   // con el índice dado.
   manager->centrarActor (indice);
 }
@@ -460,7 +460,7 @@ int  Dialog::comprobarTecla (int code)
       int idx = pesta.size ();
       manager->getAlmacen().addGUI (pesta);
       position_dialog (&pesta[idx-1],590,320);
-      
+
       // Probamos con dos almacenes.
 /*
        Almacen *prueba = new Almacen ("sprites.dat");
@@ -523,7 +523,7 @@ int  Dialog::kdb_coordenadas (DIALOG *d, int code)
   //            caso puede ser tanto la posicion como las dimensiones.
   //            Para probar comparamos los punteros de los controles.
   // \warning   Esta comparación evita que funcione completamente la prueba dinámica de 'pesta'.
-  //            Lo ideal será crear una clase GUI para este tipo de vectores y asociar a ellos 
+  //            Lo ideal será crear una clase GUI para este tipo de vectores y asociar a ellos
   //            los valores que quiere modificar.
   if (d == &dialog[dimensiones])
   {

@@ -27,7 +27,7 @@ Actor * ActorManager::get_actor (int x, int y)
 
   // Comprobar el bucle, es posible que el primero no lo compruebe si es el único de la lista.
   actors_iter = actors.begin();
-  while (encontrado == NULL && actors_iter != actors.end()) 
+  while (encontrado == NULL && actors_iter != actors.end())
   {
     if ( !(  (x <= (*actors_iter)->get_x())
     || (y <= (*actors_iter)->get_y())
@@ -57,7 +57,7 @@ ActorManager::~ActorManager()
 
 /**
  * \brief   Añade un nuevo actor.
- * \details Se debe avisar de los actores que no tienen parte gráfica. 
+ * \details Se debe avisar de los actores que no tienen parte gráfica.
  */
 void ActorManager::add(Actor *a)
 {
@@ -178,7 +178,7 @@ void ActorManager::update ()
 
   /*
    * \todo  Hacer un "move_all_to_stage" para pasar los actores en bambalinas a escena y así
-   *        eliminar las dos funciones "add_all_to_create" y "del_all_to_del" por separado. 
+   *        eliminar las dos funciones "add_all_to_create" y "del_all_to_del" por separado.
    */
 
   /* Agrega al escenario a todos los actores en espera. */
@@ -206,7 +206,7 @@ void ActorManager::update ()
       *             no se comprueba que sea de la clase "GeneratorActor".
       *             En teoría si puede mandar ese mensaje es que es de esta clase.
       */
-      Actor *tmp = (*tmp_iter);
+      //Actor *tmp = (*tmp_iter);
       //add (tmp->get_hijo());
 
       /* Se cambia el estado del padre para que siga actuando. */
@@ -286,7 +286,7 @@ Actor *  ActorManager::getActor (unsigned int indice)
 {
   Actor *                   actor = NULL;
   list<Actor*>::iterator    iter;
-  
+
   // Si el índice dado no corresponde con el número de actores devuelve NULL.
   if (indice < actors.size())
   {
@@ -334,7 +334,7 @@ istream&  operator>> (istream &is, ActorManager &am)
 {
   string nombre;
   Actor *nuevo;
-	
+
   // Se lee el nombre del actor y se crea el objeto de la clase de actor leido.
   // \todo  Cambiar esta forma de crear el tipo de actor pues implica que la clase ActorManager
   //        debe conocer todos los tipos de actores que se crean ahora y en un futuro.
@@ -400,7 +400,7 @@ string  ActorManager::getArmario ()
  *                  }
  *                  Actor {...}
  *                  Actor {...}
- * 
+ *
  * \todo   A eliminar, no es necesaria esta función.
 void  ActorManager::load (string &file)
 {
@@ -419,7 +419,7 @@ void  ActorManager::load (string &file)
     // string version;
     // getline(fs,version);
     // if (!version.compare("JUEGO v2.0")) {return "El fichero de datos no está en la versión correcta)};
-    
+
     // Se obtiene del fichero el comando y el valor.
     string comando, valor;
     fs >> comando >> valor;
@@ -432,7 +432,7 @@ void  ActorManager::load (string &file)
     {
         // actores = stoi(valores); //C++11
         stringstream ss(valor); // Para C++98 se necesita stringstream.
-        ss >> actores;   
+        ss >> actores;
     }
     else
     {
@@ -450,7 +450,7 @@ void  ActorManager::load (string &file)
 	  cout << valor;
         }
     }
-    
+
     fs.close();
 }
 */

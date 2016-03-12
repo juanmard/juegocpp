@@ -1,12 +1,13 @@
 /*
  * linux
  * Copyright (C) Juanma Rico 2010 <juanmard@gmail.com>
- * 
+ *
  */
 
 #pragma once
 
 #include <allegro.h>
+#include "Bloque.h"
 
 using namespace std;
 
@@ -29,12 +30,13 @@ public:
 /**
  * \brief  Estructura para bloque.
  * \todo   Generalizar esta estructura en una clase e incluirla en el resto de clases.
- */
+ *
 typedef struct {
 	int  x, y;
 	int  w, h;
 } Bloque;
-	
+*/
+
 public:
 			Escenario		();
 			~Escenario		();

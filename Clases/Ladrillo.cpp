@@ -29,7 +29,7 @@ peloteo(copia.peloteo)
 
 /**
  * \brief   Constructor para situar el ladrillo a la vez que lo creamos.
- * \warning Método a eliminar. Utilizar en su lugar el constructor que 
+ * \warning Método a eliminar. Utilizar en su lugar el constructor que
  *          utiliza los recursos del almacén.
  */
 Ladrillo::Ladrillo (int x, int y)
@@ -44,7 +44,7 @@ Ladrillo::Ladrillo (int x, int y)
 }
 
 /**
- * \brief   Constructor para situar el ladrillo a la vez que lo creamos 
+ * \brief   Constructor para situar el ladrillo a la vez que lo creamos
  *          utilizando los recursos del almacén.
  */
 Ladrillo::Ladrillo (int x, int y, Almacen &almacen)
@@ -65,7 +65,7 @@ Ladrillo::~Ladrillo ()
 /**
  * \brief   Intersección del ladrillo con otro actor de la escena.
  * \param   who Puntero al actor que provoca la colisión.
- * \param   damage Daño que se produce en la colisión. 
+ * \param   damage Daño que se produce en la colisión.
  * \todo    Se necesita calcular no sólo la energía con la que colisionan los
  *          objetos(damage), sino con qué inclinación colisionan.
  */
@@ -90,7 +90,7 @@ void  Ladrillo::hit  (Actor *who, int damage)
            //estado = Ladrillo::EN_CAIDA;
            //set_y(get_y()+3);
            break;
-       
+
        case Nombres::paleta:
            //play_sample (peloteo,200,128,500,FALSE);
            estado = Actor::eliminar;
@@ -159,7 +159,7 @@ Ladrillo *  Ladrillo::clone () const
 };
 
 /**
- * \brief   Obtiene el nombre en forma de cadena de texto. 
+ * \brief   Obtiene el nombre en forma de cadena de texto.
  */
 void  Ladrillo::getNombre (string &strNombre) const
 {
@@ -197,7 +197,8 @@ void  Ladrillo::addGUI (vector<DIALOG> &gui_padre)
   Actor::addGUI (gui_padre);
 
   // Agregamos la GUI como Ladrillo y guardamos la referencia.
-  LadrilloGUI *gui = new LadrilloGUI (*this, gui_padre);
+  //LadrilloGUI *gui = new LadrilloGUI (*this, gui_padre); // Warning de "gui" sin usar.
+  new LadrilloGUI (*this, gui_padre);
 }
 
 /**
@@ -209,7 +210,7 @@ istream&  Ladrillo::prueba_iostream (istream &is, Ladrillo &a)
 {
   // Extrae los valores del flujo formateado.
   //string nombre;
-	
+
   // TODO: Este nombre habría que convertirlo a tipo "Nombres::codigo"
   //is >> nombre;
   cout << "prueba_ladrillo ---" << nombre;
@@ -222,7 +223,7 @@ istream&  Ladrillo::prueba_iostream (istream &is, Ladrillo &a)
   is.ignore (10,',');
   is >> a.h;
   is.ignore (10,'>');
-	
+
   return is;
 }
 

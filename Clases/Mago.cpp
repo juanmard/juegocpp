@@ -1,7 +1,7 @@
 /*
  * linux
  * Copyright (C) Juanma Rico 2010 <juanmard@gmail.com>
- * 
+ *
  */
 
 #include "Mago.h"
@@ -208,7 +208,7 @@ void Mago::update ()
 /**
  * \brief   Intersección del mago con otro actor de la escena.
  * \param   who       Puntero al actor que provoca la colisión.
- * \param   damage    Daño que se produce en la colisión. 
+ * \param   damage    Daño que se produce en la colisión.
  */
 void  Mago::hit  (Actor *who, int damage)
 {
@@ -231,6 +231,8 @@ void  Mago::hit  (Actor *who, int damage)
           estado = esperando;
         }
         break;
+    default:
+        break;
   }
 }
 
@@ -243,7 +245,7 @@ void  Mago::hit  (Actor *who, int damage)
 Mago::Sprites_t  Mago::estado2Sprite (Estados_t estado_act) const
 {
   Sprites_t sprite_act;
-  
+
   switch (estado_act)
   {
     case esperando:

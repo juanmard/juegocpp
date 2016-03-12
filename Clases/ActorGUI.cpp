@@ -90,8 +90,11 @@ gui (gui_padre)
   dlg_plantilla[prueba].proc = GUIVector::callback;
   dlg_plantilla[prueba].dp3 = new GUIVector (a.x, a.y);
 
-  // Enlazamos de prueba el GUIVector con otro.
+  // Enlazamos de prueba el GUIVector con otro...y en ambos sentidos...
   static_cast<GUIControl *>(dlg_plantilla[prueba].dp3)->addEnlace (&dlg_plantilla[posicion]);
+  // y se prueba el padre para actualizar el control del gráfico.
+  // NOTA: No funciona... no se sabe porqué.
+  // static_cast<GUIControl *>(dlg_plantilla[prueba].dp3)->addEnlace (&gui_padre[0]);
 
   // Guardamos el punto de insercción y añadimos la GUI al padre.
   pto_inserccion = gui_padre.size ()-1;
@@ -126,7 +129,7 @@ void  ActorGUI::setActor (Actor &a)
   rectfill (screen, gui[pto + nombre].x, gui[pto + nombre].y,
             gui[pto + nombre].x + gui[pto + nombre].w,
             gui[pto + nombre].y + gui[pto + nombre].h,
-            gui_bg_color);
+                gui_bg_color);
   object_message (&gui[pto + nombre], MSG_DRAW, 0);
 
   // Gráfico:

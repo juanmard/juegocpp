@@ -26,10 +26,10 @@ class ActorGraphic;
 class Mask;
 class ActorGUI;
 
-/** 
+/**
  * \brief   Elemento básico con dinámica dentro del juego.
  * \details Esta clase tiene como misión definir los elementos con dinámica propia en el juego.
- *          Se encarga de controlar todas las fases: Creación, actualización y destrucción de 
+ *          Se encarga de controlar todas las fases: Creación, actualización y destrucción de
  *          los actores que intervienen en el juego (Jugadores, enemigos, plataformas móviles,...)
  *
  */
@@ -48,8 +48,8 @@ class Actor
     enum estados{
         actuar,     /* El actor está actuando y quiere seguir actuando. */
         eliminar,   /* El actor quiere ser eliminado de la obra. */
-        salir,      /* El actor quiere salir del escenario (no se elimina). */ 
-        crear       /* El actor quiere crear otro actor (debería estar en su clase "GeneratorActor"). */ 
+        salir,      /* El actor quiere salir del escenario (no se elimina). */
+        crear       /* El actor quiere crear otro actor (debería estar en su clase "GeneratorActor"). */
     };
 
   public:
@@ -124,6 +124,7 @@ class Actor
     void                                    mensajeErrorGrafico     () const;
 
   protected:
+    ActorGraphic *                          agraph;
     Nombres::codigo                         nombre;
     int                                     x, y;
     int                                     w, h;
@@ -131,7 +132,6 @@ class Actor
     unsigned int                            tiempo_estado;
     estado_t                                estado;
     bool                                    mostrarBloque;
-    ActorGraphic *                          agraph;
     int                                     power;
     Game::team_t                            team;
     bool                                    is_detectable;

@@ -1,7 +1,7 @@
 /*
  * linux
  * Copyright (C) Juanma Rico 2010 <juanmard@gmail.com>
- * 
+ *
  */
 
 #include "Ben.h"
@@ -225,6 +225,10 @@ void Ben::update ()
     case disparando:
         if (gravedad != 0) estado = cayendo;
         break;
+    case girando:
+        break;
+    case bajando:
+        break;
   }
 
   // Graveddad...
@@ -234,7 +238,7 @@ void Ben::update ()
 /**
  * \brief   Intersección de Ben con otro actor de la escena.
  * \param   who       Puntero al actor que provoca la colisión.
- * \param   damage    Daño que se produce en la colisión. 
+ * \param   damage    Daño que se produce en la colisión.
  */
 void  Ben::hit  (Actor *who, int damage)
 {
@@ -273,7 +277,7 @@ void  Ben::hit  (Actor *who, int damage)
 Ben::Sprites_t  Ben::estado2Sprite (Estados_t estado_act) const
 {
   Sprites_t sprite_act;
-  
+
   switch (estado_act)
   {
     case esperando:
@@ -311,7 +315,7 @@ Ben::Sprites_t  Ben::estado2Sprite (Estados_t estado_act) const
 }
 
 /**
- * \brief   Obtiene el estado en forma de cadena de texto. 
+ * \brief   Obtiene el estado en forma de cadena de texto.
  */
 void  Ben::getEstado (string &strEstado) const
 {
@@ -331,7 +335,7 @@ void  Ben::getEstado (string &strEstado) const
 };
 
 /**
- * \brief   Obtiene el nombre en forma de cadena de texto. 
+ * \brief   Obtiene el nombre en forma de cadena de texto.
  */
 void  Ben::getNombre (string &strNombre) const
 {
@@ -339,7 +343,7 @@ void  Ben::getNombre (string &strNombre) const
 }
 
 /**
- * \brief   Obtiene el nombre en forma de cadena de texto. 
+ * \brief   Obtiene el nombre en forma de cadena de texto.
  */
 string  Ben::getNombre () const
 {
@@ -347,7 +351,7 @@ string  Ben::getNombre () const
 }
 
 /**
- * \brief   Obtiene cadena representativa del objeto. 
+ * \brief   Obtiene cadena representativa del objeto.
  */
 ostream&  operator<< (ostream &os, Ben &ben)
 {

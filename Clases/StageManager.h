@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _STAGEMANAGER_H_
+#define _STAGEMANAGER_H_
 
 #include <allegro.h>
 #include "Game.h"
@@ -51,3 +52,5 @@ class StageManager
     bool      verInfo;          // Muestra las informaciones del juego.
     bool      verRibete;        // Muestra el ribete en pantalla.
 };
+
+#endif

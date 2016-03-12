@@ -35,7 +35,7 @@ class Menu
         // Si ya está inicializado el objeto...
         if (d[0].dp3)
         {
-            Menu *obj = static_cast<Menu *>(d[0].dp3);
+            //Menu *obj = static_cast<Menu *>(d[0].dp3);
             // Seleccionamos los mensajes.
             switch (msg)
             {

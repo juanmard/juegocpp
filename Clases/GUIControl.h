@@ -1,6 +1,6 @@
 /**
- * 
- * 
+ *
+ *
  */
 
 #ifndef _GUICONTROL_H_
@@ -106,6 +106,7 @@ class GUIControl
         }
         return obj.Omision (msg, d, c);
       }
+      return D_O_K;
     };
 };
 

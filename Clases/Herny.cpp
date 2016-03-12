@@ -22,7 +22,7 @@ Herny::Herny (Almacen &almacen)
 {
     //DatFile *sprites = new DatFile("sprites.dat");
     // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
-    Sprite *skin = new Sprite(this);    
+    Sprite *skin = new Sprite(this);
 /*
     skin->add_frame(almacen.getBitmap("sprite_058"), 10, 10, 10);
     skin->add_frame(almacen.getBitmap("sprite_059"), 10, 10, 30);
@@ -63,7 +63,7 @@ Herny::Herny ()
 {
   DatFile *sprites = new DatFile("sprites.dat");
   // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
-  Sprite *skin = new Sprite(this);    
+  Sprite *skin = new Sprite(this);
   skin->add_frame(sprites->GetBitmap("jugador_01"), 0, 0, 10);
   skin->add_frame(sprites->GetBitmap("jugador_02"), 0, 0, 30);
   skin->add_frame(sprites->GetBitmap("jugador_03"), 0, 0, 10);
@@ -122,7 +122,7 @@ void Herny::ActualizarEstado (void)
         set_y (get_y() + 1);
         break;
 
-    default:    
+    default:
         break;
     }
 }
@@ -147,13 +147,13 @@ void Herny::CambiarEstado (Almacen &almacen)
             this->set_actor_graphic (new Bitmap (this,almacen.getBitmap("sprite_069")));
          break;
 
-    default:    
+    default:
         break;
     }
 }
 
 /**
- * \brief   Cambia el estado del jugador. Mantenemos por compatibilidad. 
+ * \brief   Cambia el estado del jugador. Mantenemos por compatibilidad.
  */
 void Herny::CambiarEstado ()
 {
@@ -182,7 +182,7 @@ void Herny::CambiarEstado ()
 /**
  * \brief   Intersección del herny con otro actor de la escena.
  * \param   who Puntero al actor que provoca la colisión.
- * \param   damage Daño que se produce en la colisión. 
+ * \param   damage Daño que se produce en la colisión.
  * \todo    Se necesita calcular no sólo la energía con la que colisionan los
  *          objetos(damage), sino con qué inclinación colisionan.
  */
@@ -193,6 +193,8 @@ void  Herny::hit  (Actor *who, int damage)
        case Nombres::pelota:
            estado = Herny::eliminar;
            break;
+       default:
+        break;
    }
 }
 
@@ -205,7 +207,7 @@ Herny *  Herny::clone () const
 }
 
 /**
- * \brief   Obtiene el nombre en forma de cadena de texto. 
+ * \brief   Obtiene el nombre en forma de cadena de texto.
  */
 void  Herny::getNombre (string &strNombre) const
 {
