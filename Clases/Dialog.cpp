@@ -298,6 +298,7 @@ void  Dialog::actualizarValoresActor ()
     //            cadenas generadas por el método 'c_str()' no es necesario
     //            eliminarlas como objetos. Nos queda saber cual es el ámbito
     //            de estas cadenas una vez generadas.
+    // \warning   ¡¡¡Esto último no sucede así en Win32!!!!
     dialog[posicion].dp = const_cast <char *> (strPosicion.c_str ());
     dialog[dimensiones].dp = const_cast <char *> (strDimensiones.c_str ());
     dialog[estado].dp = const_cast <char *> (strEstado.c_str ());
