@@ -7,6 +7,8 @@
 #include "GUIEscenario.h"
 #include <sstream>
 
+using namespace std;
+
 /**
  * \brief   Constructor.
  */

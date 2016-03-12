@@ -1,5 +1,8 @@
 #include "Tesela.h"
 #include <sstream>
+
+using namespace std;
+
 /**
  * \brief   Constructor copia. Se permite cambiar el padre de la nueva Tesela.
  */

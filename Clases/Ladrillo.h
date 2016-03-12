@@ -27,6 +27,7 @@ public:
     string              getNombre   () const;
     virtual Menu &      getMenu     () const;
     void                addGUI      (vector<DIALOG> &gui_padre);
+	istream&  prueba_iostream (istream &is, Ladrillo &a);
 
 private:
   /**

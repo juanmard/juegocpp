@@ -2,8 +2,13 @@
 #include "ActorManager.h"
 #include "ActorGraphic.h"
 #include "Actor.h"
+#include "Ladrillo.h"
 #include <algorithm>
 #include <iostream>
+#include <fstream>
+#include <sstream>
+
+using namespace std;
 
 ActorManager::ActorManager (Game *g):
 game (g),
@@ -302,14 +307,15 @@ void  ActorManager::avisoActorSinGrafico (Actor *a) const
   cout << "AVISO: Añadido actor \"" << nombre << "\" sin componente gráfica." << endl;
 }
 
+
 /**
  * \brief   Obtiene cadena representativa del objeto.
  * \details Es un procedimiento global.
  */
-ostream&  operator<< (ostream &os, const ActorManager &am)
+ostream & operator<< (ostream &os, const ActorManager &am)
 {
   list<Actor*>::iterator  i;
-  list<Actor*>            lista;
+  list<Actor*>                lista;
 
   lista = am.actors;
   for (i = lista.begin(); i != lista.end(); i++)
@@ -326,15 +332,31 @@ ostream&  operator<< (ostream &os, const ActorManager &am)
  */
 istream&  operator>> (istream &is, ActorManager &am)
 {
-  // Se crea y añade el nuevo actor.
-  Actor *nuevo = new Actor();
-  is >> *nuevo;
+  string nombre;
+  Actor *nuevo;
+	
+  // Se lee el nombre del actor y se crea el objeto de la clase de actor leido.
+  // \todo  Cambiar esta forma de crear el tipo de actor pues implica que la clase ActorManager
+  //        debe conocer todos los tipos de actores que se crean ahora y en un futuro.
+  //        Posiblemente haya otra forma de plantear el problema... ¿Con plantillas (templates)?
+  is >> nombre;
+  if (!nombre.compare("Ladrillo"))
+  {
+	nuevo = new Ladrillo();
+  }
+  else
+  {
+	nuevo = new Actor();
+  }
+  //is >> *nuevo;
+  nuevo->prueba_iostream (is, *nuevo);
   am.add (nuevo);
 
   // Se muestra en pantalla un resumen.
   cout << endl << *nuevo << endl;
   return is;
 }
+
 
 /**
  * \brief   Obtiene los distintos trajes de los actores.
@@ -364,3 +386,71 @@ string  ActorManager::getArmario ()
   }
   return "---";
 }
+
+
+/**
+ * \brief   Carga los actores de un fichero.
+ * \details El formato del fichero es tal que...
+ *                  Actores 3
+ *                  Actor {
+ *                  Nombre "Ladrillo"
+ *                  Posición <120,40>
+ *                  Bloque <32,15>
+ *                  Bitmap "sprite_041"
+ *                  }
+ *                  Actor {...}
+ *                  Actor {...}
+ * 
+ * \todo   A eliminar, no es necesaria esta función.
+void  ActorManager::load (string &file)
+{
+    // Si no hay nombre de fichero usamos el nombre por omisión.
+    if (file.empty())
+    {
+      file = "actores.txt";
+    }
+
+    // Se intenta abrir el fichero.
+    //fstream  fs(file, fstream::in | fstream::out);
+    fstream fs ("actores.txt", fstream::in | fstream::out);
+    cout << "Prueba de carga de actores desde fichero." << endl;
+
+    // TODO: Una primera línea que compruebe la versión del fichero de datos.
+    // string version;
+    // getline(fs,version);
+    // if (!version.compare("JUEGO v2.0")) {return "El fichero de datos no está en la versión correcta)};
+    
+    // Se obtiene del fichero el comando y el valor.
+    string comando, valor;
+    fs >> comando >> valor;
+
+    // Si el comando es el correcto se utiliza el valor.
+    cout << comando << "|" << endl << valor << "|" << endl;
+
+    unsigned int actores=0;
+    if (!comando.compare("Actores"))
+    {
+        // actores = stoi(valores); //C++11
+        stringstream ss(valor); // Para C++98 se necesita stringstream.
+        ss >> actores;   
+    }
+    else
+    {
+        cout << "El fichero no contiene lista de actores." << endl;
+    }
+
+    // Según la lista de actores se leen los actores y se agregan.
+    for (int i=1; i<=actores; i++)
+    {
+        cout << "--- Actor " << i << " ---" << endl;
+        fs >> comando >> valor;
+        if (!comando.compare ("Actor"))
+        {
+	  fs >> comando >> valor;
+	  cout << valor;
+        }
+    }
+    
+    fs.close();
+}
+*/

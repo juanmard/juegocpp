@@ -112,7 +112,8 @@ class Actor
     virtual  void                           drawGUI                 ();
     virtual  ActorGUI *                     getGUI                  ();
 	virtual void                            hit                     (Actor *who, int damage);
-	virtual	void							leerActor				(char *[]);
+	//virtual	void							leerActor				(char *[]);
+	virtual	istream&  			prueba_iostream (istream &is, Actor &a);
 
   private:
     void                                    mensajeErrorGrafico     () const;
@@ -137,6 +138,7 @@ class Actor
     CollisionManager::collision_method_t    collision_method;
 
   // Métodos amigos no-miembros de la clase.
+  // \todo ¿Por qué se hace esto? ¿Por qué métodos no-mimbros de la clase?
   friend  ostream&    operator<<    (ostream &os, const Actor &a);
   friend  istream&    operator>>    (istream &is, Actor &a);
 };

@@ -199,3 +199,30 @@ void  Ladrillo::addGUI (vector<DIALOG> &gui_padre)
   // Agregamos la GUI como Ladrillo y guardamos la referencia.
   LadrilloGUI *gui = new LadrilloGUI (*this, gui_padre);
 }
+
+/**
+ * \brief   Obtiene los objetos de un flujo de datos.
+ * \details Obtiene los valores de un nuevo ladrillo en el flujo de datos y actualiza
+ *          el actor pasado por parámetro.
+ */
+istream&  Ladrillo::prueba_iostream (istream &is, Ladrillo &a)
+{
+  // Extrae los valores del flujo formateado.
+  //string nombre;
+	
+  // TODO: Este nombre habría que convertirlo a tipo "Nombres::codigo"
+  //is >> nombre;
+  cout << "prueba_ladrillo ---" << nombre;
+  is.ignore (10,'<');
+  is >> a.x;
+  is.ignore (10,',');
+  is >> a.y;
+  is.ignore (10,'<');
+  is >> a.w;
+  is.ignore (10,',');
+  is >> a.h;
+  is.ignore (10,'>');
+	
+  return is;
+}
+

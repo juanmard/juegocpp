@@ -22,35 +22,36 @@ class Game;
 class ActorManager
 {
   public:
-                            ActorManager          (Game *g);
-                            ~ActorManager         ();
-    void                    add                   (Actor *a);
-    void                    del                   (Actor *a);
-    void                    rewind                ();
-    Actor *                 get_actor             (int x, int y);
-    Actor *                 next                  ();
-    Actor *                 current               ();
-    void                    update                ();
-    int                     num_actors            ();
-    list<Actor*>::iterator  get_begin_iterator    ();
-    list<Actor*>::iterator  get_end_iterator      ();
-    list<Actor *>           GetActores            (Bloque &bloque);
-    void                    setVisualizar         (Actor *paramActor);
-    Actor *                 getActor              (unsigned int indice);
-    string                  getArmario            ();
+                            				ActorManager          (Game *g);
+                            				~ActorManager         ();
+    void                    			add                   		(Actor *a);
+    void                    			del                   		(Actor *a);
+    void                    			rewind                		();
+    Actor *                 			get_actor             	(int x, int y);
+    Actor *                 			next                  		();
+    Actor *                 			current               		();
+    void                    			update              	  ();
+    int                     			num_actors      			();
+    list<Actor*>::iterator  get_begin_iterator  ();
+    list<Actor*>::iterator  get_end_iterator     ();
+    list<Actor *>           		GetActores            	(Bloque &bloque);
+    void                    			setVisualizar         	(Actor *paramActor);
+    Actor *                 			getActor              	(unsigned int indice);
+    string                  			getArmario            	();
+	 void										load								(string &file);
 
 
   protected:
-    void      actualizarVisualizacion   ();
+    void      actualizarVisualizacion ();
     void      avisoActorSinGrafico (Actor *a) const;
 
   protected:
-    Game *                  game;
-    list<Actor*>            actors;
+    Game *                  			game;
+    list<Actor*>            		actors;
     list<Actor*>::iterator  actors_iter;
-    list<Actor*>            to_del;
-    list<Actor*>            to_create;
-    Actor *                 actorVisualizado;
+    list<Actor*>            		to_del;
+    list<Actor*>            		to_create;
+    Actor *                 			actorVisualizado;
 
   public:
     void                    add_all_to_create   ();

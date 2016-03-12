@@ -1,6 +1,8 @@
 #include "Mosaico.h"
 #include <sstream>
 
+using namespace std;
+
 /**
  * \brief   Constructor de copia de la clase.
  */

@@ -27,8 +27,8 @@ class Game
     StageManager        *stage_manager;
     SoundManager        *sound_manager;
     ControlManager      *control_manager;
-    CollisionManager    *collision_manager;
-    Almacen             *storage_manager;
+    CollisionManager   *collision_manager;
+    Almacen                *storage_manager;
 
                     Game        ();
     virtual         ~Game       ();

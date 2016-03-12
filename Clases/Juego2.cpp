@@ -14,26 +14,6 @@
  */
 
 #include  "Juego2.h"
-#include  <allegro.h>
-#include  "Control.h"
-#include  "AirCraft.h"
-#include  "Keyboard.h"
-#include  "Paleta.h"
-#include  "Sprite.h"
-#include  "ActorManager.h"
-#include  "Herny.h"
-#include  "Pelota.h"
-#include  "Ladrillo.h"
-#include  "ControlManager.h"
-#include  "EditorManager.h"
-#include  "StageManager.h"
-#include  "Almacen.h"
-#include  "Loro.h"
-#include  "Mago.h"
-#include  "Ben.h"
-#include <iostream>
-#include <fstream>
-#include <string>
 
 /**
  * \brief   Crea el objeto del juego.
@@ -63,10 +43,10 @@ void Juego2::mainGame ()
   /* Creamos un periférico y asociamos control y propietario. */
   Keyboard *kboard=new Keyboard;
   control_p1->set_actionperipheral(Loro::DOWN,  kboard, KEY_DOWN,  Peripheral::ON_PRESSING);
-  control_p1->set_actionperipheral(Loro::UP,    kboard, KEY_UP,    Peripheral::ON_PRESSING);
+  control_p1->set_actionperipheral(Loro::UP,     kboard, KEY_UP,    Peripheral::ON_PRESSING);
   control_p1->set_actionperipheral(Loro::LEFT,  kboard, KEY_LEFT,  Peripheral::ON_PRESSING);
   control_p1->set_actionperipheral(Loro::RIGHT, kboard, KEY_RIGHT, Peripheral::ON_PRESSING);
-  control_p1->set_actionperipheral(Loro::JUMP,  kboard, KEY_A, Peripheral::ON_PRESSING);
+  control_p1->set_actionperipheral(Loro::JUMP,  kboard,  KEY_A, Peripheral::ON_PRESSING);
 
   /* Creamos otro control de prueba. */
   Control *control_p2=new Control;
@@ -77,6 +57,8 @@ void Juego2::mainGame ()
 
   // sprites->SetPalette (0);
   set_palette (storage_manager->getPalette ("SPRITES"));
+
+ /* Eliminamos algunos objetos para probar la lectura y escritura de datos.
 
   // Se crea Aladino de prueba.
   Herny *aladino = new Herny(*storage_manager);
@@ -131,7 +113,9 @@ void Juego2::mainGame ()
   Pelota *pelota = new Pelota(actor_manager);
   pelota->set_y (170);
   //actor_manager->add(pelota);
-  
+
+  -- Eliminamos objetos de prueba.*/
+    
   // Añadimos una conjunto de ladrillos de prueba.
   for (int j=0; j<=2; j++)
   {    
@@ -141,13 +125,15 @@ void Juego2::mainGame ()
     }
   }
 
+ /* Eliminamos objetos de prueba
   // Se añade una paleta de prueba pero con piel de Suelo.
   Paleta *prueba_suelo = new Paleta();
   prueba_suelo->set_x(100);
   prueba_suelo->set_y(300);
   prueba_suelo->set_actor_graphic(new Suelo(prueba_suelo,*storage_manager,8));
   actor_manager->add(prueba_suelo);
-
+*/
+    
   // Se añade el control de prueba creado para el loro, al manejador de controles.
   control_manager->add_control(control_p1);
    //control_manager->add_control(control_p2);
@@ -158,7 +144,7 @@ void Juego2::mainGame ()
   // Se crea el 'EditorManager' básico para comenzar con las pruebas.
   EditorManager   editor(this);
 
-  // Iniciamos el juego pausado.
+  // Iniciamos el juego.
   update();
   //pause ();
 
@@ -175,6 +161,27 @@ void Juego2::mainGame ()
   cout << " ESC - Termina el juego." << endl;
   cout << "----------------------------------" << endl << endl;
 
+  // Pruebas de ficheros y la lista de actores ---------------
+  string nameFile("actores_prueba.txt");
+  streambuf *psbuf, *backup;
+  fstream file (nameFile.data(), fstream::in | fstream::out);
+    
+  backup = cout.rdbuf();    // back up cout's streambuf
+  psbuf = file.rdbuf();     // get file's streambuf
+  cout.rdbuf(psbuf);         // assign streambuf to cout
+
+  // Al escribir en 'cout' estamos escribiendo en el fichero.
+  cout << "--- Lista Actores v2.0 ---" << endl << *actor_manager << endl;
+
+  cout.rdbuf(backup);        // restore cout's original streambuf
+
+  file.close ();
+
+  // Para recuperar la lista de actores también deberíamos usar los operadores de C++
+  // file >> actor_manager;
+  // ---------------------------------------------------------
+
+    
   // Bucle principal del juego.
   while (!key[KEY_ESC])
   {
@@ -219,7 +226,7 @@ void Juego2::mainGame ()
       }
       else
       {
-        stage_manager->setSeguimiento (ben);
+        // stage_manager->setSeguimiento (ben);
       }
       key[KEY_S] = false;
     }
@@ -307,7 +314,7 @@ void Juego2::mainGame ()
         else if (!comando.compare("nuevo"))
         {
           cout << "[nuevo]=> ";
-          cin >> *actor_manager;
+	    cin >> *actor_manager;
         }
         else if (!comando.compare("grabar"))
         {

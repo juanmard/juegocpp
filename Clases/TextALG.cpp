@@ -25,7 +25,7 @@ TextALG::TextALG ()
 	control.h=control.w=100;
 	control.fg = makecol(255,255,255);
 	control.bg = makecol(128,128,128);
-	control.dp =  static_cast<char *>("Prueba");
+	control.dp =  const_cast<char*>("Prueba");
 	control.dp2 = NULL;
 	control.dp3 = this;
 	control.flags = 0;

@@ -1,7 +1,6 @@
 #include "Bitmap.h"
 #include <sstream>
 
-
 // Inicializamos el almacén global de la clase.
 Almacen *  Bitmap::almacenGlobal = NULL;
 
@@ -123,8 +122,8 @@ void  Bitmap::draw (int x, int y, BITMAP *destino, bool mirror)
  */
 string  Bitmap::getString () const
 {
-  ostringstream cadena;
-  cadena  << "Bitmap >> " << nombre << endl;
+  std::ostringstream cadena;
+  cadena  << "Bitmap >> " << nombre << std::endl;
   return cadena.str();
 }
 
