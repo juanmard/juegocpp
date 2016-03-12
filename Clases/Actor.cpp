@@ -474,8 +474,6 @@ void  Actor::drawGUI ()
 ostream&  operator<< (ostream &o, const Actor &a)
 {
 //    o << "Prueba de cadena desde \"Actor.cpp\"" << endl;
-    o << a.nombre << endl;
-    o << "{" << a.x << "," << a.y << "}" << endl;
-    o << "{" << a.w << "," << a.h << "}" << endl;
+    o << a.nombre << " {" << a.x << "," << a.y << "}" << " {" << a.w << "," << a.h << "}";
     return o;
 }

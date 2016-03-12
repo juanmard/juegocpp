@@ -47,6 +47,9 @@ class Ben : public ControllableActor
     unsigned int                timer;
     int                         gravedad;
     int                         sentido;
+
+  // Insertor de flujo para la clase.
+  friend ostream&  operator<< (ostream &os, Ben &ben);
 };
 
 #endif // _BEN_H_

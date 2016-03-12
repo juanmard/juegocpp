@@ -8,6 +8,7 @@
 //using namespace std;
 using std::list;
 using std::ostream;
+using std::istream;
 
 class Actor;
 class Game;
@@ -35,9 +36,6 @@ class ActorManager
     void                    setVisualizar         (Actor *paramActor);
     Actor *                 getActor              (unsigned int indice);
 
-        // Funciones no-miembro de la clase.
-    friend    ostream&  operator<<   (ostream &o, const ActorManager &am);
-
   protected:
     void      actualizarVisualizacion   ();
     void      avisoActorSinGrafico (Actor *a) const;
@@ -53,6 +51,11 @@ class ActorManager
   public:
     void                    add_all_to_create   ();
     void                    del_all_to_del      ();
+
+    // Funciones amigas y no-miembro de la clase.
+    friend    ostream&  operator<<   (ostream &os, const ActorManager &am);
+    friend    istream&  operator>>   (istream &is, ActorManager &am);
+
 };
 
 #endif

@@ -305,7 +305,7 @@ void  ActorManager::avisoActorSinGrafico (Actor *a) const
  * \brief   Obtiene cadena representativa del objeto.
  * \details Es un procedimiento global.
  */
-ostream&  operator<< (ostream &o, const ActorManager &am)
+ostream&  operator<< (ostream &os, const ActorManager &am)
 {
   list<Actor*>::iterator  i;
   list<Actor*>            lista;
@@ -313,7 +313,40 @@ ostream&  operator<< (ostream &o, const ActorManager &am)
   lista = am.actors;
   for (i = lista.begin(); i != lista.end(); i++)
   {
-      o << (Actor &) **i << endl;
+      os << (Actor &) **i << endl;
   }
-  return o;
+  return os;
+}
+
+/**
+ * \brief   Obtiene los objetos de un flujo de datos.
+ * \details Según el nombre leido del flujo crea un objeto actor de ese tipo y
+ *          lo añade a la lista activa de actores.
+ */
+istream&  operator>> (istream &is, ActorManager &am)
+{
+  string nombre;
+  int x,y,w,h;
+  is >> nombre;
+  is.ignore (10,'{');
+  is >> x;
+  is.ignore (10,',');
+  is >> y;
+  is.ignore (10,'{');
+  is >> w;
+  is.ignore (10,',');
+  is >> h;
+  is.ignore (10,'}');
+
+  // Se crea y añade el nuevo actor.
+  Actor *nuevo = new Actor();
+  nuevo->set_x (x);
+  nuevo->set_y (y);
+  nuevo->set_wh (w,h);
+  am.add (nuevo);
+
+  // Se muestra en pantalla un resumen.
+  cout << endl << "Nombre: " << nombre << " Pos: (" << nuevo->get_x() << "," << nuevo->get_y() \
+       << ") (" << nuevo->get_w() << "," << nuevo->get_h() << ")" << endl;
+  return is;
 }

@@ -13,6 +13,7 @@ using namespace std;
  */
 class Nombres
 {
+    
   public:
     enum codigo {pelota, paleta, herny, jugador, enemigo, ladrillo, mago, ben, camello};
 
@@ -20,9 +21,7 @@ class Nombres
           Nombres     ();
           ~Nombres    ();
 
-          friend  ostream&  operator<< (ostream &o, const Nombres::codigo cod);
-
-
+  public:
   /**
    * \brief   Convierte el código de un nombre en una cadena imprimible de caracteres.
    * \todo    Utilizar un operador de conversión de tipos para este método.
@@ -48,4 +47,7 @@ class Nombres
     }
     return cadena;
   }
+
+  // Permiso de la función para un uso amistoso de los métodos de la clase.
+  friend  ostream&  operator<< (ostream &os, const Nombres::codigo cod);
 };

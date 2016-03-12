@@ -349,8 +349,8 @@ string  Ben::getNombre () const
 /**
  * \brief   Obtiene cadena representativa del objeto. 
  */
-ostream&  Ben::operator<< (ostream *sb)
+ostream&  operator<< (ostream &os, Ben &ben)
 {
-    *sb << "Prueba de cadena desde \"Ben.cpp\"" << endl;
-    return *sb;
+    os << "Prueba de cadena desde \"Ben.cpp\"" << endl;
+    return os;
 }

@@ -32,6 +32,7 @@
 #include  "Mago.h"
 #include  "Ben.h"
 #include <iostream>
+#include <fstream>
 
 /**
  * \brief   Crea el objeto del juego.
@@ -156,6 +157,10 @@ void Juego2::mainGame ()
   // Se crea el 'EditorManager' básico para comenzar con las pruebas.
   EditorManager   editor(this);
 
+  // Iniciamos el juego pausado.
+  update();
+  pause ();
+
   // Bucle principal del juego.
   while (!key[KEY_ESC])
   {
@@ -253,6 +258,26 @@ void Juego2::mainGame ()
            << "--------------------------------" << endl;
       cout << *actor_manager;
       key[KEY_C] = false;
+    }
+
+    // Se prueba la grabación de las cadenas de datos de los objetos.
+    if (key[KEY_G])
+    {
+      ofstream outfile ("test.txt");
+      outfile << "-- Lista de todos los actores --" << endl \
+              << "--------------------------------" << endl;
+      outfile << *actor_manager;
+      outfile.close();
+      cout << "Grabados objetos en fichero \"test.txt\"" << endl;
+      key[KEY_G] = false;
+    }
+
+    // Se prueba la consola interactiva.
+    if (key[KEY_I])
+    {
+      cout << "----------------- Consola Interactiva -----------------" << endl;
+      cin >> *actor_manager;
+      key[KEY_I] = false;
     }
   }
 

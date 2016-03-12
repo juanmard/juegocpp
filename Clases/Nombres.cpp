@@ -9,11 +9,11 @@ Nombres::~Nombres(void)
 }
 
 /**
- * \brief   Obtiene cadena representativa del objeto.
+ * \brief   Obtiene cadena representativa del objeto como un insertor en el flujo.
  * \details Es un procedimiento global.
  */
-ostream&  operator<< (ostream &o, const Nombres::codigo cod)
+ostream&  operator<< (ostream &os, const Nombres::codigo cod)
 {
-    o << Nombres::Imprimir(cod);
-    return o;
+    os << Nombres::Imprimir(cod);
+    return os;
 }
