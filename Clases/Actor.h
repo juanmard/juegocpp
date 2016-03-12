@@ -101,7 +101,6 @@ class Actor
     void                                    setMostrarBloque        (bool mostrar);
     virtual  void                           addGUI                  (vector<DIALOG> &gui_padre);
     virtual  void                           drawGUI                 ();
-    virtual  void                           setEditor               (EditorManager *editor);
     virtual  void                           addEnlace               (DIALOG *enlace);
 
   private:

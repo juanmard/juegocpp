@@ -19,19 +19,19 @@ using std::vector;
 class VectorGUI
 {
   public:
-          VectorGUI (int &xParam, int &yParam, EditorManager *editorParam=NULL, DIALOG *enlacesParam=NULL);
-    int   Teclado   (int msg, DIALOG *d, int code);
-    int   Draw      (int msg, DIALOG *d, int code);
-    int   Wheel     (int msg, DIALOG *d, int code);
-    void  setEditor (EditorManager *editorParam);
+          VectorGUI (int &xParam, int &yParam, DIALOG *enlacesParam=NULL);
     void  addEnlace (DIALOG *enlace);
     void  setVector (int &xParam, int &yParam);
 
   private:
-    int *   x;
-    int *   y;
-    EditorManager *  editor;
-    DIALOG *         enlaces;
+    int   Teclado   (int msg, DIALOG *d, int code);
+    int   Draw      (int msg, DIALOG *d, int code);
+    int   Wheel     (int msg, DIALOG *d, int code);
+
+  private:
+    int *     x;
+    int *     y;
+    DIALOG *  enlaces;
 
   public:
     /**

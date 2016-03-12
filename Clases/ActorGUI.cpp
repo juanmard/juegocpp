@@ -98,17 +98,6 @@ ActorGUI::~ActorGUI()
  * \brief   Enlaza con punteros a otros diálogos que deben
  *          actualizarse cuando se actualicen las propiedades del actor.
  */
-void  ActorGUI::setEditor (EditorManager *editor)
-{
-  //enlaces.push_back (enlace);
-  static_cast<VectorGUI *>(gui[pto_inserccion + posicion].dp3)->setEditor (editor);
-  static_cast<VectorGUI *>(gui[pto_inserccion + dimensiones].dp3)->setEditor (editor);
-}
-
-/**
- * \brief   Enlaza con punteros a otros diálogos que deben
- *          actualizarse cuando se actualicen las propiedades del actor.
- */
 void  ActorGUI::addEnlace (DIALOG *enlace)
 {
   //enlaces.push_back (enlace);

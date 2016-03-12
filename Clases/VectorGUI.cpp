@@ -13,10 +13,9 @@ using std::ostringstream;
 /**
  * \brief   Constructor.
  */
-VectorGUI::VectorGUI(int &xParam, int &yParam, EditorManager *editorParam, DIALOG *enlacesParam):
+VectorGUI::VectorGUI(int &xParam, int &yParam, DIALOG *enlacesParam):
 x (&xParam),
 y (&yParam),
-editor (editorParam),
 enlaces (enlacesParam)
 {
 };
@@ -106,15 +105,6 @@ int  VectorGUI::Wheel (int msg, DIALOG *d, int code)
   if (enlaces) object_message (enlaces, MSG_DRAW, 0);
 
   return D_O_K;
-};
-
-/**
- * \brief   Añade un enlace a otro diálogo.
- */
-void  VectorGUI::setEditor (EditorManager *editorParam)
-{
-  // enlaces.push_back (enlace);
-  editor = editorParam;
 };
 
 /**

@@ -19,12 +19,11 @@ class ActorGUI
     enum {inicio=0, nombre=10, posicion=11, dimensiones=12, grafico=13, tiempo=14, estado=15, slider=16, fin=17};
 
   public:
-                    ActorGUI               (Actor &actor, vector<DIALOG> &gui_padre);
-                    ActorGUI               ();
-    virtual         ~ActorGUI              ();
-    virtual void    addEnlace              (DIALOG *enlace);
-    virtual void    setEditor              (EditorManager *editor);
-    void            setActor               (Actor &a);
+                      ActorGUI               (Actor &actor, vector<DIALOG> &gui_padre);
+                      ActorGUI               ();
+    virtual           ~ActorGUI              ();
+    virtual void      addEnlace              (DIALOG *enlace);
+    void              setActor               (Actor &a);
 
   private:
     Actor &         actor;
