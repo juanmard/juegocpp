@@ -21,9 +21,9 @@
 
 MENU MenuALG::prueba_menu [] =
 {
-   { "&Mover",          NULL,   NULL,  0,   NULL  },
-   { "&Tamaño",         NULL,   NULL,  0,   NULL  },
-   { "&Propiedades",    NULL,   NULL,  0,   NULL  },
+   { const_cast<char*>("&Mover"),          NULL,   NULL,  0,   NULL  },
+   { const_cast<char*>("&Tamaño"),         NULL,   NULL,  0,   NULL  },
+   { const_cast<char*>("&Propiedades"),    NULL,   NULL,  0,   NULL  },
    { NULL,              NULL,   NULL,  0,   NULL  }
 };
 
@@ -32,9 +32,9 @@ MENU MenuALG::prueba_menu [] =
 
  MENU MenuALG::item_fin [] =
 {
-    { "&Fichero",  NULL, MenuALG::prueba_menu,  0,   NULL},
-    { "&Editar",    NULL,  NULL,  0,   NULL},
-    { "&Ayuda",    NULL,  NULL,  0,   NULL},
+    { const_cast<char*>("&Fichero"),  NULL, MenuALG::prueba_menu,  0,   NULL},
+    { const_cast<char*>("&Editar"),    NULL,  NULL,  0,   NULL},
+    { const_cast<char*>("&Ayuda"),    NULL,  NULL,  0,   NULL},
     { NULL,          NULL,  NULL,  0,   NULL}
 };
 

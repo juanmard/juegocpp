@@ -83,6 +83,16 @@ int  GUIControl::Omision (int msg, DIALOG *d, int code)
 };
 
 /**
+ * \brief   Añade un enlace a un DIALOG para refrescarlo al mismo tiempo que se dibuja el control.
+ * \return  Mensaje.
+ */
+void  GUIControl::addEnlace (DIALOG *enlace)
+{
+  std::cout << "Añadido enlace." << std::endl;
+  enlazados.push_back (enlace);
+};
+
+/**
  * \brief   Dibuja los DIALOG de Allegro enlazados con el control.
  * \return  Mensaje.
  */
@@ -90,19 +100,13 @@ int  GUIControl::DrawEnlazados (int msg, DIALOG *d, int code)
 {
   vector<DIALOG *>::iterator iter;
 
-  for (iter = enlazados.begin(); iter != enlazados.end(); iter++)
+  if (!enlazados.empty())
   {
-    object_message (*iter, MSG_DRAW, 0);
-    //std::cout << "Dibujado enlace. " << *iter << std::endl;
+    for (iter = enlazados.begin(); iter != enlazados.end(); iter++)
+    {
+      std::cout << "Dibujado enlace. " << *iter << std::endl;
+      object_message (*iter, MSG_DRAW, 0);
+    }
   }
 };
 
-/**
- * \brief   Añade un enlace a un DIALOG para refrescarlo al mismo tiempo que se dibuja el control.
- * \return  Mensaje.
- */
-void  GUIControl::addEnlace (DIALOG *enlace)
-{
-  enlazados.push_back (enlace);
-  //std::cout << "Añadido enlace." << std::endl;
-};

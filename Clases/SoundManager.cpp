@@ -4,7 +4,7 @@
 SoundManager::SoundManager ()
 {
    /**
-    * \brief    Iniciamos el sonido según el tipo de compilación.
+	 * \brief    Iniciamos el sonido según el tipo de compilación.
     * \todo     Organizar un poco mejor esto, capturar el error si se produce.
     */
     #ifdef _WIN32

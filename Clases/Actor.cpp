@@ -194,6 +194,14 @@ int Actor::get_color (void)
 }
 
 /**
+ * \brief   Devuelve la GUI del actor.
+ */
+ActorGUI *  Actor::getGUI ()
+{
+  return gui;
+}
+
+/**
  * \brief   Devuelve la componente x de la posición del actor.
  */
 int Actor::get_x()
@@ -394,8 +402,8 @@ void  Actor::setMostrarBloque (bool mostrar)
 Menu &  Actor::getMenu () const
 {
   Menu *menu = new Menu();
-  menu->add("Actor - Mover");
-  menu->add("Actor - Tamaño");
+  menu->add(const_cast<char*>("Actor - Mover"));
+  menu->add(const_cast<char*>("Actor - Tamaño"));
   return *menu;
 }
 
@@ -444,19 +452,6 @@ void  Actor::mensajeErrorGrafico () const
 void  Actor::addGUI (vector<DIALOG> &gui_padre)
 {
   gui = new ActorGUI (*this, gui_padre);
-};
-
-/**
- * \brief   Prueba para añadir un enlace a la GUI.
- */
-void  Actor::addEnlace (GUIEscenario *enlace)
-{
-  gui->addEnlace (enlace);
-};
-
-void  Actor::addEnlace (DIALOG *enlace)
-{
-  gui->addEnlace (enlace);
 };
 
 /**

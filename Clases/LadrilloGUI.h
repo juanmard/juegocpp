@@ -36,12 +36,12 @@ public:
     {
       switch (index)
       {
-        case 0:  return "primero";
-        case 1:  return "segundo";
-        case 2:  return "tercero";
-        case 3:  return "cuarto";
-        case 4:  return "quinto";
-        default: return "sin índice";
+        case 0:  return const_cast<char*>("primero");
+        case 1:  return const_cast<char*>("segundo");
+        case 2:  return const_cast<char*>("tercero");
+        case 3:  return const_cast<char*>("cuarto");
+        case 4:  return const_cast<char*>("quinto");
+        default: return const_cast<char*>("sin índice");
       }
     }
   };

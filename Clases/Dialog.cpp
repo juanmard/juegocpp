@@ -3,8 +3,8 @@
 #include "VentanaALG.h"
 #include "resize.h"
 #include <iostream>
-//#include "EscenarioGUI.h"
 #include "GUIEscenario.h"
+#include "ActorGUI.h"
 
 // Inicialización de las variables estáticas de la clase.
 // Diálogo general de la GUI del editor.
@@ -115,10 +115,10 @@ ref_x (0), ref_y(0)
   mnu_actor[4].dp = this;
 
   // Hacemos una prueba de menú dinámico.
-  menu_dinamico.add ("Etiqueta 1 - Opciones", NULL, NULL, NULL, D_DISABLED);
-  menu_dinamico.add ("Etiqueta 2 - Padre", NULL, NULL, &mnu_actor[3]);
-  menu_dinamico.add ("Etiqueta 3 - Duplicar", Dialog::cb_menu_opciones, this);
-  menu_dinamico.add ("Etiqueta 4", Dialog::about);
+  menu_dinamico.add (const_cast<char*>("Etiqueta 1 - Opciones"), NULL, NULL, NULL, D_DISABLED);
+  menu_dinamico.add (const_cast<char*>("Etiqueta 2 - Padre"), NULL, NULL, &mnu_actor[3]);
+  menu_dinamico.add (const_cast<char*>("Etiqueta 3 - Duplicar"), Dialog::cb_menu_opciones, this);
+  menu_dinamico.add (const_cast<char*>("Etiqueta 4"), Dialog::about);
   mnu_actor[0].child = menu_dinamico;
 }
 
@@ -433,14 +433,12 @@ int  Dialog::comprobarTecla (int code)
     {
       cout << "Funciona la zona de pruebas." << endl;
       static vector<DIALOG> pesta;
-      DIALOG dlg_tmp1 = {d_box_proc,     0, 320, 800, 280,  0,   0,   0,    0,      0,   0,   NULL,              NULL, NULL };
-      DIALOG dlg_tmp2 = {d_button_proc, 16, 310,  80,  16,  1,   0,   0,    0,      0,   0,   (void*)"Pesta 01", NULL, NULL };
+      DIALOG dlg_tmp1 = {d_box_proc,     0, 400, 800, 280,  0,   0,   0,    0,      0,   0,   NULL,              NULL, NULL };
+      DIALOG dlg_tmp2 = {d_button_proc, 16, 400,  80,  16,  1,   0,   0,    0,      0,   0,   (void*)"Pesta 01", NULL, NULL };
       DIALOG fin =      { NULL,          0,   0,   0,   0,  0,   0,   0,    0,      0,   0,   NULL,              NULL, NULL };
 
       DIALOG dlg_tmp3;
       dlg_tmp3 = dialog[0];
-//      dlg_tmp3.proc = EscenarioGUI::callback;
-//      dlg_tmp3.dp3 = new EscenarioGUI (*manager);
 
       // Prueba de la nueva GUI.
       dlg_tmp3.proc = GUIEscenario::callback;
@@ -456,8 +454,6 @@ int  Dialog::comprobarTecla (int code)
       if (actor)
       {
         actor->addGUI (pesta);
-        actor->addEnlace (static_cast<GUIEscenario *>(dlg_tmp3.dp3));
-        actor->addEnlace (&pesta[2]);
       }
 
       // Probamos añadiendo el diálogo del Almacén.

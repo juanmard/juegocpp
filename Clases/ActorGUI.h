@@ -4,6 +4,7 @@
 #include <allegro.h>
 #include <vector>
 #include "GUIEscenario.h"
+#include "GUIControl.h"
 #include "EditorManager.h"
 
 class Actor;
@@ -13,7 +14,7 @@ using std::vector;
 /** 
  * \brief   GUI básica de los actores.
  */
-class ActorGUI
+class ActorGUI : public GUIControl
 {
   public:
     enum {inicio=0, nombre=10, posicion=11, dimensiones=12, grafico=13, tiempo=14, prueba=15, estado=16, slider=17, fin=18};
@@ -22,8 +23,6 @@ class ActorGUI
                       ActorGUI               (Actor &actor, vector<DIALOG> &gui_padre);
                       ActorGUI               ();
     virtual           ~ActorGUI              ();
-    virtual void      addEnlace              (GUIEscenario *enlace);
-    virtual void      addEnlace              (DIALOG *enlace);
     void              setActor               (Actor &a);
 
   private:
@@ -67,7 +66,10 @@ class ActorGUI
         }
         else
         {
-          static char * prueba[] = {"uno", "dos", "tres", "cuatro", "cinco", "seis"};
+          static char * prueba[] = {const_cast<char*>("uno"),   const_cast<char*>("dos"),
+                                    const_cast<char*>("tres"),  const_cast<char*>("cuatro"),
+                                    const_cast<char*>("cinco"), const_cast<char*>("seis")
+                                    };
           salida = prueba[index];
         }
       }

@@ -184,7 +184,7 @@ Menu &  Ladrillo::getMenu () const
 
   // Añadimos las opciones propias del 'Ladrillo'.
   // Se llama al procedimiento 'about' de prueba.
-  nuevo.add ("Ladrillo - About", Dialog::about);
+  nuevo.add (const_cast<char*>("Ladrillo - About"), Dialog::about);
   return nuevo;
 }
 
