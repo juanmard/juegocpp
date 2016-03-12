@@ -195,24 +195,16 @@ public:
     virtual void getEstado (std::string& estado) const;
 
     /// Modifica una cadena con el nombre del actor.
-    /// @param nombre Cadena pasada por parámetro para ser modificada
-    ///        con el nombre del actor.
-    /// @todo Para compatibilizar con elformato estándar "std" crear un método
-    ///       que devuelva la cadena en lugar de recibirla como parámetro:
-    ///       @code
-    ///          string  Actor::getNombre () const;
-    ///       @endcode
-    ///       Lo que nos permitiría hacer cosas como:
-    ///       @code
-    ///          - cout << "El nombre del actor es " << actor.getNombre();
-    ///       @endcode
+    /// @return Cadena con el nombre del actor.
     ///
-    virtual void getNombre (std::string& nombre) const;
+    virtual std::string& get_nombre () const;
 
     /// Obtiene el nombre del actor.
     /// @return Cadena con el nombre.
     /// @note Buscar en el código y eliminar las llamadas a la antigua
     ///       "getNombre" y sustituirlas por esta.
+    /// @todo Hacer que se devuelva una referencia a la cadena, en lugar de un
+    ///       objeto cadena.
     ///
     virtual std::string getNombre () const;
 
@@ -369,7 +361,7 @@ public:
     /// @return Si se detecta la intersección se devuelve 'true'.
     /// @todo Desarrollar el código completo del procedimiento.
     ///
-    bool isIntersectado (Bloque &bloque);
+    bool isIntersectado (const Bloque& bloque);
 
     /// Visualiza el aspecto gráfico del actor en referencia al escenario.
     ///
@@ -489,19 +481,6 @@ private:
     /// @note Reunir todos los errores en una misma clase.
     ///
     void mensajeErrorGrafico () const;
-
-    /// Sobrecarga del operador de escritura.
-    /// Métodos amigos no-miembros de la clase.
-    /// @param os Referencia al buffer de salida (Output Stream).
-    /// @param actor Referencia constante al actor que se desea escribir en el buffer.
-    /// @return Referencia al buffer de salida para poder encadenar escrituras.
-    /// @note ¿Por qué se hace esto? ¿Por qué métodos no-miembros de la clase?
-    ///       Hay una forma de evitarlo y es crear esta clase como clase abstracta.
-    ///       http://stackoverflow.com/questions/10725772/overloading-stdostream-operator-in-the-derived-class-without-static-cast
-    ///       Una de las últimas respuestas. Luego hay que eliminar esta forma de sobrecargar los operadores.
-    ///       Pero parece no funcionar.
-    ///
-    /// friend std::ostream& operator<< (std::ostream& os, const Actor& actor);
 
     /// Sobrecarga del operador de lectura.
     /// Métodos amigos no-miembros de la clase.

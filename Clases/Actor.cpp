@@ -248,9 +248,10 @@ Actor* Actor::clone () const
     return NULL;
 };
 
-bool Actor::isIntersectado (Bloque& bloque)
+/// @todo  Desarrollar el código.
+bool Actor::isIntersectado (const Bloque& bloque)
 {
-  // \todo  Desarrollar el código.
+  /// @todo  Desarrollar el código.
   return (true);
 };
 
@@ -305,9 +306,9 @@ void  Actor::getEstado (std::string& estado) const
     estado = "sin estado";
 };
 
-void  Actor::getNombre (std::string& nombre) const
+std::string& Actor::get_nombre () const
 {
-    nombre = "sin nombre";
+    return *new std::string("sin nombre");
 };
 
 string  Actor::getNombre () const
