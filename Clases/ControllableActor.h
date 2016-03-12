@@ -20,11 +20,11 @@ public:
     /// Constructor por defecto.
     ///
     ControllableActor ();
-    
+
     /// Constructor de copia.
     /// @param copia  Referencia al actor que se desea copiar.
     ///
-    ControllableActor   (const ControllableActor &copia);
+    ControllableActor (const ControllableActor &copia);
 };
 
 #endif

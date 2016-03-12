@@ -384,27 +384,6 @@ void Juego2::mainGame ()
   cout << " ESC - Termina el juego." << endl;
   cout << "----------------------------------" << endl << endl;
 
-  // Pruebas de ficheros y la lista de actores ---------------
-  string nameFile("actores_prueba.txt");
-  streambuf *psbuf, *backup;
-  fstream file (nameFile.data(), fstream::in | fstream::out);
-    
-  backup = cout.rdbuf();    // back up cout's streambuf
-  psbuf = file.rdbuf();     // get file's streambuf
-  cout.rdbuf(psbuf);         // assign streambuf to cout
-
-  // Al escribir en 'cout' estamos escribiendo en el fichero.
-  cout << "--- Lista Actores v2.0 ---" << endl << *actor_manager << endl;
-
-  cout.rdbuf(backup);        // restore cout's original streambuf
-
-  file.close ();
-
-  // Para recuperar la lista de actores también deberíamos usar los operadores de C++
-  // file >> actor_manager;
-  // ---------------------------------------------------------
-
-    
   // Bucle principal del juego.
   while (!key[KEY_ESC])
   {
