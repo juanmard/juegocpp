@@ -5,10 +5,11 @@
 DIALOG LadrilloGUI::dlg_plantilla[] =
 {
    /* (proc)        (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags) (d1) (d2) (dp)                              (dp2) (dp3) */
-   { d_box_proc,    284, 342, 256, 192, 67,  243, 0,    0,      0,   0,   NULL,                             NULL, NULL },
-   { d_list_proc,   292, 368, 240, 56,  67,  243, 0,    0,      0,   0,   (void*)LadrilloGUI::dummy_getter, NULL, NULL },
-   { d_text_proc,   292, 352, 128, 8,   67,  243, 0,    0,      0,   0,   (void*)"Prueba Ladrillo",         NULL, NULL },
-   { d_bitmap_proc, 292, 432, 240, 88,  67,  243, 0,    0,      0,   0,   NULL,                             NULL, NULL },
+   { d_box_proc,    288, 360, 256, 192, 67,  243, 0,    0,      0,   0,   NULL,                             NULL, NULL },
+   { d_list_proc,   296, 390, 240, 34,  67,  243, 0,    0,      0,   0,   (void*)LadrilloGUI::dummy_getter, NULL, NULL },
+   { d_text_proc,   296, 374, 128, 8,   67,  243, 0,    0,      0,   0,   (void*)"Prueba Ladrillo",         NULL, NULL },
+   { d_bitmap_proc, 296, 454, 240, 88,  67,  243, 0,    0,      0,   0,   NULL,                             NULL, NULL },
+   { d_button_proc, 296, 428, 120, 20,  67,  243, 0,    0,      0,   0,   (void*)"&Imagen",               NULL, NULL },
    { NULL,          0,   0,   0,   0,   0,   0,   0,    0,      0,   0,   NULL,                             NULL, NULL }
 };
 

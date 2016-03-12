@@ -61,6 +61,7 @@ class Actor
     virtual Menu &      getMenu             () const;
     string              getString           () const;
     virtual string      getNombre           () const;
+    void                addEnlace           (DIALOG *enlace);
 
     /* Métodos no miembros de la clase. */
     friend ostream&     operator<<          (ostream &o, const Actor &a);
