@@ -158,7 +158,7 @@ std::ifstream&  Ladrillo::leer (std::ifstream& ifs)
     ifs.ignore(20,'\"');
     std::getline (ifs,piel,'\"');
 
-#ifdef _DEBUG_LADRILLO
+#if _DEBUG_LADRILLO
     std::cout << "Comando: " << comando << "\t Valor: " << piel << std::endl;
 #endif
 
@@ -167,7 +167,7 @@ std::ifstream&  Ladrillo::leer (std::ifstream& ifs)
     ifs.ignore(20,'\"');
     std::getline (ifs,sample,'\"');
 
-#ifdef _DEBUG_LADRILLO
+#if _DEBUG_LADRILLO
     std::cout << "Comando: " << comando << "\t Valor: " << sample << std::endl;
 #endif
 
@@ -177,7 +177,7 @@ std::ifstream&  Ladrillo::leer (std::ifstream& ifs)
     ifs.ignore(20,',') >> y;
     ifs.ignore(20,'>');
 
-#ifdef _DEBUG_LADRILLO
+#if _DEBUG_LADRILLO
     std::cout << "Comando: " << comando << "\t Valor: <" << x << ", " << y << ">" << std::endl;
 #endif
 
