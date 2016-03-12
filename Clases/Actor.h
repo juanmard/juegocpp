@@ -25,7 +25,9 @@ class ActorGUI;
  */
 class Actor
 {
-public:
+  friend class ActorGUI;
+
+  public:
     /**
      * \brief   Estados posibles del actor.
      * \todo    Se debe poder heredar, incluir estados desde los hijos. Investigar.

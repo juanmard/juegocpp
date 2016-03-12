@@ -18,6 +18,7 @@
 #include "Actor.h"
 #include "ActorGraphic.h"
 #include "LadrilloGUI.h"
+#include "VectorGUI.h"
 
 using std::ostringstream;
 
@@ -36,7 +37,8 @@ DIALOG   ActorGUI::dlg_plantilla[] =
    { d_text_proc,        22,  402, 114, 8,   67,  243, 0,    0,      0,   0,   (void*)"Estado actual: ",     NULL, NULL },
    { d_check_proc,       18,  492, 144, 12,  67,  243, 0,    0,      1,   0,   (void*)"Mostrar limites",     NULL, NULL },
    { d_text_proc,        142, 346, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"Nombre actor",        NULL, NULL },
-   { d_text_proc,        142, 358, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100, 100",            NULL, NULL },
+//   { VectorGUI::callback, 142, 358, 122, 8,   67,  243, 0,    0,      0,   0,  (void*)"100, 100",            NULL, NULL },
+   { d_text_proc,        142, 358, 122, 8,   67,  243, 0,    0,      0,   0,  (void*)"100, 100",            NULL, NULL },
    { d_text_proc,        142, 368, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100, 100",            NULL, NULL },
    { ActorGUI::callback_graf,  142, 380, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"Sprite",              NULL, NULL },
    { d_text_proc,              142, 390, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100",                 NULL, NULL },
@@ -84,6 +86,14 @@ actor (a)
 
   // Guardamos el punto de insercción y añadimos la GUI al padre.
   pto_inserccion = gui_padre.size ()-1;
+
+  // Coordenadas de prueba.
+//  dlg_plantilla[posicion].dp3 = new VectorGUI (a.x, a.y, gui_padre);
+//  dlg_plantilla[dimensiones].dp3 = new VectorGUI (a.w, a.h, gui_padre);
+  VectorGUI *guiTmp = new VectorGUI (a.x, a.y, gui_padre);
+  guiTmp = new VectorGUI (a.w, a.h, gui_padre);
+
+  // Añadimos la GUI de la plantilla.
   gui_padre.insert (gui_padre.end()-1, &dlg_plantilla[navegador], &dlg_plantilla[fin]);
 };
 
