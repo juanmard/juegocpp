@@ -147,7 +147,7 @@ unsigned int ActorManager::num_actors () const
 
 void ActorManager::update ()
 {
-    list<Actor*>::iterator tmp_iter;
+    std::list<Actor*>::iterator tmp_iter;
 
     // Agrega al escenario a todos los actores en espera.
     add_all_to_create();
@@ -200,7 +200,7 @@ std::list<Actor*>& ActorManager::get_actores (const Bloque& bloque) const
 Actor* ActorManager::get_actor (unsigned int indice) const
 {
   Actor* actor = NULL;
-  list<Actor*>::const_iterator iter;
+  std::list<Actor*>::const_iterator iter;
 
   // Si el índice dado no corresponde con el número de actores devuelve NULL.
   if (indice < actors.size())
@@ -214,7 +214,7 @@ Actor* ActorManager::get_actor (unsigned int indice) const
 
 void ActorManager::aviso_actor_sin_grafico (const Actor& a) const
 {
-  cout << "AVISO: Añadido actor \"" << a.getNombre () << "\" sin componente gráfica." << endl;
+  std::cout << "AVISO: Añadido actor \"" << a.getNombre () << "\" sin componente gráfica." << std::endl;
 };
 
 std::string& ActorManager::print () const
@@ -255,7 +255,7 @@ std::istream& operator>> (std::istream& is, ActorManager& am)
   am.add (nuevo);
 
   // Se muestra en pantalla un resumen.
-  cout << endl << *nuevo << endl;
+  std::cout << std::endl << *nuevo << std::endl;
   return is;
 };
 
@@ -272,7 +272,7 @@ std::string& ActorManager::get_armario () const
       //cout << (*i)->getString () << endl;
       if (agp)
       {
-        cout << agp->print ();
+        std::cout << agp->print ();
       }
   }
   return *new std::string("---");

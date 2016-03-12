@@ -1,19 +1,25 @@
+///
+/// @file Nombres.cpp
+/// @brief Fichero de implementación de la clase "Nombres".
+/// @author Juan Manuel Rico
+/// @date Noviembre 2015
+/// @version
+///      - 1.0.0 Noviembre 2015
+///
+
 #include "Nombres.h"
 
-Nombres::Nombres(void)
+Nombres::Nombres ()
 {
-}
+};
 
-Nombres::~Nombres(void)
+Nombres::~Nombres ()
 {
-}
+};
 
-/**
- * \brief   Obtiene cadena representativa del objeto como un insertor en el flujo.
- * \details Es un procedimiento global.
- */
-ostream&  operator<< (ostream &os, const Nombres::codigo cod)
+std::ostream&  operator<< (std::ostream &os, const Nombres::codigo cod)
 {
     os << Nombres::Imprimir(cod);
     return os;
-}
+};
+

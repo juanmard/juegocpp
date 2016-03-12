@@ -38,7 +38,7 @@ public:
     Sprites_t     estado2Sprite     (Estados_t estado) const;
 
   private:
-    map<Sprites_t,Sprite *>     sprites;
+    std::map<Sprites_t, Sprite*>     sprites;
     Estados_t                   estado, estado_sig;
     unsigned int                timer;
     int                         gravedad;

@@ -97,7 +97,7 @@ public:
 
     /// Vuelca en una cadena las características del bloque.
     /// @return Cadena con las características del bloque.
-    std::string & print() const;
+    virtual std::string & print() const;
 };
 
 #endif

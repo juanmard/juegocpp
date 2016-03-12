@@ -10,8 +10,6 @@
 #include "Sprite.h"
 #include <iostream>
 
-using namespace std;
-
 Ben::Ben ():
 ControllableActor()
 {
@@ -30,79 +28,79 @@ sentido(1)
   // Guardamos el sprite para cada estado.
   // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
   sprites[andando_der] = new Sprite(this);
-  sprites[andando_der]->add_frame(almacen.getBitmap("ben10_002"), 0, 0, 10);
-  sprites[andando_der]->add_frame(almacen.getBitmap("ben10_003"), 0, 0, 20);
-  sprites[andando_der]->add_frame(almacen.getBitmap("ben10_004"), 0, 0, 20);
-  sprites[andando_der]->add_frame(almacen.getBitmap("ben10_005"), 0, 0, 10);
+  sprites[andando_der]->add_frame(almacen.get_bitmap("ben10_002"), 0, 0, 10);
+  sprites[andando_der]->add_frame(almacen.get_bitmap("ben10_003"), 0, 0, 20);
+  sprites[andando_der]->add_frame(almacen.get_bitmap("ben10_004"), 0, 0, 20);
+  sprites[andando_der]->add_frame(almacen.get_bitmap("ben10_005"), 0, 0, 10);
   sprites[andando_der]->init ();
 
   sprites[andando_izq] = new Sprite(this);
-  sprites[andando_izq]->add_frame(almacen.getBitmap("ben10_006"), 0, 0, 10);
-  sprites[andando_izq]->add_frame(almacen.getBitmap("ben10_007"), 0, 0, 10);
-  sprites[andando_izq]->add_frame(almacen.getBitmap("ben10_008"), 0, 0, 10);
-  sprites[andando_izq]->add_frame(almacen.getBitmap("ben10_009"), 0, 0, 10);
+  sprites[andando_izq]->add_frame(almacen.get_bitmap("ben10_006"), 0, 0, 10);
+  sprites[andando_izq]->add_frame(almacen.get_bitmap("ben10_007"), 0, 0, 10);
+  sprites[andando_izq]->add_frame(almacen.get_bitmap("ben10_008"), 0, 0, 10);
+  sprites[andando_izq]->add_frame(almacen.get_bitmap("ben10_009"), 0, 0, 10);
   sprites[andando_izq]->init ();
 
   sprites[esperando_der] = new Sprite(this);
-  sprites[esperando_der]->add_frame(almacen.getBitmap("ben10_000"), 0, 0, 10);
+  sprites[esperando_der]->add_frame(almacen.get_bitmap("ben10_000"), 0, 0, 10);
   sprites[esperando_der]->init ();
 
   sprites[esperando_izq] = new Sprite(this);
-  sprites[esperando_izq]->add_frame(almacen.getBitmap("ben10_001"), 0, 0, 10);
+  sprites[esperando_izq]->add_frame(almacen.get_bitmap("ben10_001"), 0, 0, 10);
   sprites[esperando_izq]->init ();
 
   sprites[cayendo_der] = new Sprite(this);
-  sprites[cayendo_der]->add_frame(almacen.getBitmap("ben10_021"), 0, 0, 10);
+  sprites[cayendo_der]->add_frame(almacen.get_bitmap("ben10_021"), 0, 0, 10);
   sprites[cayendo_der]->init ();
 
   sprites[cayendo_izq] = new Sprite(this);
-  sprites[cayendo_izq]->add_frame(almacen.getBitmap("ben10_020"), 0, 0, 10);
+  sprites[cayendo_izq]->add_frame(almacen.get_bitmap("ben10_020"), 0, 0, 10);
   sprites[cayendo_izq]->init ();
 
   sprites[disparando_der] = new Sprite(this);
-  sprites[disparando_der]->add_frame(almacen.getBitmap("ben10_005"),  0, -2, 1);
-  sprites[disparando_der]->add_frame(almacen.getBitmap("ben10_010"),  0, -5, 2);
-  sprites[disparando_der]->add_frame(almacen.getBitmap("ben10_011"),  0, -8, 2);
-  sprites[disparando_der]->add_frame(almacen.getBitmap("ben10_012"),  0, -8, 3);
-  sprites[disparando_der]->add_frame(almacen.getBitmap("ben10_010"),  0, -5, 1);
+  sprites[disparando_der]->add_frame(almacen.get_bitmap("ben10_005"),  0, -2, 1);
+  sprites[disparando_der]->add_frame(almacen.get_bitmap("ben10_010"),  0, -5, 2);
+  sprites[disparando_der]->add_frame(almacen.get_bitmap("ben10_011"),  0, -8, 2);
+  sprites[disparando_der]->add_frame(almacen.get_bitmap("ben10_012"),  0, -8, 3);
+  sprites[disparando_der]->add_frame(almacen.get_bitmap("ben10_010"),  0, -5, 1);
   sprites[disparando_der]->init ();
 
   sprites[disparando_izq] = new Sprite(this);
-  sprites[disparando_izq]->add_frame(almacen.getBitmap("ben10_009"),  1, -2, 1);
-  sprites[disparando_izq]->add_frame(almacen.getBitmap("ben10_013"),  1, -5, 2);
-  sprites[disparando_izq]->add_frame(almacen.getBitmap("ben10_014"), 35, -8, 2);
-  sprites[disparando_izq]->add_frame(almacen.getBitmap("ben10_015"), 29, -8, 3);
-  sprites[disparando_izq]->add_frame(almacen.getBitmap("ben10_013"),  1, -5, 1);
+  sprites[disparando_izq]->add_frame(almacen.get_bitmap("ben10_009"),  1, -2, 1);
+  sprites[disparando_izq]->add_frame(almacen.get_bitmap("ben10_013"),  1, -5, 2);
+  sprites[disparando_izq]->add_frame(almacen.get_bitmap("ben10_014"), 35, -8, 2);
+  sprites[disparando_izq]->add_frame(almacen.get_bitmap("ben10_015"), 29, -8, 3);
+  sprites[disparando_izq]->add_frame(almacen.get_bitmap("ben10_013"),  1, -5, 1);
   sprites[disparando_izq]->init ();
 
   sprites[saltando_der] = new Sprite(this);
-  sprites[saltando_der]->add_frame(almacen.getBitmap("ben10_016"),    0, 15, 10);
-  sprites[saltando_der]->add_frame(almacen.getBitmap("ben10_gm_000"), 0, 15,  5);
-  sprites[saltando_der]->add_frame(almacen.getBitmap("ben10_016"),    0, 15,  2);
-  sprites[saltando_der]->add_frame(almacen.getBitmap("ben10_gm_000"), 0, 15,  4);
-  sprites[saltando_der]->add_frame(almacen.getBitmap("ben10_016"),    0, 15,  3);
+  sprites[saltando_der]->add_frame(almacen.get_bitmap("ben10_016"),    0, 15, 10);
+  sprites[saltando_der]->add_frame(almacen.get_bitmap("ben10_gm_000"), 0, 15,  5);
+  sprites[saltando_der]->add_frame(almacen.get_bitmap("ben10_016"),    0, 15,  2);
+  sprites[saltando_der]->add_frame(almacen.get_bitmap("ben10_gm_000"), 0, 15,  4);
+  sprites[saltando_der]->add_frame(almacen.get_bitmap("ben10_016"),    0, 15,  3);
   sprites[saltando_der]->init ();
 
   sprites[saltando_izq] = new Sprite(this);
-  sprites[saltando_izq]->add_frame(almacen.getBitmap("ben10_017"), 0, 15, 10);
+  sprites[saltando_izq]->add_frame(almacen.get_bitmap("ben10_017"), 0, 15, 10);
   sprites[saltando_izq]->init ();
 
   sprites[bajando_der] = new Sprite(this);
-  sprites[bajando_der]->add_frame(almacen.getBitmap("ben10_018"), 0, -25, 10);
+  sprites[bajando_der]->add_frame(almacen.get_bitmap("ben10_018"), 0, -25, 10);
   sprites[bajando_der]->init ();
 
   sprites[bajando_izq] = new Sprite(this);
-  sprites[bajando_izq]->add_frame(almacen.getBitmap("ben10_019"), 0, -25, 10);
+  sprites[bajando_izq]->add_frame(almacen.get_bitmap("ben10_019"), 0, -25, 10);
   sprites[bajando_izq]->init ();
 
   sprites[girando_der] = new Sprite(this);
-  sprites[girando_der]->add_frame(almacen.getBitmap("ben10_001"), 0, 0, 10);
-  sprites[girando_der]->add_frame(almacen.getBitmap("ben10_000"), 0, 0, 10);
+  sprites[girando_der]->add_frame(almacen.get_bitmap("ben10_001"), 0, 0, 10);
+  sprites[girando_der]->add_frame(almacen.get_bitmap("ben10_000"), 0, 0, 10);
   sprites[girando_der]->init ();
 
   sprites[girando_izq] = new Sprite(this);
-  sprites[girando_izq]->add_frame(almacen.getBitmap("ben10_000"), 0, 0, 10);
-  sprites[girando_izq]->add_frame(almacen.getBitmap("ben10_001"), 0, 0, 10);
+  sprites[girando_izq]->add_frame(almacen.get_bitmap("ben10_000"), 0, 0, 10);
+  sprites[girando_izq]->add_frame(almacen.get_bitmap("ben10_001"), 0, 0, 10);
   sprites[girando_izq]->init ();
 
   Sprites_t sprite_act = estado2Sprite (estado);
@@ -321,7 +319,7 @@ Ben::Sprites_t  Ben::estado2Sprite (Estados_t estado_act) const
 /**
  * \brief   Obtiene el estado en forma de cadena de texto.
  */
-void  Ben::getEstado (string &strEstado) const
+void  Ben::getEstado (std::string &strEstado) const
 {
   // \ todo   Guardar los estados y sus cadenas en un stl tipo map y se podrá hacer
   //          algo como: strEstado = mapEstados[estado];
@@ -341,7 +339,7 @@ void  Ben::getEstado (string &strEstado) const
 /**
  * \brief   Obtiene el nombre en forma de cadena de texto.
  */
-void  Ben::getNombre (string &strNombre) const
+void  Ben::getNombre (std::string &strNombre) const
 {
   strNombre = Nombres::Imprimir (nombre);
 }
@@ -349,7 +347,7 @@ void  Ben::getNombre (string &strNombre) const
 /**
  * \brief   Obtiene el nombre en forma de cadena de texto.
  */
-string  Ben::getNombre () const
+std::string  Ben::getNombre () const
 {
   return Nombres::Imprimir (nombre);
 }
@@ -357,8 +355,8 @@ string  Ben::getNombre () const
 /**
  * \brief   Obtiene cadena representativa del objeto.
  */
-ostream&  operator<< (ostream &os, Ben &ben)
+std::ostream&  operator<< (std::ostream &os, Ben &ben)
 {
-    os << "Prueba de cadena desde \"Ben.cpp\"" << endl;
+    os << "Prueba de cadena desde \"Ben.cpp\"" << std::endl;
     return os;
 }

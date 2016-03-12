@@ -40,8 +40,8 @@ Ladrillo::Ladrillo (int x, int y)
 Ladrillo::Ladrillo (int x, int y, Almacen &almacen)
 {
 //    chaqueta = new Bitmap(this, almacen.GetBitmap("sprite_041"), "sprite_041");
-      BITMAP *puntero = almacen.getBitmap("sprite_041");
-      chaqueta = new Bitmap(this, puntero, almacen.getName (puntero));
+      BITMAP *puntero = almacen.get_bitmap("sprite_041");
+      chaqueta = new Bitmap(this, puntero, almacen.get_name (puntero));
       crear_ladrillo ();
       set_x (x);
       set_y (y);

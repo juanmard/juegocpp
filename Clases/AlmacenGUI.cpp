@@ -1,12 +1,14 @@
-/**
- *  \file     AlmacenGUI.cpp
- *  \brief    Fichero de implementación de la clase AlmacenGui.
- *
- *  \author   Juan Manuel Rico
- *  \date     Diciembre 2010
- *  \version  1.00
- *
- */
+///
+/// @file AlmacenGUI.cpp
+/// @brief Fichero de implementación de la clase "AlmacenGUI".
+/// @author Juan Manuel Rico
+/// @date Marzo 2010
+/// @version
+///      - 1.0.0 Marzo 2010
+///      - 1.0.1 Diciembre 2010
+///      - 1.0.2 Noviembre 2015
+///
+
 #include "AlmacenGUI.h"
 #include <sstream>
 
@@ -23,69 +25,50 @@ DIALOG AlmacenGUI::dlg_plantilla[] =
 };
 
 /* Variable estática que referencia al almacen activo. */
-Almacen * AlmacenGUI::almacen_activo = NULL;
+Almacen* AlmacenGUI::almacen_activo = NULL;
 
-/**
- * \brief   Constructor de la GUI para el almacén dado por parámetro.
- * \param   almacenParam   Referencia al almacén que se le asocia.
- */
-AlmacenGUI::AlmacenGUI (Almacen &almacenParam):
-almacen (almacenParam),
+AlmacenGUI::AlmacenGUI (Almacen& _almacen):
+almacen (_almacen),
+pto_inserccion (0),
 activado (false)
 {
   // Si no hay otro hacemos activo el almacén recién creado.
   if (!almacen_activo)
   {
-    activarAlmacen (almacenParam);
+    activar_almacen (_almacen);
   }
 
   // Modificamos la plantilla para este almacén.
   dlg_plantilla[0].dp3 = (void *) this;
   dlg_plantilla[1].dp3 = (void *) this;
-  dlg_plantilla[2].dp = const_cast<char *>((new string("Almacén: \"" + almacenParam.getNombre() + "\""))->c_str());
+  dlg_plantilla[2].dp = const_cast<char*>((*new std::string("Almacén: \"" + _almacen.get_nombre() + "\"")).c_str());
   dlg_plantilla[3].dp = screen;
 
   // Guardamos la plantilla modificada.
-  // NOTA:  En lugar de crear un nuevo vector dlg habría que guardar el punto de insercción del padre y añadirlos a él
-  //        la plantilla modificada. Algo así:
-  //
-  //          pto_insercción = dlg_padre.size ();
-  //          dlg_padre.push_back [i];
-  //
-  //        Más tarde se podrían modificar haciendo referencia al punto de insercción:
-  //
-  //          dlg_padre[pto_inserccion+4];
-  //
-  //        O incluso sobrecargar el operador [] para que hiciera:
-  //
-  //          objeto[4]
-  //
-  //        Y en el operador sobrecargado se obtendría la referencia automáticamente:
-  //
-  //          return dlg_padre[pto_insercción+indiceParam]
-  //
   dlg.clear ();
-  for (int i=0; i<=5; i++)
-  {
-    dlg.push_back (dlg_plantilla[i]);
-  }
+  dlg.insert (dlg.end(), &dlg_plantilla[0], &dlg_plantilla[5]);
 };
 
-
-/**
- * \brief   Constructor por omisión.
- * \details Mostramos simplemente la plantilla y la guardamos en 'dlg'.
- *
-AlmacenGUI::AlmacenGUI ()
+AlmacenGUI::AlmacenGUI (Almacen& _almacen, std::vector<DIALOG>& gui_padre):
+almacen (_almacen),
+activado (false)
 {
+  // Si no hay otro hacemos activo el almacen recién creado.
+  if (!almacen_activo)
+  {
+    activar_almacen (_almacen);
+  }
+
+  // Modificamos la plantilla para este almacén.
+  dlg_plantilla[0].dp3 = (void *) this;
+  dlg_plantilla[1].dp3 = (void *) this;
+  dlg_plantilla[2].dp = const_cast<char *>((new std::string("Almacén: \"" + _almacen.get_nombre() + "\""))->c_str());
   dlg_plantilla[3].dp = screen;
-  dlg.clear ();
-  dlg.push_back (dlg_plantilla[0]);
-  dlg.push_back (dlg_plantilla[1]);
-  dlg.push_back (dlg_plantilla[2]);
-  dlg.push_back (dlg_plantilla[3]);
+
+  // Guardamos la plantilla modificada.
+  pto_inserccion = gui_padre.size ()-1;
+  gui_padre.insert (gui_padre.end()-1, &dlg_plantilla[0], &dlg_plantilla[5]);
 };
-*/
 
 /**
  * \brief   Destructor por omisión.
@@ -99,7 +82,7 @@ AlmacenGUI::~AlmacenGUI ()
 /**
  * \brief   Devuelve el conjunto de DIALOG.
  */
-vector<DIALOG> &  AlmacenGUI::getGUI ()
+std::vector<DIALOG>& AlmacenGUI::get_GUI ()
 {
   return dlg;
 }
@@ -107,25 +90,29 @@ vector<DIALOG> &  AlmacenGUI::getGUI ()
 /**
  * \brief   Cambiamos el objeto 'almacen' a visualizar en la GUI.
  */
-void  AlmacenGUI::activarAlmacen (Almacen &almacenParam)
+void AlmacenGUI::activar_almacen (Almacen& almacenParam)
 {
   almacen_activo = &almacenParam;
-}
+};
 
 /**
  * \brief   Se mueve el ratón por encima del contenedor.
  */
-void  AlmacenGUI::moverMouse ()
+void AlmacenGUI::mover_mouse (DIALOG* d)
 {
-  if (activado)
+  if (atrapado)
   {
-    ostringstream cadena;
-
+    position_dialog(&d[0], mouse_x, mouse_y);
+    int j;
+    dialog_message (&d[0],MSG_DRAW,0, &j);
+  }
+  
+  if (!atrapado && activado)
+  {
+    std::ostringstream cadena;
     cadena << "x,y: " << mouse_x << "," << mouse_y;
-    dlg[4].dp = const_cast<char *>(cadena.str().c_str());
-    //position_dialog(&dlg[0], mouse_x, mouse_y);
-    //int j;
-    //dialog_message (&dlg[0],MSG_DRAW,0, &j);
-    object_message (&dlg[4],MSG_DRAW,0);
+    d[4].dp = const_cast<char *>((new std::string(cadena.str()))->c_str());
+    object_message (&d[4],MSG_DRAW,0);
   }
 }
+

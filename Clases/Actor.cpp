@@ -287,7 +287,7 @@ Bloque& Actor::getBloque ()
 
 void Actor::getXY (std::string& posicion) const
 {
-  stringstream  ss;
+  std::stringstream  ss;
 //  ss << "<" << x << ", " << y << ">";
   ss << x << ", " << y;
   posicion = ss.str();
@@ -295,7 +295,7 @@ void Actor::getXY (std::string& posicion) const
 
 void  Actor::getWH (std::string& dimensiones) const
 {
-  stringstream  ss;
+  std::stringstream  ss;
 //  ss << "<" << w << ", " << h << ">";
   ss << w << ", " << h;
   dimensiones = ss.str();
@@ -365,7 +365,7 @@ std::string& Actor::print () const
 
 void  Actor::mensajeErrorGrafico () const
 {
-    cout << "ERROR: Actor \"" << getNombre() << "\" sin componente gráfica." << endl;
+    std::cout << "ERROR: Actor \"" << getNombre() << "\" sin componente gráfica." << std::endl;
 };
 
 void  Actor::addGUI (vector<DIALOG> &gui_padre)
@@ -396,7 +396,7 @@ void Actor::drawGUI ()
 //    return os;
 //};
 
-std::istream& operator>> (istream& is, Actor& actor)
+std::istream& operator>> (std::istream& is, Actor& actor)
 {
     // Extrae los valores del flujo formateado.
     //string nombre;
@@ -417,7 +417,7 @@ std::istream& operator>> (istream& is, Actor& actor)
 
 std::istream& Actor::prueba_iostream (std::istream& is, Actor& a)
 {
-    cout << "prueba_actor";
+    std::cout << "prueba_actor";
     return is;
 };
 

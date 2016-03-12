@@ -52,8 +52,8 @@ Almacen::Almacen (std::string paramNombreFichero)
     {
         // No se encontró el fichero. Borramos la cadena del nombre. Avisamos en consola.
         nombreFichero.clear ();
-        cout << "ERROR: No se pudo acceder al fichero de datos: \"" << paramNombreFichero << "\"" << endl \
-             << "Compruebe que se encuentra en el mismo directorio que el juego." << endl;
+        std::cout << "ERROR: No se pudo acceder al fichero de datos: \"" << paramNombreFichero << "\"" << std::endl \
+                  << "Compruebe que se encuentra en el mismo directorio que el juego." << std::endl;
     }
 
     // Se crea una GUI para esta clase.
@@ -72,12 +72,12 @@ Almacen::~Almacen ()
     // Liberar los recursos 'map'.
 };
 
-BITMAP* Almacen::getBitmap (std::string nombreBitmap)
+BITMAP* Almacen::get_bitmap (std::string nombreBitmap)
 {
     return bitmaps[nombreBitmap];
 };
 
-BITMAP* Almacen::getBitmap (int indice)
+BITMAP* Almacen::get_bitmap (int indice)
 {
     if (fichero[indice].type == DAT_BITMAP)
     {
@@ -89,17 +89,17 @@ BITMAP* Almacen::getBitmap (int indice)
     }
 };
 
-std::string Almacen::getNombre (int indice) const
+std::string Almacen::get_nombre (int indice) const
 {
     return get_datafile_property(&fichero[indice], DAT_ID('N','A','M','E'));
 };
 
-RGB* Almacen::getPalette (std::string nombrePaleta)
+RGB* Almacen::get_palette (std::string nombrePaleta)
 {
     return paletas[nombrePaleta];
 };
 
-std::string Almacen::getName (BITMAP* puntero)
+std::string Almacen::get_name (BITMAP* puntero)
 {
     std::string nombre;
     std::map<std::string, BITMAP*>::iterator it;
@@ -121,22 +121,22 @@ std::string Almacen::getName (BITMAP* puntero)
     return nombre;
 };
 
-std::vector<DIALOG>& Almacen::getDIALOG ()
+std::vector<DIALOG>& Almacen::get_DIALOG ()
 {
-    return gui->getGUI ();
+    return gui->get_GUI ();
 };
 
-unsigned int Almacen::getSize () const
+unsigned int Almacen::get_size () const
 {
    return (bitmaps.size () + paletas.size () + sonidos.size ());
 };
 
-std::string Almacen::getNombre () const
+std::string Almacen::get_nombre () const
 {
     return nombreFichero;
 };
 
-void Almacen::addGUI (std::vector<DIALOG>& gui_padre)
+void Almacen::add_GUI (std::vector<DIALOG>& gui_padre)
 {
     // Se crea una GUI para esta clase.
     gui = new AlmacenGUI (*this, gui_padre);

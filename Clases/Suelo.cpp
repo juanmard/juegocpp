@@ -59,8 +59,8 @@ Suelo::Suelo (Actor* aowner, Almacen& almacen, int new_size):
 Mosaico (aowner)
 {
     // Nombres de gráficos para el fichero "sprites3.dat".
-    terminal = almacen.getBitmap("pre2_067");
-    bloque = almacen.getBitmap("pre2_069");
+    terminal = almacen.get_bitmap("pre2_067");
+    bloque = almacen.get_bitmap("pre2_069");
 
     // Generamos el suelo según el tamaño solicitado.
     for (int i=0; i<new_size; i++)

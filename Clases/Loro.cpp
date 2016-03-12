@@ -22,25 +22,25 @@ kboard (new Keyboard())
     // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
     // Animación de la derecha.
     izquierda = new Sprite(this);
-    izquierda->add_frame(almacen.getBitmap("sprite_042"), 0, 13, 10);
-    izquierda->add_frame(almacen.getBitmap("sprite_043"), 0,  0, 10);
-    izquierda->add_frame(almacen.getBitmap("sprite_044"), 0,  3, 10);
+    izquierda->add_frame(almacen.get_bitmap("sprite_042"), 0, 13, 10);
+    izquierda->add_frame(almacen.get_bitmap("sprite_043"), 0,  0, 10);
+    izquierda->add_frame(almacen.get_bitmap("sprite_044"), 0,  3, 10);
     izquierda->setMirror(true);
 
     // Animación de la izquierda.
     derecha = new Sprite(this);
-    derecha->add_frame(almacen.getBitmap("sprite_042"), 0, 13, 10);
-    derecha->add_frame(almacen.getBitmap("sprite_043"), 0,  0, 10);
-    derecha->add_frame(almacen.getBitmap("sprite_044"), 0,  3, 10);
+    derecha->add_frame(almacen.get_bitmap("sprite_042"), 0, 13, 10);
+    derecha->add_frame(almacen.get_bitmap("sprite_043"), 0,  0, 10);
+    derecha->add_frame(almacen.get_bitmap("sprite_044"), 0,  3, 10);
     derecha->setMirror(false);
 
     // Animación de giro.
     giro_der = new Sprite(this);
-    giro_der->add_frame(almacen.getBitmap("pre2_338"), 10, 0, 5);
+    giro_der->add_frame(almacen.get_bitmap("pre2_338"), 10, 0, 5);
     giro_der->setMirror (true);
 
     giro_izq = new Sprite(this);
-    giro_izq->add_frame(almacen.getBitmap("pre2_338"), 10, 0, 5);
+    giro_izq->add_frame(almacen.get_bitmap("pre2_338"), 10, 0, 5);
     giro_izq->setMirror (false);
 
     setCodigo (Nombres::herny);

@@ -25,7 +25,7 @@ ActorGraphic (aowner),
 nombre (nombreParam),
 almacen (NULL)
 {
-  fuente = almacenGlobal->getBitmap (nombreParam);
+  fuente = almacenGlobal->get_bitmap (nombreParam);
 };
 
 Bitmap::Bitmap (Actor* aowner, BITMAP* bmp, std::string nombreParam) :
@@ -42,7 +42,7 @@ almacen (almacenParam),
 nombre (nombreParam)
 {
 //  fuente = almacenParam[nombreParam];
-  fuente = almacenParam->getBitmap (nombreParam);
+  fuente = almacenParam->get_bitmap (nombreParam);
 };
 
 void Bitmap::draw (BITMAP* destino)
@@ -57,11 +57,11 @@ void Bitmap::draw (int x, int y, BITMAP* destino, bool mirror)
   {
     if (mirror)
     {
-      draw_sprite_h_flip (destino, almacenGlobal->getBitmap (nombre), x, y);
+      draw_sprite_h_flip (destino, almacenGlobal->get_bitmap (nombre), x, y);
     }
     else
     {
-      draw_sprite (destino, almacenGlobal->getBitmap (nombre), x, y);
+      draw_sprite (destino, almacenGlobal->get_bitmap (nombre), x, y);
     }
   }
   else
@@ -107,7 +107,7 @@ std::string& Bitmap::print () const
 {
   // Se copia el nombre en una cadena nueva para no modificar el nombre del Bitmap
   // en un posible encadenamiento de cadenas.
-  return *new std::string(nombre);
+  return *new std::string (nombre);
 };
 
 BITMAP* Bitmap::get_imagen () const
@@ -120,7 +120,7 @@ BITMAP* Bitmap::get_imagen () const
   {
     if (almacenGlobal)
     {
-      return almacenGlobal->getBitmap (nombre);
+      return almacenGlobal->get_bitmap (nombre);
     }
       else
       {

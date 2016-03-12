@@ -1,31 +1,32 @@
+///
+/// @file Tesela.cpp
+/// @brief Fichero de implementación de la clase "Tesela".
+/// @author Juan Manuel Rico
+/// @date Noviembre 2015
+/// @version
+///      - 1.0.0 Noviembre 2015
+///
+
 #include "Tesela.h"
 #include <sstream>
+#include <stdio.h>
+#include "Mosaico.h"
 
-using namespace std;
-
-/**
- * \brief   Constructor copia. Se permite cambiar el padre de la nueva Tesela.
- */
-Tesela::Tesela(const Tesela &copia, Mosaico *padre):
+Tesela::Tesela (const Tesela& copia, Mosaico* padre):
 mosaico_padre(padre),
-x(copia.x), y(copia.y),
+x(copia.x),
+y(copia.y),
 dibujo(copia.dibujo),
 mirror(copia.mirror)
 {
-}
+};
 
-/**
- * Constructor de clase.
- */
-Tesela::Tesela(Mosaico *padre)
+Tesela::Tesela (Mosaico* padre)
 {
     mosaico_padre = padre;
-}
+};
 
-/**
- * Constructor de clase.
- */
-Tesela::Tesela (Mosaico *padre, BITMAP *imagen, int x_tmp, int y_tmp, bool mirror_tmp)
+Tesela::Tesela (Mosaico* padre, BITMAP* imagen, int x_tmp, int y_tmp, bool mirror_tmp)
 {
     mosaico_padre = padre;
     dibujo = imagen;
@@ -34,10 +35,7 @@ Tesela::Tesela (Mosaico *padre, BITMAP *imagen, int x_tmp, int y_tmp, bool mirro
     mirror = mirror_tmp;
 };
 
-/**
- * Constructor de clase. Usando el 'Bitmap' propio.
- */
-Tesela::Tesela (Mosaico *padre, string nombreImagen, int xParam, int yParam, bool mirrorParam):
+Tesela::Tesela (Mosaico* padre, std::string& nombreImagen, int xParam, int yParam, bool mirrorParam):
 mosaico_padre (padre),
 dibujo (NULL),
 x (xParam),
@@ -47,70 +45,49 @@ mirror (mirrorParam)
   dibujoPrueba = new Bitmap (padre->getActor(), nombreImagen);
 };
 
-
-/**
- * Guarda en un fichero las teselas.
- */
-void Tesela::Guardar (void)
+void Tesela::guardar () const
 {
-  FILE    *handle;
+  FILE* handle;
 
-  // TODO: Crear una clase de fichero y pasar el nombre del fichero por parámetros.
-  // \warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead.
+  /// @todo Crear una clase de fichero y pasar el nombre del fichero por parámetros.
+  /// @warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead.
+  /// @todo Hacer esto mismo con la biblioteca de fstream.
   handle = fopen ("clases.txt","w");
 
   fprintf (handle, "%s","<Tesela>\n{\n");
-  // Habría que guardar el nombre o algo significativo de la imagen.
-  fprintf (handle, "x,y: %d, %d\n", x, y);
+  /// @note Habría que guardar el nombre o algo significativo de la imagen.
+  fprintf (handle, "x, y: %d, %d\n", x, y);
   fprintf (handle, "mirror: %s\n",mirror?"true":"false");
   fprintf (handle, "}\n");
   fclose (handle);
 };
 
-/**
- * Cambiamos el dibujo de la Tesela.
- */
-void Tesela::SetDibujo (BITMAP *imagen)
+void Tesela::set_dibujo (BITMAP* imagen)
 {
     dibujo = imagen;
-}
+};
 
-/**
- * Cambiamos la x de la Tesela referida al mosaico padre.
- */
-void Tesela::Set_x (int x_tmp)
+void Tesela::set_x (int x_tmp)
 {
     x = x_tmp;
-}
+};
 
-/**
- * Cambiamos la y de la Tesela referida al mosaico padre.
- */
-void Tesela::Set_y (int y_tmp)
+void Tesela::set_y (int y_tmp)
 {
     y = y_tmp;
-}
+};
 
-/**
- * Obtenemos la x de la Tesela referida al mosaico padre.
- */
-int Tesela::Get_x (void)
+int Tesela::get_x () const
 {
     return x;
-}
+};
 
-/**
- * Obtenemos la y de la Tesela referida al mosaico padre.
- */
-int Tesela::Get_y (void)
+int Tesela::get_y () const
 {
     return y;
-}
+};
 
-/**
- * Se dibuja la Tesela referida al mosaico padre.
- */
-void Tesela::draw (BITMAP *pantalla)
+void Tesela::draw (BITMAP* pantalla) const
 {
   // Se calcula la posición respecto al padre.
   int x_tmp = x + mosaico_padre->get_x ();
@@ -119,26 +96,20 @@ void Tesela::draw (BITMAP *pantalla)
   // Se comprueba la dirección de la tesela para dibujarla.
   if (mirror)
   {
-    draw_sprite_h_flip (pantalla, dibujo, x_tmp, y_tmp);    
+    draw_sprite_h_flip (pantalla, dibujo, x_tmp, y_tmp);
   }
   else
   {
-    draw_sprite (pantalla, dibujo, x_tmp, y_tmp);    
+    draw_sprite (pantalla, dibujo, x_tmp, y_tmp);
   }
-}
+};
 
-/**
- * Se clona la Tesela asignándole un nuevo mosaico padre.
- */
-Tesela * Tesela::clone (Mosaico *padre) const
+Tesela* Tesela::clone (Mosaico* padre) const
 {
     return (new Tesela(*this, padre));
-}
+};
 
-/**
- * Se dibuja la Tesela referida a un punto relativo dado.
- */
-void Tesela::draw (int relX, int relY, BITMAP *pantalla)
+void Tesela::draw (int relX, int relY, BITMAP* pantalla) const
 {
   // Se calcula la posición respecto al padre.
   int x_tmp = x + relX;
@@ -150,23 +121,26 @@ void Tesela::draw (int relX, int relY, BITMAP *pantalla)
     // Se comprueba la dirección de la tesela para dibujarla.
     if (mirror)
     {
-      draw_sprite_h_flip (pantalla, dibujo, x_tmp, y_tmp);    
+      draw_sprite_h_flip (pantalla, dibujo, x_tmp, y_tmp);
     }
     else
     {
-      draw_sprite (pantalla, dibujo, x_tmp, y_tmp);    
+      draw_sprite (pantalla, dibujo, x_tmp, y_tmp);
     }
   }
   else
   {
     dibujoPrueba->draw (x_tmp, y_tmp, pantalla, mirror);
   }
-}
-
-std::string Tesela::print () const
-{
-  std::ostringstream cadena;
-
-  cadena << "{" << x << "," << y << ", " << (mirror?"true":"false") << "} " << dibujoPrueba->print ();
-  return cadena.str ();
 };
+
+std::string& Tesela::print () const
+{
+  std::ostringstream oss;
+
+  // @warning Aparecen problemas con el puntero de Bitmap... todo está en pruebas... un desastre.
+  //  oss << "{" << x << "," << y << ", " << (mirror?"true":"false") << "} " << dibujoPrueba->print ();
+  oss << "{" << x << "," << y << ", " << (mirror?"true":"false") << "} " << "Tesela sin Bitmap";
+  return *new std::string(oss.str ());
+};
+

@@ -31,6 +31,14 @@ class AlmacenGUI;
 ///
 class Almacen
 {
+private:
+    DATAFILE* fichero;                      ///< Puntero de referencia al fichero abierto DAT.
+    std::string nombreFichero;              ///< Nombre del fichero.
+    std::map<std::string, BITMAP*> bitmaps; ///< Lista mapeada de referencias a BITMAP cargados.
+    std::map<std::string, RGB*> paletas;    ///< Lista mapeada de referencias a paletas cargadas.
+    std::map<std::string, SAMPLE*> sonidos; ///< Lista mapeada de referencias a sonidos cargadas.
+    AlmacenGUI* gui;                        ///< Puntero de referencia a la GUI de almacén.
+
 public:
     /// Construye el almacén dando el nombre del fichero DAT a cargar.
     ///
@@ -61,7 +69,7 @@ public:
     /// @param nombreBitmap Nombre identificativo del bitmap dentro del fichero.
     /// @return  Puntero a la zona de memoria donde se encuentra guardado el BITMAP. 
     ///
-    BITMAP* getBitmap (std::string nombreBitmap);
+    BITMAP* get_bitmap (std::string nombreBitmap);
 
     /// Devuelve un 'BITMAP allegro' como recurso dando el índice.
     /// Este índice es el número identificativo indicado en el fichero
@@ -71,7 +79,7 @@ public:
     ///         Si el tipo de recurso apuntado por el índice no es un BITMAP devuelve NULL.
     /// @todo Comprobar que el índice se encuentra dentro del máximo de recursos.
     ///
-    BITMAP* getBitmap (int indice);
+    BITMAP* get_bitmap (int indice);
 
     /// Devuelve un puntero a un array de 256 estructuras RGB (Paleta de colores).
     ///
@@ -80,7 +88,7 @@ public:
     /// @param nombrePaleta Cadena con el nombre de la paleta que queremos obtener.
     /// @return Puntero a la zona de memoria de las 256 estructuras RGB que conforman la paleta de colores.
     ///
-    RGB* getPalette (std::string nombrePaleta);
+    RGB* get_palette (std::string nombrePaleta);
 
     /// Devuelve el nombre asociado al puntero en 'bitmaps'.
     ///
@@ -96,7 +104,7 @@ public:
     ///     - Confirmar que se devuelve una cadena vacía si no se encuentra asociación con el puntero.
     ///     - Usar una constante DEBUG para el precompilador en lugar de comentarlas.
     ///
-    std::string getName (BITMAP* puntero);
+    std::string get_name (BITMAP* puntero);
 
     /// Devuelve el nombre de un recurso según el índice en el fichero.
     ///
@@ -104,12 +112,12 @@ public:
     /// @param indice Índice del recurso del que obtener el nombre.
     /// @return Cadena con el nombre del recurso, según el obtenido del fichero DAT.
     ///
-    std::string getNombre (int indice) const;
+    std::string get_nombre (int indice) const;
 
     /// Obtiene el nombre del fichero desde donde se han cargado los recursos del almacén.
     /// @return  Nombre del fichero DAT desde donde se obtuvieron los recursos.
     ///
-    std::string getNombre () const;
+    std::string get_nombre () const;
 
     /// Obtiene el número total de recursos en el almacén.
     ///
@@ -120,13 +128,13 @@ public:
     /// @todo Añadir una variable en la clase que nos diga el número de recursos en el fichero que
     ///       existen, pero que no se pudieron clasificar.
     ///
-    unsigned int getSize () const;
+    unsigned int get_size () const;
 
     /// Pasa de un dialog estático a otro dinámico.
     /// @return Referencia a un conjunto de diálogos.
     /// @todo Confirmar que este método es usado y es necesario.
     ///
-    std::vector<DIALOG>& getDIALOG ();
+    std::vector<DIALOG>& get_DIALOG ();
 
     /// Añade la GUI de la clase a la GUI padre.
     ///
@@ -134,15 +142,8 @@ public:
     /// @param dlg_padre Referencia a un conjunto de estructuras 'DIALOG allegro' donde
     ///                  incluir la nueva GUI asociada a la clase.
     ///
-    void addGUI (std::vector<DIALOG>& dlg_padre);
+    void add_GUI (std::vector<DIALOG>& dlg_padre);
 
-private:
-    DATAFILE* fichero;                      ///< Puntero de referencia al fichero abierto DAT.
-    std::string nombreFichero;              ///< Nombre del fichero.
-    std::map<std::string, BITMAP*> bitmaps; ///< Lista mapeada de referencias a BITMAP cargados.
-    std::map<std::string, RGB*> paletas;    ///< Lista mapeada de referencias a paletas cargadas.
-    std::map<std::string, SAMPLE*> sonidos; ///< Lista mapeada de referencias a sonidos cargadas.
-    AlmacenGUI* gui;                        ///< Puntero de referencia a la GUI de almacén.
 };
 
 #endif //_ALMACEN_H_

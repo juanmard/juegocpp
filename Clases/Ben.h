@@ -37,23 +37,23 @@ public:
     void      do_action   (ControllableActor::action_t act, int magnitude);
     void      update      ();
     void      hit         (Actor *who, int damage);
-    void      getEstado   (string &strEstado) const;
-    void      getNombre   (string &strNombre) const;
-    string    getNombre   () const;
-    ostream&  operator<<  (ostream *sb);
+    void      getEstado   (std::string &strEstado) const;
+    void      getNombre   (std::string &strNombre) const;
+    std::string    getNombre   () const;
+    std::ostream&  operator<<  (std::ostream *sb);
 
   private:
     Sprites_t     estado2Sprite     (Estados_t estado) const;
 
   private:
-    map<Sprites_t,Sprite *>     sprites;
+    std::map<Sprites_t,Sprite *>     sprites;
     Estados_t                   estado, estado_ant, estado_sig;
     unsigned int                timer;
     int                         gravedad;
     int                         sentido;
 
   // Insertor de flujo para la clase.
-  friend ostream&  operator<< (ostream &os, Ben &ben);
+  friend std::ostream&  operator<< (std::ostream &os, Ben &ben);
 };
 
 #endif // _BEN_H_

@@ -30,16 +30,16 @@ Herny::Herny (Almacen &almacen)
     skin->add_frame(almacen.getBitmap("sprite_061"), 0, 0, 10);
     skin->add_frame(almacen.getBitmap("sprite_062"), 0, 0, 20);
 */
-    skin->add_frame(almacen.getBitmap("sprite_097"), 0, 0, 10);
-    skin->add_frame(almacen.getBitmap("sprite_098"), 0, 0, 10);
-    skin->add_frame(almacen.getBitmap("sprite_099"), 0, 0, 10);
-    skin->add_frame(almacen.getBitmap("sprite_100"), 0, 0, 10);
-    skin->add_frame(almacen.getBitmap("sprite_101"), 0, 0, 10);
-    skin->add_frame(almacen.getBitmap("sprite_102"), 0, 0, 10);
-    skin->add_frame(almacen.getBitmap("sprite_103"), 0, 0, 10);
-    skin->add_frame(almacen.getBitmap("sprite_104"), 0, 0, 10);
-    skin->add_frame(almacen.getBitmap("sprite_105"), 0, 0, 10);
-    skin->add_frame(almacen.getBitmap("sprite_106"), 0, 0, 10);
+    skin->add_frame(almacen.get_bitmap("sprite_097"), 0, 0, 10);
+    skin->add_frame(almacen.get_bitmap("sprite_098"), 0, 0, 10);
+    skin->add_frame(almacen.get_bitmap("sprite_099"), 0, 0, 10);
+    skin->add_frame(almacen.get_bitmap("sprite_100"), 0, 0, 10);
+    skin->add_frame(almacen.get_bitmap("sprite_101"), 0, 0, 10);
+    skin->add_frame(almacen.get_bitmap("sprite_102"), 0, 0, 10);
+    skin->add_frame(almacen.get_bitmap("sprite_103"), 0, 0, 10);
+    skin->add_frame(almacen.get_bitmap("sprite_104"), 0, 0, 10);
+    skin->add_frame(almacen.get_bitmap("sprite_105"), 0, 0, 10);
+    skin->add_frame(almacen.get_bitmap("sprite_106"), 0, 0, 10);
     set_actor_graphic (skin);
 
     setCodigo (Nombres::herny);
@@ -137,14 +137,14 @@ void Herny::CambiarEstado (Almacen &almacen)
             set_tiempo(400);
             siguiente = cayendo;
             set_color(6);
-            this->set_actor_graphic (new Bitmap (this,almacen.getBitmap("sprite_065")));
+            this->set_actor_graphic (new Bitmap (this,almacen.get_bitmap("sprite_065")));
         break;
 
     case cayendo:
             set_tiempo(100);
             siguiente = de_pie;
             set_color(3);
-            this->set_actor_graphic (new Bitmap (this,almacen.getBitmap("sprite_069")));
+            this->set_actor_graphic (new Bitmap (this,almacen.get_bitmap("sprite_069")));
          break;
 
     default:

@@ -64,7 +64,7 @@ public:
     /// Lee los actores del mapa.
     ///
     /// Lee los actores del mapa y los incluye en una lista de actores a controlar.
-    /// @param Referencia al controlador de actores donde incluir los actores leídos.
+    /// @param manager  Referencia al controlador de actores donde incluir los actores leídos.
     /// @warning Para poder hacer constante el método es necesario hacer constantes ciertos métodos
     ///          de la clase ActorManager, como 'next', 'rewind', etc.
     ///
@@ -73,7 +73,7 @@ public:
     /// Graba los actores del mapa.
     ///
     /// Lee la lista de actores y los graba en el mapa.
-    /// @param Referencia al controlador de actores donde incluir los actores leídos.
+    /// @param manager  Referencia al controlador de actores donde incluir los actores leídos.
     /// @note No solo debe leer la lista de actores a controlar, debe leer y guardar las tres listas
     ///       del controlador: la de actores a controlar, la de actores a crear y la de actores a borrar.
     ///

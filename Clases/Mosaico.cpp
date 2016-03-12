@@ -1,29 +1,32 @@
+///
+/// @file Mosaico.cpp
+/// @brief Fichero de implementación de la clase "Mosaico".
+/// @author Juan Manuel Rico
+/// @date Noviembre 2015
+/// @version
+///      - 1.0.0 Noviembre 2015
+///
+
 #include "Mosaico.h"
 #include <sstream>
-
-using namespace std;
 
 Mosaico::Mosaico ():
 ActorGraphic()
 {
 };
 
-/**
- * \brief   Constructor de copia de la clase.
- */
-Mosaico::Mosaico(const Mosaico &copia, Actor *propietario):
+Mosaico::Mosaico (const Mosaico& copia, Actor* propietario):
 ActorGraphic (propietario)
 {
-    // Se genera una nueva lista y se copian las teleslas con el nuevo propietario.
-    // \todo Encapsular esto en una clase propia de lista de Teselas.
-    list<Tesela *>::iterator tmp_iter;
-    list<Tesela *>::iterator inicio;
-    list<Tesela *>::iterator fin;
+    /// Se genera una nueva lista y se copian las teleslas con el nuevo propietario.
+    /// @todo Encapsular esto en una clase propia de lista de Teselas.
+    std::list<Tesela*>::const_iterator tmp_iter;
+    std::list<Tesela*>::const_iterator inicio;
+    std::list<Tesela*>::const_iterator fin;
 
-    // Se definen los iteradores. Se necesita quitar el carácter constante
-    // del mosaico 'copia'.
-    inicio = const_cast<Mosaico &>(copia).teselas.begin();
-    fin = const_cast<Mosaico &>(copia).teselas.end();
+    // Se definen los iteradores.
+    inicio = copia.teselas.begin();
+    fin = copia.teselas.end();
 
     // Se recorre toda la lista de Teselas y se genera la nueva lista con el 
     // nuevo mosaico propietario (this).
@@ -31,9 +34,9 @@ ActorGraphic (propietario)
     {
         add_ultima_Tesela (new Tesela(**tmp_iter,this));
     }
-}
+};
 
-Mosaico::Mosaico(Actor* actor):
+Mosaico::Mosaico (Actor* actor):
 ActorGraphic (actor)
 {
     // Asignamos al actor que hemos definido como propietario
@@ -41,114 +44,77 @@ ActorGraphic (actor)
     actor->set_actor_graphic ((Mosaico*) this);
 };
 
-/**
- * \brief   Añade una nueva tesela al final de la lista.
- * \details Al añadirse al final de la lista es la
- *          última tesela en dibujarse, quedando por
- *          delante del resto.
- * \param   nueva   Puntero a la tesela a añadir.
- * \todo    Integrar "add_ultima_Tesela" y "add_primera_Tesela" en una única
- *          "add_Tesela (Tesela *nueva, Posicion pos = Mosaico::Delante)".
- */
-void    Mosaico::add_ultima_Tesela (Tesela *nueva)
+void Mosaico::add_ultima_Tesela (Tesela* nueva)
 {
     teselas.push_back (nueva);
-};    
+};
 
-/**
- * \brief   Añade una nueva tesela al inicio de la lista.
- * \details Al añadirse al inicio de la lista es la
- *          primera tesela en dibujarse, quedando por
- *          detrás del resto.
- * \param   nueva   Puntero a la tesela a añadir.
- */
-void    Mosaico::add_primera_Tesela (Tesela *nueva)
+void Mosaico::add_primera_Tesela (Tesela* nueva)
 {
     teselas.push_front (nueva);
-};    
+};
 
-/**
- * \brief   Borra una tesela al inicio de la lista.
- */
-void    Mosaico::del_primera_Tesela (void)
+void Mosaico::del_primera_Tesela (void)
 {
     teselas.erase (teselas.begin());
-};    
+};
 
-void Mosaico::draw (BITMAP *pantalla)
+void Mosaico::draw (BITMAP* pantalla)
 {
-    list<Tesela *>::iterator it;
+    std::list<Tesela*>::iterator it;
 
     // Dibuja todas las teselas del mosaico.
     for (it=teselas.begin(); it!=teselas.end(); it++)
     {
         (*it)->draw (pantalla);
     }
-}
+};
 
-/**
- * \brief Dibuja las teselas del mosaico.
- */
-void Mosaico::draw (int x, int y, BITMAP *pantalla)
+void Mosaico::draw (int x, int y, BITMAP* pantalla)
 {
-    list<Tesela *>::iterator it;
+    std::list<Tesela*>::iterator it;
 
     // Dibuja todas las teselas del mosaico.
     for (it=teselas.begin(); it!=teselas.end(); it++)
     {
-        (*it)->draw (x,y,pantalla);
+        (*it)->draw (x, y, pantalla);
     }
-}
+};
 
-/**
- * \brief Mueve la tesela elegida según un incremento de 'y' y de 'x'.
- */
-void    Mosaico::move_Tesela     (int inc_x, int inc_y, Tesela *elegida)
+void Mosaico::move_Tesela (int inc_x, int inc_y, Tesela* elegida)
 {
-    elegida->Set_x (elegida->Get_x() + inc_x);
-    elegida->Set_y (elegida->Get_y() + inc_y);
-}
+    elegida->set_x (elegida->get_x() + inc_x);
+    elegida->set_y (elegida->get_y() + inc_y);
+};
 
-/**
- * \brief Devuelve la última tesela añadida.
- */
 Tesela* Mosaico::last_Tesela () const
 {
     return teselas.back();
-}
+};
 
-/**
- * \brief   Intercambia dos Teselas.
- * \todo   
- *         - Sobrecargar esta función con los índices de las teselas.
- *         - Desarrollar la función si fuera necesaria. 
- */
-void    Mosaico::swap_Tesela     (Tesela *tesela_1, Tesela *tesela_2)
+void Mosaico::swap_Tesela (Tesela* tesela_1, Tesela* tesela_2)
 {
-    //teselas.swap ();           
-}
+    //teselas.swap ();
+};
 
-/**
- * \brief   Clona un mosaico completo.
- */
-Mosaico *   Mosaico::clone  (Actor *propietario) const
+Mosaico* Mosaico::clone (Actor* propietario) const
 {
     return (new Mosaico(*this,propietario));
-}
+};
 
-std::string Mosaico::print ()
+std::string& Mosaico::print () const
 {
-  std::ostringstream cadena;
+  std::ostringstream oss;
+  std::list<Tesela*>::const_iterator it;
   int i;
-  std::list<Tesela*>::iterator it;
 
-  cadena << "Mosaico >> " << std::endl;
+  oss << "Mosaico >> " << std::endl;
   for (i=0, it=teselas.begin(); it!=teselas.end(); it++, i++)
   {
-    cadena << "Tesela " << i << " " << (*it)->print () << std::endl;
+    oss << "Tesela " << i << " " << (*it)->print () << std::endl;
   }
-  return cadena.str ();
-}
+  return *new std::string (oss.str ());
+};
 
 void Mosaico::clear ()
 {

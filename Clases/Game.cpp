@@ -110,8 +110,8 @@ void Game::shutdown (string message = "Gracias por jugar")
   if (storage_manager) delete storage_manager;
 
   set_gfx_mode (GFX_TEXT,0,0,0,0);
-  cout << name << endl;
-  cout << message << endl;
+  std::cout << name << std::endl;
+  std::cout << message << std::endl;
   allegro_exit ();
 }
 

@@ -154,7 +154,7 @@ void Sprite::notMirror ()
 
 std::string Sprite::getString () const
 {
-    ostringstream cadena;
+    std::ostringstream cadena;
 
     // Se incluye la estructura del padre.
     // cadena  << ActorGraphic::getString ();
@@ -163,7 +163,7 @@ std::string Sprite::getString () const
     cadena  << "Sprite >> NumFrames: " << frames.size () \
             << " >> Frame actual: " << actual_frame \
             << " >> Tick actual: " << actual_tick \
-            << " >> Ángulo: " << mirror << endl;
+            << " >> Ángulo: " << mirror << std::endl;
 
     // Se incluyen los valores de los Frames.
     for (unsigned int i=0; i<frames.size (); i++)

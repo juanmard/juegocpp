@@ -430,7 +430,7 @@ int  Dialog::comprobarTecla (int code)
     case 'T':
     // Zona de pruebas.
     {
-      cout << "Funciona la zona de pruebas." << endl;
+      std::cout << "Funciona la zona de pruebas." << std::endl;
       static vector<DIALOG> pesta;
       DIALOG dlg_tmp1 = {d_box_proc,     0, 400, 800, 280,  0,   0,   0,    0,      0,   0,   NULL,              NULL, NULL };
       DIALOG dlg_tmp2 = {d_button_proc, 16, 400,  80,  16,  1,   0,   0,    0,      0,   0,   (void*)"Pesta 01", NULL, NULL };
@@ -457,7 +457,7 @@ int  Dialog::comprobarTecla (int code)
 
       // Probamos añadiendo el diálogo del Almacén.
       int idx = pesta.size ();
-      manager->get_almacen().addGUI (pesta);
+      manager->get_almacen().add_GUI (pesta);
       position_dialog (&pesta[idx-1],590,320);
 
       // Probamos con dos almacenes.
