@@ -99,7 +99,7 @@ public:
     /// @todo Hacer este procedimiento virtual y que los distintos gráficos hereden
     ///       de una clase más genérica llamada "Gráfico" que es "Imprimible" y "Dibujable".
     ///
-    virtual std::string print () const;
+    virtual std::string& print () const;
 
     /// Devuelve la zona de memoria donde está la imagen.
     ///

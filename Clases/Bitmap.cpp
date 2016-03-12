@@ -103,9 +103,11 @@ Bitmap* Bitmap::clone (Actor* propietario) const
 };
 
 
-std::string Bitmap::print () const
+std::string& Bitmap::print () const
 {
-  return nombre;
+  // Se copia el nombre en una cadena nueva para no modificar el nombre del Bitmap
+  // en un posible encadenamiento de cadenas.
+  return *new std::string(nombre);
 };
 
 BITMAP* Bitmap::get_imagen () const
