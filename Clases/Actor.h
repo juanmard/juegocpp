@@ -99,6 +99,9 @@ public:
   private:
     void                                    mensajeErrorGrafico     () const;
 
+  private:
+    void                                    mensajeErrorGrafico     () const;
+
   protected:
     Nombres::codigo                         nombre;
     int                                     x, y;
