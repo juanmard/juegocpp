@@ -3,7 +3,8 @@
 
 #include <string>
 
-using namespace std;
+//using namespace std;
+using std::string;
 
 #define INVALID_STATE       -2
 #define INVALID_COMPONENT   -2

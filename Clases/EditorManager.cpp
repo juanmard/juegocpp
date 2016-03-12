@@ -162,14 +162,14 @@ Actor *  EditorManager::getActor (int x, int y) const
  * \param   indice    Índice dentro de la lista de actores.
  * \return  Devuelve la cadena de caracteres que contiene el nombre del actor.
  */
-char *  EditorManager::getNombreActor (int indice) const
+string  EditorManager::getNombreActor (int indice) const
 {
   Actor *actor = game->actor_manager->getActor (indice);
   if (actor)
   {
     string  strNombre;
     actor->getNombre(strNombre);
-    return const_cast<char *>(strNombre.c_str());
+    return strNombre.c_str();
   }
   else
   {

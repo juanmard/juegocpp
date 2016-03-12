@@ -7,7 +7,7 @@
 #include "Frame.h"
 #include <vector>
 
-using namespace std;
+//using namespace std;
 
 class Actor;
 

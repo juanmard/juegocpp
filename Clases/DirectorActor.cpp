@@ -37,4 +37,5 @@ void DirectorActor::Elimina  (Actor *who)
  */
 DirectorActor * DirectorActor::clone () const
 {
+	return NULL;
 }

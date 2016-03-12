@@ -7,6 +7,8 @@
 
 #define MAXPERIPHERALS 5
 
+using std::vector;
+
 class ControlManager
 {
     public:

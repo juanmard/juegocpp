@@ -6,6 +6,9 @@
 #include "Peripheral.h"
 #include "ControllableObject.h"
 
+using std::string;
+using std::list;
+
 /**
  * \brief   Clase para el control del juego.
  */

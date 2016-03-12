@@ -53,10 +53,8 @@ void  Juego2::create_storagemanager ()
  * \brief   Parte inicial del juego.
  * \details Crea actores y controladores para el juego de prueba.
  */
-void Juego2::main()
+void Juego2::mainGame ()
 {
-  PALETTE tmp;
-
   /* Creamos el control. */
   Control *control_p1=new Control;
 

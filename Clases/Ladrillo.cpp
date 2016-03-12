@@ -3,15 +3,6 @@
 #include "Dialog.h"
 #include <allegro.h>
 
-/* Prueba GUI Ladrillo */
-DIALOG Ladrillo::dlgGui[] = 
-{
-   { d_box_proc,        352, 360, 256, 192, 67, 243,   0,    0,      0,   0,   NULL,                           NULL, NULL },
-   { d_list_proc,       360, 392, 240, 56,  67, 243,   0,    0,      0,   0,   (void*)Ladrillo::dummy_getter,  NULL, NULL },
-   { d_text_proc,       360, 376, 128, 8,   67, 243,   0,    0,      0,   0,   (void*)"Prueba Ladrillo",       NULL, NULL },
-   { d_bitmap_proc,     360, 456, 240, 88,  67, 243,   0,    0,      0,   0,   NULL,                           NULL, NULL }
-};
-
 /**
  * \brief   Constructor que crea un objeto golpeable por la pelota en el juego.
  * \todo    Muchas cosas por hacer:
@@ -21,7 +12,7 @@ DIALOG Ladrillo::dlgGui[] =
  *          - No me gusta como se identifica a los objetos, pues para crear un
  *            objeto hay que acordarse de añadir el nombre en la clase "Nombres".
  */
-Ladrillo::Ladrillo(void)
+Ladrillo::Ladrillo ()
 {
     crear_ladrillo ();
 }
@@ -41,7 +32,7 @@ peloteo(copia.peloteo)
  * \warning Método a eliminar. Utilizar en su lugar el constructor que 
  *          utiliza los recursos del almacén.
  */
-Ladrillo::Ladrillo(int x, int y)
+Ladrillo::Ladrillo (int x, int y)
 {
     DatFile *sprites = new DatFile("sprites.dat");
     chaqueta = new Bitmap(this, sprites->GetBitmap("suelo_2"));
@@ -56,7 +47,7 @@ Ladrillo::Ladrillo(int x, int y)
  * \brief   Constructor para situar el ladrillo a la vez que lo creamos 
  *          utilizando los recursos del almacén.
  */
-Ladrillo::Ladrillo(int x, int y, Almacen &almacen)
+Ladrillo::Ladrillo (int x, int y, Almacen &almacen)
 {
 //  chaqueta = new Bitmap(this, almacen.GetBitmap("sprite_041"), "sprite_041");
   BITMAP *puntero = almacen.getBitmap("sprite_041");
@@ -67,7 +58,7 @@ Ladrillo::Ladrillo(int x, int y, Almacen &almacen)
   set_y (y);
 }
 
-Ladrillo::~Ladrillo(void)
+Ladrillo::~Ladrillo ()
 {
 }
 
@@ -123,7 +114,7 @@ void  Ladrillo::hit  (Actor *who, int damage)
  * \brief   Se llama desde el constructor para generar las características
  *          generales del ladrillo (de forma predeterminada).
  */
-void    Ladrillo::crear_ladrillo (void)
+void    Ladrillo::crear_ladrillo ()
 {
   this->setCodigo (Nombres::ladrillo);
   this->set_actor_graphic (chaqueta);
@@ -138,7 +129,7 @@ void    Ladrillo::crear_ladrillo (void)
 /**
  * \brief   Máquina de estados de la clase.
  */
-void  Ladrillo::update  (void)
+void  Ladrillo::update ()
 {
     switch (estado)
     {
@@ -162,7 +153,7 @@ void  Ladrillo::update  (void)
 /**
  * \brief   Clona el objeto.
  */
-Ladrillo *  Ladrillo::clone() const
+Ladrillo *  Ladrillo::clone () const
 {
     return (new Ladrillo (*this));
 };
@@ -175,6 +166,9 @@ void  Ladrillo::getNombre (string &strNombre) const
   strNombre = Nombres::Imprimir (nombre);
 }
 
+/**
+ * \brief   Devuelve el nombre del objeto.
+ */
 string  Ladrillo::getNombre () const
 {
   return Nombres::Imprimir (nombre);
@@ -195,19 +189,13 @@ Menu &  Ladrillo::getMenu () const
 }
 
 /**
- * \brief   Añade al diálogo padre el diálogo de sus propiedades como Ladrillo.
- * \warning Se añade a modo de prueba en la variable del padre (Actor).
+ * \brief   GUI.
  */
 void  Ladrillo::addGUI (vector<DIALOG> &gui_padre)
 {
-/*
-   Actor::getDIALOG ();
-  vec_actor.push_back (dlgGui[0]);
-  vec_actor.push_back (dlgGui[1]);
-  vec_actor.push_back (dlgGui[2]);
-  vec_actor.push_back (dlgGui[3]);
-  vec_actor[vec_actor.size()-1].dp = chaqueta->getImagen();
-//  vec_actor[vec_actor.size()-3].dp = (void*)Ladrillo::dummy_getter;
-  return vec_actor;
-  */
+  // Agregamos la GUI como actor.
+  Actor::addGUI (gui_padre);
+
+  // Agregamos la GUI como Ladrillo y guardamos la referencia.
+  LadrilloGUI *gui = new LadrilloGUI (*this, gui_padre);
 }

@@ -7,7 +7,9 @@
 #include <string>
 #include <list>
 
-using namespace std;
+//using namespace std;
+using std::string;
+using std::list;
 
 class Tesela;
 

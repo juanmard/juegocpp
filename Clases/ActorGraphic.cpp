@@ -68,6 +68,7 @@ Mask * ActorGraphic::get_mask ()
  */
 ActorGraphic *  ActorGraphic::clone (Actor *propietario) const
 {
+	return NULL;
 }
 
 /**

@@ -24,6 +24,8 @@
 #include <string>
 #include  "MenuALG.h"
 
+using std::string;
+
 class MenuALG;
 
 class ItemALG

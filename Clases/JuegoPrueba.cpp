@@ -31,7 +31,7 @@
  * \brief   Parte inicial del juego.
  * \details Crea actores y controladores para el juego de prueba.
  */
-void JuegoPrueba::main()
+void JuegoPrueba::mainGame()
 {
   PALETTE tmp;
 
@@ -212,4 +212,4 @@ int main ()
   fade_out(10);
   return 0;
 }
-END_OF_MAIN ();
+END_OF_MAIN ()

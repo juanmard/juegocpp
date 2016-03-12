@@ -1,8 +1,5 @@
 #include "Tesela.h"
 #include <sstream>
-
-using namespace std;
-
 /**
  * \brief   Constructor copia. Se permite cambiar el padre de la nueva Tesela.
  */
@@ -56,6 +53,7 @@ void Tesela::Guardar (void)
   FILE    *handle;
 
   // TODO: Crear una clase de fichero y pasar el nombre del fichero por parámetros.
+  // \warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead.
   handle = fopen ("clases.txt","w");
 
   fprintf (handle, "%s","<Tesela>\n{\n");

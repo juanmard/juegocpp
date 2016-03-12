@@ -4,7 +4,9 @@
 #include <string>
 #include <list>
 
-using namespace std;
+//using namespace std;
+using std::string;
+using std::list;
 
 /**
  * \brief       Muestra un actor en una pequeña GUI para editar sus propiedades.

@@ -11,7 +11,8 @@ class ControlManager;
 class CollisionManager;
 class Almacen;
 
-using namespace std;
+//using namespace std;
+using std::string;
 
 /**
  * \brief   Clase que recoge las funciones básicas de un juego.
@@ -32,7 +33,7 @@ class Game
                     Game        ();
     virtual         ~Game       ();
     virtual void    init        (int gfx_mode, int w, int h, int col);
-    virtual void    main        ();
+    virtual void    mainGame    ();
     void            pause       ();
     void            play        ();
     bool            is_paused   ();

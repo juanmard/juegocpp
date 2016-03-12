@@ -172,14 +172,14 @@ void Game::start ()
   paused = false;
 
   /* Se llama al procedimiento principal. */
-  main ();
+  mainGame ();
   shutdown ();
 }
 
 /**
  * \brief   Procedimiento predeterminado "main" si no se sobreescribe en el hijo.
  */
-void Game::main ()
+void Game::mainGame ()
 {
   while (!key[KEY_ESC]);
 }

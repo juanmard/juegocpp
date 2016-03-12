@@ -165,7 +165,7 @@ bool Sprite::getMirror ()
  */
 void Sprite::notMirror ()
 {
-    mirror != mirror;
+    mirror = !mirror;
 }
 
 /**
@@ -185,7 +185,7 @@ string  Sprite::getString () const
           << " >> Ángulo: " << mirror << endl;
 
   // Se incluyen los valores de los Frames.
-  for (int i=0; i<frames.size (); i++)
+  for (unsigned int i=0; i<frames.size (); i++)
   {
     cadena << "Frame " << i << " {" << frames[i].getString () << "}\n";
   }

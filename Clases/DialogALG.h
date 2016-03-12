@@ -10,7 +10,8 @@
 #include <vector>
 #include "ControlALG.h"
 
-using namespace std;
+//using namespace std;
+using std::vector;
 
 class ControlALG;
 

@@ -4,7 +4,8 @@
 #include <list>
 #include "Bloque.h"
 
-using namespace std;
+//using namespace std;
+using std::list;
 
 class Actor;
 class Game;
@@ -30,7 +31,7 @@ class ActorManager
     list<Actor*>::iterator  get_end_iterator      ();
     list<Actor *>           GetActores            (Bloque &bloque);
     void                    setVisualizar         (Actor *paramActor);
-    Actor *                 getActor              (int indice);
+    Actor *                 getActor              (unsigned int indice);
 
   protected:
     void      actualizarVisualizacion   ();

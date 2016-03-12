@@ -1,5 +1,5 @@
 /**
- *  \file     Actor.cpp
+ *  \file     ActorGUI.cpp
  *  \brief    Prueba del "framework" de un juego.
  *
  *  \details  La clase instancia un tipo de juego de prueba con todos los controladores posibles.
@@ -14,7 +14,12 @@
  */
 #include "ActorGUI.h"
 #include <string>
+#include <sstream>
 #include "Actor.h"
+#include "ActorGraphic.h"
+#include "LadrilloGUI.h"
+
+using std::ostringstream;
 
 Actor *  ActorGUI::actor_activo = NULL;
 DIALOG   ActorGUI::dlg_plantilla[] =
@@ -25,7 +30,7 @@ DIALOG   ActorGUI::dlg_plantilla[] =
    { d_box_proc,         14,  342, 258, 192, 67,  243, 0,    0,      0,   0,   NULL,                         NULL, NULL },
    { d_text_proc,        22,  346, 58,  8,   67,  243, 0,    0,      0,   0,   (void*)"Nombre:",             NULL, NULL },
    { d_text_proc,        22,  358, 80,  8,   67,  243, 0,    0,      0,   0,   (void*)"Posicion:",           NULL, NULL },
-   { d_text_proc,        22,  368, 96,  8,   67,  243, 0,    0,      0,   0,   (void*)"Ancho, Alto: ",       NULL, NULL },
+   { d_text_proc,        22,  368, 96,  8,   67,  243, 0,    0,      0,   0,   (void*)"Dimensiones: ",       NULL, NULL },
    { d_text_proc,        22,  380, 72,  8,   67,  243, 0,    0,      0,   0,   (void*)"Grafico: ",           NULL, NULL },
    { d_text_proc,        22,  390, 112, 8,   67,  243, 0,    0,      0,   0,   (void*)"Tiempo estado: ",     NULL, NULL },
    { d_text_proc,        22,  402, 114, 8,   67,  243, 0,    0,      0,   0,   (void*)"Estado actual: ",     NULL, NULL },
@@ -35,7 +40,8 @@ DIALOG   ActorGUI::dlg_plantilla[] =
    { d_text_proc,        142, 368, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100, 100",            NULL, NULL },
    { ActorGUI::callback_graf,  142, 380, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"Sprite",              NULL, NULL },
    { d_text_proc,              142, 390, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100",                 NULL, NULL },
-   { d_list_proc,              142, 400, 122, 12,  67,  243, 0,    0,      0,   0,   (void*)ActorGUI::list_getter, NULL, NULL },
+//   { d_list_proc,              142, 400, 122, 12,  67,  243, 0,    0,      0,   0,   (void*)ActorGUI::list_getter, NULL, NULL },
+   { d_list_proc,              142, 400, 122, 12,  67,  243, 0,    0,      0,   0,   (void*)LadrilloGUI::dummy_getter, NULL, NULL },
    { d_slider_proc,            98,  512, 168, 16,  67,  243, 0,    0,      16,  4,   NULL,                         NULL, NULL },
    { NULL,                     0,   0,   0,   0,   0,   0,   0,    0,      0,   0,   NULL,                         NULL, NULL }
 };
@@ -53,15 +59,32 @@ actor (a)
   }
 
   // Rellenamos con los datos del objeto. Esto debería ir en 'setActor ()' que muestra otro actor.
+  // Lo mejor sería obtener todos los datos en la cadena dada por 'getString' y directamente mostrarlos.
+  // Nombre:
   string *cadena = new string(a.getNombre());
   dlg_plantilla[nombre].dp = const_cast<char*>(cadena->c_str());
 
-  // Prueba de DIALOG. Llenamos el vector de DIALOG's.
-  // Usamos la plantilla global.
+  // Posición:
+  ostringstream os;
+  os << a.get_x() << "," << a.get_y();
+  cadena = new string (os.str());
+  dlg_plantilla[posicion].dp = const_cast<char*>(cadena->c_str());
+
+  // Dimensiones:
+  os.str("");
+  os << a.get_w() << "," << a.get_h();
+  cadena = new string (os.str());
+  dlg_plantilla[dimensiones].dp = const_cast<char*>(cadena->c_str());
+
+  // Gráfico:
+  ActorGraphic *graf = a.get_actor_graphic ();
+  cadena = new string(graf->getString());
+  *cadena = cadena->substr (0, cadena->find(" >>"));
+  dlg_plantilla[grafico].dp = const_cast<char*>(cadena->c_str());
+
+  // Guardamos el punto de insercción y añadimos la GUI al padre.
   pto_inserccion = gui_padre.size ()-1;
   gui_padre.insert (gui_padre.end()-1, &dlg_plantilla[navegador], &dlg_plantilla[fin]);
-
-  delete (cadena);
 };
 
 /**

@@ -2,12 +2,11 @@
 #define _ACTORGUI_H_
 
 #include <allegro.h>
-//#include "Actor.h"
 #include <vector>
 
 class Actor;
 
-using namespace std;
+using std::vector;
 
 /** 
  * \brief   GUI básica de los actores.
@@ -15,7 +14,7 @@ using namespace std;
 class ActorGUI
 {
   public:
-    enum {navegador=0, nombre=10, posicion=11, tamano=12, grafico=13, tiempo=14, estado=15, slider=16, fin=17};
+    enum {navegador=0, nombre=10, posicion=11, dimensiones=12, grafico=13, tiempo=14, estado=15, slider=16, fin=17};
 
   public:
                     ActorGUI               (Actor &actor, vector<DIALOG> &gui_padre);
@@ -51,6 +50,7 @@ class ActorGUI
      */
     static char *  list_getter (int index, int *list_size)
     {
+      char * salida = NULL;
       if (actor_activo)
       {
         // Si 'index' es negativo debe devolver NULL e indicar el tamaño de la lista.
@@ -58,16 +58,16 @@ class ActorGUI
         if (index < 0)
         {
           *list_size = 4;
-          return NULL;
         }
         else
         {
           static char * prueba[] = {"uno", "dos", "tres", "cuatro"};
-          return prueba[index];
+          salida = prueba[index];
         }
       }
-
+      return salida;
     };
+
     /**
      * \brief   Callback del texto de gráfico.
      */

@@ -4,7 +4,8 @@
 #include <allegro.h>
 #include <string>
 
-using namespace std;
+//using namespace std;
+using std::string;
 
 /**
  * \class   DatFile

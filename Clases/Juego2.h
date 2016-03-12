@@ -18,6 +18,6 @@ class Juego2 : public Game
 {
   public:
                   Juego2                  ();
-    void          main                    ();
+    void          mainGame                ();
     void          create_storagemanager   ();
 };

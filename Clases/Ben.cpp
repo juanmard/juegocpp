@@ -243,15 +243,9 @@ void  Ben::hit  (Actor *who, int damage)
     case Nombres::herny:
           switch (estado)
           {
-//              case disparando:
-//                  break;
-
-//              case saltando:
-//                  break;
-
-//              case andando:
-//                  break;
-
+              case disparando:
+              case saltando:
+              case andando:
               default:
                   // El suelo anula la gravedad propia de Ben.
                   // \todo  Generalizar para todos los actores.

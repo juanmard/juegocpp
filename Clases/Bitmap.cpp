@@ -146,5 +146,9 @@ BITMAP *  Bitmap::getImagen () const
     {
       return almacenGlobal->getBitmap (nombre);
     }
+	  else
+	  {
+	    return NULL;
+	  }
   }
 };

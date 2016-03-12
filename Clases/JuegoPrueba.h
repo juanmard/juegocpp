@@ -16,5 +16,5 @@
 class JuegoPrueba :	public Game
 {
 	public:
-		void main();
+		void mainGame();
 };

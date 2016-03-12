@@ -1,4 +1,3 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * Juego++
  * Copyright (C) Juanma Rico 2009 <juanmard@gmail.com>

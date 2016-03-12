@@ -276,7 +276,7 @@ void ActorManager::actualizarVisualizacion ()
 /**
  * \brief   Devuelve la referencia del actor dado como índice de la lista.
  */
-Actor *  ActorManager::getActor (int indice)
+Actor *  ActorManager::getActor (unsigned int indice)
 {
   Actor *                   actor = NULL;
   list<Actor*>::iterator    iter;
@@ -285,7 +285,7 @@ Actor *  ActorManager::getActor (int indice)
   if (indice < actors.size())
   {
     iter = get_begin_iterator ();
-    for (int  i = 0; i < indice; i++, iter++){};
+    for (unsigned int  i = 0; i < indice; i++, iter++){};
     actor = *iter;
   }
   return actor;

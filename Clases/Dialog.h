@@ -114,6 +114,7 @@ class Dialog
      */
     static char *  getterListaActores (int index, int *list_size)
     {
+      char * salida = NULL;
       if (dialog[lista].dp3)
       {
         // Creamos una referencia temporal al objeto.
@@ -124,14 +125,15 @@ class Dialog
         if (index < 0)
         {
           *list_size = objeto.manager->getNumActores ();
-          return NULL;
         }
         else
         {
-          return objeto.manager->getNombreActor (index);
+          string *cadena = new string(objeto.manager->getNombreActor (index));
+          salida = const_cast<char *>(cadena->c_str());
         }
       }
-    };
+      return salida;
+};
 
     /**
      * \brief   Función estática de prueba para englobar las funciones en la clase.

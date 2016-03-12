@@ -63,6 +63,7 @@ class AlmacenGUI
      */
     static char *  list_getter (int index, int *list_size)
     {
+      char * salida = NULL;
       if (almacen_activo)
       {
         // Si 'index' es negativo debe devolver NULL e indicar el tamaño de la lista.
@@ -70,13 +71,14 @@ class AlmacenGUI
         if (index < 0)
         {
           *list_size = almacen_activo->getSize ();
-          return NULL;
         }
         else
         {
-          return const_cast<char *>(almacen_activo->getNombre (index).c_str());
+          string *cadena = new string(almacen_activo->getNombre (index));
+          salida = const_cast<char *>(cadena->c_str());
         }
       }
+      return salida;
     };
 
     /**

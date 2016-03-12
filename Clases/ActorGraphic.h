@@ -7,7 +7,9 @@
 class Actor;
 class Mask;
 
-using namespace std;
+//using namespace std;
+using std::string;
+
 
 /** 
  * \brief   Controla la parte gráfica del actor.
