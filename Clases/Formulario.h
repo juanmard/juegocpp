@@ -14,6 +14,14 @@
 #include <allegro.h>
 
 /// Formulario implementado como una lista de controles que interaccionan entre ellos.
+/// @todo Crear los controles y dejar en los procedimientos add únicamente la posición y el
+///       control para añadir al formulario:
+///       @code
+///       ctlPicture control1;
+///       ctlTextBox control2;
+///       formulario1.add (100,100,control1);
+///       formulario1.add (120,100,control2);
+///       @endcode
 ///
 class Formulario
 {
@@ -25,6 +33,7 @@ private:
 public:
     /// Tipos de controles que puede albergar el formulario.
     typedef enum {
+        PICTURE,    ///< Gráfico simple.
         LABEL,      ///< Etiqueta simple con texto.
         BOX,        ///< Caja simple con bordes.
         SLIDER      ///< Deslizador.
@@ -46,6 +55,14 @@ public:
     /// @param y  Posición y referida al formulario origen.
     ///
     void add (control_t tipo, std::string texto, int x, int y);
+
+    /// Añade un control al formulario con cadena de texto asociada.
+    /// @param tipo  Tipo de formulario a añadir.
+    /// @param picture  Imagen a mostrar como diálogo. @todo Hacer una clase para dejar esto como un control y no como un BITMAP de Allegro.
+    /// @param x  Posición x referida al formulario origen.
+    /// @param y  Posición y referida al formulario origen.
+    ///
+    void add (control_t tipo, BITMAP* picture, int x, int y);
 
     /// Añade un control al formulario sin cadena de texto asociada.
     /// @param tipo  Tipo de control a añadir.

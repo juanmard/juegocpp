@@ -20,6 +20,31 @@ Formulario::~Formulario ()
 {
 };
 
+void Formulario::add (control_t tipo, BITMAP* picture, int x, int y)
+{
+    DIALOG *ctl = new DIALOG();
+
+    switch (tipo)
+    {
+    case PICTURE:
+        ctl->proc = d_bitmap_proc;
+        break;
+    }
+
+    ctl->fg = 67;
+    ctl->bg = 243;
+    ctl->x = x;
+    ctl->y = y;
+    ctl->w = picture->w;
+    ctl->h = picture->h;
+    ctl->dp = picture;
+
+    controles.pop_back ();
+    controles.push_back (*ctl);
+    controles.push_back (fin_formulario);
+
+};
+
 void Formulario::add (control_t tipo, int x, int y, int w, int h)
 {
     DIALOG *ctl = new DIALOG();
