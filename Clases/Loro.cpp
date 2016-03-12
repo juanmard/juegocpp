@@ -1,23 +1,21 @@
-/*
- * linux
- * Copyright (C) Juanma Rico 2010 <juanmard@gmail.com>
- * 
- */
+///
+/// @file Loro.cpp
+/// @brief Fichero de la clase "Loro".
+/// @author Juan Manuel Rico
+/// @date Marzo 2010
+/// @version 1.0.0
+///
 
 #include "Loro.h"
 #include "ControllableActor.h"
 #include "Almacen.h"
 #include "Sprite.h"
 
-
 Loro::Loro ():
 ControllableActor ()
 {
 };
 
-/**
- * \brief	Constructor por omisión.
- */
 Loro::Loro (Almacen &almacen)
 {
     // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
@@ -30,38 +28,30 @@ Loro::Loro (Almacen &almacen)
     setCodigo (Nombres::herny);
     set_x(SCREEN_W/2);
     set_y(SCREEN_H/2);
-	set_is_detected (true);
+    set_is_detected (true);
     set_collision_method(CollisionManager::PP_COLLISION);
     set_wh (36,26);
 };
 
-/**
- * \brief	Acciones del loro.
- */
 void Loro::do_action (ControllableActor::action_t act, int magnitude)
 {
     switch (act)
     {
-        case DOWN: 	y+=1; break;
-		case UP: 	y-=1; break;
+        case DOWN:  y+=1; break;
+        case UP:    y-=1; break;
         case LEFT:
-		  x-=1;
-		  static_cast<Sprite *>(agraph)->setMirror (true);
-		  break;
-			
+          x-=1;
+          static_cast<Sprite *>(agraph)->setMirror (true);
+          break;
         case RIGHT:
-		  x+=1;
-		  static_cast<Sprite *>(agraph)->setMirror (false);
-		  break;
-			
+          x+=1;
+          static_cast<Sprite *>(agraph)->setMirror (false);
+          break;
         case JUMP:  y-=4; break;
     }
 };
 
-/**
- * \brief   Obtiene el nombre en forma de cadena de texto. 
- */
-void  Loro::getNombre (string &strNombre) const
+void Loro::getNombre (string &strNombre) const
 {
-  strNombre = Nombres::Imprimir (nombre);
-}
+    strNombre = Nombres::Imprimir (nombre);
+};

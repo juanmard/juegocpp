@@ -15,14 +15,14 @@
 
 #include "Juego2.h"
 #include "Plataforma.h"
-#include <guichan.hpp>
-#include <guichan/allegro.hpp>
+//#include <guichan.hpp>
+//#include <guichan/allegro.hpp>
 
 /*
     * List boxes and drop downs need an instance of a list model
     * in order to display a list.
     */
-class DemoListModel : public gcn::ListModel
+/* class DemoListModel : public gcn::ListModel
 {
 public:
     int getNumberOfElements()
@@ -224,7 +224,7 @@ void Juego2::prueba_guichan ()
     key[KEY_ESC]=false;
     set_palette (storage_manager->getPalette ("SPRITES"));
 }
-
+*/
 /**
  * \brief   Crea el objeto del juego.
  */
@@ -252,11 +252,13 @@ void Juego2::mainGame ()
 
   /* Creamos un periférico y asociamos control y propietario. */
   Keyboard *kboard=new Keyboard;
-  control_p1->set_actionperipheral(Loro::DOWN,  kboard, KEY_DOWN,  Peripheral::ON_PRESSING);
-  control_p1->set_actionperipheral(Loro::UP,     kboard, KEY_UP,    Peripheral::ON_PRESSING);
-  control_p1->set_actionperipheral(Loro::LEFT,  kboard, KEY_LEFT,  Peripheral::ON_PRESSING);
-  control_p1->set_actionperipheral(Loro::RIGHT, kboard, KEY_RIGHT, Peripheral::ON_PRESSING);
-  control_p1->set_actionperipheral(Loro::JUMP,  kboard,  KEY_A, Peripheral::ON_PRESSING);
+  control_p1->add_action_name(Loro::LEFT,  "Izquierda");
+  control_p1->add_action_name(Loro::RIGHT, "Derecha");
+  control_p1->set_actionperipheral(Loro::DOWN,  kboard,  KEY_DOWN,  Peripheral::ON_PRESSING);
+  control_p1->set_actionperipheral(Loro::UP,    kboard,  KEY_UP,    Peripheral::ON_PRESSING);
+  control_p1->set_actionperipheral(Loro::LEFT,  kboard,  KEY_LEFT,  Peripheral::ON_PRESSING);
+  control_p1->set_actionperipheral(Loro::RIGHT, kboard,  KEY_RIGHT, Peripheral::ON_PRESSING);
+  control_p1->set_actionperipheral(Loro::JUMP,  kboard,  KEY_A,     Peripheral::ON_PRESSING);
 
   /* Creamos otro control de prueba. */
   Control *control_p2=new Control;
@@ -337,6 +339,13 @@ void Juego2::mainGame ()
 
   // Se prueba a cargar desde fichero.
   this->actor_manager->load("test.txt");
+
+  // Se crea a parte un Loro y se le asigna un control para pruebas.
+  Loro *loro=new Loro(*storage_manager);
+  loro->set_x(100);
+  loro->set_y(300);
+  control_p1->set_owner(loro);
+  actor_manager->add(loro);
 
  /* Eliminamos objetos de prueba
   // Se añade una paleta de prueba pero con piel de Suelo.
@@ -455,7 +464,7 @@ void Juego2::mainGame ()
     // Se comprueba la visualización de los bloques.
     if (key[KEY_G])
     {
-      prueba_guichan ();
+      //prueba_guichan ();
       key[KEY_G] = false;
     }
 

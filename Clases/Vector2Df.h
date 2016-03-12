@@ -46,4 +46,4 @@ public:
     float x, y; ///< Componentes del vector. Se dejan públicas para un mejor acceso.
 };
 
-#endif _Vector2DF_H_
+#endif //_Vector2DF_H_

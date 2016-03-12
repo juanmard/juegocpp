@@ -44,9 +44,9 @@ class StageManager
   protected:
     Game *    game;             // Referencia al juego.
     BITMAP *  buffer;           // Buffer principal a volcar en pantalla.
+    Bloque    marco;            // Marco dentro de las coordenadas del juego.
     Bloque    ribete;           // Marco dentro de las coordenadas de la pantalla.
     int       colorRibete;      // Color del ribete.
-    Bloque    marco;            // Marco dentro de las coordenadas del juego.
     Actor *   actorSeguido;     // Actor al que se le realiza el seguimiento.
     bool      verBloques;       // Muestra los bloques de los actores.
     bool      verInfo;          // Muestra las informaciones del juego.

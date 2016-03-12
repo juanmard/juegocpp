@@ -106,6 +106,7 @@ void  Ladrillo::update ()
 
     case ESPERA:
     default:
+//        this->set_y (this->get_y()+2);
         break;
     }
 };

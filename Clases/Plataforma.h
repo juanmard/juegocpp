@@ -113,4 +113,4 @@ private:
     bool activa;            ///< Indica si actualmente la plataforma está activa, en movimiento.
 };
 
-#endif _PLATAFORMA_H_
+#endif //_PLATAFORMA_H_

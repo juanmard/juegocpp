@@ -45,4 +45,4 @@ public:
     int x, y; ///< Componentes del vector. Se dejan públicas para un mejor acceso.
 };
 
-#endif _Vector2DI_H_
+#endif //_Vector2DI_H_

@@ -419,7 +419,7 @@ string  ActorManager::getArmario ()
     // Se intenta abrir el fichero.
     try
     {
-        ifs.open(file);
+        //ifs.open(file);
 
         // Si el fichero no se ha abierto, se intenta con el nombre por omisión.
         if (!ifs.is_open())

@@ -1,0 +1,15 @@
+[Propiedades]
+Version 1.0.0
+
+[Actores]
+Cantidad 2
+Ladrillo {
+    Chaqueta  sprite_041
+    Peloteo   sample_001
+    Posición  10  10
+}
+Ladrillo {
+    Chaqueta  sprite_042
+    Peloteo   sample_001
+    Posición  50  60
+}

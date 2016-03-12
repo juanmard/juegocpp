@@ -31,4 +31,4 @@ class Paleta : public ControllableActor
     Suelo *   piel;
 };
 
-#endif _PALETA_H_
+#endif //_PALETA_H_

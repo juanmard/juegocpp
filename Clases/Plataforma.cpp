@@ -1,6 +1,6 @@
 ///
-/// @file Plataforma.h
-/// @brief Fichero cabecera de la clase "Plataforma".
+/// @file Plataforma.cpp
+/// @brief Fichero de la clase "Plataforma".
 /// @author Juan Manuel Rico
 /// @date Marzo 2015
 /// @version 1.0.0
@@ -134,11 +134,11 @@ void Plataforma::drawControl ()
     // En DrawableObject.
 
     // Mientras tanto hacemos una prueba con Allegro.
-    origen.x = origen.y = 0;
-    destino.x = destino.y = 300;
-    velocidad.x = velocidad.y = 10.0 ;
+    //origen.x = origen.y = 0;
+    //destino.x = destino.y = 300;
+    //velocidad.x = velocidad.y = 10.0 ;
 
-    line (screen, this->x, this->y, destino.x, destino.y, 123);
+    //line (screen, this->x, this->y, destino.x, destino.y, 123);
 };
 
 void Plataforma::draw (StageManager* stageManager)

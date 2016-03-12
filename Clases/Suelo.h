@@ -90,7 +90,7 @@ private:
     /// @param Referencia al fichero de lectura.
     /// @return Referencia fichero para poder encadenar lecturas.
     ///
-    std::ifstream& Suelo::leer (std::ifstream& ifs);
+    std::ifstream& leer (std::ifstream& ifs);
 
     /// Inicializa el suelo con las propiedades mínimas
     /// @note Se presupone que el mosaico está vacío y que el tamaño del suelo es cero.

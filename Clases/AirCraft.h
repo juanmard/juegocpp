@@ -27,7 +27,7 @@ class AirCraft : public ControllableActor
         /**
          *
          */
-        std::ifstream& AirCraft::leer (std::ifstream &ifs);
+        std::ifstream& leer (std::ifstream &ifs);
 
     protected:
         BITMAP *image;
