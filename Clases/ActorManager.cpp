@@ -2,7 +2,20 @@
 #include "ActorManager.h"
 #include "ActorGraphic.h"
 #include "Actor.h"
+
+// Se incluyen todos los actores posibles que puede manejar la clase.
+#include "AirCraft.h"
+#include "Ben.h"
+#include "Herny.h"
 #include "Ladrillo.h"
+#include "Loro.h"
+#include "Mago.h"
+#include "Paleta.h"
+#include "Pelota.h"
+#include "Plataforma.h"
+#define CMP_CLASE(cls) if (!clase.compare (#cls)) return (*new cls());   ///< Macro para comparar y crear el actor de clase "cls".
+
+// Bibliotecas estándar.
 #include <algorithm>
 #include <iostream>
 #include <fstream>
@@ -407,32 +420,33 @@ string  ActorManager::getArmario ()
  * \endcode
  * \param   file    Referencia al nombre del fichero de texto.
  */
- void  ActorManager::load (const string &file)
+ void ActorManager::load (const string& file)
 {
 #ifdef _DEBUG
-    cout << "Prueba de carga de actores desde fichero." << endl << "Fichero a cargar: \"" << file << "\"" << endl;
+    std::cout << "Prueba de carga de actores desde fichero." << std::endl \
+              << "Fichero a cargar: \"" << file << "\"" << std::endl;
 #endif
 
-    /* Se crea un nuevo fichero para lectura. */
-    ifstream *fs = new ifstream();
+    // Se crea un nuevo fichero para lectura.
+    std::ifstream& ifs = *new ifstream();
 
-    /* Se intenta abrir el fichero. */
+    // Se intenta abrir el fichero.
     try
     {
-        fs->open(file);
+        ifs.open(file);
 
-        /* Si el fichero no se ha abierto, se intenta con el nombre por omisión. */
-        if (!fs->is_open())
+        // Si el fichero no se ha abierto, se intenta con el nombre por omisión.
+        if (!ifs.is_open())
         {
-            cout << "Fichero \"" << file << "\" no se ha podido abrir. Se intenta nombre por omisión." << endl;
-            fs->open("actores.txt"); /* \todo Hacer de la cadena un literal. */
-            if (fs->is_open())
+            std::cout << "Fichero \"" << file << "\" no se ha podido abrir. Se intenta nombre por omisión." << std::endl;
+            ifs.open("actores.txt"); ///< \todo Hacer de la cadena un literal.
+            if (ifs.is_open())
             {
-                cout << "Abierto fichero \"actores.txt\"" << endl;
+                std::cout << "Abierto fichero \"actores.txt\"" << std::endl;
             }
             else
             {
-                /* Si finalmente no se puede abrir se da por terminado el intento y se lanza la excepción. */
+                // Si finalmente no se puede abrir se da por terminado el intento y se lanza la excepción.
                 throw std::string("Fichero \"actores.txt\" no se ha podido abrir.");
             }
         }
@@ -449,65 +463,53 @@ string  ActorManager::getArmario ()
         return;
     }
 
-    /* Si se consigue localizar y abrir el fichero se continua procesando. */
+    // Si se consigue localizar y abrir el fichero se continua procesando.
     std::cout << "Se procesa el fichero. " << std::endl;
 
-    /// \todo   Una primera línea que compruebe la versión del fichero de datos.
+    /// @todo Una primera línea que compruebe la versión del fichero de datos.
     // string version;
     // getline(fs,version);
     // if (!version.compare("JUEGO v2.0")) {return "El fichero de datos no está en la versión correcta)};
-    size_t pos = buscar_propiedad ("Actores", *fs);
+    size_t pos = buscar_propiedad ("Actores", ifs);
 
     // Se obtiene del fichero el comando y el valor.
     string comando, valor, clase;
     int num;
 
-    *fs >> std::skipws >> comando >> std::skipws >> num;
+    ifs >> std::skipws >> comando >> std::skipws >> num;
     std::cout << "Comando: " << comando << "\tValor: " << num << "\t" << std::endl;
 
-    // Se crea un nuevo actor (vacío) de la clase pasada por parámetro, pero devolviendo
-    // la clase abstracta actor.
-    //Actor *actor = crear_actor (clase);
+    // Se procesan el número de actores indicados (num).
     for (int i=0; i<num; i++)
     {
         // Leer la clase del actor.
-        *fs >> std::skipws >> clase;
-        std::cout << "Clase: " << clase << std::endl << "Fin de clase" << std::endl;
-        // Se crea el actor de la clase leída.
-        Actor *actor = new Ladrillo();
-        // Se leen los valores del actor del fichero de texto.
-        *fs >> *actor;
-        // Se agrega el actor leido a la lista.
-        this->add (actor);
+        ifs >> clase;
+        std::cout << "Clase: " << clase << std::endl;
+
+        // Se intenta crear un nuevo actor (vacío) de la clase pasada por parámetro, pero devolviendo
+        // la clase abstracta actor.
+        try {
+            Actor& actor = crearActor(clase);
+
+            // Se leen los valores de las propiedades del actor desde el fichero de texto.
+            ifs.ignore (100,'{');
+            ifs >> actor;
+            ifs.ignore (100,'}');
+
+            // Se agrega el actor leido a la lista.
+            this->add (&actor);
+        }
+        catch (std::string error)
+        {
+            std::cout << "Error: " << error << std::endl \
+                      << "Se intentará con el siguiente comando.";
+            ifs.ignore (200,'}');
+        }
     }
 
-    //// Si el comando es el correcto se utiliza el valor.
-    //unsigned int actores=0;
-    //if (!comando.compare("Actores"))
-    //{
-    //    // actores = stoi(valores); //C++11
-    //    stringstream ss(valor); // Para C++98 se necesita stringstream.
-    //    ss >> actores;
-    //}
-    //else
-    //{
-    //    cout << "El fichero no contiene lista de actores." << endl;
-    //}
-
-    //// Según la lista de actores se leen los actores y se agregan.
-    //for (std::size_t i=1; i<=actores; i++)
-    //{
-    //    cout << "--- Actor " << i << " ---" << endl;
-    //    *fs >> comando >> valor;
-    //    if (!comando.compare ("Actor"))
-    //    {
-    //    *fs >> comando >> valor;
-    //    cout << valor;
-    //    }
-    //}
-
-    fs->close();
-}
+    // Se cierra el fichero.
+    ifs.close();
+};
 
  /**
   * \brief  Busca dentro del fichero la propiedad pasada por parámetro.
@@ -565,4 +567,25 @@ std::size_t  ActorManager::buscar  (const std::string &palabra, std::ifstream &i
     }
     return pos;
 }
+
+void ActorManager::deleteActors ()
+{
+    to_create.clear();
+    to_del.clear();
+    actors.clear();
+};
+
+Actor& ActorManager::crearActor (const std::string& clase) const
+{
+    CMP_CLASE(AirCraft);
+    CMP_CLASE(Ben);
+    CMP_CLASE(Herny);
+    CMP_CLASE(Ladrillo);
+    CMP_CLASE(Loro);
+    CMP_CLASE(Mago);
+    CMP_CLASE(Paleta);
+    CMP_CLASE(Pelota);
+    CMP_CLASE(Plataforma);
+    throw std::string ("La clase \"" + clase + "\" no existe o no puede ser controlada por \"ActorManager\"");
+};
 

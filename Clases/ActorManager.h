@@ -39,17 +39,21 @@ class ActorManager
     Actor *                     getActor              (unsigned int indice);
     string                      getArmario            ();
 
-    /**
-     * \brief   Cargar los actores desde un fichero de texto plano.
-     * \param   file    Nombre del fichero a cargar.
-     */
-    void    load    (const string &file);
+    /// Borra todas las listas de los actores.
+    ///
+    void deleteActors ();
 
-  protected:
+    /// Cargar los actores desde un fichero de texto plano.
+    /// @param file Nombre del fichero a cargar.
+    ///
+    void load (const std::string& file);
+
+
+protected:
     void      actualizarVisualizacion ();
     void      avisoActorSinGrafico (Actor *a) const;
 
-  protected:
+protected:
     Game *                      game;
     list<Actor*>                actors;
     list<Actor*>::iterator      actors_iter;
@@ -60,6 +64,16 @@ class ActorManager
 private:
     std::size_t     buscar_propiedad    (const std::string &propiedad, std::ifstream &inFile) const;
     std::size_t     buscar              (const std::string &palabra, std::ifstream &inFile) const;
+
+    /// Crea un actor del tipo indicado.
+    ///
+    /// Para crear actores mediante, por ejemplo, la lectura de un fichero se necesita identificar
+    /// la clase final (la "hoja" en el árbol de herencia) de dicho actor, de esta forma se obtendrán
+    /// propiedades y procedimientos propios únicamente de dicha clase.
+    /// @param clase Referencia constante al nombre de la clase actor que se desea crear.
+    /// @return Referencia al nuevo actor creado.
+    ///
+    Actor& crearActor (const std::string& clase) const;
 
 public:
     void                    add_all_to_create   ();
