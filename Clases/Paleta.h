@@ -1,8 +1,8 @@
 ///
 /// @file Paleta.h
-/// @brief Fichero cabecera de la clase "Paleta".
+/// @brief Fichero de definición de la clase "Paleta".
 /// @author Juan Manuel Rico
-/// @date Marzo 2015
+/// @date Octubre 2015
 /// @version 1.0.0
 ///
 

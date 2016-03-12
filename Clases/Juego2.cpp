@@ -252,13 +252,16 @@ void Juego2::mainGame ()
 
   /* Creamos un periférico y asociamos control y propietario. */
   Keyboard *kboard=new Keyboard;
-  control_p1->add_action_name(Loro::LEFT,  "Izquierda");
-  control_p1->add_action_name(Loro::RIGHT, "Derecha");
-  control_p1->set_actionperipheral(Loro::DOWN,  kboard,  KEY_DOWN,  Peripheral::ON_PRESSING);
-  control_p1->set_actionperipheral(Loro::UP,    kboard,  KEY_UP,    Peripheral::ON_PRESSING);
-  control_p1->set_actionperipheral(Loro::LEFT,  kboard,  KEY_LEFT,  Peripheral::ON_PRESSING);
-  control_p1->set_actionperipheral(Loro::RIGHT, kboard,  KEY_RIGHT, Peripheral::ON_PRESSING);
-  control_p1->set_actionperipheral(Loro::JUMP,  kboard,  KEY_A,     Peripheral::ON_PRESSING);
+  control_p1->add_action_name (Loro::LEFT,  "Izquierda");
+  control_p1->add_action_name (Loro::RIGHT, "Derecha");
+  control_p1->add_action_name (Loro::UP,    "Arriba");
+  control_p1->add_action_name (Loro::DOWN,  "Abajo");
+  control_p1->add_action_name (Loro::JUMP,  "Saltar");
+  control_p1->set_actionperipheral (Loro::DOWN,  kboard,  KEY_DOWN,  Peripheral::ON_PRESSING);
+  control_p1->set_actionperipheral (Loro::UP,    kboard,  KEY_UP,    Peripheral::ON_PRESSING);
+  control_p1->set_actionperipheral (Loro::LEFT,  kboard,  KEY_LEFT,  Peripheral::ON_PRESSING);
+  control_p1->set_actionperipheral (Loro::RIGHT, kboard,  KEY_RIGHT, Peripheral::ON_PRESSING);
+  control_p1->set_actionperipheral (Loro::JUMP,  kboard,  KEY_A,     Peripheral::ON_PRESSING);
 
   /* Creamos otro control de prueba. */
   Control *control_p2=new Control;

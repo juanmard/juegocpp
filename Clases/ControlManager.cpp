@@ -1,10 +1,18 @@
+///
+/// @file ControlManager.cpp
+/// @brief Fichero de implementación de la clase "ControlManager".
+/// @author Juan Manuel Rico
+/// @date Octubre 2015
+/// @version 1.0.0
+///
+
 #include "ControlManager.h"
 
 ControlManager::ControlManager()
 {
     for (int i=0;i<MAXPERIPHERALS;i++)
     old_state[i]=false;
-}
+};
 
 ControlManager::~ControlManager()
 {
@@ -20,29 +28,29 @@ ControlManager::~ControlManager()
     {
         delete(*controls_iter);
     }
-}
+};
 
-int ControlManager::add_control(Control *c)
+int ControlManager::add_control(Control* c)
 {
     controls.push_back(c);
     return controls.size()-1;
-}
+};
 
-int ControlManager::add_peripheral(Peripheral *p)
+int ControlManager::add_peripheral(Peripheral* p)
 {
     peripherals.push_back(p);
     return peripherals.size()-1;
-}
+};
 
-Control *ControlManager::get_control(int number)
+Control* ControlManager::get_control(int number)
 {
     return controls[number];
-}
+};
 
-Peripheral *ControlManager::get_peripheral(int number)
+Peripheral* ControlManager::get_peripheral(int number)
 {
     return peripherals[number];
-}
+};
 
 ControlManager::change_t ControlManager::get_change()
 {
@@ -66,11 +74,11 @@ ControlManager::change_t ControlManager::get_change()
             old_state[pos]=false;
     }
     return ret;
-}
+};
 
 void ControlManager::update()
 {
     for (controls_iter=controls.begin();
     controls_iter!=controls.end(); controls_iter++)
     (*controls_iter)->update();
-}
+};

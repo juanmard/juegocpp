@@ -1,11 +1,14 @@
+///
+/// @file Control.cpp
+/// @brief Fichero de implementación de la clase "Control".
+/// @author Juan Manuel Rico
+/// @date Octubre 2015
+/// @version 1.0.0
+///
+
 #include "Control.h"
 
-/**
- * \brief   Asocia un nombre a la acción.
- * \param   act     Acción a la que se le asocia el nombre.
- * \param   str     Nombre de la acción.
- */
-void Control::add_action_name (ControllableObject::action_t act, string str)
+void Control::add_action_name (ControllableObject::action_t act, std::string str)
 {
     association_t asoc;
     asoc.act = act;
@@ -13,15 +16,8 @@ void Control::add_action_name (ControllableObject::action_t act, string str)
     asoc.peri = NULL;
     asoc.comp = -1;
     associations.push_back (asoc);
-}
+};
 
-/**
- * \brief   Asocia un periférico con su evento a una acción determinada.
- * \param   act     Acción a la que se le asocia el periférico.
- * \param   peri    Periférico.
- * \param   comp    Componente.
- * \param   e       Evento.
- */
 void  Control::set_actionperipheral (
       ControllableObject::action_t act,
       Peripheral* peri,
@@ -44,32 +40,21 @@ void  Control::set_actionperipheral (
       return;
     }
   }
-}
+};
 
-/**
- * \brief   Añade una nueva asociación de acciones con periféricos.
- * \param   assoc   Estructura de asociación.
- */
 void Control::add_association (Control::association_t assoc)
 {
   associations.push_back (assoc);
-}
+};
 
-/**
- * \brief   Cambia el propietario del control.
- * \param   co    Objeto propietario del control.
- */
 void Control::set_owner (ControllableObject* co)
 {
   owner = co;
-}
+};
 
-/**
- * \brief   Actualiza el estado del control.
- */
 void Control::update ()
 {
-  int do_action_order;
+  bool do_action_order;
   Peripheral::state_t tmp_state;
   Peripheral::event_t tmp_old_event;
 
@@ -78,9 +63,17 @@ void Control::update ()
   associations_iter != associations.end();
   associations_iter++)
   {
+    // Se lee temporalmente el estado actual del periférico y su componente asociado.
     tmp_state = associations_iter->peri->get_state (associations_iter->comp);
+    
+    // Se lee temporalmente el evento anterior.
     tmp_old_event = associations_iter->old_event;
+    
+    // En principio no se ejecutará la acción si no hay nadie que diga lo contrario.
     do_action_order = false;
+    
+    // Según el evento actual, el anterior y el estado guardado temporalmente, se decide
+    // si ejecutar o no la acción del control sobre el objeto propietario del mismo.
     switch (associations_iter->new_event)
     {
       case Peripheral::ON_PRESSING:
@@ -133,19 +126,15 @@ void Control::update ()
           break;
     }
 
-    // Si hay orden de realizar una acción manda ejecutarla al propietario del control.
+    // Si finalmente hay orden de realizar una acción, manda ejecutarla al propietario del control.
     if (do_action_order)
     {
       owner->do_action (associations_iter->act, tmp_state);
     }
   }
-}
+};
 
-/**
- * \brief   Obtiene el nombre de una acción determinada.
- * \param   act   Acción de la que obtener el nombre.
- */
-string Control::get_name_action (ControllableObject::action_t act)
+std::string Control::get_name_action (ControllableObject::action_t act)
 {
   for (associations_iter = associations.begin();
   associations_iter != associations.end();
@@ -157,4 +146,4 @@ string Control::get_name_action (ControllableObject::action_t act)
     }
   }
   return "";
-}
+};

@@ -1,8 +1,8 @@
 ///
 /// @file Paleta.cpp
-/// @brief Fichero definición de la clase "Paleta".
+/// @brief Fichero de implementación de la clase "Paleta".
 /// @author Juan Manuel Rico
-/// @date Marzo 2015
+/// @date Octubre 2015
 /// @version 1.0.0
 ///
 
