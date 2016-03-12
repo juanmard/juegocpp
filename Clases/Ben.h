@@ -28,7 +28,11 @@ class Ben : public ControllableActor
                   esperando_der, andando_der, girando_der, cayendo_der, disparando_der, saltando_der, bajando_der
                   } Sprites_t;
 
-  public:
+public:
+    /// Constructor básico de la clase.
+    ///
+    Ben ();
+
               Ben         (Almacen &almacen);
     void      do_action   (ControllableActor::action_t act, int magnitude);
     void      update      ();

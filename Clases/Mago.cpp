@@ -9,6 +9,10 @@
 #include "Almacen.h"
 #include "Sprite.h"
 
+Mago::Mago ():
+ControllableActor()
+{
+};
 
 /**
  * \brief    Constructor por omisión.

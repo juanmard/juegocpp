@@ -6,8 +6,12 @@
 
 class Pelota : public DirectorActor
 {
-  public:
-                        Pelota              (const Pelota &copia);
+public:
+    /// Constructor básico.
+    ///
+    Pelota ();
+
+    Pelota              (const Pelota &copia);
                         Pelota              (ActorManager *actor_manager);
                         ~Pelota             (void);
     void                CambiarEstado       (void);
@@ -15,6 +19,11 @@ class Pelota : public DirectorActor
     void                hit                 (Actor *who, int damage);
     virtual Pelota *    clone               () const;
     void                getNombre           (string &strNombre) const;
+
+    ///
+    /// Obtener el menu de la pelota.
+    /// 
+    Menu& getMenu () const;
 
 protected:
     /**

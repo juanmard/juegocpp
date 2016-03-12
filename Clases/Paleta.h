@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _PALETA_H_
+#define _PALETA_H_
+
 #include "Suelo.h"
 #include "ControllableActor.h"
 #include "Nombres.h"
@@ -28,3 +30,5 @@ class Paleta : public ControllableActor
   protected:
     Suelo *   piel;
 };
+
+#endif _PALETA_H_

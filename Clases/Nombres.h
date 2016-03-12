@@ -15,7 +15,7 @@ class Nombres
 {
     
   public:
-    enum codigo {pelota, paleta, herny, jugador, enemigo, ladrillo, mago, ben, camello};
+    enum codigo {pelota, paleta, herny, jugador, enemigo, ladrillo, mago, ben, camello, plataforma};
 
   public:
           Nombres     ();
@@ -28,22 +28,23 @@ class Nombres
    *          En lugar de usar el 'switch' utilizar una estructura 'stl' tipo 'map'.
    *          Esto mismo se hizo para referenciar los punteros y los nombres de los Bitmaps en la clase 'Almacen'.
    */
-  static string  Imprimir (const codigo cod_nombre)
+  static std::string Imprimir (const codigo cod_nombre)
   {
     string cadena;
 
     switch (cod_nombre)
     {
-      case pelota:    cadena = "Pelota";      break;
-      case paleta:    cadena = "Suelo";       break;
-      case herny:     cadena = "Herny";       break;
-      case jugador:   cadena = "Jugador";     break;
-      case enemigo:   cadena = "Enemigo";     break;
-      case ladrillo:  cadena = "Ladrillo";    break;
-      case mago:      cadena = "Mago";        break;
-      case ben:       cadena = "Ben";         break;
-      case camello:   cadena = "Camello";     break;
-      default:        cadena = "Sin nombre";  break;
+      case pelota:     cadena = "Pelota";      break;
+      case paleta:     cadena = "Suelo";       break;
+      case herny:      cadena = "Herny";       break;
+      case jugador:    cadena = "Jugador";     break;
+      case enemigo:    cadena = "Enemigo";     break;
+      case ladrillo:   cadena = "Ladrillo";    break;
+      case mago:       cadena = "Mago";        break;
+      case ben:        cadena = "Ben";         break;
+      case camello:    cadena = "Camello";     break;
+      case plataforma: cadena = "Plataforma";  break;
+      default:         cadena = "Sin nombre";  break;
     }
     return cadena;
   }

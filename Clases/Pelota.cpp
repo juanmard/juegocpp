@@ -1,5 +1,10 @@
 #include "Pelota.h"
 
+Pelota::Pelota ():
+DirectorActor()
+{
+};
+
 /**
  * \brief   Constructor de copia.
  */
@@ -23,7 +28,7 @@ rebote(copia.rebote)
 Pelota::Pelota(ActorManager *actor_manager):
 DirectorActor (actor_manager)
 {
-    DatFile *sprites = new DatFile("sprites.dat");
+    DatFile *sprites = new DatFile("sprites3.dat");
     granada = new Bitmap(this, sprites->GetBitmap("granada"));
     tomate = new Bitmap(this, sprites->GetBitmap("tomate"));
     estrella = new Bitmap(this, sprites->GetBitmap("estrella"));
@@ -145,3 +150,9 @@ void  Pelota::getNombre (string &strNombre) const
 {
   strNombre = Nombres::Imprimir (nombre);
 }
+
+Menu& Pelota::getMenu () const
+{
+    return (*new Menu());
+};
+

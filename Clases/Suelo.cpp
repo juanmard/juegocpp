@@ -1,99 +1,103 @@
+///
+/// @file Suelo.cpp
+/// @brief Declaración de la clase gráfica Suelo.
+/// @author Juan Manuel Rico
+/// @date Enero 2009
+/// @version 1.0.0
+///
+
 #include "Suelo.h"
 #include "Actor.h"
 #include <sstream>
+#include <fstream>
 
-/**
- * \brief   Constructor de copia.
- */
-Suelo::Suelo (const Suelo &copia, Actor *propietario):
+Suelo::Suelo ():
+Mosaico(),
+size(0),
+terminal(NULL),
+bloque(NULL)
+{
+};
+
+Suelo::Suelo (const Suelo& copia, Actor* propietario):
 Mosaico (copia, propietario),
 size (copia.size),
-suelo_1 (copia.suelo_1),
-suelo_2 (copia.suelo_2)
+terminal (copia.terminal),
+bloque (copia.bloque)
 {
-}
+};
 
-/**
- * \brief   Constructor primario.
- */
-Suelo::Suelo (Actor *aowner, int new_size):
+Suelo::Suelo (Actor* aowner, int new_size):
 Mosaico (aowner)
 {
-  // \todo Dejar de cargar continuamente el fichero de "sprites".
-  //       Incluir quizás en los parámetros de creación del actor.
-  //       O crear una clase que sea "Vestuario" común a todos los
-  //       actores de la escena desde el Juego principal (o quizás
-  //       desde el "ActorManager").
-  DatFile *file_dat = new DatFile("sprites.dat");
-  suelo_1 = file_dat->GetBitmap("suelo_1");
-  suelo_2 = file_dat->GetBitmap("suelo_2");
+    DatFile *file_dat = new DatFile("sprites3.dat");
+    terminal = file_dat->GetBitmap("pre2_067");
+    bloque = file_dat->GetBitmap("pre2_069");
 
-  // Generamos el suelo según el tamaño solicitado.
-  for (int i=0; i<new_size; i++)
-  {
-      add_ultima_Tesela (new Tesela (this, suelo_2, 32*i, 0));
-  }
+    // Generamos el suelo según el tamaño solicitado.
+    for (int i=0; i<new_size; i++)
+    {
+        add_ultima_Tesela (new Tesela (this, bloque, 32*i, 0));
+    }
   
-  // Añadimos las plataformas terminales al suelo.
-  add_ultima_Tesela (new Tesela (this, suelo_1, 0, 0));
-  add_ultima_Tesela (new Tesela (this, suelo_1, 32*new_size-10, 0, true));
+    // Añadimos las plataformas terminales al suelo.
+    // Se hace al final para que queden dibujadas por encima de los bloques.
+    add_ultima_Tesela (new Tesela (this, terminal, 0, 0));
+    add_ultima_Tesela (new Tesela (this, terminal, 32*new_size-10, 0, true));
 
-  // Adaptamos el ancho y el alto del actor padre.
-  // TODO: Igual esto no es deseable si queremos hacer un suelo "falso", es decir,
-  //       que no sea tan extenso como lo que muestra el gráfico.
-  aowner->set_wh(32*new_size+20,15);
+    /// Adaptamos el ancho y el alto del actor padre.
+    /// @note Igual esto no es deseable si queremos hacer un suelo "falso", es decir,
+    ///       que no sea tan extenso como lo que muestra el gráfico.
+    ///       Esto demuestra que es necesario desligar el gráfico del actor.
+    aowner->set_wh(32*new_size+20,15);
 
-  // Una vez creado actualizamos la variable del tamaño.
-  size = new_size;
-}
+    // Una vez creado actualizamos la variable del tamaño.
+    size = new_size;
+};
 
-/**
- * \brief   Constructor de prueba con almacén.
- */
-Suelo::Suelo (Actor *aowner, Almacen &almacen, int new_size):
+Suelo::Suelo (Actor* aowner, Almacen& almacen, int new_size):
 Mosaico (aowner)
 {
-  suelo_1 = almacen.getBitmap("pre2_067");
-  suelo_2 = almacen.getBitmap("pre2_069");
+    // Nombres de gráficos para el fichero "sprites3.dat".
+    terminal = almacen.getBitmap("pre2_067");
+    bloque = almacen.getBitmap("pre2_069");
 
-  // Generamos el suelo según el tamaño solicitado.
-  for (int i=0; i<new_size; i++)
-  {
-    add_ultima_Tesela (new Tesela (this, suelo_2, 32*i, 0));
-  }
+    // Generamos el suelo según el tamaño solicitado.
+    for (int i=0; i<new_size; i++)
+    {
+        add_ultima_Tesela (new Tesela (this, bloque, 32*i, 0));
+    }
   
-  // Añadimos las plataformas terminales al suelo.
-  add_ultima_Tesela (new Tesela (this, suelo_1, 0, 0));
-  add_ultima_Tesela (new Tesela (this, suelo_1, 32*new_size-10, 0, true));
+    // Añadimos las plataformas terminales al suelo.
+    add_ultima_Tesela (new Tesela (this, terminal, 0, 0));
+    add_ultima_Tesela (new Tesela (this, terminal, 32*new_size-10, 0, true));
 
-  // Adaptamos el ancho y el alto del actor padre.
-  // TODO: Igual esto no es deseable si queremos hacer un suelo "falso", es decir,
-  //       que no sea tan extenso como lo que muestra el gráfico.
-  aowner->set_wh (32*new_size+20,15);
+    // Adaptamos el ancho y el alto del actor padre.
+    // TODO: Igual esto no es deseable si queremos hacer un suelo "falso", es decir,
+    //       que no sea tan extenso como lo que muestra el gráfico.
+    aowner->set_wh (32*new_size+20,15);
 
-  // Una vez creado actualizamos la variable del tamaño.
-  size = new_size;
-}
+    // Una vez creado actualizamos la variable del tamaño.
+    size = new_size;
+};
 
-/**
- * \brief Obtiene el tamaño actual del suelo.
- */
-int  Suelo::getSize ()
+int  Suelo::getSize () const
 {
-  return size;
-}
+    return size;
+};
 
-/**
- * \brief   Modifica el tamaño actual del suelo.
- * \details El tamaño del suelo se mide por la cantidad de bloques que tiene,
- *          no se incluyen los terminales del suelo.
- * \todo    Insertar y borrar las teselas del suelo por detrás de los dos 
- *          suelos terminales y así mantener la coherencia del mosaico guardado
- *          y el mostrado en pantalla.
- */
-void  Suelo::setSize (int new_size)
+void Suelo::setSize (int new_size)
 {
-  // Se calcula la diferencia de tamaños, es decir,
+  // Si el tamaño es cero (por una construcción básica del objeto)...
+  // Hay que incluir al menos las imágenes de bitmap  con las que trabajar y agregar
+  // las teselas de los terminales en el mosaico.
+  if (size == 0)
+  {
+      inicializar ();
+  };
+
+  // Una vez con un suelo básico...
+  // se calcula la diferencia de tamaños, es decir,
   // el número de bloques a incluir o eliminar.
   int num = new_size - size;
 
@@ -106,10 +110,10 @@ void  Suelo::setSize (int new_size)
     // Si el tamaño es mayor...
     if (num > 0)
     {
-      // Añadimos o quitamos teselas del "suelo_2".
+      // Añadimos o quitamos teselas de "bloques".
       for (int i=0; i<num; i++)
       {   
-        add_primera_Tesela (new Tesela (this, suelo_2, 32*(size+i)));
+        add_primera_Tesela (new Tesela (this, bloque, 32*(size+i)));
       }
     }
     // Si el tamaño es menor...
@@ -122,26 +126,60 @@ void  Suelo::setSize (int new_size)
       }
     }
 
-    // Actualizamos el tamaño actual.
+    // Actualizamos al tamaño actual.
     size = new_size;
+    //if(aowner) aowner->set_wh (32*new_size+20,15);
   }
-}
+};
 
-/**
- * Clona el objeto.
- */
-Suelo *  Suelo::clone (Actor *propietario) const
+void Suelo::inicializar ()
+{
+    DatFile *file_dat = new DatFile("sprites3.dat");
+    terminal = file_dat->GetBitmap("pre2_067");
+    bloque = file_dat->GetBitmap("pre2_069");
+
+    //this->clear ();
+    add_ultima_Tesela (new Tesela (this, bloque,   0, 0));
+    add_ultima_Tesela (new Tesela (this, terminal, 0, 0));
+    add_ultima_Tesela (new Tesela (this, terminal, 32-10, 0, true));
+
+    size = 1;
+};
+
+Suelo*  Suelo::clone (Actor* propietario) const
 {
     return (new Suelo(*this, propietario));
-}
+};
 
-/**
- * \brief   Devuelve la estructura básica del objeto en una cadena.
- */
-string  Suelo::getString () const
+std::string  Suelo::getString () const
 {
-  ostringstream cadena;
+    std::ostringstream cadena;
 
-  cadena << "Suelo >> Tamaño: " << size << " >> Suelo 1: " << suelo_1 << " >> Suelo 2: " << suelo_2 << endl;
-  return cadena.str ();
-}
+    cadena << "    Suelo {" << std::endl \
+           << "        Tamaño " << size << std::endl \
+
+           /// @todo Al convertir los "BITMAP" en "Bitmap" aquí podríamos incluir
+           ///       @code terminal.getString(); @endcode
+           /// @note Si el suelo siempre se forma con los mismos gráficos no es necesario
+           ///       incluirlo en la cadena de propiedades.
+           // << "      terminal " << "sprite_" << std::endl \
+           // << "      bloque " << "sprite_" << std::endl \
+
+
+           << "    }" << std::endl;
+    return cadena.str ();
+};
+
+std::ifstream& Suelo::leer (std::ifstream& ifs)
+{
+    std::string comando;
+
+    ifs >>  comando;
+    if (!comando.compare("Tamaño"))
+    {
+        int tam;
+        ifs >> tam;
+        this->setSize(tam);
+    }
+    return ifs;
+};

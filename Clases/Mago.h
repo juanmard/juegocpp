@@ -25,8 +25,11 @@ class Mago : public ControllableActor
                   esperando_der, andando_der, cayendo_der, disparando_der, saltando_der
                   } Sprites_t;
 
-  public:
-            Mago        (Almacen &almacen);
+public:
+    /// Constructor básico.
+    Mago ();
+
+    Mago        (Almacen &almacen);
     void    do_action   (ControllableActor::action_t act, int magnitude);
     void    update      ();
     void    hit         (Actor *who, int damage);

@@ -20,7 +20,7 @@ siguiente (copia.siguiente)
  */
 Herny::Herny (Almacen &almacen)
 {
-    //DatFile *sprites = new DatFile("sprites.dat");
+    //DatFile *sprites = new DatFile("sprites3.dat");
     // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
     Sprite *skin = new Sprite(this);
 /*
@@ -61,7 +61,7 @@ Herny::Herny (Almacen &almacen)
  */
 Herny::Herny ()
 {
-  DatFile *sprites = new DatFile("sprites.dat");
+  DatFile *sprites = new DatFile("sprites3.dat");
   // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
   Sprite *skin = new Sprite(this);
   skin->add_frame(sprites->GetBitmap("jugador_01"), 0, 0, 10);
@@ -129,7 +129,7 @@ void Herny::ActualizarEstado (void)
 
 void Herny::CambiarEstado (Almacen &almacen)
 {
-    //DatFile *sprites = new DatFile("sprites.dat");
+    //DatFile *sprites = new DatFile("sprites3.dat");
     actual = siguiente;
     switch (siguiente)
     {
@@ -157,7 +157,7 @@ void Herny::CambiarEstado (Almacen &almacen)
  */
 void Herny::CambiarEstado ()
 {
-    DatFile *sprites = new DatFile("sprites.dat");
+    DatFile *sprites = new DatFile("sprites3.dat");
     actual = siguiente;
     switch (siguiente)
     {

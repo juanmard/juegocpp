@@ -12,11 +12,15 @@
 
 using namespace std;
 
+Ben::Ben ():
+ControllableActor()
+{
+};
 
 /**
  * \brief    Constructor por omisión.
  */
-Ben::Ben (Almacen &almacen):
+Ben::Ben (Almacen& almacen):
 estado(andando),
 estado_sig(andando),
 timer(0),

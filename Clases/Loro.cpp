@@ -10,6 +10,11 @@
 #include "Sprite.h"
 
 
+Loro::Loro ():
+ControllableActor ()
+{
+};
+
 /**
  * \brief	Constructor por omisión.
  */

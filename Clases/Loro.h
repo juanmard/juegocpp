@@ -12,12 +12,16 @@
 
 class Loro : public ControllableActor 
 {
-  public:
+public:
     // Definición de acciones del loro.
     typedef enum {DOWN, UP, LEFT, RIGHT, JUMP} action_t;
 
-  public:
-              Loro          (Almacen &almacen);
+public:
+    /// Constructor básico.
+    ///
+    Loro ();
+
+    Loro          (Almacen &almacen);
     void      do_action     (ControllableActor::action_t act, int magnitude);
     void      getNombre     (string &strNombre) const;
 

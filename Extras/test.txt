@@ -1,21 +1,21 @@
 [Actores]
-Cantidad 9
+Cantidad 20
 Ladrillo {
     Chaqueta  "sprite_041"
     Peloteo   "sample_001"
-    Posición  <226, 243>
+    Posición  <235, 243>
 }
 
 Ladrillo {
     Chaqueta  "sprite_090"
     Peloteo   "sample_001"
-    Posición  <176, 186>
+    Posición  <177, 187>
 }
 
 Ladrillo {
     Chaqueta  "sprite_044"
     Peloteo   "sample_001"
-    Posición  <319, 207>
+    Posición  <537, 26>
 }
 
 Ladrillo {
@@ -27,30 +27,121 @@ Ladrillo {
 Ladrillo {
     Chaqueta  "sprite_041"
     Peloteo   "sample_001"
-    Posición  <194, 244>
+    Posición  <199, 244>
 }
 
 Ladrillo {
     Chaqueta  "sprite_041"
     Peloteo   "sample_001"
-    Posición  <258, 243>
+    Posición  <271, 243>
 }
 
 Ladrillo {
     Chaqueta  "sprite_041"
     Peloteo   "sample_001"
-    Posición  <291, 243>
+    Posición  <306, 240>
 }
 
 Ladrillo {
     Chaqueta  "sprite_041"
     Peloteo   "sample_001"
-    Posición  <324, 243>
+    Posición  <340, 240>
 }
 
 Ladrillo {
-    Chaqueta  "Sin nombre"
+    Chaqueta  "sprite_087"
     Peloteo   "sample_001"
-    Posición  <382, 190>
+    Posición  <499, 61>
 }
+
+Ladrillo {
+    Chaqueta  "sprite_090"
+    Peloteo   "sample_001"
+    Posición  <-11, -35>
+}
+
+Ladrillo {
+    Chaqueta  "sprite_041"
+    Peloteo   "sample_001"
+    Posición  <282, 95>
+}
+
+Ladrillo {
+    Chaqueta  "sprite_044"
+    Peloteo   "sample_001"
+    Posición  <343, 48>
+}
+
+Ladrillo {
+    Chaqueta  "sprite_088"
+    Peloteo   "sample_001"
+    Posición  <315, 51>
+}
+
+Ladrillo {
+    Chaqueta  "sprite_041"
+    Peloteo   "sample_001"
+    Posición  <348, 95>
+}
+
+Ladrillo {
+    Chaqueta  "sprite_041"
+    Peloteo   "sample_001"
+    Posición  <315, 95>
+}
+
+Plataforma {
+    Posición    <473, 102>
+    Dimensiones <84, 15>
+    Gráfico {
+    Suelo {
+        Tamaño 2
+    }
+    }
+}
+
+
+Plataforma {
+    Posición    <56, 0>
+    Dimensiones <84, 15>
+    Gráfico {
+    Suelo {
+        Tamaño 7
+    }
+    }
+}
+
+
+Plataforma {
+    Posición    <391, 228>
+    Dimensiones <84, 15>
+    Gráfico {
+    Suelo {
+        Tamaño 2
+    }
+    }
+}
+
+
+Plataforma {
+    Posición    <-27, 242>
+    Dimensiones <84, 15>
+    Gráfico {
+    Suelo {
+        Tamaño 5
+    }
+    }
+}
+
+
+Plataforma {
+    Posición    <-34, 22>
+    Dimensiones <84, 15>
+    Gráfico {
+    Suelo {
+        Tamaño 2
+    }
+    }
+}
+
 
