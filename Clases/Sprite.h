@@ -10,6 +10,7 @@
 #define SPRITE_H
 
 #include "ActorGraphic.h"
+#include "EditableObject.h"
 #include <vector>
 #include "Frame.h"
 #include <allegro.h>
@@ -21,7 +22,7 @@
 /// @class Gráfico en movimiento, una animación simple para los actores.
 /// Esta clase modela varias imágenes en movimiento como gráfico para un actor.
 ///
-class Sprite : public ActorGraphic
+class Sprite : public ActorGraphic, EditableObject
 {
 protected:
     std::vector<Frame> frames;  ///< Conjunto de cuadros que forman la animación.
@@ -123,6 +124,23 @@ public:
     /// @return Cadena de caracteres con la estructura y propiedades de la animación.
     ///
     virtual std::string getString () const;
+
+    /// Genera un menú para edición del sprite.
+    /// @return Menú con las opciones para la edición del sprite.
+    ///
+    Menu& getMenu () const;
+
+    /// Genera un formulario para edición del sprite.
+    /// @return Formulario con los controles necesarios para la edición del sprite.
+    ///
+    Formulario& getFormulario () const;
+
+    /// Prueba estática para menú.
+    static int prueba_menu_static (void)
+    {
+        return D_O_K;
+    };
+
 };
 
 #endif

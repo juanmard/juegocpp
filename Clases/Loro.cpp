@@ -102,3 +102,9 @@ void Loro::getNombre (std::string &strNombre) const
 {
     strNombre = Nombres::Imprimir (nombre);
 };
+
+std::string Loro::getNombre () const
+{
+    return "Loro";
+};
+

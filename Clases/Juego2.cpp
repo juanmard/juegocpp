@@ -382,7 +382,7 @@ void Juego2::mainGame ()
   cout << " S - Se activa el seguimiento del jugador." << endl;
   cout << " T - Realiza una prueba de gráficos." << endl;
   cout << " V - Visualiza los bloques de los actores." << endl;
-  cout << " G - Prueba de GUI con 'GUICHAN'." << endl;
+  cout << " G - Pruebas de GUI'." << endl;
   cout << " I - Consola interactiva." << endl;
   cout << " ESC - Termina el juego." << endl;
   cout << "----------------------------------" << endl << endl;
@@ -446,7 +446,21 @@ void Juego2::mainGame ()
     // Se comprueba la visualización de los bloques.
     if (key[KEY_G])
     {
-      //prueba_guichan ();
+      // Se crea a parte un Loro de prueba para el editor de Sprites.
+      Loro *loro2=new Loro(*storage_manager);
+      loro2->set_x(100);
+      loro2->set_y(300);
+      control_p1->set_owner(loro2);
+      actor_manager->add(loro2);
+
+      // Prueba con sprite.
+      Sprite *prueba = (Sprite *) loro2->get_actor_graphic();
+      loro2->setCodigo(Nombres::plataforma);
+      Menu &menu = prueba->getMenu ();
+      do_menu(menu, mouse_x, mouse_y);
+
+      Formulario &form = prueba->getFormulario ();
+      key[KEY_ESC] = false;
       key[KEY_G] = false;
     }
 

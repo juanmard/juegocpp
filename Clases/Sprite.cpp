@@ -172,3 +172,28 @@ std::string Sprite::getString () const
     return (cadena.str());
 };
 
+
+
+Menu& Sprite::getMenu () const
+{
+    Menu* ptr_menu = new Menu ();
+    ptr_menu->add ((char*)(new std::string(owner->getNombre()))->c_str());  // Se necesita copiar la cadena.
+    ptr_menu->add((char*)"");                                               // Separador.
+    ptr_menu->add(const_cast<char*>("&Editar SPRITE"), D_EXIT);             // Algunos items inútiles de prueba.
+    ptr_menu->add(const_cast<char*>("&Repartir SPRITE"), D_SELECTED);
+    ptr_menu->add(const_cast<char*>("&Duplicar SPRITE"), D_EXIT);
+    return *ptr_menu;
+};
+
+Formulario& Sprite::getFormulario () const
+{
+    Formulario* ptr_formulario = new Formulario ();
+    ptr_formulario->add (Formulario::BOX, 90, 90, 400, 200);
+    ptr_formulario->add (Formulario::LABEL, "Esto es una etiqueta de formulario.", 100, 100);
+    ptr_formulario->add (Formulario::LABEL, "Esta es otra.", 100, 110);
+    ptr_formulario->add (Formulario::LABEL, "Y una más.", 100, 120);
+    ptr_formulario->add (Formulario::SLIDER, 100, 150, 190, 15);
+    ptr_formulario->show();
+    return *ptr_formulario;
+};
+

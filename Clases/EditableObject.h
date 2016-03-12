@@ -7,11 +7,14 @@
 /// @version 1.0.0
 ///
 
+#include "Menu.h"
+#include "Formulario.h"
+
 #ifndef _EDITABLEOBJECT_H_
 #define _EDITABLEOBJECT_H_
 
-class Menu;
-class Formulario;
+//class Menu;
+//class Formulario;
 
 /// @class EditableObject
 /// Clase "completamente abstracta" que define el comportamiento de un objeto editable.

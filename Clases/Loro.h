@@ -65,6 +65,13 @@ public:
     ///
     void getNombre (std::string &strNombre) const;
 
+    /// Obtiene el nombre del loro.
+    /// @return Nombre del loro en forma de cadea.
+    ///
+    /// @todo Poder asignar un nombre distinto a cada actor y poder actualizarlo.
+    ///
+    std::string Loro::getNombre () const;
+
 private:
     Sprite *derecha, *izquierda, *giro;     ///< Animaciones para el actor Loro.
 };

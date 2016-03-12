@@ -67,7 +67,7 @@ Mask* ActorGraphic::get_mask ()
 
 ActorGraphic* ActorGraphic::clone (Actor* propietario) const
 {
-    return NULL;
+    return new ActorGraphic();
 };
 
 std::string ActorGraphic::getString () const

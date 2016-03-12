@@ -120,10 +120,10 @@ moviendoActor (false)
   mnu_fichero[1].dp = this;
 
   // Hacemos una prueba de menú dinámico.
-  menu_dinamico.add (const_cast<char*>("Etiqueta 1 - Opciones"), NULL, NULL, NULL, D_DISABLED);
-  menu_dinamico.add (const_cast<char*>("Etiqueta 2 - Padre"), NULL, NULL, &mnu_actor[3]);
-  menu_dinamico.add (const_cast<char*>("Etiqueta 3 - Duplicar"), Dialog::cb_menu_opciones, this);
-  menu_dinamico.add (const_cast<char*>("Etiqueta 4"), Dialog::about);
+  menu_dinamico.add (const_cast<char*>("Etiqueta 1 - Opciones"));
+  menu_dinamico.add (const_cast<char*>("Etiqueta 2 - Padre"), 0, &mnu_actor[3], NULL);
+  menu_dinamico.add (const_cast<char*>("Etiqueta 3 - Duplicar"), 0, this, NULL, Dialog::cb_menu_opciones);
+  menu_dinamico.add (const_cast<char*>("Etiqueta 4"), 0, NULL, NULL, Dialog::about);
   mnu_actor[0].child = menu_dinamico;
 }
 
