@@ -8,6 +8,9 @@
 #include "DatFile.h"
 #include "Bitmap.h"
 
+int EditorManager::refX = 0;
+int EditorManager::refY = 0;
+
 /**
  * \brief   Construye la clase para editar un juego.
  * \details Debe generar otra ventana, obtener la lista de objetos y realizar su propio bucle de estética
@@ -18,7 +21,8 @@
 EditorManager::EditorManager(Game *g):
 game (g),
 actorAtrapado (NULL),
-actorActivado (NULL)
+actorActivado (NULL),
+actorFijado (false)
 {
   // Referencia a la GUI.
   gui = new Dialog(this);
@@ -338,6 +342,14 @@ bool  EditorManager::isActorActivo () const
 }
 
 /**
+ * \brief   Dice si el actor actual está fijo.
+ */
+bool  EditorManager::isActorFijo () const
+{
+  return actorFijado;
+}
+
+/**
  * \brief   Dice si existe un decorado atrapado por el ratón.
  */
 bool  EditorManager::isDecoradoAtrapado () const
@@ -379,8 +391,14 @@ void  EditorManager::atraparActor (int x, int y)
   actorAtrapado = getActor (x, y);
   if ( isActorAtrapado () )
   {
+    // Se cambia el color del bloque y se muestra.
     actorAtrapado->set_color (makecol(255,0,0));
     actorAtrapado->setMostrarBloque (true);
+
+    // Se guarda la posición relativa del punto de 'atrape'
+    // dentro del bloque del actor.
+    refX = x - actorAtrapado->get_x();
+    refY = y - actorAtrapado->get_y();
   }
 }
 
@@ -428,5 +446,44 @@ void  EditorManager::activarActor (int x, int y)
     actorActivado->set_color (makecol(0,255,0));
     actorActivado->setMostrarBloque (true);
     actorActivado->drawGUI ();
+  }
+};
+
+/**
+ * \brief   Fija al actor bajo el cursor.
+ */
+void  EditorManager::fijarActor (int x, int y)
+{
+  // Se intenta activar el actor bajo el cursor.
+  activarActor (x, y);
+  
+  // Si se consiguió activar, cambiamos la variable para fijarlo.
+  // En otro caso, borramos la variable.
+  if ( isActorActivo () )
+  {
+    actorFijado = true;
+    actorActivado->set_color (makecol(128,128,255));
+    actorActivado->setMostrarBloque (true);
+  }
+  else
+  {
+    actorFijado = false;
+    desactivarActor ();
+  }
+};
+
+/**
+ * \brief   Mueve el actor según las coordenadas dadas.
+ * \todo    Eliminar el 2 del nombre cuando se termine la migración a la GUI
+ *          dinámica.
+ */
+void EditorManager::moverActor2 (int x, int y)
+{
+  // Si el actor está atrapado, movemos teniendo encuenta la 
+  // referencia al bloque guardada. 
+  if ( isActorAtrapado () )
+  {
+    actorAtrapado->set_x (x - refX);
+    actorAtrapado->set_y (y - refY);
   }
 };

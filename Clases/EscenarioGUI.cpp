@@ -7,6 +7,10 @@
 #include "EscenarioGUI.h"
 #include <sstream>
 
+// Variables locales para el mouse.
+int EscenarioGUI::local_x = 0;
+int EscenarioGUI::local_y = 0;
+
 /**
  * \brief   Constructor.
  */
@@ -97,19 +101,22 @@ int  EscenarioGUI::MoveMouse (int msg, DIALOG *d, int code)
   // Si el editor nos dice que hay un actor atrapado por el ratón, movemos el actor.
   if ( editor.isActorAtrapado () )
   {
-    editor.moverActor (mouse_x, mouse_y);
+    editor.moverActor2 (local_x, local_y);
     Draw (msg, d, code);
   }
   else
   {
-    // Se activa el actor bajo el ratón.
-    editor.activarActor (mouse_x, mouse_y);
-    Draw (msg, d, code);
+    // Si no hay ningún actor fijo, se activa el actor bajo el cursor.
+    if ( !editor.isActorFijo () )
+    {
+      editor.activarActor (local_x, local_y);
+      Draw (msg, d, code);
+    }
 
     // Si el atrapado es el decorado, se mueve el decorado.
     if ( editor.isDecoradoAtrapado () )
     {
-      editor.moverDecorado (mouse_x, mouse_y);
+      editor.moverDecorado (local_x, local_y);
       editor.actualizarDecorado ();
     }
   }
@@ -128,7 +135,7 @@ int  EscenarioGUI::MoveMouse (int msg, DIALOG *d, int code)
  * \brief   Sigue los movimientos del ratón.
  * \return  El valor obtenido al dibujar y actualizar el escenario.
  */
-int  EscenarioGUI::LMouse (int msg, DIALOG *d, int code)
+int  EscenarioGUI::LPressMouse (int msg, DIALOG *d, int code)
 {
   // Si hay un actor atrapado, lo liberamos.
   // En otro caso, intentamos atrapar uno bajo el cursor.
@@ -138,8 +145,19 @@ int  EscenarioGUI::LMouse (int msg, DIALOG *d, int code)
   }
   else
   {
-    editor.atraparActor (mouse_x, mouse_y);
+    editor.atraparActor (local_x, local_y);
   }
+  Draw (msg, d, code);
+  return D_O_K;
+};
+
+/**
+ * \brief   Sigue los movimientos del ratón.
+ * \return  El valor obtenido al dibujar y actualizar el escenario.
+ */
+int  EscenarioGUI::DClick (int msg, DIALOG *d, int code)
+{
+  editor.fijarActor (local_x, local_y);
   Draw (msg, d, code);
   return D_O_K;
 };

@@ -14,16 +14,20 @@ class EscenarioGUI
 {
   public:
           EscenarioGUI  (EditorManager &editorParam, DIALOG *enlace=NULL);
+    void  addEnlace     (DIALOG *enlace);
+
+  private:
     int   Keyboard      (int msg, DIALOG *d, int code);
     int   Draw          (int msg, DIALOG *d, int code);
     int   Wheel         (int msg, DIALOG *d, int code);
     int   MoveMouse     (int msg, DIALOG *d, int code);
-    int   LMouse        (int msg, DIALOG *d, int code);
-    void  addEnlace     (DIALOG *enlace);
+    int   LPressMouse   (int msg, DIALOG *d, int code);
+    int   DClick        (int msg, DIALOG *d, int code);
 
-  protected:
-    EditorManager &  editor;
-    DIALOG *         enlaces;
+  private:
+    static int        local_x, local_y;
+    EditorManager &   editor;
+    DIALOG *          enlaces;
 
   public:
     /**
@@ -47,9 +51,15 @@ class EscenarioGUI
                 if ( !((mouse_ant_x == mouse_x) && 
                        (mouse_ant_y == mouse_y)) )
                 {
-                    // El ratón se ha movido.
+                    // El ratón se ha movido, se guarda el movimiento.
                     mouse_ant_x = mouse_x;
                     mouse_ant_y = mouse_y;
+
+                    // Se calculan las coordenadas locales.
+                    local_x = mouse_x - d->x;
+                    local_y = mouse_y - d->y;
+
+                    // Se llama al método dedicado al movimiento del ratón.
                     obj.MoveMouse (msg, d, c);
                 }
                 break;
@@ -86,7 +96,10 @@ class EscenarioGUI
             break;
 
           case MSG_LPRESS:
-            return obj.LMouse (msg, d, c);
+            return obj.LPressMouse (msg, d, c);
+
+          case MSG_DCLICK:
+            return obj.DClick (msg, d, c);
         }
       }
       return d_text_proc (msg, d, c);
