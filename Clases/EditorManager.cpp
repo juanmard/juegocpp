@@ -53,14 +53,14 @@ void  EditorManager::activate ()
   Bloque ribete_ant (0, 0, SCREEN_W, SCREEN_H-100);
 
   // Le decimos al escenario que queremos ver los bloques de los actores.
-  game->stage_manager->setVerBloques (true);
+  game->stage_manager->set_ver_bloques (true);
 
   // Se hace visible el menú de edición.
   gui->show ();
 
   // Cuando se termina de editar:
-  game->stage_manager->setVerBloques (false);     //  1 - Ocultamos los bloques.
-  game->stage_manager->setRibete (ribete_ant);    //  2 - Se recupera el ribete.
+  game->stage_manager->set_ver_bloques (false);     //  1 - Ocultamos los bloques.
+  game->stage_manager->set_ribete (ribete_ant);    //  2 - Se recupera el ribete.
   gui->mouse_out ();                              //  3 - Ocultamos el ratón.
   borrarPantalla ();                              //  4 - Borramos la pantalla.
   game->play ();                                  //  5 - Se vuelve al juego.
@@ -188,7 +188,7 @@ string  EditorManager::getNombreActor (int indice) const
  */
 void  EditorManager::moverEscenario (int x, int y)
 {
-  game->stage_manager->moverMarco (x, y);
+  game->stage_manager->mover_marco (x, y);
 }
 
 /**
@@ -196,7 +196,7 @@ void  EditorManager::moverEscenario (int x, int y)
  */
 int  EditorManager::getEscenarioX () const
 {
-  return game->stage_manager->getX ();
+  return game->stage_manager->get_x ();
 }
 
 /**
@@ -204,7 +204,7 @@ int  EditorManager::getEscenarioX () const
  */
 int  EditorManager::getEscenarioY () const
 {
-  return game->stage_manager->getY ();
+  return game->stage_manager->get_y ();
 }
 
 /**
@@ -231,7 +231,7 @@ BITMAP *  EditorManager::getBuffer ()
  */
 void  EditorManager::ActualizarEscenario ()
 {
-  return game->stage_manager->rellenarBuffer ();
+  return game->stage_manager->rellenar_buffer ();
 }
 
 /**
@@ -248,7 +248,7 @@ int  EditorManager::getNumActores () const
  */
 void  EditorManager::setRibete (Bloque bloque) const
 {
-  return game->stage_manager->setRibete(bloque);
+  return game->stage_manager->set_ribete(bloque);
 }
 
 /**
@@ -274,8 +274,8 @@ void  EditorManager::centrarActor (int indice) const
     //            y sólo es necesario hacerlo una vez. Igualar las dimensiones
     //            de 'marco' y 'ribete' antes de entrar en edición.
     // Se toman los bloques del marco y el ribete.
-    Bloque &  marco = game->stage_manager->getMarco ();
-    Bloque &  ribete = game->stage_manager->getRibete ();
+    Bloque& marco = game->stage_manager->get_marco ();
+    Bloque& ribete = game->stage_manager->get_ribete ();
     // Se igualan las dimensiones del marco a las del ribete.
     // De esta forma queda el actor en el centro de la pantalla.
     marco.setWH (ribete.getW (), ribete.getH ());
@@ -293,7 +293,7 @@ void  EditorManager::centrarActor (int indice) const
  */
 void  EditorManager::setColorRibete (int color)
 {
-  game->stage_manager->setColorRibete (color);
+  game->stage_manager->set_color_ribete (color);
 }
 
 /**
@@ -302,7 +302,7 @@ void  EditorManager::setColorRibete (int color)
  */
 void  EditorManager::getEscenarioXY (string &posicion) const
 {
-  Bloque marco (game->stage_manager->getMarco ());
+  Bloque marco (game->stage_manager->get_marco ());
   stringstream  ss;
   ss << "(" << marco.getX () << ", " << marco.getY () << ")";
   posicion = ss.str ();

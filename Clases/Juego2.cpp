@@ -114,14 +114,14 @@ void Juego2::mainGame ()
     // Se hace el seguimiento de la pantalla.
     if (key[KEY_S])
     {
-      if ((stage_manager->getX() != 0) || (stage_manager->getY() != 0))
+      if ((stage_manager->get_x() != 0) || (stage_manager->get_y() != 0))
       {
-        stage_manager->moverMarco(0,0);
-        stage_manager->setSeguimiento (NULL);
+        stage_manager->mover_marco (0,0);
+        stage_manager->set_seguimiento (NULL);
       }
       else
       {
-        // stage_manager->setSeguimiento (ben);
+        stage_manager->set_seguimiento (loro);
       }
       key[KEY_S] = false;
     }
@@ -129,7 +129,7 @@ void Juego2::mainGame ()
     // Se comprueba la visualización de los bloques.
     if (key[KEY_V])
     {
-      stage_manager->setVerBloques (!stage_manager->getVerBloques ());
+      stage_manager->set_ver_bloques (!stage_manager->get_ver_bloques ());
       key[KEY_V] = false;
     }
 
