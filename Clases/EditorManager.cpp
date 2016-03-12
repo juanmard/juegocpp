@@ -1,24 +1,20 @@
+///
+/// @file EditorManager.cpp
+/// @brief Fichero de implementación de la clase "EditorManager".
+/// @author Juan Manuel Rico
+/// @date Noviembre 2015
+/// @version 1.0.0
+///
+
 #include "EditorManager.h"
-#include "ActorManager.h"
+#include "Game.h"
 #include "Dialog.h"
 #include "StageManager.h"
-
-// Eliminar en un futuro, sólo para pruebas.
-#include "AirCraft.h"
-#include "DatFile.h"
-#include "Bitmap.h"
 
 int EditorManager::refX = 0;
 int EditorManager::refY = 0;
 
-/**
- * \brief   Construye la clase para editar un juego.
- * \details Debe generar otra ventana, obtener la lista de objetos y realizar su propio bucle de estética
- *          para representar los objetos del juego a editar.
- * \todo    Se debe generar la ventana de forma independiente de las bibliotecas (Allegro), para ello crear una
- *          "interfase" con estas funcionalidades, es decir, desligar de esta clase.
- */
-EditorManager::EditorManager(Game *g):
+EditorManager::EditorManager (Game* g):
 game (g),
 actor (NULL),
 actorActivado (false),
@@ -27,29 +23,19 @@ actorFijado (false)
 {
   // Referencia a la GUI.
   gui = new Dialog(this);
-}
+};
 
-/**
- * \brief   Destructor por omisión.
- */
-EditorManager::~EditorManager()
+EditorManager::~EditorManager ()
 {
-}
+};
 
-/**
- * \brief   Activa el modo edición del juego.
- * \details Al activar el modo edición del juego se debe:
- *          - Parar el bucle normal del juego.
- *          - Generar un menu con las propiedades de edición.
- *          - Activar un bucle propio.
- */
-void  EditorManager::activate ()
+void EditorManager::activate ()
 {
   // Se para el bucle del juego.
   game->pause ();
  
   // Guardamos el ribete actual del juego.
-  //Bloque ribete_ant (game->stage_manager->getRibete ());
+  // Bloque ribete_ant (game->stage_manager->getRibete ());
   Bloque ribete_ant (0, 0, SCREEN_W, SCREEN_H-100);
 
   // Le decimos al escenario que queremos ver los bloques de los actores.
@@ -60,24 +46,18 @@ void  EditorManager::activate ()
 
   // Cuando se termina de editar:
   game->stage_manager->set_ver_bloques (false);     //  1 - Ocultamos los bloques.
-  game->stage_manager->set_ribete (ribete_ant);    //  2 - Se recupera el ribete.
-  ///gui->mouse_out ();                              //  3 - Ocultamos el ratón.
-  borrarPantalla ();                              //  4 - Borramos la pantalla.
-  game->play ();                                  //  5 - Se vuelve al juego.
-}
+  game->stage_manager->set_ribete (ribete_ant);     //  2 - Se recupera el ribete.
+  ///gui->mouse_out ();                             //  3 - Ocultamos el ratón.
+  borrar_pantalla ();                               //  4 - Borramos la pantalla.
+  game->play ();                                    //  5 - Se vuelve al juego.
+};
 
-/**
- * \brief   Redibuja la lista de objetos.
- */
-void  EditorManager::dibujarEscenario ()
+void EditorManager::dibujar_escenario ()
 {
   game->stage_manager->draw ();
-}
+};
 
-/**
- * \brief  Mueve el actor a la posición dada por (x,y) en coordenadas locales de pantalla.
- */
-void  EditorManager::moverActor (int x, int y)
+void EditorManager::mover_actor (int x, int y)
 {
   // Comprobamos que no está editado nada.
   // - Si está actorAtrapado se mueve.
@@ -87,54 +67,35 @@ void  EditorManager::moverActor (int x, int y)
     actor->set_x (x);
     actor->set_y (y);
   }
-}
+};
 
-/**
- * \brief   Devuelve la propiedad X del actor.
- * \details Se supone que existe actor editando, si no fuera así daría error.
- */
-int  EditorManager::getActorX () const
+int EditorManager::get_actor_x () const
 {
   return actor->get_x ();
-}
+};
 
-/**
- * \brief   Devuelve la propiedad Y del actor.
- * \details Se supone que existe actor editando, si no fuera así daría error.
- */
-int  EditorManager::getActorY () const
+int EditorManager::get_actor_y () const
 {
   return actor->get_y ();
-}
+};
 
-/**
- * \brief   Modifica la propiedad X del actor.
- * \details Supone que existe actor editando, si no fuera así daría error.
- */
-void  EditorManager::setActorX (int x)
+void EditorManager::set_actor_x (int x)
 {
   actor->set_x (x);
-}
+};
 
-/**
- * \brief   Modifica la propiedad Y del actor.
- * \details Supone que existe actor editando, si no fuera así daría error.
- */
-void  EditorManager::setActorY (int y)
+void EditorManager::set_actor_y (int y)
 {
   actor->set_y (y);
-}
+};
 
-/**
- * \brief   Duplica el actor pasado como puntero.
- */
-void  EditorManager::duplicarActor (Actor *actor)
+void EditorManager::duplicar_actor (Actor* actor)
 {
   // Se comprueba que la referencia existe.
   if (actor)
   {
     // Se crea un nuevo actor en memoria basándose en el elegido.
-    Actor *nuevo = actor->clone ();
+    Actor* nuevo = actor->clone ();
 
     // Si se ha creado correctamente...
     if (nuevo)
@@ -151,121 +112,78 @@ void  EditorManager::duplicarActor (Actor *actor)
       //game->actor_manager->add_all_to_create ();
     }
   }
-}
+};
 
-/**
- * \brief   Devuelve el actor que se encuentra en la posición dada.
- * \param   x   Posición x en coordenadas de juego.
- * \param   y   Posición y en coordenadas de juego.
- */
-Actor *  EditorManager::getActor (int x, int y) const
+Actor* EditorManager::get_actor (int x, int y) const
 {
   return game->actor_manager->get_actor (x, y);
-}
+};
 
-/**
- * \brief   Devuelve el nombre del actor dado como índice.
- * \param   indice    Índice dentro de la lista de actores.
- * \return  Devuelve la cadena de caracteres que contiene el nombre del actor.
- */
-string  EditorManager::getNombreActor (int indice) const
+std::string& EditorManager::get_nombre_actor (int indice) const
 {
-  Actor *actor = game->actor_manager->getActor (indice);
+  Actor* actor = game->actor_manager->get_actor (indice);
   if (actor)
   {
-    string  strNombre;
-    actor->getNombre(strNombre);
-    return strNombre.c_str();
+    return *new std::string (actor->get_nombre());
   }
   else
   {
-    return const_cast<char *>("sin nombre");
+    return *new std::string("sin nombre");
   }
-}
+};
 
-/**
- * \brief  Mueve el escenario a la posición dada por (x,y).
- */
-void  EditorManager::moverEscenario (int x, int y)
+void EditorManager::mover_escenario (int x, int y)
 {
   game->stage_manager->mover_marco (x, y);
-}
+};
 
-/**
- * \brief  Obtiene la posición x del escenario.
- */
-int  EditorManager::getEscenarioX () const
+int EditorManager::get_escenario_x () const
 {
   return game->stage_manager->get_x ();
-}
+};
 
-/**
- * \brief  Obtiene la posición y del escenario.
- */
-int  EditorManager::getEscenarioY () const
+int EditorManager::get_escenario_y () const
 {
   return game->stage_manager->get_y ();
-}
+};
 
-/**
- * \brief   Realiza un ciclo de acciones sobre el juego actualizando los estados.
- */
 void  EditorManager::step () const
 {
   //game->stage_manager->setRibete (Bloque (10,10,640,190));
   //game->actor_manager->update ();
   game->update ();
   gui->draw ();
-}
+};
 
-/**
- * \brief   Obtiene el buffer de pantalla.
- */
-BITMAP *  EditorManager::getBuffer ()
+BITMAP* EditorManager::get_buffer ()
 {
   return game->stage_manager->getBuffer ();
-}
+};
 
-/**
- * \brief   Actualiza el escenario.
- */
-void  EditorManager::ActualizarEscenario ()
+void EditorManager::actualizar_escenario ()
 {
   return game->stage_manager->rellenar_buffer ();
-}
+};
 
-/**
- * \brief   Obtiene el número de actores actualmente en la lista.
- */
-int  EditorManager::getNumActores () const
+unsigned int EditorManager::get_num_actores () const
 {
   return game->actor_manager->num_actors ();
-}
+};
 
-/**
- * \brief   Cambia el marco que se muestra en pantalla (ribete) del escenario.
- * \todo    Indicar también el color que se utiliza.
- */
-void  EditorManager::setRibete (Bloque bloque) const
+void EditorManager::set_ribete (Bloque bloque) const
 {
   return game->stage_manager->set_ribete(bloque);
-}
+};
 
-/**
- * \brief   Borra la pantalla de un color gris.
- */
-void  EditorManager::borrarPantalla () const
+void EditorManager::borrar_pantalla () const
 {
-  clear_to_color(screen, makecol (128, 128, 128));
-}
+  clear_to_color (screen, makecol (128, 128, 128));
+};
 
-/**
- * \brief   Centra el actor pasado como índice en el escenario.
- */
-void  EditorManager::centrarActor (int indice) const
+void EditorManager::centrar_actor (int indice) const
 {
   // Se toma el actor de la lista dado por el índice.
-  Actor * actor = game->actor_manager->getActor (indice);
+  Actor* actor = game->actor_manager->get_actor (indice);
 
   // Si el actor existe.
   if (actor)
@@ -288,99 +206,65 @@ void  EditorManager::centrarActor (int indice) const
   }
 };
 
-/**
- * \brief   Centra el actor pasado como índice en el escenario.
- */
-void  EditorManager::setColorRibete (int color)
+void EditorManager::set_color_ribete (int color)
 {
   game->stage_manager->set_color_ribete (color);
-}
+};
 
-/**
- * \brief   Obtiene la posición del escenario y la vuelca en la cadena.
- * \param   posicion    Cadena donde se guarda la posición del escenario.
- */
-void  EditorManager::getEscenarioXY (string &posicion) const
+std::string& EditorManager::get_escenario_xy () const
 {
+  std::ostringstream oss;
   Bloque marco (game->stage_manager->get_marco ());
-  stringstream  ss;
-  ss << "(" << marco.get_x () << ", " << marco.get_y () << ")";
-  posicion = ss.str ();
-}
+  oss << "(" << marco.get_x () << ", " << marco.get_y () << ")";
+  return *new std::string(oss.str ());
+};
 
-/**
- * \brief   Obtiene el almacén de recursos.
- */
-Almacen &  EditorManager::getAlmacen () const
+Almacen& EditorManager::get_almacen () const
 {
   return *(game->storage_manager);
 }
 
-/**
- * \brief   Dice si existe algún actor atrapado por el ratón.
- */
-bool  EditorManager::isActorAtrapado () const
+bool EditorManager::is_actor_atrapado () const
 {
   return actorAtrapado;
-}
+};
 
-/**
- * \brief   Dice si el actor actual está activo.
- */
-bool  EditorManager::isActorActivo () const
+bool EditorManager::is_actor_activo () const
 {
   return actorActivado;
 }
 
-/**
- * \brief   Dice si el actor actual está fijo.
- */
-bool  EditorManager::isActorFijo () const
+bool EditorManager::is_actor_fijo () const
 {
   return actorFijado;
-}
+};
 
-/**
- * \brief   Dice si existe un decorado atrapado por el ratón.
- */
-bool  EditorManager::isDecoradoAtrapado () const
+bool EditorManager::is_decorado_atrapado () const
 {
   return false;
-}
+};
 
-/**
- * \brief   Mueve el decorado a las posiciones globales 'x' e 'y'.
- */
-void  EditorManager::moverDecorado (int x, int y)
+void EditorManager::mover_decorado (int x, int y)
 {
-}
+};
 
-/**
- * \brief   Actualiza las propiedades y el aspecto del actor editado.
- */
-void  EditorManager::actualizarActor ()
+void EditorManager::actualizar_actor ()
 {
   // Le pedimos a la gui que actualice el aspecto.
   //gui->actualizarEscenario ();
 
   // Le pedimos a la gui que actualice las propiedades.
   //gui->actualizarPropiedades ();
-}
+};
 
-/**
- * \brief   Actualiza las propiedades y el aspecto del decorado editado.
- */
-void  EditorManager::actualizarDecorado ()
+void EditorManager::actualizar_decorado ()
 {
-}
+};
 
-/**
- * \brief   Atrapa el actor cuyo bloque se encuentre en las coordenadas especificadas.
- */
-void  EditorManager::atraparActor (int x, int y)
+void EditorManager::atrapar_actor (int x, int y)
 {
-  activarActor (x, y);
-  if ( isActorActivo () )
+  activar_actor (x, y);
+  if ( is_actor_activo () )
   {
     // Se cambia el color del bloque y se muestra.
     actor->set_color (makecol(255,0,0));
@@ -388,41 +272,35 @@ void  EditorManager::atraparActor (int x, int y)
 
     // Se guarda la posición relativa del punto de 'atrape'
     // dentro del bloque del actor.
-    refX = x - getLocalX (actor->get_x());
-    refY = y - getLocalY (actor->get_y());
+    refX = x - get_local_x (actor->get_x());
+    refY = y - get_local_y (actor->get_y());
 
     // Se pasa a actor atrapado.
     actorActivado = false;
     actorFijado = false;
     actorAtrapado = true;
   }
-}
+};
 
-/**
- * \brief   Libera el actor atrapado.
- */
-void  EditorManager::liberarActor ()
+void EditorManager::liberar_actor ()
 {
   actor->set_mostrar_bloque (false);
   actor = NULL;
   actorActivado = false;
   actorFijado = false;
   actorAtrapado = false;
-}
+};
 
-/**
- * \brief   Activar actor.
- */
-void  EditorManager::activarActor (int x, int y)
+void EditorManager::activar_actor (int x, int y)
 {
   // Si hay un actor activo, liberamos.
-  if ( isActorActivo () )
+  if ( is_actor_activo () )
   {
-    liberarActor ();
+    liberar_actor ();
   }
 
   // Obtenemos el nuevo actor bajo el ratón.
-  actor = getActor (getGlobalX(x), getGlobalY(y));
+  actor = get_actor (get_global_x (x), get_global_y (y));
 
   // Si existe, mostramos el contorno en color verde y sus valores en la GUI.
   if (actor)
@@ -434,17 +312,14 @@ void  EditorManager::activarActor (int x, int y)
   }
 };
 
-/**
- * \brief   Fija al actor bajo el cursor.
- */
-void  EditorManager::fijarActor (int x, int y)
+void EditorManager::fijar_actor (int x, int y)
 {
   // Se intenta activar el actor bajo el cursor.
-  activarActor (x, y);
+  activar_actor (x, y);
   
   // Si se consiguió activar, cambiamos la variable para fijarlo.
   // En otro caso, liberamos.
-  if ( isActorActivo () )
+  if ( is_actor_activo () )
   {
     actor->set_color (makecol(255,128,255));
     actor->set_mostrar_bloque (true);
@@ -453,66 +328,47 @@ void  EditorManager::fijarActor (int x, int y)
   }
   else
   {
-    liberarActor ();
+    liberar_actor ();
   }
 };
 
-/**
- * \brief   Mueve el actor según las coordenadas dadas.
- * \todo    Eliminar el 2 del nombre cuando se termine la migración a la GUI
- *          dinámica.
- */
-void EditorManager::moverActor2 (int x, int y)
+void EditorManager::mover_actor_2 (int x, int y)
 {
   int posX, posY;
 
   // Si el actor está atrapado, movemos teniendo en cuenta la 
   // referencia guardada en el momento de la captura.
-  if ( isActorAtrapado () )
+  if ( is_actor_atrapado () )
   {
     posX = x - refX;
     posY = y - refY;
   }
 
   // Hay que eliminar el desplazamiento del escenario.
-  posX = getGlobalX (posX);
-  posY = getGlobalY (posY);
+  posX = get_global_x (posX);
+  posY = get_global_y (posY);
 
   // Finalmente, calculadas las coordenadas reales del juego, movemos el actor.
   actor->set_x (posX);
   actor->set_y (posY);
 };
 
-/**
- * \brief   Devuelve la coordenada global dando la coordenada referida a la
- *          posición del escenario.
- */
-int  EditorManager::getGlobalX (int x)
+int EditorManager::get_global_x (int x)
 {
-  return ( x + getEscenarioX () );
+  return ( x + get_escenario_x () );
 };
 
-/**
- * \brief   Devuelve la coordenada global dando la coordenada referida a la
- *          posición del escenario.
- */
-int  EditorManager::getGlobalY (int y)
+int EditorManager::get_global_y (int y)
 {
-  return ( y + getEscenarioY () );
+  return ( y + get_escenario_y () );
 };
 
-/**
- * \brief   Devuelve la coordenada local dando la coordenada global del juego.
- */
-int  EditorManager::getLocalX (int x)
+int EditorManager::get_local_x (int x)
 {
-  return ( x - getEscenarioX () );
+  return ( x - get_escenario_x () );
 };
 
-/**
- * \brief   Devuelve la coordenada local dando la coordenada global del juego.
- */
-int  EditorManager::getLocalY (int y)
+int EditorManager::get_local_y (int y)
 {
-  return ( y - getEscenarioY () );
+  return ( y - get_escenario_y () );
 };
