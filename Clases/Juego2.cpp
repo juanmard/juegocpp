@@ -14,6 +14,8 @@
 ///
 
 #include "Juego2.h"
+#include "Mosaico.h"
+#include "Tesela.h"
 
 Juego2::Juego2 ()
 {
@@ -28,8 +30,8 @@ void Juego2::create_storage_manager ()
 void Juego2::mainGame ()
 {
     // Pruebas de clases.
-    Vector2Df vector(1.0f,4.5f);
-    std::string cadena1, cadena2=" prueba...";
+    Vector2Df vector(1.0f,2.0f);
+    std::string cadena1, cadena2=" prueba... <1.2f, 3.4f>";
     cadena1 << vector;
     std::ostringstream canalCadena;
     std::cout << cadena1;
@@ -38,6 +40,14 @@ void Juego2::mainGame ()
     canalCadena << vector;
     std::cout << canalCadena.str() << std::endl;
     std::cout << vector << std::endl;
+    std::string cadena3("<1.234565, 6.787678>");
+    cadena2 >> vector;
+    std::cout << vector;
+    cadena3 >> vector;
+    std::cout << vector;
+    std::cin >> vector;
+    std::cout << vector << std::endl;
+    std::cout << canalCadena.str();
 
     Plataforma prueba(*storage_manager);
     std::cout << prueba << std::endl;
@@ -54,8 +64,15 @@ void Juego2::mainGame ()
     Mapa mapa;
     std::cout << mapa << std::endl;
 
+    Mosaico *mosaico = new Mosaico();
+    Tesela tesela (mosaico);
+    std::cout << tesela << std::endl;
+
+    Bitmap prueba_bitmap (new Actor(),new Almacen("sprites3.dat"), "pre2_44");
+    std::cout << prueba_bitmap;
+
   // Se cambia la paleta de colores que se toma del almacén de recursos.
-  set_palette (storage_manager->getPalette ("SPRITES"));
+  set_palette (storage_manager->get_palette ("SPRITES"));
 
   // Se cargan actores desde fichero de prueba.
   // @todo Leer este mismo fichero desde el almacén de recursos.
@@ -79,20 +96,20 @@ void Juego2::mainGame ()
   EditorManager editor_manager (this);
 
   // Mostramos un breve mensaje en consola sobre las teclas de prueba.
-  cout << "----------------------------------" << endl;
-  cout << "----    Teclas básicas        ----" << endl;
-  cout << "----------------------------------" << endl << endl;
-  cout << " P - Pausa el juego." << endl;
-  cout << " E - Entra en modo edición." << endl;
-  cout << " S - Se activa el seguimiento del jugador." << endl;
-  cout << " T - Realiza una prueba de gráficos Bitmap." << endl;
-  cout << " V - Visualiza los bloques de los actores." << endl;
-  cout << " G - Pruebas de GUI para Sprites'." << endl;
-  cout << " F - Prueba de letras." << endl;
-  cout << " M - Prueba de mapas de actores." << endl;
-  cout << " I - Consola interactiva." << endl;
-  cout << " ESC - Termina el juego." << endl;
-  cout << "----------------------------------" << endl << endl;
+  std::cout << "----------------------------------" << std::endl;
+  std::cout << "----    Teclas básicas        ----" << std::endl;
+  std::cout << "----------------------------------" << std::endl << std::endl;
+  std::cout << " P - Pausa el juego." << std::endl;
+  std::cout << " E - Entra en modo edición." << std::endl;
+  std::cout << " S - Se activa el seguimiento del jugador." << std::endl;
+  std::cout << " T - Realiza una prueba de gráficos Bitmap." << std::endl;
+  std::cout << " V - Visualiza los bloques de los actores." << std::endl;
+  std::cout << " G - Pruebas de GUI para Sprites'." << std::endl;
+  std::cout << " F - Prueba de letras." << std::endl;
+  std::cout << " M - Prueba de mapas de actores." << std::endl;
+  std::cout << " I - Consola interactiva." << std::endl;
+  std::cout << " ESC - Termina el juego." << std::endl;
+  std::cout << "----------------------------------" << std::endl << std::endl;
 
   // Bucle principal del juego.
   while (!key[KEY_ESC])
@@ -205,7 +222,7 @@ void Juego2::mainGame ()
       actor_manager->add(camello);
 
       // 6 - Se descarga la información en pantalla.
-      cout << "Bitmap: " << bmp_camello->get_imagen () << " Nombre: " << storage_manager->getName (bmp_camello->get_imagen()) << endl;
+      std::cout << "Bitmap: " << bmp_camello->get_imagen () << " Nombre: " << storage_manager->get_name (bmp_camello->get_imagen()) << std::endl;
 
       // Por otra parte, Se prueba el uso del Bitmap en la Tesela.
       // 1 - Se crea un nuevo actor vacío.
@@ -215,9 +232,9 @@ void Juego2::mainGame ()
       Mosaico *hojas = new Mosaico (arbol);
       
       // 3 - Se añaden Teselas al mosaico.
-      hojas->add_ultima_Tesela (new Tesela (hojas, "pre2_417"));
-      hojas->add_ultima_Tesela (new Tesela (hojas, "pre2_416", 12, 20));
-      hojas->add_ultima_Tesela (new Tesela (hojas, "pre2_416", 12, -20, true));
+      hojas->add_ultima_Tesela (new Tesela (hojas, std::string("pre2_417")));
+      hojas->add_ultima_Tesela (new Tesela (hojas, std::string("pre2_416"), 12, 20));
+      hojas->add_ultima_Tesela (new Tesela (hojas, std::string("pre2_416"), 12, -20, true));
       
       // 4 - Se completan las propiedades del actor.
       arbol->set_x (130);
@@ -228,7 +245,7 @@ void Juego2::mainGame ()
       actor_manager->add(arbol);
 
       // 6 - Se descarga la información en pantalla.
-      cout << "Mosaico de hojas: " << endl << hojas->print () << endl;
+      std::cout << "Mosaico de hojas: " << std::endl << hojas->print () << std::endl;
 
       // Limpieza de teclado.
       key[KEY_T]=false;
@@ -298,7 +315,7 @@ void Juego2::mainGame ()
           std::ofstream outfile ("test.txt");
           outfile << *actor_manager;
           outfile.close();
-          cout << "Grabados objetos en fichero \"test.txt\"" << endl;
+          std::cout << "Grabados objetos en fichero \"test.txt\"" << std::endl;
         }
         else if (!comando.compare("listar"))
         {
@@ -341,7 +358,7 @@ void Juego2::mainGame ()
         // set_palette (palette);
         if (!myfont)
         {
-            cout << "Couldn't load font!";
+            std::cout << "Couldn't load font!";
         }
         textout_centre_ex(screen, myfont, "¡Esto es mi prueba de letras!", SCREEN_W / 2, SCREEN_H / 2, 5, 223);
         while (!key[KEY_F]);

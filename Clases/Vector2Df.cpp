@@ -26,3 +26,20 @@ std::string& Vector2Df::print () const
     return *new std::string (osstream.str ());
 };
 
+unsigned int Vector2Df::read (const std::string& cadena)
+{
+    std::istringstream iss (cadena);
+    iss.ignore (10,'<');
+    iss >> x;
+    iss.ignore (10,',');
+    iss >> y;
+    return iss.gcount();
+};
+
+//void Vector2Df::read (const std::istringstream& iss)
+//{
+//    iss.ignore (10,'<');
+//    iss >> x;
+//    iss.ignore (10,',');
+//    iss >> y;
+//};
