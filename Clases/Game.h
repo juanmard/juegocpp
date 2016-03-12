@@ -2,6 +2,7 @@
 #define _GAME_H_
 
 #include <string>
+#include "ActorManager.h"
 
 // Predefiniciones de clases.
 class ActorManager;

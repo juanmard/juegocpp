@@ -74,7 +74,9 @@ class EditorManager
   private:
       static int refX, refY;
 
-  protected:
+// Lo hacemos público para pruebas.
+//  protected:
+public:
     //typedef enum {activado, fijado, atrapado} Estado;
     Game *      game;
     Dialog *    gui;

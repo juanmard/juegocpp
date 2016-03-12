@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ActorGraphic.h"
+#include "Actor.h"
 #include "Almacen.h"
 #include <string>
 

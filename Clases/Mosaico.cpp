@@ -3,6 +3,11 @@
 
 using namespace std;
 
+Mosaico::Mosaico ():
+ActorGraphic()
+{
+};
+
 /**
  * \brief   Constructor de copia de la clase.
  */
@@ -146,3 +151,8 @@ string  Mosaico::getString ()
   }
   return cadena.str ();
 }
+
+void Mosaico::clear ()
+{
+    this->teselas.clear();
+};

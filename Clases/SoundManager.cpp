@@ -32,7 +32,7 @@ SoundManager::SoundManager ()
        *            con la parte gráfica de los actores.
        *            Esto es una simple prueba. Cuando funcione debe ser completamente modificado.
        */
-//      recursos = DatFile("sprites.dat");
+//      recursos = DatFile("sprites3.dat");
       
 
         

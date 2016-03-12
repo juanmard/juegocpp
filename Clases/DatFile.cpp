@@ -92,7 +92,7 @@ void DatFile::SetPalette (int number)
     /* TODO: Comprobar que lo que se pide es realmente una paleta de colores. */
     //if (file[number].type != DAT_PALETTE)
     //{
-    DATAFILE *objeto = load_datafile_object("sprites.dat", "SPRITES");
+    DATAFILE *objeto = load_datafile_object("sprites3.dat", "SPRITES");
     if (objeto!=NULL)
     {
         set_palette ((RGB *)objeto->dat);

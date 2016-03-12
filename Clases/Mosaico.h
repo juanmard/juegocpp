@@ -1,5 +1,5 @@
-#ifndef MOSAICO_H
-#define MOSAICO_H
+#ifndef _MOSAICO_H_
+#define _MOSAICO_H_
 
 #include "ActorGraphic.h"
 #include "DatFile.h"
@@ -15,7 +15,11 @@ class Tesela;
 
 class Mosaico : public ActorGraphic
 {
-    public:
+public:
+    /// Constructor básico y mínimo.
+    ///
+    Mosaico ();
+
                             Mosaico             (const Mosaico &copia, Actor *propietario);
                             Mosaico             (Actor *actor_asociado);
         void                draw                (BITMAP *pantalla);
@@ -29,8 +33,13 @@ class Mosaico : public ActorGraphic
         virtual Mosaico *   clone               (Actor *propietario) const;
         string              getString           ();
 
-    private:
-      list<Tesela *>            teselas;
-      list<Tesela *>::iterator  it;
+        /// Elimina todas las teselas del mosaico.
+        ///
+        void clear ();
+
+private:
+    list<Tesela *> teselas;
+    list<Tesela *>::iterator it;
 };
+
 #endif

@@ -3,6 +3,7 @@
 #include "VentanaALG.h"
 //#include "resize.h"
 #include <iostream>
+#include <fstream>
 #include "GUIEscenario.h"
 #include "ActorGUI.h"
 
@@ -37,10 +38,10 @@ DIALOG Dialog::dialog[] =
 // Menú fichero.
 MENU Dialog::mnu_fichero[] =
 {
-  { const_cast<char*>("&Abrir mapa"),   Dialog::quit, NULL, D_DISABLED, NULL },
-  { const_cast<char*>("&Guardar mapa"), Dialog::quit, NULL, D_DISABLED, NULL },
-  { const_cast<char*>(""),              Dialog::quit, NULL, D_DISABLED, NULL },
-  { const_cast<char*>("&Salir\tF2"),    Dialog::quit, NULL,          0, NULL },
+  { const_cast<char*>("&Leer mapa"),    Dialog::menu_fichero, NULL, ~(D_DISABLED | D_SELECTED), NULL },
+  { const_cast<char*>("&Grabar mapa"), Dialog::menu_fichero, NULL, ~(D_DISABLED | D_SELECTED), NULL },
+  { const_cast<char*>(""),              Dialog::quit,         NULL,                 D_DISABLED, NULL },
+  { const_cast<char*>("&Salir\tF2"),    Dialog::quit,         NULL,                          0, NULL },
   { NULL, NULL, NULL, 0, NULL }
 };
 
@@ -113,6 +114,10 @@ moviendoActor (false)
 
   // Menú para duplicar.
   mnu_actor[4].dp = this;
+
+  // Inicializamos el menú de fichero.
+  mnu_fichero[0].dp = this;
+  mnu_fichero[1].dp = this;
 
   // Hacemos una prueba de menú dinámico.
   menu_dinamico.add (const_cast<char*>("Etiqueta 1 - Opciones"), NULL, NULL, NULL, D_DISABLED);
@@ -463,7 +468,7 @@ int  Dialog::comprobarTecla (int code)
 
       // Probamos con dos almacenes.
 /*
-       Almacen *prueba = new Almacen ("sprites.dat");
+       Almacen *prueba = new Almacen ("sprites3.dat");
       idx = pesta.size();
       prueba->addGUI (pesta);
       position_dialog (&pesta[idx-1],100,320);
@@ -542,4 +547,20 @@ int  Dialog::kdb_coordenadas (DIALOG *d, int code)
   // Actualizamos los valores en la gui.
   actualizarValoresActor ();
   return salida;
+};
+
+void Dialog::leerActores ()
+{
+    this->manager->game->actor_manager->deleteActors ();
+    this->manager->game->actor_manager->load ("test.txt");
+    this->manager->game->actor_manager->add_all_to_create ();
+    std::cout << "Lista de actores leídos." << std::endl;
+};
+
+void Dialog::grabarActores ()
+{
+    std::ofstream outfile ("test.txt");
+    outfile << *(this->manager->game->actor_manager);
+    outfile.close();
+    std::cout << "Grabados objetos en fichero \"test.txt\"" << std::endl;
 };

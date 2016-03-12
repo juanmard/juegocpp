@@ -3,8 +3,8 @@
  * Copyright (C) Juanma Rico 2009 <juanmard@gmail.com>
  */
 
-#ifndef   MENU_H
-#define   MENU_H
+#ifndef   _MENU_H_
+#define   _MENU_H_
 
 #include <allegro.h>
 #include <vector>
@@ -18,8 +18,9 @@ class Menu
             Menu              ();
             ~Menu             ();
             operator MENU *   ();
+//            operator MENU *   () const;
     void    add               (Menu nuevo);
-//    void    add               (char * etiqueta);
+//  void    add               (char * etiqueta);
     void    add               (char *etiqueta, int (*metodo)(void)=NULL, void *data_pointer=NULL, MENU *hijo=NULL, int opciones=0);
 
   protected:

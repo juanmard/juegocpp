@@ -10,7 +10,7 @@ Almacen *  Bitmap::almacenGlobal = NULL;
 Bitmap::Bitmap (Actor *aowner, BITMAP *bmp) :
 ActorGraphic (aowner),
 fuente (bmp),
-nombre ("Sin nombre"),
+nombre ("sin nombre"),
 almacen (NULL)
 {
 }
@@ -80,7 +80,7 @@ int Bitmap::get_h()
  */
 Bitmap *  Bitmap::clone  (Actor *propietario) const
 {
-  return (new Bitmap(propietario,fuente));
+    return (new Bitmap(propietario,fuente,this->nombre));
 }
 
 /**

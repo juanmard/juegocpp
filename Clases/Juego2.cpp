@@ -13,7 +13,8 @@
  *  \todo     Comentar todas estas clases y funciones más detalladamente.
  */
 
-#include  "Juego2.h"
+#include "Juego2.h"
+#include "Plataforma.h"
 #include <guichan.hpp>
 #include <guichan/allegro.hpp>
 
@@ -336,6 +337,7 @@ void Juego2::mainGame ()
 
   // Se prueba a cargar desde fichero.
   this->actor_manager->load("test.txt");
+  actor_manager->add (new Plataforma (*storage_manager));
 
  /* Eliminamos objetos de prueba
   // Se añade una paleta de prueba pero con piel de Suelo.

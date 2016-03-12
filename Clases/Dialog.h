@@ -27,14 +27,14 @@ class ItemALG;
  */
 class Dialog
 {
-  public:
+public:
     // Enumerado de los controles para el diálogo.
     enum {scr=0, pantalla=0, 
           menu=1, lista=4, bitmap=5, caja=6 ,estado=7, posicion=13,
           nombre=15, dimensiones=18, 
           ultimo=19};
 
-  public:
+public:
                 Dialog          (EditorManager *editor);
                 ~Dialog         ();
     void        show            ();
@@ -44,7 +44,7 @@ class Dialog
     int         propiedades     ();
     void        setActor        (Actor *actor);
 
-  protected:
+protected:
     void        menu_contextual         (int x, int y);
     int         comprobarTecla          (int code);
     void        prueba_click            ();
@@ -60,6 +60,16 @@ class Dialog
     void        moverMouse              ();
     int         kdb_coordenadas         (DIALOG *d, int code);
 
+    ///
+    /// Lee la lista de actores desde un fichero.
+    ///
+    void leerActores ();
+
+    ///
+    /// Graba la lista de actores a un fichero.
+    ///
+    void grabarActores ();
+
     EditorManager *   manager;
     Actor *           actor;
     string            strNombre;
@@ -70,7 +80,7 @@ class Dialog
     //Prueba de menú dinámico.
     Menu menu_dinamico;
 
-  public:
+public:
     // Diálogo principal. 
     static DIALOG   dialog[];
 
@@ -83,6 +93,34 @@ class Dialog
     // Referencias para el movimiento del ratón.
     int   ref_x, ref_y;
     bool  moviendoActor;
+
+    ///
+    /// Creamos un callback para el menú de fichero de allegro.
+    ///
+    static int menu_fichero (void)
+    {
+        // Se comprueba que se ha inicializado correctamente el menú con el
+        // puntero 'this' al objeto instanciado.
+        if (active_menu->dp)
+        {
+            // Creamos una referencia temporal al objeto instanciado.
+            Dialog &objeto = *(static_cast<Dialog *>(active_menu->dp));
+
+            // Suponemos que es la opción de duplicar.
+            std::string *comando = new std::string(active_menu->text);
+
+            if (!comando->compare("&Leer mapa"))
+            {
+                objeto.leerActores ();
+            };
+
+            if (!comando->compare("&Grabar mapa"))
+            {
+                objeto.grabarActores ();
+            };
+        }
+      return D_O_K;
+    };
 
     /**
      * \brief   Procedimiento callback del menú contextual.

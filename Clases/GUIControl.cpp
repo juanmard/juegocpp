@@ -108,5 +108,6 @@ int  GUIControl::DrawEnlazados (int msg, DIALOG *d, int code)
       object_message (*iter, MSG_DRAW, 0);
     }
   }
+  return D_O_K;
 };
 
