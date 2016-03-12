@@ -15,12 +15,14 @@
 
 /// @class Paleta
 /// Actor que cambia la dirección de la pelota.
-///
 /// Es controlable mediante el teclado. Y se creó el actor para un primer juego de
 /// tipo "Arkanoid".
 ///
 class Paleta : public ControllableActor
 {
+protected:
+    Suelo *piel;    ///< Puntero al suelo que hace de gráfico.
+
 public:
     /// @typedef Acciones que puede realizar la paleta.
     typedef enum {
@@ -80,9 +82,6 @@ public:
     /// @return Cadena con el nombre.
     ///
     std::string getNombre () const;
-
-protected:
-    Suelo *piel;    ///< Puntero al suelo que hace de gráfico.
 };
 
 #endif

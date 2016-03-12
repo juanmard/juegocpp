@@ -59,7 +59,7 @@ void Paleta::do_action (ControllableObject::action_t act, int magnitude)
   if (x > SCREEN_W -get_w ()) x = SCREEN_W - get_w ();
 };
 
-void Paleta::hit (Actor *who, int damage)
+void Paleta::hit (Actor* who, int damage)
 {
   switch (who->getCodigo ())
   {
@@ -91,7 +91,7 @@ Paleta* Paleta::clone () const
   return (new Paleta (*this));
 };
 
-void Paleta::getNombre (std::string &strNombre) const
+void Paleta::getNombre (std::string& strNombre) const
 {
   strNombre = Nombres::Imprimir (nombre);
 };

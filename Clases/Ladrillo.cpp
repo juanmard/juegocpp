@@ -32,6 +32,7 @@ Ladrillo::Ladrillo (int x, int y)
     // A eliminar - Para pruebas de sonido.
     peloteo = (SAMPLE *) sprites->GetDat (76);
     crear_ladrillo ();
+    this->set_actor_graphic (chaqueta);
     set_x (x);
     set_y (y);
 };
@@ -41,7 +42,6 @@ Ladrillo::Ladrillo (int x, int y, Almacen &almacen)
 //    chaqueta = new Bitmap(this, almacen.GetBitmap("sprite_041"), "sprite_041");
       BITMAP *puntero = almacen.getBitmap("sprite_041");
       chaqueta = new Bitmap(this, puntero, almacen.getName (puntero));
-
       crear_ladrillo ();
       set_x (x);
       set_y (y);
@@ -186,6 +186,7 @@ std::ifstream&  Ladrillo::leer (std::ifstream& ifs)
     Almacen *sprites = new Almacen("sprites3.dat");
     chaqueta = new Bitmap(this, sprites, piel);
     crear_ladrillo ();
+    this->set_actor_graphic (chaqueta);
     set_x (x);
     set_y (y);
 
@@ -215,11 +216,11 @@ std::string Ladrillo::getString () const
 void Ladrillo::crear_ladrillo ()
 {
   this->setCodigo (Nombres::ladrillo);
-  this->set_actor_graphic (chaqueta);
   this->set_is_detected(true);
   // this->set_team(ENEMY);
   this->set_collision_method(CollisionManager::PP_COLLISION);
   this->set_wh (32,15);
   this->tiempo_estado=30;
   this->estado = Ladrillo::ESPERA;
+  //this->set_actor_graphic (chaqueta);
 };

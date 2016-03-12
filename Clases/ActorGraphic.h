@@ -1,39 +1,94 @@
+///
+/// @file ActorGraphic.h
+/// @brief Fichero de definición de la clase "ActorGraphic".
+/// @author Juan Manuel Rico
+/// @date Octubre 2015
+/// @version 1.0.0
+///
+
 #ifndef _ACTORGRAPHIC_H_
 #define _ACTORGRAPHIC_H_
 
-#include <string>
 #include <allegro.h>
+#include <string>
+#include <sstream>
+#include "Actor.h"
 
-class Actor;
-class Mask;
-
-//using namespace std;
-using std::string;
-
-
-/** 
- * \brief   Controla la parte gráfica del actor.
- * \details Esta clase define la parte gráfica del actor.
- */
+/// @class Controla la parte gráfica del actor.
+/// Esta clase define la parte gráfica del actor.
+///
 class ActorGraphic
 {
+protected:
+    Actor* owner;       ///< Puntero al actor propietario del gráfico.
+    bool graph_free;    ///< Indica si el gráfico está libre para ser cambiado por otro.
+
 public:
-    /// Constructor mínimo.
+    /// Constructor por defecto.
     ///
     ActorGraphic ();
 
-                                ActorGraphic    (Actor *a);
-        virtual                 ~ActorGraphic   ();
-        virtual void            init            ();
-        virtual void            update          ();
-        virtual void            draw            (BITMAP *bmp);
-        virtual void            draw            (int x, int y, BITMAP *bmp);
-        virtual int             get_w           ();
-        virtual int             get_h           ();
-        virtual int             get_x           ();
-        virtual int             get_y           ();
-        virtual Mask*           get_mask        ();
-        virtual ActorGraphic *  clone           (Actor *propietario) const;
+    /// Constructor con asignación.
+    /// @param a  Actor que será propietario de la parte gráfica creada.
+    ///
+    ActorGraphic (Actor* a);
+
+    /// Destructor.
+    ///
+    virtual ~ActorGraphic ();
+
+    /// Inicializa el gráfico.
+    ///
+    virtual void init ();
+
+    /// Actualiza el gráfico.
+    ///
+    virtual void update ();
+
+    /// Dibuja la parte gráfica del actor.
+    /// @param bmp  BITMAP en donde se dibuja la parte gráfica del actor.
+    ///
+    /// @note Normalmente esta función es sobreescrita por el hijo que hereda (Sprite, Bitmap, pixel...).
+    ///
+    virtual void draw (BITMAP* bmp);
+
+    /// Dibuja la parte gráfica del actor.
+    /// @param x  Coordenada x de la posición donde dibujar.
+    /// @param y  Coordenada y de la posición donde dibujar.
+    /// @param bmp  BITMAP en donde se dibujará la parte gráfica.
+    ///
+    virtual void draw (int x, int y, BITMAP* bmp);
+
+    /// Obtener el ancho del gráfico.
+    /// @return Ancho obtenido.
+    ///
+    virtual int get_w ();
+
+    /// Obtener el alto del gráfico.
+    /// @return Alto obtenido.
+    ///
+    virtual int get_h ();
+
+    /// Obtener la posición x del propietario del gráfico.
+    /// @return Posición x del propietario.
+    ///
+    virtual int get_x ();
+
+    /// Obtener la posición y del propietario del gráfico.
+    /// @return Posición y del propietario.
+    ///
+    virtual int get_y ();
+
+    /// Obtiene la máscara del gráfico.
+    /// @return Puntero a la máscara del gráfico.
+    ///
+    virtual Mask* get_mask ();
+
+    /// Duplica la parte gráfica del actor y le asigna el nuevo propietario.
+    /// @param propietario  Puntero del nuevo propietario al que asignar el duplicado.
+    /// @return Puntero al gráfico creado.
+    ///
+    virtual ActorGraphic* clone (Actor* propietario) const;
 
     /// Entrega la estructura del gráfico en forma de cadena de caracteres.
     ///
@@ -61,7 +116,9 @@ public:
     ///
     friend std::ifstream& operator>> (std::ifstream& ifs, ActorGraphic& grafico);
 
-    virtual Actor *         getActor        () const;
+    /// Obtiene el actor propietario del gráfico.
+    /// @return Puntero al actor propietario.
+    virtual Actor* getActor () const;
 
     /// Se modifica el actor propietario del gráfico.
     /// @param propietario Actor nuevo propietario del gráfico.
@@ -76,8 +133,20 @@ public:
     ///
     void setOwner (Actor& propietario);
 
+    /// Indica si el gráfico es libre para ser cambiado por otro en el actor propietario.
+    /// @return Un booleano indicando si el gráfico está libre.
+    ///
+    /// @note Se ve la necesidad de crear este procedimiento para evitar que, animaciones sobre todo, queden sin desarrollar
+    ///       completamente sus animación. Esto sucede puesto que el procedimiento "Actor::set_actor_graphic" simplemente
+    ///       intercambia sus punteros.
+    ///
+    bool is_free ();
+
 protected:
-        Actor *owner;
+    /// Cambia el estado del gráfico, indicando si está o no libre para ser cambiado por otro.
+    /// @param estate  Un booleano indicando si el gráfico deja o no de estar libre.
+    ///
+    void set_free (bool estate);
 };
 
 #endif

@@ -31,9 +31,9 @@ Loro::Loro (Almacen &almacen)
 
     // Animación de giro.
     giro = new Sprite(this);
-    giro->add_frame(almacen.getBitmap("pre2_338"), 0, 13, 10);
-    giro->add_frame(almacen.getBitmap("pre2_338"), 0,  0, 10);
-    giro->add_frame(almacen.getBitmap("pre2_338"), 0,  3, 10);
+    giro->add_frame(almacen.getBitmap("pre2_338"), 0, 0, 10);
+    giro->add_frame(almacen.getBitmap("pre2_338"), 0, 0, 10);
+    giro->add_frame(almacen.getBitmap("pre2_338"), 0, 0, 10);
 
     // Animación de inicio.
     set_actor_graphic (derecha);

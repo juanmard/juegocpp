@@ -1,98 +1,89 @@
-#include <sstream>
+///
+/// @file ActorGraphic.cpp
+/// @brief Fichero de implementación de la clase "ActorGraphic".
+/// @author Juan Manuel Rico
+/// @date Octubre 2015
+/// @version 1.0.0
+///
+
 #include "ActorGraphic.h"
-#include "Actor.h"
 
 ActorGraphic::ActorGraphic ():
-owner(NULL)
+owner(NULL),
+graph_free (true)
 {
 };
 
-ActorGraphic::ActorGraphic (Actor *a):
-owner(a)
+ActorGraphic::ActorGraphic (Actor* a):
+owner(a),
+graph_free (true)
 {
-}
+};
 
-ActorGraphic::~ActorGraphic()
+ActorGraphic::~ActorGraphic ()
 {
-}
+};
 
-void ActorGraphic::update()
+void ActorGraphic::update ()
 {
-}
+};
 
-void ActorGraphic::init()
+void ActorGraphic::init ()
 {
-}
+};
 
-/** Dibuja la parte gráfica del actor en "bmp".
- *  
- *  Normalmente esta función es sobreescrita por el 
- *  hijo que hereda (Sprite, Bitmap, pixel...).
- *
- *  @param bmp - BITMAP en donde se dibuja la parte gráfica del actor.
- *
- */
-void ActorGraphic::draw (BITMAP *bmp)
+void ActorGraphic::draw (BITMAP* bmp)
 {
-}
+};
 
-/** Dibuja la parte gráfica en la posición x, y en "bmp".
- *  
- */
-void ActorGraphic::draw (int x, int y, BITMAP *bmp)
+void ActorGraphic::draw (int x, int y, BITMAP* bmp)
 {
-}
+};
 
-int ActorGraphic::get_w()
+int ActorGraphic::get_w ()
 {
     return 0;
-}
+};
 
-int ActorGraphic::get_h()
+int ActorGraphic::get_h ()
 {
     return 0;
-}
+};
 
-int ActorGraphic::get_x()
+int ActorGraphic::get_x ()
 {
     return (int)(owner->get_x());
-}
+};
 
-int ActorGraphic::get_y()
+int ActorGraphic::get_y ()
 {
     return (int)(owner->get_y());
-}
+};
 
-Mask * ActorGraphic::get_mask ()
+Mask* ActorGraphic::get_mask ()
 {
     return NULL;
-}
+};
 
-/**
- * \brief   Duplica la parte gráfica del actor y le asigna el nuevo propietario.
- */
-ActorGraphic *  ActorGraphic::clone (Actor *propietario) const
+ActorGraphic* ActorGraphic::clone (Actor* propietario) const
 {
-	return NULL;
-}
+    return NULL;
+};
 
 std::string ActorGraphic::getString () const
 {
-    ostringstream cadena;
-    string propietario;
+    std::ostringstream cadena;
+    std::string propietario;
 
     owner->getNombre (propietario);
     cadena << "Propietario: " << propietario << "\n";
     return (cadena.str());
 };
 
-/**
- * \brief   Entrega el actor asociado a esta parte gráfica.
- */
-Actor *  ActorGraphic::getActor () const
+Actor* ActorGraphic::getActor () const
 {
   return owner;
-}
+};
 
 std::ifstream& ActorGraphic::leer (std::ifstream& ifs)
 {
@@ -107,5 +98,15 @@ std::ifstream& operator>> (std::ifstream& ifs, ActorGraphic& grafico)
 void ActorGraphic::setOwner (Actor& propietario)
 {
     if (!owner) this->owner = &propietario;
+};
+
+bool ActorGraphic::is_free ()
+{
+    return graph_free;
+};
+
+void ActorGraphic::set_free (bool estate)
+{
+    graph_free = estate;
 };
 
