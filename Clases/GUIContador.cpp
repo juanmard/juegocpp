@@ -18,7 +18,10 @@ contador (contadorParam)
 };
 
 /**
- * \brief   Comprueba las teclas en el control del vector.
+ * \brief   Comprueba las teclas en el control y modifica el contador asociado.
+ * \param   msg   Mensaje enviado por Allegro (MSG_CHAR, MSG_UCHAR, MSG_XCHAR).
+ * \param   d     Puntero al diálogo que genera el mensaje.
+ * \param   code  Código de la tecla que genera el mensaje.
  * \return  El procesado de la tecla.
  */
 int  GUIContador::Keyboard (int msg, DIALOG *d, int code)
@@ -45,6 +48,9 @@ int  GUIContador::Keyboard (int msg, DIALOG *d, int code)
 
 /**
  * \brief   Dibuja los valores en la GUI.
+ * \param   msg   Mensaje enviado por Allegro (MSG_DRAW).
+ * \param   d     Puntero al diálogo que genera el mensaje.
+ * \param   code  Código no usado en este mensaje.
  * \return  El valor al dibujar.
  */
 int  GUIContador::Draw (int msg, DIALOG *d, int code)
@@ -63,6 +69,9 @@ int  GUIContador::Draw (int msg, DIALOG *d, int code)
 
 /**
  * \brief   Comprueba la rueda del ratón.
+ * \param   msg   Mensaje enviado por Allegro (MSG_WHEEL).
+ * \param   d     Puntero al diálogo que genera el mensaje.
+ * \param   code  Código que representa los 'ticks' de la rueda.
  * \return  El procesado de la rueda.
  */
 int  GUIContador::Wheel (int msg, DIALOG *d, int code)
@@ -80,10 +89,15 @@ int  GUIContador::Wheel (int msg, DIALOG *d, int code)
 };
 
 /**
- * \brief   Comprueba la rueda del ratón.
- * \return  El procesado de la rueda.
+ * \brief   Mensaje que se envía por omisión ante cualquier otro mensaje no procesado.
+ * \details Los mensajes no procesados se tratan como un control de texto normal.
+ * \param   msg   Mensaje enviado por Allegro.
+ * \param   d     Puntero al diálogo que genera el mensaje.
+ * \param   code  Código.
+ * \return  El código obtenido por omisión.
  */
 int  GUIContador::Omision (int msg, DIALOG *d, int code)
 {
   return d_text_proc (msg, d, code);
-}
+};
+

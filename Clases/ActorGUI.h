@@ -16,7 +16,7 @@ using std::vector;
 class ActorGUI
 {
   public:
-    enum {inicio=0, nombre=10, posicion=11, dimensiones=12, grafico=13, tiempo=14, estado=15, slider=16, fin=17};
+    enum {inicio=0, nombre=10, posicion=11, dimensiones=12, grafico=13, tiempo=14, prueba=15, estado=16, slider=17, fin=18};
 
   public:
                       ActorGUI               (Actor &actor, vector<DIALOG> &gui_padre);

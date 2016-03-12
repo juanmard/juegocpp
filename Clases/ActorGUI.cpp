@@ -21,6 +21,7 @@
 #include "VectorGUI.h"
 //#include "ContadorGUI.h"
 #include "GUIContador.h"
+#include "GUIVector.h"
 #include "EscenarioGUI.h"
 
 using std::ostringstream;
@@ -45,6 +46,7 @@ DIALOG   ActorGUI::dlg_plantilla[] =
    { ActorGUI::callback_graf, 142, 380, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"Sprite",                  NULL, NULL },
 //   { ContadorGUI::callback,   142, 390, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100",                     NULL, NULL },
    { GUIContador::callback,   142, 390, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100",                     NULL, NULL },
+   { GUIVector::callback,     142, 450, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100, 100",                NULL, NULL },
    { d_list_proc,             142, 400, 122, 12,  67,  243, 0,    0,      0,   0,   (void*)LadrilloGUI::dummy_getter, NULL, NULL },
    { d_slider_proc,           98,  512, 168, 16,  67,  243, 0,    0,      16,  4,   NULL,                             NULL, NULL },
    { NULL,                    0,   0,   0,   0,   0,   0,   0,    0,      0,   0,   NULL,                             NULL, NULL }
@@ -83,6 +85,9 @@ gui (gui_padre)
   // Tiempo de estado (Como un tipo Contador).
 //  dlg_plantilla[tiempo].dp3 = new ContadorGUI (a.tiempo_estado);
   dlg_plantilla[tiempo].dp3 = new GUIContador (a.tiempo_estado);
+// prueba de GUIVector
+  dlg_plantilla[prueba].dp3 = new GUIVector (a.x, a.y);
+
 
   // Guardamos el punto de insercción y añadimos la GUI al padre.
   pto_inserccion = gui_padre.size ()-1;
