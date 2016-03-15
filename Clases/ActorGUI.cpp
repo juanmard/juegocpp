@@ -77,7 +77,7 @@ gui (gui_padre)
 
   // Gráfico:
   ActorGraphic *graf = a.get_actor_graphic ();
-  cadena = new string(graf->getString());
+  cadena = new string(graf->print ());
   *cadena = cadena->substr (0, cadena->find(" >>"));
   dlg_plantilla[grafico].dp = const_cast<char*>(cadena->c_str());
 
@@ -134,7 +134,7 @@ void  ActorGUI::setActor (Actor &a)
 
   // Gráfico:
   ActorGraphic *graf = a.get_actor_graphic ();
-  cadena = new string(graf->getString());
+  cadena = new string(graf->print ());
   *cadena = cadena->substr (0, cadena->find(" >>"));
   gui[pto + grafico].dp = const_cast<char*>(cadena->c_str());
   object_message (&gui[pto + grafico], MSG_DRAW, 0);

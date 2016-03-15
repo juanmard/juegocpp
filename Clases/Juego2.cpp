@@ -1,48 +1,37 @@
-/**
- *  \file     Juego2.cpp
- *  \brief    Prueba del "framework" de un juego.
- *
- *  \details  La clase instancia un tipo de juego de prueba con todos los controladores posibles.
- *            La primera versión de la instancia se utiliza para actualizar el juego de plataformas
- *            programado antiguamente en C "puro y duro".
- *
- *  \author   Juan Manuel Rico
- *  \date     Septiembre de 2010
- *  \version  1.00
- *
- *  \todo     Comentar todas estas clases y funciones más detalladamente.
- */
+///
+/// @file Juego2.cpp
+/// @brief Prueba del "framework" de un juego.
+///
+/// @details  La clase instancia un tipo de juego de prueba con todos los controladores posibles.
+///           La primera versión de la instancia se utiliza para actualizar el juego de plataformas
+///           programado antiguamente en C "puro y duro".
+///
+/// @author   Juan Manuel Rico
+/// @date     Septiembre de 2010
+/// @version  2.00
+///
+/// @todo     Comentar todas estas clases y funciones más detalladamente.
+///
 
 #include "Juego2.h"
-#include "Plataforma.h"
 
-/**
- * \brief   Crea el objeto del juego.
- */
 Juego2::Juego2 ()
 {
-}
+};
 
-/**
- * \brief   Se crea el almacén para este juego.
- */
-void  Juego2::create_storagemanager ()
+void Juego2::create_storage_manager ()
 {
   // Creamos el almacén de recursos.
   storage_manager = new Almacen("sprites3.dat");
-}
+};
 
-/**
- * \brief   Parte inicial del juego.
- * \details Crea actores y controladores para el juego de prueba.
- */
 void Juego2::mainGame ()
 {
-  // Se cambia la paleta de colores.
-  // sprites->SetPalette (0);
+  // Se cambia la paleta de colores que se toma del almacén de recursos.
   set_palette (storage_manager->getPalette ("SPRITES"));
 
   // Se cargan actores desde fichero de prueba.
+  // @todo Leer este mismo fichero desde el almacén de recursos.
   this->actor_manager->load("test.txt");
 
   // Se crea aparte un actor de tipo loro para pruebas.
@@ -58,21 +47,20 @@ void Juego2::mainGame ()
   control_manager->add_peripheral(loro->get_peripheral());
 
   // Se crea el 'EditorManager' básico para comenzar con las pruebas.
-  EditorManager editor(this);
+  EditorManager editor_manager (this);
 
-  // Iniciamos el juego.
-  update();
-
-  // Mostramos un breve mensaje en consola sobre las teclas.
+  // Mostramos un breve mensaje en consola sobre las teclas de prueba.
   cout << "----------------------------------" << endl;
   cout << "----    Teclas básicas        ----" << endl;
   cout << "----------------------------------" << endl << endl;
   cout << " P - Pausa el juego." << endl;
   cout << " E - Entra en modo edición." << endl;
   cout << " S - Se activa el seguimiento del jugador." << endl;
-  cout << " T - Realiza una prueba de gráficos." << endl;
+  cout << " T - Realiza una prueba de gráficos Bitmap." << endl;
   cout << " V - Visualiza los bloques de los actores." << endl;
-  cout << " G - Pruebas de GUI'." << endl;
+  cout << " G - Pruebas de GUI para Sprites'." << endl;
+  cout << " F - Prueba de letras." << endl;
+  cout << " M - Prueba de mapas de actores." << endl;
   cout << " I - Consola interactiva." << endl;
   cout << " ESC - Termina el juego." << endl;
   cout << "----------------------------------" << endl << endl;
@@ -90,9 +78,9 @@ void Juego2::mainGame ()
     if (key[KEY_E])
     {
       // Se activa el editor.
-      editor.activate ();
+      editor_manager.activate ();
 
-      // Se borran las teclas pulsadas para evitar rellamadas.
+      // Se borran las teclas pulsadas para evitar rellamadas cuando se termine el editor.
       key[KEY_E] = false;
       key[KEY_ESC] = false;
     }
@@ -108,13 +96,17 @@ void Juego2::mainGame ()
       {
         pause ();
       }
+
+      // Limpieza teclado.
       key[KEY_P] = false;
     }
 
     // Se hace el seguimiento de la pantalla.
     if (key[KEY_S])
     {
-      if ((stage_manager->get_x() != 0) || (stage_manager->get_y() != 0))
+      // Si el escenario está en modo seguimiento, se deja de seguir y se pone el escenario en el lugar original;
+      // en otro caso, a modo de prueba se hace el seguimiento al loro.
+      if ( stage_manager->is_seguimiento () )
       {
         stage_manager->mover_marco (0,0);
         stage_manager->set_seguimiento (NULL);
@@ -123,20 +115,24 @@ void Juego2::mainGame ()
       {
         stage_manager->set_seguimiento (loro);
       }
+
+      // Limpieza teclado.
       key[KEY_S] = false;
     }
 
-    // Se comprueba la visualización de los bloques.
+    // Conmuta entre visualizar o no los bloques que definen a los actores.
     if (key[KEY_V])
     {
       stage_manager->set_ver_bloques (!stage_manager->get_ver_bloques ());
+
+      // Limpieza de teclado.
       key[KEY_V] = false;
     }
 
-    // Se comprueba la visualización de los bloques.
+    // Se crea un personaje de prueba para la animación y control.
     if (key[KEY_G])
     {
-      // Se crea a parte un Loro de prueba para el editor de Sprites.
+      // Se crea un Loro de prueba para el editor de Sprites.
       Loro *loro2=new Loro(*storage_manager);
       loro2->set_x(100);
       loro2->set_y(300);
@@ -150,48 +146,85 @@ void Juego2::mainGame ()
 
       Formulario &form = prueba->getFormulario ();
       form.show ();
+
+      // Limpieza de teclado.
       key[KEY_ESC] = false;
       key[KEY_G] = false;
     }
 
-    // Parte de código para pruebas del juego.
+    // Pruebas de Bitmap.
     if (key[KEY_T])
     {
       // Probamos el nuevo constructor de Bitmap basado en el almacén.
+      // 1 - Se crea un actor vacío.
       Actor *camello = new Actor ();
+
+      // 2 - Se le dice a la clase Bitmap de dónde obtener los gráficos.
       Bitmap::setAlmacen (storage_manager);
+
+      // 3 - Se crea un gráfico indicando simplemente el gráfico y a qué actor se le desea asignar.
       Bitmap *bmp_camello = new Bitmap (camello, "sprite_107");
+
+      // 4 - Se completan el resto de propiedades del actor.
       camello->set_x (130);
       camello->set_y (195);
       camello->set_wh (63,44);
       camello->setCodigo (Nombres::camello); // No funciona pues no hemos definido un 'getNombre' virtual específico.
       camello->set_actor_graphic (bmp_camello);
+
+      // 5 - Se agrega el nuevo actor al controlador de actores.
       actor_manager->add(camello);
+
+      // 6 - Se descarga la información en pantalla.
       cout << "Bitmap: " << bmp_camello->getImagen () << " Nombre: " << storage_manager->getName (bmp_camello->getImagen()) << endl;
 
-      // Se prueba el uso del Bitmap en la Tesela.
+      // Por otra parte, Se prueba el uso del Bitmap en la Tesela.
+      // 1 - Se crea un nuevo actor vacío.
       Actor *arbol = new Actor ();
-      arbol->set_x (130);
-      arbol->set_y (250);
-      arbol->set_wh (32,15);
+
+      // 2 - Se crea el mosaico vacío.
       Mosaico *hojas = new Mosaico (arbol);
+      
+      // 3 - Se añaden Teselas al mosaico.
       hojas->add_ultima_Tesela (new Tesela (hojas, "pre2_417"));
       hojas->add_ultima_Tesela (new Tesela (hojas, "pre2_416", 12, 20));
       hojas->add_ultima_Tesela (new Tesela (hojas, "pre2_416", 12, -20, true));
-      arbol->set_actor_graphic (hojas);
-      actor_manager->add(arbol);
-      cout << "Mosaico de hojas: " << endl << hojas->getString () << endl;
+      
+      // 4 - Se completan las propiedades del actor.
+      arbol->set_x (130);
+      arbol->set_y (250);
+      arbol->set_wh (32,15);
 
-      // Probamos la generación del mapa de actores.
+      // 5 - Se añade el nuevo actor al controlador de actores para que lo muestre en pantalla.
+      actor_manager->add(arbol);
+
+      // 6 - Se descarga la información en pantalla.
+      cout << "Mosaico de hojas: " << endl << hojas->print () << endl;
+
+      // Limpieza de teclado.
+      key[KEY_T]=false;
+    }
+
+    // Pruebas de Mapa de actores.
+    // @todo Terminar estas pruebas.
+    // @note Pensando que igual estas características deben estar integradas en la clase que
+    //       controla los actores (ActorManager).
+    if (key[KEY_M])
+    {
+      // Por otra parte, se prueba del mapa de actores.
       Mapa mapa_prb;
       mapa_prb.Read (*actor_manager);
       // cout << mapa_prb.getString ();
+      // cout << mapa_prb << endl;
+
+      // Limpieza de teclado.
+      key[KEY_M]=false;
     }
 
     // Se prueba la consola interactiva.
     if (key[KEY_I])
     {
-      // \todo Pasar los procesos de la consola interactiva a una clase independiente.
+      // @todo Pasar los procesos de la consola interactiva a una clase independiente.
       std::cout << "----------------- Consola Interactiva -----------------" << std::endl;
 
       char comandos[7][8]={
@@ -213,7 +246,7 @@ void Juego2::mainGame ()
           "Sale de la consola interactiva."
           };
 
-      string comando;
+      std::string comando;
       bool salida = false;
       do
       {
@@ -268,8 +301,8 @@ void Juego2::mainGame ()
       while (!salida);
       key[KEY_I] = false;
     }
-    // Prueba de font.
-    //
+
+    // Prueba de fuentes de letras.
     if (key[KEY_F])
     {
         key[KEY_F] = false;
@@ -279,28 +312,32 @@ void Juego2::mainGame ()
         myfont = load_font("prueba-font.pcx", palette, NULL);
         // set_palette (palette);
         if (!myfont)
+        {
             cout << "Couldn't load font!";
-        textout_centre_ex(screen, myfont, "¡Esto es mi prueba de letras!",
-                           SCREEN_W / 2, SCREEN_H / 2, 5, 223);
+        }
+        textout_centre_ex(screen, myfont, "¡Esto es mi prueba de letras!", SCREEN_W / 2, SCREEN_H / 2, 5, 223);
         while (!key[KEY_F]);
         destroy_font(myfont);
         key[KEY_F] = false;
     }
   }
 
-    // Cerramos el juego fundiendo en negro.
+  // Cerramos el juego fundiendo en negro.
   fade_out(2);
-}
+};
 
-/**
- * \brief   "main" principal que inicia el juego de prueba.
- */
+/// Procedimiento principal del programa.
+///
+/// Procedimiento no perteneciente a la clase y que crea
+/// el punto de entrada del programa ("main") que inicia el juego de prueba.
+///
 int main ()
 {
   Juego2 game;
-  srand(time(NULL));
+
+  srand (time(NULL));
   game.set_name("Juego++ v2.0");
-  //game.init(GFX_AUTO, 800,600,8);
+  //game.init(GFX_AUTODETECT_WINDOWED, 800,600,8);
   game.init(GFX_SAFE, 800,600,8);
   return 0;
 }

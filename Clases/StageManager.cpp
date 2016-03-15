@@ -14,8 +14,8 @@ marco (0, 0, w, h),
 ribete (0, 0, w, h),
 colorRibete (makecol (255, 0, 0)),
 actorSeguido (NULL),
-verBloques (true),
-verInfo (true),
+verBloques (false),
+verInfo (false),
 verRibete (true)
 {
   buffer = create_bitmap (SCREEN_W, SCREEN_H);
@@ -77,11 +77,17 @@ void  StageManager::rellenar_buffer ()
   // en otro caso, se dibuja solo el actor.
   if (verBloques)
   {
+    bool estado_bloque;
     while ((tmp = game->actor_manager->next()) != NULL)
     {
+      // Dibuja el actor.
       tmp->draw (this);
-      tmp->setMostrarBloque(true);
+
+      // Dibuja el bloque conservando el estado actual del actor.
+      estado_bloque = tmp->get_mostrar_bloque();
+      tmp->set_mostrar_bloque(true);
       tmp->draw_block (this);
+      tmp->set_mostrar_bloque(estado_bloque);
     }
   }
   else
@@ -99,7 +105,8 @@ void StageManager::draw ()
   rellenar_buffer ();
 
   // Se añade la línea superior de información.
-  if (verInfo)
+  //if (verInfo)
+  if (false)
   {
      // Línea de prueba.
      *this << "Línea de información";
@@ -108,7 +115,7 @@ void StageManager::draw ()
   }
 
   if (verRibete) rect (buffer, 0, 0, ribete.getW ()-1, ribete.getH()-1, colorRibete);
-  
+
   // Vuelca todo en pantalla.
   blit (buffer, screen, 0, 0, 
         ribete.getX (), ribete.getY (),
@@ -174,5 +181,15 @@ std::string& StageManager::operator<< (std::string cadena)
     info.append (cadena);
     info.resize(100);
     return info;
+};
+
+bool StageManager::is_seguimiento () const
+{
+    return (actorSeguido != NULL);
+};
+
+bool StageManager::is_info () const
+{
+    return verInfo;
 };
 

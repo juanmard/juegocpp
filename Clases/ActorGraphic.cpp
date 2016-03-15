@@ -70,7 +70,7 @@ ActorGraphic* ActorGraphic::clone (Actor* propietario) const
     return new ActorGraphic();
 };
 
-std::string ActorGraphic::getString () const
+std::string ActorGraphic::print () const
 {
     std::ostringstream cadena;
     std::string propietario;

@@ -90,7 +90,7 @@ void Game::init (int gfx_mode, int w, int h, int col)
   create_soundmanager ();
   create_controlmanager ();
   create_collisionmanager ();
-  create_storagemanager ();
+  create_storage_manager ();
 
   /* Se empieza el juego. */
   start ();
@@ -231,7 +231,9 @@ void Game::update ()
   }
 
   /* Si se ha cumplido un segundo, se actualizan los "fps" por pantalla. */
-  if (tick-old_tick >= 70)
+//  if ((tick-old_tick >= 70) && stage_manager->is_info ())
+//  if (tick-old_tick >= 70)
+  if (false)
   {
     rectfill (stage_manager->getBuffer(), 0, 0, SCREEN_W, 50, 0);
     textprintf_ex (stage_manager->getBuffer(), font, 0, 0,-1, makecol(255, 100, 200),
@@ -277,7 +279,7 @@ bool Game::is_paused (void)
 /**
  * \brief   Se crea el almacén por omisión.
  */
-void Game::create_storagemanager ()
+void Game::create_storage_manager ()
 {
     // Creamos el almacén de recursos.
     //storage_manager = new Almacen("sprites3.dat");

@@ -1,42 +1,37 @@
-/**
- *  \file     Actor.cpp
- *  \brief    Fichero con el código de implementación de la clase Actor.
- *
- *  \author   Juan Manuel Rico
- *  \date     Diciembre 2010
- *  \version  1.00
- *
- */
+///
+/// @file     Actor.cpp
+/// @brief    Fichero con el código de implementación de la clase Actor.
+/// @author   Juan Manuel Rico
+/// @date     Diciembre 2010
+/// @version  1.0.0
+///
+
 #include <sstream>
 #include <iostream>
+#include <fstream>
 #include "Actor.h"
 #include "ActorGraphic.h"
 #include "StageManager.h"
 #include "Dialog.h"
 #include "ActorGUI.h"
 
-// Creamos una GUI única para todos los actores.
+#include "Suelo.h"      ///< A modo de prueba. Eliminar.
+
 ActorGUI *Actor::gui = NULL;
 
-/**
- * \brief   Constructor por omisión de la clase. 
- * \details No asigna gráfico y no se sitúa en el tiempo. 
- */
 Actor::Actor():
 agraph(NULL),
-estado(actuar),
 tiempo_estado(0),
-mostrarBloque (false)
+estado(0),
+mostrarBloque (false),
+wait_graph(NULL)
 {
-}
+};
 
-/**
- * \brief   Constructor copia de la clase.
- */
 Actor::Actor(const Actor &copia):
 nombre (copia.nombre),
 x(copia.x), y(copia.y),
-h(copia.h), w(copia.w),
+w(copia.w), h(copia.h),
 color(copia.color),
 collision_method(copia.collision_method),
 is_detectable(copia.is_detectable),
@@ -45,44 +40,62 @@ estado(copia.estado),
 tiempo_estado(copia.tiempo_estado),
 power(copia.power),
 team(copia.team),
-mostrarBloque (copia.mostrarBloque)
+mostrarBloque (copia.mostrarBloque),
+wait_graph(copia.wait_graph)
 {
-    // Duplicamos la parte gráfica del actor a copiar y se la asiganmos al nuevo.
+    // Duplicamos la parte gráfica del actor a copiar y se la asignamos al nuevo.
     // Para ello...
     // 1. Conseguimos la parte gráfica del actor a copiar.
     // 2. Duplicamos la parte gráfica dando como propietario el nuevo actor.
     // 3. Asignamos la parte gráfica duplicada al nuevo actor.
-    set_actor_graphic(copia.get_actor_graphic()->clone (this));
-}
+    //ActorGraphic *acopia = copia.get_actor_graphic()->clone (this);
+    //if (copia) set_actor_graphic(acopia);
+};
 
-/**
- * Destruye el actor.
- * Si tiene asignado un gráfico lo elimina.
- */
 Actor::~Actor()
 {
     if (agraph) delete agraph;
-}
+};
 
-/**
- * \brief   Visualiza el aspecto gráfico del actor.
- *          Delega esta función en el objeto gráfico.
- * \todo    Crear clase "Pantalla" para independizar del Bitmap de Allegro.
- */
 void Actor::draw (BITMAP *bmp)
 {
-  // Se dibuja si tiene parte gráfica.
-  if (agraph) agraph->draw (bmp);
-}
+    // Se dibuja si el actor tiene parte gráfica.
+    if (agraph) agraph->draw (bmp);
+};
 
-/**
- * \brief   Visualiza las dimensiones del actor mediante un rectángulo.
- *          Utiliza la propiedad 'color' para ello.
- */
 void Actor::draw_block (BITMAP *pantalla)
 {
     rect (pantalla,x,y,x+w,y+h,color);
-}
+};
+
+void Actor::update ()
+{
+    // Se comprueba si existe la parte gráfica.
+    // Si existe, se actualiza (se animan las partes gráficas que lo necesiten);
+    // en otro caso, no se hace nada.
+    if (agraph) agraph->update();
+
+    // Se actualizan los gráficos del actor.
+    // Si hay un gráfico en espera y está el actual libre, se cambia el gráfico por el nuevo;
+    // en otro caso, no se hace nada.
+    if ((wait_graph != NULL) && agraph->is_free())
+    {
+        // @note En este caso se queda el antiguo 'agraph' huérfano.
+        //       ¿Incluir en una lista de punteros huérfanos?
+        agraph = wait_graph;
+        wait_graph = NULL;
+    };
+
+    // Actualiza los estados del actor.
+    if (tiempo_estado)
+    {
+        tiempo_estado--;
+        if (tiempo_estado == 0)
+        {
+            actualizar_estado ();
+        }
+    }
+};
 
 void Actor::hit (Actor *who, int damage)
 {
@@ -103,409 +116,358 @@ void Actor::set_is_detected (bool detectable)
     is_detectable = detectable;
 };
 
-void Actor::ActualizarEstado ()
+void Actor::actualizar_estado ()
 {
-}
-
-void Actor::CambiarEstado ()
-{
-}
+};
 
 void Actor::set_tiempo (unsigned int tiempo)
 {
     tiempo_estado = tiempo;
-}
+};
 
-void Actor::update()
-{
-  // Se comprueba si existe la parte gráfica.
-  // Si existe, se actualiza.
-  if (agraph) agraph->update();
-
-  // Actualiza los estados del actor.
-  if (tiempo_estado)
-  {
-    tiempo_estado--;
-    if (tiempo_estado == 0)
-    {
-      CambiarEstado ();
-    }
-    ActualizarEstado ();
-  }
-}
-
-/**
- * \brief   Inicializa la parte gráfica del actor.
- */
 void Actor::init()
 {
-  // Se comprueba que el actor tiene parte gráfica.
-  if (agraph) agraph->init();
-}
+    // Se comprueba que el actor tiene parte gráfica.
+    if (agraph) agraph->init();
+};
 
 void Actor::set_x(int pos_x)
 {
     x=pos_x;
-}
-
-void Actor::set_color (int color_tmp)
-{
-    color = color_tmp;
-}
+};
 
 void Actor::set_y (int pos_y)
 {
     y=pos_y;
-}
+};
+
+void Actor::set_color (int color_tmp)
+{
+    color = color_tmp;
+};
 
 void Actor::set_wh (int w_tmp, int h_tmp)
 {
   // Las dimensiones no pueden ser negativas. Las hacemos cero en ese caso.
+  /// @note Quizás sea mejor definir las propiedades w y h como "unsigned int".
   if (w_tmp < 0) w_tmp = 0;
   if (h_tmp < 0) h_tmp = 0;
   w = w_tmp;
   h = h_tmp;
-}
+};
 
-void Actor::set_actor_graphic (ActorGraphic *ag)
+void Actor::set_actor_graphic (ActorGraphic* ag)
 {
-  agraph=ag;
-}
+    // Se comprueba la parte gráfica del actor.
+    // Si no existe parte gráfica del actor, se cambia directamente el gráfico;
+    // en otro caso, hay que comprobar antes si el gráfico existente está libre.
+    if (true)
+//    if (!agraph)
+    {
+        agraph = ag;
+    }
+    else
+    {
+        // Se necesita preguntar al gráfico si está libre y puede sustituirse.
+        // Si está libre de uso se lleva a cabo el cambio,
+        // en otro caso se activa la necesidad de cambio que se producirá al actualizarse
+        // el actor cuando se compruebe que está libre.
+        if (agraph->is_free ())
+        {
+            agraph = ag;
+        }
+        else
+        {
+            wait_graph = ag;
+        }
+    }
+};
 
-/**
- * \brief   Devuelve la referencia al objeto ActorGraphic.
- */
-ActorGraphic *  Actor::get_actor_graphic () const
+ActorGraphic* Actor::get_actor_graphic () const
 {
   return agraph;
-}
+};
 
-/**
- * \brief   Devuelve el color del actor.
- */
 int Actor::get_color (void)
 {
     return color;
-}
+};
 
-/**
- * \brief   Devuelve la GUI del actor.
- */
-ActorGUI *  Actor::getGUI ()
+ActorGUI* Actor::getGUI ()
 {
-  return gui;
-}
+    return gui;
+};
 
-/**
- * \brief   Devuelve la componente x de la posición del actor.
- */
 int Actor::get_x()
 {
     return x;
-}
+};
 
-/**
- * \brief   Devuelve la componente y de la posición del actor.
- */
 int Actor::get_y()
 {
     return y;
-}
+};
 
-/**
- * \brief   Devuelve el ancho del actor.
- */
 int Actor::get_w()
 {
     return w;
-}
+};
 
-/**
- * \brief   Devuelve el alto del actor.
- */
 int Actor::get_h()
 {
     return h;
-}
-
-/**
- * \brief   Devuelve la posición x del componente gráfico del actor.
- */
-int Actor::get_graph_x()
-{
-    return agraph->get_x();
-}
-
-/**
- * \brief   Devuelve la posición y del componente gráfico del actor.
- */
-int Actor::get_graph_y()
-{
-    return agraph->get_y();
-}
-
-/**
- * \brief   Método para obtener el código del nombre.
- */
-Nombres::codigo  Actor::getCodigo (void)
-{
-  return nombre;
 };
 
-/**
- * \brief   Método para modificar el nombre.
- * \param   new_name    Nombre nuevo para sustituir.
- */
-void  Actor::setCodigo (Nombres::codigo new_name)
+int Actor::get_graph_x ()
 {
-  nombre = new_name;
+    return agraph->get_x ();
 };
 
-/**
- * \brief   Método para obtener el estado actual del actor.
- */
-Actor::estado_t  Actor::get_Estado (void)
+int Actor::get_graph_y ()
+{
+    return agraph->get_y ();
+};
+
+Nombres::codigo Actor::getCodigo ()
+{
+    return nombre;
+};
+
+void Actor::setCodigo (Nombres::codigo codigo)
+{
+    nombre = codigo;
+};
+
+Actor::state_t Actor::get_Estado ()
 {
     return estado;
-}
+};
 
-/**
- * \brief   Clona un actor.
- */
-Actor * Actor::clone () const {return NULL;};
+Actor* Actor::clone () const
+{
+    return NULL;
+};
 
-/**
- * \brief   Comprueba si el actor intersecciona con el bloque pasado como parámetro.
- */
-bool  Actor::isIntersectado  (Bloque bloque)
+bool Actor::isIntersectado (Bloque& bloque)
 {
   // \todo  Desarrollar el código.
   return (true);
-}
+};
 
-/**
- * \brief   Visualiza el aspecto gráfico del actor referida al escenario.
- *          Delega esta función en el objeto gráfico.
- */
-void Actor::draw (StageManager *stageManager)
+void Actor::draw (StageManager* stageManager)
 {
-    // Se calcula la posición relativa del actor al escenario. 
-    int relx = x - stageManager->getX();
-    int rely = y - stageManager->getY();
+    // Se calcula la posición relativa del actor al escenario.
+    int relx = x - stageManager->get_x();
+    int rely = y - stageManager->get_y();
 
     // Se dibuja en el escenario en la posición calculada.
     if (agraph) agraph->draw (relx,rely,stageManager->getBuffer());
-}
+};
 
-/**
- * \brief   Visualiza el bloque de referencia del actor referida al escenario.
- * \warning   Quizás este procedimiento es más adecuado que esté en la clase
- *            'StageManager' ya que es la que debe saber dibujar cuadrados en el 
- *            escenario.
- */
-void Actor::draw_block (StageManager *stageManager)
+void Actor::draw_block (StageManager* stageManager)
 {
   // Si la propiedad del actor indica que mostremos el bloque lo mostramos.
   if (mostrarBloque)
   {
-    // Se calcula la posición relativa del actor al escenario. 
-    int relx = x - stageManager->getX ();
-    int rely = y - stageManager->getY ();
+    // Se calcula la posición relativa del actor al escenario.
+    int relx = x - stageManager->get_x ();
+    int rely = y - stageManager->get_y ();
 
     // Se dibuja en el escenario en la posición calculada.
     rect (stageManager->getBuffer(), relx, rely, w + relx, h + rely, color);
   }
-}
+};
 
-/**
- * \brief   Obtiene el bloque que define las dimensiones del actor.
- * \todo    Integrar la clase 'Bloque' completamente en ésta y en otras clases.
- */
-Bloque &  Actor::getBloque ()
+Bloque& Actor::getBloque ()
 {
   Bloque *tmp = new Bloque (x, y, w, h);
   return *tmp;
-}
+};
 
-/**
- * \brief   Obtiene la posición del actor y actualiza la cadena pasada por parámetro.
- */
-void  Actor::getXY (string &posicion) const
+void Actor::getXY (std::string& posicion) const
 {
   stringstream  ss;
-//  ss << "(" << x << ", " << y << ")";
+//  ss << "<" << x << ", " << y << ">";
   ss << x << ", " << y;
   posicion = ss.str();
 };
 
-/**
- * \brief   Obtiene las dimensiones del actor y actualiza la cadena 
- *          pasada por parámetro.
- * \param   dimensiones   Cadena para ser rellenada con las dimensiones.
- */
-void  Actor::getWH (string &dimensiones) const
+void  Actor::getWH (std::string& dimensiones) const
 {
   stringstream  ss;
-//  ss << "(" << w << ", " << h << ")";
+//  ss << "<" << w << ", " << h << ">";
   ss << w << ", " << h;
   dimensiones = ss.str();
 };
 
-/**
- * \brief   Obtiene el estado actual del actor.
- * \param   dimensiones   Cadena para ser rellenada con el estado.
- */
-void  Actor::getEstado (string &estado) const
+void  Actor::getEstado (std::string& estado) const
 {
-  estado = "sin estado";
+    estado = "sin estado";
 };
 
-/**
- * \brief   Obtiene el nombre del actor.
- * \param   dimensiones   Cadena para ser rellenada con el nombre.
- * \todo    Para compatibilizar con elformato estándar 'std' crear un método
- *          que devuelva la cadena en lugar de recibirla como parámetro:
- *            - string  Actor::getNombre () const;
- *          Lo que nos permitiría hacer cosas como:
- *            - cout << "El nombre del actor es " << actor.getNombre();
- */
-void  Actor::getNombre (string &nombre) const
+void  Actor::getNombre (std::string& nombre) const
 {
-  nombre = "Sin nombre";
+    nombre = "sin nombre";
 };
 
 string  Actor::getNombre () const
 {
-  return "Sin nombre";
+    return "sin nombre";
 };
 
-
-/**
- * \brief   Cambia si se desea mostrar el bloque (posición y dimensiones) del actor
- *          en pantalla.
- * \param   mostrar   Si es 'true' se mostrará y si es 'false' no se mostrará.
- */
-void  Actor::setMostrarBloque (bool mostrar)
+void Actor::set_mostrar_bloque (bool mostrar)
 {
-  mostrarBloque = mostrar;
-}
-
-/**
- * \brief   Obtiene un menú con las acciones posibles según el tipo de actor.
- * \warning Esto se utiliza para el editor. Es posible que no sea conveniente mezclarlo con la clase genérica del Actor.
- */
-Menu &  Actor::getMenu () const
-{
-  Menu *menu = new Menu();
-  menu->add(const_cast<char*>("Actor - Mover"));
-  menu->add(const_cast<char*>("Actor - Tamaño"));
-  return *menu;
-}
-
-/**
- * \brief   Devuelve una cadena de texto con la estructura y propiedades del actor.
- */
-string  Actor::getString () const
-{
-  ostringstream cadena;
-  string nombre;
-
-  // Se obtienen las propiedades del actor.
-  getNombre (nombre);
-  cadena << nombre << " {" << endl \
-         << "Posición <" << x << "," << y << ">" << endl \
-         << "Bloque <" << w << "," << h << ">" <<endl;
-
-  // Se obtiene la parte gráfica del actor.
-  if (agraph)
-  {
-   cadena << "Gráfico {" << endl \
-         <<  agraph->getString () \
-         << "}" <<endl;
-  }
-
-  // Se cierra la cadena.
-  cadena << "}" << endl;
-
-  // Se devuelve la cadena.
-  return cadena.str ();
+    mostrarBloque = mostrar;
 };
 
-/**
- * \brief   Muestra en consola el error de no tener asignado una parte gráfica.
- */
+bool Actor::get_mostrar_bloque () const
+{
+    return mostrarBloque;
+};
+
+Menu& Actor::getMenu () const
+{
+    Menu *menu = new Menu();
+    menu->add(const_cast<char*>("Actor - Mover"),  0, (void *) this, NULL, Actor::Mover);
+    menu->add(const_cast<char*>("Actor - Tamaño"), 0, (void *) this, NULL, Actor::Dimensionar);
+    return *menu;
+};
+
+Formulario& Actor::getFormulario () const
+{
+    return (*new Formulario());
+};
+
+std::string  Actor::getString () const
+{
+    std::ostringstream cadena;
+
+    // Se obtienen las propiedades del actor.
+    cadena << getNombre() << " {" << std::endl \
+           << "    Posición    <" << x << ", " << y << ">" << std::endl \
+           << "    Dimensiones <" << w << ", " << h << ">" << std::endl;
+
+    // Si hay parte gráfica, se obtiene la parte gráfica del actor.
+    if (agraph)
+    {
+        cadena << "    Gráfico {" << std::endl \
+               <<  agraph->print () \
+               << "    }" << std::endl;
+    }
+
+    // Se cierra la cadena.
+    cadena << "}" << std::endl;
+
+    // Se devuelve la cadena creada en formato "std::string".
+    return cadena.str ();
+};
+
 void  Actor::mensajeErrorGrafico () const
 {
-  string nombre;
-  getNombre (nombre);
-  cout << "ERROR: Actor \"" << nombre << "\" sin componente gráfica." << endl;
-}
+    cout << "ERROR: Actor \"" << getNombre() << "\" sin componente gráfica." << endl;
+};
 
-/**
- * \brief   Prueba para añadir la GUI de las propiedades del actor a una GUI padre.
- */
 void  Actor::addGUI (vector<DIALOG> &gui_padre)
 {
   gui = new ActorGUI (*this, gui_padre);
 };
 
-/**
- * \brief   Hace reflejar las propiedades del actor en la GUI.
- */
-void  Actor::drawGUI ()
+void  Actor::addEnlace (DIALOG* enlace)
 {
-  // Si existe la GUI, solo hay que cambiar el actor.
-  // En otro caso, habría que crearla.
-  if (gui)
-  {
-    gui->setActor (*this);
-  }
+    gui->addEnlace (enlace);
 };
 
-/**
- * \brief   Obtiene cadena representativa del objeto.
- * \details Es un procedimiento global.
- */
-ostream&  operator<< (ostream &o, const Actor &a)
+void Actor::drawGUI ()
 {
-//    o << "Prueba de cadena desde \"Actor.cpp\"" << endl;
-//    o << a.nombre << " {" << a.x << "," << a.y << "}" << " {" << a.w << "," << a.h << "}";
-    o << a.getString ();
-    return o;
-}
-
-/**
- * \brief   Obtiene los objetos de un flujo de datos.
- * \details Obtiene los valores de un nuevo actor en el flujo de datos y actualiza
- *          el actor pasado por parámetro.
- */
-istream&  operator>> (istream &is, Actor &a)
-{
-  // Extrae los valores del flujo formateado.
-  string nombre;
-  int x,y,w,h;
-  // Este nombre habría que convertirlo a tipo "Nombres::codigo"
-  is >> nombre;
-  is.ignore (10,'{');
-  is >> a.x;
-  is.ignore (10,',');
-  is >> a.y;
-  is.ignore (10,'{');
-  is >> a.w;
-  is.ignore (10,',');
-  is >> a.h;
-  is.ignore (10,'}');
-
-  return is;
-}
-
-/**
- * \brief   Modifica los Lee los valores del actor de una cadena de texto.
- * \details Se define como virtual para que cada tipo de actor se complete a sí mismo
- *			con los valores que él conoce.
- * 			Se compara el nombre del actor con el obtenido en la cadena. Si el actor
- *          no se identifica con la cadena de su nombre, se rechazan dichos valores.
- */
-void  Actor::setActor (string actor)
-{
+    // Si existe la GUI, solo hay que cambiar el actor.
+    // En otro caso, habría que crearla.
+    if (gui)
+    {
+        gui->setActor (*this);
+    }
 };
+
+std::ostream& operator<< (std::ostream &os, const Actor &actor)
+{
+//    os << "Prueba de cadena desde \"Actor.cpp\"" << endl;
+//    os << actor.nombre << " {" << actor.x << "," << actor.y << "}" << " {" << actor.w << "," << actor.h << "}";
+    os << actor.getString ();
+    return os;
+};
+
+std::istream& operator>> (istream& is, Actor& actor)
+{
+    // Extrae los valores del flujo formateado.
+    //string nombre;
+
+    // TODO: Este nombre habría que convertirlo a tipo "Nombres::codigo"
+    //is >> nombre;
+    is.ignore (10,'<');
+    is >> actor.x;
+    is.ignore (10,',');
+    is >> actor.y;
+    is.ignore (10,'<');
+    is >> actor.w;
+    is.ignore (10,',');
+    is >> actor.h;
+    is.ignore (10,'>');
+    return is;
+};
+
+std::istream& Actor::prueba_iostream (std::istream& is, Actor& a)
+{
+    cout << "prueba_actor";
+    return is;
+};
+
+std::ifstream& Actor::leer (std::ifstream& ifs)
+{
+    std::string comando;
+
+    // Lee el comando (Posición) y sus valores.
+    ifs >> comando;
+    ifs.ignore(20,'<') >> x;
+    ifs.ignore(20,',') >> y;
+    ifs.ignore(20,'>');
+
+    // Lee el comando (Dimensiones) y sus valores.
+    ifs >> comando;
+    ifs.ignore(20,'<') >> w;
+    ifs.ignore(20,',') >> h;
+    ifs.ignore(20,'>');
+
+    // Deja el cursor en el siguiente comando (Gráfico) y alguien que sepa todos
+    // los posibles tipos de gráficos (Bitmap, Suelo, Mosaico...)
+    // debe crear uno y asignárselo a este actor.
+    // Similar al mismo que tuvo que crear un actor de clase "Plataforma" como en el
+    // ejemplo.
+    // ¿Habría que crear un "GraphicManager"?¿Esta función puede hacerla el "Almacen"?
+
+    // Como prueba... lo hacemos de momento aquí mismo...
+    ifs >> comando;
+    if (!comando.compare("Gráfico"))
+    {
+        ifs.ignore (100,'{');
+        ifs >> comando;
+
+        // Suponemos que es un suelo el gráfico...
+        // ActorGraphic &grafico = GraphicManager::crearGrafico (comando);
+        ActorGraphic &grafico = *new Suelo();
+        ifs.ignore (100,'{');
+        ifs >> grafico;
+        ifs.ignore (100,'}');
+        ifs.ignore (100,'}');
+
+        // Enlazamos el actor con el gráfico y
+        // el gráfico con el actor (su propietario).
+        this->set_actor_graphic (&grafico);
+        this->agraph->setOwner(*this);
+    }
+    return ifs;
+};
+
+std::ifstream& operator>> (std::ifstream& ifs, Actor& actor)
+{
+    return actor.leer(ifs);
+};
+

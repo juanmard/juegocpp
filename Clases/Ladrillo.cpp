@@ -204,7 +204,7 @@ std::string Ladrillo::getString () const
 
   // Se genera una cadena con los valores y propiedades actuales.
   cadena << "Ladrillo {" << std::endl \
-         << "    Chaqueta  \"" << agraph->getString () << "\"" << std::endl \
+         << "    Chaqueta  \"" << agraph->print () << "\"" << std::endl \
          << "    Peloteo   \"" << "sample_001" << "\"" << std::endl \
          << "    Posición  <" << x << ", " << y << ">" << std::endl \
          << "}" << std::endl;

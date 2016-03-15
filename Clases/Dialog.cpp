@@ -252,7 +252,7 @@ void Dialog::prueba_click ()
   if (manager)
   {
     // Si hay un actor editándose desactivamos el actor actualmente activo.
-    if (actor) actor->setMostrarBloque (false);
+    if (actor) actor->set_mostrar_bloque (false);
 
     // Se busca el otro actor.
     actor = manager->getActor (mouse_x - dialog[scr].x + manager->getEscenarioX (),
@@ -330,7 +330,7 @@ void  Dialog::actualizarValoresActor ()
 void  Dialog::centrarActor (int indice)
 {
   // Si había actor anterior se desactiva.
-  if (actor) actor->setMostrarBloque (false);
+  if (actor) actor->set_mostrar_bloque (false);
 
   // Se le pide al controlador de edición que centre (y active) el actor
   // con el índice dado.
@@ -347,7 +347,7 @@ void  Dialog::setActor (Actor *actorMostrar)
 
   // Se activa en verde el bloque del actor.
   actor->set_color (makecol(0, 255, 0));
-  actor->setMostrarBloque (true);
+  actor->set_mostrar_bloque (true);
 
   // Se actualizan las propiedades del actor.
   actualizarValoresActor ();

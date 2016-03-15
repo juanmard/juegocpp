@@ -130,9 +130,10 @@ void Sprite::draw (int x, int y, BITMAP* bmp)
   }
   else
   {
-    draw_sprite (bmp, frames[actual_frame].bmp, 
-                 x - frames[actual_frame].cx,
-                 y - frames[actual_frame].cy);
+    rotate_scaled_sprite(bmp, frames[actual_frame].bmp, x - frames[actual_frame].cx, y - frames[actual_frame].cy, ftofix(0.0), ftofix(1.0));
+    //draw_sprite (bmp, frames[actual_frame].bmp, 
+    //             x - frames[actual_frame].cx,
+    //             y - frames[actual_frame].cy);
   }
 };
 

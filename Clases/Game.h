@@ -64,7 +64,7 @@ class Game
     virtual void    create_soundmanager     ();
     virtual void    create_controlmanager   ();
     virtual void    create_collisionmanager ();
-    virtual void    create_storagemanager   ();
+    virtual void    create_storage_manager   ();
 };
 
 #endif

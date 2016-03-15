@@ -15,6 +15,10 @@ class Tesela;
 
 class Mosaico : public ActorGraphic
 {
+private:
+    list<Tesela *> teselas;         ///< Lista de las teselas gráficas que constituyen el mosaico.
+    list<Tesela *>::iterator it;    ///< Iterador de uso en la lista de teselas. @note Este iterador no tiene sentido en las propiedades.
+
 public:
     /// Constructor básico y mínimo.
     ///
@@ -31,15 +35,17 @@ public:
         Tesela *            last_Tesela         () const;
         void                swap_Tesela         (Tesela *tesela_1, Tesela *tesela_2);
         virtual Mosaico *   clone               (Actor *propietario) const;
-        string              getString           ();
 
-        /// Elimina todas las teselas del mosaico.
-        ///
-        void clear ();
+    /// Obtiene las propiedades del mosaico en una única cadena de caracteres.
+    /// @return Cadena de caracteres con todas las propiedades del mosaico.
+    /// @warning No podemos hacer el método constante debido a la inicialización de los
+    ///          iteradores constantes (Investigar).
+    ///
+    std::string print ();
 
-private:
-    list<Tesela *> teselas;
-    list<Tesela *>::iterator it;
+    /// Elimina todas las teselas del mosaico.
+    ///
+    void clear ();
 };
 
 #endif

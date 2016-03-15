@@ -121,7 +121,7 @@ void  Bitmap::draw (int x, int y, BITMAP *destino, bool mirror)
     //draw_character_ex(destino, fuente, x+3, y+3, makecol(128, 128, 128), -1);
 
     // Rota y escala...
-    //rotate_scaled_sprite(destino, fuente, x, y, ftofix(0.0), ftofix(2.0));
+    //rotate_scaled_sprite(destino, fuente, x, y, ftofix(0.0), ftofix(5.0));
 
     //Rota con pivote...
     // pivot_sprite(destino, fuente, x, y, x+10, y-10, ftofix(10.0));
@@ -135,7 +135,7 @@ void  Bitmap::draw (int x, int y, BITMAP *destino, bool mirror)
  * \todo    Hacer este procedimiento virtual y que los distintos gráficos hereden
  *          de una clase más genérica llamada "Gráfico" que es "Dibujable".
  */
-std::string  Bitmap::getString () const
+std::string  Bitmap::print () const
 {
   return nombre;
 };

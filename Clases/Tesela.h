@@ -25,7 +25,11 @@ public:
     int                 Get_x       (void);
     int                 Get_y       (void);
     void                Guardar     (void);
-    virtual string      getString   () const;
+
+    /// Obtiene una cadena de caracteres con la estructura de la tesela.
+    /// @return Cadena de caracteres con la estructura.
+    ///
+    virtual std::string print () const;
 
   private:
     Mosaico * mosaico_padre;

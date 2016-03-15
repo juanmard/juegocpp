@@ -382,7 +382,7 @@ string  ActorManager::getArmario ()
       //cout << (*i)->getString () << endl;
       if (agp)
       {
-        cout << agp->getString ();
+        cout << agp->print ();
       }
   }
   return "---";

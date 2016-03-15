@@ -384,7 +384,7 @@ void  EditorManager::atraparActor (int x, int y)
   {
     // Se cambia el color del bloque y se muestra.
     actor->set_color (makecol(255,0,0));
-    actor->setMostrarBloque (true);
+    actor->set_mostrar_bloque (true);
 
     // Se guarda la posición relativa del punto de 'atrape'
     // dentro del bloque del actor.
@@ -403,7 +403,7 @@ void  EditorManager::atraparActor (int x, int y)
  */
 void  EditorManager::liberarActor ()
 {
-  actor->setMostrarBloque (false);
+  actor->set_mostrar_bloque (false);
   actor = NULL;
   actorActivado = false;
   actorFijado = false;
@@ -428,7 +428,7 @@ void  EditorManager::activarActor (int x, int y)
   if (actor)
   {
     actor->set_color (makecol(0,255,0));
-    actor->setMostrarBloque (true);
+    actor->set_mostrar_bloque (true);
     actor->drawGUI ();
     actorActivado = true;
   }
@@ -447,7 +447,7 @@ void  EditorManager::fijarActor (int x, int y)
   if ( isActorActivo () )
   {
     actor->set_color (makecol(255,128,255));
-    actor->setMostrarBloque (true);
+    actor->set_mostrar_bloque (true);
     actorActivado = false;
     actorFijado = true;
   }

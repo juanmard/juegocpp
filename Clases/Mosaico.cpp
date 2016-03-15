@@ -33,10 +33,13 @@ ActorGraphic (propietario)
     }
 }
 
-Mosaico::Mosaico(Actor *aowner):
-ActorGraphic (aowner)
+Mosaico::Mosaico(Actor* actor):
+ActorGraphic (actor)
 {
-}
+    // Asignamos al actor que hemos definido como propietario
+    // a este mismo mosaico.
+    actor->set_actor_graphic ((Mosaico*) this);
+};
 
 /**
  * \brief   Añade una nueva tesela al final de la lista.
@@ -109,7 +112,7 @@ void    Mosaico::move_Tesela     (int inc_x, int inc_y, Tesela *elegida)
 /**
  * \brief Devuelve la última tesela añadida.
  */
-Tesela *  Mosaico::last_Tesela () const
+Tesela* Mosaico::last_Tesela () const
 {
     return teselas.back();
 }
@@ -133,21 +136,16 @@ Mosaico *   Mosaico::clone  (Actor *propietario) const
     return (new Mosaico(*this,propietario));
 }
 
-/**
- * \brief   Clona un mosaico completo.
- * \warning No podemos hacer el método constante debido a la inicialización de los
- *          iteradores constantes (Investigar).
- */
-string  Mosaico::getString ()
+std::string Mosaico::print ()
 {
-  ostringstream cadena;
+  std::ostringstream cadena;
   int i;
-  list<Tesela *>::iterator it;
+  std::list<Tesela*>::iterator it;
 
-  cadena << "Mosaico >> " << endl;
+  cadena << "Mosaico >> " << std::endl;
   for (i=0, it=teselas.begin(); it!=teselas.end(); it++, i++)
   {
-    cadena << "Tesela " << i << " " << (*it)->getString ();
+    cadena << "Tesela " << i << " " << (*it)->print () << std::endl;
   }
   return cadena.str ();
 }

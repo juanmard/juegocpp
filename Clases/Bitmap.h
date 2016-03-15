@@ -22,7 +22,7 @@ class Bitmap : public ActorGraphic
     int                 get_w       ();
     int                 get_h       ();
     virtual Bitmap *    clone       (Actor *propietario) const;
-    virtual string      getString   () const;
+    virtual std::string print () const;
     BITMAP *            getImagen   () const;
     static  void        setAlmacen  (Almacen *almacen) {almacenGlobal = almacen;};
 

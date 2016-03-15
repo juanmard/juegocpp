@@ -102,7 +102,7 @@ public:
     ///       Y para desligar el gráfico de su actor propietario sería conveniente
     ///       que los gráficos tuvieran entidad propia derivando de "DrawableObject".
     ///
-    virtual std::string getString () const;
+    virtual std::string print () const;
 
     /// Lee el gráfico de un fichero.
     /// @param ifs Fichero desde el que leer las propiedades gráficas.

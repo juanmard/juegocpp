@@ -110,6 +110,17 @@ public:
     ///
     void actualizar_seguimiento ();
 
+    /// Confirma si existe un actor que está siendo seguido por el escenario.
+    /// @return Si existe o no seguimiento de algún actor.
+    ///
+    bool is_seguimiento () const;
+
+    /// Confirma si el escenario quiere mostrar información.
+    /// @return Si está mostrando o no mensajes de información.
+    ///
+    bool is_info () const;
+
+
     /// Cambia la activación de la visualización de los bloques.
     /// @param activar  Si es 'true' activamos la visualización de los bloques.
     ///

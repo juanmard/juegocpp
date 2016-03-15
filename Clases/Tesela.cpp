@@ -163,13 +163,10 @@ void Tesela::draw (int relX, int relY, BITMAP *pantalla)
   }
 }
 
-/**
- * \brief   Devuelve una cadena con la estructura de la tesela.
- */
-string  Tesela::getString () const
+std::string Tesela::print () const
 {
-  ostringstream cadena;
+  std::ostringstream cadena;
 
-  cadena << "{" << x << "," << y << ", " << (mirror?"true":"false") << "} " << dibujoPrueba->getString();
+  cadena << "{" << x << "," << y << ", " << (mirror?"true":"false") << "} " << dibujoPrueba->print ();
   return cadena.str ();
 };

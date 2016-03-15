@@ -258,7 +258,7 @@ public:
 
           case MSG_LOSTFOCUS:
               // Si perdemos el foco cambiamos el color del ribete a gris.
-              objeto.setColorRibete (makecol (100, 100, 100));
+              objeto.setColorRibete (makecol (128, 128, 128));
               return D_O_K;
 
           // El mensaje nos indica que debemos dibujar el control.
