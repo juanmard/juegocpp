@@ -39,7 +39,7 @@ DIALOG Dialog::dialog[] =
 MENU Dialog::mnu_fichero[] =
 {
   { const_cast<char*>("&Leer mapa"),    Dialog::menu_fichero, NULL, ~(D_DISABLED | D_SELECTED), NULL },
-  { const_cast<char*>("&Grabar mapa"), Dialog::menu_fichero, NULL, ~(D_DISABLED | D_SELECTED), NULL },
+  { const_cast<char*>("&Grabar mapa"),  Dialog::menu_fichero, NULL, ~(D_DISABLED | D_SELECTED), NULL },
   { const_cast<char*>(""),              Dialog::quit,         NULL,                 D_DISABLED, NULL },
   { const_cast<char*>("&Salir\tF2"),    Dialog::quit,         NULL,                          0, NULL },
   { NULL, NULL, NULL, 0, NULL }
@@ -133,7 +133,7 @@ moviendoActor (false)
 Dialog::~Dialog (void)
 {
   // Ocultamos el puntero del ratón.
-  mouse_out ();
+  //mouse_out ();
   // \todo Liberar memoria de todos los objetos utilizados.
 }
 
@@ -207,7 +207,7 @@ void Dialog::menu_contextual (int x, int y)
 void  Dialog::draw ()
 {
   // Oculta el ratón para no dejar rastros por pantalla ni parpadeos.
-  mouse_out ();
+  //mouse_out ();
 
   // Se dibuja el escenario.
   manager->dibujarEscenario ();
@@ -225,7 +225,7 @@ void  Dialog::draw ()
   object_message(&dialog[estado], MSG_DRAW, 0);
 
   // Vuelve a mostrar el ratón.
-  mouse_in ();
+  //mouse_in ();
 }
 
 /**

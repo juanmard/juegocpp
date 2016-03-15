@@ -160,7 +160,7 @@ void Juego2::mainGame ()
       Actor *camello = new Actor ();
 
       // 2 - Se le dice a la clase Bitmap de dónde obtener los gráficos.
-      Bitmap::setAlmacen (storage_manager);
+      Bitmap::set_almacen (storage_manager);
 
       // 3 - Se crea un gráfico indicando simplemente el gráfico y a qué actor se le desea asignar.
       Bitmap *bmp_camello = new Bitmap (camello, "sprite_107");
@@ -176,7 +176,7 @@ void Juego2::mainGame ()
       actor_manager->add(camello);
 
       // 6 - Se descarga la información en pantalla.
-      cout << "Bitmap: " << bmp_camello->getImagen () << " Nombre: " << storage_manager->getName (bmp_camello->getImagen()) << endl;
+      cout << "Bitmap: " << bmp_camello->get_imagen () << " Nombre: " << storage_manager->getName (bmp_camello->get_imagen()) << endl;
 
       // Por otra parte, Se prueba el uso del Bitmap en la Tesela.
       // 1 - Se crea un nuevo actor vacío.

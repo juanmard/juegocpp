@@ -1,17 +1,11 @@
-/**
- *  \file     Frame.h
- *  \brief    Prueba del "framework" de un juego.
- *
- *  \details  La clase instancia un tipo de juego de prueba con todos los controladores posibles.
- *            La primera versión de la instancia se utiliza para actualizar el juego de plataformas
- *            programado antiguamente en C "puro y duro".
- *
- *  \author   Juan Manuel Rico
- *  \date     diciembre 2010
- *  \version  1.00
- *
- *  \todo     Comentar todas estas clases y funciones más detalladamente.
- */
+///
+/// @file Frame.h
+/// @brief Fichero de definición de la clase "Frame".
+/// @author Juan Manuel Rico
+/// @date Noviembre 2015
+/// @version 1.0.0
+///
+
 #ifndef _FRAME_H_
 #define _FRAME_H_
 
@@ -19,25 +13,33 @@
 #include "Mask.h"
 #include <string>
 
-using namespace std;
-
+/// Cuadro básico (Frame) de la animación.
+///
+/// @todo Cambiar el BITMAP que es un tipo de Allegro, por un tipo Bitmap propio.
+/// @todo Generar los procedimientos necesarios para dejar las propiedades privadas y no públicas.
+/// @todo Agrupar cx y cy en un único vector.
+///
 class Frame
 {
 public:
-          Frame       ();
-          ~Frame      ();
-  string  getString   () const;
+  BITMAP* bmp;  ///< Imagen que debe mostrar el cuadro.
+  Mask* mask;   ///< Máscara de colisión del cuadro.
+  int cx;       ///< Coordenada x de la posición relativa del cuadro.
+  int cy;       ///< Coordenada y de la posición relativa del cuadro.
+  int ticks;    ///< Tiempo (en ciclos de juego) que debe permanecer el cuadro en pantalla.
 
 public:
-  /* \todo    Cambiar este BITMAP que es un tipo de Allegro, por un tipo Bitmap propio. */
-  BITMAP *bmp;
-  Mask *mask;
-  int cx;
-  int cy;
-  int ticks;
+    /// Constructor básico.
+    ///
+    Frame ();
 
-private:
+    /// Destructor básico.
+    ///
+    ~Frame ();
 
+    /// Entrega una cadena con la estructura de datos del cuadro.
+    /// @return Cadena de caracteres con la estructura del cuadro.
+    std::string print () const;
 };
 
-#endif // _FRAME_H_
+#endif

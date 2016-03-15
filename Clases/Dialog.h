@@ -232,7 +232,7 @@ public:
         Dialog &objeto = *(static_cast<Dialog *>(d[0].dp));
 
         // Posición anterior del ratón antes de llamar.
-        static int      mouse_ant_x, mouse_ant_y;
+        static int mouse_ant_x, mouse_ant_y;
 
         // Se procesan los mensajes.
         switch (msg)

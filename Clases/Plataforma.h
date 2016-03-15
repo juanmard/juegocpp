@@ -16,7 +16,6 @@
 #include "Vector2Df.h"
 #include "StageManager.h"
 
-/// @class Plataforma
 /// Suelo que se mueve bajo ciertos criterios.
 ///
 /// Los criterios que se pueden utilizar para el movimiento suelen ser varios, lo más
@@ -26,11 +25,17 @@
 ///
 class Plataforma : public Actor
 {
+private:
+    Suelo* grafico;         ///< Gráfico a mostrar por la plataforma. @note Esto no es necesario, ya existe una referencia al gráfico en el actor.
+    Vector2Di origen;       ///< Origen del movimiento de la plataforma.
+    Vector2Di destino;      ///< Destino del movimiento de la plataforma.
+    Vector2Df velocidad;    ///< Vector velocidad en el movimiento de la plataforma.
+    bool activa;            ///< Indica si actualmente la plataforma está activa, en movimiento.
+
 public:
-    /// Constructor de copia.
-    /// @param copia Referencia a la plataforma que quiere ser copiada.
+    /// Constructor básico.
     ///
-    Plataforma (const Plataforma& copia);
+    Plataforma ();
 
     /// Constructor básico.
     /// @param almacen Almacen con los gráficos para crear la plataforma.
@@ -38,9 +43,10 @@ public:
     ///
     Plataforma (Almacen& almacen);
 
-    /// Constructor básico.
+    /// Constructor de copia.
+    /// @param copia Referencia a la plataforma que quiere ser copiada.
     ///
-    Plataforma ();
+    Plataforma (const Plataforma& copia);
 
     /// Destructor.
     /// @todo Programar la liberación de recursos.
@@ -106,13 +112,7 @@ private:
     ///       de Allegro en "DrawableObjectAllegro".
     ///
     void drawControl ();
-
-private:
-    Suelo* grafico;         ///< Gráfico a mostrar por la plataforma. @note Esto no es necesario, ya existe una referencia al gráfico en el actor.
-    Vector2Di origen;       ///< Origen del movimiento de la plataforma.
-    Vector2Di destino;      ///< Destino del movimiento de la plataforma.
-    Vector2Df velocidad;    ///< Vector velocidad en el movimiento de la plataforma.
-    bool activa;            ///< Indica si actualmente la plataforma está activa, en movimiento.
 };
 
-#endif //_PLATAFORMA_H_
+#endif
+

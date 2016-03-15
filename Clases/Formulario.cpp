@@ -1,6 +1,6 @@
 ///
 /// @file Formulario.cpp
-/// @brief Fichero de implementación de la clase "Formulario".
+/// @brief Fichero de implementaciÃ³n de la clase "Formulario".
 /// @author Juan Manuel Rico
 /// @date Octubre 2015
 /// @version 1.0.0
@@ -44,7 +44,7 @@ void Formulario::add (control_t tipo, int x, int y, int w, int h)
     ctl->w = w;
     ctl->h = h;
 
-    controles.pop_back();
+    controles.pop_back ();
     controles.push_back (*ctl);
     controles.push_back (fin_formulario);
 };
@@ -66,7 +66,7 @@ void Formulario::add (control_t tipo, std::string texto, int x, int y)
     ctl->x = x;
     ctl->y = y;
 
-    controles.pop_back();
+    controles.pop_back ();
     controles.push_back (*ctl);
     controles.push_back (fin_formulario);
 };

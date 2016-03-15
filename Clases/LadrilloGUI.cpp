@@ -42,5 +42,5 @@ void  LadrilloGUI::rellenarGUI (Ladrillo &ladrillo)
 {
   // Rellenamos el gráfico.
   Bitmap *grafico = (Bitmap *) ladrillo.get_actor_graphic ();
-  gui_padre[pto_inserccion+bitmap].dp = grafico->getImagen();
+  gui_padre[pto_inserccion+bitmap].dp = grafico->get_imagen();
 }

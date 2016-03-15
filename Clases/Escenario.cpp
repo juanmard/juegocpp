@@ -27,8 +27,8 @@
 Escenario::Escenario ()
 {
 	// Inicializamos el marco de prueba.
-	marco.setXY(0,0);
-	marco.setWH(320,200);
+	marco.set_xy (0,0);
+	marco.set_wh (320,200);
 
 	// Tomamos la pantalla completa como escena del escenario.
 	// \todo "screen" es una variable global de allegro, no se debería utilizar
@@ -48,7 +48,7 @@ Escenario::~Escenario()
  */
 void Escenario::Mover (int x, int y)
 {
-		marco.setXY(x,y);
+		marco.set_xy (x,y);
 }
 
 /**

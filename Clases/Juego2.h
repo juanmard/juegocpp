@@ -1,11 +1,24 @@
-#pragma once
+///
+/// @file Juego2.h
+/// @brief Fichero de declaración de la clase "Juego2".
+/// @author Juan Manuel Rico
+/// @date Octubre 2010
+/// @version 1.0.0
+///
 
-/* Define la compilación de forma estática.
- * \todo Automatizar esto en el marco de trabajo ("FrameWork") para
- *       que pueda ser elegido desde "Game.cpp".
+#ifndef _JUEGO2_H_
+#define _JUEGO2_H_
 
-#define ALLEGRO_STATICLINK
-*/
+///
+/// Define la compilación de forma estática.
+/// @todo Automatizar esto en el marco de trabajo ("FrameWork") para
+///       que pueda ser elegido desde "Game.cpp".
+/// @code
+///
+///    #define ALLEGRO_STATICLINK
+///
+/// @endcode
+///
 
 #include "Game.h"
 #include "Mapa.h"
@@ -29,16 +42,31 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "Plataforma.h"
 
-
-/** 
- * \brief   Juego de prueba heredado de Game.
- * \details Esta clase genera un simple juego para probar los distintos actores.
- */
+/// Juego de prueba heredado de Game.
+///
+/// Esta clase genera un simple juego para probar los distintos actores.
+///
 class Juego2 : public Game
 {
-  public:
-                    Juego2                        ();
-    void          mainGame                      ();
-    void          create_storagemanager   ();
+public:
+    /// Constructor.
+    ///
+    Juego2 ();
+
+    /// Definición del procedimiento principal del juego.
+    ///
+    /// Crea actores y controladores para el juego de prueba.
+    ///
+    void mainGame ();
+
+    /// Se crea el almacén para este juego.
+    ///
+    /// En el almacén se dispone de todo el vestuario y recursos necesarios
+    /// que se van a necesitar a lo largo del juego (Gráficos, animaciones, sonidos, etc.).
+    ///
+    void create_storage_manager ();
 };
+
+#endif

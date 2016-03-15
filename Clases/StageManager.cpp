@@ -28,22 +28,22 @@ StageManager::~StageManager ()
 
 unsigned int StageManager::get_w () const
 {
-  return marco.getW ();
+  return marco.get_w ();
 };
 
 unsigned int StageManager::get_h () const
 {
-  return marco.getH ();
+  return marco.get_h ();
 };
 
 unsigned int StageManager::get_x () const
 {
-  return marco.getX ();
+  return marco.get_x ();
 };
 
 unsigned int StageManager::get_y () const
 {
-  return marco.getY ();
+  return marco.get_y ();
 };
 
 BITMAP* StageManager::getBuffer () const
@@ -111,20 +111,20 @@ void StageManager::draw ()
      // Línea de prueba.
      *this << "Línea de información";
      textout_ex(screen, font, info.c_str(), 10, 10, makecol(0, 0, 255), -1);
-     ribete.setY (20);
+     ribete.set_y (20);
   }
 
-  if (verRibete) rect (buffer, 0, 0, ribete.getW ()-1, ribete.getH()-1, colorRibete);
+  if (verRibete) rect (buffer, 0, 0, ribete.get_w()-1, ribete.get_h()-1, colorRibete);
 
   // Vuelca todo en pantalla.
   blit (buffer, screen, 0, 0, 
-        ribete.getX (), ribete.getY (),
-        ribete.getW (), ribete.getH ());
+        ribete.get_x (), ribete.get_y (),
+        ribete.get_w (), ribete.get_h ());
 };
 
 void StageManager::mover_marco (int x, int y)
 {
-  marco.setXY (x, y);
+  marco.set_xy (x, y);
 };
 
 void StageManager::actualizar_seguimiento ()
@@ -152,13 +152,13 @@ bool StageManager::get_ver_bloques () const
 
 void StageManager::dibujar_cuadro (Bloque cuadro, int color)
 {
-  rect (buffer, cuadro.getX (), cuadro.getY (), cuadro.getW (), cuadro.getH (), color); 
+  rect (buffer, cuadro.get_x (), cuadro.get_y (), cuadro.get_w (), cuadro.get_h (), color); 
 };
 
 void StageManager::set_ribete (Bloque ribeteParam)
 {
-  ribete.setXY (ribeteParam.getX (), ribeteParam.getY ());
-  ribete.setWH (ribeteParam.getW (), ribeteParam.getH ());
+  ribete.set_xy (ribeteParam.get_x (), ribeteParam.get_y ());
+  ribete.set_wh (ribeteParam.get_w (), ribeteParam.get_h ());
 };
 
 void StageManager::set_color_ribete (int color)

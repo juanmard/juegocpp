@@ -130,7 +130,7 @@ void Sprite::draw (int x, int y, BITMAP* bmp)
   }
   else
   {
-    rotate_scaled_sprite(bmp, frames[actual_frame].bmp, x - frames[actual_frame].cx, y - frames[actual_frame].cy, ftofix(0.0), ftofix(1.0));
+    rotate_scaled_sprite (bmp, frames[actual_frame].bmp, x - frames[actual_frame].cx, y - frames[actual_frame].cy, ftofix(0.0), ftofix(2.0));
     //draw_sprite (bmp, frames[actual_frame].bmp, 
     //             x - frames[actual_frame].cx,
     //             y - frames[actual_frame].cy);
@@ -168,7 +168,7 @@ std::string Sprite::getString () const
     // Se incluyen los valores de los Frames.
     for (unsigned int i=0; i<frames.size (); i++)
     {
-        cadena << "Frame " << i << " {" << frames[i].getString () << "}\n";
+        cadena << "Frame " << i << " {" << frames[i].print () << "}\n";
     }
 
     return (cadena.str());

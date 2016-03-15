@@ -1,97 +1,69 @@
-/*
- * Copyright (C) Juanma Rico 2010 <juanmard@gmail.com>
- * 
- */
+///
+/// @file Bloque.cpp
+/// @brief Fichero de la clase "Bloque".
+/// @author Juan Manuel Rico
+/// @date Noviembre 2015
+/// @version 1.0.0
+///
 
 #include "Bloque.h"
 
-/**
- * \brief   Constructor por omisión.
- */
 Bloque::Bloque ():
 x(0), y(0), w(0), h(0)
 {
 };
 
-/**
- * \brief   Constructor por omisión.
- */
-Bloque::Bloque (int paramX, int paramY, int paramW=0, int paramH=0):
+Bloque::Bloque (int paramX, int paramY, int paramW, int paramH):
 x(paramX), y(paramY), w(paramW), h(paramH)
 {
 };
 
-/**
- * \brief   Destructor por omisión.
- */
-Bloque::~Bloque (){};
+Bloque::~Bloque ()
+{
+};
 
-/**
- * \brief   Cambia posición del bloque.
- */
-void Bloque::setXY (int paramX, int paramY)
+void Bloque::set_xy (int paramX, int paramY)
 {
   x = paramX;
   y = paramY;
 };
 
-/**
- * \brief   Cambia las dimensiones del bloque.
- */
-void Bloque::setWH (int paramW, int paramH)
+void Bloque::set_wh (int paramW, int paramH)
 {
   w = paramW;
   h = paramH;
 };
 
-/**
- * \brief   Devuelve la coordenada X de la posición.
- */
-int Bloque::getX () const
+int Bloque::get_x () const
 {
   return x;
 };
 
-/**
- * \brief   Devuelve la coordenada Y de la posición.
- */
-int Bloque::getY () const
+int Bloque::get_y () const
 {
   return y;
 };
 
-/**
- * \brief   Devuelve el ancho del bloque.
- */
-int Bloque::getW () const
+unsigned int Bloque::get_w () const
 {
   return w;
 };
 
-/**
- * \brief   Devuelve el alto del bloque.
- */
-int Bloque::getH () const
+unsigned int Bloque::get_h () const
 {
   return h;
 };
 
-/**
- * \brief   Centra el bloque respecto a otro.
- * \param   bloque  Bloque que sirve de referencia para centrar.
- */
-void Bloque::centrar (const Bloque &bloque)
-{
-    int incx = (w - bloque.getW())/2;
-    int incy = (h - bloque.getH())/2;
-    x = bloque.getX () - incx;
-    y = bloque.getY () - incy;
-}
-
-/**
- * \brief   Cambia la coordenada y en la posición del bloque.
- */
-void Bloque::setY (int paramY)
+void Bloque::set_y (int paramY)
 {
   y = paramY;
 };
+
+void Bloque::centrar (const Bloque& bloque)
+{
+    int incx = (w - bloque.get_w())/2;
+    int incy = (h - bloque.get_h())/2;
+    x = bloque.get_x () - incx;
+    y = bloque.get_y () - incy;
+};
+

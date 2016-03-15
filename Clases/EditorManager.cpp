@@ -61,7 +61,7 @@ void  EditorManager::activate ()
   // Cuando se termina de editar:
   game->stage_manager->set_ver_bloques (false);     //  1 - Ocultamos los bloques.
   game->stage_manager->set_ribete (ribete_ant);    //  2 - Se recupera el ribete.
-  gui->mouse_out ();                              //  3 - Ocultamos el ratón.
+  ///gui->mouse_out ();                              //  3 - Ocultamos el ratón.
   borrarPantalla ();                              //  4 - Borramos la pantalla.
   game->play ();                                  //  5 - Se vuelve al juego.
 }
@@ -148,7 +148,7 @@ void  EditorManager::duplicarActor (Actor *actor)
 
       // Se actualiza la lista de actores creados para hacerlos visibles.
       // \todo Hacer friend estos procedimientos para usarlos sólo desde los "Manager"
-      game->actor_manager->add_all_to_create ();
+      //game->actor_manager->add_all_to_create ();
     }
   }
 }
@@ -278,7 +278,7 @@ void  EditorManager::centrarActor (int indice) const
     Bloque& ribete = game->stage_manager->get_ribete ();
     // Se igualan las dimensiones del marco a las del ribete.
     // De esta forma queda el actor en el centro de la pantalla.
-    marco.setWH (ribete.getW (), ribete.getH ());
+    marco.set_wh (ribete.get_w (), ribete.get_h ());
     // Se centra el marco alrededor del actor.
     marco.centrar (actor->getBloque());
     // Se le indica a la gui que edite el actor.
@@ -304,7 +304,7 @@ void  EditorManager::getEscenarioXY (string &posicion) const
 {
   Bloque marco (game->stage_manager->get_marco ());
   stringstream  ss;
-  ss << "(" << marco.getX () << ", " << marco.getY () << ")";
+  ss << "(" << marco.get_x () << ", " << marco.get_y () << ")";
   posicion = ss.str ();
 }
 

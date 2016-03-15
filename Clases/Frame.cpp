@@ -1,35 +1,28 @@
-/**
- *  \file     Frame.cpp
- *  \brief    Prueba del "framework" de un juego.
- *
- *  \details  La clase instancia un tipo de juego de prueba con todos los controladores posibles.
- *            La primera versión de la instancia se utiliza para actualizar el juego de plataformas
- *            programado antiguamente en C "puro y duro".
- *
- *  \author  Juan Manuel Rico
- *  \date     diciembre 2010
- *  \version  1.00
- *
- *  \todo     Comentar todas estas clases y funciones más detalladamente.
- */
+///
+/// @file Frame.cpp
+/// @brief Fichero de implementación de la clase "Frame".
+/// @author Juan Manuel Rico
+/// @date Noviembre 2015
+/// @version 1.0.0
+///
 
 #include "Frame.h"
 #include <sstream>
 
 Frame::Frame ()
 {
-}
+};
 
 Frame::~Frame ()
 {
-}
+};
 
-string  Frame::getString () const
+std::string Frame::print () const
 {
-  ostringstream cadena;
+  std::ostringstream cadena;
 
   // El puntero 'bmp' hay que transformarlo en el nombre asociado en almacén.
-  cadena  << bmp << ", Pos <" << cx << "," << cy << "> " << "Ticks: " << ticks;
+  cadena << bmp << ", Pos <" << cx << "," << cy << "> " << "Ticks: " << ticks;
   return (cadena.str());
 };
 

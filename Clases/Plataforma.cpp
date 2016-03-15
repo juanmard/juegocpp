@@ -24,7 +24,7 @@ activa (true)
     ///       el actor propietario en el gráfico. Algo así:
     ///       @code this->agraph->owner = this; @endcode
     ///       De otra forma quedará una incongruencia entre actor, gráfico y propietario del gráfico.
-    grafico = dynamic_cast<Suelo *>(this->agraph);
+    grafico = dynamic_cast<Suelo *>(copia.get_actor_graphic());
 };
 
 Plataforma::Plataforma ()

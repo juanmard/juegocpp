@@ -1,6 +1,6 @@
 ///
 /// @file Formulario.h
-/// @brief Fichero de definici髇 de la clase "Formulario".
+/// @brief Fichero de definici贸n de la clase "Formulario".
 /// @author Juan Manuel Rico
 /// @date Octubre 2015
 /// @version 1.0.0
@@ -18,7 +18,7 @@
 class Formulario
 {
 private:
-    int root;                           ///< Ra韟 del formulario.
+    int root;                           ///< Ra铆z del formulario.
     std::vector<DIALOG> controles;      ///< Lista de controles del formulario. @todo Independizar de Allegro.
     static DIALOG fin_formulario;       ///< Constante para la clase que indica el final del formulario en Allegro.
 
@@ -39,25 +39,29 @@ public:
     ///
     ~Formulario ();
 
-    /// A馻de un control al formulario con cadena de texto asociada.
-    /// @param tipo  Tipo de formulario a a馻dir.
+    /// A帽ade un control al formulario con cadena de texto asociada.
+    /// @param tipo  Tipo de formulario a a帽adir.
     /// @param texto  Texto asociado del control.
-    /// @param x  Posici髇 x referida al formulario origen.
-    /// @param y  Posici髇 y referida al formulario origen.
+    /// @param x  Posici贸n x referida al formulario origen.
+    /// @param y  Posici贸n y referida al formulario origen.
     ///
     void add (control_t tipo, std::string texto, int x, int y);
 
-    /// A馻de un control al formulario sin cadena de texto asociada.
-    /// @param tipo  Tipo de control a a馻dir.
-    /// @param x  Posici髇 x referida al formulario origen.
-    /// @param y  Posici髇 y referida al formulario origen.
+    /// A帽ade un control al formulario sin cadena de texto asociada.
+    /// @param tipo  Tipo de control a a帽adir.
+    /// @param x  Posici贸n x referida al formulario origen.
+    /// @param y  Posici贸n y referida al formulario origen.
     /// @param w  Ancho del control.
     /// @param h  Alto del control.
     ///
     void add (control_t tipo, int x, int y, int w, int h);
 
     /// Muestra el formulario en pantalla.
-    void show ();
+    /// @note Esta debe ser redefinido por los formularios heredados.
+    ///       La idea es que FormularioAllegro herede de Formulario y redefina
+    ///       la forma de mostrarse. De momento directamente se hace todo en Allegro.
+    ///
+    virtual void show ();
 };
 
 #endif
