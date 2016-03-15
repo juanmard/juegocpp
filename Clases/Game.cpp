@@ -217,17 +217,6 @@ void Game::update ()
     actual_tick++;
   }
 
-  /* Si se ha cumplido un segundo, se actualizan los "fps" por pantalla. */
-  if (tick-old_tick >= 70)
-  {
-    rectfill (stage_manager->getBuffer(),0,0,400,14,0);
-    textprintf_ex (stage_manager->getBuffer(), font, 0,0,-1,
-                   makecol(255, 100, 200), 
-                   "fps: %u frameskip:%u", graphic_tick, frame_skip);
-    graphic_tick = 0;
-    old_tick = tick;
-  }
-
   /* Se actualiza el ciclo gráfico. */
   if ((actual_tick >= tick) || (frame_skip > max_frame_skip))
   {
@@ -239,6 +228,17 @@ void Game::update ()
   else
   {
     frame_skip++;
+  }
+
+  /* Si se ha cumplido un segundo, se actualizan los "fps" por pantalla. */
+  if (tick-old_tick >= 70)
+  {
+    rectfill (stage_manager->getBuffer(), 0, 0, SCREEN_W, 50, 0);
+    textprintf_ex (stage_manager->getBuffer(), font, 0, 0,-1, makecol(255, 100, 200),
+                   "fps: %u frameskip:%u", graphic_tick, frame_skip);
+    blit (stage_manager->getBuffer(), screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+    graphic_tick = 0;
+    old_tick = tick;
   }
 }
 

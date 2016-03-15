@@ -1,6 +1,7 @@
 
 #include "StageManager.h"
 
+
 /**
  * \brief   Constructor de la clase.
  * \details Se guarda la referencia al juego, se inicializa ancho y alto del marco
@@ -12,8 +13,8 @@ marco (0, 0, w, h),
 ribete (0, 0, w, h),
 colorRibete (makecol (255, 0, 0)),
 actorSeguido (NULL),
-verBloques (false),
-verInfo (false),
+verBloques (true),
+verInfo (true),
 verRibete (true)
 {
   buffer = create_bitmap (SCREEN_W, SCREEN_H);
@@ -87,7 +88,7 @@ void  StageManager::rellenarBuffer ()
   clear_to_color (buffer, 129);
 
   // Se recorre la lista de actores y se dibuja en el buffer del escenario.
-  // \todo  Comprobar los actores que se encuentran dentro del marco del
+  // @todo  Comprobar los actores que se encuentran dentro del marco del
   //        escenario (intersección de un bloque con otro) y dibujar sólo esos
   //        actores.
   if (verBloques)
@@ -95,6 +96,7 @@ void  StageManager::rellenarBuffer ()
     while ((tmp = game->actor_manager->next()) != NULL)
     {
       tmp->draw (this);
+      tmp->setMostrarBloque(true);
       tmp->draw_block (this);
     }
   }
@@ -114,9 +116,20 @@ void  StageManager::rellenarBuffer ()
  */
 void StageManager::draw ()
 {
+  // Rellena el buffer con los actores.
   rellenarBuffer ();
-  if (verInfo) ribete.setY (20);
+
+  // Se añade la línea superior de información.
+  if (verInfo)
+  {
+     *this << "Línea de información";
+     textout_ex(screen, font, info.c_str(), 10, 10, makecol(0, 0, 255), -1);
+     ribete.setY (20);
+  }
+
   if (verRibete) rect (buffer, 0, 0, ribete.getW () - 1, ribete.getH () -1, colorRibete);
+  
+  // Vuelca todo en pantalla.
   blit (buffer, screen, 0, 0, 
         ribete.getX (), ribete.getY (),
         ribete.getW (), ribete.getH ());
@@ -241,3 +254,11 @@ void  StageManager::getXY (string &posicion) const
   posicion = ss.str ();
 }
 */
+
+std::string& StageManager::operator<< (std::string cadena) 
+{
+    info.append (cadena);
+    info.resize(100);
+    return info;
+}
+

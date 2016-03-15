@@ -8,11 +8,18 @@
 
 #include "ControllableActor.h"
 
-ControllableActor::ControllableActor ()
+ControllableActor::ControllableActor ():
+control (NULL)
 {
 };
 
 ControllableActor::ControllableActor (const ControllableActor &copia):
-Actor(copia)
+Actor (copia),
+control (NULL)
 {
+};
+
+Control* ControllableActor::get_control () const
+{
+    return control;
 };

@@ -194,7 +194,6 @@ Formulario& Sprite::getFormulario () const
     ptr_formulario->add (Formulario::LABEL, "Esta es otra.", 100, 110);
     ptr_formulario->add (Formulario::LABEL, "Y una más.", 100, 120);
     ptr_formulario->add (Formulario::SLIDER, 100, 150, 190, 15);
-    ptr_formulario->show();
     return *ptr_formulario;
 };
 

@@ -14,7 +14,8 @@
 #include <sstream>
 #include "Actor.h"
 
-/// @class Controla la parte gráfica del actor.
+/// Controla la parte gráfica del actor.
+///
 /// Esta clase define la parte gráfica del actor.
 ///
 class ActorGraphic

@@ -15,13 +15,13 @@
 
 #define MAXPERIPHERALS 5
 
-/// @class Control de controles para objetos controlables.
+/// Control de controles para objetos controlables.
 ///
 class ControlManager
 {
 public:
-    /// @struct Definición para guardar los distintos cambios en los
-    ///         componentes de los periféricos.
+    /// Definición para guardar los distintos cambios en los
+    /// componentes de los periféricos.
     ///
     typedef struct
     {

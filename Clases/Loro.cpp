@@ -7,13 +7,17 @@
 ///
 
 #include "Loro.h"
+#include "Keyboard.h"
 
 Loro::Loro ():
-ControllableActor ()
+ControllableActor (),
+kboard (NULL)
 {
 };
 
-Loro::Loro (Almacen &almacen)
+Loro::Loro (Almacen &almacen):
+ControllableActor (),
+kboard (new Keyboard())
 {
     // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
     // Animación de la derecha.
@@ -28,15 +32,16 @@ Loro::Loro (Almacen &almacen)
     derecha->add_frame(almacen.getBitmap("sprite_042"), 0, 13, 10);
     derecha->add_frame(almacen.getBitmap("sprite_043"), 0,  0, 10);
     derecha->add_frame(almacen.getBitmap("sprite_044"), 0,  3, 10);
+    derecha->setMirror(false);
 
     // Animación de giro.
-    giro = new Sprite(this);
-    giro->add_frame(almacen.getBitmap("pre2_338"), 0, 0, 50);
-    giro->add_frame(almacen.getBitmap("pre2_338"), 0, 0, 50);
-    giro->add_frame(almacen.getBitmap("pre2_338"), 0, 0, 50);
+    giro_der = new Sprite(this);
+    giro_der->add_frame(almacen.getBitmap("pre2_338"), 10, 0, 5);
+    giro_der->setMirror (true);
 
-    // Animación de inicio.
-    set_actor_graphic (derecha);
+    giro_izq = new Sprite(this);
+    giro_izq->add_frame(almacen.getBitmap("pre2_338"), 10, 0, 5);
+    giro_izq->setMirror (false);
 
     setCodigo (Nombres::herny);
     set_x(SCREEN_W/2);
@@ -44,77 +49,78 @@ Loro::Loro (Almacen &almacen)
     set_is_detected (true);
     set_collision_method(CollisionManager::PP_COLLISION);
     set_wh (36,26);
-    estado = Loro::FLOTANDO;
+
+    // Animación de inicio.
+    estado = FLOTANDO_DER;
+    set_actor_graphic (derecha);
+
+    // Se crea el control necesario para las acciones del loro.
+    control = new Control ();
+    control->add_action_name (LEFT,  "Izquierda");
+    control->add_action_name (RIGHT, "Derecha");
+    control->add_action_name (UP,    "Arriba");
+    control->add_action_name (DOWN,  "Abajo");
+    control->add_action_name (JUMP,  "Saltar");
+    control->set_owner(this);
+
+    // Se va a usar el teclado como único periférico para el loro.
+    control->set_actionperipheral (UP,    kboard,  KEY_UP,    Peripheral::ON_PRESSING);
+    control->set_actionperipheral (DOWN,  kboard,  KEY_DOWN,  Peripheral::ON_PRESSING);
+    control->set_actionperipheral (LEFT,  kboard,  KEY_LEFT,  Peripheral::ON_PRESSING);
+    control->set_actionperipheral (RIGHT, kboard,  KEY_RIGHT, Peripheral::ON_PRESSING);
+    control->set_actionperipheral (JUMP,  kboard,  KEY_A,     Peripheral::ON_PRESS);
 };
 
 void Loro::do_action (ControllableActor::action_t act, int magnitude)
 {
-    switch (estado)
+    switch(act)
     {
-    case FLOTANDO:
-        switch (act)
-        {
-        case LEFT:
-            estado = VOLANDO_IZQ;
-            set_actor_graphic(izquierda);
-            x-=1;
-            break;
-
-        case RIGHT:
-            estado = VOLANDO_DER;
-            set_actor_graphic(derecha);
-            x+=1;
-            break;
-        }
+    case UP:
+        y-=1;
         break;
 
-    case VOLANDO_IZQ:
-        switch (act)
-        {
-        case LEFT:
-            estado = VOLANDO_IZQ;
-            set_actor_graphic(izquierda);
-            x-=1;
-            break;
-
-        default:
-            estado = FLOTANDO;
-            break;
-        }
+    case DOWN:
+        y+=1;
         break;
 
-    case VOLANDO_DER:
-        switch (act)
+    case LEFT:
+        switch (estado)
         {
-        case RIGHT:
-            estado = VOLANDO_DER;
-            set_actor_graphic(derecha);
-            x+=1;
-            break;
-
-        case LEFT:
+        case FLOTANDO_DER:
+            tiempo_estado = 10;
             estado = GIRANDO_IZQ;
-            set_actor_graphic(giro);
             break;
 
-        default:
-            estado=FLOTANDO;
+        case FLOTANDO_IZQ:
+            x-=1;
             break;
         }
         break;
 
-        case GIRANDO_IZQ:
-        case GIRANDO_DER:
-            if (giro->is_free())
-            {
-                estado = FLOTANDO;
-            }
+    case RIGHT:
+        switch (estado)
+        {
+        case FLOTANDO_IZQ:
+            tiempo_estado = 10;
+            estado = GIRANDO_DER;
+            set_actor_graphic (giro_der);
             break;
 
-    // Estado no contemplado por el autómata.
+        case FLOTANDO_DER:
+            estado = FLOTANDO_DER;
+            x+=1;
+            break;
+        }
+        break;
+
+    case JUMP:
+        y-=10;
+        x+=10;
+        break;
+
     default:
         break;
-    };
+    }
 };
 
 void Loro::getNombre (std::string &strNombre) const
@@ -125,5 +131,56 @@ void Loro::getNombre (std::string &strNombre) const
 std::string Loro::getNombre () const
 {
     return "Loro";
+};
+
+Peripheral* Loro::get_peripheral () const
+{
+    return kboard;
+};
+
+void Loro::actualizar_estado ()
+{
+    switch (estado)
+    {
+        case GIRANDO_IZQ:
+            estado=FLOTANDO_IZQ;
+            set_actor_graphic (izquierda);
+            break;
+
+        case GIRANDO_DER:
+            estado=FLOTANDO_DER;
+            set_actor_graphic (derecha);
+            break;
+
+        case TROPEZANDO:
+            estado=FLOTANDO_DER;
+            set_actor_graphic (derecha);
+            break;
+    };
+};
+
+void Loro::hit (Actor* who, int damage)
+{
+    switch (who->getCodigo())
+    {
+    case Nombres::ladrillo:
+        switch (estado)
+        {
+        case VOLANDO_DER:
+        case FLOTANDO_DER:
+            x = who->get_x() - get_w() - 3;
+            set_actor_graphic (giro_der);
+            break;
+
+        case VOLANDO_IZQ:
+        case FLOTANDO_IZQ:
+            x = who->get_x() + who->get_w() + 3;
+            set_actor_graphic (giro_izq);
+            break;
+        }
+        tiempo_estado = 50;
+        estado = TROPEZANDO;
+        break;
+    };
 };
 

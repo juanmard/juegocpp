@@ -19,7 +19,7 @@
 #include "Mask.h"
 #include <sstream>
 
-/// @class Gráfico en movimiento, una animación simple para los actores.
+/// Gráfico en movimiento, una animación simple para los actores.
 /// Esta clase modela varias imágenes en movimiento como gráfico para un actor.
 ///
 class Sprite : public ActorGraphic, EditableObject

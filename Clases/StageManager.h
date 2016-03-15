@@ -2,6 +2,7 @@
 #define _STAGEMANAGER_H_
 
 #include <allegro.h>
+#include <string.h>
 #include "Game.h"
 #include "Actor.h"
 #include "ActorManager.h"
@@ -38,19 +39,26 @@ class StageManager
     Bloque &  getMarco        ();
 //    void      getXY           (string &posicion) const;
 
+    /// Concatena la cadena a la línea de información.
+    /// @param cadena  Información a concatenar.
+    /// @return Referencia a la cadena para seguir concatenando.
+    ///
+    std::string& operator<< (std::string cadena);
+
   protected:
     void      actualizarSeguimiento     ();
 
   protected:
-    Game *    game;             // Referencia al juego.
-    BITMAP *  buffer;           // Buffer principal a volcar en pantalla.
-    Bloque    marco;            // Marco dentro de las coordenadas del juego.
-    Bloque    ribete;           // Marco dentro de las coordenadas de la pantalla.
-    int       colorRibete;      // Color del ribete.
-    Actor *   actorSeguido;     // Actor al que se le realiza el seguimiento.
-    bool      verBloques;       // Muestra los bloques de los actores.
-    bool      verInfo;          // Muestra las informaciones del juego.
-    bool      verRibete;        // Muestra el ribete en pantalla.
+    Game *    game;             ///< Referencia al juego.
+    BITMAP *  buffer;           ///< Buffer principal a volcar en pantalla.
+    Bloque    marco;            ///< Marco dentro de las coordenadas del juego.
+    Bloque    ribete;           ///< Marco dentro de las coordenadas de la pantalla.
+    int       colorRibete;      ///< Color del ribete.
+    Actor *   actorSeguido;     ///< Actor al que se le realiza el seguimiento.
+    bool      verBloques;       ///< Muestra los bloques de los actores.
+    bool      verInfo;          ///< Muestra las informaciones del juego.
+    bool      verRibete;        ///< Muestra el ribete en pantalla.
+    std::string info;           ///< Cadena de información a mostrar.
 };
 
 #endif

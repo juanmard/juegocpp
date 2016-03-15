@@ -11,11 +11,15 @@
 
 #include "Actor.h"
 #include "ControllableObject.h"
+#include "Control.h"
 
-/// @class Define un actor controlable mediante herencia.
+/// Define un actor controlable mediante herencia.
 ///
 class ControllableActor : public Actor, public ControllableObject
 {
+protected:
+    Control* control;   ///< Control que se utiliza para el actor.
+
 public:
     /// Constructor por defecto.
     ///
@@ -24,7 +28,12 @@ public:
     /// Constructor de copia.
     /// @param copia  Referencia al actor que se desea copiar.
     ///
-    ControllableActor (const ControllableActor &copia);
+    ControllableActor (const ControllableActor& copia);
+
+    /// Obtiene el control del actor.
+    /// @return Puntero al control que utiliza actualmente el actor.
+    ///
+    Control* get_control () const;
 };
 
 #endif

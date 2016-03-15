@@ -14,15 +14,16 @@
 #include "Peripheral.h"
 #include <list>
 
-/// @class Define la clase de los controles del juego.
-/// @detail Cada control tiene como propietario a un objeto controlable (ControllableObject)
-///         que es el que recibe los mensajes de las acciones a realizar según las asociaciones entre
-///         eventos recibidos del control (event_t) y acciones definidas en el objeto (action_t).
+/// Define la clase de los controles del juego.
+///
+/// Cada control tiene como propietario a un objeto controlable (ControllableObject)
+/// que es el que recibe los mensajes de las acciones a realizar según las asociaciones entre
+/// eventos recibidos del control (event_t) y acciones definidas en el objeto (action_t).
 ///
 class Control
 {
 public:
-    /// @struct Estructura de asociaciones entre eventos del control y acciones del objeto.
+    /// Estructura de asociaciones entre eventos del control y acciones del objeto.
     typedef struct
     {
       ControllableObject::action_t act;     ///< Acción del objeto
@@ -40,7 +41,7 @@ public:
     void add_action_name (ControllableObject::action_t act, std::string str);
     
     /// Añade una nueva asociación al control.
-    /// @param asoc  Asociación añadida.
+    /// @param assoc  Asociación añadida.
     ///
     void add_association (association_t asoc);
     

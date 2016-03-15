@@ -14,27 +14,28 @@
 #define INVALID_STATE       -2
 #define INVALID_COMPONENT   -2
 
-/// @class Define el periférico de un equipo.
+/// Define el periférico de un equipo.
+///
 /// Se define un periférico (p.j. teclado) para poder abstraer los controles del juego y de esta forma
-/// los actores del juego pueden ser controlados por más de un periférico.
+/// los actores pueden ser controlados por más de un periférico.
 ///
 class Peripheral
 {
 public:
-    /// @enum Eventos que generan los componentes del periférico. 
+    /// Eventos que generan los componentes del periférico. 
     typedef enum
     {
       NO_EVENT,         ///< Sin evento.
-      ON_PRESS,         ///< Se pulsa el componente.
-      ON_RELEASE,       ///< Se suelta el componente.
+      ON_PRESS,         ///< Se pulsa el componente. Un único evento al pulsar.
+      ON_RELEASE,       ///< Se suelta el componente. Un único evento al soltar.
       ON_PRESSING,      ///< Componente siendo pulsado.
       ON_RELEASSING     ///< Componente siendo soltado.
     } event_t;
     
-    /// @typedef Se define el tipo para los diferentes estados del componente.
+    /// Se define el tipo para los diferentes estados del componente.
     typedef int state_t;
 
-    /// @typedef Se define el tipo para identificar a los diferentes componentes del periférico.
+    /// Se define el tipo para identificar a los diferentes componentes del periférico.
     typedef int component_t;
 
     /// Constructor por defecto.

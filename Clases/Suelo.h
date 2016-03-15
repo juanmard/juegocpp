@@ -13,8 +13,7 @@
 #include <allegro.h>
 #include "Almacen.h"
 #include <string>
-
-class Actor;
+#include "Actor.h"
 
 /// Gráfico de suelo modificable en tamaño para actores.
 ///
@@ -87,7 +86,7 @@ public:
 
 private:
     /// Lee las propiedades del suelo desde un fichero de lectura.
-    /// @param Referencia al fichero de lectura.
+    /// @param ifs  Referencia al fichero de lectura.
     /// @return Referencia fichero para poder encadenar lecturas.
     ///
     std::ifstream& leer (std::ifstream& ifs);

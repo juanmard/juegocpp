@@ -32,10 +32,7 @@ class ActorManager
     Actor *                     current               ();
 
     /// Actualiza la lista completa de actores.
-    ///
     /// En este caso actualiza el aspecto y la física implicada.
-    /// @todo  Hacer un "move_all_to_stage" para pasar los actores de bambalinas a escena y así
-    ///        eliminar las dos funciones "add_all_to_create" y "del_all_to_del" por separado.
     ///
     void update ();
 
@@ -43,7 +40,6 @@ class ActorManager
     list<Actor*>::iterator      get_begin_iterator    ();
     list<Actor*>::iterator      get_end_iterator      ();
     list<Actor*>                GetActores            (Bloque & bloque);
-    void                        setVisualizar         (Actor *paramActor);
     Actor *                     getActor              (unsigned int indice);
     string                      getArmario            ();
 
@@ -74,7 +70,6 @@ protected:
     list<Actor*>::iterator      actors_iter;
     list<Actor*>                to_del;
     list<Actor*>                to_create;
-    Actor *                     actorVisualizado;
 
 private:
     std::size_t     buscar_propiedad    (const std::string &propiedad, std::ifstream &inFile) const;

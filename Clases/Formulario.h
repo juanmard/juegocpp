@@ -13,7 +13,7 @@
 #include <vector>
 #include <allegro.h>
 
-/// @class Formulario implementado como una lista de controles que interaccionan entre ellos.
+/// Formulario implementado como una lista de controles que interaccionan entre ellos.
 ///
 class Formulario
 {
@@ -23,7 +23,7 @@ private:
     static DIALOG fin_formulario;       ///< Constante para la clase que indica el final del formulario en Allegro.
 
 public:
-    /// @enum Tipos de controles que puede albergar el formulario.
+    /// Tipos de controles que puede albergar el formulario.
     typedef enum {
         LABEL,      ///< Etiqueta simple con texto.
         BOX,        ///< Caja simple con bordes.

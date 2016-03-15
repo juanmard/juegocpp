@@ -12,7 +12,7 @@
 #include <allegro.h>
 #include "Peripheral.h"
 
-/// @class Define el comportamiento del teclado como un periférico.
+/// Define el comportamiento del teclado como un periférico.
 ///
 class Keyboard : public Peripheral
 {

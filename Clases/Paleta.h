@@ -13,8 +13,8 @@
 #include "Almacen.h"
 #include "Suelo.h"
 
-/// @class Paleta
 /// Actor que cambia la dirección de la pelota.
+///
 /// Es controlable mediante el teclado. Y se creó el actor para un primer juego de
 /// tipo "Arkanoid".
 ///
@@ -24,7 +24,7 @@ protected:
     Suelo *piel;    ///< Puntero al suelo que hace de gráfico.
 
 public:
-    /// @typedef Acciones que puede realizar la paleta.
+    /// Acciones que puede realizar la paleta.
     typedef enum {
             LEFT,       ///< Moverse a la izquierda.
             RIGHT       ///< Moverse a la derecha.
