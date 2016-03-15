@@ -14,6 +14,215 @@
  */
 
 #include  "Juego2.h"
+#include <guichan.hpp>
+#include <guichan/allegro.hpp>
+
+/*
+    * List boxes and drop downs need an instance of a list model
+    * in order to display a list.
+    */
+class DemoListModel : public gcn::ListModel
+{
+public:
+    int getNumberOfElements()
+    {
+        return 5;
+    }
+
+    std::string getElementAt(int i)
+    {
+        switch(i)
+        {
+            case 0:
+                return std::string("zero");
+            case 1:
+                return std::string("one");
+            case 2:
+                return std::string("two");
+            case 3:
+                return std::string("three");
+            case 4:
+                return std::string("four");
+            default: // Just to keep warnings away
+                return std::string("");
+        }
+    }
+};
+
+DemoListModel demoListModel;
+
+void Juego2::prueba_guichan ()
+{
+    BITMAP* screenBuffer;
+
+    gcn::Gui *gui;
+    gcn::ImageFont* fontgui;
+    gcn::Container* top;
+    gcn::Label* label;
+    gcn::Icon* icon;
+    gcn::Button* button;
+    gcn::TextField* textField;
+    gcn::TextBox* textBox;
+    gcn::ScrollArea* textBoxScrollArea;
+    gcn::ListBox* listBox;
+    gcn::DropDown* dropDown;
+    gcn::CheckBox* checkBox1;
+    gcn::CheckBox* checkBox2;
+    gcn::RadioButton* radioButton1;
+    gcn::RadioButton* radioButton2;
+    gcn::RadioButton* radioButton3;
+    gcn::Slider* slider;
+    gcn::Image *image;
+    gcn::Window *window;
+    gcn::Image *darkbitsImage;
+    gcn::Icon* darkbitsIcon;
+    gcn::TabbedArea* tabbedArea;
+    gcn::Button* tabOneButton;
+    gcn::CheckBox* tabTwoCheckBox;
+
+    // All back ends contain objects to make Guichan work on a
+    // specific target - in this case Allegro - and they are a Graphics
+    // object to make Guichan able to draw itself using Allegro, an
+    // input objec to make Gopenglsdluichan able to get user input using Allegro
+    // and an ImageLoader object to make Guichan able to load images
+    // using Allegro.
+    gcn::AllegroGraphics* graphics;
+    gcn::AllegroInput* input;
+    gcn::AllegroImageLoader* imageLoader;
+
+    screenBuffer = create_bitmap(SCREEN_W, SCREEN_H);
+    if (screenBuffer == NULL)
+    {
+       throw GCN_EXCEPTION("Unable to create a screen buffer");
+    }
+
+    // Now it's time to initialise the Guichan Allegro back end.
+    imageLoader = new gcn::AllegroImageLoader();
+    // The ImageLoader Guichan should use needs to be passed to the Image object
+    // using a static function.
+    gcn::Image::setImageLoader(imageLoader);
+    graphics = new gcn::AllegroGraphics();
+    // Set the target for the graphics object to be the doublebuffer
+    // for the screen. Drawing to the screen directly is not a good
+    // idea, as it will produce flicker, unless you use page flipping.
+    graphics->setTarget(screenBuffer);
+    input = new gcn::AllegroInput();
+
+    // Now we create the Gui object to be used with this Allegro application.
+    gui = new gcn::Gui();
+    // The Gui object needs a Graphics to be able to draw itself and an Input
+    // object to be able to check for user input. In this case we provide the
+    // Gui object with Allegro implementations of these objects hence making Guichan
+    // able to utilise Allegro.
+    gui->setGraphics(graphics);
+    gui->setInput(input);
+
+    // We first create a container to be used as the top widget.
+    // The top widget in Guichan can be any kind of widget, but
+    // in order to make the Gui contain more than one widget we
+    // make the top widget a container.
+    top = new gcn::Container();
+    // We set the dimension of the top container to match the screen.
+    top->setDimension(gcn::Rectangle(0, 0, SCREEN_W, SCREEN_H));
+    // Finally we pass the top widget to the Gui object.
+    gui->setTop(top);
+
+    try
+    {
+        // Now we load the font used in this example.
+        //fontgui = new gcn::ImageFont("fixedfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+        fontgui = new gcn::ImageFont("rpgfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+        
+		// Widgets may have a global font so we don't need to pass the
+	    // font object to every created widget. The global font is static.
+		gcn::Widget::setGlobalFont(fontgui);
+
+	}
+    catch (gcn::Exception e)
+    {
+        std::cout << "GCN exception: " << e.getMessage() << std::endl;
+    }
+    catch (std::exception e)
+    {
+        std::cout << "STD exception: " << e.what() << std::endl;
+    }
+    catch (...)
+    {
+        std::cout << "Unknown exception" << std::endl;
+	}
+
+    // Now we create the widgets
+    label = new gcn::Label("Label");
+    image = gcn::Image::load("gui-chan.bmp");
+    icon = new gcn::Icon(image);
+    button = new gcn::Button("Button");
+    textField = new gcn::TextField("Text field");
+    textBox = new gcn::TextBox("Multiline\nText box");
+    textBoxScrollArea = new gcn::ScrollArea(textBox);
+    textBoxScrollArea->setWidth(200);
+    textBoxScrollArea->setHeight(100);
+    textBoxScrollArea->setFrameSize(1);
+    listBox = new gcn::ListBox(&demoListModel);
+    listBox->setFrameSize(1);
+    dropDown = new gcn::DropDown(&demoListModel);
+    checkBox1 = new gcn::CheckBox("Checkbox 1");
+    checkBox2 = new gcn::CheckBox("Checkbox 2");
+    radioButton1 = new gcn::RadioButton("RadioButton 1", "radiogroup", true);
+    radioButton2 = new gcn::RadioButton("RadioButton 2", "radiogroup");
+    radioButton3 = new gcn::RadioButton("RadioButton 3", "radiogroup");
+    slider = new gcn::Slider(0, 10);
+    slider->setSize(100, 10);
+    
+    window = new gcn::Window("I am a window drag me");
+    window->setBaseColor(gcn::Color(255, 150, 200));
+    darkbitsImage = gcn::Image::load("darkbitslogo_by_haiko.bmp");
+    darkbitsIcon = new gcn::Icon(darkbitsImage);
+    window->add(darkbitsIcon);
+	window->add(textBox,10,10);
+    window->resizeToContent();
+    
+    tabbedArea = new gcn::TabbedArea();
+    tabbedArea->setSize(260, 200);
+    tabOneButton = new gcn::Button("A button in tab 1");
+    tabbedArea->addTab("Tab 1", tabOneButton);
+    tabTwoCheckBox = new gcn::CheckBox("A check box in tab 2");
+    tabbedArea->addTab("Tab 2", tabTwoCheckBox);
+
+    // Now it's time to add the widgets to the top container
+    // so they will be conected to the GUI.
+    top->add(label, 10, 10);
+    top->add(icon, 10, 30);
+    top->add(button, 200, 10);
+    top->add(textField, 250, 10);
+    top->add(textBoxScrollArea, 200, 50);
+    top->add(listBox, 200, 200);
+    top->add(dropDown, 500, 10);
+    top->add(checkBox1, 500, 130);
+    top->add(checkBox2, 500, 150);
+    top->add(radioButton1, 500, 200);
+    top->add(radioButton2, 500, 220);
+    top->add(radioButton3, 500, 240);
+    top->add(slider, 500, 300);
+    top->add(window, 50, 350);
+    top->add(tabbedArea, 400, 350);
+
+    while(!key[KEY_ESC])
+    {
+        // Now we let the Gui object perform its logic.
+        gui->logic();
+        // Now we let the Gui object draw itself.
+        gui->draw();
+
+        // We draw the mouse pointer manually, as Allegro's mouse
+        // drawing code is so wierd.
+        draw_sprite(screenBuffer, mouse_sprite, mouse_x, mouse_y);
+
+        // Finally we update the screen.
+        blit(screenBuffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+    }
+    key[KEY_ESC]=false;
+    set_palette (storage_manager->getPalette ("SPRITES"));
+}
 
 /**
  * \brief   Crea el objeto del juego.
@@ -125,6 +334,9 @@ void Juego2::mainGame ()
     }
   }
 
+  // Se prueba a cargar desde fichero.
+  this->actor_manager->load("actores2.txt");
+
  /* Eliminamos objetos de prueba
   // Se añade una paleta de prueba pero con piel de Suelo.
   Paleta *prueba_suelo = new Paleta();
@@ -157,6 +369,7 @@ void Juego2::mainGame ()
   cout << " S - Se activa el seguimiento del jugador." << endl;
   cout << " T - Realiza una prueba de gráficos." << endl;
   cout << " V - Visualiza los bloques de los actores." << endl;
+  cout << " G - Prueba de GUI con 'GUICHAN'." << endl;
   cout << " I - Consola interactiva." << endl;
   cout << " ESC - Termina el juego." << endl;
   cout << "----------------------------------" << endl << endl;
@@ -236,6 +449,13 @@ void Juego2::mainGame ()
     {
       stage_manager->setVerBloques (!stage_manager->getVerBloques ());
       key[KEY_V] = false;
+    }
+
+    // Se comprueba la visualización de los bloques.
+    if (key[KEY_G])
+    {
+      prueba_guichan ();
+      key[KEY_G] = false;
     }
 
     // Parte de código para pruebas del juego.

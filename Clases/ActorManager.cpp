@@ -7,7 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-
+#include <string>
 using namespace std;
 
 ActorManager::ActorManager (Game *g):
@@ -408,33 +408,70 @@ string  ActorManager::getArmario ()
  void  ActorManager::load (const string &file)
 {
 #ifdef _DEBUG
-    cout << "Prueba de carga de actores desde fichero." << endl;
+    cout << "Prueba de carga de actores desde fichero." << endl << "Fichero a cargar: \"" << file << "\"" << endl;
 #endif
 
-    fstream *fs;
+    /* Se crea un nuevo fichero de lectura y se añaden excepciones. */
+    ifstream *fs = new ifstream();
+    fs->exceptions ();
 
-    // Si no hay nombre de fichero usamos el nombre por omisión.
-    if (file.empty())
+    /* Se intenta abrir el fichero. */
+    try
     {
-        fs->open("actores.txt", fstream::in | fstream::out);
+        fs->open(file);
+
+        /* Si el fichero no se ha abierto, se intenta con el nombre por omisión. */
+        if (!fs->is_open())
+        {
+            cout << "Fichero \"" << file << "\" no se ha podido abrir. Se intenta nombre por omisión." << endl;
+            fs->open("actores.txt"); /* \todo Hacer de la cadena un literal. */
+            if (fs->is_open())
+            {
+                cout << "Abierto fichero \"actores.txt\"" << endl;
+            }
+            else
+            {
+                /* Si finalmente no se puede abrir se da por terminado el intento y se lanza la excepción. */
+                throw std::string("Fichero \"actores.txt\" no se ha podido abrir.");
+            }
+        }
     }
-    else
+    catch (std::string error)
     {
-        fs->open(file, fstream::in | fstream::out);
-    };
+        cout << error << endl;
+        return;
+    }
+    catch (ifstream::failure e)
+    {
+        cout << "Error al abrir el fichero: \"" << file << "\"" << endl;
+        cout << "Error: " << endl << e.what();
+        return;
+    }
 
+    /* Si se consigue localizar y abrir el fichero se continua procesando. */
+    cout << "Se procesa el fichero. " << endl;
 
-    // TODO: Una primera línea que compruebe la versión del fichero de datos.
+    /// \todo   Una primera línea que compruebe la versión del fichero de datos.
     // string version;
     // getline(fs,version);
     // if (!version.compare("JUEGO v2.0")) {return "El fichero de datos no está en la versión correcta)};
+    int pos = buscar_propiedad ("Actores", *fs);
 
     // Se obtiene del fichero el comando y el valor.
+    buscar ("Actor", *fs);
     string comando, valor;
     *fs >> comando >> valor;
+    cout << comando << "\t" << valor << "\t" << endl;
+    *fs >> comando >> valor;
+    cout << comando << "\t" << valor << "\t" << endl;
+    *fs >> comando >> valor;
+    cout << comando << "\t" << valor << "\t" << endl;
+    *fs >> comando >> valor;
+    cout << comando << "\t" << valor << "\t" << endl;
+    *fs >> comando >> valor;
+    cout << comando << "\t" << valor << "\t" << endl;
 
     // Si el comando es el correcto se utiliza el valor.
-    cout << comando << "|" << endl << valor << "|" << endl;
 
     unsigned int actores=0;
     if (!comando.compare("Actores"))
@@ -449,7 +486,7 @@ string  ActorManager::getArmario ()
     }
 
     // Según la lista de actores se leen los actores y se agregan.
-    for (int i=1; i<=actores; i++)
+    for (std::size_t i=1; i<=actores; i++)
     {
         cout << "--- Actor " << i << " ---" << endl;
         *fs >> comando >> valor;
@@ -461,5 +498,54 @@ string  ActorManager::getArmario ()
     }
 
     fs->close();
+}
+
+ /**
+  * \brief  Busca dentro del fichero la propiedad pasada por parámetro.
+  * \param  propiedad   Referencia al nombre de la propiedad a buscar.
+  * \param  fs          Referencia al 'filestream' donde buscar.
+  *
+  * \todo   Crear una clase de fichero heredada de 'ifstream' donde incluir este procedimiento
+  *         de esta forma se evitaría enviar el 'ifstream' por parámetro.
+  */
+std::size_t  ActorManager::buscar_propiedad  (const std::string &propiedad, std::ifstream &inFile) const
+{
+    std::string busqueda;
+
+    // Se crea el formato de la propiedad dentro del fichero.
+    // ej. "[Actores]"
+    busqueda += "[";
+    busqueda += propiedad;
+    busqueda += "]";
+
+    // Se busca la palabra creada.
+    return buscar (propiedad,inFile);
+}
+
+ /**
+  * \brief  Busca dentro del fichero una palabra pasada por parámetro.
+  * \param  palabra    Referencia al nombre de la propiedad a buscar.
+  * \param  fs          Referencia al 'filestream' donde buscar.
+  *
+  * \todo   Crear una clase de fichero heredada de 'ifstream' donde incluir este procedimiento
+  *         de esta forma se evitaría enviar el 'ifstream' por parámetro.
+  */
+std::size_t  ActorManager::buscar  (const std::string &palabra, std::ifstream &inFile) const
+{
+    std::size_t pos;
+    std::string linea;
+
+    // Se toma línea por línea y se busca la palabra.
+    while (getline(inFile,linea))
+    {
+      cout << linea << endl;
+      pos = linea.find(palabra);
+      if (pos != string::npos) // string::npos is returned if string is not found
+      {
+        cout << "Found! in " << pos << endl;
+        break;
+      }
+    }
+    return pos;
 }
 

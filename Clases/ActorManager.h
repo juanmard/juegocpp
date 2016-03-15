@@ -24,20 +24,20 @@ class ActorManager
   public:
                                 ActorManager          (Game *g);
                                 ~ActorManager         ();
-    void                        add            (Actor *a);
-    void                        del                 		(Actor *a);
-    void                        rewind                		();
-    Actor *                     get_actor             	(int x, int y);
-    Actor *                     next                  		();
-    Actor *                     current               		();
-    void                        update              	  ();
-    int                         num_actors      			();
-    list<Actor*>::iterator      get_begin_iterator      ();
-    list<Actor*>::iterator      get_end_iterator        ();
-    list<Actor*>                GetActores              (Bloque & bloque);
-    void                        setVisualizar           (Actor *paramActor);
-    Actor *                     getActor                (unsigned int indice);
-    string                      getArmario              ();
+    void                        add                   (Actor *a);
+    void                        del                   (Actor *a);
+    void                        rewind                ();
+    Actor *                     get_actor             (int x, int y);
+    Actor *                     next                  ();
+    Actor *                     current               ();
+    void                        update                ();
+    int                         num_actors            ();
+    list<Actor*>::iterator      get_begin_iterator    ();
+    list<Actor*>::iterator      get_end_iterator      ();
+    list<Actor*>                GetActores            (Bloque & bloque);
+    void                        setVisualizar         (Actor *paramActor);
+    Actor *                     getActor              (unsigned int indice);
+    string                      getArmario            ();
 
     /**
      * \brief   Cargar los actores desde un fichero de texto plano.
@@ -50,14 +50,18 @@ class ActorManager
     void      avisoActorSinGrafico (Actor *a) const;
 
   protected:
-    Game *                  			game;
-    list<Actor*>            		actors;
-    list<Actor*>::iterator    actors_iter;
-    list<Actor*>            		to_del;
-    list<Actor*>            		to_create;
-    Actor *                 			actorVisualizado;
+    Game *                      game;
+    list<Actor*>                actors;
+    list<Actor*>::iterator      actors_iter;
+    list<Actor*>                to_del;
+    list<Actor*>                to_create;
+    Actor *                     actorVisualizado;
 
-  public:
+private:
+    std::size_t     buscar_propiedad    (const std::string &propiedad, std::ifstream &inFile) const;
+    std::size_t     buscar              (const std::string &palabra, std::ifstream &inFile) const;
+
+public:
     void                    add_all_to_create   ();
     void                    del_all_to_del      ();
 
