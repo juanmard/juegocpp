@@ -22,24 +22,28 @@ class Game;
 class ActorManager
 {
   public:
-                           				ActorManager          (Game *g);
-                           				~ActorManager         ();
-    void                    			add            		(Actor *a);
-    void                    			del                 		(Actor *a);
-    void                    			rewind                		();
-    Actor *                 			get_actor             	(int x, int y);
-    Actor *                 			next                  		();
-    Actor *                 			current               		();
-    void                    			update              	  ();
-    int                     			num_actors      			();
-    list<Actor*>::iterator  get_begin_iterator  ();
-    list<Actor*>::iterator  get_end_iterator     ();
-    list<Actor*>           	GetActores            	(Bloque & bloque);
-    void                    			setVisualizar         	(Actor *paramActor);
-    Actor *                 			getActor              	(unsigned int indice);
-    string                  			getArmario            	();
-	 void										load								(string &file);
+                                ActorManager          (Game *g);
+                                ~ActorManager         ();
+    void                        add            (Actor *a);
+    void                        del                 		(Actor *a);
+    void                        rewind                		();
+    Actor *                     get_actor             	(int x, int y);
+    Actor *                     next                  		();
+    Actor *                     current               		();
+    void                        update              	  ();
+    int                         num_actors      			();
+    list<Actor*>::iterator      get_begin_iterator      ();
+    list<Actor*>::iterator      get_end_iterator        ();
+    list<Actor*>                GetActores              (Bloque & bloque);
+    void                        setVisualizar           (Actor *paramActor);
+    Actor *                     getActor                (unsigned int indice);
+    string                      getArmario              ();
 
+    /**
+     * \brief   Cargar los actores desde un fichero de texto plano.
+     * \param   file    Nombre del fichero a cargar.
+     */
+    void    load    (const string &file);
 
   protected:
     void      actualizarVisualizacion ();

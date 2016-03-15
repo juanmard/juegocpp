@@ -389,31 +389,40 @@ string  ActorManager::getArmario ()
 
 
 /**
- * \brief   Carga los actores de un fichero.
- * \details El formato del fichero es tal que...
- *                  Actores 3
- *                  Actor {
- *                  Nombre "Ladrillo"
- *                  Posición <120,40>
- *                  Bloque <32,15>
- *                  Bitmap "sprite_041"
- *                  }
- *                  Actor {...}
- *                  Actor {...}
+ * \details El formato del fichero debe ser el siguiente:
+ * \code
  *
- * \todo   A eliminar, no es necesaria esta función.
-void  ActorManager::load (string &file)
+ *                  Actores 3
+ *                  Actores 1
+ *                  Ladrillo {
+ *                       Nombre "Ladrillo-001"
+ *                       Posición <120,40>
+ *                       Bloque <32,15>
+ *                       Bitmap "sprite_041"
+ *                       }
+ *                  Paleta {...}
+ *                  Henry {...}
+ *
+ * \endcode
+ */
+ void  ActorManager::load (const string &file)
 {
+#ifdef _DEBUG
+    cout << "Prueba de carga de actores desde fichero." << endl;
+#endif
+
+    fstream *fs;
+
     // Si no hay nombre de fichero usamos el nombre por omisión.
     if (file.empty())
     {
-      file = "actores.txt";
+        fs->open("actores.txt", fstream::in | fstream::out);
     }
+    else
+    {
+        fs->open(file, fstream::in | fstream::out);
+    };
 
-    // Se intenta abrir el fichero.
-    //fstream  fs(file, fstream::in | fstream::out);
-    fstream fs ("actores.txt", fstream::in | fstream::out);
-    cout << "Prueba de carga de actores desde fichero." << endl;
 
     // TODO: Una primera línea que compruebe la versión del fichero de datos.
     // string version;
@@ -422,7 +431,7 @@ void  ActorManager::load (string &file)
 
     // Se obtiene del fichero el comando y el valor.
     string comando, valor;
-    fs >> comando >> valor;
+    *fs >> comando >> valor;
 
     // Si el comando es el correcto se utiliza el valor.
     cout << comando << "|" << endl << valor << "|" << endl;
@@ -443,14 +452,14 @@ void  ActorManager::load (string &file)
     for (int i=1; i<=actores; i++)
     {
         cout << "--- Actor " << i << " ---" << endl;
-        fs >> comando >> valor;
+        *fs >> comando >> valor;
         if (!comando.compare ("Actor"))
         {
-	  fs >> comando >> valor;
-	  cout << valor;
+        *fs >> comando >> valor;
+        cout << valor;
         }
     }
 
-    fs.close();
+    fs->close();
 }
-*/
+
