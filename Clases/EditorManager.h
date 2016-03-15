@@ -2,6 +2,10 @@
 
 #include <allegro.h>
 #include "Game.h"
+#include "Actor.h"
+#include "Dialog.h"
+
+class Dialog;
 
 /**
  *  \brief      Edita las listas de objetos involucrados en un juego.
@@ -20,9 +24,12 @@ class EditorManager
         void    edit            (void);
         void    set             (int indice);
         void    activate        (void);
-
+        Game   *get_game        (void);
+        void    redibuja        (void);
+        void    resaltar        (int x, int y);
 
 protected:
-		Game *game;
+		Game    *game;
+		Dialog  *gui;
         
 };

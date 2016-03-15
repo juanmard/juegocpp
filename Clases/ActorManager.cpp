@@ -6,6 +6,31 @@ ActorManager::ActorManager(Game *g)
 {
 	game = g;
 }
+/**
+ * \brief   Devuelve el actor cuyas coordenadas en pantalla son (x,y).
+ * \todo    Preveer que en un futuro debe devolver una lista de actores.
+ */
+Actor * ActorManager::get_actor (int x, int y)
+{
+	Actor *encontrado = NULL;
+    actors_iter = actors.begin();
+    // Comprobar el bucle, es posible que el primero no lo compruebe si es el único de la lista.
+    while (encontrado == NULL && actors_iter != actors.end()) 
+    {
+        if (    (x >= (*actors_iter)->get_x())
+             && (y >= (*actors_iter)->get_y())
+             && (x <= ((*actors_iter)->get_x() + (*actors_iter)->get_w()))
+             && (y <= ((*actors_iter)->get_y() + (*actors_iter)->get_h())) )
+        {
+            encontrado = *actors_iter;
+        }
+        else
+        {
+    	    actors_iter++;
+        }
+    }
+    return encontrado;
+}
 
 ActorManager::~ActorManager()
 {
@@ -22,6 +47,7 @@ void ActorManager::del(Actor *a)
 {
     to_del.push_back(a);
 }
+
 
 void ActorManager::del_all_to_del()
 {

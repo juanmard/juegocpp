@@ -17,6 +17,7 @@ class ActorManager
 		void	                add				(Actor *a);
 		void	                del				(Actor *a);
 		void	                rewind			();
+		Actor *	                get_actor		(int x, int y);
 		Actor *	                next			();
 		Actor *	                current			();
 		void	                update			();
