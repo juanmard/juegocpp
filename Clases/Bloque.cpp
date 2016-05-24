@@ -10,23 +10,24 @@
 #include <sstream>
 
 Bloque::Bloque ():
-x(0), y(0), w(0), h(0)
+pos(new Vector2Di()), w(0), h(0)
 {
 };
 
 Bloque::Bloque (int paramX, int paramY, int paramW, int paramH):
-x(paramX), y(paramY), w(paramW), h(paramH)
+pos(new Vector2Di(paramX,paramY)), w(paramW), h(paramH)
 {
 };
 
 Bloque::~Bloque ()
 {
+    delete pos;
 };
 
 void Bloque::set_xy (int paramX, int paramY)
 {
-  x = paramX;
-  y = paramY;
+  pos->x = paramX;
+  pos->y = paramY;
 };
 
 void Bloque::set_wh (unsigned int paramW, unsigned int paramH)
@@ -37,12 +38,12 @@ void Bloque::set_wh (unsigned int paramW, unsigned int paramH)
 
 int Bloque::get_x () const
 {
-  return x;
+  return pos->x;
 };
 
 int Bloque::get_y () const
 {
-  return y;
+  return pos->y;
 };
 
 unsigned int Bloque::get_w () const
@@ -57,18 +58,18 @@ unsigned int Bloque::get_h () const
 
 void Bloque::set_y (int paramY)
 {
-  y = paramY;
+  pos->y = paramY;
 };
 
 void Bloque::centrar (const Bloque& bloque)
 {
     int incx = (w - bloque.get_w())/2;
     int incy = (h - bloque.get_h())/2;
-    x = bloque.get_x () - incx;
-    y = bloque.get_y () - incy;
+    pos->x = bloque.get_x () - incx;
+    pos->y = bloque.get_y () - incy;
 };
 
-std::string & Bloque::print() const
+std::string& Bloque::print() const
 {
     std::ostringstream canal;
 
