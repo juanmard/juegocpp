@@ -86,7 +86,7 @@ public:
     ///
     /// @todo Poder asignar un nombre distinto a cada actor y poder actualizarlo.
     ///
-    std::string Loro::getNombre () const;
+    std::string getNombre () const;
 
     /// Obtiene el periférico que usa el loro para ejecutar el control.
     /// @return Periférico que usa el control del loro.

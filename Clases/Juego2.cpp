@@ -30,6 +30,7 @@ void Juego2::create_storage_manager ()
 void Juego2::mainGame ()
 {
     // Pruebas de clases.
+    /*
     Vector2Df vector(1.0f,2.0f);
     std::string cadena1, cadena2=" prueba... <1.2f, 3.4f>";
     cadena1 << vector;
@@ -60,6 +61,8 @@ void Juego2::mainGame ()
     pruebatxt << vector << std::endl;
     pruebatxt << prueba2 << std::endl;
     pruebatxt.close ();
+    */
+    
 
     Mapa mapa;
     std::cout << mapa << std::endl;
@@ -232,9 +235,9 @@ void Juego2::mainGame ()
       Mosaico *hojas = new Mosaico (arbol);
       
       // 3 - Se añaden Teselas al mosaico.
-      hojas->add_ultima_Tesela (new Tesela (hojas, std::string("pre2_417")));
-      hojas->add_ultima_Tesela (new Tesela (hojas, std::string("pre2_416"), 12, 20));
-      hojas->add_ultima_Tesela (new Tesela (hojas, std::string("pre2_416"), 12, -20, true));
+      hojas->add_ultima_Tesela (new Tesela (hojas, *new std::string("pre2_417")));
+      hojas->add_ultima_Tesela (new Tesela (hojas, *new std::string("pre2_416"), 12, 20));
+      hojas->add_ultima_Tesela (new Tesela (hojas, *new std::string("pre2_416"), 12, -20, true));
       
       // 4 - Se completan las propiedades del actor.
       arbol->set_x (130);

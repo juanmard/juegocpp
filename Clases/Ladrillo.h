@@ -39,7 +39,7 @@ public:
 
     /**
      */
-    istream&            prueba_iostream (istream &is, Ladrillo &a);
+    std::istream& prueba_iostream (std::istream &is, Ladrillo &a);
 
     /**
      * \brief   Definición de la lectura desde fichero.
