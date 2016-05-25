@@ -165,9 +165,8 @@ std::string  Suelo::getString () const
            ///       @code terminal.getString(); @endcode
            /// @note Si el suelo siempre se forma con los mismos gráficos no es necesario
            ///       incluirlo en la cadena de propiedades.
-           // << "      terminal " << "sprite_" << std::endl \
-           // << "      bloque " << "sprite_" << std::endl \
-
+           /// << "      terminal " << "sprite_" << std::endl 
+           /// << "      bloque " << "sprite_" << std::endl 
 
            << "    }" << std::endl;
     return cadena.str ();

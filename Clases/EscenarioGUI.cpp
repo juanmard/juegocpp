@@ -40,8 +40,8 @@ int  EscenarioGUI::Keyboard (int msg, DIALOG *d, int code)
   }
 
   // Actualizamos los valores referenciados por el vector.
-  //x += xInc;
-  //y += yInc;
+  local_x += xInc;
+  local_y += yInc;
 
   // Actualizamos los valores en la gui.
   object_message (d, MSG_DRAW, 0);

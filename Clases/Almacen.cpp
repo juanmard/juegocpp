@@ -115,9 +115,9 @@ std::string Almacen::get_name (BITMAP* puntero)
         }
         it++;
     }
-    // Para 'debug' mostramos los valores finales.
-    // cout << "Puntero de bitmap a buscar: " << puntero << endl \
-    //      << "Nombre asociado en 'map': " << nombre << endl;
+    /// Para 'debug' mostramos los valores finales.
+    /// cout << "Puntero de bitmap a buscar: " << puntero << endl
+    ///      << "Nombre asociado en 'map': " << nombre << endl;
     return nombre;
 };
 

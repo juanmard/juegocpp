@@ -14,25 +14,25 @@ Almacen* Bitmap::almacenGlobal = NULL;
 
 Bitmap::Bitmap (Actor* aowner, BITMAP* bmp) :
 ActorGraphic (aowner),
+almacen (NULL),
 fuente (bmp),
-nombre ("sin nombre"),
-almacen (NULL)
+nombre ("sin nombre")
 {
 };
 
 Bitmap::Bitmap (Actor* aowner, const std::string nombreParam):
 ActorGraphic (aowner),
-nombre (nombreParam),
-almacen (NULL)
+almacen (NULL),
+nombre (nombreParam)
 {
   fuente = almacenGlobal->get_bitmap (nombreParam);
 };
 
 Bitmap::Bitmap (Actor* aowner, BITMAP* bmp, std::string nombreParam) :
 ActorGraphic (aowner),
+almacen (NULL),
 fuente (bmp),
-nombre (nombreParam),
-almacen (NULL)
+nombre (nombreParam)
 {
 };
 

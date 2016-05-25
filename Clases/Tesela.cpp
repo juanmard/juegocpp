@@ -14,35 +14,37 @@
 
 Tesela::Tesela (const Tesela& copia, Mosaico* padre):
 mosaico_padre(padre),
+dibujo(copia.dibujo),
+dibujoPrueba(NULL),
 x(copia.x),
 y(copia.y),
-dibujo(copia.dibujo),
 mirror(copia.mirror)
 {
 };
 
-Tesela::Tesela (Mosaico* padre)
+Tesela::Tesela (Mosaico* padre):
+mosaico_padre(padre)
 {
-    mosaico_padre = padre;
 };
 
-Tesela::Tesela (Mosaico* padre, BITMAP* imagen, int x_tmp, int y_tmp, bool mirror_tmp)
+Tesela::Tesela (Mosaico* padre, BITMAP* imagen, int x_tmp, int y_tmp, bool mirror_tmp):
+mosaico_padre(padre),
+dibujo(imagen),
+dibujoPrueba(NULL),
+x(x_tmp),
+y(y_tmp),
+mirror(mirror_tmp)
 {
-    mosaico_padre = padre;
-    dibujo = imagen;
-    x = x_tmp;
-    y = y_tmp;
-    mirror = mirror_tmp;
 };
 
 Tesela::Tesela (Mosaico* padre, std::string& nombreImagen, int xParam, int yParam, bool mirrorParam):
 mosaico_padre (padre),
 dibujo (NULL),
+dibujoPrueba(new Bitmap (padre->getActor(), nombreImagen)),
 x (xParam),
 y (yParam),
 mirror (mirrorParam)
 {
-  dibujoPrueba = new Bitmap (padre->getActor(), nombreImagen);
 };
 
 void Tesela::guardar () const

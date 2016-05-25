@@ -29,6 +29,8 @@ void Formulario::add (control_t tipo, BITMAP* picture, int x, int y)
     case PICTURE:
         ctl->proc = d_bitmap_proc;
         break;
+    default:
+        break;
     }
 
     ctl->fg = 67;
@@ -60,6 +62,8 @@ void Formulario::add (control_t tipo, int x, int y, int w, int h)
         ctl->d1 = 100;
         ctl->d2 = 10;
         break;
+    default:
+        break;
     }
 
     ctl->fg = 67;
@@ -83,6 +87,8 @@ void Formulario::add (control_t tipo, std::string texto, int x, int y)
     case LABEL:
         ctl->proc = d_text_proc;
         ctl->dp = (void*) (new std::string(texto))->c_str(); //Se necesita copiar la cadena.
+        break;
+    default:
         break;
     }
 

@@ -37,12 +37,12 @@ class Tesela : public PrintableObject
 {
 private:
     Mosaico* mosaico_padre;     ///< Puntero al mosaico padre propietario de la tesela.
-    int x;                      ///< Coordenada x de la posición relativa al mosaico padre.
-    int y;                      ///< Coordenada y de la posición relativa al mosaico padre.
     BITMAP* dibujo;             ///< BITMAP de Allegro representación de la tesela.
     /// @var Bitmap* dibujoPrueba;
     /// Prueba para sustituir los BITMAP's de Allegro por los propios.
     Bitmap* dibujoPrueba;       ///< Representación gráfica de la tesela.
+    int x;                      ///< Coordenada x de la posición relativa al mosaico padre.
+    int y;                      ///< Coordenada y de la posición relativa al mosaico padre.
     /// @todo Incluir los 360 grados de giro.
     ///       En lugar de únicamente la simetría en x.
     bool mirror;                ///< Reflexión o no de la imagen de la tesela respecto a la imagen original.

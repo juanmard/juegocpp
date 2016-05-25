@@ -12,7 +12,7 @@ using namespace std;
 /**
  * \brief   Constructor.
  */
-GUIEscenario::GUIEscenario (EditorManager &editorParam, DIALOG *enlace):
+GUIEscenario::GUIEscenario (EditorManager& editorParam, DIALOG* enlace):
 editor (editorParam)
 {
   enlazados.clear ();
@@ -23,24 +23,24 @@ editor (editorParam)
  * \brief   Comprueba las teclas en el control del vector.
  * \return  El procesado de la tecla.
  */
-int  GUIEscenario::Keyboard (int msg, DIALOG *d, int code)
+int  GUIEscenario::Keyboard (int msg, DIALOG* d, int code)
 {
   int salida = D_O_K;
 
   // Se comprueba el 'scancode' y se obtiene el incremento.
-  int xInc = 0;
-  int yInc = 0;
-  switch (code >> 8)
-  {
-    case KEY_UP:    yInc = -1; salida = D_USED_CHAR; break;
-    case KEY_DOWN:  yInc = +1; salida = D_USED_CHAR; break;
-    case KEY_LEFT:  xInc = -1; salida = D_USED_CHAR; break;
-    case KEY_RIGHT: xInc = +1; salida = D_USED_CHAR; break;
-  }
+  //int xInc = 0;
+  //int yInc = 0;
+  //switch (code >> 8)
+  //{
+  //  case KEY_UP:    yInc = -1; salida = D_USED_CHAR; break;
+  //  case KEY_DOWN:  yInc = +1; salida = D_USED_CHAR; break;
+  //  case KEY_LEFT:  xInc = -1; salida = D_USED_CHAR; break;
+  //  case KEY_RIGHT: xInc = +1; salida = D_USED_CHAR; break;
+  //}
 
   // Actualizamos los valores referenciados por el vector.
-  //x += xInc;
-  //y += yInc;
+  //x = xInc;
+  //y = yInc;
 
   // Actualizamos los valores en la gui.
   object_message (d, MSG_DRAW, 0);
@@ -53,7 +53,7 @@ int  GUIEscenario::Keyboard (int msg, DIALOG *d, int code)
  * \brief   Dibuja los valores en la GUI.
  * \return  El valor al dibujar.
  */
-int  GUIEscenario::Draw (int msg, DIALOG *d, int code)
+int  GUIEscenario::Draw (int msg, DIALOG* d, int code)
 {
   // Se oculta el puntero del ratón.
   show_mouse (NULL);
@@ -72,7 +72,7 @@ int  GUIEscenario::Draw (int msg, DIALOG *d, int code)
  * \brief   Comprueba la rueda del ratón.
  * \return  El procesado de la rueda.
  */
-int  GUIEscenario::Wheel (int msg, DIALOG *d, int code)
+int  GUIEscenario::Wheel (int msg, DIALOG* d, int code)
 {
   int salida = D_O_K;
 
@@ -97,7 +97,7 @@ int  GUIEscenario::Wheel (int msg, DIALOG *d, int code)
  * \brief   Sigue los movimientos del ratón.
  * \return  El valor obtenido al dibujar y actualizar el escenario.
  */
-int  GUIEscenario::MoveMouse (int msg, DIALOG *d, int code)
+int  GUIEscenario::MoveMouse (int msg, DIALOG* d, int code)
 {
   // Calculamos las posiciones locales del puntero del ratón.
   int local_x = mouse_x - d->x;
@@ -131,7 +131,7 @@ int  GUIEscenario::MoveMouse (int msg, DIALOG *d, int code)
   // editor.setMensaje (os.str());
   ostringstream os;
   os  << "Globales: " << mouse_x << "," << mouse_y;
-  textout (screen, font, os.str().c_str(), 0, 400, gui_fg_color);
+  textout_ex (screen, font, os.str().c_str(), 0, 400, gui_fg_color, gui_bg_color);
 
   return D_O_K;
 };
@@ -140,7 +140,7 @@ int  GUIEscenario::MoveMouse (int msg, DIALOG *d, int code)
  * \brief   Sigue los movimientos del ratón.
  * \return  El valor obtenido al dibujar y actualizar el escenario.
  */
-int  GUIEscenario::LPressMouse (int msg, DIALOG *d, int code)
+int  GUIEscenario::LPressMouse (int msg, DIALOG* d, int code)
 {
   // Si hay un actor atrapado, lo liberamos.
   // En otro caso, intentamos atrapar uno bajo el cursor.
@@ -164,7 +164,7 @@ int  GUIEscenario::LPressMouse (int msg, DIALOG *d, int code)
  * \brief   Sigue los movimientos del ratón.
  * \return  El valor obtenido al dibujar y actualizar el escenario.
  */
-int  GUIEscenario::DClick (int msg, DIALOG *d, int code)
+int  GUIEscenario::DClick (int msg, DIALOG* d, int code)
 {
   // Calculamos las posiciones locales del puntero del ratón.
   int local_x = mouse_x - d->x;
@@ -179,7 +179,7 @@ int  GUIEscenario::DClick (int msg, DIALOG *d, int code)
  * \brief   Sigue los movimientos del ratón.
  * \return  El valor obtenido al dibujar y actualizar el escenario.
  */
-int  GUIEscenario::Omision (int msg, DIALOG *d, int code)
+int  GUIEscenario::Omision (int msg, DIALOG* d, int code)
 {
   return d_text_proc (msg, d, code);
 };

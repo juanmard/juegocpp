@@ -181,6 +181,8 @@ void Loro::hit (Actor* who, int damage)
         tiempo_estado = 50;
         estado = TROPEZANDO;
         break;
+     default:
+        break;
     };
 };
 

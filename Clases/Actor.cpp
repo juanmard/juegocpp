@@ -29,18 +29,18 @@ wait_graph(NULL)
 };
 
 Actor::Actor(const Actor &copia):
+//~ agraph(copia.agraph),
 nombre (copia.nombre),
 x(copia.x), y(copia.y),
 w(copia.w), h(copia.h),
 color(copia.color),
-collision_method(copia.collision_method),
-is_detectable(copia.is_detectable),
-//~ agraph(copia.agraph),
-estado(copia.estado),
 tiempo_estado(copia.tiempo_estado),
+estado(copia.estado),
+mostrarBloque (copia.mostrarBloque),
 power(copia.power),
 team(copia.team),
-mostrarBloque (copia.mostrarBloque),
+is_detectable(copia.is_detectable),
+collision_method(copia.collision_method),
 wait_graph(copia.wait_graph)
 {
     // Duplicamos la parte gráfica del actor a copiar y se la asignamos al nuevo.

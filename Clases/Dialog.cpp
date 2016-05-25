@@ -155,8 +155,9 @@ void Dialog::show (void)
 
   // Se hace visible el menú de edición.
   // El valor de la salida depende del control que la provocó.
-  int salida = D_O_K;
-  salida = do_dialog (dialog, scr);
+  //  int salida = D_O_K;
+  //  salida = do_dialog (dialog, scr);
+  do_dialog (dialog, scr);
 }
 
 /**

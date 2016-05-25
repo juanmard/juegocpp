@@ -1,4 +1,4 @@
-﻿///
+///
 /// @file Menu.h
 /// @brief Fichero de definición de la clase "Menu".
 /// @author Juan Manuel Rico
@@ -60,7 +60,7 @@ public:
         // Si el menú actualmente activo tiene datos de puntero a función...
         if (active_menu->dp)
         {
-            textout(screen,font,"Prueba de callback",10,10,23);
+            textout_ex (screen,font,"Prueba de callback - Menu.h",10,10,23,0);
             //((Menu *)(active_menu->dp))->comando_menu();
         }
         return D_O_K;
