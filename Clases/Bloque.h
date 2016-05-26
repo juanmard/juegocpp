@@ -10,18 +10,20 @@
 #define _BLOQUE_H_
 
 #include "PrintableObject.h"
-#include "Vector2Di.h"
 #include <string>
 
 /// Modela un bloque genérico representado por una posición, una anchura y una altura.
 ///
 /// En el juego se usa para representar los límites de los actores en su parte física
 /// como en su parte gráfica.
+/// @todo Queda por utilizar la clase Vector2Di para representar mediante un vector,
+///       al menos, la posición del bloque.
 ///
 class Bloque : public PrintableObject
 {
 private:
-    Vector2Di* pos;      ///< Posición que se representa en el bloque.
+    int x;              ///< Coordenada x de la posición que se representa en el bloque.
+    int y;              ///< Coordenada y de la posición que se representa en el bloque.
     unsigned int w;     ///< Ancho de las dimensiones que se representan en el bloque.
     unsigned int h;     ///< Alto de las dimensiones que se representan en el bloque.
 
@@ -95,7 +97,7 @@ public:
 
     /// Vuelca en una cadena las características del bloque.
     /// @return Cadena con las características del bloque.
-    virtual std::string& print() const;
+    virtual std::string & print() const;
 };
 
 #endif
