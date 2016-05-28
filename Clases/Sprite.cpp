@@ -188,21 +188,22 @@ Menu& Sprite::getMenu () const
     ptr_menu->add ("&Repartir SPRITE", D_SELECTED);
     ptr_menu->add ("&Duplicar SPRITE", D_EXIT);
     ptr_menu->add ("&Añadir SPRITE");
+    ptr_menu->add ("&Prueba llamada", D_EXIT, NULL, NULL, Menu::callback);
     return *ptr_menu;
 };
 
 Formulario& Sprite::getFormulario () const
 {
     Formulario* ptr_formulario = new Formulario ();
-    ptr_formulario->add (Formulario::BOX, 90, 90, 400, 200);
-    ptr_formulario->add (100, 100, "Esto es una etiqueta de formulario.");
-    ptr_formulario->add (100, 110, "Esta es otra.");
-    ptr_formulario->add (100, 120, "Y una más.");
-    ptr_formulario->add (Formulario::SLIDER, 100, 150, 190, 15);
-    ptr_formulario->add (Formulario::BOX, 100, 180, 200, 20);
-    ptr_formulario->add (100, 220, new Bitmap (NULL,frames[0].bmp));    
-    ptr_formulario->add (150, 220, new Bitmap (NULL,frames[1].bmp));    
-    ptr_formulario->add (200, 220, new Bitmap (NULL,frames[2].bmp));    
+    ptr_formulario->add (Formulario::BOX, 0, 0, 400, 200);
+    ptr_formulario->add (10, 10, "Esto es una etiqueta de formulario.");
+    ptr_formulario->add (10, 20, "Esta es otra.");
+    ptr_formulario->add (10, 30, "Y una más.");
+    ptr_formulario->add (Formulario::SLIDER, 10, 60, 190, 15);
+    ptr_formulario->add (Formulario::BOX, 10, 90, 200, 20);
+    ptr_formulario->add (10, 130, new Bitmap (NULL,frames[0].bmp));    
+    ptr_formulario->add (60, 130, new Bitmap (NULL,frames[1].bmp));    
+    ptr_formulario->add (110,130, new Bitmap (NULL,frames[2].bmp));    
     return *ptr_formulario;
 };
 

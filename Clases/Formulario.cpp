@@ -131,5 +131,50 @@ void Formulario::add (const control_t tipo, const std::string& texto, const int 
 
 void Formulario::show ()
 {
-    do_dialog (&controles[0],-1);
+    // Este es el control del bucle básico y automático.
+    // do_dialog (&controles[0],-1);
+    
+    // Para mayor control se genera manualmente el bucle.
+    /* Este es el control básico que sustituye a "do_dialog".
+    DIALOG_PLAYER *player = init_dialog(&controles[0], -1);
+    while (update_dialog(player));
+    //return shutdown_dialog(player);
+    shutdown_dialog(player);
+    */
+    
+
+    // Este es control de bucle modificado.
+    int DONE=0;
+    BITMAP* buf = create_bitmap(controles[0].w,controles[0].h);
+    show_mouse (NULL);
+    gui_set_screen (buf);
+    DIALOG_PLAYER* player = init_dialog (&controles[0], -1);
+    while (!DONE)
+    {
+     clear_to_color (buf, makecol(0, 0, 255));
+     broadcast_dialog_message (MSG_DRAW, 0);
+     //dialog_message (&controles[0], MSG_DRAW, 0, &obj);
+     //object_message(&controles[4], MSG_DRAW, 0);
+     update_dialog (player);
+     
+     // Se dibuja una diana en la posición del ratón.
+     circle (buf, mouse_x, mouse_y, 5, makecol (0, 0, 0));
+     line (buf, mouse_x-10, mouse_y, mouse_x+10, mouse_y, makecol (0, 0, 0));
+     line (buf, mouse_x, mouse_y-10, mouse_x, mouse_y+10, makecol (0, 0, 0));
+
+     // Se vuelca el buffer modificado en la pantalla.
+     blit (buf, screen, 0, 0, 100, 100, buf->w, buf->h);
+     
+     // Se comprueba teclado.
+     if(key[KEY_ESC]) 
+     {
+        // Se marca salir del bucle.
+        DONE=1;
+        // Se limpia tecla.
+        key[KEY_ESC]=0;
+     }
+    }
+    
+    // Se elimina el diálogo.
+    shutdown_dialog(player);
 };
