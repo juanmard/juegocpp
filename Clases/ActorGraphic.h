@@ -10,10 +10,12 @@
 #define _ACTORGRAPHIC_H_
 
 #include <allegro.h>
-#include "PrintableObject.h"
 #include <string>
 #include <sstream>
-#include "Actor.h"
+#include "PrintableObject.h"
+
+class Actor;
+class Mask;
 
 /// Controla la parte gráfica del actor.
 ///
