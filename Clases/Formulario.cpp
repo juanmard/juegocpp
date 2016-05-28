@@ -7,6 +7,7 @@
 ///
 
 #include "Formulario.h"
+#include "Bitmap.h"
 
 DIALOG Formulario::fin_formulario = {NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL};
 
@@ -20,15 +21,34 @@ Formulario::~Formulario ()
 {
 };
 
+void Formulario::add (const int x, const int y, const Bitmap* picture)
+{
+    DIALOG* ctl = new DIALOG();
+
+    ctl->proc = d_bitmap_proc;
+    ctl->fg = 67;
+    ctl->bg = 243;
+    ctl->x = x;
+    ctl->y = y;
+    ctl->w = picture->get_w();
+    ctl->h = picture->get_h();
+    ctl->dp = picture->get_imagen();
+
+    controles.pop_back ();
+    controles.push_back (*ctl);
+    controles.push_back (fin_formulario);
+};
+    
 void Formulario::add (control_t tipo, BITMAP* picture, int x, int y)
 {
-    DIALOG *ctl = new DIALOG();
+    DIALOG* ctl = new DIALOG();
 
     switch (tipo)
     {
     case PICTURE:
         ctl->proc = d_bitmap_proc;
         break;
+        
     default:
         break;
     }
@@ -49,7 +69,7 @@ void Formulario::add (control_t tipo, BITMAP* picture, int x, int y)
 
 void Formulario::add (control_t tipo, int x, int y, int w, int h)
 {
-    DIALOG *ctl = new DIALOG();
+    DIALOG* ctl = new DIALOG();
 
     switch (tipo)
     {
@@ -62,6 +82,7 @@ void Formulario::add (control_t tipo, int x, int y, int w, int h)
         ctl->d1 = 100;
         ctl->d2 = 10;
         break;
+        
     default:
         break;
     }
@@ -78,9 +99,14 @@ void Formulario::add (control_t tipo, int x, int y, int w, int h)
     controles.push_back (fin_formulario);
 };
 
-void Formulario::add (control_t tipo, std::string texto, int x, int y)
+void Formulario::add (const int x, const int y, const std::string& texto)
 {
-    DIALOG *ctl = new DIALOG();
+    this->add (LABEL, texto, x, y);
+};
+
+void Formulario::add (const control_t tipo, const std::string& texto, const int x, const int y)
+{
+    DIALOG* ctl = new DIALOG();
 
     switch (tipo)
     {
@@ -88,6 +114,7 @@ void Formulario::add (control_t tipo, std::string texto, int x, int y)
         ctl->proc = d_text_proc;
         ctl->dp = (void*) (new std::string(texto))->c_str(); //Se necesita copiar la cadena.
         break;
+        
     default:
         break;
     }

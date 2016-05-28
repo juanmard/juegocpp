@@ -13,6 +13,8 @@
 #include <vector>
 #include <allegro.h>
 
+class Bitmap;
+
 /// Formulario implementado como una lista de controles que interaccionan entre ellos.
 /// @todo Crear los controles y dejar en los procedimientos add únicamente la posición y el
 ///       control para añadir al formulario:
@@ -54,7 +56,17 @@ public:
     /// @param x  Posición x referida al formulario origen.
     /// @param y  Posición y referida al formulario origen.
     ///
-    void add (control_t tipo, std::string texto, int x, int y);
+    void add (const control_t tipo, const std::string& texto, const int x, const int y);
+
+    /// Añade un control de tipo etiqueta.
+    /// @param x  Posición x referida al formulario origen.
+    /// @param y  Posición y referida al formulario origen.
+    /// @param texto  Texto asociado de la etiqueta.
+    ///
+    /// @note Se define para que la llamada a la función sea más intuitiva.
+    ///       Si solo se define testo y posición es una etiqueta.
+    ///
+    void add (const int x, const int y, const std::string& texto);
 
     /// Añade un control al formulario con cadena de texto asociada.
     /// @param tipo  Tipo de formulario a añadir.
@@ -65,6 +77,13 @@ public:
     /// @todo Hacer una clase para dejar esto como un control y no como un BITMAP de Allegro.
     ///
     void add (control_t tipo, BITMAP* picture, int x, int y);
+
+    /// Añade un gráfico al formulario.
+    /// @param x  Posición x referida al formulario origen.
+    /// @param y  Posición y referida al formulario origen.
+    /// @param picture  Imagen a mostrar en el formulario.
+    ///
+    void add (const int x, const int y, const Bitmap* picture);
 
     /// Añade un control al formulario sin cadena de texto asociada.
     /// @param tipo  Tipo de control a añadir.

@@ -47,7 +47,7 @@ public:
     /// @param hijo  Puntero al menú hijo (ninguno por defecto).
     /// @param data_pointer  Puntero a datos extras (ninguno por defecto).
     ///
-    void add (char* etiqueta, int opciones=D_DISABLED, void* data_pointer=NULL, MENU* hijo=NULL, int (*metodo)(void)=NULL);
+    void add (const std::string& etiqueta, const int opciones=D_DISABLED, void* data_pointer=NULL, const MENU* hijo=NULL, int (*metodo)(void)=NULL);
 
     /// Comando que se ejecuta al seleccionar este menú.
     /// @note De pruebas...

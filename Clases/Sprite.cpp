@@ -7,6 +7,7 @@
 ///
 
 #include "Sprite.h"
+#include "Bitmap.h"
 
 Sprite::Sprite (Actor* aowner):
 ActorGraphic(aowner),
@@ -130,7 +131,11 @@ void Sprite::draw (int x, int y, BITMAP* bmp)
   }
   else
   {
-    rotate_scaled_sprite (bmp, frames[actual_frame].bmp, x - frames[actual_frame].cx, y - frames[actual_frame].cy, ftofix(0.0), ftofix(2.0));
+    rotate_scaled_sprite (bmp, frames[actual_frame].bmp,
+                          x - frames[actual_frame].cx,
+                          y - frames[actual_frame].cy,
+                          ftofix(0.0), ftofix(2.0));
+                          
     //draw_sprite (bmp, frames[actual_frame].bmp, 
     //             x - frames[actual_frame].cx,
     //             y - frames[actual_frame].cy);
@@ -174,16 +179,15 @@ std::string Sprite::getString () const
     return (cadena.str());
 };
 
-
-
 Menu& Sprite::getMenu () const
 {
     Menu* ptr_menu = new Menu ();
-    ptr_menu->add ((char*)(new std::string(owner->getNombre()))->c_str());  // Se necesita copiar la cadena.
-    ptr_menu->add((char*)"");                                               // Separador.
-    ptr_menu->add(const_cast<char*>("&Editar SPRITE"), D_EXIT);             // Algunos items inútiles de prueba.
-    ptr_menu->add(const_cast<char*>("&Repartir SPRITE"), D_SELECTED);
-    ptr_menu->add(const_cast<char*>("&Duplicar SPRITE"), D_EXIT);
+    ptr_menu->add (owner->getNombre());             // Se toma el nombre del propietario del Sprite.
+    ptr_menu->add ("");                             // Separador.
+    ptr_menu->add ("&Editar SPRITE", D_EXIT);       // Algunos items inútiles de prueba.
+    ptr_menu->add ("&Repartir SPRITE", D_SELECTED);
+    ptr_menu->add ("&Duplicar SPRITE", D_EXIT);
+    ptr_menu->add ("&Añadir SPRITE");
     return *ptr_menu;
 };
 
@@ -191,10 +195,14 @@ Formulario& Sprite::getFormulario () const
 {
     Formulario* ptr_formulario = new Formulario ();
     ptr_formulario->add (Formulario::BOX, 90, 90, 400, 200);
-    ptr_formulario->add (Formulario::LABEL, "Esto es una etiqueta de formulario.", 100, 100);
-    ptr_formulario->add (Formulario::LABEL, "Esta es otra.", 100, 110);
-    ptr_formulario->add (Formulario::LABEL, "Y una más.", 100, 120);
+    ptr_formulario->add (100, 100, "Esto es una etiqueta de formulario.");
+    ptr_formulario->add (100, 110, "Esta es otra.");
+    ptr_formulario->add (100, 120, "Y una más.");
     ptr_formulario->add (Formulario::SLIDER, 100, 150, 190, 15);
+    ptr_formulario->add (Formulario::BOX, 100, 180, 200, 20);
+    ptr_formulario->add (100, 220, new Bitmap (NULL,frames[0].bmp));    
+    ptr_formulario->add (150, 220, new Bitmap (NULL,frames[1].bmp));    
+    ptr_formulario->add (200, 220, new Bitmap (NULL,frames[2].bmp));    
     return *ptr_formulario;
 };
 

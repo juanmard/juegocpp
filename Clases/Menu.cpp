@@ -27,14 +27,14 @@ void Menu::add (Menu nuevo)
 //  items.push_back  (fin_menu);
 }
 
-void Menu::add (char* etiqueta, int opciones, void* data_pointer, MENU* hijo, int (*metodo)(void))
+void Menu::add (const std::string& etiqueta, const int opciones, void* data_pointer, const MENU* hijo, int (*metodo)(void))
 {
   // Se actualiza el item último con los nuevos valores.
   MENU& ultimo = items[items.size()-1];
-  ultimo.text = etiqueta; //const_cast<char *>(etiqueta.c_str());
+  ultimo.text = const_cast<char*>((new std::string(etiqueta))->c_str());
   ultimo.flags = opciones;
   ultimo.dp = data_pointer;
-  ultimo.child = hijo;
+  ultimo.child = const_cast<MENU*>(hijo);
   ultimo.proc = Menu::callback;
 
   // Se añade el item que simboliza el final del menú.
