@@ -100,6 +100,13 @@ public:
     ///       la forma de mostrarse. De momento directamente se hace todo en Allegro.
     ///
     virtual void show ();
+
+    /// Desarrolla la lógica del formulario.
+    /// Se debe definir la relación entre los controles, como cambian los valores
+    ///   de las variables implicadas, acciones ante el ratón, teclado, etc.
+    /// @note Esta lógica debe ser redefinida por los formularios heredados.
+    ///
+    virtual void logica ();
 };
 
 #endif

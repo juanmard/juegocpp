@@ -145,12 +145,15 @@ void Formulario::show ()
 
     // Este es control de bucle modificado.
     int DONE=0;
-    BITMAP* buf = create_bitmap(controles[0].w,controles[0].h);
+    BITMAP* buf = create_bitmap (controles[0].w,controles[0].h);
     show_mouse (NULL);
     gui_set_screen (buf);
     DIALOG_PLAYER* player = init_dialog (&controles[0], -1);
     while (!DONE)
     {
+     // Se llama a la lógica del formulario.
+     this->logica ();
+     
      clear_to_color (buf, makecol(0, 0, 255));
      broadcast_dialog_message (MSG_DRAW, 0);
      //dialog_message (&controles[0], MSG_DRAW, 0, &obj);
@@ -176,5 +179,17 @@ void Formulario::show ()
     }
     
     // Se elimina el diálogo.
-    shutdown_dialog(player);
+    destroy_bitmap (buf);
+    shutdown_dialog (player);
 };
+
+void Formulario::logica ()
+{
+    // lógica de prueba.
+    if (key[KEY_P])
+    {
+        textout_ex (screen,font,"Prueba de lógica en formulario.",10,10,makecol(255,255,0),-1);
+        controles[4].d2 = 1;
+    };
+};
+
