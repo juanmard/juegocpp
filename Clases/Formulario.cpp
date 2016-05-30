@@ -154,11 +154,11 @@ void Formulario::show ()
      // Se llama a la lógica del formulario.
      this->logica ();
      
-     clear_to_color (buf, makecol(0, 0, 255));
-     broadcast_dialog_message (MSG_DRAW, 0);
+     //clear_to_color (buf, makecol(0, 0, 255));
+     //broadcast_dialog_message (MSG_DRAW, 0);
      //dialog_message (&controles[0], MSG_DRAW, 0, &obj);
      //object_message(&controles[4], MSG_DRAW, 0);
-     update_dialog (player);
+     //update_dialog (player);
      
      // Se dibuja una diana en la posición del ratón.
      circle (buf, mouse_x, mouse_y, 5, makecol (0, 0, 0));
@@ -185,11 +185,25 @@ void Formulario::show ()
 
 void Formulario::logica ()
 {
+    // Recorrer todos los controles y ejecutar la lógica de cada uno de ellos.
+    // Tal y como están definidos ahora para allegro...
+    // @todo Crear controles genéricos que sustituyan a los de allegro.
+    //
+    unsigned int i = 0;
+    while (controles[i].proc != NULL)
+    {
+        // Como prueba los mostraremos en pantalla... y haremos click en el slider.
+        if (i==4) {controles[i].proc(MSG_WHEEL, &controles[i], -2);};
+        controles[i].proc(MSG_DRAW, &controles[i], 0);
+        controles[5].h = controles[4].d2;
+        i++;
+    };
+    
     // lógica de prueba.
     if (key[KEY_P])
     {
         textout_ex (screen,font,"Prueba de lógica en formulario.",10,10,makecol(255,255,0),-1);
-        controles[4].d2 = 1;
+        controles[4].d2 = controles[4].d1;
     };
 };
 
