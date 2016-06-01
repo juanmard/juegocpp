@@ -60,7 +60,8 @@ public:
         // Si el menú actualmente activo tiene datos de puntero a función...
         if (active_menu->dp)
         {
-            textout_ex (screen,font,"Prueba de callback - Menu.h",10,10,23,0);
+            textout_ex (screen, font, "Prueba de callback - Menú", 10, 10, makecol(255,255,0), -1);
+            //textout (screen,font,"Prueba de callback - Menu.h",10,10,23);
             //((Menu *)(active_menu->dp))->comando_menu();
         }
         return D_O_K;

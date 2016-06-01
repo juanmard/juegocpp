@@ -16,6 +16,7 @@
 #include "Juego2.h"
 #include "Mosaico.h"
 #include "Tesela.h"
+#include "ctlSprite.h"
 
 Juego2::Juego2 ()
 {
@@ -189,12 +190,17 @@ void Juego2::mainGame ()
       control_manager->add_control(loro2->get_control());
 
       // Prueba con sprite.
-      Sprite *prueba = (Sprite *) loro2->get_actor_graphic();
-      Menu &menu = prueba->getMenu ();
-      do_menu(menu, mouse_x, mouse_y);
+      Sprite* prueba = (Sprite *) loro2->get_actor_graphic();
+      const Sprite& prb2 = *prueba;
+      
+      //Menu &menu = prueba->getMenu ();
+      //do_menu(menu, mouse_x, mouse_y);
 
-      Formulario &form = prueba->getFormulario ();
-      form.show ();
+      //Formulario &form = prueba->getFormulario ();
+      //form.show ();
+
+      ctlSprite *control = new ctlSprite(prb2);
+      control->show ();
 
       // Limpieza de teclado.
       key[KEY_ESC] = false;
