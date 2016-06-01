@@ -7,6 +7,7 @@
 ///
 
 #include "Sprite.h"
+#include "EditableObject.h"
 #include "Bitmap.h"
 
 Sprite::Sprite (Actor* aowner):

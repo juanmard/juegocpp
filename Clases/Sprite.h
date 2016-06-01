@@ -10,7 +10,6 @@
 #define SPRITE_H
 
 #include "ActorGraphic.h"
-#include "EditableObject.h"
 #include <vector>
 #include "Frame.h"
 #include <allegro.h>
@@ -19,10 +18,14 @@
 #include "Mask.h"
 #include <sstream>
 
+
+class Object;
+class EditableObject;
+
 /// Gráfico en movimiento, una animación simple para los actores.
 /// Esta clase modela varias imágenes en movimiento como gráfico para un actor.
 ///
-class Sprite : public ActorGraphic, EditableObject
+class Sprite : public Object, EditableObject, ActorGraphic
 {
 protected:
     std::vector<Frame> frames;  ///< Conjunto de cuadros que forman la animación.
