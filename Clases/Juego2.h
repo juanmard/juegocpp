@@ -67,6 +67,10 @@ public:
     /// que se van a necesitar a lo largo del juego (Gráficos, animaciones, sonidos, etc.).
     ///
     void create_storage_manager ();
+
+private:
+    /// Se crea una prueba para guichan.
+    void prueba_guichan ();
 };
 
 #endif
