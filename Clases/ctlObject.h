@@ -23,7 +23,7 @@ class ctlObject
          ~ctlObject ();
     virtual void update ();
 
-  private:
+  protected:
     Object* object;     ///< Referencia al objeto que se quiere editar.
     int x, y;           ///< Posición del control.
     int w, h;           ///< Tamaño del control.

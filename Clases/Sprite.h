@@ -19,13 +19,13 @@
 #include <sstream>
 
 
-class Object;
+//class Object;
 class EditableObject;
 
 /// Gráfico en movimiento, una animación simple para los actores.
 /// Esta clase modela varias imágenes en movimiento como gráfico para un actor.
 ///
-class Sprite : public Object, EditableObject, ActorGraphic
+class Sprite : public EditableObject, public ActorGraphic //, Object
 {
 protected:
     std::vector<Frame> frames;  ///< Conjunto de cuadros que forman la animación.
