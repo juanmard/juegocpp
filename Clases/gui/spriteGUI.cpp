@@ -6,73 +6,73 @@
 #include <guichan/exception.hpp>
 #include <guichan/font.hpp>
 #include <guichan/graphics.hpp>
+#include <guichan/widgets/label.hpp>
 
 namespace gui
 {
 
-spriteGUI::spriteGUI ()
+spriteGUI::spriteGUI ():
+sprite(NULL),
+etiqueta(new gcn::Label("Prueba 1")),
+imagen(new gcn::Icon())
 {
-    mAlignment = gcn::Graphics::Left;
+    this->add(etiqueta,0,0);
+    this->add(imagen,10,10);
+    this->setPosition (10,10);
 };
 
-spriteGUI::spriteGUI (const std::string& caption)
+spriteGUI::spriteGUI (const std::string& caption):
+sprite(NULL),
+etiqueta(new gcn::Label (caption)),
+imagen(new gcn::Icon())
 {
-    mCaption = caption;
-    mAlignment = gcn::Graphics::Left;
-
-    setWidth(getFont()->getWidth(caption));
-    setHeight(getFont()->getHeight());
+    setOpaque(false);
+    setWidth(200);
+    setHeight(100);
 };
 
 const std::string &spriteGUI::getCaption () const
 {
-    return mCaption;
+    return etiqueta->getCaption ();
 };
 
 void spriteGUI::setCaption (const std::string& caption)
 {
-    mCaption = caption;
+    etiqueta->setCaption (caption);
 };
 
 void spriteGUI::setAlignment (gcn::Graphics::Alignment alignment)
 {
-    mAlignment = alignment;
+    etiqueta->setAlignment (alignment);
 };
 
 gcn::Graphics::Alignment spriteGUI::getAlignment() const
 {
-    return mAlignment;
+    return etiqueta->getAlignment ();
 };
 
 void spriteGUI::draw (gcn::Graphics* graphics)
 {
-    int textX;
-    int textY = getHeight() / 2 - getFont()->getHeight() / 2;
+//    etiqueta->setBackgroundColor (*new gcn::Color(255,0,0));
+//    etiqueta->drawFrame(graphics);
+      graphics->setColor (*new gcn::Color (255,0,0));
+      graphics->drawLine (0, 0, getWidth() - 1, 0);
+      graphics->drawLine (0, 1, 0, getHeight() - 1);
+      graphics->drawLine (getWidth() - 1, 1, getWidth() - 1, getHeight() - 1);
+      graphics->drawLine (1, getHeight() - 1, getWidth() - 1, getHeight() - 1);
 
-    switch (getAlignment())
-    {
-    case gcn::Graphics::Left:
-            textX = 0;
-            break;
-    case gcn::Graphics::Center:
-            textX = getWidth() / 2;
-            break;
-    case gcn::Graphics::Right:
-            textX = getWidth();
-            break;
-        default:
-            throw GCN_EXCEPTION("Unknown alignment.");
-    }
 
-    graphics->setFont(getFont());
-    graphics->setColor(getForegroundColor());
-    graphics->drawText(getCaption(), textX, textY, getAlignment());
+
+    Container::draw (graphics);
+    etiqueta->draw (graphics);
+    imagen->draw (graphics);
 };
 
 void spriteGUI::adjustSize()
 {
-    setWidth(getFont()->getWidth(getCaption()));
-    setHeight(getFont()->getHeight());
+    etiqueta->adjustSize();
 };
+
+
 
 }

@@ -5,17 +5,20 @@
 #define GUI_SPRITEGUI_HPP
 
 #include <string>
-
+#include "../Sprite.h"
 #include <guichan/graphics.hpp>
 #include <guichan/platform.hpp>
 #include <guichan/widget.hpp>
+#include <guichan/widgets/container.hpp>
+#include <guichan/widgets/label.hpp>
+#include <guichan/widgets/Icon.hpp>
 
 namespace gui
 {
     /**
      * Implementation of a label capable of displaying a caption.
      */
-    class GCN_CORE_DECLSPEC spriteGUI : public gcn::Widget
+    class GCN_CORE_DECLSPEC spriteGUI : public gcn::Container
     {
     public:
         /**
@@ -78,15 +81,9 @@ namespace gui
         virtual void draw(gcn::Graphics* graphics);
 
     protected:
-        /**
-         * Holds the caption of the label.
-         */
-        std::string mCaption;
-
-        /**
-         * Holds the alignment of the caption.
-         */
-        gcn::Graphics::Alignment mAlignment;
+        Sprite* sprite;         ///< Sprite que se quiere editar.
+        gcn::Label* etiqueta;   ///< Etiqueta del widget.
+        gcn::Icon* imagen;     ///< Imagen del frame actual que se muestra.
     };
 }
 
