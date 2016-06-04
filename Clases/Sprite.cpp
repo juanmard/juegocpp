@@ -181,6 +181,11 @@ std::string Sprite::getString () const
     return (cadena.str());
 };
 
+const Frame* Sprite::getFrame (int ind) const
+{
+    return &frames[ind];
+};
+
 Menu& Sprite::getMenu () const
 {
     Menu* ptr_menu = new Menu ();
@@ -207,5 +212,10 @@ Formulario& Sprite::getFormulario () const
     ptr_formulario->add (60, 130, new Bitmap (NULL,frames[1].bmp));    
     ptr_formulario->add (110,130, new Bitmap (NULL,frames[2].bmp));    
     return *ptr_formulario;
+};
+
+unsigned int Sprite::getNumFrames () const
+{
+    return frames.size ();
 };
 

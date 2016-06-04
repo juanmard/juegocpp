@@ -95,6 +95,7 @@ namespace gui
         gcn::Label* etiqueta;   ///< Etiqueta del widget.
         gcn::Icon* imagen;     ///< Imagen del frame actual que se muestra.
         gcn::Color *verde, *rojo;
+        unsigned int frame_actual;
     };
 }
 

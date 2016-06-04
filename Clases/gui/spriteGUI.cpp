@@ -7,6 +7,7 @@
 #include <guichan/font.hpp>
 #include <guichan/graphics.hpp>
 #include <guichan/widgets/label.hpp>
+#include <guichan/allegro/allegroimage.hpp>
 
 namespace gui
 {
@@ -49,7 +50,8 @@ sprite(sprite_editar),
 etiqueta(new gcn::Label ("Con datos Sprite")),
 imagen(new gcn::Icon()),
 rojo(new gcn::Color (255,0,0)),
-verde(new gcn::Color (0,255,0))
+verde(new gcn::Color (0,255,0)),
+frame_actual (0)
 {
     setOpaque (false);
     setWidth (600);
@@ -64,6 +66,12 @@ verde(new gcn::Color (0,255,0))
     imagen->setWidth (200);
     imagen->setHeight (30);
     imagen->setBaseColor (*verde);
+
+    // Esto es algo transitorio... se debe usar la clase Image y no AllegroImage. 
+    gcn::AllegroImage* img = new gcn::AllegroImage (sprite->getFrame(frame_actual)->getBitmap(), true);
+    imagen->setImage (img);
+    //img->convertToDisplayFormat();
+
 
     addMouseListener(this);
 //    addKeyListener(this);
@@ -123,9 +131,18 @@ void spriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
         imagen->setBaseColor (*verde);
         if (mouseEvent.getSource() == imagen)
         {
+            imagen->setBaseColor (*rojo);
+
+            // Prueba de información.
             etiqueta->setCaption(sprite->getString());
             //etiqueta->setCaption (sprite->print());
-            imagen->setBaseColor (*rojo);
+
+            // Prueba de frames.
+            frame_actual ++;
+            if (frame_actual >= sprite->getNumFrames ()) {frame_actual = 0;}
+            gcn::AllegroImage* img = new gcn::AllegroImage (sprite->getFrame(frame_actual)->getBitmap(), true);
+            //img->convertToDisplayFormat();
+            imagen->setImage (img);
         }
         mouseEvent.consume ();
     }

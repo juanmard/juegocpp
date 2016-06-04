@@ -26,3 +26,8 @@ std::string Frame::print () const
   return (cadena.str());
 };
 
+BITMAP* Frame::getBitmap () const
+{
+    return bmp;
+};
+

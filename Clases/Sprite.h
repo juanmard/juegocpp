@@ -144,6 +144,16 @@ public:
         return D_O_K;
     };
 
+    /// Entrega el "frame" del "sprite" indicado por su posición.
+    /// @param  ind  Índice dentro de la sucesión de "frame".
+    /// @return Referencia al "Frame" que contiene el "sprite".
+    ///
+    const Frame* getFrame (int ind) const;
+
+    /// Entrega el número de "frames" del "sprite".
+    /// @return Número de "frames" que tiene el "sprite".
+    ///
+    unsigned int getNumFrames () const;
 };
 
 #endif

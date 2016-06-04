@@ -40,6 +40,10 @@ public:
     /// Entrega una cadena con la estructura de datos del cuadro.
     /// @return Cadena de caracteres con la estructura del cuadro.
     std::string print () const;
+
+    /// Entrega un puntero a la imagen del "frame".
+    /// @return Puntero al BITMAP de Allegro con la imagen del "frame".
+    BITMAP* getBitmap () const;
 };
 
 #endif
