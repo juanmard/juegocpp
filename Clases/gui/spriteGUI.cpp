@@ -14,21 +14,34 @@ namespace gui
 spriteGUI::spriteGUI ():
 sprite(NULL),
 etiqueta(new gcn::Label("Prueba 1")),
-imagen(new gcn::Icon())
+imagen(new gcn::Icon()),
+rojo(new gcn::Color (255,0,0)),
+verde(new gcn::Color (0,255,0))
 {
     this->add(etiqueta,0,0);
     this->add(imagen,10,10);
     this->setPosition (10,10);
+
+    addMouseListener(this);
+//    addKeyListener(this);
+//    addFocusListener(this);
 };
 
 spriteGUI::spriteGUI (const std::string& caption):
 sprite(NULL),
 etiqueta(new gcn::Label (caption)),
-imagen(new gcn::Icon())
+imagen(new gcn::Icon()),
+rojo(new gcn::Color (255,0,0)),
+verde(new gcn::Color (0,255,0))
 {
     setOpaque(false);
     setWidth(200);
     setHeight(100);
+    setBackgroundColor (*rojo);
+
+    addMouseListener(this);
+//    addKeyListener(this);
+//    addFocusListener(this);
 };
 
 const std::string &spriteGUI::getCaption () const
@@ -55,7 +68,7 @@ void spriteGUI::draw (gcn::Graphics* graphics)
 {
 //    etiqueta->setBackgroundColor (*new gcn::Color(255,0,0));
 //    etiqueta->drawFrame(graphics);
-      graphics->setColor (*new gcn::Color (255,0,0));
+      graphics->setColor (getBackgroundColor ());
       graphics->drawLine (0, 0, getWidth() - 1, 0);
       graphics->drawLine (0, 1, 0, getHeight() - 1);
       graphics->drawLine (getWidth() - 1, 1, getWidth() - 1, getHeight() - 1);
@@ -65,7 +78,13 @@ void spriteGUI::draw (gcn::Graphics* graphics)
 
     Container::draw (graphics);
     etiqueta->draw (graphics);
+//    etiqueta->setCaption("Pepito");
     imagen->draw (graphics);
+};
+
+void spriteGUI::logic ()
+{
+  // // etiqueta->setCaption("logica, logica");
 };
 
 void spriteGUI::adjustSize()
@@ -73,6 +92,24 @@ void spriteGUI::adjustSize()
     etiqueta->adjustSize();
 };
 
+void spriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
+{
+    etiqueta->setCaption("Ya me diste por fuera");
+    if (mouseEvent.getButton() == gcn::MouseEvent::Left)
+    {
+        etiqueta->setCaption("Ya me diste");
+        mouseEvent.consume ();
+    }
+};
 
+void spriteGUI::mouseEntered (gcn::MouseEvent& mouseEvent)
+{
+    setBackgroundColor (*verde);
+};
+
+void spriteGUI::mouseExited (gcn::MouseEvent& mouseEvent)
+{
+    setBackgroundColor (*rojo);
+};
 
 }

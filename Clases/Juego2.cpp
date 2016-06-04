@@ -223,6 +223,10 @@ void Juego2::prueba_guichan ()
     {
         // Una prueba de cambio de propiedades.
         textBoxScrollArea->setFrameSize(slider->getValue ());
+        if (slider->getValue () > 5)
+        {
+            sprite1->setCaption ("Por el slider...");
+        };
 
         // Se ejecuta la lógica de la GUI.
         gui->logic();

@@ -10,6 +10,8 @@
 #include <guichan/platform.hpp>
 #include <guichan/widget.hpp>
 #include <guichan/widgets/container.hpp>
+#include <guichan/MouseListener.hpp>
+#include <guichan/FocusListener.hpp>
 #include <guichan/widgets/label.hpp>
 #include <guichan/widgets/Icon.hpp>
 
@@ -18,7 +20,9 @@ namespace gui
     /**
      * Implementation of a label capable of displaying a caption.
      */
-    class GCN_CORE_DECLSPEC spriteGUI : public gcn::Container
+    class GCN_CORE_DECLSPEC spriteGUI :
+                            public gcn::Container,
+                            public gcn::MouseListener
     {
     public:
         /**
@@ -77,13 +81,19 @@ namespace gui
 
 
         // Inherited from Widget
+        virtual void draw (gcn::Graphics* graphics);
+        void logic ();
 
-        virtual void draw(gcn::Graphics* graphics);
+        // Inherited from MouseListener.
+        virtual void mousePressed (gcn::MouseEvent& mouseEvent);
+        virtual void mouseEntered (gcn::MouseEvent& mouseEvent);
+        virtual void mouseExited (gcn::MouseEvent& mouseEvent);
 
     protected:
         Sprite* sprite;         ///< Sprite que se quiere editar.
         gcn::Label* etiqueta;   ///< Etiqueta del widget.
         gcn::Icon* imagen;     ///< Imagen del frame actual que se muestra.
+        gcn::Color *verde, *rojo;
     };
 }
 
