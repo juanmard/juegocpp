@@ -284,41 +284,6 @@ void Juego2::create_storage_manager ()
 
 void Juego2::mainGame ()
 {
-    // Pruebas de clases.
-    /*
-    Vector2Df vector(1.0f,2.0f);
-    std::string cadena1, cadena2=" prueba... <1.2f, 3.4f>";
-    cadena1 << vector;
-    std::ostringstream canalCadena;
-    std::cout << cadena1;
-    canalCadena << cadena1;
-    canalCadena << cadena2;
-    canalCadena << vector;
-    std::cout << canalCadena.str() << std::endl;
-    std::cout << vector << std::endl;
-    std::string cadena3("<1.234565, 6.787678>");
-    cadena2 >> vector;
-    std::cout << vector;
-    cadena3 >> vector;
-    std::cout << vector;
-    std::cin >> vector;
-    std::cout << vector << std::endl;
-    std::cout << canalCadena.str();
-
-    Plataforma prueba(*storage_manager);
-    std::cout << prueba << std::endl;
-
-    Bloque prueba2 (1,2,3,4);
-    std::cout << prueba2;
-
-    std::fstream pruebatxt("prueba_objeto.txt",std::fstream::in | std::fstream::out | std::fstream::app);
-    pruebatxt << canalCadena.str() <<std::endl;
-    pruebatxt << vector << std::endl;
-    pruebatxt << prueba2 << std::endl;
-    pruebatxt.close ();
-    */
-    
-
     Mapa mapa;
     std::cout << mapa << std::endl;
 
@@ -375,7 +340,7 @@ void Juego2::mainGame ()
     // Si no está en pausa se actualiza el juego.
     if (!is_paused())
     {
-      update();
+      update ();
     }
 
     // Si se pulsa la 'E', se prueba el editor.
@@ -454,6 +419,8 @@ void Juego2::mainGame ()
       Formulario &form = prueba->getFormulario ();
       form.show ();
 */
+      // Se cambia la paleta de colores que la prueba de Guichan cambia.
+      set_palette (storage_manager->get_palette ("SPRITES"));
 
       // Limpieza de teclado.
       key[KEY_ESC] = false;
@@ -645,7 +612,7 @@ int main ()
   srand (time(NULL));
   game.set_name("Juego++ v2.0");
   //game.init(GFX_AUTODETECT_WINDOWED, 800,600,8);
-  game.init(GFX_SAFE, 800,600,8);
+  game.init (GFX_SAFE, 800,600,8);
   return 0;
 }
 END_OF_MAIN ();

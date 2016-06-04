@@ -60,13 +60,14 @@ void StageManager::update ()
 void StageManager::rellenar_buffer ()
 {
   Actor* tmp;
+  static int azul = makecol (25,100,255);
 
   // Se sitúa la lista de actores al inicio.
   game->actor_manager->rewind ();
 
   // Dibujamos los decorados de fondo.
   // Coloreamos de azul el fondo.
-  clear_to_color (buffer, makecol (25,100,255));
+  clear_to_color (buffer, azul);
 
   // Se recorre la lista de actores y se dibujan en el buffer del escenario.
   // @todo  Comprobar los actores que se encuentran dentro del marco del
