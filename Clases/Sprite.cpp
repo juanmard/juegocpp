@@ -164,6 +164,7 @@ std::string Sprite::getString () const
 
     // Se incluye la estructura del padre.
     // cadena  << ActorGraphic::getString ();
+    cadena << "Padre: " << owner->getNombre() << " ";
 
     // Se incluyen las propiedades de Sprite.
     cadena  << "Sprite >> NumFrames: " << frames.size () \

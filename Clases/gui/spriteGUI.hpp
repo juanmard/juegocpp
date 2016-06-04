@@ -37,6 +37,7 @@ namespace gui
          * @param caption The caption of the label.
          */
         spriteGUI (const std::string& caption);
+        spriteGUI (Sprite* sprite_editar);
 
         /**
          * Gets the caption of the label.

@@ -70,7 +70,7 @@ public:
 
 private:
     /// Se crea una prueba para guichan.
-    void prueba_guichan ();
+    void prueba_guichan (Sprite *prueba);
 };
 
 #endif

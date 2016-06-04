@@ -44,6 +44,32 @@ verde(new gcn::Color (0,255,0))
 //    addFocusListener(this);
 };
 
+spriteGUI::spriteGUI (Sprite* sprite_editar):
+sprite(sprite_editar),
+etiqueta(new gcn::Label ("Con datos Sprite")),
+imagen(new gcn::Icon()),
+rojo(new gcn::Color (255,0,0)),
+verde(new gcn::Color (0,255,0))
+{
+    setOpaque (false);
+    setWidth (600);
+    setHeight (100);
+    setBaseColor (*rojo);
+    setFrameSize (1);
+
+    add (etiqueta, 10,10);
+    add (imagen,10,50);
+
+    imagen->setFrameSize (2);
+    imagen->setWidth (200);
+    imagen->setHeight (30);
+    imagen->setBaseColor (*verde);
+
+    addMouseListener(this);
+//    addKeyListener(this);
+//    addFocusListener(this);
+};
+
 const std::string &spriteGUI::getCaption () const
 {
     return etiqueta->getCaption ();
@@ -68,18 +94,14 @@ void spriteGUI::draw (gcn::Graphics* graphics)
 {
 //    etiqueta->setBackgroundColor (*new gcn::Color(255,0,0));
 //    etiqueta->drawFrame(graphics);
-      graphics->setColor (getBackgroundColor ());
-      graphics->drawLine (0, 0, getWidth() - 1, 0);
-      graphics->drawLine (0, 1, 0, getHeight() - 1);
-      graphics->drawLine (getWidth() - 1, 1, getWidth() - 1, getHeight() - 1);
-      graphics->drawLine (1, getHeight() - 1, getWidth() - 1, getHeight() - 1);
-
-
+    //graphics->setColor (getBackgroundColor ());
+    //graphics->drawLine (0, 0, getWidth() - 1, 0);
+    //graphics->drawLine (0, 1, 0, getHeight() - 1);
+    //graphics->drawLine (getWidth() - 1, 1, getWidth() - 1, getHeight() - 1);
+    //graphics->drawLine (1, getHeight() - 1, getWidth() - 1, getHeight() - 1);
 
     Container::draw (graphics);
-    etiqueta->draw (graphics);
-//    etiqueta->setCaption("Pepito");
-    imagen->draw (graphics);
+//    imagen->drawFrame (graphics);
 };
 
 void spriteGUI::logic ()
@@ -94,22 +116,30 @@ void spriteGUI::adjustSize()
 
 void spriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
 {
-    etiqueta->setCaption("Ya me diste por fuera");
+    etiqueta->setCaption("Ya me diste por fuera.");
     if (mouseEvent.getButton() == gcn::MouseEvent::Left)
     {
-        etiqueta->setCaption("Ya me diste");
+        etiqueta->setCaption("Ya me diste.");
+        imagen->setBaseColor (*verde);
+        if (mouseEvent.getSource() == imagen)
+        {
+            etiqueta->setCaption(sprite->getString());
+            //etiqueta->setCaption (sprite->print());
+            imagen->setBaseColor (*rojo);
+        }
         mouseEvent.consume ();
     }
+    etiqueta->adjustSize();
 };
 
 void spriteGUI::mouseEntered (gcn::MouseEvent& mouseEvent)
 {
-    setBackgroundColor (*verde);
+    setBaseColor (*verde);
 };
 
 void spriteGUI::mouseExited (gcn::MouseEvent& mouseEvent)
 {
-    setBackgroundColor (*rojo);
+    setBaseColor (*rojo);
 };
 
 }

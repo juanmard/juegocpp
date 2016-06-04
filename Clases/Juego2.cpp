@@ -25,7 +25,7 @@
 //#include <allegro.hpp>
 //#include <widgets.hpp>
 
-void Juego2::prueba_guichan ()
+void Juego2::prueba_guichan (Sprite* prueba)
 {
     // GUI principal.
     gcn::Gui* gui;
@@ -134,7 +134,7 @@ void Juego2::prueba_guichan ()
 
     // La fuente de las letras.
     //font = new gcn::ImageFont("fixedfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
-    font = new gcn::ImageFont("rpgfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&'{*#=[]\"");
+    font = new gcn::ImageFont("rpgfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?>+/():;%&'{*#=[]\"");
     gcn::Widget::setGlobalFont(font);
 
     // Los widgets contenidos.
@@ -179,7 +179,8 @@ void Juego2::prueba_guichan ()
     tabbedArea->addTab(tab1,todo);
 
     // Prueba de Sprite como widget.
-    gui::spriteGUI *sprite1 = new gui::spriteGUI ("Prueba Sprite");
+    //gui::spriteGUI *sprite1 = new gui::spriteGUI ("Prueba Sprite");
+    gui::spriteGUI *sprite1 = new gui::spriteGUI (prueba);
 
     // Se añaden al widget raíz.
     top->add(label, 10, 10);
@@ -401,9 +402,6 @@ void Juego2::mainGame ()
     // Se crea un personaje de prueba para la animación y control.
     if (key[KEY_G])
     {
-      // Prueba de Guichan integrado en el juego.
-      prueba_guichan ();
-/*
       // Se crea un Loro de prueba para el editor de Sprites.
       Loro *loro2=new Loro(*storage_manager);
       loro2->set_x(100);
@@ -413,12 +411,18 @@ void Juego2::mainGame ()
 
       // Prueba con sprite.
       Sprite *prueba = (Sprite *) loro2->get_actor_graphic();
+
+      /*
       Menu &menu = prueba->getMenu ();
       do_menu(menu, mouse_x, mouse_y);
 
       Formulario &form = prueba->getFormulario ();
       form.show ();
-*/
+      */
+
+      // Prueba de Guichan integrado en el juego.
+      prueba_guichan (prueba);
+
       // Se cambia la paleta de colores que la prueba de Guichan cambia.
       set_palette (storage_manager->get_palette ("SPRITES"));
 
