@@ -67,10 +67,13 @@ frame_actual (0)
     imagen->setHeight (30);
     imagen->setBaseColor (*verde);
 
-    // Esto es algo transitorio... se debe usar la clase Image y no AllegroImage. 
-    gcn::AllegroImage* img = new gcn::AllegroImage (sprite->getFrame(frame_actual)->getBitmap(), true);
+    // Esto es algo transitorio.
+    BITMAP* frameBitmap = sprite->getFrame(frame_actual)->getBitmap();
+    BITMAP *bmp = create_bitmap(frameBitmap->w, frameBitmap->h);
+    blit(frameBitmap, bmp, 0, 0, 0, 0, bmp->w, bmp->h);
+    gcn::Image* img = new gcn::AllegroImage (bmp, true);
     imagen->setImage (img);
-    //img->convertToDisplayFormat();
+    img->convertToDisplayFormat();
 
 
     addMouseListener(this);
@@ -140,9 +143,14 @@ void spriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
             // Prueba de frames.
             frame_actual ++;
             if (frame_actual >= sprite->getNumFrames ()) {frame_actual = 0;}
-            gcn::AllegroImage* img = new gcn::AllegroImage (sprite->getFrame(frame_actual)->getBitmap(), true);
-            //img->convertToDisplayFormat();
+            const Frame* frame = sprite->getFrame(frame_actual);
+            BITMAP* frameBitmap = frame->getBitmap();
+            BITMAP *bmp = create_bitmap(frameBitmap->w, frameBitmap->h);
+            blit(frameBitmap, bmp, 0, 0, 0, 0, bmp->w, bmp->h);
+            gcn::Image* img = new gcn::AllegroImage (bmp, true);
             imagen->setImage (img);
+            img->convertToDisplayFormat();
+            imagen->setPosition (10-frame->cx, 50-frame->cy);
         }
         mouseEvent.consume ();
     }

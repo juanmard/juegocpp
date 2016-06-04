@@ -80,7 +80,6 @@ namespace gui
          */
         void adjustSize();
 
-
         // Inherited from Widget
         virtual void draw (gcn::Graphics* graphics);
         void logic ();
