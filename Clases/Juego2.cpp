@@ -182,6 +182,10 @@ void Juego2::prueba_guichan (Sprite* prueba)
     //gui::spriteGUI *sprite1 = new gui::spriteGUI ("Prueba Sprite");
     gui::spriteGUI *sprite1 = new gui::spriteGUI (prueba);
 
+    Ben *ben=new Ben(*storage_manager);
+    gui::spriteGUI *sprite2 = new gui::spriteGUI ((Sprite *) ben->get_actor_graphic());
+
+
     // Se añaden al widget raíz.
     top->add(label, 10, 10);
     top->add(icon, 10, 30);
@@ -199,6 +203,7 @@ void Juego2::prueba_guichan (Sprite* prueba)
     top->add(window, 50, 350);
     top->add(tabbedArea, 400, 350);
     top->add(sprite1, 30,40);
+    top->add(sprite2, 30,150);
 
     // Se crea una prueba para el evento de botón.
     button->setActionEventId("btn1");
@@ -270,6 +275,8 @@ void Juego2::prueba_guichan (Sprite* prueba)
     delete tabbedArea;
     delete tabOneButton;
     delete tabTwoCheckBox;
+    delete sprite1;
+    delete sprite2;
 };
 
 // Definición del juego.

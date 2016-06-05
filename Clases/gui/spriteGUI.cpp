@@ -59,24 +59,17 @@ frame_actual (0)
     setBaseColor (*rojo);
     setFrameSize (1);
 
-    add (etiqueta, 10,10);
-    add (imagen,10,50);
-
+    // Se toma la imagen del frame actual.
     imagen->setFrameSize (2);
     imagen->setWidth (200);
     imagen->setHeight (30);
     imagen->setBaseColor (*verde);
+    imagen->setImage (sprite->getImage(frame_actual));
 
-    // Esto es algo transitorio.
-    BITMAP* frameBitmap = sprite->getFrame(frame_actual)->getBitmap();
-    BITMAP *bmp = create_bitmap(frameBitmap->w, frameBitmap->h);
-    blit(frameBitmap, bmp, 0, 0, 0, 0, bmp->w, bmp->h);
-    gcn::Image* img = new gcn::AllegroImage (bmp, true);
-    imagen->setImage (img);
-    img->convertToDisplayFormat();
+    add (etiqueta, 10,10);
+    add (imagen,10,50);
 
-
-    addMouseListener(this);
+    addMouseListener (this);
 //    addKeyListener(this);
 //    addFocusListener(this);
 };
@@ -143,14 +136,7 @@ void spriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
             // Prueba de frames.
             frame_actual ++;
             if (frame_actual >= sprite->getNumFrames ()) {frame_actual = 0;}
-            const Frame* frame = sprite->getFrame(frame_actual);
-            BITMAP* frameBitmap = frame->getBitmap();
-            BITMAP *bmp = create_bitmap(frameBitmap->w, frameBitmap->h);
-            blit(frameBitmap, bmp, 0, 0, 0, 0, bmp->w, bmp->h);
-            gcn::Image* img = new gcn::AllegroImage (bmp, true);
-            imagen->setImage (img);
-            img->convertToDisplayFormat();
-            imagen->setPosition (10-frame->cx, 50-frame->cy);
+            imagen->setImage (sprite->getImage(frame_actual));
         }
         mouseEvent.consume ();
     }

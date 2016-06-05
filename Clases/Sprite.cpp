@@ -9,6 +9,8 @@
 #include "Sprite.h"
 #include "EditableObject.h"
 #include "Bitmap.h"
+#include <guichan/allegro/allegroimage.hpp>
+#include <allegro.h>
 
 Sprite::Sprite (Actor* aowner):
 ActorGraphic(aowner),
@@ -219,3 +221,12 @@ unsigned int Sprite::getNumFrames () const
     return frames.size ();
 };
 
+const gcn::Image* Sprite::getImage (unsigned int ind) const
+{
+    BITMAP* frameBitmap = getFrame(ind)->getBitmap();
+    BITMAP *bmp = create_bitmap(frameBitmap->w, frameBitmap->h);
+    blit(frameBitmap, bmp, 0, 0, 0, 0, bmp->w, bmp->h);
+    gcn::Image* img = new gcn::AllegroImage (bmp, true);
+    img->convertToDisplayFormat();
+    return img;
+};

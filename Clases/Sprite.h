@@ -17,6 +17,7 @@
 #include "Actor.h"
 #include "Mask.h"
 #include <sstream>
+#include <guichan/image.hpp>
 
 
 //class Object;
@@ -154,6 +155,12 @@ public:
     /// @return Número de "frames" que tiene el "sprite".
     ///
     unsigned int getNumFrames () const;
+
+    /// Entrega la imagen para la GUI que representa el "frame" indicado con el índice.
+    /// @param  ind  Índice dentro de la sucesión de "frames".
+    /// @return Referencia a una imagen creada que contiene el frame indicado por "ind".
+    ///
+    const gcn::Image* getImage (unsigned int ind) const;
 };
 
 #endif
