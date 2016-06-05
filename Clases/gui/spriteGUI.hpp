@@ -13,6 +13,7 @@
 #include <guichan/MouseListener.hpp>
 #include <guichan/FocusListener.hpp>
 #include <guichan/widgets/label.hpp>
+#include <guichan/widgets/button.hpp>
 #include <guichan/widgets/Icon.hpp>
 
 namespace gui
@@ -20,7 +21,7 @@ namespace gui
     /**
      * Implementation of a label capable of displaying a caption.
      */
-    class GCN_CORE_DECLSPEC spriteGUI :
+    class GCN_CORE_DECLSPEC SpriteGUI :
                             public gcn::Container,
                             public gcn::MouseListener
     {
@@ -28,7 +29,7 @@ namespace gui
         /**
          * Constructor.
          */
-        spriteGUI ();
+        SpriteGUI ();
 
         /**
          * Constructor. The label will be automatically resized
@@ -36,8 +37,8 @@ namespace gui
          *
          * @param caption The caption of the label.
          */
-        spriteGUI (const std::string& caption);
-        spriteGUI (Sprite* sprite_editar);
+        SpriteGUI (const std::string& caption);
+        SpriteGUI (Sprite* sprite_editar);
 
         /**
          * Gets the caption of the label.
@@ -90,9 +91,12 @@ namespace gui
         virtual void mouseExited (gcn::MouseEvent& mouseEvent);
 
     protected:
-        Sprite* sprite;         ///< Sprite que se quiere editar.
-        gcn::Label* etiqueta;   ///< Etiqueta del widget.
-        gcn::Icon* imagen;     ///< Imagen del frame actual que se muestra.
+        Sprite* sprite;          ///< Sprite que se quiere editar.
+        gcn::Label* etiqueta;    ///< Etiqueta del widget.
+        gcn::Button* add_frame;
+        gcn::Button* del_frame;
+        gcn::Icon* imagen;       ///< Imagen del frame actual que se muestra.
+
         gcn::Color *verde, *rojo;
         unsigned int frame_actual;
     };

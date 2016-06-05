@@ -3,14 +3,14 @@
 /// @brief Prueba del "framework" de un juego.
 ///
 /// @details  La clase instancia un tipo de juego de prueba con todos los controladores posibles.
-///           La primera versi√≥n de la instancia se utiliza para actualizar el juego de plataformas
+///           La primera versiÛn de la instancia se utiliza para actualizar el juego de plataformas
 ///           programado antiguamente en C "puro y duro".
 ///
 /// @author   Juan Manuel Rico
 /// @date     Septiembre de 2010
 /// @version  2.00
 ///
-/// @todo     Comentar todas estas clases y funciones m√°s detalladamente.
+/// @todo     Comentar todas estas clases y funciones m·s detalladamente.
 ///
 
 #include "Juego2.h"
@@ -20,11 +20,8 @@
 /// Prueba de guichan.
 #include <guichan.hpp>
 #include <guichan/allegro.hpp>
-#include "gui/spriteGUI.hpp"
+#include "gui/SpriteGUI.hpp"
 #include "allegro/SpriteAllegro.h"
-
-//#include <allegro.hpp>
-//#include <widgets.hpp>
 
 void Juego2::prueba_guichan (Sprite* prueba)
 {
@@ -46,7 +43,7 @@ void Juego2::prueba_guichan (Sprite* prueba)
     }
     set_color_depth(bpp);
 
-    // ... el modo gr√°fico.
+    // ... el modo gr·fico.
     if (set_gfx_mode(GFX_AUTODETECT_WINDOWED, 640, 480, 0, 0))
     {
         if (set_gfx_mode(GFX_AUTODETECT, 640, 480, 0, 0))
@@ -62,14 +59,14 @@ void Juego2::prueba_guichan (Sprite* prueba)
         throw GCN_EXCEPTION("Unable to create a screen buffer");
     };
 
-    // El cargador de im√°genes, gr√°ficos y tratamiento de la entrada con Allegro.
+    // El cargador de im·genes, gr·ficos y tratamiento de la entrada con Allegro.
     imageLoader = new gcn::AllegroImageLoader();
     gcn::Image::setImageLoader(imageLoader);
     graphics = new gcn::AllegroGraphics();
     graphics->setTarget(screenBuffer);
     input = new gcn::AllegroInput();
 
-    // Se crea la GUI y se a√±ade a ella.
+    // Se crea la GUI y se aÒade a ella.
     gui = new gcn::Gui();
     gui->setGraphics(graphics);
     gui->setInput(input);
@@ -135,7 +132,7 @@ void Juego2::prueba_guichan (Sprite* prueba)
 
     // La fuente de las letras.
     //font = new gcn::ImageFont("fixedfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
-    font = new gcn::ImageFont("rpgfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?>+/():;%&'{*#=[]\"");
+    font = new gcn::ImageFont("rpgfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?>+/():;%&'{*#=[]\"Ò");
     gcn::Widget::setGlobalFont(font);
 
     // Los widgets contenidos.
@@ -180,13 +177,13 @@ void Juego2::prueba_guichan (Sprite* prueba)
     tabbedArea->addTab(tab1,todo);
 
     // Prueba de Sprite como widget.
-    //gui::spriteGUI *sprite1 = new gui::spriteGUI ("Prueba Sprite");
-    gui::spriteGUI* sprite1 = new gui::spriteGUI (prueba);
+    //gui::SpriteGUI *sprite1 = new gui::SpriteGUI ("Prueba Sprite");
+    gui::SpriteGUI* sprite1 = new gui::SpriteGUI (prueba);
 
     Ben* ben=new Ben(*storage_manager);
-    gui::spriteGUI* sprite2 = new gui::spriteGUI (new allegro::SpriteAllegro (*((Sprite*)ben->get_actor_graphic()),ben));
+    gui::SpriteGUI* sprite2 = new gui::SpriteGUI (new allegro::SpriteAllegro (*((Sprite*)ben->get_actor_graphic()),ben));
 
-    // Se a√±aden al widget ra√≠z.
+    // Se aÒaden al widget raÌz.
     top->add(label, 10, 10);
     top->add(icon, 10, 30);
     top->add(button, 200, 10);
@@ -203,9 +200,9 @@ void Juego2::prueba_guichan (Sprite* prueba)
     top->add(window, 50, 350);
     top->add(tabbedArea, 400, 350);
     top->add(sprite1, 30,40);
-    top->add(sprite2, 30,150);
+    top->add(sprite2, 30,320);
 
-    // Se crea una prueba para el evento de bot√≥n.
+    // Se crea una prueba para el evento de botÛn.
     button->setActionEventId("btn1");
     class Escuchador : public gcn::ActionListener
     {
@@ -234,10 +231,10 @@ void Juego2::prueba_guichan (Sprite* prueba)
             sprite1->setCaption ("Por el slider...");
         };
 
-        // Se ejecuta la l√≥gica de la GUI.
+        // Se ejecuta la lÛgica de la GUI.
         gui->logic();
 
-        // Se dibuja la GUI, una vez actualizada la l√≥gica.
+        // Se dibuja la GUI, una vez actualizada la lÛgica.
         gui->draw();
 
         // Se dibuja el puntero en el doble buffer.
@@ -279,14 +276,14 @@ void Juego2::prueba_guichan (Sprite* prueba)
     delete sprite2;
 };
 
-// Definici√≥n del juego.
+// DefiniciÛn del juego.
 Juego2::Juego2 ()
 {
 };
 
 void Juego2::create_storage_manager ()
 {
-  // Creamos el almac√©n de recursos.
+  // Creamos el almacÈn de recursos.
   storage_manager = new Almacen("sprites3.dat");
 };
 
@@ -302,12 +299,12 @@ void Juego2::mainGame ()
     Bitmap prueba_bitmap (new Actor(),new Almacen("sprites3.dat"), "pre2_44");
     std::cout << prueba_bitmap;
 
-  // Se cambia la paleta de colores que se toma del almac√©n de recursos.
+  // Se cambia la paleta de colores que se toma del almacÈn de recursos.
   set_palette (storage_manager->get_palette ("SPRITES"));
 
   // Se cargan actores desde fichero de prueba.
-  // @todo Leer este mismo fichero desde el almac√©n de recursos.
-  // @todo Delegar esta funci√≥n a la clase Mapa.
+  // @todo Leer este mismo fichero desde el almacÈn de recursos.
+  // @todo Delegar esta funciÛn a la clase Mapa.
   mapa.load (*new std::string("test2.txt"),*actor_manager);
 //  this->actor_manager->load("test2.txt");
 
@@ -317,23 +314,23 @@ void Juego2::mainGame ()
   loro->set_y(400);
   actor_manager->add(loro);
 
-  // Se a√±ade el control del loro, al manejador de controles.
+  // Se aÒade el control del loro, al manejador de controles.
   control_manager->add_control(loro->get_control());
   
-  // Se a√±ade el perif√©rico del loro que realizar√° el control.
+  // Se aÒade el perifÈrico del loro que realizar· el control.
   control_manager->add_peripheral(loro->get_peripheral());
 
-  // Se crea el 'EditorManager' b√°sico para comenzar con las pruebas.
+  // Se crea el 'EditorManager' b·sico para comenzar con las pruebas.
   EditorManager editor_manager (this);
 
   // Mostramos un breve mensaje en consola sobre las teclas de prueba.
   std::cout << "----------------------------------" << std::endl;
-  std::cout << "----    Teclas b√°sicas        ----" << std::endl;
+  std::cout << "----    Teclas b·sicas        ----" << std::endl;
   std::cout << "----------------------------------" << std::endl << std::endl;
   std::cout << " P - Pausa el juego." << std::endl;
-  std::cout << " E - Entra en modo edici√≥n." << std::endl;
+  std::cout << " E - Entra en modo ediciÛn." << std::endl;
   std::cout << " S - Se activa el seguimiento del jugador." << std::endl;
-  std::cout << " T - Realiza una prueba de gr√°ficos Bitmap." << std::endl;
+  std::cout << " T - Realiza una prueba de gr·ficos Bitmap." << std::endl;
   std::cout << " V - Visualiza los bloques de los actores." << std::endl;
   std::cout << " G - Pruebas de GUI para Sprites'." << std::endl;
   std::cout << " F - Prueba de letras." << std::endl;
@@ -345,7 +342,7 @@ void Juego2::mainGame ()
   // Bucle principal del juego.
   while (!key[KEY_ESC])
   {
-    // Si no est√° en pausa se actualiza el juego.
+    // Si no est· en pausa se actualiza el juego.
     if (!is_paused())
     {
       update ();
@@ -381,7 +378,7 @@ void Juego2::mainGame ()
     // Se hace el seguimiento de la pantalla.
     if (key[KEY_S])
     {
-      // Si el escenario est√° en modo seguimiento, se deja de seguir y se pone el escenario en el lugar original;
+      // Si el escenario est· en modo seguimiento, se deja de seguir y se pone el escenario en el lugar original;
       // en otro caso, a modo de prueba se hace el seguimiento al loro.
       if ( stage_manager->is_seguimiento () )
       {
@@ -406,7 +403,7 @@ void Juego2::mainGame ()
       key[KEY_V] = false;
     }
 
-    // Se crea un personaje de prueba para la animaci√≥n y control.
+    // Se crea un personaje de prueba para la animaciÛn y control.
     if (key[KEY_G])
     {
       // Se crea un Loro de prueba para el editor de Sprites.
@@ -420,7 +417,7 @@ void Juego2::mainGame ()
       Sprite *prueba = (Sprite *) loro2->get_actor_graphic();
       allegro::SpriteAllegro* prueba2 = new allegro::SpriteAllegro (*prueba,loro2);
 
-      // Prueba de captura de excepci√≥n.
+      // Prueba de captura de excepciÛn.
       try
       {
         Sprite* captura = new Sprite (*prueba,loro2);
@@ -445,37 +442,37 @@ void Juego2::mainGame ()
     // Pruebas de Bitmap.
     if (key[KEY_T])
     {
-      // Probamos el nuevo constructor de Bitmap basado en el almac√©n.
-      // 1 - Se crea un actor vac√≠o.
+      // Probamos el nuevo constructor de Bitmap basado en el almacÈn.
+      // 1 - Se crea un actor vacÌo.
       Actor *camello = new Actor ();
 
-      // 2 - Se le dice a la clase Bitmap de d√≥nde obtener los gr√°ficos.
+      // 2 - Se le dice a la clase Bitmap de dÛnde obtener los gr·ficos.
       Bitmap::set_almacen (storage_manager);
 
-      // 3 - Se crea un gr√°fico indicando simplemente el gr√°fico y a qu√© actor se le desea asignar.
+      // 3 - Se crea un gr·fico indicando simplemente el gr·fico y a quÈ actor se le desea asignar.
       Bitmap *bmp_camello = new Bitmap (camello, "sprite_107");
 
       // 4 - Se completan el resto de propiedades del actor.
       camello->set_x (130);
       camello->set_y (195);
       camello->set_wh (63,44);
-      camello->setCodigo (Nombres::camello); // No funciona pues no hemos definido un 'getNombre' virtual espec√≠fico.
+      camello->setCodigo (Nombres::camello); // No funciona pues no hemos definido un 'getNombre' virtual especÌfico.
       camello->set_actor_graphic (bmp_camello);
 
       // 5 - Se agrega el nuevo actor al controlador de actores.
       actor_manager->add(camello);
 
-      // 6 - Se descarga la informaci√≥n en pantalla.
+      // 6 - Se descarga la informaciÛn en pantalla.
       std::cout << "Bitmap: " << bmp_camello->get_imagen () << " Nombre: " << storage_manager->get_name (bmp_camello->get_imagen()) << std::endl;
 
       // Por otra parte, Se prueba el uso del Bitmap en la Tesela.
-      // 1 - Se crea un nuevo actor vac√≠o.
+      // 1 - Se crea un nuevo actor vacÌo.
       Actor *arbol = new Actor ();
 
-      // 2 - Se crea el mosaico vac√≠o.
+      // 2 - Se crea el mosaico vacÌo.
       Mosaico *hojas = new Mosaico (arbol);
       
-      // 3 - Se a√±aden Teselas al mosaico.
+      // 3 - Se aÒaden Teselas al mosaico.
       hojas->add_ultima_Tesela (new Tesela (hojas, *new std::string("pre2_417")));
       hojas->add_ultima_Tesela (new Tesela (hojas, *new std::string("pre2_416"), 12, 20));
       hojas->add_ultima_Tesela (new Tesela (hojas, *new std::string("pre2_416"), 12, -20, true));
@@ -485,10 +482,10 @@ void Juego2::mainGame ()
       arbol->set_y (250);
       arbol->set_wh (32,15);
 
-      // 5 - Se a√±ade el nuevo actor al controlador de actores para que lo muestre en pantalla.
+      // 5 - Se aÒade el nuevo actor al controlador de actores para que lo muestre en pantalla.
       actor_manager->add(arbol);
 
-      // 6 - Se descarga la informaci√≥n en pantalla.
+      // 6 - Se descarga la informaciÛn en pantalla.
       std::cout << "Mosaico de hojas: " << std::endl << hojas->print () << std::endl;
 
       // Limpieza de teclado.
@@ -497,7 +494,7 @@ void Juego2::mainGame ()
 
     // Pruebas de Mapa de actores.
     // @todo Terminar estas pruebas.
-    // @note Pensando que igual estas caracter√≠sticas deben estar integradas en la clase que
+    // @note Pensando que igual estas caracterÌsticas deben estar integradas en la clase que
     //       controla los actores (ActorManager).
     if (key[KEY_M])
     {
@@ -530,7 +527,7 @@ void Juego2::mainGame ()
           "Crea nuevo actor. Ej: nombre {x,y} {w,h}",
           "Muestra una lista de todos los actores.",
           "Graba los actores en un fichero \"test.txt\".",
-          "Lista todos los objetos gr√°ficos definidos en el juego.",
+          "Lista todos los objetos gr·ficos definidos en el juego.",
           "Pausa y activa el juego.",
           "Sale de la consola interactiva."
           };
@@ -604,7 +601,7 @@ void Juego2::mainGame ()
         {
             std::cout << "Couldn't load font!";
         }
-        textout_centre_ex(screen, myfont, "¬°Esto es mi prueba de letras!", SCREEN_W / 2, SCREEN_H / 2, 5, 223);
+        textout_centre_ex(screen, myfont, "°Esto es mi prueba de letras!", SCREEN_W / 2, SCREEN_H / 2, 5, 223);
         while (!key[KEY_F]);
         destroy_font(myfont);
         key[KEY_F] = false;

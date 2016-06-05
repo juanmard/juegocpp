@@ -7,7 +7,7 @@
 ///
 #pragma once
 
-#include "spriteGUI.hpp"
+#include "SpriteGUI.hpp"
 #include <guichan/exception.hpp>
 #include <guichan/font.hpp>
 #include <guichan/graphics.hpp>
@@ -17,9 +17,9 @@
 namespace gui
 {
 
-spriteGUI::spriteGUI ():
+SpriteGUI::SpriteGUI ():
 sprite(NULL),
-etiqueta(new gcn::Label("Prueba 1")),
+etiqueta(new gcn::Label()),
 imagen(new gcn::Icon()),
 rojo(new gcn::Color (255,0,0)),
 verde(new gcn::Color (0,255,0))
@@ -33,26 +33,11 @@ verde(new gcn::Color (0,255,0))
 //    addFocusListener(this);
 };
 
-spriteGUI::spriteGUI (const std::string& caption):
-sprite(NULL),
-etiqueta(new gcn::Label (caption)),
-imagen(new gcn::Icon()),
-rojo(new gcn::Color (255,0,0)),
-verde(new gcn::Color (0,255,0))
-{
-    setOpaque(false);
-    setWidth(200);
-    setHeight(100);
-    setBackgroundColor (*rojo);
-
-    addMouseListener(this);
-//    addKeyListener(this);
-//    addFocusListener(this);
-};
-
-spriteGUI::spriteGUI (Sprite* sprite_editar):
+SpriteGUI::SpriteGUI (Sprite* sprite_editar):
 sprite(sprite_editar),
-etiqueta(new gcn::Label ("Con datos Sprite")),
+etiqueta(new gcn::Label ("GUI Sprite")),
+add_frame (new gcn::Button ("Añadir")),
+del_frame (new gcn::Button ("Borrar")),
 imagen(new gcn::Icon ()),
 rojo(new gcn::Color (255,0,0)),
 verde(new gcn::Color (0,255,0)),
@@ -60,7 +45,7 @@ frame_actual (0)
 {
     setOpaque (false);
     setWidth (600);
-    setHeight (100);
+    setHeight (180);
     setBaseColor (*rojo);
     setFrameSize (1);
 
@@ -71,50 +56,53 @@ frame_actual (0)
     imagen->setBaseColor (*verde);
     imagen->setImage (sprite->getImage(frame_actual));
 
-    add (etiqueta, 10,10);
-    add (imagen,10,50);
+    // Se añaden los controles a este contenedor.
+    add (etiqueta, 5, 150);
+    add (add_frame, 5, 5);
+    add (del_frame, add_frame->getWidth()+10, 5);
+    add (imagen,(add_frame->getWidth()+del_frame->getWidth())/2-imagen->getWidth()/2+add_frame->getX(),50);
 
     addMouseListener (this);
 //    addKeyListener(this);
 //    addFocusListener(this);
 };
 
-const std::string &spriteGUI::getCaption () const
+const std::string &SpriteGUI::getCaption () const
 {
     return etiqueta->getCaption ();
 };
 
-void spriteGUI::setCaption (const std::string& caption)
+void SpriteGUI::setCaption (const std::string& caption)
 {
     etiqueta->setCaption (caption);
 };
 
-void spriteGUI::setAlignment (gcn::Graphics::Alignment alignment)
+void SpriteGUI::setAlignment (gcn::Graphics::Alignment alignment)
 {
     etiqueta->setAlignment (alignment);
 };
 
-gcn::Graphics::Alignment spriteGUI::getAlignment() const
+gcn::Graphics::Alignment SpriteGUI::getAlignment() const
 {
     return etiqueta->getAlignment ();
 };
 
-void spriteGUI::draw (gcn::Graphics* graphics)
+void SpriteGUI::draw (gcn::Graphics* graphics)
 {
     Container::draw (graphics);
 };
 
-void spriteGUI::logic ()
+void SpriteGUI::logic ()
 {
   // // etiqueta->setCaption("logica, logica");
 };
 
-void spriteGUI::adjustSize()
+void SpriteGUI::adjustSize()
 {
     etiqueta->adjustSize();
 };
 
-void spriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
+void SpriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
 {
     etiqueta->setCaption("Ya me diste por fuera.");
     if (mouseEvent.getButton() == gcn::MouseEvent::Left)
@@ -139,12 +127,12 @@ void spriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
     etiqueta->adjustSize();
 };
 
-void spriteGUI::mouseEntered (gcn::MouseEvent& mouseEvent)
+void SpriteGUI::mouseEntered (gcn::MouseEvent& mouseEvent)
 {
     setBaseColor (*verde);
 };
 
-void spriteGUI::mouseExited (gcn::MouseEvent& mouseEvent)
+void SpriteGUI::mouseExited (gcn::MouseEvent& mouseEvent)
 {
     setBaseColor (*rojo);
 };
