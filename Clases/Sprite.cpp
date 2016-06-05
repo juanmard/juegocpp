@@ -223,5 +223,5 @@ unsigned int Sprite::getNumFrames () const
 
 const gcn::Image* Sprite::getImage (unsigned int ind) const
 {
-    throw *new std::exception ("La obtención de imagen desde un \"Sprite\" está sin implementar.");
+    throw *new std::exception ("La obtención de una imagen desde un \"Sprite\" está sin implementar.\n¿Ha creado un \"SpriteAllegro\"?.");
 };
