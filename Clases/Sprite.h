@@ -160,7 +160,7 @@ public:
     /// @param  ind  Índice dentro de la sucesión de "frames".
     /// @return Referencia a una imagen creada que contiene el frame indicado por "ind".
     ///
-    const gcn::Image* getImage (unsigned int ind) const;
+    virtual const gcn::Image* getImage (unsigned int ind) const;
 };
 
 #endif

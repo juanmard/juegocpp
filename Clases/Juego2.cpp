@@ -21,6 +21,7 @@
 #include <guichan.hpp>
 #include <guichan/allegro.hpp>
 #include "gui/spriteGUI.hpp"
+#include "allegro/SpriteAllegro.h"
 
 //#include <allegro.hpp>
 //#include <widgets.hpp>
@@ -180,11 +181,10 @@ void Juego2::prueba_guichan (Sprite* prueba)
 
     // Prueba de Sprite como widget.
     //gui::spriteGUI *sprite1 = new gui::spriteGUI ("Prueba Sprite");
-    gui::spriteGUI *sprite1 = new gui::spriteGUI (prueba);
+    gui::spriteGUI* sprite1 = new gui::spriteGUI (prueba);
 
-    Ben *ben=new Ben(*storage_manager);
-    gui::spriteGUI *sprite2 = new gui::spriteGUI ((Sprite *) ben->get_actor_graphic());
-
+    Ben* ben=new Ben(*storage_manager);
+    gui::spriteGUI* sprite2 = new gui::spriteGUI (new allegro::SpriteAllegro (*((Sprite*)ben->get_actor_graphic()),ben));
 
     // Se añaden al widget raíz.
     top->add(label, 10, 10);
@@ -416,19 +416,12 @@ void Juego2::mainGame ()
       actor_manager->add(loro2);
       control_manager->add_control(loro2->get_control());
 
-      // Prueba con sprite.
+      // Prueba con sprite de Allegro.
       Sprite *prueba = (Sprite *) loro2->get_actor_graphic();
-
-      /*
-      Menu &menu = prueba->getMenu ();
-      do_menu(menu, mouse_x, mouse_y);
-
-      Formulario &form = prueba->getFormulario ();
-      form.show ();
-      */
+      allegro::SpriteAllegro* prueba2 = new allegro::SpriteAllegro (*prueba,loro2);
 
       // Prueba de Guichan integrado en el juego.
-      prueba_guichan (prueba);
+      prueba_guichan (prueba2);
 
       // Se cambia la paleta de colores que la prueba de Guichan cambia.
       set_palette (storage_manager->get_palette ("SPRITES"));

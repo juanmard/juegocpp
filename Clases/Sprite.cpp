@@ -223,10 +223,5 @@ unsigned int Sprite::getNumFrames () const
 
 const gcn::Image* Sprite::getImage (unsigned int ind) const
 {
-    BITMAP* frameBitmap = getFrame(ind)->getBitmap();
-    BITMAP *bmp = create_bitmap(frameBitmap->w, frameBitmap->h);
-    blit(frameBitmap, bmp, 0, 0, 0, 0, bmp->w, bmp->h);
-    gcn::Image* img = new gcn::AllegroImage (bmp, true);
-    img->convertToDisplayFormat();
-    return img;
+    throw *new std::exception ("La obtención de imagen desde un \"Sprite\" está sin implementar.");
 };
