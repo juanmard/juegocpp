@@ -159,6 +159,13 @@ public:
     /// Entrega la imagen para la GUI que representa el "frame" indicado con el índice.
     /// @param  ind  Índice dentro de la sucesión de "frames".
     /// @return Referencia a una imagen creada que contiene el frame indicado por "ind".
+    /// @warning El obtener una imagen para la GUI no es es un comportamiento necesario
+    ///          para el desarrollo normal del juego, por tanto este comportamiento debe
+    ///          trasladarse a otra clase que lo implemente. Quizás haciendo heredar la
+    ///          la clase SpriteGUI de esta clase creando un Sprite con la característica
+    ///          añadida de que se puede editar mediante una GUI, de esta forma se puede
+    ///          independizar aún más el "juego" de lo que es la "edición del juego".
+    /// @todo Pasar este procedimiento a SpriteGUI y heredar este de Sprite.
     ///
     virtual const gcn::Image* getImage (unsigned int ind) const;
 };

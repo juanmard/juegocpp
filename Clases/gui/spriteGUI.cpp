@@ -1,8 +1,13 @@
 ///
+/// @file SpriteGUI.cpp
+/// @brief Fichero de implementación de la clase "SpriteGUI".
+/// @author Juan Manuel Rico
+/// @date Junio 2016
+/// @version 1.0.0
 ///
-///
-#include "spriteGUI.hpp"
+#pragma once
 
+#include "spriteGUI.hpp"
 #include <guichan/exception.hpp>
 #include <guichan/font.hpp>
 #include <guichan/graphics.hpp>
@@ -48,7 +53,7 @@ verde(new gcn::Color (0,255,0))
 spriteGUI::spriteGUI (Sprite* sprite_editar):
 sprite(sprite_editar),
 etiqueta(new gcn::Label ("Con datos Sprite")),
-imagen(new gcn::Icon()),
+imagen(new gcn::Icon ()),
 rojo(new gcn::Color (255,0,0)),
 verde(new gcn::Color (0,255,0)),
 frame_actual (0)
@@ -96,16 +101,7 @@ gcn::Graphics::Alignment spriteGUI::getAlignment() const
 
 void spriteGUI::draw (gcn::Graphics* graphics)
 {
-//    etiqueta->setBackgroundColor (*new gcn::Color(255,0,0));
-//    etiqueta->drawFrame(graphics);
-    //graphics->setColor (getBackgroundColor ());
-    //graphics->drawLine (0, 0, getWidth() - 1, 0);
-    //graphics->drawLine (0, 1, 0, getHeight() - 1);
-    //graphics->drawLine (getWidth() - 1, 1, getWidth() - 1, getHeight() - 1);
-    //graphics->drawLine (1, getHeight() - 1, getWidth() - 1, getHeight() - 1);
-
     Container::draw (graphics);
-//    imagen->drawFrame (graphics);
 };
 
 void spriteGUI::logic ()
