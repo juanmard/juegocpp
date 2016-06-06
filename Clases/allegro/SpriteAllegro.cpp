@@ -1,4 +1,4 @@
-﻿///
+///
 /// @file SpriteAllegro.cpp
 /// @brief Fichero de implementación de la clase "SpriteAllegro".
 /// @author Juan Manuel Rico
@@ -6,7 +6,7 @@
 /// @version 1.0.0
 ///
 #include "SpriteAllegro.h"
-#include <guichan\allegro\allegroimage.hpp>
+#include <guichan/allegro/allegroimage.hpp>
 
 namespace allegro
 {

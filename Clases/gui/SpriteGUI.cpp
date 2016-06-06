@@ -1,11 +1,10 @@
 ///
 /// @file SpriteGUI.cpp
-/// @brief Fichero de implementación de la clase "SpriteGUI".
+/// @brief Fichero de implementaciÃ³n de la clase "SpriteGUI".
 /// @author Juan Manuel Rico
 /// @date Junio 2016
 /// @version 1.0.0
 ///
-#pragma once
 
 #include "SpriteGUI.hpp"
 #include <guichan/exception.hpp>
@@ -36,7 +35,7 @@ verde(new gcn::Color (0,255,0))
 SpriteGUI::SpriteGUI (Sprite* sprite_editar):
 sprite(sprite_editar),
 etiqueta(new gcn::Label ("GUI Sprite")),
-add_frame (new gcn::Button ("Añadir")),
+add_frame (new gcn::Button ("AÃ±adir")),
 del_frame (new gcn::Button ("Borrar")),
 imagen(new gcn::Icon ()),
 rojo(new gcn::Color (255,0,0)),
@@ -56,7 +55,7 @@ frame_actual (0)
     imagen->setBaseColor (*verde);
     imagen->setImage (sprite->getImage(frame_actual));
 
-    // Se añaden los controles a este contenedor.
+    // Se aÃ±aden los controles a este contenedor.
     add (etiqueta, 5, 150);
     add (add_frame, 5, 5);
     add (del_frame, add_frame->getWidth()+10, 5);
@@ -113,7 +112,7 @@ void SpriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
         {
             imagen->setBaseColor (*rojo);
 
-            // Prueba de información.
+            // Prueba de informaciÃ³n.
             etiqueta->setCaption(sprite->getString());
             //etiqueta->setCaption (sprite->print());
 
