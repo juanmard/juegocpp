@@ -29,7 +29,7 @@ verde(new gcn::Color (0,255,0))
     this->setPosition (10,10);
 
     addMouseListener(this);
-//    addKeyListener(this);
+    addKeyListener(this);
 //    addFocusListener(this);
 };
 
@@ -63,7 +63,7 @@ frame_actual (0)
     add (imagen,(add_frame->getWidth()+del_frame->getWidth())/2-imagen->getWidth()/2+add_frame->getX(),50);
 
     addMouseListener (this);
-//    addKeyListener(this);
+    addKeyListener (this);
 //    addFocusListener(this);
 };
 
@@ -135,6 +135,39 @@ void SpriteGUI::mouseEntered (gcn::MouseEvent& mouseEvent)
 void SpriteGUI::mouseExited (gcn::MouseEvent& mouseEvent)
 {
     setBaseColor (*rojo);
+};
+
+void SpriteGUI::keyPressed(gcn::KeyEvent& keyEvent)
+{
+    gcn::Key key = keyEvent.getKey();
+
+    etiqueta->setCaption ("Tecla va");
+    if (key.getValue() == gcn::Key::PageUp)
+    {
+        frame_actual--;
+        if (frame_actual < 0) frame_actual = 0;
+        distributeActionEvent();
+        keyEvent.consume();
+    }
+    if (key.getValue() == gcn::Key::PageDown)
+    {
+        frame_actual++;
+        if (frame_actual >= sprite->getNumFrames ()) frame_actual = 0;
+        distributeActionEvent();
+        keyEvent.consume();
+    }
+};
+
+void SpriteGUI::keyReleased (gcn::KeyEvent& keyEvent)
+{
+    //Key key = keyEvent.getKey();
+
+    //if (key.getValue() == gcn::Key::Left
+    //        || key.getValue() == gcn::Key::Right)
+    //{
+    //    distributeActionEvent();
+    //    keyEvent.consume();
+    //}
 };
 
 }
