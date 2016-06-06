@@ -5,6 +5,7 @@
 #define GUI_SPRITEGUI_HPP
 
 #include <string>
+#include "MenuGUI.hpp"
 #include "../Sprite.h"
 #include <guichan/graphics.hpp>
 #include <guichan/platform.hpp>
@@ -104,6 +105,8 @@ namespace gui
 
         gcn::Color *rojo, *verde;
         unsigned int frame_actual;
+
+        gui::MenuGUI* prueba_menu;
     };
 }
 

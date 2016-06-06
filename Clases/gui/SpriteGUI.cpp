@@ -40,7 +40,8 @@ del_frame (new gcn::Button ("Borrar")),
 imagen(new gcn::Icon ()),
 rojo(new gcn::Color (255,0,0)),
 verde(new gcn::Color (0,255,0)),
-frame_actual (0)
+frame_actual (0),
+prueba_menu (new MenuGUI())
 {
     setOpaque (false);
     setWidth (600);
@@ -60,6 +61,10 @@ frame_actual (0)
     add (add_frame, 5, 5);
     add (del_frame, add_frame->getWidth()+10, 5);
     add (imagen,(add_frame->getWidth()+del_frame->getWidth())/2-imagen->getWidth()/2+add_frame->getX(),50);
+    prueba_menu->setHeight (100);
+    prueba_menu->setWidth (100);
+    add (prueba_menu, 100, 100);
+
 
     addMouseListener (this);
     addKeyListener (this);
@@ -89,6 +94,7 @@ gcn::Graphics::Alignment SpriteGUI::getAlignment() const
 void SpriteGUI::draw (gcn::Graphics* graphics)
 {
     Container::draw (graphics);
+//    prueba_menu->draw (graphics);
 };
 
 void SpriteGUI::logic ()
@@ -175,7 +181,6 @@ void SpriteGUI::keyReleased (gcn::KeyEvent& keyEvent)
     {
         frame_actual++;
         if (frame_actual >= sprite->getNumFrames ()) frame_actual = 0;
-        distributeActionEvent();
         etiqueta->setCaption ("Derecha soltada");
     }
 };
