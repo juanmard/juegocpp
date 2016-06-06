@@ -10,11 +10,11 @@
 #include <guichan/platform.hpp>
 #include <guichan/widget.hpp>
 #include <guichan/widgets/container.hpp>
-#include <guichan/MouseListener.hpp>
-#include <guichan/FocusListener.hpp>
+#include <guichan/mouselistener.hpp>
+#include <guichan/focuslistener.hpp>
 #include <guichan/widgets/label.hpp>
 #include <guichan/widgets/button.hpp>
-#include <guichan/widgets/Icon.hpp>
+#include <guichan/widgets/icon.hpp>
 
 namespace gui
 {
@@ -97,7 +97,7 @@ namespace gui
         gcn::Button* del_frame;
         gcn::Icon* imagen;       ///< Imagen del frame actual que se muestra.
 
-        gcn::Color *verde, *rojo;
+        gcn::Color *rojo, *verde;
         unsigned int frame_actual;
     };
 }
