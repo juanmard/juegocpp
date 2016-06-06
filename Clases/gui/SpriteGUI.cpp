@@ -94,6 +94,7 @@ void SpriteGUI::draw (gcn::Graphics* graphics)
 void SpriteGUI::logic ()
 {
   // // etiqueta->setCaption("logica, logica");
+  imagen->setImage (sprite->getImage(frame_actual));
 };
 
 void SpriteGUI::adjustSize()
@@ -119,7 +120,6 @@ void SpriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
             // Prueba de frames.
             frame_actual ++;
             if (frame_actual >= sprite->getNumFrames ()) {frame_actual = 0;}
-            imagen->setImage (sprite->getImage(frame_actual));
         }
         mouseEvent.consume ();
     }
@@ -140,33 +140,44 @@ void SpriteGUI::keyPressed(gcn::KeyEvent& keyEvent)
 {
     gcn::Key key = keyEvent.getKey();
 
-    etiqueta->setCaption ("Tecla va");
-    if (key.getValue() == gcn::Key::PageUp)
+    if (key.getValue() == gcn::Key::Left)
     {
-        frame_actual--;
-        if (frame_actual < 0) frame_actual = 0;
-        distributeActionEvent();
+        etiqueta->setCaption ("Izquierda pulsada");
+        etiqueta->adjustSize();
         keyEvent.consume();
     }
-    if (key.getValue() == gcn::Key::PageDown)
+    if (key.getValue() == gcn::Key::Right)
     {
-        frame_actual++;
-        if (frame_actual >= sprite->getNumFrames ()) frame_actual = 0;
-        distributeActionEvent();
+        etiqueta->setCaption ("Derecha pulsada");
+        etiqueta->adjustSize();
         keyEvent.consume();
     }
 };
 
 void SpriteGUI::keyReleased (gcn::KeyEvent& keyEvent)
 {
-    //Key key = keyEvent.getKey();
+    gcn::Key key = keyEvent.getKey();
 
-    //if (key.getValue() == gcn::Key::Left
-    //        || key.getValue() == gcn::Key::Right)
-    //{
-    //    distributeActionEvent();
-    //    keyEvent.consume();
-    //}
+    if (key.getValue() == gcn::Key::Left)
+    {
+        if (frame_actual == 0)
+        {
+            frame_actual = sprite->getNumFrames ()-1;
+        }
+        else
+        {
+            frame_actual--;
+        }
+        distributeActionEvent();
+        etiqueta->setCaption ("Izquierda soltada");
+    }
+    if (key.getValue() == gcn::Key::Right)
+    {
+        frame_actual++;
+        if (frame_actual >= sprite->getNumFrames ()) frame_actual = 0;
+        distributeActionEvent();
+        etiqueta->setCaption ("Derecha soltada");
+    }
 };
 
 }
