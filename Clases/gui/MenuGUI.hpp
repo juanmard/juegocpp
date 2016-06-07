@@ -57,21 +57,20 @@ namespace gui
         //MenuGUI (const std::string& etiqueta);
 
         //// Inherited from Widget
-        virtual void draw (gcn::Graphics* graphics);
+        //virtual void draw (gcn::Graphics* graphics);
         //void logic ();
 
         //// Inherited from MouseListener.
-        virtual void mousePressed (gcn::MouseEvent& mouseEvent);
+        //virtual void mousePressed (gcn::MouseEvent& mouseEvent);
         //virtual void mouseEntered (gcn::MouseEvent& mouseEvent);
         //virtual void mouseExited (gcn::MouseEvent& mouseEvent);
 
         //// Heredado de KeyListener.
-        void keyPressed (gcn::KeyEvent& keyEvent);
-        void keyReleased (gcn::KeyEvent& keyEvent);
+        //void keyPressed (gcn::KeyEvent& keyEvent);
+        //void keyReleased (gcn::KeyEvent& keyEvent);
 
     protected:
         gui::Items* items;
-        gcn::ListBox* lista;
         gcn::Label* etiqueta;
     };
 }

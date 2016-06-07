@@ -13,17 +13,16 @@ namespace gui
 
 MenuGUI::MenuGUI ():
 items (new gui::Items()),
-lista (new gcn::ListBox (items)),
 etiqueta(new gcn::Label ("Etiqueta prueba..."))
 {
-//lista = new gcn::ListBox (items);
-etiqueta->setCaption(items->getElementAt (0));
+    this->setListModel (items);
+    etiqueta->setCaption(items->getElementAt (0));
 };
 
-void MenuGUI::draw (gcn::Graphics* graphics)
-{
-    lista->draw (graphics);
-};
+//void MenuGUI::draw (gcn::Graphics* graphics)
+//{
+//    lista->draw (graphics);
+//};
 
 //void SpriteGUI::logic ()
 //{
@@ -32,10 +31,10 @@ void MenuGUI::draw (gcn::Graphics* graphics)
 //};
 //
 
-void MenuGUI::mousePressed (gcn::MouseEvent& mouseEvent)
-{
-    lista->mousePressed (mouseEvent);
-};
+//void MenuGUI::mousePressed (gcn::MouseEvent& mouseEvent)
+//{
+//    lista->mousePressed (mouseEvent);
+//};
 
 //
 //void SpriteGUI::mouseEntered (gcn::MouseEvent& mouseEvent)
@@ -46,14 +45,14 @@ void MenuGUI::mousePressed (gcn::MouseEvent& mouseEvent)
 //{
 //};
 //
-void MenuGUI::keyPressed(gcn::KeyEvent& keyEvent)
-{
-    lista->keyPressed (keyEvent);
-};
-
-void MenuGUI::keyReleased (gcn::KeyEvent& keyEvent)
-{
-    lista->keyReleased (keyEvent);
-};
-
+//void MenuGUI::keyPressed(gcn::KeyEvent& keyEvent)
+//{
+//    lista->keyPressed (keyEvent);
+//};
+//
+//void MenuGUI::keyReleased (gcn::KeyEvent& keyEvent)
+//{
+//    lista->keyReleased (keyEvent);
+//};
+//
 }
