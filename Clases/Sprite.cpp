@@ -1,6 +1,6 @@
 ///
 /// @file Sprite.cpp
-/// @brief Fichero de implementaci√≥n de la clase "Sprite".
+/// @brief Fichero de implementaciÛn de la clase "Sprite".
 /// @author Juan Manuel Rico
 /// @date Octubre 2015
 /// @version 1.0.0
@@ -44,7 +44,7 @@ void Sprite::add_frame (BITMAP* bmp, int cx, int cy, int ticks)
     tmp_frame.cy = cy;
     tmp_frame.ticks = ticks;
 
-    // Crea la m√°scara.
+    // Crea la m·scara.
     tmp_frame.mask = new Mask;
     tmp_frame.mask->create(bmp);
 
@@ -57,16 +57,16 @@ void Sprite::update ()
     if (frames.size() <= 1) return;
     if (actual_tick > frames[actual_frame].ticks)
     {
-        // Con el nuevo fotograma retenemos la aniamci√≥n.
+        // Con el nuevo fotograma retenemos la aniamciÛn.
         if (actual_frame == 0) set_free (false);
         actual_tick = 0;
         actual_frame++;
         if (actual_frame >= (int)frames.size())
         {
-            // Al terminar el ciclo de la animaci√≥n libera el gr√°fico.
+            // Al terminar el ciclo de la animaciÛn libera el gr·fico.
             set_free (true);
 
-            // Y prepara el gr√°fico para un nuevo ciclo.
+            // Y prepara el gr·fico para un nuevo ciclo.
             actual_frame=0;
         }
     }
@@ -172,7 +172,7 @@ std::string Sprite::getString () const
     cadena  << "Sprite >> NumFrames: " << frames.size () \
             << " >> Frame actual: " << actual_frame \
             << " >> Tick actual: " << actual_tick \
-            << " >> √Ångulo: " << mirror << std::endl;
+            << " >> ¡ngulo: " << mirror << std::endl;
 
     // Se incluyen los valores de los Frames.
     for (unsigned int i=0; i<frames.size (); i++)
@@ -193,10 +193,10 @@ Menu& Sprite::getMenu () const
     Menu* ptr_menu = new Menu ();
     ptr_menu->add (owner->getNombre());             // Se toma el nombre del propietario del Sprite.
     ptr_menu->add ("");                             // Separador.
-    ptr_menu->add ("&Editar SPRITE", D_EXIT);       // Algunos items in√∫tiles de prueba.
+    ptr_menu->add ("&Editar SPRITE", D_EXIT);       // Algunos items in˙tiles de prueba.
     ptr_menu->add ("&Repartir SPRITE", D_SELECTED);
     ptr_menu->add ("&Duplicar SPRITE", D_EXIT);
-    ptr_menu->add ("&A√±adir SPRITE");
+    ptr_menu->add ("&AÒadir SPRITE");
     ptr_menu->add ("&Prueba llamada", D_EXIT, NULL, NULL, Menu::callback);
     return *ptr_menu;
 };
@@ -207,7 +207,7 @@ Formulario& Sprite::getFormulario () const
     ptr_formulario->add (Formulario::BOX, 0, 0, 400, 200);
     ptr_formulario->add (10, 10, "Esto es una etiqueta de formulario.");
     ptr_formulario->add (10, 20, "Esta es otra.");
-    ptr_formulario->add (10, 30, "Y una m√°s.");
+    ptr_formulario->add (10, 30, "Y una m·s.");
     ptr_formulario->add (Formulario::SLIDER, 10, 60, 190, 15);
     ptr_formulario->add (Formulario::BOX, 10, 90, 200, 20);
     ptr_formulario->add (10, 130, new Bitmap (NULL,frames[0].bmp));    
@@ -223,5 +223,5 @@ unsigned int Sprite::getNumFrames () const
 
 const gcn::Image* Sprite::getImage (unsigned int ind) const
 {
-    throw *new std::runtime_error ("La obtenci√≥n de una imagen desde un \"Sprite\" est√° sin implementar.\n¬øHa creado un \"SpriteAllegro\"?.");
+    throw *new std::runtime_error ("La obtenciÛn de una imagen desde un \"Sprite\" est· sin implementar.\nøHa creado un \"SpriteAllegro\"?.");
 };

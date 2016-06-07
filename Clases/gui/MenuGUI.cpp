@@ -14,12 +14,19 @@ namespace gui
 MenuGUI::MenuGUI ():
 etiqueta(new gcn::Label ("Etiqueta prueba..."))
 {
+    this->setFocusable (true);
     this->setListModel (this);
     this->addSelectionListener (this);
     //this->setSelectionColor (gcn::Color(255,0,0));
     this->setActionEventId ("menu");
     etiqueta->setX(100);
 };
+
+void MenuGUI::addItem (Item* item)
+{
+    items.push_back (item);
+};
+
 
 void MenuGUI::draw (gcn::Graphics* graphics)
 {
@@ -52,7 +59,6 @@ void MenuGUI::mousePressed (gcn::MouseEvent& mouseEvent)
 
 void MenuGUI::mouseExited (gcn::MouseEvent& mouseEvent)
 {
-    this->setSelected (0);
     setVisible (false);
 };
 
@@ -74,22 +80,12 @@ void MenuGUI::mouseMoved (gcn::MouseEvent& mouseEvent)
 
 int MenuGUI::getNumberOfElements ()
 {
-    return 3;
+    return items.size();
 };
 
 std::string MenuGUI::getElementAt (int i)
 {
-    switch(i)
-    {
-        case 0:
-            return std::string("Menu 1");
-        case 1:
-            return std::string("Menu 2");
-        case 2:
-            return std::string("Menu 3");
-        default:
-            return std::string("");
-    }
+    return items[i]->getNombre();
 };
 
 }

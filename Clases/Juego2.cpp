@@ -417,17 +417,6 @@ void Juego2::mainGame ()
       Sprite *prueba = (Sprite *) loro2->get_actor_graphic();
       allegro::SpriteAllegro* prueba2 = new allegro::SpriteAllegro (*prueba,loro2);
 
-      // Prueba de captura de excepción.
-      try
-      {
-        Sprite* captura = new Sprite (*prueba,loro2);
-        captura->getImage (0);
-      }
-      catch (std::exception e)
-      {
-        std::cout << e.what ();
-      }
-
       // Prueba de Guichan integrado en el juego.
       prueba_guichan (prueba2);
 

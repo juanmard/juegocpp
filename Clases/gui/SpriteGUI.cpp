@@ -9,29 +9,13 @@
 #include "SpriteGUI.hpp"
 #include <guichan/exception.hpp>
 #include <guichan/font.hpp>
+#include <guichan/imagefont.hpp>
 #include <guichan/graphics.hpp>
 #include <guichan/widgets/label.hpp>
 #include <guichan/allegro/allegroimage.hpp>
 
 namespace gui
 {
-
-SpriteGUI::SpriteGUI ():
-sprite(NULL),
-etiqueta(new gcn::Label()),
-imagen(new gcn::Icon()),
-rojo(new gcn::Color (255,0,0)),
-verde(new gcn::Color (0,255,0))
-{
-    this->add(etiqueta,0,0);
-    this->add(imagen,10,10);
-    this->setPosition (10,10);
-
-    addMouseListener (this);
-    addKeyListener (this);
-    addActionListener (this);
-//    addFocusListener(this);
-};
 
 SpriteGUI::SpriteGUI (Sprite* sprite_editar):
 sprite(sprite_editar),
@@ -62,10 +46,20 @@ prueba_menu (new MenuGUI())
     add (add_frame, 5, 5);
     add (del_frame, add_frame->getWidth()+10, 5);
     add (imagen,(add_frame->getWidth()+del_frame->getWidth())/2-imagen->getWidth()/2+add_frame->getX(),50);
-    prueba_menu->setHeight (100);
-    prueba_menu->setWidth (100);
-    add (prueba_menu, 100, 100);
+
+    // Se añade un menú de prueba.
+    prueba_menu->setFont(new gcn::ImageFont ("fixedfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ñ"));
+    //prueba_menu->setFont(new gcn::ImageFont ("prueba.bmp", "0123456789"));
     prueba_menu->setVisible (false);
+    prueba_menu->addItem (new gui::Item ("Añadir"));
+    prueba_menu->addItem (new gui::Item ("Recortar"));
+    prueba_menu->addItem (new gui::Item ("5461"));
+    prueba_menu->addItem (new gui::Item ("Pegar"));
+    prueba_menu->addItem (new gui::Item ("Borrar"));
+    prueba_menu->adjustSize ();
+    //prueba_menu->setWidth(60);
+
+    add (prueba_menu, 0, 0);
 
     // Nos añadimos a los oyentes de los mensajes del ratón y el teclado.
     addMouseListener (this);
@@ -118,7 +112,9 @@ void SpriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
     {
         // Se muestra el menú de prueba.
         prueba_menu->setPosition (mouseEvent.getX (), mouseEvent.getY ());
+        prueba_menu->setSelected (0);
         prueba_menu->setVisible (true);
+        prueba_menu->requestFocus ();
     };
 
     //etiqueta->setCaption("Ya me diste por fuera.");
@@ -204,6 +200,10 @@ void SpriteGUI::action (const gcn::ActionEvent& actionEvent)
     {
         // Si la acción la produce el menú de prueba mostramos su item en la etiqueta.
         etiqueta->setCaption (prueba_menu->getElementAt(prueba_menu->getSelected()));
+        if (etiqueta->getCaption() == "Menu 2")
+        {
+            etiqueta->setCaption ("Elegimos el menú 2.");
+        }
         etiqueta->adjustSize ();
     };
 };

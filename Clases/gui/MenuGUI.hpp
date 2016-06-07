@@ -5,6 +5,7 @@
 #define GUI_MENUGUI_HPP
 
 #include <string>
+#include <vector>
 //#include "../Sprite.h"
 //#include <guichan/graphics.hpp>
 //#include <guichan/platform.hpp>
@@ -21,6 +22,15 @@
 
 namespace gui
 {
+    class Item
+    {
+    public:
+        Item (const std::string& nuevo):nombre(nuevo){};
+        const std::string& getNombre () const {return nombre;};
+    private:
+        std::string nombre;
+    };
+
     /// Clase que implementa el comportamiento básico de un menú.
     /// Básicamente se compone de una ListBox modificada con opciones desplegables.
     ///
@@ -32,6 +42,9 @@ namespace gui
     public:
         /// Constructor.
         MenuGUI ();
+
+        /// Añade un Item al menú.
+        void addItem (Item* item);
 
         // Heredado de SelectionListener.
         virtual void valueChanged (const gcn::SelectionEvent& eventp);
@@ -55,7 +68,7 @@ namespace gui
         //void keyReleased (gcn::KeyEvent& keyEvent);
 
     protected:
-//        gui::Items* items;
+        std::vector<Item*> items;
         gcn::Label* etiqueta;
     };
 }
