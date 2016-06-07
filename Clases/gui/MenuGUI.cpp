@@ -13,11 +13,10 @@ namespace gui
 
 MenuGUI::MenuGUI ():
 items (new gui::Items()),
-//lista (new gcn::ListBox (items)),
+lista (new gcn::ListBox (items)),
 etiqueta(new gcn::Label ("Etiqueta prueba..."))
 {
-//items = new gui::Items();
-lista = new gcn::ListBox (items);
+//lista = new gcn::ListBox (items);
 etiqueta->setCaption(items->getElementAt (0));
 };
 
@@ -32,9 +31,12 @@ void MenuGUI::draw (gcn::Graphics* graphics)
 //  imagen->setImage (sprite->getImage(frame_actual));
 //};
 //
-//void SpriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
-//{
-//};
+
+void MenuGUI::mousePressed (gcn::MouseEvent& mouseEvent)
+{
+    lista->mousePressed (mouseEvent);
+};
+
 //
 //void SpriteGUI::mouseEntered (gcn::MouseEvent& mouseEvent)
 //{
@@ -44,12 +46,14 @@ void MenuGUI::draw (gcn::Graphics* graphics)
 //{
 //};
 //
-//void SpriteGUI::keyPressed(gcn::KeyEvent& keyEvent)
-//{
-//};
-//
-//void SpriteGUI::keyReleased (gcn::KeyEvent& keyEvent)
-//{
-//};
-//
+void MenuGUI::keyPressed(gcn::KeyEvent& keyEvent)
+{
+    lista->keyPressed (keyEvent);
+};
+
+void MenuGUI::keyReleased (gcn::KeyEvent& keyEvent)
+{
+    lista->keyReleased (keyEvent);
+};
+
 }

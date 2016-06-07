@@ -61,18 +61,18 @@ namespace gui
         //void logic ();
 
         //// Inherited from MouseListener.
-        //virtual void mousePressed (gcn::MouseEvent& mouseEvent);
+        virtual void mousePressed (gcn::MouseEvent& mouseEvent);
         //virtual void mouseEntered (gcn::MouseEvent& mouseEvent);
         //virtual void mouseExited (gcn::MouseEvent& mouseEvent);
 
         //// Heredado de KeyListener.
-        //void keyPressed (gcn::KeyEvent& keyEvent);
-        //void keyReleased (gcn::KeyEvent& keyEvent);
+        void keyPressed (gcn::KeyEvent& keyEvent);
+        void keyReleased (gcn::KeyEvent& keyEvent);
 
     protected:
-        gcn::Label* etiqueta;
-        gcn::ListBox* lista;
         gui::Items* items;
+        gcn::ListBox* lista;
+        gcn::Label* etiqueta;
     };
 }
 
