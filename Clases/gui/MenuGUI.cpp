@@ -21,10 +21,9 @@ etiqueta(new gcn::Label ("Etiqueta prueba..."))
     etiqueta->setX(100);
 };
 
-
 void MenuGUI::draw (gcn::Graphics* graphics)
 {
-    gcn::ListBox::draw (graphics);
+        gcn::ListBox::draw (graphics);
 //    etiqueta->draw (graphics);
 };
 
@@ -35,26 +34,33 @@ void MenuGUI::draw (gcn::Graphics* graphics)
 
 void MenuGUI::valueChanged (const gcn::SelectionEvent& event)
 {
-    this->setSize (getWidth()+5, getHeight());
-    etiqueta->setCaption(this->getElementAt(this->getSelected ()));
+//    this->setSize (getWidth()+5, getHeight());
+//    etiqueta->setCaption(this->getElementAt(this->getSelected ()));
+//    this->distributeActionEvent ();
+};
+
+void MenuGUI::mousePressed (gcn::MouseEvent& mouseEvent)
+{
     this->distributeActionEvent ();
 };
 
 
-//void MenuGUI::mousePressed (gcn::MouseEvent& mouseEvent)
-//{
-//    lista->mousePressed (mouseEvent);
-//};
-
-//
 //void SpriteGUI::mouseEntered (gcn::MouseEvent& mouseEvent)
 //{
 //};
 //
-//void SpriteGUI::mouseExited (gcn::MouseEvent& mouseEvent)
-//{
-//};
-//
+
+void MenuGUI::mouseExited (gcn::MouseEvent& mouseEvent)
+{
+    this->setSelected (0);
+    setVisible (false);
+};
+
+void MenuGUI::mouseMoved (gcn::MouseEvent& mouseEvent)
+{
+    setSelected (mouseEvent.getY () / getRowHeight ());
+};
+
 //void MenuGUI::keyPressed(gcn::KeyEvent& keyEvent)
 //{
 //    lista->keyPressed (keyEvent);
@@ -85,6 +91,5 @@ std::string MenuGUI::getElementAt (int i)
             return std::string("");
     }
 };
-
 
 }

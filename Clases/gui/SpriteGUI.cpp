@@ -65,6 +65,7 @@ prueba_menu (new MenuGUI())
     prueba_menu->setHeight (100);
     prueba_menu->setWidth (100);
     add (prueba_menu, 100, 100);
+    prueba_menu->setVisible (false);
 
     // Nos añadimos a los oyentes de los mensajes del ratón y el teclado.
     addMouseListener (this);
@@ -113,6 +114,13 @@ void SpriteGUI::adjustSize()
 
 void SpriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
 {
+    if (mouseEvent.getButton () == gcn::MouseEvent::Right)
+    {
+        // Se muestra el menú de prueba.
+        prueba_menu->setPosition (mouseEvent.getX (), mouseEvent.getY ());
+        prueba_menu->setVisible (true);
+    };
+
     //etiqueta->setCaption("Ya me diste por fuera.");
     if (mouseEvent.getButton() == gcn::MouseEvent::Left)
     {
@@ -138,11 +146,13 @@ void SpriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
 void SpriteGUI::mouseEntered (gcn::MouseEvent& mouseEvent)
 {
     setBaseColor (*verde);
+//    prueba_menu->setVisible (true);
 };
 
 void SpriteGUI::mouseExited (gcn::MouseEvent& mouseEvent)
 {
     setBaseColor (*rojo);
+//    prueba_menu->setVisible (false);
 };
 
 void SpriteGUI::keyPressed(gcn::KeyEvent& keyEvent)

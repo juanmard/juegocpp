@@ -31,7 +31,6 @@ namespace gui
     {
     public:
         /// Constructor.
-        ///
         MenuGUI ();
 
         // Heredado de SelectionListener.
@@ -46,9 +45,10 @@ namespace gui
         //void logic ();
 
         //// Inherited from MouseListener.
-        //virtual void mousePressed (gcn::MouseEvent& mouseEvent);
+        virtual void mousePressed (gcn::MouseEvent& mouseEvent);
         //virtual void mouseEntered (gcn::MouseEvent& mouseEvent);
-        //virtual void mouseExited (gcn::MouseEvent& mouseEvent);
+        virtual void mouseExited (gcn::MouseEvent& mouseEvent);
+        virtual void mouseMoved (gcn::MouseEvent& mouseEvent);
 
         //// Heredado de KeyListener.
         //void keyPressed (gcn::KeyEvent& keyEvent);
