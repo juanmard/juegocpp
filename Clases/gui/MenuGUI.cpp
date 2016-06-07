@@ -12,24 +12,32 @@ namespace gui
 {
 
 MenuGUI::MenuGUI ():
-items (new gui::Items()),
+items (new gui::Items ()),
 etiqueta(new gcn::Label ("Etiqueta prueba..."))
 {
     this->setListModel (items);
-    etiqueta->setCaption(items->getElementAt (0));
+    this->addSelectionListener(this);
+    //this->setSelectionColor (gcn::Color(255,0,0));
 };
 
-//void MenuGUI::draw (gcn::Graphics* graphics)
+
+void MenuGUI::draw (gcn::Graphics* graphics)
+{
+    gcn::ListBox::draw (graphics);
+    etiqueta->draw (graphics);
+};
+
+//void MenuGUI::logic ()
 //{
-//    lista->draw (graphics);
+// // etiqueta->setCaption("logica, logica");
 //};
 
-//void SpriteGUI::logic ()
-//{
-//  // // etiqueta->setCaption("logica, logica");
-//  imagen->setImage (sprite->getImage(frame_actual));
-//};
-//
+void MenuGUI::valueChanged (const gcn::SelectionEvent& event)
+{
+    this->setSize (getWidth()+5, getHeight());
+    etiqueta->setCaption(this->items->getElementAt(this->getSelected ()));
+};
+
 
 //void MenuGUI::mousePressed (gcn::MouseEvent& mouseEvent)
 //{

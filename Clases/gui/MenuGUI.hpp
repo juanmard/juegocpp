@@ -13,6 +13,8 @@
 #include <guichan/widgets/label.hpp>
 //#include <guichan/widgets/button.hpp>
 #include <guichan/listmodel.hpp>
+#include <guichan/selectionlistener.hpp>
+#include <guichan/selectionevent.hpp>
 #include <guichan/widgets/listbox.hpp>
 #include <guichan/mouselistener.hpp>
 #include <guichan/keylistener.hpp>
@@ -44,7 +46,8 @@ namespace gui
     /// Básicamente se compone de una ListBox modificada con opciones desplegables.
     ///
     class GCN_CORE_DECLSPEC MenuGUI :
-                            public gcn::ListBox
+                            public gcn::ListBox,
+                            public gcn::SelectionListener
     {
     public:
         /// Constructor.
@@ -56,8 +59,11 @@ namespace gui
         ///
         //MenuGUI (const std::string& etiqueta);
 
+        /// Heredado de SelectionListener.
+        virtual void valueChanged (const gcn::SelectionEvent& eventp);
+
         //// Inherited from Widget
-        //virtual void draw (gcn::Graphics* graphics);
+        virtual void draw (gcn::Graphics* graphics);
         //void logic ();
 
         //// Inherited from MouseListener.
