@@ -15,16 +15,17 @@ MenuGUI::MenuGUI ():
 etiqueta(new gcn::Label ("Etiqueta prueba..."))
 {
     this->setListModel (this);
-    this->addSelectionListener(this);
-    etiqueta->setX(100);
+    this->addSelectionListener (this);
     //this->setSelectionColor (gcn::Color(255,0,0));
+    this->setActionEventId ("menu");
+    etiqueta->setX(100);
 };
 
 
 void MenuGUI::draw (gcn::Graphics* graphics)
 {
     gcn::ListBox::draw (graphics);
-    etiqueta->draw (graphics);
+//    etiqueta->draw (graphics);
 };
 
 //void MenuGUI::logic ()
@@ -36,6 +37,7 @@ void MenuGUI::valueChanged (const gcn::SelectionEvent& event)
 {
     this->setSize (getWidth()+5, getHeight());
     etiqueta->setCaption(this->getElementAt(this->getSelected ()));
+    this->distributeActionEvent ();
 };
 
 
@@ -74,11 +76,11 @@ std::string MenuGUI::getElementAt (int i)
     switch(i)
     {
         case 0:
-            return std::string("Menu 3");
+            return std::string("Menu 1");
         case 1:
             return std::string("Menu 2");
         case 2:
-            return std::string("Menu 1");
+            return std::string("Menu 3");
         default:
             return std::string("");
     }

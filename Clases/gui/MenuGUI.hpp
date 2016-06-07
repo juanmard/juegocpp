@@ -21,27 +21,6 @@
 
 namespace gui
 {
-    //// La clase para los controles con lista.
-    //class Items : public gcn::ListModel
-    //{
-    //public:
-    //    int getNumberOfElements() {return 3;};
-    //    std::string getElementAt(int i)
-    //    {
-    //        switch(i)
-    //        {
-    //          case 0:
-    //              return std::string("Menu 1");
-    //          case 1:
-    //              return std::string("Menu 2");
-    //          case 2:
-    //              return std::string("Menu 3");
-    //          default:
-    //              return std::string("");
-    //        }
-    //    }
-    //};
-
     /// Clase que implementa el comportamiento básico de un menú.
     /// Básicamente se compone de una ListBox modificada con opciones desplegables.
     ///
@@ -55,19 +34,14 @@ namespace gui
         ///
         MenuGUI ();
 
-        /// Constructor.
-        /// @param  etiqueta  Cadena con el nombre que mostrará la opción.
-        ///
-        //MenuGUI (const std::string& etiqueta);
-
-        /// Heredado de SelectionListener.
+        // Heredado de SelectionListener.
         virtual void valueChanged (const gcn::SelectionEvent& eventp);
 
         // Heredado de ListModel.
         int getNumberOfElements ();
         std::string getElementAt (int i);
 
-        //// Inherited from Widget
+        // Heredado de ListBox
         virtual void draw (gcn::Graphics* graphics);
         //void logic ();
 

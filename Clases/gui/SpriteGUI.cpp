@@ -1,6 +1,6 @@
 ///
 /// @file SpriteGUI.cpp
-/// @brief Fichero de implementaciÃ³n de la clase "SpriteGUI".
+/// @brief Fichero de implementación de la clase "SpriteGUI".
 /// @author Juan Manuel Rico
 /// @date Junio 2016
 /// @version 1.0.0
@@ -27,15 +27,16 @@ verde(new gcn::Color (0,255,0))
     this->add(imagen,10,10);
     this->setPosition (10,10);
 
-    addMouseListener(this);
-    addKeyListener(this);
+    addMouseListener (this);
+    addKeyListener (this);
+    addActionListener (this);
 //    addFocusListener(this);
 };
 
 SpriteGUI::SpriteGUI (Sprite* sprite_editar):
 sprite(sprite_editar),
 etiqueta(new gcn::Label ("GUI Sprite")),
-add_frame (new gcn::Button ("AÃ±adir")),
+add_frame (new gcn::Button ("Añadir")),
 del_frame (new gcn::Button ("Borrar")),
 imagen(new gcn::Icon ()),
 rojo(new gcn::Color (255,0,0)),
@@ -56,7 +57,7 @@ prueba_menu (new MenuGUI())
     imagen->setBaseColor (*verde);
     imagen->setImage (sprite->getImage(frame_actual));
 
-    // Se aÃ±aden los controles a este contenedor.
+    // Se añaden los controles a este contenedor.
     add (etiqueta, 5, 150);
     add (add_frame, 5, 5);
     add (del_frame, add_frame->getWidth()+10, 5);
@@ -65,10 +66,12 @@ prueba_menu (new MenuGUI())
     prueba_menu->setWidth (100);
     add (prueba_menu, 100, 100);
 
-
+    // Nos añadimos a los oyentes de los mensajes del ratón y el teclado.
     addMouseListener (this);
     addKeyListener (this);
-//    addFocusListener(this);
+
+    // Nos añadimos a los oyentes de las acciones del menú de prueba.
+    prueba_menu->addActionListener (this);
 };
 
 const std::string &SpriteGUI::getCaption () const
@@ -110,16 +113,16 @@ void SpriteGUI::adjustSize()
 
 void SpriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
 {
-    etiqueta->setCaption("Ya me diste por fuera.");
+    //etiqueta->setCaption("Ya me diste por fuera.");
     if (mouseEvent.getButton() == gcn::MouseEvent::Left)
     {
-        etiqueta->setCaption("Ya me diste.");
+        //etiqueta->setCaption("Ya me diste.");
         imagen->setBaseColor (*verde);
         if (mouseEvent.getSource() == imagen)
         {
             imagen->setBaseColor (*rojo);
 
-            // Prueba de informaciÃ³n.
+            // Prueba de información.
             etiqueta->setCaption(sprite->getString());
             //etiqueta->setCaption (sprite->print());
 
@@ -183,6 +186,16 @@ void SpriteGUI::keyReleased (gcn::KeyEvent& keyEvent)
         if (frame_actual >= sprite->getNumFrames ()) frame_actual = 0;
         etiqueta->setCaption ("Derecha soltada");
     }
+};
+
+void SpriteGUI::action (const gcn::ActionEvent& actionEvent)
+{
+    if (actionEvent.getId()=="menu")
+    {
+        // Si la acción la produce el menú de prueba mostramos su item en la etiqueta.
+        etiqueta->setCaption (prueba_menu->getElementAt(prueba_menu->getSelected()));
+        etiqueta->adjustSize ();
+    };
 };
 
 }

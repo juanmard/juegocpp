@@ -11,11 +11,12 @@
 #include <guichan/platform.hpp>
 #include <guichan/widget.hpp>
 #include <guichan/widgets/container.hpp>
-#include <guichan/mouselistener.hpp>
-#include <guichan/focuslistener.hpp>
 #include <guichan/widgets/label.hpp>
 #include <guichan/widgets/button.hpp>
 #include <guichan/widgets/icon.hpp>
+#include <guichan/mouselistener.hpp>
+#include <guichan/keylistener.hpp>
+#include <guichan/actionlistener.hpp>
 
 namespace gui
 {
@@ -25,7 +26,8 @@ namespace gui
     class GCN_CORE_DECLSPEC SpriteGUI :
                             public gcn::Container,
                             public gcn::MouseListener,
-                            public gcn::KeyListener
+                            public gcn::KeyListener,
+                            public gcn::ActionListener
     {
     public:
         /**
@@ -95,6 +97,9 @@ namespace gui
         // Heredado de KeyListener.
         void keyPressed (gcn::KeyEvent& keyEvent);
         void keyReleased (gcn::KeyEvent& keyEvent);
+
+        // Heredado de ActionListener.
+        virtual void action (const gcn::ActionEvent& actionEvent);
 
     protected:
         Sprite* sprite;          ///< Sprite que se quiere editar.
