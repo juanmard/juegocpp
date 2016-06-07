@@ -48,17 +48,17 @@ prueba_menu (new MenuGUI())
     add (imagen,(add_frame->getWidth()+del_frame->getWidth())/2-imagen->getWidth()/2+add_frame->getX(),50);
 
     // Se añade un menú de prueba.
+    //
     prueba_menu->setFont(new gcn::ImageFont ("fixedfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ñ"));
     //prueba_menu->setFont(new gcn::ImageFont ("prueba.bmp", "0123456789"));
     prueba_menu->setVisible (false);
     prueba_menu->addItem (new gui::Item ("Añadir"));
     prueba_menu->addItem (new gui::Item ("Recortar"));
-    prueba_menu->addItem (new gui::Item ("5461"));
+    //prueba_menu->addItem (new gui::Item ("5461"));
     prueba_menu->addItem (new gui::Item ("Pegar"));
     prueba_menu->addItem (new gui::Item ("Borrar"));
     prueba_menu->adjustSize ();
     //prueba_menu->setWidth(60);
-
     add (prueba_menu, 0, 0);
 
     // Nos añadimos a los oyentes de los mensajes del ratón y el teclado.
@@ -111,10 +111,14 @@ void SpriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
     if (mouseEvent.getButton () == gcn::MouseEvent::Right)
     {
         // Se muestra el menú de prueba.
+        // @todo... hacer mejor...
+        if (this->getWidgetAt (mouseEvent.getX(),mouseEvent.getY())==this->imagen)
+        {
         prueba_menu->setPosition (mouseEvent.getX (), mouseEvent.getY ());
         prueba_menu->setSelected (0);
         prueba_menu->setVisible (true);
         prueba_menu->requestFocus ();
+        }
     };
 
     //etiqueta->setCaption("Ya me diste por fuera.");
@@ -142,13 +146,11 @@ void SpriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
 void SpriteGUI::mouseEntered (gcn::MouseEvent& mouseEvent)
 {
     setBaseColor (*verde);
-//    prueba_menu->setVisible (true);
 };
 
 void SpriteGUI::mouseExited (gcn::MouseEvent& mouseEvent)
 {
     setBaseColor (*rojo);
-//    prueba_menu->setVisible (false);
 };
 
 void SpriteGUI::keyPressed(gcn::KeyEvent& keyEvent)
@@ -200,7 +202,7 @@ void SpriteGUI::action (const gcn::ActionEvent& actionEvent)
     {
         // Si la acción la produce el menú de prueba mostramos su item en la etiqueta.
         etiqueta->setCaption (prueba_menu->getElementAt(prueba_menu->getSelected()));
-        if (etiqueta->getCaption() == "Menu 2")
+        if (etiqueta->getCaption() == "Item 2")
         {
             etiqueta->setCaption ("Elegimos el menú 2.");
         }
