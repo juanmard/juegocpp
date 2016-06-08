@@ -46,6 +46,9 @@ namespace gui
         /// Añade un Item al menú.
         void addItem (Item* item);
 
+        /// Muestra el menú emergente.
+        void show (int x, int y);
+
         // Heredado de SelectionListener.
         virtual void valueChanged (const gcn::SelectionEvent& eventp);
 
@@ -69,6 +72,7 @@ namespace gui
 
     protected:
         std::vector<Item*> items;
+        unsigned int maxWidth;
         gcn::Label* etiqueta;
     };
 }

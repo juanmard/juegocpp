@@ -7,11 +7,13 @@
 ///
 
 #include "MenuGUI.hpp"
+#include <guichan/font.hpp>
 
 namespace gui
 {
 
 MenuGUI::MenuGUI ():
+maxWidth (0),
 etiqueta(new gcn::Label ("Etiqueta prueba..."))
 {
     this->setFocusable (true);
@@ -24,9 +26,25 @@ etiqueta(new gcn::Label ("Etiqueta prueba..."))
 
 void MenuGUI::addItem (Item* item)
 {
+    // Se añade el item.
     items.push_back (item);
+
+    // Se ajusta el ancho del menú.
+    unsigned width = getFont()->getWidth(item->getNombre());
+    if (width >= maxWidth)
+    {
+        maxWidth = width + 5;
+        setWidth (maxWidth);
+    }
 };
 
+void MenuGUI::show (int x, int y)
+{
+        setPosition (x, y);
+        setSelected (0);
+        setVisible (true);
+        requestFocus ();
+};
 
 void MenuGUI::draw (gcn::Graphics* graphics)
 {
