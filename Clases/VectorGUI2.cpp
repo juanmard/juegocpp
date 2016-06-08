@@ -4,7 +4,7 @@
  * 
  */
 
-#include "VectorGUI.h"
+#include "VectorGUI2.h"
 #include "EscenarioGUI.h"
 #include <sstream>
 
@@ -13,7 +13,7 @@ using std::ostringstream;
 /**
  * \brief   Constructor.
  */
-VectorGUI::VectorGUI(int &xParam, int &yParam, DIALOG *enlacesParam):
+VectorGUI2::VectorGUI2(int &xParam, int &yParam, DIALOG *enlacesParam):
 x (&xParam),
 y (&yParam),
 enlaces (enlacesParam)
@@ -24,7 +24,7 @@ enlaces (enlacesParam)
  * \brief   Comprueba las teclas en el control del vector.
  * \return  El procesado de la tecla.
  */
-int  VectorGUI::Teclado (int msg, DIALOG *d, int code)
+int  VectorGUI2::Teclado (int msg, DIALOG *d, int code)
 {
   // Salida por omisión.
   int salida = D_O_K;
@@ -60,7 +60,7 @@ int  VectorGUI::Teclado (int msg, DIALOG *d, int code)
  * \brief   Dibuja los valores en la GUI.
  * \return  El valor al dibujar.
  */
-int  VectorGUI::Draw (int msg, DIALOG *d, int code)
+int  VectorGUI2::Draw (int msg, DIALOG *d, int code)
 {
   // Se borra el fondo.
   rectfill (screen, d->x, d->y, d->x + d->w, d->y + d->h, gui_bg_color);
@@ -86,7 +86,7 @@ int  VectorGUI::Draw (int msg, DIALOG *d, int code)
  * \brief   Comprueba la rueda del ratón.
  * \return  El procesado de la rueda.
  */
-int  VectorGUI::Wheel (int msg, DIALOG *d, int code)
+int  VectorGUI2::Wheel (int msg, DIALOG *d, int code)
 {
   // Actualizamos los valores referenciados por el vector según los clicks de la rueda.
   if (key[KEY_ALT])
@@ -110,7 +110,7 @@ int  VectorGUI::Wheel (int msg, DIALOG *d, int code)
 /**
  * \brief   Añade un enlace a otro diálogo.
  */
-void  VectorGUI::addEnlace (DIALOG *enlace)
+void  VectorGUI2::addEnlace (DIALOG *enlace)
 {
   // enlaces.push_back (enlace);
   enlaces = enlace;
@@ -119,7 +119,7 @@ void  VectorGUI::addEnlace (DIALOG *enlace)
 /**
  * \brief   Se cambia el par de valores a los que se hace referencia en la GUI.
  */
-void  VectorGUI::setVector (int &xParam, int &yParam)
+void  VectorGUI2::setVector (int &xParam, int &yParam)
 {
   x = &xParam;
   y = &yParam;

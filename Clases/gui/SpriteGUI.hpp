@@ -17,6 +17,7 @@
 #include <guichan/mouselistener.hpp>
 #include <guichan/keylistener.hpp>
 #include <guichan/actionlistener.hpp>
+#include "VectorGUI.hpp"
 
 namespace gui
 {
@@ -102,16 +103,21 @@ namespace gui
         virtual void action (const gcn::ActionEvent& actionEvent);
 
     protected:
-        Sprite* sprite;          ///< Sprite que se quiere editar.
-        gcn::Label* etiqueta;    ///< Etiqueta del widget.
+        Sprite* sprite;             ///< Sprite que se quiere editar.
+        gcn::Label* etiqueta;       ///< Etiqueta del widget.
         gcn::Button* add_frame;
         gcn::Button* del_frame;
-        gcn::Icon* imagen;       ///< Imagen del frame actual que se muestra.
-
+        gcn::Icon* imagen;          ///< Imagen del frame actual que se muestra.
         gcn::Color *rojo, *verde;
-        unsigned int frame_actual;
+        unsigned int frame_actual;  ///< Frame actual del Sprite.
+        gcn::Label* numFrame;       ///< Etiqueta para número de Frame.
+        gcn::Label* pos;            ///< Etiqueta para la posición.
+        gcn::Label* ticks;          ///< Etiqueta para los ticks.
 
-        gui::MenuGUI* prueba_menu;
+        int prb_x, prb_y;           ///< Prueba para VectorGUI.
+
+        gui::VectorGUI* vector_pos;
+        gui::MenuGUI* prueba_menu;  ///< Menú de prueba.
     };
 }
 
