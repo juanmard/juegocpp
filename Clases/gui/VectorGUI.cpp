@@ -20,6 +20,7 @@ y (_y)
 {
     setFrameSize (1);
     addMouseListener (this);
+    addKeyListener (this);
 };
 
 //void VectorGUI::draw (gcn::Graphics* graphics)
@@ -30,6 +31,8 @@ y (_y)
 
 void VectorGUI::logic ()
 {
+    // if (modificado)...
+    // @todo: No hacerlo siempre, solo cuando se tenga que actualizar.
     std::ostringstream cadena;
 
     cadena << x << ", " << y;
@@ -45,7 +48,7 @@ void VectorGUI::mouseEntered (gcn::MouseEvent& mouseEvent)
 
 void VectorGUI::mouseExited (gcn::MouseEvent& mouseEvent)
 {
-    this->setBaseColor (getParent()->getBaseColor());
+//    this->setBaseColor (getParent()->getBaseColor());
     this->setFrameSize (0);
 };
 
@@ -77,11 +80,11 @@ void VectorGUI::mouseWheelMovedDown (gcn::MouseEvent& mouseEvent)
 {
     if (mouseEvent.isShiftPressed())
     {
-        x++;
+        x--;
     }
     else
     {
-        y++;
+        y--;
     }
 }
 //void VectorGUI::keyPressed(gcn::KeyEvent& keyEvent)

@@ -6,18 +6,20 @@
 
 #include <guichan/widgets/label.hpp>
 #include <guichan/mouselistener.hpp>
+#include <guichan/keylistener.hpp>
 #include <guichan/mouseevent.hpp>
 
 namespace gui
 {
-    /// Clase que implementa el comportamiento b·sico de la GUI de un vector.
+    /// Clase que implementa el comportamiento b√°sico de la GUI de un vector.
     /// Se intenta que tenga el mismo comportamiento que el original del juego.
-    /// Esto es, que se ponga en rojo cuando pase por encima el ratÛn, que se cambien
-    /// con las teclas el valor y con la rueda de ratÛn.
+    /// Esto es, que se ponga en rojo cuando pase por encima el rat√≥n, que se cambien
+    /// con las teclas el valor y con la rueda de rat√≥n.
     ///
     class GCN_CORE_DECLSPEC VectorGUI :
                             public gcn::Label,
-                            public gcn::MouseListener
+                            public gcn::MouseListener,
+                            public gcn::KeyListener
     {
     public:
         /// Constructor.
