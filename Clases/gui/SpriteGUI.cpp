@@ -26,12 +26,17 @@ imagen(new gcn::Icon ()),
 rojo(new gcn::Color (255,0,0)),
 verde(new gcn::Color (0,255,0)),
 frame_actual (0),
-prueba_menu (new MenuGUI())
+numFrame (new gcn::Label("Frame:")),
+pos (new gcn::Label("Posición:")),
+ticks (new gcn::Label("Ticks:")),
+prb_x(0), prb_y(0),
+vector_pos (new gui::VectorGUI(prb_x, prb_y)),
+prueba_menu (new gui::MenuGUI())
 {
-    setOpaque (false);
+    setOpaque (true);
     setWidth (600);
     setHeight (180);
-    setBaseColor (*rojo);
+    //setBaseColor (*rojo);
     setFrameSize (1);
 
     // Se toma la imagen del frame actual.
@@ -60,6 +65,21 @@ prueba_menu (new MenuGUI())
     prueba_menu->adjustSize ();
     //prueba_menu->setWidth(60);
     add (prueba_menu, 0, 0);
+
+    // Se añaden etiquetas de las propiedades del frame actual.
+    unsigned int widthHeight = this->getFont()->getHeight();
+    add (this->numFrame, 200, 10);
+    add (this->pos,      200, 10 + 1*(widthHeight));
+    add (this->ticks,    200, 10 + 2*(widthHeight));
+    numFrame->setWidth (200);
+    pos->setWidth (200);
+    ticks->setWidth (200);
+    numFrame->setAlignment (gcn::Graphics::Alignment::Right);
+    pos->setAlignment (gcn::Graphics::Alignment::Right);
+    ticks->setAlignment (gcn::Graphics::Alignment::Right);
+
+    add (this->vector_pos, pos->getX()+pos->getWidth()+10, pos->getY());
+    //vector_pos->adjustSize ();
 
     // Nos añadimos a los oyentes de los mensajes del ratón y el teclado.
     addMouseListener (this);
@@ -92,7 +112,6 @@ gcn::Graphics::Alignment SpriteGUI::getAlignment() const
 void SpriteGUI::draw (gcn::Graphics* graphics)
 {
     Container::draw (graphics);
-//    prueba_menu->draw (graphics);
 };
 
 void SpriteGUI::logic ()
@@ -114,10 +133,7 @@ void SpriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
         // @todo... hacer mejor...
         if (this->getWidgetAt (mouseEvent.getX(),mouseEvent.getY())==this->imagen)
         {
-        prueba_menu->setPosition (mouseEvent.getX (), mouseEvent.getY ());
-        prueba_menu->setSelected (0);
-        prueba_menu->setVisible (true);
-        prueba_menu->requestFocus ();
+            prueba_menu->show (mouseEvent.getX(), mouseEvent.getY());
         }
     };
 
@@ -145,12 +161,12 @@ void SpriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
 
 void SpriteGUI::mouseEntered (gcn::MouseEvent& mouseEvent)
 {
-    setBaseColor (*verde);
+    ///setBaseColor (*verde);
 };
 
 void SpriteGUI::mouseExited (gcn::MouseEvent& mouseEvent)
 {
-    setBaseColor (*rojo);
+    ///setBaseColor (*rojo);
 };
 
 void SpriteGUI::keyPressed(gcn::KeyEvent& keyEvent)

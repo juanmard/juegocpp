@@ -18,7 +18,7 @@
 #include "Actor.h"
 #include "ActorGraphic.h"
 #include "LadrilloGUI.h"
-#include "VectorGUI.h"
+#include "VectorGUI2.h"
 #include "GUIContador.h"
 #include "GUIVector.h"
 #include "EscenarioGUI.h"
@@ -40,8 +40,8 @@ DIALOG   ActorGUI::dlg_plantilla[] =
    { d_text_proc,             22,  402, 114, 8,   67,  243, 0,    0,      0,   0,   (void*)"Estado actual: ",         NULL, NULL },
    { d_check_proc,            18,  492, 144, 12,  67,  243, 0,    0,      1,   0,   (void*)"Mostrar limites",         NULL, NULL },
    { d_text_proc,             142, 346, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"Nombre actor",            NULL, NULL },
-   { VectorGUI::callback,     142, 358, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100, 100",                NULL, NULL },
-   { VectorGUI::callback,     142, 368, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100, 100",                NULL, NULL },
+   { VectorGUI2::callback,     142, 358, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100, 100",                NULL, NULL },
+   { VectorGUI2::callback,     142, 368, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100, 100",                NULL, NULL },
    { ActorGUI::callback_graf, 142, 380, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"Sprite",                  NULL, NULL },
 //   { ContadorGUI::callback,   142, 390, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100",                     NULL, NULL },
    { GUIContador::callback,   142, 390, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100",                     NULL, NULL },
@@ -72,8 +72,8 @@ gui (gui_padre)
 
   // Posición y Dimensiones (Tipo Vector).
   // La clase debe ser 'friend' de 'Actor' para poder acceder a la referencia de sus propiedades.
-  dlg_plantilla[posicion].dp3 = new VectorGUI (a.x, a.y);
-  dlg_plantilla[dimensiones].dp3 = new VectorGUI (a.w, a.h);
+  dlg_plantilla[posicion].dp3 = new VectorGUI2 (a.x, a.y);
+  dlg_plantilla[dimensiones].dp3 = new VectorGUI2 (a.w, a.h);
 
   // Gráfico:
   ActorGraphic *graf = a.get_actor_graphic ();
@@ -141,8 +141,8 @@ void  ActorGUI::setActor (Actor &a)
 
   // Posición y Dimensiones.
   // Se cambia la referencia del vector.
-  static_cast<VectorGUI *>(gui[pto + posicion].dp3)->setVector (a.x, a.y);
-  static_cast<VectorGUI *>(gui[pto + dimensiones].dp3)->setVector (a.w, a.h);
+  static_cast<VectorGUI2 *>(gui[pto + posicion].dp3)->setVector (a.x, a.y);
+  static_cast<VectorGUI2 *>(gui[pto + dimensiones].dp3)->setVector (a.w, a.h);
   object_message (&gui[pto + posicion], MSG_DRAW, 0);
   object_message (&gui[pto + dimensiones], MSG_DRAW, 0);
 };

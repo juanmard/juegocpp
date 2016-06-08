@@ -132,7 +132,7 @@ void Juego2::prueba_guichan (Sprite* prueba)
 
     // La fuente de las letras.
     //font = new gcn::ImageFont("fixedfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
-    font = new gcn::ImageFont("rpgfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?>+/():;%&'{*#=[]\"ρ");
+    font = new gcn::ImageFont("rpgfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?>+/():;%&'{*#=[]\"ραινσϊ");
     gcn::Widget::setGlobalFont(font);
 
     // Los widgets contenidos.
@@ -338,6 +338,9 @@ void Juego2::mainGame ()
   std::cout << " I - Consola interactiva." << std::endl;
   std::cout << " ESC - Termina el juego." << std::endl;
   std::cout << "----------------------------------" << std::endl << std::endl;
+
+  // Simulamos la G.
+  key[KEY_G]=true;
 
   // Bucle principal del juego.
   while (!key[KEY_ESC])
