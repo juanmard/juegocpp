@@ -1,6 +1,6 @@
 ///
 /// @file VectorGUI.cpp
-/// @brief Fichero de implementaciÃ³n de la clase "VectorGUI".
+/// @brief Fichero de implementación de la clase "VectorGUI".
 /// @author Juan Manuel Rico
 /// @date Junio 2016
 /// @version 1.0.0
@@ -8,6 +8,7 @@
 
 #include <sstream>
 #include "VectorGUI.hpp"
+#include "guichan\imagefont.hpp"
 
 namespace gui
 {
@@ -15,12 +16,18 @@ namespace gui
 VectorGUI::VectorGUI (int& _x, int& _y):
 gcn::Label(),
 gcn::MouseListener(),
+fontActive (new gcn::ImageFont("rpgfont_red.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&'{*#=[]\"ñáéíóú")),
 x (_x),
 y (_y)
 {
     setFrameSize (1);
     addMouseListener (this);
     addKeyListener (this);
+};
+
+void VectorGUI::setFontActive (gcn::Font* font)
+{
+    fontActive = font;
 };
 
 //void VectorGUI::draw (gcn::Graphics* graphics)
@@ -42,25 +49,23 @@ void VectorGUI::logic ()
 
 void VectorGUI::mouseEntered (gcn::MouseEvent& mouseEvent)
 {
-    this->setBaseColor (gcn::Color (255,0,0));
-    this->setFrameSize (1);
+    if (fontActive) setFont (fontActive);
 };
 
 void VectorGUI::mouseExited (gcn::MouseEvent& mouseEvent)
 {
-//    this->setBaseColor (getParent()->getBaseColor());
-    this->setFrameSize (0);
+    setFont (this->getParent()->getFont());
 };
 
 void VectorGUI::mousePressed (gcn::MouseEvent& mouseEvent)
 {
-    if (mouseEvent.isShiftPressed())
+    if (mouseEvent.getButton()==gcn::MouseEvent::Left)
     {
         x++;
     }
-    else
+    if (mouseEvent.getButton()==gcn::MouseEvent::Right)
     {
-        y++;
+        x--;
     }
 };
 

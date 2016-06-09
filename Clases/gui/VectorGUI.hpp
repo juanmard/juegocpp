@@ -8,6 +8,7 @@
 #include <guichan/mouselistener.hpp>
 #include <guichan/keylistener.hpp>
 #include <guichan/mouseevent.hpp>
+#include <guichan/font.hpp>
 
 namespace gui
 {
@@ -24,6 +25,9 @@ namespace gui
     public:
         /// Constructor.
         VectorGUI (int& x, int& y);
+
+        // Establece la fuente de activación.
+        void setFontActive (gcn::Font* font);
 
         // Heredado de ListModel.
         //int getNumberOfElements ();
@@ -46,6 +50,7 @@ namespace gui
         ////void keyReleased (gcn::KeyEvent& keyEvent);
 
     protected:
+        gcn::Font* fontActive;
         int& x;             ///< Referencia a la componente x que modifica.
         int& y;             ///< Referencia a la componente y que modifica.
         bool Refrescar;     ///< Necesita refrescar la variable.

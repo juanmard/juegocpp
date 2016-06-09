@@ -79,7 +79,7 @@ prueba_menu (new gui::MenuGUI())
     ticks->setAlignment (gcn::Graphics::Right);
 
     add (this->vector_pos, pos->getX()+pos->getWidth()+10, pos->getY());
-    //vector_pos->setForegroundColor(gcn::Color(125,255,125));
+    add (new gui::VectorGUI(prb_y, prb_x), ticks->getX()+ticks->getWidth()+10, ticks->getY());
 
     // Nos añadimos a los oyentes de los mensajes del ratón y el teclado.
     addMouseListener (this);

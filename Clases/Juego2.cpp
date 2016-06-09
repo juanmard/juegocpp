@@ -132,7 +132,7 @@ void Juego2::prueba_guichan (Sprite* prueba)
 
     // La fuente de las letras.
     //font = new gcn::ImageFont("fixedfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
-    font = new gcn::ImageFont("rpgfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?>+/():;%&'{*#=[]\"ραινσϊ");
+    font = new gcn::ImageFont("rpgfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&'{*#=[]\"ραινσϊ");
     gcn::Widget::setGlobalFont(font);
 
     // Los widgets contenidos.
