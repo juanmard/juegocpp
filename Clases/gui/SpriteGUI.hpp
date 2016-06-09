@@ -107,7 +107,11 @@ namespace gui
         gcn::Label* etiqueta;       ///< Etiqueta del widget.
         gcn::Button* add_frame;
         gcn::Button* del_frame;
-        gcn::Icon* imagen;          ///< Imagen del frame actual que se muestra.
+
+        gcn::Icon* imagenAnterior;          ///< Imagen del frame actual que se muestra.
+        gcn::Icon* imagenActual;          ///< Imagen del frame actual que se muestra.
+        gcn::Icon* imagenPosterior;          ///< Imagen del frame actual que se muestra.
+
         gcn::Color *rojo, *verde;
         unsigned int frame_actual;  ///< Frame actual del Sprite.
         gcn::Label* numFrame;       ///< Etiqueta para número de Frame.

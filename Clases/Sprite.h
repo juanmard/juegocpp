@@ -151,6 +151,10 @@ public:
     ///
     const Frame* getFrame (int ind) const;
 
+    ///
+    void setXFrame (int ind, int x);
+    void setYFrame (int ind, int y);
+
     /// Entrega el número de "frames" del "sprite".
     /// @return Número de "frames" que tiene el "sprite".
     ///

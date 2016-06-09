@@ -23,8 +23,11 @@ namespace gui
                             public gcn::KeyListener
     {
     public:
+        enum Tipo {unaComponente, dosComponentes};
+
         /// Constructor.
         VectorGUI (int& x, int& y);
+        VectorGUI (int& x);
 
         // Establece la fuente de activación.
         void setFontActive (gcn::Font* font);
@@ -53,6 +56,7 @@ namespace gui
         gcn::Font* fontActive;
         int& x;             ///< Referencia a la componente x que modifica.
         int& y;             ///< Referencia a la componente y que modifica.
+        Tipo tipo;
         bool Refrescar;     ///< Necesita refrescar la variable.
     };
 }

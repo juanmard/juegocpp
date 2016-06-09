@@ -17,8 +17,23 @@ VectorGUI::VectorGUI (int& _x, int& _y):
 gcn::Label(),
 gcn::MouseListener(),
 fontActive (new gcn::ImageFont("rpgfont_red.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&'{*#=[]\"ραινσϊ")),
+tipo (VectorGUI::dosComponentes),
 x (_x),
 y (_y)
+{
+    setFrameSize (0);
+    addMouseListener (this);
+    setFocusable(true);
+    addKeyListener (this);
+};
+
+VectorGUI::VectorGUI (int& _x):
+gcn::Label(),
+gcn::MouseListener(),
+fontActive (new gcn::ImageFont("rpgfont_red.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&'{*#=[]\"ραινσϊ")),
+tipo (VectorGUI::unaComponente),
+x (_x),
+y(_x)
 {
     setFrameSize (0);
     addMouseListener (this);
@@ -43,7 +58,11 @@ void VectorGUI::logic ()
     // @todo: No hacerlo siempre, solo cuando se tenga que actualizar.
     std::ostringstream cadena;
 
-    cadena << x << ", " << y;
+    cadena << x;
+    if (tipo == VectorGUI::dosComponentes)
+    {
+      cadena << ", " << y;
+    }
     setCaption(cadena.str());
     adjustSize();
 };
@@ -63,7 +82,7 @@ void VectorGUI::mousePressed (gcn::MouseEvent& mouseEvent)
 {
     //cambiarComponente (mouseEvent)
     int& componente = x;
-    if (mouseEvent.isControlPressed()) componente = y;
+    if (mouseEvent.isControlPressed() && tipo==VectorGUI::dosComponentes) componente = y;
     if (mouseEvent.getButton()==gcn::MouseEvent::Left)
     {
         componente++;
@@ -80,7 +99,7 @@ void VectorGUI::mouseWheelMovedUp (gcn::MouseEvent& mouseEvent)
     {
         x++;
     }
-    else
+    else if (tipo==VectorGUI::dosComponentes)
     {
         y++;
     }
@@ -92,7 +111,7 @@ void VectorGUI::mouseWheelMovedDown (gcn::MouseEvent& mouseEvent)
     {
         x--;
     }
-    else
+    else if (tipo==VectorGUI::dosComponentes)
     {
         y--;
     }
@@ -104,8 +123,12 @@ void VectorGUI::keyPressed(gcn::KeyEvent& keyEvent)
     if (keyEvent.isShiftPressed()) inc=10;
     switch (keyEvent.getKey().getValue())
     {
-        case gcn::Key::Down: y += inc; break;
-        case gcn::Key::Up: y -= inc; break;
+        case gcn::Key::Down:
+            if (tipo==VectorGUI::dosComponentes) y += inc;
+            break;
+        case gcn::Key::Up:
+            if (tipo==VectorGUI::dosComponentes) y -= inc;
+            break;
         case gcn::Key::Left: x -= inc; break;
         case gcn::Key::Right: x += inc; break;
     }

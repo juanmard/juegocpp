@@ -225,3 +225,14 @@ const gcn::Image* Sprite::getImage (unsigned int ind) const
 {
     throw *new std::runtime_error ("La obtención de una imagen desde un \"Sprite\" está sin implementar.\n¿Ha creado un \"SpriteAllegro\"?.");
 };
+
+void Sprite::setXFrame (int ind, int x)
+{
+    frames[ind].cx = x;
+};
+
+void Sprite::setYFrame (int ind, int y)
+{
+    frames[ind].cy = y;
+};
+

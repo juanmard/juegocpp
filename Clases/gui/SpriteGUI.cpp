@@ -7,6 +7,7 @@
 ///
 
 #include "SpriteGUI.hpp"
+#include <sstream>
 #include <guichan/exception.hpp>
 #include <guichan/font.hpp>
 #include <guichan/imagefont.hpp>
@@ -20,14 +21,16 @@ namespace gui
 SpriteGUI::SpriteGUI (Sprite* sprite_editar):
 sprite(sprite_editar),
 etiqueta(new gcn::Label ("GUI Sprite")),
-add_frame (new gcn::Button ("AÃ±adir")),
+add_frame (new gcn::Button ("Añadir")),
 del_frame (new gcn::Button ("Borrar")),
-imagen(new gcn::Icon ()),
+imagenAnterior(new gcn::Icon ()),
+imagenActual(new gcn::Icon ()),
+imagenPosterior(new gcn::Icon ()),
 rojo(new gcn::Color (255,0,0)),
 verde(new gcn::Color (0,255,0)),
 frame_actual (0),
 numFrame (new gcn::Label("Frame:")),
-pos (new gcn::Label("PosiciÃ³n:")),
+pos (new gcn::Label("Posición:")),
 ticks (new gcn::Label("Ticks:")),
 prb_x(0), prb_y(0),
 vector_pos (new gui::VectorGUI(prb_x, prb_y)),
@@ -40,24 +43,24 @@ prueba_menu (new gui::MenuGUI())
     setFrameSize (1);
 
     // Se toma la imagen del frame actual.
-    imagen->setFrameSize (2);
-    imagen->setWidth (200);
-    imagen->setHeight (30);
-    imagen->setBaseColor (*verde);
-    imagen->setImage (sprite->getImage(frame_actual));
+    imagenActual->setFrameSize (1);
+    imagenActual->setWidth (200);
+    imagenActual->setHeight (30);
+    //imagenAnterior->setImage (sprite->getImage(frame_actual-1));
+    imagenActual->setImage (sprite->getImage(frame_actual));
+    imagenPosterior->setImage (sprite->getImage(frame_actual+1));
 
-    // Se aÃ±aden los controles a este contenedor.
+    // Se añaden los controles a este contenedor.
     add (etiqueta, 5, 150);
     add (add_frame, 5, 5);
     add (del_frame, add_frame->getWidth()+10, 5);
-    add (imagen,(add_frame->getWidth()+del_frame->getWidth())/2-imagen->getWidth()/2+add_frame->getX(),50);
+    add (imagenActual,(add_frame->getWidth()+del_frame->getWidth())/2-imagenActual->getWidth()/2+add_frame->getX(),50);
 
-    // Se aÃ±ade un menÃº de prueba.
-    //
+    // Se añade un menú de prueba.
     prueba_menu->setFont(new gcn::ImageFont ("fixedfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789Ã±"));
     //prueba_menu->setFont(new gcn::ImageFont ("prueba.bmp", "0123456789"));
     prueba_menu->setVisible (false);
-    prueba_menu->addItem (new gui::Item ("AÃ±adir"));
+    prueba_menu->addItem (new gui::Item ("Añadir"));
     prueba_menu->addItem (new gui::Item ("Recortar"));
     //prueba_menu->addItem (new gui::Item ("5461"));
     prueba_menu->addItem (new gui::Item ("Pegar"));
@@ -66,7 +69,7 @@ prueba_menu (new gui::MenuGUI())
     //prueba_menu->setWidth(60);
     add (prueba_menu, 0, 0);
 
-    // Se aÃ±aden etiquetas de las propiedades del frame actual.
+    // Se añaden etiquetas de las propiedades del frame actual.
     unsigned int widthHeight = this->getFont()->getHeight();
     add (this->numFrame, 200, 10);
     add (this->pos,      200, 10 + 1*(widthHeight));
@@ -79,13 +82,13 @@ prueba_menu (new gui::MenuGUI())
     ticks->setAlignment (gcn::Graphics::Right);
 
     add (this->vector_pos, pos->getX()+pos->getWidth()+10, pos->getY());
-    add (new gui::VectorGUI(prb_y, prb_x), ticks->getX()+ticks->getWidth()+10, ticks->getY());
+    add (new gui::VectorGUI(prb_x), ticks->getX()+ticks->getWidth()+10, ticks->getY());
 
-    // Nos aÃ±adimos a los oyentes de los mensajes del ratÃ³n y el teclado.
+    // Nos añadimos a los oyentes de los mensajes del ratón y el teclado.
     addMouseListener (this);
     addKeyListener (this);
 
-    // Nos aÃ±adimos a los oyentes de las acciones del menÃº de prueba.
+    // Nos añadimos a los oyentes de las acciones del menú de prueba.
     prueba_menu->addActionListener (this);
 };
 
@@ -117,7 +120,23 @@ void SpriteGUI::draw (gcn::Graphics* graphics)
 void SpriteGUI::logic ()
 {
   // // etiqueta->setCaption("logica, logica");
-  imagen->setImage (sprite->getImage(frame_actual));
+  imagenActual->setImage (sprite->getImage(frame_actual));
+  imagenActual->setPosition (prb_x, prb_y);
+
+  // Se actualiza los valores... esto debe estar actualizado por evento desde el vector que lo modifica.
+  //sprite->setXFrame(frame_actual, prb_x);
+  //sprite->setYFrame(frame_actual, prb_y);
+
+  // Si hay cambios en el número de frame que se muestra,
+  // actualizar la etiqueta.
+  // if (actualizarFrame)
+  //{
+  std::ostringstream cadena;
+
+  cadena << "Frame " << frame_actual;
+  this->numFrame->setCaption(cadena.str());
+  // actualizarFrame = false;
+  //}
 };
 
 void SpriteGUI::adjustSize()
@@ -131,7 +150,7 @@ void SpriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
     {
         // Se muestra el menÃº de prueba.
         // @todo... hacer mejor...
-        if (this->getWidgetAt (mouseEvent.getX(),mouseEvent.getY())==this->imagen)
+        if (this->getWidgetAt (mouseEvent.getX(),mouseEvent.getY())==this->imagenActual)
         {
             prueba_menu->show (mouseEvent.getX(), mouseEvent.getY());
         }
@@ -141,10 +160,10 @@ void SpriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
     if (mouseEvent.getButton() == gcn::MouseEvent::Left)
     {
         //etiqueta->setCaption("Ya me diste.");
-        imagen->setBaseColor (*verde);
-        if (mouseEvent.getSource() == imagen)
+        imagenActual->setBaseColor (*verde);
+        if (mouseEvent.getSource() == imagenActual)
         {
-            imagen->setBaseColor (*rojo);
+            imagenActual->setBaseColor (*rojo);
 
             // Prueba de informaciÃ³n.
             etiqueta->setCaption(sprite->getString());
