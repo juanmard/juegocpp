@@ -20,8 +20,9 @@ fontActive (new gcn::ImageFont("rpgfont_red.bmp", " abcdefghijklmnopqrstuvwxyzAB
 x (_x),
 y (_y)
 {
-    setFrameSize (1);
+    setFrameSize (0);
     addMouseListener (this);
+    setFocusable(true);
     addKeyListener (this);
 };
 
@@ -50,6 +51,7 @@ void VectorGUI::logic ()
 void VectorGUI::mouseEntered (gcn::MouseEvent& mouseEvent)
 {
     if (fontActive) setFont (fontActive);
+    requestFocus();
 };
 
 void VectorGUI::mouseExited (gcn::MouseEvent& mouseEvent)
@@ -59,19 +61,22 @@ void VectorGUI::mouseExited (gcn::MouseEvent& mouseEvent)
 
 void VectorGUI::mousePressed (gcn::MouseEvent& mouseEvent)
 {
+    //cambiarComponente (mouseEvent)
+    int& componente = x;
+    if (mouseEvent.isControlPressed()) componente = y;
     if (mouseEvent.getButton()==gcn::MouseEvent::Left)
     {
-        x++;
+        componente++;
     }
     if (mouseEvent.getButton()==gcn::MouseEvent::Right)
     {
-        x--;
+        componente--;
     }
 };
 
 void VectorGUI::mouseWheelMovedUp (gcn::MouseEvent& mouseEvent)
 {
-    if (mouseEvent.isShiftPressed())
+    if (mouseEvent.isControlPressed())
     {
         x++;
     }
@@ -83,7 +88,7 @@ void VectorGUI::mouseWheelMovedUp (gcn::MouseEvent& mouseEvent)
 
 void VectorGUI::mouseWheelMovedDown (gcn::MouseEvent& mouseEvent)
 {
-    if (mouseEvent.isShiftPressed())
+    if (mouseEvent.isControlPressed())
     {
         x--;
     }
@@ -92,11 +97,20 @@ void VectorGUI::mouseWheelMovedDown (gcn::MouseEvent& mouseEvent)
         y--;
     }
 }
-//void VectorGUI::keyPressed(gcn::KeyEvent& keyEvent)
-//{
-//    lista->keyPressed (keyEvent);
-//};
-//
+
+void VectorGUI::keyPressed(gcn::KeyEvent& keyEvent)
+{
+    unsigned int inc =1;
+    if (keyEvent.isShiftPressed()) inc=10;
+    switch (keyEvent.getKey().getValue())
+    {
+        case gcn::Key::Down: y += inc; break;
+        case gcn::Key::Up: y -= inc; break;
+        case gcn::Key::Left: x -= inc; break;
+        case gcn::Key::Right: x += inc; break;
+    }
+};
+
 //void VectorGUI::keyReleased (gcn::KeyEvent& keyEvent)
 //{
 //    lista->keyReleased (keyEvent);

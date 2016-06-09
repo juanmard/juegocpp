@@ -46,7 +46,7 @@ namespace gui
         void mouseWheelMovedDown (gcn::MouseEvent& mouseEvent);
 
         ////// Heredado de KeyListener.
-        ////void keyPressed (gcn::KeyEvent& keyEvent);
+        void keyPressed (gcn::KeyEvent& keyEvent);
         ////void keyReleased (gcn::KeyEvent& keyEvent);
 
     protected:
