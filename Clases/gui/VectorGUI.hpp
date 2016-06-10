@@ -12,10 +12,10 @@
 
 namespace gui
 {
-    /// Clase que implementa el comportamiento básico de la GUI de un vector.
+    /// Clase que implementa el comportamiento bÃ¡sico de la GUI de un vector.
     /// Se intenta que tenga el mismo comportamiento que el original del juego.
-    /// Esto es, que se ponga en rojo cuando pase por encima el ratón, que se cambien
-    /// con las teclas el valor y con la rueda de ratón.
+    /// Esto es, que se ponga en rojo cuando pase por encima el ratÃ³n, que se cambien
+    /// con las teclas el valor y con la rueda de ratÃ³n.
     ///
     class GCN_CORE_DECLSPEC VectorGUI :
                             public gcn::Label,
@@ -29,7 +29,7 @@ namespace gui
         VectorGUI (int& x, int& y);
         VectorGUI (int& x);
 
-        // Establece la fuente de activaci�n.
+        // Establece la fuente de activación.
         void setFontActive (gcn::Font* font);
 
         // Heredado de ListModel.
@@ -54,9 +54,9 @@ namespace gui
 
     protected:
         gcn::Font* fontActive;
+        Tipo tipo;
         int& x;             ///< Referencia a la componente x que modifica.
         int& y;             ///< Referencia a la componente y que modifica.
-        Tipo tipo;
         bool Refrescar;     ///< Necesita refrescar la variable.
     };
 }

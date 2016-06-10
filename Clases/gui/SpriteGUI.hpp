@@ -6,6 +6,7 @@
 
 #include <string>
 #include "MenuGUI.hpp"
+#include "VectorGUI.hpp"
 #include "../Sprite.h"
 #include <guichan/graphics.hpp>
 #include <guichan/platform.hpp>
@@ -108,20 +109,21 @@ namespace gui
         gcn::Button* add_frame;
         gcn::Button* del_frame;
 
-        gcn::Icon* imagenAnterior;          ///< Imagen del frame actual que se muestra.
-        gcn::Icon* imagenActual;          ///< Imagen del frame actual que se muestra.
-        gcn::Icon* imagenPosterior;          ///< Imagen del frame actual que se muestra.
+        gcn::Container* fotogramas;     ///< Contiene los Frames a editar.
+        gcn::Icon* imagenAnterior;      ///< Imagen del frame actual que se muestra.
+        gcn::Icon* imagenActual;        ///< Imagen del frame actual que se muestra.
+        gcn::Icon* imagenPosterior;     ///< Imagen del frame actual que se muestra.
 
         gcn::Color *rojo, *verde;
         unsigned int frame_actual;  ///< Frame actual del Sprite.
-        gcn::Label* numFrame;       ///< Etiqueta para número de Frame.
-        gcn::Label* pos;            ///< Etiqueta para la posición.
+        gcn::Label* numFrame;       ///< Etiqueta para nÃºmero de Frame.
+        gcn::Label* pos;            ///< Etiqueta para la posiciÃ³n.
         gcn::Label* ticks;          ///< Etiqueta para los ticks.
 
         int prb_x, prb_y;           ///< Prueba para VectorGUI.
 
         gui::VectorGUI* vector_pos;
-        gui::MenuGUI* prueba_menu;  ///< Menú de prueba.
+        gui::MenuGUI* prueba_menu;  ///< MenÃº de prueba.
     };
 }
 

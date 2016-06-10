@@ -1,6 +1,6 @@
 ///
 /// @file VectorGUI.cpp
-/// @brief Fichero de implementación de la clase "VectorGUI".
+/// @brief Fichero de implementaciÃ³n de la clase "VectorGUI".
 /// @author Juan Manuel Rico
 /// @date Junio 2016
 /// @version 1.0.0
@@ -8,7 +8,7 @@
 
 #include <sstream>
 #include "VectorGUI.hpp"
-#include "guichan\imagefont.hpp"
+#include "guichan/imagefont.hpp"
 
 namespace gui
 {
@@ -16,7 +16,7 @@ namespace gui
 VectorGUI::VectorGUI (int& _x, int& _y):
 gcn::Label(),
 gcn::MouseListener(),
-fontActive (new gcn::ImageFont("rpgfont_red.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&'{*#=[]\"ñáéíóú")),
+fontActive (new gcn::ImageFont("rpgfont_red.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&'{*#=[]\"")),
 tipo (VectorGUI::dosComponentes),
 x (_x),
 y (_y)
@@ -30,7 +30,7 @@ y (_y)
 VectorGUI::VectorGUI (int& _x):
 gcn::Label(),
 gcn::MouseListener(),
-fontActive (new gcn::ImageFont("rpgfont_red.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&'{*#=[]\"ñáéíóú")),
+fontActive (new gcn::ImageFont("rpgfont_red.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&'{*#=[]\"")),
 tipo (VectorGUI::unaComponente),
 x (_x),
 y(_x)
@@ -95,25 +95,25 @@ void VectorGUI::mousePressed (gcn::MouseEvent& mouseEvent)
 
 void VectorGUI::mouseWheelMovedUp (gcn::MouseEvent& mouseEvent)
 {
-    if (mouseEvent.isControlPressed())
-    {
-        x++;
-    }
-    else if (tipo==VectorGUI::dosComponentes)
+    if (mouseEvent.isControlPressed() && (tipo==VectorGUI::dosComponentes))
     {
         y++;
+    }
+    else
+    {
+        x++;
     }
 }
 
 void VectorGUI::mouseWheelMovedDown (gcn::MouseEvent& mouseEvent)
 {
-    if (mouseEvent.isControlPressed())
-    {
-        x--;
-    }
-    else if (tipo==VectorGUI::dosComponentes)
+    if (mouseEvent.isControlPressed() && (tipo==VectorGUI::dosComponentes))
     {
         y--;
+    }
+    else
+    {
+        x--;
     }
 }
 
