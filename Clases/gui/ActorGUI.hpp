@@ -11,15 +11,16 @@
 
 namespace gui
 {
+   
 /// Clase para editar gráficamente (GUI) las propiedades de los actores del juego.
 /// Su misión es mostrar las propiedades de un actor en pantalla y poder modificarlas mediante
 ///    pulsaciones de ratón y teclado. Para ello se utilizan las clases que nos proporciona GUICHAN.
 ///
 class GCN_CORE_DECLSPEC ActorGUI :
-                    public gcn::Container,
-                    public gcn::MouseListener
-//                    public gcn::KeyListener,
-//                    public gcn::ActionListener
+                      public gcn::Container,
+                      public gcn::MouseListener,
+                      public gcn::KeyListener//,
+                  //    public gcn::ActionListener
 {
     public:
         /// Constructor por defecto de la GUI del actor.
@@ -40,6 +41,9 @@ class GCN_CORE_DECLSPEC ActorGUI :
 
         // Heredado de ActionListener.
         //virtual void action (const gcn::ActionEvent& actionEvent);
+        
+        // Heredado de MouseListener.
+        virtual void mouseEntered (gcn::MouseEvent& mouseEvent);
 
     private:
         /// Inicializa y crea la estructura de la GUI del actor.

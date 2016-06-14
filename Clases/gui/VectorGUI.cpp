@@ -21,6 +21,10 @@ tipo (VectorGUI::dosComponentes),
 x(*new int()),
 y(*new int())
 {
+    setFrameSize (0);
+    addMouseListener (this);
+    setFocusable(true);
+    addKeyListener (this);
 };
 
 VectorGUI::VectorGUI (int& _x, int& _y):

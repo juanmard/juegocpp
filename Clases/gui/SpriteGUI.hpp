@@ -52,7 +52,7 @@ namespace gui
          * @return The caption of the label.
          * @see setCaption
          */
-        const std::string &getCaption() const;
+        const std::string& getCaption() const;
 
         /**
          * Sets the caption of the label. It's advisable to call

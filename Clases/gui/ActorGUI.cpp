@@ -27,6 +27,9 @@ ActorGUI::ActorGUI (Actor* actorEditar)
 
     // Actualiza las propiedades que obtiene del actor.
     this->update ();
+    
+    // Se hace una pequeña prueba.
+    this->setNombre("Mi actor");
 };
 
 ActorGUI::~ActorGUI ()
@@ -57,8 +60,7 @@ void ActorGUI::init ()
     this->add (tamano, 5, 35);
 
     // Añadimos los oyentes de entrada.
-    this->addMouseListener (posicion);
-    this->addMouseListener (tamano);
+    addMouseListener(this);
 };
 
 void ActorGUI::update ()
@@ -81,6 +83,12 @@ void ActorGUI::setPosicion (int x, int y)
 void ActorGUI::setTamano (int w, int h)
 {
     //this->posicion->setXY(x,y);
+};
+
+void ActorGUI::mouseEntered (gcn::MouseEvent& mouseEvent)
+{
+ //   this->distributeMovedEvent();
+    this->setBaseColor(gcn::Color(255,0,0,128));
 };
 
 };
