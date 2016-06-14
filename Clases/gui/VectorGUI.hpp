@@ -26,6 +26,7 @@ namespace gui
         enum Tipo {unaComponente, dosComponentes};
 
         /// Constructor.
+        VectorGUI ();
         VectorGUI (int& x, int& y);
         VectorGUI (int& x);
 

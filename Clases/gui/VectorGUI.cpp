@@ -13,6 +13,16 @@
 namespace gui
 {
 
+VectorGUI::VectorGUI ():
+gcn::Label(),
+gcn::MouseListener(),
+fontActive (new gcn::ImageFont("rpgfont_red.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&'{*#=[]\"")),
+tipo (VectorGUI::dosComponentes),
+x(*new int()),
+y(*new int())
+{
+};
+
 VectorGUI::VectorGUI (int& _x, int& _y):
 gcn::Label(),
 gcn::MouseListener(),

@@ -7,6 +7,7 @@
 #include "../Actor.h"
 #include <guichan.hpp>
 #include <string>
+#include "VectorGUI.hpp"
 
 namespace gui
 {
@@ -15,8 +16,8 @@ namespace gui
 ///    pulsaciones de ratón y teclado. Para ello se utilizan las clases que nos proporciona GUICHAN.
 ///
 class GCN_CORE_DECLSPEC ActorGUI :
-                    public gcn::Container//,
-//                    public gcn::MouseListener,
+                    public gcn::Container,
+                    public gcn::MouseListener
 //                    public gcn::KeyListener,
 //                    public gcn::ActionListener
 {
@@ -55,10 +56,22 @@ class GCN_CORE_DECLSPEC ActorGUI :
         ///       como un procedimiento privado de la clase.
         void setNombre (std::string& nuevoNombre);
 
+        /// Establece los valores que debe modificar al modificar la posición.
+        /// @param  x  Valor a cambiar con la x.
+        /// @param  y  Valor a cambiar con la y.
+        ///
+        void setPosicion (int x, int y);
+
+        /// Establece los valores que debe modificar al modificar la posición.
+        ///
+        void setTamano (int w, int h);
+
     protected:
-        Actor* actor;           ///< Referencia al actor que se desea editar.
-        gcn::Label* nombre;     ///< Etiqueta que mostrará el nombre del actor.
-    };
+        Actor* actor;               ///< Referencia al actor que se desea editar.
+        gcn::Label* nombre;         ///< Etiqueta que mostrará el nombre del actor.
+        gui::VectorGUI* posicion;   ///< Vector que muestra la posición actual del actor en el escenario.
+        gui::VectorGUI* tamano;     ///< Vector que muestra el tamaño actual del actor.
+};
 }
 
 #endif // end GUI_ACTORGUI_HPP
