@@ -1,4 +1,4 @@
-﻿///
+///
 /// @file SpriteGUI.cpp
 /// @brief Fichero de implementaciÃƒÂ³n de la clase "SpriteGUI".
 /// @author Juan Manuel Rico
@@ -63,12 +63,12 @@ void ActorGUI::init ()
 
 void ActorGUI::update ()
 {
-    this->setNombre (this->actor->getNombre());
+    this->setNombre (actor->getNombre());
     this->setPosicion (actor->get_x(), actor->get_y());
     this->setTamano (actor->get_w(), actor->get_h());
 };
 
-void ActorGUI::setNombre (std::string& nuevoNombre)
+void ActorGUI::setNombre (const std::string& nuevoNombre)
 {
     this->nombre->setCaption (nuevoNombre);
 };

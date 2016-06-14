@@ -54,7 +54,7 @@ class GCN_CORE_DECLSPEC ActorGUI :
         /// @note Lo normal es que este sea el nombre que tiene asignado el actor,
         ///       es por eso que es un procedimiento no abierto al público y se deja
         ///       como un procedimiento privado de la clase.
-        void setNombre (std::string& nuevoNombre);
+        void setNombre (const std::string& nuevoNombre);
 
         /// Establece los valores que debe modificar al modificar la posición.
         /// @param  x  Valor a cambiar con la x.
