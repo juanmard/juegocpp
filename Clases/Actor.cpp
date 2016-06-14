@@ -13,11 +13,15 @@
 #include "ActorGraphic.h"
 #include "StageManager.h"
 #include "Dialog.h"
-#include "ActorGUI.h"
+#include "ActorGUI2.h"
 
 #include "Suelo.h"      ///< A modo de prueba. Eliminar.
 
-ActorGUI *Actor::gui = NULL;
+/// @todo Generar un espacio de nombres para el juego (game).
+///namespace game
+///{
+
+ActorGUI2* Actor::gui = NULL;
 
 Actor::Actor():
 agraph(NULL),
@@ -193,7 +197,7 @@ int Actor::get_color (void)
     return color;
 };
 
-ActorGUI* Actor::getGUI ()
+ActorGUI2* Actor::getGUI ()
 {
     return gui;
 };
@@ -370,7 +374,7 @@ void  Actor::mensajeErrorGrafico () const
 
 void  Actor::addGUI (vector<DIALOG> &gui_padre)
 {
-  gui = new ActorGUI (*this, gui_padre);
+  gui = new ActorGUI2 (*this, gui_padre);
 };
 
 void  Actor::addEnlace (DIALOG* enlace)
@@ -471,4 +475,5 @@ std::ifstream& operator>> (std::ifstream& ifs, Actor& actor)
 {
     return actor.leer(ifs);
 };
+
 

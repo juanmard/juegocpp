@@ -1,5 +1,5 @@
 /**
- *  \file     ActorGUI.cpp
+ *  \file     ActorGUI2.cpp
  *  \brief    Prueba del "framework" de un juego.
  *
  *  \details  La clase instancia un tipo de juego de prueba con todos los controladores posibles.
@@ -12,7 +12,7 @@
  *
  *  \todo     Comentar todas estas clases y funciones más detalladamente.
  */
-#include "ActorGUI.h"
+#include "ActorGUI2.h"
 #include <string>
 #include <sstream>
 #include "Actor.h"
@@ -25,11 +25,11 @@
 
 using std::ostringstream;
 
-Actor *  ActorGUI::actor_activo = NULL;
-DIALOG   ActorGUI::dlg_plantilla[] =
+Actor *  ActorGUI2::actor_activo = NULL;
+DIALOG   ActorGUI2::dlg_plantilla[] =
 {
    /* (proc)                  (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags) (d1) (d2) (dp)                              (dp2) (dp3) */
-   { ActorGUI::callback,      8,   314, 616, 20,  67,  243, 0,    0,      0,   0,   (void*)"Actor >>",                NULL, NULL },
+   { ActorGUI2::callback,      8,   314, 616, 20,  67,  243, 0,    0,      0,   0,   (void*)"Actor >>",                NULL, NULL },
    { d_box_proc,              8,   336, 616, 240, 67,  243, 0,    0,      0,   0,   NULL,                             NULL, NULL },
    { d_box_proc,              14,  342, 258, 192, 67,  243, 0,    0,      0,   0,   NULL,                             NULL, NULL },
    { d_text_proc,             22,  346, 58,  8,   67,  243, 0,    0,      0,   0,   (void*)"Nombre:",                 NULL, NULL },
@@ -42,7 +42,7 @@ DIALOG   ActorGUI::dlg_plantilla[] =
    { d_text_proc,             142, 346, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"Nombre actor",            NULL, NULL },
    { VectorGUI2::callback,     142, 358, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100, 100",                NULL, NULL },
    { VectorGUI2::callback,     142, 368, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100, 100",                NULL, NULL },
-   { ActorGUI::callback_graf, 142, 380, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"Sprite",                  NULL, NULL },
+   { ActorGUI2::callback_graf, 142, 380, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"Sprite",                  NULL, NULL },
 //   { ContadorGUI::callback,   142, 390, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100",                     NULL, NULL },
    { GUIContador::callback,   142, 390, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100",                     NULL, NULL },
    { GUIVector::callback,     142, 450, 122, 8,   67,  243, 0,    0,      0,   0,   (void*)"100, 100",                NULL, NULL },
@@ -54,7 +54,7 @@ DIALOG   ActorGUI::dlg_plantilla[] =
 /**
  * \brief   Prueba para añadir la GUI de las propiedades del actor a una GUI padre.
  */
-ActorGUI::ActorGUI (Actor &a, vector<DIALOG> &gui_padre):
+ActorGUI2::ActorGUI2 (Actor &a, vector<DIALOG> &gui_padre):
 actor (a),
 gui (gui_padre)
 {
@@ -104,7 +104,7 @@ gui (gui_padre)
 /**
  * Destruye la GUI del actor.
  */
-ActorGUI::~ActorGUI()
+ActorGUI2::~ActorGUI2()
 {
   // Liberar recursos.
 }
@@ -112,7 +112,7 @@ ActorGUI::~ActorGUI()
 /**
  * \brief   Cambia el actor mostrado en esta GUI.
  */
-void  ActorGUI::setActor (Actor &a)
+void  ActorGUI2::setActor (Actor &a)
 {
   // Marcamos el actor activo para la clase.
   actor_activo = NULL;

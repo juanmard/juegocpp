@@ -22,6 +22,7 @@
 #include <guichan/allegro.hpp>
 #include "gui/SpriteGUI.hpp"
 #include "allegro/SpriteAllegro.h"
+#include "gui/ActorGUI.hpp"
 
 void Juego2::prueba_guichan (Sprite* prueba)
 {
@@ -164,24 +165,35 @@ void Juego2::prueba_guichan (Sprite* prueba)
     window->resizeToContent();
 
     tabbedArea = new gcn::TabbedArea();
-    tabbedArea->setSize(300, 100);
+    tabbedArea->setSize(400, 200);
     tabOneButton = new gcn::Button("A button in tab 1");
-    tabbedArea->addTab("Tab 1", tabOneButton);
+    tabbedArea->addTab("Tab 1 --- ", tabOneButton);
+    tabbedArea->addTab("Tab 3", new gcn::Label("Pruebaaaa"));
     tabTwoCheckBox = new gcn::CheckBox("A check box in tab 2");
     tabbedArea->addTab("Tab 2", tabTwoCheckBox);
 
+    //tabbedArea->addMouseListener(tabTwoCheckBox);
+    //tabbedArea->addKeyListener(tabOneButton);
+
+
     gcn::Tab *tab1 = new gcn::Tab ();
-    tab1->setCaption("Prb1");
+    tab1->setCaption("Prb 1");
     gcn::Container *todo = new gcn::Container ();
-    todo->add(tab1);
+    gcn::Label* etq1 = new gcn::Label ("una prueba más");
+    etq1->setPosition (0,50);
+    todo->add (etq1);
+    todo->add (new gcn::CheckBox("Otraaa"));
     tabbedArea->addTab(tab1,todo);
+    //top->add (tab1,100,230);
 
     // Prueba de Sprite como widget.
-    //gui::SpriteGUI *sprite1 = new gui::SpriteGUI ("Prueba Sprite");
     gui::SpriteGUI* sprite1 = new gui::SpriteGUI (prueba);
 
-    Ben* ben=new Ben(*storage_manager);
-    gui::SpriteGUI* sprite2 = new gui::SpriteGUI (new allegro::SpriteAllegro (*((Sprite*)ben->get_actor_graphic()),ben));
+    //Ben* ben=new Ben(*storage_manager);
+    //gui::SpriteGUI* sprite2 = new gui::SpriteGUI (new allegro::SpriteAllegro (*((Sprite*)ben->get_actor_graphic()),ben));
+
+    // Prueba de ActorGUI.
+    gui::ActorGUI* actor1 = new gui::ActorGUI (new Actor());
 
     // Se añaden al widget raíz.
     top->add(label, 10, 10);
@@ -198,9 +210,10 @@ void Juego2::prueba_guichan (Sprite* prueba)
     top->add(radioButton3, 500, 240);
     top->add(slider, 500, 300);
     top->add(window, 50, 350);
-    top->add(tabbedArea, 400, 350);
+    top->add(tabbedArea, 50, 320);
     top->add(sprite1, 30,40);
-    top->add(sprite2, 30,320);
+//    top->add(sprite2, 30,320);
+    top->add (actor1, 10, 230);
 
     // Se crea una prueba para el evento de botón.
     button->setActionEventId("btn1");
@@ -273,7 +286,7 @@ void Juego2::prueba_guichan (Sprite* prueba)
     delete tabOneButton;
     delete tabTwoCheckBox;
     delete sprite1;
-    delete sprite2;
+//    delete sprite2;
 };
 
 // Definición del juego.

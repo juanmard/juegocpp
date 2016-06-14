@@ -91,6 +91,7 @@ void VectorGUI::mousePressed (gcn::MouseEvent& mouseEvent)
     {
         componente--;
     }
+    mouseEvent.consume ();
 };
 
 void VectorGUI::mouseWheelMovedUp (gcn::MouseEvent& mouseEvent)
@@ -131,7 +132,9 @@ void VectorGUI::keyPressed(gcn::KeyEvent& keyEvent)
             break;
         case gcn::Key::Left: x -= inc; break;
         case gcn::Key::Right: x += inc; break;
+        default: break;
     }
+    keyEvent.consume ();
 };
 
 //void VectorGUI::keyReleased (gcn::KeyEvent& keyEvent)

@@ -5,7 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include "GUIEscenario.h"
-#include "ActorGUI.h"
+#include "ActorGUI2.h"
 
 // Inicialización de las variables estáticas de la clase.
 // Diálogo general de la GUI del editor.

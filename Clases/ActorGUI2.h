@@ -1,5 +1,5 @@
-#ifndef _ACTORGUI_H_
-#define _ACTORGUI_H_
+#ifndef _ACTORGUI2_H_
+#define _ACTORGUI2_H_
 
 #include <allegro.h>
 #include <vector>
@@ -14,15 +14,15 @@ using std::vector;
 /** 
  * \brief   GUI básica de los actores.
  */
-class ActorGUI : public GUIControl
+class ActorGUI2 : public GUIControl
 {
   public:
     enum {inicio=0, nombre=10, posicion=11, dimensiones=12, grafico=13, tiempo=14, prueba=15, estado=16, slider=17, fin=19};
 
   public:
-                      ActorGUI               (Actor &actor, vector<DIALOG> &gui_padre);
-                      ActorGUI               ();
-    virtual           ~ActorGUI              ();
+                      ActorGUI2               (Actor &actor, vector<DIALOG> &gui_padre);
+                      ActorGUI2               ();
+    virtual           ~ActorGUI2              ();
     void              setActor               (Actor &a);
 
   private:

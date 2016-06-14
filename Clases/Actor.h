@@ -24,7 +24,7 @@
 
 class ActorGraphic;
 class Mask;
-class ActorGUI;
+class ActorGUI2;
 
 /// Elemento básico con dinámica dentro del juego.
 ///
@@ -55,7 +55,7 @@ class Actor : public EditableObject, public PrintableObject
 {
 public:
     /// @todo Investigar si la definición de amistad de esta clase es necesaria.
-    friend class ActorGUI;
+    friend class ActorGUI2;
 
     /// Estados posibles del actor.
     /// @todo Se debe poder heredar, incluir estados desde los hijos. Investigar.
@@ -69,7 +69,7 @@ private:
     /// @todo A eliminar. Lo más lógico es que exista un "Formulario" y un "Menu" común para cada clase
     ///       derivada (estáticos) y se combinen para generar una interfaz con el usuario.
     ///
-    static ActorGUI* gui;
+    static ActorGUI2* gui;
 
 protected:
     ActorGraphic* agraph;                                   ///< Parte gráfica del actor.
@@ -424,7 +424,7 @@ public:
     ///       este mismo trabajo lo hace la parte de la clase "EditObject"
     ///       entregando el menú y el formulario asociado al actor.
     ///
-    virtual ActorGUI* getGUI ();
+    virtual ActorGUI2* getGUI ();
 
     /// Indica que ha habido una colisión con algún otro actor.
     /// @param who Actor con el que se ha producido la colisión.
@@ -496,5 +496,6 @@ private:
     ///
     friend std::ifstream& operator>> (std::ifstream& ifs, Actor& actor);
 };
+
 
 #endif

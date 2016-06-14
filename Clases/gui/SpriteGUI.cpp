@@ -1,6 +1,6 @@
-///
+﻿///
 /// @file SpriteGUI.cpp
-/// @brief Fichero de implementaciÃ³n de la clase "SpriteGUI".
+/// @brief Fichero de implementaciÃƒÂ³n de la clase "SpriteGUI".
 /// @author Juan Manuel Rico
 /// @date Junio 2016
 /// @version 1.0.0
@@ -43,22 +43,23 @@ prueba_menu (new gui::MenuGUI())
     setFrameSize (1);
 
     // Se añaden las imágenes de los frames.
+    add (fotogramas,20,20);
     fotogramas->setFrameSize(1);
+    fotogramas->setSize(200,150);
     imagenActual->setWidth (200);
     imagenActual->setHeight (30);
     //imagenAnterior->setImage (sprite->getImage(frame_actual-1));
     imagenActual->setImage (sprite->getImage(frame_actual));
     //imagenPosterior->setImage (sprite->getImage(frame_actual+1));
     fotogramas->add (imagenActual,50,50);
-    add(fotogramas,100,100);
 
 
-    // Se añaden los controles a este contenedor.
+    // Se aÃ±aden los controles a este contenedor.
     add (etiqueta, 5, 150);
     add (add_frame, 5, 5);
     add (del_frame, add_frame->getWidth()+10, 5);
 
-    // Se añade un menú de prueba.
+    // Se aÃ±ade un menÃº de prueba.
     prueba_menu->setFont(new gcn::ImageFont ("fixedfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ñ"));
     prueba_menu->setVisible (false);
     prueba_menu->addItem (new gui::Item ("Añadir"));
@@ -68,7 +69,7 @@ prueba_menu (new gui::MenuGUI())
     prueba_menu->adjustSize ();
     add (prueba_menu, 0, 0);
 
-    // Se añaden etiquetas de las propiedades del frame actual.
+    // Se aÃ±aden etiquetas de las propiedades del frame actual.
     unsigned int widthHeight = this->getFont()->getHeight();
     add (this->numFrame, 200, 10);
     add (this->pos,      200, 10 + 1*(widthHeight));
@@ -83,11 +84,11 @@ prueba_menu (new gui::MenuGUI())
     add (vector_pos, pos->getX()+pos->getWidth()+10, pos->getY());
     add (new gui::VectorGUI(prb_x), ticks->getX()+ticks->getWidth()+10, ticks->getY());
 
-    // Nos añadimos a los oyentes de los mensajes del ratón y el teclado.
+    // Nos aÃ±adimos a los oyentes de los mensajes del ratÃ³n y el teclado.
     addMouseListener (this);
     addKeyListener (this);
 
-    // Nos añadimos a los oyentes de las acciones del menú de prueba.
+    // Nos aÃ±adimos a los oyentes de las acciones del menÃº de prueba.
     prueba_menu->addActionListener (this);
 };
 
@@ -113,6 +114,10 @@ gcn::Graphics::Alignment SpriteGUI::getAlignment() const
 
 void SpriteGUI::draw (gcn::Graphics* graphics)
 {
+    // Se dibuja el sprite.
+    //this->etiqueta->_draw (graphics);
+    //this->fotogramas->_draw (graphics);
+    //this->imagenActual->_draw (graphics);
     Container::draw (graphics);
 };
 
@@ -126,7 +131,7 @@ void SpriteGUI::logic ()
   //sprite->setXFrame(frame_actual, prb_x);
   //sprite->setYFrame(frame_actual, prb_y);
 
-  // Si hay cambios en el número de frame que se muestra,
+  // Si hay cambios en el nÃºmero de frame que se muestra,
   // actualizar la etiqueta.
   // if (actualizarFrame)
   //{
@@ -147,7 +152,7 @@ void SpriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
 {
     if (mouseEvent.getButton () == gcn::MouseEvent::Right)
     {
-        // Se muestra el menÃº de prueba.
+        // Se muestra el menÃƒÂº de prueba.
         // @todo... hacer mejor...
         if (this->getWidgetAt (mouseEvent.getX(),mouseEvent.getY())==this->imagenActual)
         {
@@ -164,7 +169,7 @@ void SpriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
         {
             imagenActual->setBaseColor (*rojo);
 
-            // Prueba de informaciÃ³n.
+            // Prueba de informaciÃƒÂ³n.
             etiqueta->setCaption(sprite->getString());
             //etiqueta->setCaption (sprite->print());
 
@@ -189,44 +194,50 @@ void SpriteGUI::mouseExited (gcn::MouseEvent& mouseEvent)
 
 void SpriteGUI::keyPressed(gcn::KeyEvent& keyEvent)
 {
-    gcn::Key key = keyEvent.getKey();
+    if (!keyEvent.isConsumed())
+    {
+        gcn::Key key = keyEvent.getKey();
 
-    if (key.getValue() == gcn::Key::Left)
-    {
-        etiqueta->setCaption ("Izquierda pulsada");
-        etiqueta->adjustSize();
-        keyEvent.consume();
-    }
-    if (key.getValue() == gcn::Key::Right)
-    {
-        etiqueta->setCaption ("Derecha pulsada");
-        etiqueta->adjustSize();
-        keyEvent.consume();
+        if (key.getValue() == gcn::Key::Left)
+        {
+            etiqueta->setCaption ("Izquierda pulsada");
+            etiqueta->adjustSize();
+            keyEvent.consume();
+        }
+        if (key.getValue() == gcn::Key::Right)
+        {
+            etiqueta->setCaption ("Derecha pulsada");
+            etiqueta->adjustSize();
+            keyEvent.consume();
+        }
     }
 };
 
 void SpriteGUI::keyReleased (gcn::KeyEvent& keyEvent)
 {
-    gcn::Key key = keyEvent.getKey();
+    if (!keyEvent.isConsumed())
+    {
+        gcn::Key key = keyEvent.getKey();
 
-    if (key.getValue() == gcn::Key::Left)
-    {
-        if (frame_actual == 0)
+        if (key.getValue() == gcn::Key::Left)
         {
-            frame_actual = sprite->getNumFrames ()-1;
+            if (frame_actual == 0)
+            {
+                frame_actual = sprite->getNumFrames ()-1;
+            }
+            else
+            {
+                frame_actual--;
+            }
+            distributeActionEvent();
+            etiqueta->setCaption ("Izquierda soltada");
         }
-        else
+        if (key.getValue() == gcn::Key::Right)
         {
-            frame_actual--;
+            frame_actual++;
+            if (frame_actual >= sprite->getNumFrames ()) frame_actual = 0;
+            etiqueta->setCaption ("Derecha soltada");
         }
-        distributeActionEvent();
-        etiqueta->setCaption ("Izquierda soltada");
-    }
-    if (key.getValue() == gcn::Key::Right)
-    {
-        frame_actual++;
-        if (frame_actual >= sprite->getNumFrames ()) frame_actual = 0;
-        etiqueta->setCaption ("Derecha soltada");
     }
 };
 
@@ -234,7 +245,7 @@ void SpriteGUI::action (const gcn::ActionEvent& actionEvent)
 {
     if (actionEvent.getId()=="menu")
     {
-        // Si la acciÃ³n la produce el menÃº de prueba mostramos su item en la etiqueta.
+        // Si la acciÃƒÂ³n la produce el menÃƒÂº de prueba mostramos su item en la etiqueta.
         etiqueta->setCaption (prueba_menu->getElementAt(prueba_menu->getSelected()));
         if (etiqueta->getCaption() == "Item 2")
         {
