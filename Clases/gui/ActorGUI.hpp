@@ -19,8 +19,8 @@ namespace gui
 class GCN_CORE_DECLSPEC ActorGUI :
                       public gcn::Container,
                       public gcn::MouseListener,
-                      public gcn::KeyListener//,
-                  //    public gcn::ActionListener
+                      public gcn::KeyListener,
+                      public gcn::ActionListener
 {
     public:
         /// Constructor por defecto de la GUI del actor.
@@ -40,7 +40,7 @@ class GCN_CORE_DECLSPEC ActorGUI :
         void setActor (Actor* nuevoActor);
 
         // Heredado de ActionListener.
-        //virtual void action (const gcn::ActionEvent& actionEvent);
+        virtual void action (const gcn::ActionEvent& actionEvent);
         
         // Heredado de MouseListener.
         virtual void mouseEntered (gcn::MouseEvent& mouseEvent);
@@ -71,10 +71,11 @@ class GCN_CORE_DECLSPEC ActorGUI :
         void setTamano (int w, int h);
 
     protected:
-        Actor* actor;               ///< Referencia al actor que se desea editar.
-        gcn::Label* nombre;         ///< Etiqueta que mostrará el nombre del actor.
-        gui::VectorGUI* posicion;   ///< Vector que muestra la posición actual del actor en el escenario.
-        gui::VectorGUI* tamano;     ///< Vector que muestra el tamaño actual del actor.
+        Actor* actor;                   ///< Referencia al actor que se desea editar.
+        gcn::Label* nombre;             ///< Etiqueta que mostrará el nombre del actor.
+        gui::VectorGUI* posicion;       ///< Vector que muestra la posición actual del actor en el escenario.
+        gui::VectorGUI* tamano;         ///< Vector que muestra el tamaño actual del actor.
+        gcn::Container* bloque;        ///< Bloque que representa las dimensiones del actor.
 };
 }
 

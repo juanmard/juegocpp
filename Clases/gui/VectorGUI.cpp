@@ -125,10 +125,14 @@ void VectorGUI::mouseWheelMovedDown (gcn::MouseEvent& mouseEvent)
     if (mouseEvent.isControlPressed() && (tipo==VectorGUI::dosComponentes))
     {
         y--;
+        this->setActionEventId ("decY");
+        this->distributeActionEvent ();
     }
     else
     {
         x--;
+        this->setActionEventId ("decX");
+        this->distributeActionEvent ();
     }
 }
 
@@ -139,14 +143,37 @@ void VectorGUI::keyPressed(gcn::KeyEvent& keyEvent)
     switch (keyEvent.getKey().getValue())
     {
         case gcn::Key::Down:
-            if (tipo==VectorGUI::dosComponentes) y += inc;
+            if (tipo==VectorGUI::dosComponentes)
+            {
+                y += inc;
+                this->setActionEventId ("incY");
+                this->distributeActionEvent ();
+            }
             break;
+
         case gcn::Key::Up:
-            if (tipo==VectorGUI::dosComponentes) y -= inc;
+            if (tipo==VectorGUI::dosComponentes)
+            {
+                y -= inc;
+                this->setActionEventId ("decY");
+                this->distributeActionEvent ();
+            }
             break;
-        case gcn::Key::Left: x -= inc; break;
-        case gcn::Key::Right: x += inc; break;
-        default: break;
+
+        case gcn::Key::Left:
+            x -= inc;
+            this->setActionEventId ("decX");
+            this->distributeActionEvent ();
+            break;
+
+        case gcn::Key::Right:
+            x += inc;
+            this->setActionEventId ("incX");
+            this->distributeActionEvent ();
+            break;
+
+        default:
+            break;
     }
     keyEvent.consume ();
 };
