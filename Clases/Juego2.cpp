@@ -16,7 +16,7 @@
 #include "Juego2.h"
 #include "Mosaico.h"
 #include "Tesela.h"
-#include "ctlSprite.h"
+//#include "ctlSprite.h"
 
 Juego2::Juego2 ()
 {
@@ -199,8 +199,8 @@ void Juego2::mainGame ()
       //Formulario &form = prueba->getFormulario ();
       //form.show ();
 
-      ctlSprite *control = new ctlSprite(prb2);
-      control->show ();
+//      ctlSprite *control = new ctlSprite(prb2);
+//      control->show ();
 
       // Limpieza de teclado.
       key[KEY_ESC] = false;
