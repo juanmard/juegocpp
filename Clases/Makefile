@@ -37,6 +37,9 @@ juegocpp: $(OBJS)
 Juego2.o: Juego2.cpp Juego2.h
 	g++ $(CPPFLAGS) -c Juego2.cpp
 
+install:
+	mv juegocpp ../Extras
+
 clean:
 	$(RM) $(OBJS)
 
