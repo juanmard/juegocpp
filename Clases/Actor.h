@@ -53,6 +53,23 @@ class ActorGUI2;
 ///
 class Actor : public EditableObject, public PrintableObject
 {
+/// --------------------------------------------
+/// 2019/12/01 - Prueba de estados en la lista de actores.
+/// Se trata de controlar el estado en la lista de actores
+/// ("ActorManager") para controlar su visibilidad sin ser
+/// borrado, su cambio a una lista de actores para borrar.
+public:
+    enum State {ENABLE, DISABLE, TO_DELETE};
+
+private:
+    State state;
+    
+public:
+    State get_state () const {return state;};
+    void  set_state (State new_state) {state = new_state;};
+    
+/// --------------------------------------------
+
 public:
     /// @todo Investigar si la definición de amistad de esta clase es necesaria.
     friend class ActorGUI2;

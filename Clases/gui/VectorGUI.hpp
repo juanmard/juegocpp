@@ -33,10 +33,6 @@ namespace gui
         // Establece la fuente de activación.
         void setFontActive (gcn::Font* font);
 
-        // Heredado de ListModel.
-        //int getNumberOfElements ();
-        //std::string getElementAt (int i);
-
         // Heredado de Label
         //virtual void draw (gcn::Graphics* graphics);
         void logic ();

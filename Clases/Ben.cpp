@@ -246,6 +246,12 @@ void  Ben::hit  (Actor *who, int damage)
 {
   switch (who->getCodigo ())
   {
+    case Nombres::plataforma:
+    case Nombres::camello:
+        /// 2019-12-01 - Prueba de borrado de actores.
+        who->set_state(TO_DELETE);
+        break;
+        
     case Nombres::ladrillo:
     case Nombres::pelota:
     case Nombres::paleta:

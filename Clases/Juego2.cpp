@@ -21,82 +21,123 @@
 #include <guichan.hpp>
 #include <guichan/allegro.hpp>
 #include "gui/SpriteGUI.hpp"
+#include "gui/EscenarioGUI.hpp"
 #include "allegro/SpriteAllegro.h"
 #include "gui/ActorGUI.hpp"
 
 void Juego2::prueba_guichan (Sprite* prueba)
 {
-    // GUI principal.
-    gcn::Gui* gui;
-
-    // Variables para Allegro. 
-    BITMAP* screenBuffer;
-    gcn::AllegroGraphics* graphics;
-    gcn::AllegroInput* input;
-    gcn::AllegroImageLoader* imageLoader;
-
     // Se inicializa la GUI de allegro,
     // la profundidad del color...
-    int bpp = desktop_color_depth();
-    if (bpp == 0)
-    {
-        bpp = 16;
-    }
-    set_color_depth(bpp);
+    //int bpp = desktop_color_depth();
+    //if (bpp == 0) bpp = 16;
+    set_color_depth(8);
 
+    // El formato de cadenas...
+    set_uformat (U_UTF8);
+    
     // ... el modo gráfico.
-    if (set_gfx_mode(GFX_AUTODETECT_WINDOWED, 640, 480, 0, 0))
-    {
-        if (set_gfx_mode(GFX_AUTODETECT, 640, 480, 0, 0))
-        {
-            throw GCN_EXCEPTION("Unable to set graphics mode");
-        }
-    }
+    //if (set_gfx_mode(GFX_AUTODETECT_WINDOWED, 640, 480, 0, 0))
+    //{
+    //    if (set_gfx_mode(GFX_AUTODETECT, 640, 480, 0, 0))
+    //    {
+    //        throw GCN_EXCEPTION("Unable to set graphics mode");
+    //    }
+    //}
 
     // El doble buffer.
-    screenBuffer = create_bitmap(SCREEN_W, SCREEN_H);
+    BITMAP* screenBuffer = create_bitmap (SCREEN_W, SCREEN_H);
     if (screenBuffer == NULL)
     {
         throw GCN_EXCEPTION("Unable to create a screen buffer");
     };
 
     // El cargador de imágenes, gráficos y tratamiento de la entrada con Allegro.
-    imageLoader = new gcn::AllegroImageLoader();
+    gcn::AllegroImageLoader* imageLoader = new gcn::AllegroImageLoader();
     gcn::Image::setImageLoader(imageLoader);
-    graphics = new gcn::AllegroGraphics();
+    gcn::AllegroGraphics* graphics = new gcn::AllegroGraphics();
     graphics->setTarget(screenBuffer);
-    input = new gcn::AllegroInput();
+    gcn::AllegroInput* input = new gcn::AllegroInput();
 
-    // Se crea la GUI y se añade a ella.
-    gui = new gcn::Gui();
+    // La fuente de las letras.
+    //gcn::ImageFont* font = new gcn::ImageFont("fixedfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+    gcn::ImageFont* font = new gcn::ImageFont("rpgfont.bmp", uconvert(" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&'{*#=[]\"ñáéíóú", U_CURRENT, NULL, U_ASCII, 0));
+    gcn::Widget::setGlobalFont(font);
+
+    // Se crea la GUI y se añaden a ella los controladores gráficos y de entrada.
+    gcn::Gui* gui = new gcn::Gui();
     gui->setGraphics(graphics);
     gui->setInput(input);
 
-    // Se definen los widgets de prueba.
-    gcn::ImageFont* font;
-    gcn::Container* top;
-    gcn::Label* label;
-    gcn::Icon* icon;
-    gcn::Button* button;
-    gcn::TextField* textField;
-    gcn::TextBox* textBox;
-    gcn::ScrollArea* textBoxScrollArea;
-    gcn::ListBox* listBox;
-    gcn::DropDown* dropDown;
-    gcn::CheckBox* checkBox1;
-    gcn::CheckBox* checkBox2;
-    gcn::RadioButton* radioButton1;
-    gcn::RadioButton* radioButton2;
-    gcn::RadioButton* radioButton3;
-    gcn::Slider* slider;
-    gcn::Image *image;
-    gcn::Window *window;
-    gcn::Image *darkbitsImage;
-    gcn::Icon* darkbitsIcon;
-    gcn::TabbedArea* tabbedArea;
-    gcn::Button* tabOneButton;
-    gcn::CheckBox* tabTwoCheckBox;
+    // Se crea el contenedor principal.
+    gcn::Container* top = new gcn::Container();
+    top->setDimension(gcn::Rectangle(0, 0, 800, 600));
+    gui->setTop(top);
 
+    // Los widgets contenidos.
+    //gcn::Label* label = new gcn::Label("Prueba de zona con pestañas.");
+    gcn::Label* label = new gcn::Label(uconvert("Prueba de zona con pestañas.", U_CURRENT, NULL, U_ASCII, 0));
+    top->add (label, 0, 0);
+
+    //gcn::Image* image = gcn::Image::load("gui-chan.bmp");
+    //gcn::Icon* icon = new gcn::Icon(image);
+    //top->add (icon, 10, 30);
+    
+    gcn::Button* button = new gcn::Button("Salir");
+//    button->setFrameSize(50);
+    top->add(button, top->getWidth()-button->getWidth(), top->getHeight()-button->getHeight());
+    
+    gcn::Window* ventana = new gcn::Window("Prueba");
+    ventana->setMovable(true);
+    ventana->setVisible(true);
+    ventana->setHeight(150);
+    ventana->setWidth(300);
+    ventana->add(button,30,60);
+    top->add(ventana,360,410);
+    
+    
+    //gcn::TextField* textField = new gcn::TextField("Text field");
+    //top->add (textField, 250, 10);
+
+    //gcn::TextBox* textBox = new gcn::TextBox("Multiline\nText box");
+    //gcn::ScrollArea* textBoxScrollArea = new gcn::ScrollArea(textBox);
+    //textBoxScrollArea->setWidth(200);
+    //textBoxScrollArea->setHeight(100);
+    //textBoxScrollArea->setFrameSize(1);
+    //top->add (textBoxScrollArea, 200, 50);
+    
+    //gcn::ListBox* listBox = new gcn::ListBox(&demoListModel);
+    //listBox->setFrameSize(1);
+    //top->add (listBox, 200, 200);
+    
+    //gcn::DropDown* dropDown = new gcn::DropDown(&demoListModel);
+    //top->add (dropDown, 500, 10);
+
+    //gcn::CheckBox* checkBox1 = new gcn::CheckBox("Checkbox 1");
+    //top->add (checkBox1, 500, 130);
+    //gcn::CheckBox* checkBox2 = new gcn::CheckBox("Checkbox 2");
+    //top->add (checkBox2, 500, 150);
+
+    //gcn::RadioButton* radioButton1 = new gcn::RadioButton("RadioButton 1", "radiogroup", true);
+    //top->add(radioButton1, 500, 200);
+    //gcn::RadioButton* radioButton2 = new gcn::RadioButton("RadioButton 2", "radiogroup");
+    //top->add(radioButton2, 500, 220);
+    //gcn::RadioButton* radioButton3 = new gcn::RadioButton("RadioButton 3", "radiogroup");
+    //top->add(radioButton3, 500, 240);
+    
+    //gcn::Slider* slider = new gcn::Slider(0, 10);
+    //slider->setSize(100, 10);
+    //top->add(slider, 500, 300);
+
+    //gcn::Window* window = new gcn::Window("I am a window  Drag me");
+    //window->setBaseColor(gcn::Color(255, 150, 200, 190));
+    //gcn::Image* darkbitsImage = gcn::Image::load("darkbitslogo_by_haiko.bmp");
+    //gcn::Icon* darkbitsIcon = new gcn::Icon(darkbitsImage);
+    //window->add(darkbitsIcon);
+    //window->resizeToContent();
+    //top->add (window, 50, 350);
+ 
+ /*     
     // La clase para los controles con lista.
     class DemoListModel : public gcn::ListModel
     {
@@ -124,58 +165,60 @@ void Juego2::prueba_guichan (Sprite* prueba)
 
     // La variable con la lista.
     DemoListModel demoListModel;
+*/
 
-    // Se crean los distintos widgets.
-    // El contenedor principal.
-    top = new gcn::Container();
-    top->setDimension(gcn::Rectangle(0, 0, 640, 480));
-    gui->setTop(top);
-
-    // La fuente de las letras.
-    //font = new gcn::ImageFont("fixedfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
-    font = new gcn::ImageFont("rpgfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/()"); //:;%&'{*#=[]\"ñáéíóú");
-    gcn::Widget::setGlobalFont(font);
-
-    // Los widgets contenidos.
-    label = new gcn::Label("Etiqueta");
-    image = gcn::Image::load("gui-chan.bmp");
-    icon = new gcn::Icon(image);
-    button = new gcn::Button("Boton");
-    textField = new gcn::TextField("Text field");
-    textBox = new gcn::TextBox("Multiline\nText box");
-    textBoxScrollArea = new gcn::ScrollArea(textBox);
-    textBoxScrollArea->setWidth(200);
-    textBoxScrollArea->setHeight(100);
-    textBoxScrollArea->setFrameSize(1);
-    listBox = new gcn::ListBox(&demoListModel);
-    listBox->setFrameSize(1);
-    dropDown = new gcn::DropDown(&demoListModel);
-    checkBox1 = new gcn::CheckBox("Checkbox 1");
-    checkBox2 = new gcn::CheckBox("Checkbox 2");
-    radioButton1 = new gcn::RadioButton("RadioButton 1", "radiogroup", true);
-    radioButton2 = new gcn::RadioButton("RadioButton 2", "radiogroup");
-    radioButton3 = new gcn::RadioButton("RadioButton 3", "radiogroup");
-    slider = new gcn::Slider(0, 10);
-    slider->setSize(100, 10);
-    window = new gcn::Window("I am a window  Drag me");
-    window->setBaseColor(gcn::Color(255, 150, 200, 190));
-    darkbitsImage = gcn::Image::load("darkbitslogo_by_haiko.bmp");
-    darkbitsIcon = new gcn::Icon(darkbitsImage);
-    window->add(darkbitsIcon);
-    window->resizeToContent();
-
-    tabbedArea = new gcn::TabbedArea();
+    gcn::TabbedArea* tabbedArea = new gcn::TabbedArea();
     tabbedArea->setSize(400, 200);
-    tabOneButton = new gcn::Button("A button in tab 1");
-    tabbedArea->addTab("Tab 1 --- ", tabOneButton);
-    tabbedArea->addTab("Tab 3", new gcn::Label("Pruebaaaa"));
-    tabTwoCheckBox = new gcn::CheckBox("A check box in tab 2");
+
+    // Pestaña 1.
+    gcn::Button* tabOneButton = new gcn::Button("A button in tab 1");
+    tabbedArea->addMouseListener(tabOneButton);
+    tabbedArea->addKeyListener(tabOneButton);
+    tabbedArea->addTab("Tab 1---------", tabOneButton);
+    
+    // Pestaña 2.
+    gcn::CheckBox* tabTwoCheckBox = new gcn::CheckBox("A check box in tab 2");
     tabbedArea->addTab("Tab 2", tabTwoCheckBox);
-
     //tabbedArea->addMouseListener(tabTwoCheckBox);
-    //tabbedArea->addKeyListener(tabOneButton);
+    top->addMouseListener(tabTwoCheckBox);
 
+    // Pestaña 3.
+    tabbedArea->addTab("Tab 3", new gcn::Label("Pruebaaaa"));
+    
+    // Pestaña 4.
+    gcn::Container* containerTab4 = new gcn::Container();
+    containerTab4->setDimension(gcn::Rectangle(0, 0, 300, 100));
+    containerTab4->add(new gcn::Label("Cuatro"),100,75);
+    containerTab4->add(new gcn::Button("Tres"),100,10);
+    containerTab4->add(tabOneButton,30,55);
+    containerTab4->resizeToContent();
+    tabbedArea->addTab("Tab 4", containerTab4);
+    
+    // Se agrega al contenedor principal.
+    top->add (tabbedArea, 100, 100);
 
+    // Prueba de menú.
+    gui::MenuGUI* menu = new gui::MenuGUI();
+    gui::Item* item1 = new gui::Item("item1");
+    menu->addItem(item1);
+    gui::Item* item2 = new gui::Item("item2");
+    menu->addItem(item2);
+    gui::Item* item3 = new gui::Item("item3");
+    menu->addItem(item3);
+    menu->setVisible(true);
+    containerTab4->addMouseListener(menu);
+    containerTab4->add(menu,200,30);
+    
+    // Prueba de tab solitario.
+    gcn::Tab* tabSolo = new gcn::Tab();
+    tabSolo->setCaption("Solitario");
+    top->add(tabSolo, 20,30);
+
+    // Prueba escenario.
+    //gui::EscenarioGUI* escenario = new gui::EscenarioGUI(stage_manager);
+    //top->add(escenario);
+
+/*
     gcn::Tab *tab1 = new gcn::Tab ();
     tab1->setCaption("Prb 1");
     gcn::Container *todo = new gcn::Container ();
@@ -184,38 +227,22 @@ void Juego2::prueba_guichan (Sprite* prueba)
     todo->add (etq1);
     todo->add (new gcn::CheckBox("Otraaa"));
     tabbedArea->addTab(tab1,todo);
-    //top->add (tab1,100,230);
+    top->add (tab1,100,230);
+*/
 
     // Prueba de Sprite como widget.
-    gui::SpriteGUI* sprite1 = new gui::SpriteGUI (prueba);
+    //gui::SpriteGUI* sprite1 = new gui::SpriteGUI (prueba);
 
     //Ben* ben=new Ben(*storage_manager);
     //gui::SpriteGUI* sprite2 = new gui::SpriteGUI (new allegro::SpriteAllegro (*((Sprite*)ben->get_actor_graphic()),ben));
+    //top->add (sprite2, 30,320);
 
     // Prueba de ActorGUI.
-    gui::ActorGUI* actor1 = new gui::ActorGUI (new Actor());
-
-    // Se añaden al widget raíz.
-    top->add(label, 10, 10);
-    top->add(icon, 10, 30);
-    top->add(button, 200, 10);
-    top->add(textField, 250, 10);
-    top->add(textBoxScrollArea, 200, 50);
-    top->add(listBox, 200, 200);
-    top->add(dropDown, 500, 10);
-    top->add(checkBox1, 500, 130);
-    top->add(checkBox2, 500, 150);
-    top->add(radioButton1, 500, 200);
-    top->add(radioButton2, 500, 220);
-    top->add(radioButton3, 500, 240);
-    top->add(slider, 500, 300);
-    top->add(window, 50, 350);
-    top->add(tabbedArea, 50, 320);
-    top->add(sprite1, 30,40);
-//    top->add(sprite2, 30,320);
-    top->add (actor1, 10, 230);
+    //gui::ActorGUI* actor1 = new gui::ActorGUI (new Actor());
+    //top->add (actor1, 10, 230);
 
     // Se crea una prueba para el evento de botón.
+    /*
     button->setActionEventId("btn1");
     class Escuchador : public gcn::ActionListener
     {
@@ -232,18 +259,11 @@ void Juego2::prueba_guichan (Sprite* prueba)
     };
     Escuchador* pepe = new Escuchador(label);
     button->addActionListener(pepe);
+    */
 
     // Se realiza el bucle de mensajes.
-
     while(!key[KEY_ESC])
     {
-        // Una prueba de cambio de propiedades.
-        textBoxScrollArea->setFrameSize(slider->getValue ());
-        if (slider->getValue () > 5)
-        {
-            sprite1->setCaption ("Por el slider...");
-        };
-
         // Se ejecuta la lógica de la GUI.
         gui->logic();
 
@@ -256,6 +276,8 @@ void Juego2::prueba_guichan (Sprite* prueba)
         // Se actualiza la pantalla con los cambios.
         blit(screenBuffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     }
+    // limpiar buffer.
+    key[KEY_ESC] = false;
 
     // Se elimina lo creado.
     delete gui;
@@ -266,26 +288,26 @@ void Juego2::prueba_guichan (Sprite* prueba)
     delete font;
     delete top;
     delete label;
-    delete icon;
-    delete button;
-    delete textField;
-    delete textBox;
-    delete textBoxScrollArea;
-    delete listBox;
-    delete dropDown;
-    delete checkBox1;
-    delete checkBox2;
-    delete radioButton1;
-    delete radioButton2;
-    delete radioButton3;
-    delete slider;
-    delete window;
-    delete darkbitsIcon;
-    delete darkbitsImage;
+//    delete icon;
+//    delete button;
+//    delete textField;
+//    delete textBox;
+//    delete textBoxScrollArea;
+//    delete listBox;
+//    delete dropDown;
+//    delete checkBox1;
+//    delete checkBox2;
+//    delete radioButton1;
+//    delete radioButton2;
+//    delete radioButton3;
+//    delete slider;
+//    delete window;
+//    delete darkbitsIcon;
+//    delete darkbitsImage;
     delete tabbedArea;
     delete tabOneButton;
     delete tabTwoCheckBox;
-    delete sprite1;
+//    delete sprite1;
 //    delete sprite2;
 };
 
@@ -325,13 +347,22 @@ void Juego2::mainGame ()
   Loro *loro=new Loro(*storage_manager);
   loro->set_x(150);
   loro->set_y(400);
-  actor_manager->add(loro);
+  // Se elimina el loro para mostrar.
+  // actor_manager->add(loro);
 
   // Se añade el control del loro, al manejador de controles.
   control_manager->add_control(loro->get_control());
   
   // Se añade el periférico del loro que realizará el control.
   control_manager->add_peripheral(loro->get_peripheral());
+
+
+  // Se usa una prueba de Ben.
+  Ben *ben = new Ben(*storage_manager);
+  ben->set_x(220);
+  ben->set_y(200);
+  actor_manager->add(ben);
+  loro->get_control()->set_owner(ben);  // Se usa el control del loro para probar a Ben.
 
   // Se crea el 'EditorManager' básico para comenzar con las pruebas.
   EditorManager editor_manager (this);
@@ -353,7 +384,7 @@ void Juego2::mainGame ()
   std::cout << "----------------------------------" << std::endl << std::endl;
 
   // Simulamos la G.
-  key[KEY_G]=true;
+  //key[KEY_G]=true;
 
   // Bucle principal del juego.
   while (!key[KEY_ESC])

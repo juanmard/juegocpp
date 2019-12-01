@@ -4,16 +4,16 @@
  * 
  */
 
-#ifndef _ESCENARIOGUI_H_
-#define _ESCENARIOGUI_H_
+#ifndef _ESCENARIOGUI2_H_
+#define _ESCENARIOGUI2_H_
 
 #include <allegro.h>
 #include "EditorManager.h"
 
-class EscenarioGUI
+class EscenarioGUI2
 {
   public:
-          EscenarioGUI  (EditorManager &editorParam, DIALOG *enlace=NULL);
+          EscenarioGUI2  (EditorManager &editorParam, DIALOG *enlace=NULL);
     void  addEnlace     (DIALOG *enlace);
 
   private:
@@ -39,7 +39,7 @@ class EscenarioGUI
       if (d->dp3)
       {
         // Creamos una referencia temporal al objeto actual.
-        EscenarioGUI &obj = *(static_cast<EscenarioGUI *>(d->dp3));
+        EscenarioGUI2 &obj = *(static_cast<EscenarioGUI2 *>(d->dp3));
         static int mouse_ant_x, mouse_ant_y;
 
         // Se procesan los mensajes.
@@ -106,4 +106,4 @@ class EscenarioGUI
     };
 };
 
-#endif // _ESCENARIOGUI_H_
+#endif // _ESCENARIOGUI2_H_

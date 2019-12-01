@@ -21,7 +21,7 @@
 #include "VectorGUI2.h"
 #include "GUIContador.h"
 #include "GUIVector.h"
-#include "EscenarioGUI.h"
+#include "EscenarioGUI2.h"
 
 using std::ostringstream;
 

@@ -94,43 +94,55 @@ void VectorGUI::mouseExited (gcn::MouseEvent& mouseEvent)
 
 void VectorGUI::mousePressed (gcn::MouseEvent& mouseEvent)
 {
-    //cambiarComponente (mouseEvent)
-    int& componente = x;
-    if (mouseEvent.isControlPressed() && tipo==VectorGUI::dosComponentes) componente = y;
+    int* componente = &x;
+    unsigned int inc = 1;
+    
+    if (mouseEvent.isShiftPressed()) inc = 10;
+    if (mouseEvent.isControlPressed() && (tipo == VectorGUI::dosComponentes))
+    {
+        componente = &y; 
+    }
+    
     if (mouseEvent.getButton()==gcn::MouseEvent::Left)
     {
-        componente++;
+        (*componente)+=inc;
     }
+
     if (mouseEvent.getButton()==gcn::MouseEvent::Right)
     {
-        componente--;
+        (*componente)-=inc;
     }
+    
     mouseEvent.consume ();
 };
 
 void VectorGUI::mouseWheelMovedUp (gcn::MouseEvent& mouseEvent)
 {
+    unsigned int inc = 1;
+    if (mouseEvent.isShiftPressed()) inc = 10;
     if (mouseEvent.isControlPressed() && (tipo==VectorGUI::dosComponentes))
     {
-        y++;
+        y+=inc;
     }
     else
     {
-        x++;
+        x+=inc;
     }
 }
 
 void VectorGUI::mouseWheelMovedDown (gcn::MouseEvent& mouseEvent)
 {
+    unsigned int inc = 1;
+    if (mouseEvent.isShiftPressed()) inc = 10;
     if (mouseEvent.isControlPressed() && (tipo==VectorGUI::dosComponentes))
     {
-        y--;
+        y-=inc;
         this->setActionEventId ("decY");
         this->distributeActionEvent ();
     }
     else
     {
-        x--;
+        x-=inc;
         this->setActionEventId ("decX");
         this->distributeActionEvent ();
     }
@@ -170,6 +182,10 @@ void VectorGUI::keyPressed(gcn::KeyEvent& keyEvent)
             x += inc;
             this->setActionEventId ("incX");
             this->distributeActionEvent ();
+            break;
+
+        case gcn::Key::LeftShift:
+            //this->setPosition(100,100);
             break;
 
         default:

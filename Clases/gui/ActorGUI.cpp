@@ -53,7 +53,7 @@ void ActorGUI::init ()
     // Inicializa propiedades de widgets.
     // Contenedor (this).
     this->setFocusable (true);
-    this->setFrameSize (4);
+    this->setFrameSize (2);
     this->setSize (160,200);
 
     // Posición.
@@ -67,10 +67,10 @@ void ActorGUI::init ()
     bloque->setSize (50,50);
 
     // Añade los controles al contenedor que somos.
-    this->add (nombre, 5, 5);
-    this->add (posicion, 5, 20);
-    this->add (tamano, 5, 35);
-    this->add (bloque, 30, 70);
+    this->add (nombre,5,5);
+    this->add (posicion,5,20);
+    this->add (tamano,5,35);
+    this->add (bloque,30,70);
 
     // Nos añadimos como oyentes de nuestros mensajes.
     addMouseListener(this);

@@ -63,8 +63,10 @@ Actor::~Actor()
 
 void Actor::draw (BITMAP *bmp)
 {
-    // Se dibuja si el actor tiene parte gráfica.
-    if (agraph) agraph->draw (bmp);
+    if (state != DISABLE) {
+        // Se dibuja si el actor tiene parte gráfica.
+        if (agraph) agraph->draw (bmp);
+    }
 };
 
 void Actor::draw_block (BITMAP *pantalla)
@@ -261,12 +263,14 @@ bool Actor::isIntersectado (const Bloque& bloque)
 
 void Actor::draw (StageManager* stageManager)
 {
-    // Se calcula la posición relativa del actor al escenario.
-    int relx = x - stageManager->get_x();
-    int rely = y - stageManager->get_y();
+    if (state != DISABLE) {
+        // Se calcula la posición relativa del actor al escenario.
+        int relx = x - stageManager->get_x();
+        int rely = y - stageManager->get_y();
 
-    // Se dibuja en el escenario en la posición calculada.
-    if (agraph) agraph->draw (relx,rely,stageManager->getBuffer());
+        // Se dibuja en el escenario en la posición calculada.
+        if (agraph) agraph->draw (relx,rely,stageManager->getBuffer());
+    }
 };
 
 void Actor::draw_block (StageManager* stageManager)

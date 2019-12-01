@@ -1,6 +1,6 @@
 ﻿///
 /// @file SpriteGUI.cpp
-/// @brief Fichero de implementaciÃƒÂ³n de la clase "SpriteGUI".
+/// @brief Fichero de implementación de la clase "SpriteGUI".
 /// @author Juan Manuel Rico
 /// @date Junio 2016
 /// @version 1.0.0
@@ -19,23 +19,23 @@ namespace gui
 {
 
 SpriteGUI::SpriteGUI (Sprite* sprite_editar):
-sprite(sprite_editar),
-etiqueta(new gcn::Label ("GUI Sprite")),
-add_frame (new gcn::Button ("Añadir")),
-del_frame (new gcn::Button ("Borrar")),
-fotogramas (new gcn::Container()),
-imagenAnterior(new gcn::Icon ()),
-imagenActual(new gcn::Icon ()),
-imagenPosterior(new gcn::Icon ()),
-rojo(new gcn::Color (255,0,0)),
-verde(new gcn::Color (0,255,0)),
-frame_actual (0),
-numFrame (new gcn::Label("Frame:")),
-pos (new gcn::Label("Posición:")),
-ticks (new gcn::Label("Ticks:")),
-prb_x(0), prb_y(0),
-vector_pos (new gui::VectorGUI(prb_x, prb_y)),
-prueba_menu (new gui::MenuGUI())
+    sprite(sprite_editar),
+    etiqueta(new gcn::Label ("GUI Sprite")),
+    add_frame (new gcn::Button ("Añadir")),
+    del_frame (new gcn::Button ("Borrar")),
+    fotogramas (new gcn::Container()),
+    imagenAnterior(new gcn::Icon ()),
+    imagenActual(new gcn::Icon ()),
+    imagenPosterior(new gcn::Icon ()),
+    rojo(new gcn::Color (255,0,0)),
+    verde(new gcn::Color (0,255,0)),
+    frame_actual (0),
+    numFrame (new gcn::Label("Frame:")),
+    pos (new gcn::Label("Posición:")),
+    ticks (new gcn::Label("Ticks:")),
+    prb_x(0), prb_y(0),
+    vector_pos (new gui::VectorGUI(prb_x, prb_y)),
+    prueba_menu (new gui::MenuGUI())
 {
     setOpaque (true);
     setWidth (600);
@@ -54,12 +54,12 @@ prueba_menu (new gui::MenuGUI())
     fotogramas->add (imagenActual,50,50);
 
 
-    // Se aÃ±aden los controles a este contenedor.
+    // Se añaden los controles a este contenedor.
     add (etiqueta, 5, 150);
     add (add_frame, 5, 5);
     add (del_frame, add_frame->getWidth()+10, 5);
 
-    // Se aÃ±ade un menÃº de prueba.
+    // Se añade un menú de prueba.
     prueba_menu->setFont(new gcn::ImageFont ("fixedfont.bmp", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ñ"));
     prueba_menu->setVisible (false);
     prueba_menu->addItem (new gui::Item ("Añadir"));
@@ -69,7 +69,7 @@ prueba_menu (new gui::MenuGUI())
     prueba_menu->adjustSize ();
     add (prueba_menu, 0, 0);
 
-    // Se aÃ±aden etiquetas de las propiedades del frame actual.
+    // Se añaden etiquetas de las propiedades del frame actual.
     unsigned int widthHeight = this->getFont()->getHeight();
     add (this->numFrame, 200, 10);
     add (this->pos,      200, 10 + 1*(widthHeight));
@@ -84,11 +84,11 @@ prueba_menu (new gui::MenuGUI())
     add (vector_pos, pos->getX()+pos->getWidth()+10, pos->getY());
     add (new gui::VectorGUI(prb_x), ticks->getX()+ticks->getWidth()+10, ticks->getY());
 
-    // Nos aÃ±adimos a los oyentes de los mensajes del ratÃ³n y el teclado.
+    // Nos añadimos a los oyentes de los mensajes del ratón y el teclado.
     addMouseListener (this);
     addKeyListener (this);
 
-    // Nos aÃ±adimos a los oyentes de las acciones del menÃº de prueba.
+    // Nos añadimos a los oyentes de las acciones del menú de prueba.
     prueba_menu->addActionListener (this);
 };
 
@@ -131,7 +131,7 @@ void SpriteGUI::logic ()
   //sprite->setXFrame(frame_actual, prb_x);
   //sprite->setYFrame(frame_actual, prb_y);
 
-  // Si hay cambios en el nÃºmero de frame que se muestra,
+  // Si hay cambios en el número de frame que se muestra,
   // actualizar la etiqueta.
   // if (actualizarFrame)
   //{
@@ -152,7 +152,7 @@ void SpriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
 {
     if (mouseEvent.getButton () == gcn::MouseEvent::Right)
     {
-        // Se muestra el menÃƒÂº de prueba.
+        // Se muestra el menú de prueba.
         // @todo... hacer mejor...
         if (this->getWidgetAt (mouseEvent.getX(),mouseEvent.getY())==this->imagenActual)
         {
@@ -169,7 +169,7 @@ void SpriteGUI::mousePressed (gcn::MouseEvent& mouseEvent)
         {
             imagenActual->setBaseColor (*rojo);
 
-            // Prueba de informaciÃƒÂ³n.
+            // Prueba de información.
             etiqueta->setCaption(sprite->getString());
             //etiqueta->setCaption (sprite->print());
 
@@ -245,7 +245,7 @@ void SpriteGUI::action (const gcn::ActionEvent& actionEvent)
 {
     if (actionEvent.getId()=="menu")
     {
-        // Si la acciÃƒÂ³n la produce el menÃƒÂº de prueba mostramos su item en la etiqueta.
+        // Si la acción la produce el menú de prueba mostramos su item en la etiqueta.
         etiqueta->setCaption (prueba_menu->getElementAt(prueba_menu->getSelected()));
         if (etiqueta->getCaption() == "Item 2")
         {

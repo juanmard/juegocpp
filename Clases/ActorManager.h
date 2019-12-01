@@ -1,6 +1,6 @@
 ///
 /// @file ActorManager.h
-/// @brief Fichero de definiciÛn de la clase "ActorManager".
+/// @brief Fichero de definici√≥n de la clase "ActorManager".
 /// @author Juan Manuel Rico
 /// @date Noviembre 2015
 /// @version 1.0.0
@@ -22,9 +22,9 @@ class Bloque;
 ///
 /// Esta clase controla todos los actores y sus estados dentro de la escena.
 /// Fundamentalmente se encarga de manejar tres listas: una de control de actores, otra de actores a borrar y otra de actores a crear.
-/// En cada ciclo de actualizaciÛn comprueba los actores a borrar y los que se deben crear actualizando con ellas la lista de actores
-/// a controlar. El control que se realiza sobre esta ˙ltima lista es enviar un mensaje de actualizaciÛn (update) para que ejecuten,
-/// cada uno de los actores, sus procedimeintos de actualizaciÛn propios.
+/// En cada ciclo de actualizaci√≥n comprueba los actores a borrar y los que se deben crear actualizando con ellas la lista de actores
+/// a controlar. El control que se realiza sobre esta √∫ltima lista es enviar un mensaje de actualizaci√≥n (update) para que ejecuten,
+/// cada uno de los actores, sus procedimeintos de actualizaci√≥n propios.
 ///
 class ActorManager : public PrintableObject
 {
@@ -33,7 +33,7 @@ protected:
     std::list<Actor*> actors;                   ///< Lista de actores a controlar.
     std::list<Actor*>::iterator actors_iter;    ///< Iterador de la lista de actores.
     std::list<Actor*> to_del;                   ///< Lista de actores a eliminar.
-    std::list<Actor*> to_create;                ///< Lista de actores a aÒadir.
+    std::list<Actor*> to_create;                ///< Lista de actores a a√±adir.
 
 public:
     /// Constructor.
@@ -45,28 +45,28 @@ public:
     ///
     ~ActorManager ();
 
-    /// AÒade un nuevo actor a controlar.
-    /// @param a  Puntero al actor que se desea aÒadir.
+    /// A√±ade un nuevo actor a controlar.
+    /// @param a  Puntero al actor que se desea a√±adir.
     ///
     void add (Actor* a);
 
-    /// Borra un actor que est· siendo controlado y deja de estarlo.
+    /// Borra un actor que est√° siendo controlado y deja de estarlo.
     /// @param a  Puntero al actor que se desea eliminar.
     ///
     /// @warning Queda por resolver si en este procedimiento se elimina el actor de memoria o si
-    ///          bien lo ˙nico que se desea es dejar de controlarlo con este controlador, en ese
-    ///          caso habrÌa que decidir quien se hace cargo del actor para que no quede el puntero huÈrfano.
+    ///          bien lo √∫nico que se desea es dejar de controlarlo con este controlador, en ese
+    ///          caso habr√≠a que decidir quien se hace cargo del actor para que no quede el puntero hu√©rfano.
     ///
     void del (Actor* a);
 
-    /// Obtiene un actor de la lista dando la posiciÛn en la que se encuentra.
+    /// Obtiene un actor de la lista dando la posici√≥n en la que se encuentra.
     ///
-    /// Entregar· el primer actor de la lista cuyo bloque se encuentre dentro de
-    /// la posiciÛn de b˙squeda dada como par·metro.
-    /// @param x  Coordenada x de la posiciÛn de b˙squeda.
-    /// @param y  Coordenada y de la posiciÛn de b˙squeda.
-    /// @return Puntero al actor que se encuentra en dicha posiciÛn. Entregar· NULL
-    ///         si no encuentra ning˙n actor en dicha posiciÛn de b˙squeda.
+    /// Entregar√° el primer actor de la lista cuyo bloque se encuentre dentro de
+    /// la posici√≥n de b√∫squeda dada como par√°metro.
+    /// @param x  Coordenada x de la posici√≥n de b√∫squeda.
+    /// @param y  Coordenada y de la posici√≥n de b√∫squeda.
+    /// @return Puntero al actor que se encuentra en dicha posici√≥n. Entregar√° NULL
+    ///         si no encuentra ning√∫n actor en dicha posici√≥n de b√∫squeda.
     ///
     /// @todo Hacer que el procedimiento entregue una lista de actores puesto que varios
     ///       actores y sus bloques asociados pueden solaparse.
@@ -89,12 +89,12 @@ public:
     Actor* current ();
 
     /// Actualiza la lista completa de actores.
-    /// En este caso actualiza el aspecto y la fÌsica implicada.
+    /// En este caso actualiza el aspecto y la f√≠sica implicada.
     ///
     void update ();
 
-    /// Entrega el n˙mero de actores que actualmente contiene la lista.
-    /// @return N˙mero de actores de la lista.
+    /// Entrega el n√∫mero de actores que actualmente contiene la lista.
+    /// @return N√∫mero de actores de la lista.
     ///
     unsigned int num_actors () const;
 
@@ -114,24 +114,24 @@ public:
     ///
     std::list<Actor*>& get_actores (const Bloque& bloque) const;
 
-    /// Obtiene el actor dado como Ìndice de la lista.
-    /// @param indice  Õndice del actor en la lista.
-    /// @return Puntero al actor requerido. Si no existe el Ìndice
+    /// Obtiene el actor dado como √≠ndice de la lista.
+    /// @param indice  √çndice del actor en la lista.
+    /// @return Puntero al actor requerido. Si no existe el √≠ndice
     ///         devuelve NULL.
     ///
     Actor* get_actor (unsigned int indice) const;
 
     /// Obtiene los distintos trajes de los actores.
-    /// Obtiene los distintos objetos gr·ficos (trajes) de los actores.
+    /// Obtiene los distintos objetos gr√°ficos (trajes) de los actores.
     /// @return Referencia a una nueva cadena con el nombre de prueba.
     ///
     /// @note Un traje para un mismo actor puede ser el mismo, luego lo ideal
-    ///       serÌa definir una clase "Armario" donde se encuentren todos los
-    ///       trajes a utilizar. En este caso se separarÌa en una clase distinta
-    ///       y en esta clase irÌa este procedimiento.
+    ///       ser√≠a definir una clase "Armario" donde se encuentren todos los
+    ///       trajes a utilizar. En este caso se separar√≠a en una clase distinta
+    ///       y en esta clase ir√≠a este procedimiento.
     /// @todo Crear una clase "Armario" donde se incluyeran todos los trajes que
-    ///       utilizar·n actores y decorado a lo largo del juego (atrezzo del juego).
-    /// @warning No sÈ quÈ sentido tiene este procedimiento aquÌ.
+    ///       utilizar√°n actores y decorado a lo largo del juego (atrezzo del juego).
+    /// @warning No s√© qu√© sentido tiene este procedimiento aqu√≠.
     ///
     std::string& get_armario () const;
 
@@ -147,7 +147,7 @@ public:
     ///     Cantidad 3
     ///     Ladrillo {
     ///               Nombre "Ladrillo-001"
-    ///               PosiciÛn <120,40>
+    ///               Posici√≥n <120,40>
     ///               Bloque <32,15>
     ///               Bitmap "sprite_041"
     ///              }
@@ -158,30 +158,30 @@ public:
     ///
     void load (const std::string& file);
 
-    /// AÒade todos los actores de la lista de actores a crear a la lista principal de control.
+    /// A√±ade todos los actores de la lista de actores a crear a la lista principal de control.
     ///
     void add_all_to_create ();
 
-    /// Borra todos los actores que est·n siendo controlados de la lista de actores.
+    /// Borra todos los actores que est√°n siendo controlados de la lista de actores.
     ///
     void del_all_to_del ();
 
 protected:
-    /// Avisa de que se ha agregado un actor sin componente gr·fica.
+    /// Avisa de que se ha agregado un actor sin componente gr√°fica.
     /// El aviso se realiza en la consola de salida.
     ///
     void aviso_actor_sin_grafico (const Actor& a) const;
 
 public:
     /// Obtiene una cadena representativa de la lista de actores que actualmente controla.
-    /// @return Cadena con la representaciÛn de la lista de actores.
+    /// @return Cadena con la representaci√≥n de la lista de actores.
     ///
     std::string& print () const;
 
     /// Obtiene los objetos de un flujo de datos.
     ///
-    /// Seg˙n el nombre leido del flujo crea un objeto actor de ese tipo y
-    /// lo aÒade a la lista activa de actores.
+    /// Seg√∫n el nombre leido del flujo crea un objeto actor de ese tipo y
+    /// lo a√±ade a la lista activa de actores.
     /// @todo Crear una clase ReadeableObject, al estilo de PrintableObject, para que la clase herede
     ///       de ella y eliminar este procedimiento friend.
     friend std::istream& operator>> (std::istream& is, ActorManager& am);

@@ -75,7 +75,7 @@ class GCN_CORE_DECLSPEC ActorGUI :
         gcn::Label* nombre;             ///< Etiqueta que mostrará el nombre del actor.
         gui::VectorGUI* posicion;       ///< Vector que muestra la posición actual del actor en el escenario.
         gui::VectorGUI* tamano;         ///< Vector que muestra el tamaño actual del actor.
-        gcn::Container* bloque;        ///< Bloque que representa las dimensiones del actor.
+        gcn::Container* bloque;         ///< Bloque que representa las dimensiones del actor.
 };
 }
 

@@ -155,13 +155,20 @@ void ActorManager::update ()
     // Actualiza ahora los actores en escena.
     for (tmp_iter=actors.begin(); tmp_iter!=actors.end(); tmp_iter++)
     {
-        // Se actualiza el actor actual del bucle.
-        (*tmp_iter)->update ();
+        
+        /// ---------------------------------
+        /// 2019-12-01 - Prueba de control en lista según estado del actor.
+        if ((*tmp_iter)->get_state () != Actor::DISABLE) {
+            // Se actualiza el actor actual del bucle.
+            (*tmp_iter)->update ();
+            
+            /// ---------------------------------
+            /// 2019-12-01 - Prueba de control en lista según estado del actor.
+            if ((*tmp_iter)->get_state () == Actor::TO_DELETE) {
+                this->del((*tmp_iter));
+            }
+            /// ---------------------------------
 
-        // Prueba de suicidio de loro.
-        if ((*tmp_iter)->get_Estado() == Loro::KILL)
-        {
-          this->del((Actor*)(*tmp_iter));
         }
     }
 

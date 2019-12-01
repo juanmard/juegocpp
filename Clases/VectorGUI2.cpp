@@ -5,7 +5,7 @@
  */
 
 #include "VectorGUI2.h"
-#include "EscenarioGUI.h"
+#include "EscenarioGUI2.h"
 #include <sstream>
 
 using std::ostringstream;

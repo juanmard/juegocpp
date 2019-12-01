@@ -4,17 +4,17 @@
  * 
  */
 
-#include "EscenarioGUI.h"
+#include "EscenarioGUI2.h"
 #include <sstream>
 
 // Variables locales para el mouse.
-int EscenarioGUI::local_x = 0;
-int EscenarioGUI::local_y = 0;
+int EscenarioGUI2::local_x = 0;
+int EscenarioGUI2::local_y = 0;
 
 /**
  * \brief   Constructor.
  */
-EscenarioGUI::EscenarioGUI (EditorManager &editorParam, DIALOG *enlace):
+EscenarioGUI2::EscenarioGUI2 (EditorManager &editorParam, DIALOG *enlace):
 editor (editorParam),
 enlaces (enlace)
 {
@@ -24,7 +24,7 @@ enlaces (enlace)
  * \brief   Comprueba las teclas en el control del vector.
  * \return  El procesado de la tecla.
  */
-int  EscenarioGUI::Keyboard (int msg, DIALOG *d, int code)
+int  EscenarioGUI2::Keyboard (int msg, DIALOG *d, int code)
 {
   int salida = D_O_K;
 
@@ -54,7 +54,7 @@ int  EscenarioGUI::Keyboard (int msg, DIALOG *d, int code)
  * \brief   Dibuja los valores en la GUI.
  * \return  El valor al dibujar.
  */
-int  EscenarioGUI::Draw (int msg, DIALOG *d, int code)
+int  EscenarioGUI2::Draw (int msg, DIALOG *d, int code)
 {
   show_mouse (NULL);
   // Actualizamos el ribete y dibujamos.
@@ -71,7 +71,7 @@ int  EscenarioGUI::Draw (int msg, DIALOG *d, int code)
  * \brief   Comprueba la rueda del ratón.
  * \return  El procesado de la rueda.
  */
-int  EscenarioGUI::Wheel (int msg, DIALOG *d, int code)
+int  EscenarioGUI2::Wheel (int msg, DIALOG *d, int code)
 {
   int salida = D_O_K;
 
@@ -96,7 +96,7 @@ int  EscenarioGUI::Wheel (int msg, DIALOG *d, int code)
  * \brief   Sigue los movimientos del ratón.
  * \return  El valor obtenido al dibujar y actualizar el escenario.
  */
-int  EscenarioGUI::MoveMouse (int msg, DIALOG *d, int code)
+int  EscenarioGUI2::MoveMouse (int msg, DIALOG *d, int code)
 {
   // Si el editor nos dice que hay un actor atrapado por el ratón, movemos el actor.
   if ( editor.is_actor_atrapado () )
@@ -135,7 +135,7 @@ int  EscenarioGUI::MoveMouse (int msg, DIALOG *d, int code)
  * \brief   Sigue los movimientos del ratón.
  * \return  El valor obtenido al dibujar y actualizar el escenario.
  */
-int  EscenarioGUI::LPressMouse (int msg, DIALOG *d, int code)
+int  EscenarioGUI2::LPressMouse (int msg, DIALOG *d, int code)
 {
   // Si hay un actor atrapado, lo liberamos.
   // En otro caso, intentamos atrapar uno bajo el cursor.
@@ -155,7 +155,7 @@ int  EscenarioGUI::LPressMouse (int msg, DIALOG *d, int code)
  * \brief   Sigue los movimientos del ratón.
  * \return  El valor obtenido al dibujar y actualizar el escenario.
  */
-int  EscenarioGUI::DClick (int msg, DIALOG *d, int code)
+int  EscenarioGUI2::DClick (int msg, DIALOG *d, int code)
 {
   editor.fijar_actor (local_x, local_y);
   Draw (msg, d, code);
@@ -167,7 +167,7 @@ int  EscenarioGUI::DClick (int msg, DIALOG *d, int code)
  * \details Este enlace se utiliza para actualizar el aspecto de otro diálogo
  *          enlazado al cambio de éste.
  */
-void  EscenarioGUI::addEnlace (DIALOG *enlace)
+void  EscenarioGUI2::addEnlace (DIALOG *enlace)
 {
   enlaces = enlace;
 };
