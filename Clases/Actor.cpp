@@ -14,8 +14,8 @@
 #include "StageManager.h"
 #include "Dialog.h"
 
-/// @todo Generar un espacio de nombres para el juego "rdt" (ridotech).
-namespace rdt
+/// @todo Generar un espacio de nombres para el juego "fgm" (Frame Game).
+namespace fgm
 {
 
 Actor::Actor():

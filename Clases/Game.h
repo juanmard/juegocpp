@@ -15,6 +15,8 @@ class Almacen;
 //using namespace std;
 using std::string;
 
+namespace fgm {
+
 /**
  * \brief   Clase que recoge las funciones básicas de un juego.
  * \todo   Definir el tipo 'team_t' como una clase externa.
@@ -65,6 +67,8 @@ class Game
     virtual void    create_controlmanager   ();
     virtual void    create_collisionmanager ();
     virtual void    create_storage_manager   ();
+};
+
 };
 
 #endif

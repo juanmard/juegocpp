@@ -14,6 +14,8 @@
 #include <string>
 #include "PrintableObject.h"
 
+namespace fgm {
+
 class Game;
 class Actor;
 class Bloque;
@@ -186,5 +188,6 @@ public:
     ///       de ella y eliminar este procedimiento friend.
     friend std::istream& operator>> (std::istream& is, ActorManager& am);
 };
+}
 
 #endif

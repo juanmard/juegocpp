@@ -9,6 +9,8 @@
 #include "Bloque.h"
 #include <sstream>
 
+namespace fgm {
+
 Bloque::Bloque ():
 x(0), y(0), w(0), h(0)
 {
@@ -79,3 +81,4 @@ std::string & Bloque::print() const
     return *new std::string (canal.str());
 };
 
+};

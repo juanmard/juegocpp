@@ -23,8 +23,8 @@
 class ActorGraphic;
 class Mask;
 
-namespace rdt
-{
+/// Espacio de nombre para "frame game".
+namespace fgm {
 
 /// Elemento básico con dinámica dentro del juego.
 ///

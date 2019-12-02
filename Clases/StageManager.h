@@ -15,13 +15,15 @@
 #include "Actor.h"
 #include "ActorManager.h"
 
+
+namespace fgm {
+
 /// Controlador del escenario del juego.
 ///
 /// Debe controlar como se representa el escenario del juego en pantalla y brindar
 /// los procedimientos necesarios. 
 ///
-class StageManager
-{
+class StageManager {
 protected:
     Game* game;             ///< Referencia al juego propietario.
     BITMAP* buffer;         ///< Buffer principal a volcar en pantalla.
@@ -32,7 +34,7 @@ protected:
     bool verBloques;        ///< Muestra los bloques de los actores.
     bool verInfo;           ///< Muestra las informaciones del juego.
     bool verRibete;         ///< Muestra el ribete en pantalla.
-    std::string info;       ///< Cadena de información a mostrar.
+    std::string info;       ///< Cadena de informaciÃ³n a mostrar.
 
 public:
     /// Constructor.
@@ -58,13 +60,13 @@ public:
     ///
     unsigned int get_h () const;
 
-    /// Obtiene la posición 'x' del marco.
-    /// @return Posición 'x' del marco.
+    /// Obtiene la posiciÃ³n 'x' del marco.
+    /// @return PosiciÃ³n 'x' del marco.
     ///
     unsigned int get_x () const;
 
-    /// Obtiene la posición 'y' del marco.
-    /// @return Posición 'y' del marco.
+    /// Obtiene la posiciÃ³n 'y' del marco.
+    /// @return PosiciÃ³n 'y' del marco.
     ///
     unsigned int get_y () const;
 
@@ -73,8 +75,8 @@ public:
     ///
     BITMAP* getBuffer () const;
 
-    /// Actualiza gráficamente el escenario.
-    /// @note Actualmente al actualizar el escenario únicamnente lo vuelve a dibujar.
+    /// Actualiza grÃ¡ficamente el escenario.
+    /// @note Actualmente al actualizar el escenario Ãºnicamnente lo vuelve a dibujar.
     ///
     void update ();
 
@@ -92,10 +94,10 @@ public:
     ///
     void draw ();
 
-    /// Mueve el marco del escenario a la posición especificada dentro de las
+    /// Mueve el marco del escenario a la posiciÃ³n especificada dentro de las
     /// coordenadas generalizadas del juego.
-    /// @param x  Posición 'x' del marco de la nueva posición.
-    /// @param y  Posición 'y' del marco de la nueva posición.
+    /// @param x  PosiciÃ³n 'x' del marco de la nueva posiciÃ³n.
+    /// @param y  PosiciÃ³n 'y' del marco de la nueva posiciÃ³n.
     ///
     void mover_marco (int x, int y);
 
@@ -110,37 +112,37 @@ public:
     ///
     void actualizar_seguimiento ();
 
-    /// Confirma si existe un actor que está siendo seguido por el escenario.
-    /// @return Si existe o no seguimiento de algún actor.
+    /// Confirma si existe un actor que estÃ¡ siendo seguido por el escenario.
+    /// @return Si existe o no seguimiento de algÃºn actor.
     ///
     bool is_seguimiento () const;
 
-    /// Confirma si el escenario quiere mostrar información.
-    /// @return Si está mostrando o no mensajes de información.
+    /// Confirma si el escenario quiere mostrar informaciÃ³n.
+    /// @return Si estÃ¡ mostrando o no mensajes de informaciÃ³n.
     ///
     bool is_info () const;
 
 
-    /// Cambia la activación de la visualización de los bloques.
-    /// @param activar  Si es 'true' activamos la visualización de los bloques.
+    /// Cambia la activaciÃ³n de la visualizaciÃ³n de los bloques.
+    /// @param activar  Si es 'true' activamos la visualizaciÃ³n de los bloques.
     ///
     void set_ver_bloques (bool activar = true);
 
-    /// Obtiene el estado de la visualización de los bloques.
-    /// @return  Si es 'true' es que los bloques están activos.
+    /// Obtiene el estado de la visualizaciÃ³n de los bloques.
+    /// @return  Si es 'true' es que los bloques estÃ¡n activos.
     ///
     bool get_ver_bloques () const;
 
-    /// Dibuja un rectángulo en el buffer.
+    /// Dibuja un rectÃ¡ngulo en el buffer.
     ///
-    /// Dibuja un rectángulo referido al inicio del buffer. En coordenadas del juego,
-    /// referido a la posición actual del escenario.
-    /// @param cuadro  Bloque con las dimensiones del rectángulo que se quiere dibujar.
-    /// @param color Color del rectángulo a dibujar.
+    /// Dibuja un rectÃ¡ngulo referido al inicio del buffer. En coordenadas del juego,
+    /// referido a la posiciÃ³n actual del escenario.
+    /// @param cuadro  Bloque con las dimensiones del rectÃ¡ngulo que se quiere dibujar.
+    /// @param color Color del rectÃ¡ngulo a dibujar.
     ///
     void dibujar_cuadro (Bloque cuadro, int color);
 
-    /// Delimita la zona del marco con el dibujo de un rectángulo que hace de ribete.
+    /// Delimita la zona del marco con el dibujo de un rectÃ¡ngulo que hace de ribete.
     /// @param ribete  Bloque con las dimensiones del ribete.
     ///
     void set_ribete (Bloque ribete);
@@ -160,11 +162,13 @@ public:
     ///
     Bloque& get_marco ();
 
-    /// Concatena la cadena a la línea de información.
-    /// @param cadena  Información a concatenar.
+    /// Concatena la cadena a la lÃ­nea de informaciÃ³n.
+    /// @param cadena  InformaciÃ³n a concatenar.
     /// @return Referencia a la cadena para seguir concatenando.
     ///
     std::string& operator<< (std::string cadena);
+};
+
 };
 
 #endif

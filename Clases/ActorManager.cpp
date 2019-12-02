@@ -23,7 +23,10 @@
 
 #define _DEBUG_
 
+namespace fgm {
+
 ActorManager::ActorManager (Game* g):
+}
 game (g)
 {
 };
@@ -266,30 +269,26 @@ std::istream& operator>> (std::istream& is, ActorManager& am)
   return is;
 };
 
-std::string& ActorManager::get_armario () const
-{
+std::string& ActorManager::get_armario () const {
   std::list<Actor*>::iterator i;
   std::list<Actor*> lista;
 
   ActorGraphic *agp;
   lista = actors;
-  for (i = lista.begin(); i != lista.end(); i++)
-  {
+  for (i = lista.begin(); i != lista.end(); i++) {
       agp = (*i)->get_actor_graphic ();
       //cout << (*i)->getString () << endl;
-      if (agp)
-      {
+      if (agp) {
         std::cout << agp->print ();
       }
   }
   return *new std::string("---");
 };
 
-void ActorManager::delete_actors ()
-{
+void ActorManager::delete_actors () {
     to_create.clear();
     to_del.clear();
     actors.clear();
 };
 
-
+}

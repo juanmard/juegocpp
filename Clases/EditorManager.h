@@ -188,7 +188,7 @@ public:
     /// @note Quizás sea más conveniente definir este procedimiento en la clase Bloque o en
     ///       otra clase que lo heredara.
     ///
-    void dibujar_cuadrado (Bloque cuadro, int color);
+    void dibujar_cuadrado (fgm::Bloque cuadro, int color);
 
     /// Obtiene el número de actores actualmente en la lista.
     /// @return Número de actores actuales en la lista de actores controlables.
@@ -200,7 +200,7 @@ public:
     ///
     /// @todo Indicar también el color que se debe utilizar para representarlo.
     ///
-    void set_ribete (Bloque bloque) const;
+    void set_ribete (fgm::Bloque bloque) const;
 
     /// Borra la pantalla con un color gris.
     ///

@@ -34,6 +34,8 @@ void tick_count()
 END_OF_FUNCTION(tick_count);
 /*---------------------------------------------------------------------------------*/
 
+
+namespace fgm {
 /**
  * \brief   Constructor por omisión.
  */
@@ -187,24 +189,21 @@ void Game::mainGame ()
 /**
  * \brief   Se cambia el nombre del juego.
  */
-void Game::set_name (string n)
-{
+void Game::set_name (string n) {
   name = n;
 }
 
 /**
  * \brief   Se obtiene el nombre del juego.
  */
-string Game::get_name ()
-{
+string Game::get_name () {
   return name;
 }
 
 /**
  * \brief   Se actualiza el estado del juego.
  */
-void Game::update ()
-{
+void Game::update () {
   /* Se actualiza el ciclo lógico. */
   if (actual_tick <= tick)
   {
@@ -233,8 +232,7 @@ void Game::update ()
   /* Si se ha cumplido un segundo, se actualizan los "fps" por pantalla. */
 //  if ((tick-old_tick >= 70) && stage_manager->is_info ())
 //  if (tick-old_tick >= 70)
-  if (true)
-  {
+  if (true) {
     rectfill (stage_manager->getBuffer(), 0, 0, SCREEN_W, 50, 0);
     textprintf_ex (stage_manager->getBuffer(), font, 0, 0,-1, makecol(255, 100, 200),
                    "fps: %u frameskip:%u", graphic_tick, frame_skip);
@@ -247,40 +245,37 @@ void Game::update ()
 /**
  * \brief   Se cambian los máximos 'frames' para saltar.
  */
-void Game::set_max_frame_skip (int max_fs)
-{
+void Game::set_max_frame_skip (int max_fs) {
   max_frame_skip = max_fs;
 }
 
 /**
  * \brief   Se pausa el juego.
  */
-void Game::pause ()
-{
+void Game::pause () {
   paused = true;
 }
 
 /**
  * \brief   Se reanuda el juego.
  */
-void Game::play ()
-{
+void Game::play () {
   paused = false;
 }
 
 /**
  * \brief   Se comprueba si el juego está en pausa.
  */
-bool Game::is_paused (void)
-{
+bool Game::is_paused (void) {
   return paused;
 }
 
 /**
  * \brief   Se crea el almacén por omisión.
  */
-void Game::create_storage_manager ()
-{
+void Game::create_storage_manager () {
     // Creamos el almacén de recursos.
     //storage_manager = new Almacen("sprites3.dat");
 }
+
+};

@@ -8,6 +8,8 @@
 
 #include "StageManager.h"
 
+namespace fgm {
+
 StageManager::StageManager (Game* g, int w, int h):
 game (g),
 marco (0, 0, w, h),
@@ -194,3 +196,4 @@ bool StageManager::is_info () const
     return verInfo;
 };
 
+};
