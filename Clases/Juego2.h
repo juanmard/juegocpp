@@ -44,6 +44,9 @@
 #include <string>
 #include "Plataforma.h"
 
+
+namespace fgm {
+    
 /// Juego de prueba heredado de Game.
 ///
 /// Esta clase genera un simple juego para probar los distintos actores.
@@ -72,5 +75,7 @@ private:
     /// Se crea una prueba para guichan.
     void prueba_guichan (Sprite* prueba);
 };
+
+}
 
 #endif

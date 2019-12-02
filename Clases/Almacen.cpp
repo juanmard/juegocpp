@@ -11,6 +11,8 @@
 #include "Almacen.h"
 #include "AlmacenGUI.h"
 
+namespace fgm {
+
 Almacen::Almacen (std::string paramNombreFichero)
 {
     // Se intenta cargar el fichero de datos en memoria.
@@ -52,7 +54,7 @@ Almacen::Almacen (std::string paramNombreFichero)
     }
 
     // Se crea una GUI para esta clase.
-    gui = new AlmacenGUI (*this);
+    gui = new alg4::AlmacenGUI (*this);
 };
 
 Almacen::Almacen ():
@@ -130,5 +132,7 @@ std::string Almacen::get_nombre () const
 void Almacen::add_GUI (std::vector<DIALOG>& gui_padre)
 {
     // Se crea una GUI para esta clase.
-    gui = new AlmacenGUI (*this, gui_padre);
+    gui = new alg4::AlmacenGUI (*this, gui_padre);
 };
+
+}

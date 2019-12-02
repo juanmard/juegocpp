@@ -8,16 +8,16 @@
 #include "SpriteAllegro.h"
 #include <guichan/allegro/allegroimage.hpp>
 
-namespace allegro
+namespace alg4
 {
 
-SpriteAllegro::SpriteAllegro (Actor* aowner):
-Sprite (aowner)
+SpriteAllegro::SpriteAllegro (fgm::Actor* aowner):
+fgm::Sprite (aowner)
 {
 };
 
-SpriteAllegro::SpriteAllegro (const Sprite& copia, Actor* aowner):
-Sprite (copia, aowner)
+SpriteAllegro::SpriteAllegro (const fgm::Sprite& copia, fgm::Actor* aowner):
+fgm::Sprite (copia, aowner)
 {
 };
 

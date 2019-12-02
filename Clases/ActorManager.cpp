@@ -26,7 +26,6 @@
 namespace fgm {
 
 ActorManager::ActorManager (Game* g):
-}
 game (g)
 {
 };
@@ -261,7 +260,7 @@ std::istream& operator>> (std::istream& is, ActorManager& am)
     //nuevo = new Actor();
   }
   //is >> *nuevo;
-  nuevo->prueba_iostream (is, *nuevo);
+///  nuevo->prueba_iostream (is, *nuevo);
   am.add (nuevo);
 
   // Se muestra en pantalla un resumen.

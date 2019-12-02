@@ -24,10 +24,10 @@ class GCN_CORE_DECLSPEC EscenarioGUI :
     public:
         /// Constructor por defecto de la GUI del escenario.
         /// @note No asigna el escenario que se desea editar.
-                EscenarioGUI (StageManager* param);
+                EscenarioGUI (fgm::StageManager* param);
 
         /// Constructor básico de la GUI.
-                ///EscenarioGUI (Actor* actor);
+                ///EscenarioGUI (fgm::Actor* actor);
 
         /// Destructor del editor del escenario.
         virtual ~EscenarioGUI ();
@@ -42,7 +42,7 @@ class GCN_CORE_DECLSPEC EscenarioGUI :
 
     private:
     protected:
-        StageManager* stage_manager;
+        fgm::StageManager* stage_manager;
         gcn::Image* stage_image;
 };
 

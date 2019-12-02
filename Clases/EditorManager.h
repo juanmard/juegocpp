@@ -14,9 +14,11 @@
 #include "Bloque.h"
 #include "Almacen.h"
 
+namespace alg4 {class Dialog;};
+namespace fgm {
+    
 class Game;
 class Actor;
-class Dialog;
 
 /// Edita las listas de objetos involucrados en un juego.
 ///
@@ -35,7 +37,7 @@ private:
 
 public:
     Game* game;     ///< Puntero al juego propietario de este controlador.
-    Dialog* gui;    ///< Puntero a la gui del controlador (a eliminar).
+    alg4::Dialog* gui;    ///< Puntero a la gui del controlador (a eliminar).
     Actor* actor;   ///< Puntero al actor que está siendo editado actualmente.
 
     /// @todo Definir estados del actor en lugar de variables booleanas.
@@ -219,7 +221,7 @@ public:
     /// Obtiene la posición del escenario en forma de cadena.
     /// @return Cadena donde se vuelca la posición actual del escenario.
     ///
-    std::string& get_escenario_xy () const;
+    std::string & get_escenario_xy () const;
 
     /// Obtiene una referencia al almacén de recursos.
     ///
@@ -227,7 +229,7 @@ public:
     /// otro fichero necesario para el juego.
     /// @return Referencia al almacén de recursos.
     ///
-    Almacen& get_almacen () const;
+    Almacen & get_almacen () const;
 
     /// Indica si el actor actual está activo.
     /// @return Si el actor actual está activo o no.
@@ -337,5 +339,7 @@ public:
     int get_local_y (int y);
 
 };
+
+}
 
 #endif

@@ -4,6 +4,8 @@
 #include <string>
 #include "ActorManager.h"
 
+namespace fgm {
+
 // Predefiniciones de clases.
 class ActorManager;
 class StageManager;
@@ -11,11 +13,6 @@ class SoundManager;
 class ControlManager;
 class CollisionManager;
 class Almacen;
-
-//using namespace std;
-using std::string;
-
-namespace fgm {
 
 /**
  * \brief   Clase que recoge las funciones básicas de un juego.
@@ -30,24 +27,24 @@ class Game
     StageManager        *stage_manager;
     SoundManager        *sound_manager;
     ControlManager      *control_manager;
-    CollisionManager   *collision_manager;
-    Almacen                *storage_manager;
+    CollisionManager    *collision_manager;
+    Almacen             *storage_manager;
 
-                    Game        ();
+                     Game       ();
     virtual         ~Game       ();
     virtual void    init        (int gfx_mode, int w, int h, int col);
     virtual void    mainGame    ();
     void            pause       ();
     void            play        ();
     bool            is_paused   ();
-    void            set_name    (string name);
-    string          get_name    ();
+    void            set_name    (std::string name);
+    std::string     get_name    ();
     void            update      ();
 
   protected:
     void        set_max_frame_skip  (int max_fs);
 
-    string      name;
+    std::string      name;
     int         gfx_w, gfx_h;
     int         colors;
 
@@ -60,7 +57,7 @@ class Game
     bool    paused;
 
     void            start                   ();
-    void            shutdown                (string message);
+    void            shutdown                (std::string message);
     virtual void    create_actormanager     ();
     virtual void    create_stagemanager     ();
     virtual void    create_soundmanager     ();

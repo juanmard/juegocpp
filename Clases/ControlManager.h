@@ -15,6 +15,8 @@
 
 #define MAXPERIPHERALS 5
 
+namespace fgm {
+
 /// Control de controles para objetos controlables.
 ///
 class ControlManager
@@ -82,4 +84,5 @@ public:
     void update ();
 };
 
+}
 #endif

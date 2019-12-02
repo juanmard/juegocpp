@@ -8,6 +8,8 @@
 
 #include "ControlManager.h"
 
+namespace fgm {
+
 ControlManager::ControlManager()
 {
     for (int i=0;i<MAXPERIPHERALS;i++)
@@ -82,3 +84,5 @@ void ControlManager::update()
     controls_iter!=controls.end(); controls_iter++)
     (*controls_iter)->update();
 };
+
+}

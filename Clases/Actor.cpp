@@ -276,6 +276,7 @@ void Actor::draw_block (StageManager* stageManager)
   }
 };
 
+
 Bloque& Actor::getBloque ()
 {
   Bloque *tmp = new Bloque (x, y, w, h);
@@ -352,4 +353,102 @@ void  Actor::mensajeErrorGrafico () const
     std::cout << "ERROR: Actor \"" << getNombre() << "\" sin componente gráfica." << std::endl;
 };
 
-}; /// spacename rdt
+/// @note A eliminar de la clase.
+Menu& Actor::getMenu () const
+{
+    return *new Menu();
+};
+
+/// @note A eliminar de la clase.
+alg4::Formulario& Actor::getFormulario () const
+{
+    return *new alg4::Formulario();
+};
+
+//std::ostream& operator<< (std::ostream &os, const Actor &actor)
+//{
+////    os << "Prueba de cadena desde \"Actor.cpp\"" << endl;
+////    os << actor.nombre << " {" << actor.x << "," << actor.y << "}" << " {" << actor.w << "," << actor.h << "}";
+//    os << actor.print ();
+//    return os;
+//};
+
+std::istream& operator>> (std::istream& is, Actor& actor)
+{
+    // Extrae los valores del flujo formateado.
+    //string nombre;
+
+    // TODO: Este nombre habría que convertirlo a tipo "Nombres::codigo"
+    //is >> nombre;
+    is.ignore (10,'<');
+    is >> actor.x;
+    is.ignore (10,',');
+    is >> actor.y;
+    is.ignore (10,'<');
+    is >> actor.w;
+    is.ignore (10,',');
+    is >> actor.h;
+    is.ignore (10,'>');
+    return is;
+};
+
+std::istream& Actor::prueba_iostream (std::istream& is, Actor& a)
+{
+    std::cout << "prueba_actor";
+    return is;
+};
+
+std::ifstream& Actor::leer (std::ifstream& ifs)
+{
+    std::string comando;
+
+    // Lee el comando (Posición) y sus valores.
+    ifs >> comando;
+    ifs.ignore(20,'<') >> x;
+    ifs.ignore(20,',') >> y;
+    ifs.ignore(20,'>');
+
+    // Lee el comando (Dimensiones) y sus valores.
+    ifs >> comando;
+    ifs.ignore(20,'<') >> w;
+    ifs.ignore(20,',') >> h;
+    ifs.ignore(20,'>');
+
+    // Deja el cursor en el siguiente comando (Gráfico) y alguien que sepa todos
+    // los posibles tipos de gráficos (Bitmap, Suelo, Mosaico...)
+    // debe crear uno y asignárselo a este actor.
+    // Similar al mismo que tuvo que crear un actor de clase "Plataforma" como en el
+    // ejemplo.
+    // ¿Habría que crear un "GraphicManager"?¿Esta función puede hacerla el "Almacen"?
+
+    // Como prueba... lo hacemos de momento aquí mismo...
+    ifs >> comando;
+    if (!comando.compare("Gráfico"))
+    {
+        ifs.ignore (100,'{');
+        ifs >> comando;
+
+        // Suponemos que es un suelo el gráfico...
+        //ActorGraphic &grafico = GraphicManager::crearGrafico (comando);
+        ActorGraphic& grafico = *new ActorGraphic();
+        ifs.ignore (100,'{');
+        ifs >> grafico;
+        ifs.ignore (100,'}');
+        ifs.ignore (100,'}');
+
+        // Enlazamos el actor con el gráfico y
+        // el gráfico con el actor (su propietario).
+        this->set_actor_graphic (&grafico);
+        this->agraph->setOwner(*this);
+    }
+    return ifs;
+};
+
+std::ifstream& operator>> (std::ifstream& ifs, Actor& actor)
+{
+    return actor.leer(ifs);
+};
+
+}
+
+

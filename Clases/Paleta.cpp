@@ -9,6 +9,8 @@
 #include "Paleta.h"
 #include "Nombres.h"
 
+namespace fgm {
+
 Paleta::Paleta()
 {
   piel = new Suelo (this, 2);
@@ -101,3 +103,4 @@ std::string Paleta::getNombre () const
 //  return Nombres::Imprimir (nombre);
   return "Paleta";
 };
+}

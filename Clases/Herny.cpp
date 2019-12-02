@@ -2,6 +2,7 @@
 #include "Almacen.h"
 #include "Bitmap.h"
 
+namespace fgm {
 /**
  * Constructor de copia.
  */
@@ -218,3 +219,4 @@ string  Herny::getNombre () const
 {
   return Nombres::Imprimir (nombre);
 };
+}

@@ -8,6 +8,8 @@
 
 #include "ControllableActor.h"
 
+namespace fgm {
+
 ControllableActor::ControllableActor ():
 control (NULL)
 {
@@ -23,3 +25,5 @@ Control* ControllableActor::get_control () const
 {
     return control;
 };
+
+}

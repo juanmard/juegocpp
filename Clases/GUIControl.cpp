@@ -7,6 +7,8 @@
 #include "GUIControl.h"
 #include <iostream>
 
+namespace alg4 {
+
 /**
  * \brief   Constructor.
  */
@@ -23,7 +25,7 @@ foco (false)
  * \param   code  Código.
  * \return  El procesado de la tecla.
  */
-int  GUIControl::Keyboard (int msg, DIALOG *d, int code)
+int  GUIControl::Keyboard (int msg, DIALOG* d, int code)
 {
   return D_O_K;
 };
@@ -32,7 +34,7 @@ int  GUIControl::Keyboard (int msg, DIALOG *d, int code)
  * \brief   Dibuja los valores en la GUI.
  * \return  El valor al dibujar.
  */
-int  GUIControl::Draw (int msg, DIALOG *d, int code)
+int  GUIControl::Draw (int msg, DIALOG* d, int code)
 {
   return D_O_K;
 };
@@ -41,7 +43,7 @@ int  GUIControl::Draw (int msg, DIALOG *d, int code)
  * \brief   Comprueba la rueda del ratón.
  * \return  El procesado de la rueda.
  */
-int  GUIControl::Wheel (int msg, DIALOG *d, int code)
+int  GUIControl::Wheel (int msg, DIALOG* d, int code)
 {
   return D_O_K;
 };
@@ -50,7 +52,7 @@ int  GUIControl::Wheel (int msg, DIALOG *d, int code)
  * \brief   Envía mensaje por omisión.
  * \return  Mensaje.
  */
-int  GUIControl::MoveMouse (int msg, DIALOG *d, int code)
+int  GUIControl::MoveMouse (int msg, DIALOG* d, int code)
 {
   return D_O_K;
 };
@@ -59,7 +61,7 @@ int  GUIControl::MoveMouse (int msg, DIALOG *d, int code)
  * \brief   Envía mensaje por omisión.
  * \return  Mensaje.
  */
-int  GUIControl::LPressMouse (int msg, DIALOG *d, int code)
+int  GUIControl::LPressMouse (int msg, DIALOG* d, int code)
 {
   return D_O_K;
 };
@@ -68,7 +70,7 @@ int  GUIControl::LPressMouse (int msg, DIALOG *d, int code)
  * \brief   Envía mensaje por omisión.
  * \return  Mensaje.
  */
-int GUIControl::DClick (int msg, DIALOG *d, int code)
+int GUIControl::DClick (int msg, DIALOG* d, int code)
 {
   return D_O_K;
 };
@@ -77,7 +79,7 @@ int GUIControl::DClick (int msg, DIALOG *d, int code)
  * \brief   Envía mensaje por omisión.
  * \return  Mensaje.
  */
-int  GUIControl::Omision (int msg, DIALOG *d, int code)
+int  GUIControl::Omision (int msg, DIALOG* d, int code)
 {
   return D_O_K;
 };
@@ -86,7 +88,7 @@ int  GUIControl::Omision (int msg, DIALOG *d, int code)
  * \brief   Añade un enlace a un DIALOG para refrescarlo al mismo tiempo que se dibuja el control.
  * \return  Mensaje.
  */
-void  GUIControl::addEnlace (DIALOG *enlace)
+void  GUIControl::addEnlace (DIALOG* enlace)
 {
   std::cout << "Añadido enlace." << std::endl;
   enlazados.push_back (enlace);
@@ -96,9 +98,9 @@ void  GUIControl::addEnlace (DIALOG *enlace)
  * \brief   Dibuja los DIALOG de Allegro enlazados con el control.
  * \return  Mensaje.
  */
-int  GUIControl::DrawEnlazados (int msg, DIALOG *d, int code)
+int  GUIControl::DrawEnlazados (int msg, DIALOG* d, int code)
 {
-  vector<DIALOG *>::iterator iter;
+  std::vector<DIALOG*>::iterator iter;
 
   if (!enlazados.empty())
   {
@@ -111,3 +113,4 @@ int  GUIControl::DrawEnlazados (int msg, DIALOG *d, int code)
   return D_O_K;
 };
 
+}

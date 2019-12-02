@@ -2,6 +2,8 @@
 #include "Ladrillo.h"
 #include "Actor.h"
 
+namespace alg4 {
+
 DIALOG LadrilloGUI::dlg_plantilla[] =
 {
    /* (proc)        (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags) (d1) (d2) (dp)                              (dp2) (dp3) */
@@ -23,7 +25,7 @@ LadrilloGUI::~LadrilloGUI ()
 /**
  * \brief   Constructor.
  */
-LadrilloGUI::LadrilloGUI (Ladrillo &ladri, vector<DIALOG> &gui_padre_param):
+LadrilloGUI::LadrilloGUI (fgm::Ladrillo& ladri, std::vector<DIALOG>& gui_padre_param):
 gui_padre (gui_padre_param),
 ladrillo (ladri)
 {
@@ -38,9 +40,11 @@ ladrillo (ladri)
 /**
  * \brief   Cambiamos los valores mostrados en la GUI según el Ladrillo pasado como parámetro.
  */
-void  LadrilloGUI::rellenarGUI (Ladrillo &ladrillo)
+void  LadrilloGUI::rellenarGUI (fgm::Ladrillo& ladrillo)
 {
   // Rellenamos el gráfico.
-  Bitmap *grafico = (Bitmap *) ladrillo.get_actor_graphic ();
+  fgm::Bitmap* grafico = (fgm::Bitmap*) ladrillo.get_actor_graphic ();
   gui_padre[pto_inserccion+bitmap].dp = grafico->get_imagen();
+}
+
 }

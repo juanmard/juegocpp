@@ -14,6 +14,8 @@
 #include "Sprite.h"
 #include "Peripheral.h"
 
+namespace fgm {
+    
 /// Loro que se mueve siguiendo una horizontal.
 ///
 /// Los criterios que se pueden utilizar para el movimiento suelen ser varios, lo más
@@ -107,5 +109,6 @@ public:
     void hit (Actor* who, int damage);
 
 };
+}
 
 #endif

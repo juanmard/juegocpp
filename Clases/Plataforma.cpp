@@ -9,6 +9,9 @@
 #include "Plataforma.h"
 #include <sstream>
 
+
+namespace fgm {
+    
 Plataforma::Plataforma (const Plataforma& copia):
 Actor(copia),
 //origen (copia.getOrigen()),
@@ -149,3 +152,4 @@ void Plataforma::draw (StageManager* stageManager)
     }
 };
 
+}

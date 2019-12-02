@@ -7,12 +7,11 @@
 #include "GUIContador.h"
 #include <sstream>
 
-using std::ostringstream;
-
+namespace alg4 {
 /**
  * \brief   Constructor.
  */
-GUIContador::GUIContador (unsigned int &contadorParam):
+GUIContador::GUIContador (unsigned int& contadorParam):
 contador (contadorParam)
 {
 };
@@ -24,7 +23,7 @@ contador (contadorParam)
  * \param   code  Código de la tecla que genera el mensaje.
  * \return  El procesado de la tecla.
  */
-int  GUIContador::Keyboard (int msg, DIALOG *d, int code)
+int  GUIContador::Keyboard (int msg, DIALOG* d, int code)
 {
   int salida = D_O_K;
 
@@ -53,13 +52,13 @@ int  GUIContador::Keyboard (int msg, DIALOG *d, int code)
  * \param   code  Código no usado en este mensaje.
  * \return  El valor al dibujar.
  */
-int  GUIContador::Draw (int msg, DIALOG *d, int code)
+int  GUIContador::Draw (int msg, DIALOG* d, int code)
 {
   // Se borra el fondo.
   rectfill (screen, d->x, d->y, d->x + d->w, d->y + d->h, gui_bg_color);
 
   // Se actualizan los datos.
-  ostringstream os;
+  std::ostringstream os;
   os << contador;
   d->dp = const_cast<char *>(os.str().c_str ());
 
@@ -74,7 +73,7 @@ int  GUIContador::Draw (int msg, DIALOG *d, int code)
  * \param   code  Código que representa los 'ticks' de la rueda.
  * \return  El procesado de la rueda.
  */
-int  GUIContador::Wheel (int msg, DIALOG *d, int code)
+int  GUIContador::Wheel (int msg, DIALOG* d, int code)
 {
   int salida = D_O_K;
 
@@ -96,8 +95,9 @@ int  GUIContador::Wheel (int msg, DIALOG *d, int code)
  * \param   code  Código.
  * \return  El código obtenido por omisión.
  */
-int  GUIContador::Omision (int msg, DIALOG *d, int code)
+int  GUIContador::Omision (int msg, DIALOG* d, int code)
 {
   return d_text_proc (msg, d, code);
 };
 
+}

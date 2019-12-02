@@ -56,5 +56,5 @@ bool  CollisionManager::Bounding (Actor* actor1, Actor* actor2)
          || (actor2->get_x() > actor1->get_x() + actor1->get_w())
          || (actor1->get_y() > actor2->get_y() + actor2->get_h())
          || (actor2->get_y() > actor1->get_y() + actor1->get_h())));
-};
-};
+}
+}

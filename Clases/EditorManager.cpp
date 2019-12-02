@@ -11,6 +11,8 @@
 #include "Dialog.h"
 #include "StageManager.h"
 
+namespace fgm {
+
 int EditorManager::refX = 0;
 int EditorManager::refY = 0;
 
@@ -22,7 +24,7 @@ actorAtrapado (false),
 actorFijado (false)
 {
   // Referencia a la GUI.
-  gui = new Dialog(this);
+  gui = new alg4::Dialog(this);
 };
 
 EditorManager::~EditorManager ()
@@ -307,7 +309,7 @@ void EditorManager::activar_actor (int x, int y)
   {
     actor->set_color (makecol(0,255,0));
     actor->set_mostrar_bloque (true);
-    actor->drawGUI ();
+///    actor->drawGUI ();
     actorActivado = true;
   }
 };
@@ -372,3 +374,5 @@ int EditorManager::get_local_y (int y)
 {
   return ( y - get_escenario_y () );
 };
+
+}

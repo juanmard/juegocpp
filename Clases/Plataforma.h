@@ -17,6 +17,9 @@
 #include "Vector2Df.h"
 #include "StageManager.h"
 
+
+namespace fgm {
+
 /// Suelo que se mueve bajo ciertos criterios.
 ///
 /// Los criterios que se pueden utilizar para el movimiento suelen ser varios, lo más
@@ -113,6 +116,6 @@ private:
     ///
     void drawControl ();
 };
-
+}
 #endif
 

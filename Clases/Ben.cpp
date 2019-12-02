@@ -10,6 +10,8 @@
 #include "Sprite.h"
 #include <iostream>
 
+namespace fgm {
+
 Ben::Ben ():
 ControllableActor()
 {
@@ -365,4 +367,6 @@ std::ostream&  operator<< (std::ostream &os, Ben &ben)
 {
     os << "Prueba de cadena desde \"Ben.cpp\"" << std::endl;
     return os;
+}
+
 }

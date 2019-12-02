@@ -7,6 +7,8 @@
 #include "GUIEscenario.h"
 #include "ActorGUI2.h"
 
+namespace alg4 {
+
 // Inicialización de las variables estáticas de la clase.
 // Diálogo general de la GUI del editor.
 DIALOG Dialog::dialog[] =
@@ -79,7 +81,7 @@ MENU Dialog::mnu_actor [] =
 /**
  * \brief   Construye la clase que servirá de GUI para editar un juego.
  */
-Dialog::Dialog (EditorManager *editor):
+Dialog::Dialog (fgm::EditorManager *editor):
 manager (editor),
 actor (NULL),
 ref_x (0), ref_y(0),
@@ -150,7 +152,7 @@ void Dialog::show (void)
   manager->borrar_pantalla ();
 
   // Se modifica el tamaño del escenario mostrado (ribete) y se ajusta a la GUI.
-  manager->set_ribete (Bloque (dialog[scr].x, dialog[scr].y,
+  manager->set_ribete (fgm::Bloque (dialog[scr].x, dialog[scr].y,
                               dialog[scr].w, dialog[scr].h));
 
   // Se hace visible el menú de edición.
@@ -185,7 +187,7 @@ void Dialog::menu_contextual (int x, int y)
   // según el tipo de objeto.
 
   // Como prueba mostranos el nombre del objeto en el menú.
-  string nombre;
+  std::string nombre;
   if (actor)
   {
     mnu_actor[0].text=const_cast<char*>(actor->getNombre ().c_str());
@@ -335,7 +337,7 @@ void  Dialog::centrarActor (int indice)
 /**
  * \brief   Se toma el actor del que mostrar sus propiedades.
  */
-void  Dialog::setActor (Actor *actorMostrar)
+void  Dialog::setActor (fgm::Actor *actorMostrar)
 {
   // Se copia el puntero.
   actor = actorMostrar;
@@ -432,7 +434,7 @@ int  Dialog::comprobarTecla (int code)
     // Zona de pruebas.
     {
       std::cout << "Funciona la zona de pruebas." << std::endl;
-      static vector<DIALOG> pesta;
+      static std::vector<DIALOG> pesta;
       DIALOG dlg_tmp1 = {d_box_proc,     0, 400, 800, 280,  0,   0,   0,    0,      0,   0,   NULL,              NULL, NULL };
       DIALOG dlg_tmp2 = {d_button_proc, 16, 400,  80,  16,  1,   0,   0,    0,      0,   0,   (void*)"Pesta 01", NULL, NULL };
       DIALOG fin =      { NULL,          0,   0,   0,   0,  0,   0,   0,    0,      0,   0,   NULL,              NULL, NULL };
@@ -453,7 +455,7 @@ int  Dialog::comprobarTecla (int code)
       // Obtenemos el vector de diálogos del actor.
       if (actor)
       {
-        actor->addGUI (pesta);
+        // actor->addGUI (pesta);
       }
 
       // Probamos añadiendo el diálogo del Almacén.
@@ -501,7 +503,7 @@ void  Dialog::moverMouse ()
  * \brief   Comprueba las teclas en el control de coordenadas.
  * \return  El procesado de la tecla.
  */
-int  Dialog::kdb_coordenadas (DIALOG *d, int code)
+int  Dialog::kdb_coordenadas (DIALOG* d, int code)
 {
   // Si no hay actor editándose mejor dejarlo.
   int salida = D_O_K;
@@ -559,3 +561,5 @@ void Dialog::grabarActores ()
     outfile.close();
     std::cout << "Grabados objetos en fichero \"test.txt\"" << std::endl;
 };
+
+}

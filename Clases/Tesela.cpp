@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include "Mosaico.h"
 
+namespace fgm {
+
 Tesela::Tesela (const Tesela& copia, Mosaico* padre):
 mosaico_padre(padre),
 dibujo(copia.dibujo),
@@ -146,3 +148,4 @@ std::string& Tesela::print () const
   return *new std::string(oss.str ());
 };
 
+}

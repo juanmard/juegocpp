@@ -9,8 +9,8 @@
 #include <allegro.h>
 #include <vector>
 
-using std::vector;
-
+namespace alg4 {
+    
 /**
  * \brief   Clase que sirve como base a controles más complejos bajo C++.
  */
@@ -18,17 +18,17 @@ class GUIControl
 {
   public:
                   GUIControl    ();
-    virtual int   Keyboard      (int msg, DIALOG *d, int code);
-    virtual int   Draw          (int msg, DIALOG *d, int code);
-    virtual int   Wheel         (int msg, DIALOG *d, int code);
-    virtual int   MoveMouse     (int msg, DIALOG *d, int code);
-    virtual int   LPressMouse   (int msg, DIALOG *d, int code);
-    virtual int   DClick        (int msg, DIALOG *d, int code);
-    virtual int   Omision       (int msg, DIALOG *d, int code);
+    virtual int   Keyboard      (int msg, DIALOG* d, int code);
+    virtual int   Draw          (int msg, DIALOG* d, int code);
+    virtual int   Wheel         (int msg, DIALOG* d, int code);
+    virtual int   MoveMouse     (int msg, DIALOG* d, int code);
+    virtual int   LPressMouse   (int msg, DIALOG* d, int code);
+    virtual int   DClick        (int msg, DIALOG* d, int code);
+    virtual int   Omision       (int msg, DIALOG* d, int code);
     void          addEnlace     (DIALOG *enlace);
 
   protected:
-    vector<DIALOG *>    enlazados;
+    std::vector<DIALOG*>    enlazados;
     bool                foco;
     int                 DrawEnlazados (int msg, DIALOG *d, int code);
 
@@ -36,13 +36,13 @@ class GUIControl
     /**
      * \brief  Callback del control.
      */
-    static int callback (int msg, DIALOG *d, int c)
+    static int callback (int msg, DIALOG* d, int c)
     {
       // Se sitúa el puntero del objeto instanciado en 'dp3'.
       if (d->dp3)
       {
         // Creamos una referencia temporal al objeto actual.
-        GUIControl &obj = *(static_cast<GUIControl *>(d->dp3));
+        GUIControl &obj = *(static_cast<GUIControl*>(d->dp3));
 
         // Se procesan los mensajes.
         switch (msg)
@@ -110,4 +110,5 @@ class GUIControl
     };
 };
 
+}
 #endif // _GUICONTROL_H_

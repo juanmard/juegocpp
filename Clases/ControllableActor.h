@@ -13,6 +13,8 @@
 #include "ControllableObject.h"
 #include "Control.h"
 
+namespace fgm {
+
 /// Define un actor controlable mediante herencia.
 ///
 class ControllableActor : public Actor, public ControllableObject
@@ -35,5 +37,7 @@ public:
     ///
     Control* get_control () const;
 };
+
+}
 
 #endif

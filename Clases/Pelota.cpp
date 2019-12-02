@@ -1,5 +1,7 @@
 #include "Pelota.h"
 
+namespace fgm {
+    
 Pelota::Pelota ():
 DirectorActor()
 {
@@ -156,3 +158,4 @@ Menu& Pelota::getMenu () const
     return (*new Menu());
 };
 
+}

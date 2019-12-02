@@ -12,6 +12,8 @@
 #include "Almacen.h"
 #include "Sprite.h"
 
+namespace fgm {
+    
 /**
  * \brief   Clase que modela el actor controlable de Ben.
  */
@@ -56,4 +58,5 @@ public:
   friend std::ostream&  operator<< (std::ostream &os, Ben &ben);
 };
 
+}
 #endif // _BEN_H_

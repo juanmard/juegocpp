@@ -9,6 +9,8 @@
 #include "Formulario.h"
 #include "Bitmap.h"
 
+namespace alg4 {
+
 DIALOG Formulario::fin_formulario = {NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL};
 
 Formulario::Formulario ():
@@ -21,7 +23,7 @@ Formulario::~Formulario ()
 {
 };
 
-void Formulario::add (const int x, const int y, const Bitmap* picture)
+void Formulario::add (const int x, const int y, const fgm::Bitmap* picture)
 {
     DIALOG* ctl = new DIALOG();
 
@@ -207,3 +209,4 @@ void Formulario::logica ()
     };
 };
 
+}

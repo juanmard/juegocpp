@@ -12,6 +12,8 @@
 #include "Almacen.h"
 #include "Sprite.h"
 
+namespace fgm {
+    
 class Mago : public ControllableActor 
 {
   public:
@@ -45,4 +47,5 @@ public:
     int                         sentido;
 };
 
+}
 #endif // _MAGO_H_

@@ -20,11 +20,11 @@
 #include "EditorManager.h"
 #include "GUIEscenario.h"
 
-class ActorGraphic;
-class Mask;
-
 /// Espacio de nombre para "frame game".
 namespace fgm {
+
+class ActorGraphic;
+class Mask;
 
 /// Elemento básico con dinámica dentro del juego.
 ///
@@ -224,8 +224,8 @@ public:
     /// Obtiene un formulario donde modificar los valores del actor.
     /// @return Referencia al formulario.
     /// @note Se hace virtual para que los actores derivados puedan incluir sus propias variables.
-    ///
-    virtual Formulario& getFormulario () const;
+    /// @note Esto debería ir en otra clase heredada para ser utilizada en alllegro 4.
+    virtual alg4::Formulario& getFormulario () const;
 
     /// Obtiene una cadena representativa con las propiedades completas del actor.
     /// Se define como virtual para permitir que los actores derivados puedan definir
@@ -420,6 +420,27 @@ public:
     ///       se podría calcular mejor la física de la colisión.
     ///
     virtual void hit (Actor* who, int damage);
+    
+    /// Prueba de polimorfismo con iostream. Se hace con Ladrillo.
+    /// @param is Entrada de datos para lectura del buffer (Input Stream).
+    /// @param a Actor a actualizar con la lectura de datos.
+    /// @todo Eliminar procedimiento.
+    ///       Se ha investidado el polimorfismo con la lectura desde fichero,
+    ///       esta prueba está superada y se debería eliminar.
+    ///
+    virtual std::istream& prueba_iostream (std::istream& is, Actor& a);
+
+    /// Lee desde un fichero las propiedades del actor.
+    /// @param ifs Entrada de datos de fichero para su lectura (Input File Stream).
+    /// @return Devuelve la referencia al fichero para poder encadenar lecturas.
+    /// @note El procedimiento es virtual para que cada actor derivado sepa las propiedades 
+    ///       que debe leer y con qué estructura hacerlo.
+    ///
+    ///       Este es el procedimiento "puente" que se utiliza de forma virutal entre los 
+    ///       actores, para poder utilizar el operador sobrecargado ">>" sin preocuparnos de
+    ///       sus permisos (friend).
+    ///
+    virtual std::ifstream&  leer  (std::ifstream& ifs);
 
 private:
     /// Acciones que puede realizar la clase actor (Mover).
@@ -446,6 +467,21 @@ private:
     /// @note Reunir todos los errores en una misma clase.
     ///
     void mensajeErrorGrafico () const;
+    
+    /// Sobrecarga del operador de lectura.
+    /// Métodos amigos no-miembros de la clase.
+    /// @param is Referencia al buffer de entrada (Input Stream).
+    /// @param actor Referencia constante al actor que se desea leer y actualizar.
+    ///
+    friend std::istream& operator>> (std::istream& is, Actor& actor);
+
+    /// Sobrecarga del operador de lectura sobre fichero.
+    /// @param ifs Fichero de lectura (Input File Stream).
+    /// @param actor Actor a leer y actualizar valores.
+    /// @return Devuelve la referencia al fichero para encadenar lecturas.
+    ///
+    friend std::ifstream& operator>> (std::ifstream& ifs, Actor& actor);
+
 };
 
 }

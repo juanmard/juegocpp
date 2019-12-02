@@ -3,6 +3,9 @@
 
 #include "ControllableActor.h"
 #include <fstream>
+
+namespace fgm {
+
 /** 
  * \brief   Modela una nave espacial como actor controlable.
  * \details Esta clase modela una nave espacial para probar los actores controlables.
@@ -32,5 +35,7 @@ class AirCraft : public ControllableActor
     protected:
         BITMAP *image;
 };
+
+}
 
 #endif

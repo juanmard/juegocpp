@@ -14,6 +14,7 @@
 #include <sstream>
 #include "PrintableObject.h"
 
+namespace fgm {
 class Actor;
 class Mask;
 
@@ -152,5 +153,6 @@ public:
     ///
     void set_free (bool estate);
 };
+}
 
 #endif

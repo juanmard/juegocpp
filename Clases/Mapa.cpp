@@ -24,6 +24,9 @@
 #include "Pelota.h"
 #include "Plataforma.h"
 
+
+namespace fgm {
+
 Mapa::Mapa ():
 nombre ("sin nombre"),
 fichero (NULL)
@@ -80,7 +83,7 @@ void Mapa::load (std::string& file, ActorManager& manager)
         std::cout << error << std::endl;
         return;
     }
-    catch (std::ifstream::failure e)
+    catch (std::ifstream::failure& e)
     {
         std::cout << "Error al abrir el fichero: \"" << file << "\"" << std::endl;
         std::cout << "Error: " << std::endl << e.what();
@@ -199,3 +202,4 @@ Actor& Mapa::crear_actor (const std::string& clase) const
     throw std::string ("La clase \"" + clase + "\" no existe o no puede ser controlada por \"ActorManager\"");
 };
 
+}

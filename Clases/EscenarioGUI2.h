@@ -10,36 +10,38 @@
 #include <allegro.h>
 #include "EditorManager.h"
 
+namespace alg4 {
+
 class EscenarioGUI2
 {
   public:
-          EscenarioGUI2  (EditorManager &editorParam, DIALOG *enlace=NULL);
-    void  addEnlace     (DIALOG *enlace);
+          EscenarioGUI2  (fgm::EditorManager& editorParam, DIALOG* enlace=NULL);
+    void  addEnlace     (DIALOG* enlace);
 
   private:
-    int   Keyboard      (int msg, DIALOG *d, int code);
-    int   Draw          (int msg, DIALOG *d, int code);
-    int   Wheel         (int msg, DIALOG *d, int code);
-    int   MoveMouse     (int msg, DIALOG *d, int code);
-    int   LPressMouse   (int msg, DIALOG *d, int code);
-    int   DClick        (int msg, DIALOG *d, int code);
+    int   Keyboard      (int msg, DIALOG* d, int code);
+    int   Draw          (int msg, DIALOG* d, int code);
+    int   Wheel         (int msg, DIALOG* d, int code);
+    int   MoveMouse     (int msg, DIALOG* d, int code);
+    int   LPressMouse   (int msg, DIALOG* d, int code);
+    int   DClick        (int msg, DIALOG* d, int code);
 
   private:
-    static int        local_x, local_y;
-    EditorManager &   editor;
-    DIALOG *          enlaces;
+    static int          local_x, local_y;
+    fgm::EditorManager& editor;
+    DIALOG*             enlaces;
 
   public:
     /**
      * \brief  Callback del escenario.
      */
-    static int callback (int msg, DIALOG *d, int c)
+    static int callback (int msg, DIALOG* d, int c)
     {
       // Se sitúa el puntero del objeto instanciado en 'dp3'.
       if (d->dp3)
       {
         // Creamos una referencia temporal al objeto actual.
-        EscenarioGUI2 &obj = *(static_cast<EscenarioGUI2 *>(d->dp3));
+        EscenarioGUI2& obj = *(static_cast<EscenarioGUI2*>(d->dp3));
         static int mouse_ant_x, mouse_ant_y;
 
         // Se procesan los mensajes.
@@ -105,5 +107,6 @@ class EscenarioGUI2
       return d_text_proc (msg, d, c);
     };
 };
+}
 
 #endif // _ESCENARIOGUI2_H_

@@ -232,11 +232,11 @@ void Game::update () {
   /* Si se ha cumplido un segundo, se actualizan los "fps" por pantalla. */
 //  if ((tick-old_tick >= 70) && stage_manager->is_info ())
 //  if (tick-old_tick >= 70)
-  if (true) {
+  if (false) {
     rectfill (stage_manager->getBuffer(), 0, 0, SCREEN_W, 50, 0);
     textprintf_ex (stage_manager->getBuffer(), font, 0, 0,-1, makecol(255, 100, 200),
                    "fps: %u frameskip:%u", graphic_tick, frame_skip);
-    blit (stage_manager->getBuffer(), screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+    blit (stage_manager->getBuffer(), screen, 0, 0, 0, 0, SCREEN_W, 50);
     graphic_tick = 0;
     old_tick = tick;
   }
@@ -275,7 +275,7 @@ bool Game::is_paused (void) {
  */
 void Game::create_storage_manager () {
     // Creamos el almacén de recursos.
-    //storage_manager = new Almacen("sprites3.dat");
+    storage_manager = new Almacen("sprites3.dat");
 }
 
 };

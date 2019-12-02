@@ -28,7 +28,7 @@ class GCN_CORE_DECLSPEC ActorGUI :
                 ActorGUI ();
 
         /// Constructor básico de la GUI.
-                ActorGUI (Actor* actor);
+                ActorGUI (fgm::Actor* actor);
 
         /// Destructor del actor.
         /// @note Se define virtual para que cada actor elimine sus recursos.
@@ -37,7 +37,7 @@ class GCN_CORE_DECLSPEC ActorGUI :
         /// Asigna el actor que se va a editar mediante esta GUI.
         /// @param  nuevoActor  Referencia en forma de puntero al actor que se desea editar.
         ///
-        void setActor (Actor* nuevoActor);
+        void setActor (fgm::Actor* nuevoActor);
 
         // Heredado de ActionListener.
         virtual void action (const gcn::ActionEvent& actionEvent);
@@ -71,7 +71,7 @@ class GCN_CORE_DECLSPEC ActorGUI :
         void setTamano (int w, int h);
 
     protected:
-        Actor* actor;                   ///< Referencia al actor que se desea editar.
+        fgm::Actor* actor;                   ///< Referencia al actor que se desea editar.
         gcn::Label* nombre;             ///< Etiqueta que mostrará el nombre del actor.
         gui::VectorGUI* posicion;       ///< Vector que muestra la posición actual del actor en el escenario.
         gui::VectorGUI* tamano;         ///< Vector que muestra el tamaño actual del actor.

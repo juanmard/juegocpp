@@ -21,8 +21,11 @@
 #include "ActorManager.h"
 #include <list>
 
+
+namespace fgm {
+
 /**
- * \brief		Constructor de la clase. Esta clase NO ES NECESARIA, esta función la realiza y la debe realizar la clase StageManager.
+ * \brief   Constructor de la clase. Esta clase NO ES NECESARIA, esta función la realiza y la debe realizar la clase StageManager.
  */
 Escenario::Escenario ()
 {
@@ -68,4 +71,5 @@ void Escenario::Draw (ActorManager actorManager)
 	// 		Si listaActoresDibujar fuera una clase se usaría la acción: listaActoresDibujar.Draw (pantalla);
 	// 		En este caso debemos realizar el bucle la clase Escenario.
 
+}
 }

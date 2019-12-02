@@ -19,7 +19,8 @@
 #include <sstream>
 #include <guichan/image.hpp>
 
-
+namespace fgm {
+    
 //class Object;
 class EditableObject;
 
@@ -137,7 +138,7 @@ public:
     /// Genera un formulario para edición del sprite.
     /// @return Formulario con los controles necesarios para la edición del sprite.
     ///
-    Formulario& getFormulario () const;
+    alg4::Formulario& getFormulario () const;
 
     /// Prueba estática para menú.
     static int prueba_menu_static (void)
@@ -173,5 +174,6 @@ public:
     ///
     virtual const gcn::Image* getImage (unsigned int ind) const;
 };
+}
 
 #endif

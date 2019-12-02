@@ -6,7 +6,7 @@
 #include "LadrilloGUI.h"
 #include <vector>
 
-using std::vector;
+namespace fgm {
 
 /**
  * \brief   Actor para ser golpeado por la pelota del juego.
@@ -23,13 +23,13 @@ public:
     void                hit         (Actor *who, int damage);
     void                update      ();
     virtual Ladrillo *  clone       () const;
-    void                getNombre   (string &strNombre) const;
-    string              getNombre   () const;
+    void                getNombre   (std::string &strNombre) const;
+    std::string              getNombre   () const;
     virtual Menu &      getMenu     () const;
 
     /**
      */
-    void addGUI (vector<DIALOG> &gui_padre);
+    void addGUI (std::vector<DIALOG> &gui_padre);
 
     /**
      * \brief   Obtiene una cadena representativa con las propiedades del ladrillo.
@@ -57,3 +57,4 @@ private:
   Bitmap    *chaqueta;
   SAMPLE    *peloteo;
 };
+}

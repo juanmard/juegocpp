@@ -13,7 +13,8 @@
 #include <vector>
 #include <allegro.h>
 
-class Bitmap;
+namespace fgm { class Bitmap; };
+namespace alg4 {
 
 /// Formulario implementado como una lista de controles que interaccionan entre ellos.
 /// @todo Crear los controles y dejar en los procedimientos add únicamente la posición y el
@@ -83,7 +84,7 @@ public:
     /// @param y  Posición y referida al formulario origen.
     /// @param picture  Imagen a mostrar en el formulario.
     ///
-    void add (const int x, const int y, const Bitmap* picture);
+    void add (const int x, const int y, const fgm::Bitmap* picture);
 
     /// Añade un control al formulario sin cadena de texto asociada.
     /// @param tipo  Tipo de control a añadir.
@@ -108,5 +109,5 @@ public:
     ///
     virtual void logica ();
 };
-
+}
 #endif

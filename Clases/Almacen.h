@@ -20,7 +20,9 @@
 
 /// @note Esta clase se usa para editar o visualizar los recursos del almacén.
 ///       Lo ideal es que heredara de "EditableObject" y entregara un "Formulario".
-class AlmacenGUI;
+namespace alg4 { class AlmacenGUI; };
+
+namespace fgm {
 
 /// @class Almacen
 /// Maneja los recursos (gráficos y sonidos) del juego.
@@ -37,7 +39,7 @@ private:
     std::map<std::string, BITMAP*> bitmaps; ///< Lista mapeada de referencias a BITMAP cargados.
     std::map<std::string, RGB*> paletas;    ///< Lista mapeada de referencias a paletas cargadas.
     std::map<std::string, SAMPLE*> sonidos; ///< Lista mapeada de referencias a sonidos cargadas.
-    AlmacenGUI* gui;                        ///< Puntero de referencia a la GUI de almacén.
+    alg4::AlmacenGUI* gui;                        ///< Puntero de referencia a la GUI de almacén.
 
 public:
     /// Construye el almacén dando el nombre del fichero DAT a cargar.
@@ -146,4 +148,7 @@ public:
 
 };
 
+}
+
 #endif //_ALMACEN_H_
+

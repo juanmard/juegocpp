@@ -12,21 +12,21 @@
  *
  *  \todo     Comentar todas estas clases y funciones más detalladamente.
  */
-#include "ActorGUI2.h"
 #include <string>
 #include <sstream>
 #include "Actor.h"
 #include "ActorGraphic.h"
+#include "ActorGUI2.h"
 #include "LadrilloGUI.h"
 #include "VectorGUI2.h"
 #include "GUIContador.h"
 #include "GUIVector.h"
 #include "EscenarioGUI2.h"
 
-using std::ostringstream;
-
-Actor *  ActorGUI2::actor_activo = NULL;
-DIALOG   ActorGUI2::dlg_plantilla[] =
+namespace alg4 {
+    
+fgm::Actor* ActorGUI2::actor_activo = NULL;
+DIALOG      ActorGUI2::dlg_plantilla[] =
 {
    /* (proc)                  (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags) (d1) (d2) (dp)                              (dp2) (dp3) */
    { ActorGUI2::callback,      8,   314, 616, 20,  67,  243, 0,    0,      0,   0,   (void*)"Actor >>",                NULL, NULL },
@@ -54,7 +54,7 @@ DIALOG   ActorGUI2::dlg_plantilla[] =
 /**
  * \brief   Prueba para añadir la GUI de las propiedades del actor a una GUI padre.
  */
-ActorGUI2::ActorGUI2 (Actor &a, vector<DIALOG> &gui_padre):
+ActorGUI2::ActorGUI2 (fgm::Actor& a, std::vector<DIALOG>& gui_padre):
 actor (a),
 gui (gui_padre)
 {
@@ -67,28 +67,28 @@ gui (gui_padre)
   // Rellenamos con los datos del objeto. Esto debería ir en 'setActor ()' que muestra otro actor.
   // Lo mejor sería obtener todos los datos en la cadena dada por 'getString' y directamente mostrarlos.
   // Nombre:
-  string *cadena = new string(a.getNombre());
+  std::string *cadena = new std::string(a.getNombre());
   dlg_plantilla[nombre].dp = const_cast<char*>(cadena->c_str());
 
   // Posición y Dimensiones (Tipo Vector).
   // La clase debe ser 'friend' de 'Actor' para poder acceder a la referencia de sus propiedades.
-  dlg_plantilla[posicion].dp3 = new VectorGUI2 (a.x, a.y);
-  dlg_plantilla[dimensiones].dp3 = new VectorGUI2 (a.w, a.h);
+  //dlg_plantilla[posicion].dp3 = new VectorGUI2 (a.get_x(), a.get_y());
+  //dlg_plantilla[dimensiones].dp3 = new VectorGUI2 (a.get_w(), a.get_h());
 
   // Gráfico:
-  ActorGraphic *graf = a.get_actor_graphic ();
-  cadena = new string(graf->print ());
+  fgm::ActorGraphic *graf = a.get_actor_graphic ();
+  cadena = new std::string(graf->print ());
   *cadena = cadena->substr (0, cadena->find(" >>"));
   dlg_plantilla[grafico].dp = const_cast<char*>(cadena->c_str());
 
   // Tiempo de estado (Como un tipo Contador).
 //  dlg_plantilla[tiempo].dp3 = new ContadorGUI (a.tiempo_estado);
   dlg_plantilla[tiempo].proc = GUIContador::callback;
-  dlg_plantilla[tiempo].dp3 = new GUIContador (a.tiempo_estado);
+  //dlg_plantilla[tiempo].dp3 = new GUIContador (a.get_tiempoEstado());
 
   // prueba de GUIVector
   dlg_plantilla[prueba].proc = GUIVector::callback;
-  dlg_plantilla[prueba].dp3 = new GUIVector (a.x, a.y);
+  //dlg_plantilla[prueba].dp3 = new GUIVector (a.get_x(), a.get_y());
 
   // Enlazamos de prueba el GUIVector con otro...y en ambos sentidos...
   static_cast<GUIControl *>(dlg_plantilla[prueba].dp3)->addEnlace (&dlg_plantilla[posicion]);
@@ -112,7 +112,7 @@ ActorGUI2::~ActorGUI2()
 /**
  * \brief   Cambia el actor mostrado en esta GUI.
  */
-void  ActorGUI2::setActor (Actor &a)
+void  ActorGUI2::setActor (fgm::Actor &a)
 {
   // Marcamos el actor activo para la clase.
   actor_activo = NULL;
@@ -121,7 +121,7 @@ void  ActorGUI2::setActor (Actor &a)
   unsigned int pto = pto_inserccion;
 
   // Actualizamos el nombre.
-  string *cadena = new string(a.getNombre());
+  std::string *cadena = new std::string(a.getNombre());
   gui[pto + nombre].dp = const_cast<char*>(cadena->c_str());
 
   // NOTA: Esto debería ir todo en respuesta al mensaje MSG_DRAW e ir en una
@@ -133,16 +133,18 @@ void  ActorGUI2::setActor (Actor &a)
   object_message (&gui[pto + nombre], MSG_DRAW, 0);
 
   // Gráfico:
-  ActorGraphic *graf = a.get_actor_graphic ();
-  cadena = new string(graf->print ());
+  fgm::ActorGraphic *graf = a.get_actor_graphic ();
+  cadena = new std::string(graf->print ());
   *cadena = cadena->substr (0, cadena->find(" >>"));
   gui[pto + grafico].dp = const_cast<char*>(cadena->c_str());
   object_message (&gui[pto + grafico], MSG_DRAW, 0);
 
   // Posición y Dimensiones.
   // Se cambia la referencia del vector.
-  static_cast<VectorGUI2 *>(gui[pto + posicion].dp3)->setVector (a.x, a.y);
-  static_cast<VectorGUI2 *>(gui[pto + dimensiones].dp3)->setVector (a.w, a.h);
+  //static_cast<VectorGUI2 *>(gui[pto + posicion].dp3)->setVector (a.x, a.y);
+  //static_cast<VectorGUI2 *>(gui[pto + dimensiones].dp3)->setVector (a.w, a.h);
   object_message (&gui[pto + posicion], MSG_DRAW, 0);
   object_message (&gui[pto + dimensiones], MSG_DRAW, 0);
 };
+
+}

@@ -9,6 +9,8 @@
 #include "Loro.h"
 #include "Keyboard.h"
 
+namespace fgm {
+
 Loro::Loro ():
 ControllableActor (),
 kboard (NULL)
@@ -186,3 +188,4 @@ void Loro::hit (Actor* who, int damage)
     };
 };
 
+}

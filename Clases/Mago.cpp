@@ -9,6 +9,8 @@
 #include "Almacen.h"
 #include "Sprite.h"
 
+namespace fgm {
+
 Mago::Mago ():
 ControllableActor()
 {
@@ -276,4 +278,5 @@ Mago::Sprites_t  Mago::estado2Sprite (Estados_t estado_act) const
         break;
   }
   return sprite_act;
+}
 }

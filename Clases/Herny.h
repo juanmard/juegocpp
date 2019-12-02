@@ -5,6 +5,8 @@
 #include "Sprite.h"
 #include "DatFile.h"
 
+namespace fgm {
+
 class ControllableActor;
 
 class Herny : public ControllableActor
@@ -37,5 +39,6 @@ class Herny : public ControllableActor
         Estados     actual, siguiente;
 };
 
+}
 
 #endif

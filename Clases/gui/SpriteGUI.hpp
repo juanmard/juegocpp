@@ -44,7 +44,7 @@ namespace gui
          * @param caption The caption of the label.
          */
         SpriteGUI (const std::string& caption);
-        SpriteGUI (Sprite* sprite_editar);
+        SpriteGUI (fgm::Sprite* sprite_editar);
 
         /**
          * Gets the caption of the label.
@@ -104,7 +104,7 @@ namespace gui
         virtual void action (const gcn::ActionEvent& actionEvent);
 
     protected:
-        Sprite* sprite;             ///< Sprite que se quiere editar.
+        fgm::Sprite* sprite;             ///< Sprite que se quiere editar.
         gcn::Label* etiqueta;       ///< Etiqueta del widget.
         gcn::Button* add_frame;
         gcn::Button* del_frame;

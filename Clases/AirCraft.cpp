@@ -1,6 +1,7 @@
 #include <allegro.h>
 #include "AirCraft.h"
 
+namespace fgm {
 /**
  * Constructor de copia.
  */
@@ -67,3 +68,4 @@ std::ifstream& AirCraft::leer (std::ifstream &ifs)
     return ifs;
 }
 
+}
