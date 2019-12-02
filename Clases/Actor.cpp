@@ -13,39 +13,33 @@
 #include "ActorGraphic.h"
 #include "StageManager.h"
 #include "Dialog.h"
-#include "ActorGUI2.h"
 
-#include "Suelo.h"      ///< A modo de prueba. Eliminar.
-
-/// @todo Generar un espacio de nombres para el juego (game).
-///namespace game
-///{
-
-ActorGUI2* Actor::gui = NULL;
+/// @todo Generar un espacio de nombres para el juego "rdt" (ridotech).
+namespace rdt
+{
 
 Actor::Actor():
-agraph(NULL),
-tiempo_estado(0),
-estado(0),
-mostrarBloque (false),
-wait_graph(NULL)
+            agraph(NULL),
+            tiempo_estado(0),
+            estado(0),
+            mostrarBloque (false),
+            wait_graph(NULL)
 {
 };
 
 Actor::Actor(const Actor &copia):
-//~ agraph(copia.agraph),
-nombre (copia.nombre),
-x(copia.x), y(copia.y),
-w(copia.w), h(copia.h),
-color(copia.color),
-tiempo_estado(copia.tiempo_estado),
-estado(copia.estado),
-mostrarBloque (copia.mostrarBloque),
-power(copia.power),
-team(copia.team),
-is_detectable(copia.is_detectable),
-collision_method(copia.collision_method),
-wait_graph(copia.wait_graph)
+            nombre (copia.nombre),
+            x(copia.x), y(copia.y),
+            w(copia.w), h(copia.h),
+            color(copia.color),
+            tiempo_estado(copia.tiempo_estado),
+            estado(copia.estado),
+            mostrarBloque (copia.mostrarBloque),
+            power(copia.power),
+            team(copia.team),
+            is_detectable(copia.is_detectable),
+            collision_method(copia.collision_method),
+            wait_graph(copia.wait_graph)
 {
     // Duplicamos la parte gráfica del actor a copiar y se la asignamos al nuevo.
     // Para ello...
@@ -199,11 +193,6 @@ int Actor::get_color (void)
     return color;
 };
 
-ActorGUI2* Actor::getGUI ()
-{
-    return gui;
-};
-
 int Actor::get_x()
 {
     return x;
@@ -334,19 +323,6 @@ bool Actor::get_mostrar_bloque () const
     return mostrarBloque;
 };
 
-Menu& Actor::getMenu () const
-{
-    Menu *menu = new Menu();
-    menu->add(const_cast<char*>("Actor - Mover"),  0, (void *) this, NULL, Actor::Mover);
-    menu->add(const_cast<char*>("Actor - Tamaño"), 0, (void *) this, NULL, Actor::Dimensionar);
-    return *menu;
-};
-
-Formulario& Actor::getFormulario () const
-{
-    return (*new Formulario());
-};
-
 std::string& Actor::print () const
 {
     std::ostringstream cadena;
@@ -376,108 +352,4 @@ void  Actor::mensajeErrorGrafico () const
     std::cout << "ERROR: Actor \"" << getNombre() << "\" sin componente gráfica." << std::endl;
 };
 
-void  Actor::addGUI (vector<DIALOG> &gui_padre)
-{
-  gui = new ActorGUI2 (*this, gui_padre);
-};
-
-void  Actor::addEnlace (DIALOG* enlace)
-{
-    gui->addEnlace (enlace);
-};
-
-void Actor::drawGUI ()
-{
-    // Si existe la GUI, solo hay que cambiar el actor.
-    // En otro caso, habría que crearla.
-    if (gui)
-    {
-        gui->setActor (*this);
-    }
-};
-
-//std::ostream& operator<< (std::ostream &os, const Actor &actor)
-//{
-////    os << "Prueba de cadena desde \"Actor.cpp\"" << endl;
-////    os << actor.nombre << " {" << actor.x << "," << actor.y << "}" << " {" << actor.w << "," << actor.h << "}";
-//    os << actor.print ();
-//    return os;
-//};
-
-std::istream& operator>> (std::istream& is, Actor& actor)
-{
-    // Extrae los valores del flujo formateado.
-    //string nombre;
-
-    // TODO: Este nombre habría que convertirlo a tipo "Nombres::codigo"
-    //is >> nombre;
-    is.ignore (10,'<');
-    is >> actor.x;
-    is.ignore (10,',');
-    is >> actor.y;
-    is.ignore (10,'<');
-    is >> actor.w;
-    is.ignore (10,',');
-    is >> actor.h;
-    is.ignore (10,'>');
-    return is;
-};
-
-std::istream& Actor::prueba_iostream (std::istream& is, Actor& a)
-{
-    std::cout << "prueba_actor";
-    return is;
-};
-
-std::ifstream& Actor::leer (std::ifstream& ifs)
-{
-    std::string comando;
-
-    // Lee el comando (Posición) y sus valores.
-    ifs >> comando;
-    ifs.ignore(20,'<') >> x;
-    ifs.ignore(20,',') >> y;
-    ifs.ignore(20,'>');
-
-    // Lee el comando (Dimensiones) y sus valores.
-    ifs >> comando;
-    ifs.ignore(20,'<') >> w;
-    ifs.ignore(20,',') >> h;
-    ifs.ignore(20,'>');
-
-    // Deja el cursor en el siguiente comando (Gráfico) y alguien que sepa todos
-    // los posibles tipos de gráficos (Bitmap, Suelo, Mosaico...)
-    // debe crear uno y asignárselo a este actor.
-    // Similar al mismo que tuvo que crear un actor de clase "Plataforma" como en el
-    // ejemplo.
-    // ¿Habría que crear un "GraphicManager"?¿Esta función puede hacerla el "Almacen"?
-
-    // Como prueba... lo hacemos de momento aquí mismo...
-    ifs >> comando;
-    if (!comando.compare("Gráfico"))
-    {
-        ifs.ignore (100,'{');
-        ifs >> comando;
-
-        // Suponemos que es un suelo el gráfico...
-        // ActorGraphic &grafico = GraphicManager::crearGrafico (comando);
-        ActorGraphic &grafico = *new Suelo();
-        ifs.ignore (100,'{');
-        ifs >> grafico;
-        ifs.ignore (100,'}');
-        ifs.ignore (100,'}');
-
-        // Enlazamos el actor con el gráfico y
-        // el gráfico con el actor (su propietario).
-        this->set_actor_graphic (&grafico);
-        this->agraph->setOwner(*this);
-    }
-    return ifs;
-};
-
-std::ifstream& operator>> (std::ifstream& ifs, Actor& actor)
-{
-    return actor.leer(ifs);
-};
-
-
+}; /// spacename rdt

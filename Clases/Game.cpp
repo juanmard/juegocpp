@@ -233,7 +233,7 @@ void Game::update ()
   /* Si se ha cumplido un segundo, se actualizan los "fps" por pantalla. */
 //  if ((tick-old_tick >= 70) && stage_manager->is_info ())
 //  if (tick-old_tick >= 70)
-  if (false)
+  if (true)
   {
     rectfill (stage_manager->getBuffer(), 0, 0, SCREEN_W, 50, 0);
     textprintf_ex (stage_manager->getBuffer(), font, 0, 0,-1, makecol(255, 100, 200),
