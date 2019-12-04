@@ -11,13 +11,13 @@
 namespace alg4
 {
 
-SpriteAllegro::SpriteAllegro (fgm::Actor* aowner):
-fgm::Sprite (aowner)
+SpriteAllegro::SpriteAllegro (fwg::Actor* aowner):
+fwg::Sprite (aowner)
 {
 };
 
-SpriteAllegro::SpriteAllegro (const fgm::Sprite& copia, fgm::Actor* aowner):
-fgm::Sprite (copia, aowner)
+SpriteAllegro::SpriteAllegro (const fwg::Sprite& copia, fwg::Actor* aowner):
+fwg::Sprite (copia, aowner)
 {
 };
 

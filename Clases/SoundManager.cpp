@@ -8,7 +8,7 @@
 
 #include "SoundManager.h"
 
-namespace fgm {
+namespace fwg {
 
 SoundManager::SoundManager ()
 {

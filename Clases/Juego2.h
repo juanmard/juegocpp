@@ -45,7 +45,7 @@
 #include "Plataforma.h"
 
 
-namespace fgm {
+namespace fwg {
     
 /// Juego de prueba heredado de Game.
 ///

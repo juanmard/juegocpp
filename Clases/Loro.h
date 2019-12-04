@@ -14,7 +14,7 @@
 #include "Sprite.h"
 #include "Peripheral.h"
 
-namespace fgm {
+namespace fwg {
     
 /// Loro que se mueve siguiendo una horizontal.
 ///

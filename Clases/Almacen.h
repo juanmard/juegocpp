@@ -22,7 +22,7 @@
 ///       Lo ideal es que heredara de "EditableObject" y entregara un "Formulario".
 namespace alg4 { class AlmacenGUI; };
 
-namespace fgm {
+namespace fwg {
 
 /// @class Almacen
 /// Maneja los recursos (gráficos y sonidos) del juego.

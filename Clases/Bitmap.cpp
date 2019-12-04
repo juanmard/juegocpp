@@ -9,7 +9,7 @@
 #include "Bitmap.h"
 #include <sstream>
 
-namespace fgm {
+namespace fwg {
 
 // Inicializamos el almacén global de la clase.
 Almacen* Bitmap::almacenGlobal = NULL;

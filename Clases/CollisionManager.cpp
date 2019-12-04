@@ -11,7 +11,7 @@
 #include "Actor.h"
 #include <list>
 
-namespace fgm {
+namespace fwg {
 
 CollisionManager::CollisionManager (Game* g)
 {

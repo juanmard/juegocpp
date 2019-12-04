@@ -16,14 +16,14 @@
 #include <string>
 #include <list>
 
-namespace fgm {
+namespace fwg {
     
 class Tesela;
 
 /// Parte gráfica de un actor formada por un conjunto de Bitmaps estáticos.
 /// @todo Cambiar la clase de Allegro BITMAP por la propia Bitmap.
 ///
-class Mosaico : public fgm::ActorGraphic
+class Mosaico : public ActorGraphic
 {
 private:
     std::list<Tesela*> teselas;         ///< Lista de las teselas gráficas que constituyen el mosaico.
@@ -38,12 +38,12 @@ public:
     /// @param copia  Mosaico a copiar.
     /// @param propietario  Propietario de la nueva copia de mosaico.
     ///
-    Mosaico (const Mosaico& copia, fgm::Actor* propietario);
+    Mosaico (const Mosaico& copia, Actor* propietario);
 
     /// Constructor.
     /// @param actor_asociado  Actor al que se le asignará el nuevo mosaico.
     ///
-    Mosaico (fgm::Actor* actor_asociado);
+    Mosaico (Actor* actor_asociado);
 
     /// Dibuja las teselas del mosaico en pantalla.
     /// @param pantalla  Lugar donde dibujar el mosaico.
@@ -109,7 +109,7 @@ public:
 
     /// Clona un mosaico completo.
     /// @param propietario  Actor al que se le asignará la tesela clonada.
-    virtual Mosaico* clone (fgm::Actor* propietario) const;
+    virtual Mosaico* clone (Actor* propietario) const;
 
     /// Obtiene las propiedades del mosaico en una única cadena de caracteres.
     /// @return Cadena de caracteres con todas las propiedades del mosaico.

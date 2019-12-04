@@ -25,7 +25,7 @@
 
 namespace alg4 {
     
-fgm::Actor* ActorGUI2::actor_activo = NULL;
+fwg::Actor* ActorGUI2::actor_activo = NULL;
 DIALOG      ActorGUI2::dlg_plantilla[] =
 {
    /* (proc)                  (x)  (y)  (w)  (h)  (fg) (bg) (key) (flags) (d1) (d2) (dp)                              (dp2) (dp3) */
@@ -54,7 +54,7 @@ DIALOG      ActorGUI2::dlg_plantilla[] =
 /**
  * \brief   Prueba para añadir la GUI de las propiedades del actor a una GUI padre.
  */
-ActorGUI2::ActorGUI2 (fgm::Actor& a, std::vector<DIALOG>& gui_padre):
+ActorGUI2::ActorGUI2 (fwg::Actor& a, std::vector<DIALOG>& gui_padre):
 actor (a),
 gui (gui_padre)
 {
@@ -76,7 +76,7 @@ gui (gui_padre)
   //dlg_plantilla[dimensiones].dp3 = new VectorGUI2 (a.get_w(), a.get_h());
 
   // Gráfico:
-  fgm::ActorGraphic *graf = a.get_actor_graphic ();
+  fwg::ActorGraphic *graf = a.get_actor_graphic ();
   cadena = new std::string(graf->print ());
   *cadena = cadena->substr (0, cadena->find(" >>"));
   dlg_plantilla[grafico].dp = const_cast<char*>(cadena->c_str());
@@ -112,7 +112,7 @@ ActorGUI2::~ActorGUI2()
 /**
  * \brief   Cambia el actor mostrado en esta GUI.
  */
-void  ActorGUI2::setActor (fgm::Actor &a)
+void  ActorGUI2::setActor (fwg::Actor &a)
 {
   // Marcamos el actor activo para la clase.
   actor_activo = NULL;
@@ -133,7 +133,7 @@ void  ActorGUI2::setActor (fgm::Actor &a)
   object_message (&gui[pto + nombre], MSG_DRAW, 0);
 
   // Gráfico:
-  fgm::ActorGraphic *graf = a.get_actor_graphic ();
+  fwg::ActorGraphic *graf = a.get_actor_graphic ();
   cadena = new std::string(graf->print ());
   *cadena = cadena->substr (0, cadena->find(" >>"));
   gui[pto + grafico].dp = const_cast<char*>(cadena->c_str());

@@ -81,7 +81,7 @@ MENU Dialog::mnu_actor [] =
 /**
  * \brief   Construye la clase que servirá de GUI para editar un juego.
  */
-Dialog::Dialog (fgm::EditorManager *editor):
+Dialog::Dialog (fwg::EditorManager *editor):
 manager (editor),
 actor (NULL),
 ref_x (0), ref_y(0),
@@ -152,7 +152,7 @@ void Dialog::show (void)
   manager->borrar_pantalla ();
 
   // Se modifica el tamaño del escenario mostrado (ribete) y se ajusta a la GUI.
-  manager->set_ribete (fgm::Bloque (dialog[scr].x, dialog[scr].y,
+  manager->set_ribete (fwg::Bloque (dialog[scr].x, dialog[scr].y,
                               dialog[scr].w, dialog[scr].h));
 
   // Se hace visible el menú de edición.
@@ -337,7 +337,7 @@ void  Dialog::centrarActor (int indice)
 /**
  * \brief   Se toma el actor del que mostrar sus propiedades.
  */
-void  Dialog::setActor (fgm::Actor *actorMostrar)
+void  Dialog::setActor (fwg::Actor *actorMostrar)
 {
   // Se copia el puntero.
   actor = actorMostrar;

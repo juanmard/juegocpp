@@ -40,7 +40,7 @@ namespace alg4 {
 class AlmacenGUI
 {
   private:
-    fgm::Almacen& almacen;
+    fwg::Almacen& almacen;
     unsigned int pto_inserccion;
     std::vector<DIALOG> dlg;
 
@@ -55,13 +55,13 @@ public:
     /// Constructor de la GUI para el almacén dado por parámetro.
     /// @param almacen  Referencia al almacén que se le asocia esta GUI.
     ///
-    AlmacenGUI (fgm::Almacen& almacenParam);
+    AlmacenGUI (fwg::Almacen& almacenParam);
 
     /// Constructor de la GUI para el almacén dado por parámetro.
         AlmacenGUI ();
-        AlmacenGUI (fgm::Almacen& almacen, std::vector<DIALOG>& dlg_padre);
+        AlmacenGUI (fwg::Almacen& almacen, std::vector<DIALOG>& dlg_padre);
         ~AlmacenGUI ();
-    void activar_almacen (fgm::Almacen& almacen);
+    void activar_almacen (fwg::Almacen& almacen);
     std::vector<DIALOG>& get_GUI ();
     void add_GUI (std::vector<DIALOG>& padre);
 
@@ -69,7 +69,7 @@ private:
     void mover_mouse (DIALOG* dlg);
 
   public:
-    static fgm::Almacen* almacen_activo;
+    static fwg::Almacen* almacen_activo;
     static DIALOG dlg_plantilla[];
     
     /**

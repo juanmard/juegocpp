@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include "Mosaico.h"
 
-namespace fgm {
+namespace fwg {
 
 Tesela::Tesela (const Tesela& copia, Mosaico* padre):
 mosaico_padre(padre),

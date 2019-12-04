@@ -20,8 +20,7 @@
 #include "EditorManager.h"
 #include "GUIEscenario.h"
 
-/// Espacio de nombre para "frame game".
-namespace fgm {
+namespace fwg {
 
 class ActorGraphic;
 class Mask;

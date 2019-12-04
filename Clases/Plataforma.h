@@ -18,7 +18,7 @@
 #include "StageManager.h"
 
 
-namespace fgm {
+namespace fwg {
 
 /// Suelo que se mueve bajo ciertos criterios.
 ///

@@ -8,6 +8,8 @@
 
 #include "PrintableObject.h"
 
+namespace fwg {
+
 PrintableObject::PrintableObject ()
 {
 };
@@ -38,3 +40,5 @@ std::ostream& operator<< (std::ostream& ostream, const PrintableObject& objeto)
     ostream << objeto.print ();
     return ostream;
 };
+
+}

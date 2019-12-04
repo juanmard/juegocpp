@@ -4,7 +4,7 @@
 #include "ControllableActor.h"
 #include <fstream>
 
-namespace fgm {
+namespace fwg {
 
 /** 
  * \brief   Modela una nave espacial como actor controlable.

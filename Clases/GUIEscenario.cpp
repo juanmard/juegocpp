@@ -12,7 +12,7 @@ namespace alg4 {
 /**
  * \brief   Constructor.
  */
-GUIEscenario::GUIEscenario (fgm::EditorManager& editorParam, DIALOG* enlace):
+GUIEscenario::GUIEscenario (fwg::EditorManager& editorParam, DIALOG* enlace):
 editor (editorParam)
 {
   enlazados.clear ();

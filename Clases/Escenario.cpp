@@ -22,7 +22,7 @@
 #include <list>
 
 
-namespace fgm {
+namespace fwg {
 
 /**
  * \brief   Constructor de la clase. Esta clase NO ES NECESARIA, esta función la realiza y la debe realizar la clase StageManager.

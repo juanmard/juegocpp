@@ -9,7 +9,7 @@
 #include "Loro.h"
 #include "Keyboard.h"
 
-namespace fgm {
+namespace fwg {
 
 Loro::Loro ():
 ControllableActor (),

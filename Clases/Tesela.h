@@ -15,7 +15,7 @@
 #include "Bitmap.h"
 #include <string>
 
-namespace fgm {
+namespace fwg {
 
 class Mosaico;
 

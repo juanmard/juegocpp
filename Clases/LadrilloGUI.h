@@ -3,7 +3,7 @@
 #include <vector>
 #include <allegro.h>
 
-namespace fgm { class Ladrillo; };
+namespace fwg { class Ladrillo; };
 
 namespace alg4 {
 /**
@@ -12,15 +12,15 @@ namespace alg4 {
 class LadrilloGUI
 {
   public:
-              LadrilloGUI     (fgm::Ladrillo& ladri, std::vector<DIALOG>& gui_padre_param);
+              LadrilloGUI     (fwg::Ladrillo& ladri, std::vector<DIALOG>& gui_padre_param);
               ~LadrilloGUI    ();
-    void      rellenarGUI     (fgm::Ladrillo& ladrillo);
+    void      rellenarGUI     (fwg::Ladrillo& ladrillo);
 
   private:
     enum {inicio=0, bitmap=3, fin=5};
     unsigned int        pto_inserccion;
     std::vector<DIALOG>&    gui_padre;
-    fgm::Ladrillo&          ladrillo;
+    fwg::Ladrillo&          ladrillo;
 
 public:
   // Prueba GUI interna.

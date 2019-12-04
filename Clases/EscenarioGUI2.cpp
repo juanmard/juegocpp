@@ -16,7 +16,7 @@ int EscenarioGUI2::local_y = 0;
 /**
  * \brief   Constructor.
  */
-EscenarioGUI2::EscenarioGUI2 (fgm::EditorManager& editorParam, DIALOG* enlace):
+EscenarioGUI2::EscenarioGUI2 (fwg::EditorManager& editorParam, DIALOG* enlace):
 editor (editorParam),
 enlaces (enlace)
 {

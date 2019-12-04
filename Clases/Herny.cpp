@@ -2,7 +2,7 @@
 #include "Almacen.h"
 #include "Bitmap.h"
 
-namespace fgm {
+namespace fwg {
 /**
  * Constructor de copia.
  */

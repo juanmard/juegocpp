@@ -13,7 +13,7 @@
 #include <allegro.h>
 #include <fstream>
 
-namespace fgm {
+namespace fwg {
 
 Ladrillo::Ladrillo ()
 {

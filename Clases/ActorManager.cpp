@@ -23,7 +23,7 @@
 
 #define _DEBUG_
 
-namespace fgm {
+namespace fwg {
 
 ActorManager::ActorManager (Game* g):
 game (g)

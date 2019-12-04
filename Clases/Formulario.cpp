@@ -23,7 +23,7 @@ Formulario::~Formulario ()
 {
 };
 
-void Formulario::add (const int x, const int y, const fgm::Bitmap* picture)
+void Formulario::add (const int x, const int y, const fwg::Bitmap* picture)
 {
     DIALOG* ctl = new DIALOG();
 

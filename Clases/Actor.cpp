@@ -14,8 +14,10 @@
 #include "StageManager.h"
 #include "Dialog.h"
 
-/// @todo Generar un espacio de nombres para el juego "fgm" (Frame Game).
-namespace fgm
+// Prueba a eliminar.
+#include "Suelo.h"
+
+namespace fwg
 {
 
 Actor::Actor():
@@ -430,7 +432,7 @@ std::ifstream& Actor::leer (std::ifstream& ifs)
 
         // Suponemos que es un suelo el gráfico...
         //ActorGraphic &grafico = GraphicManager::crearGrafico (comando);
-        ActorGraphic& grafico = *new ActorGraphic();
+        ActorGraphic& grafico = *new Suelo();
         ifs.ignore (100,'{');
         ifs >> grafico;
         ifs.ignore (100,'}');

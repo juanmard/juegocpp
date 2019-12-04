@@ -8,7 +8,7 @@
 
 #include "ControlManager.h"
 
-namespace fgm {
+namespace fwg {
 
 ControlManager::ControlManager()
 {

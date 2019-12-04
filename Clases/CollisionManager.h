@@ -9,7 +9,7 @@
 #ifndef _COLLISIONMANAGER_H_
 #define _COLLISIONMANAGER_H_
 
-namespace fgm {
+namespace fwg {
 
 class Game;
 class Actor;

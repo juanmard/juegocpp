@@ -11,7 +11,7 @@
 #include "Almacen.h"
 #include "AlmacenGUI.h"
 
-namespace fgm {
+namespace fwg {
 
 Almacen::Almacen (std::string paramNombreFichero)
 {

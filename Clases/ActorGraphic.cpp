@@ -9,7 +9,7 @@
 #include "ActorGraphic.h"
 #include "Actor.h"
 
-namespace fgm {
+namespace fwg {
     
 ActorGraphic::ActorGraphic ():
 owner(NULL),

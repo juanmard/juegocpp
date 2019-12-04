@@ -8,7 +8,7 @@
 
 #include "ControllableActor.h"
 
-namespace fgm {
+namespace fwg {
 
 ControllableActor::ControllableActor ():
 control (NULL)

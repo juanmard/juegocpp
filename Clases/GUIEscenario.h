@@ -16,7 +16,7 @@ namespace alg4 {
 class GUIEscenario : public GUIControl
 {
   public:
-          GUIEscenario  (fgm::EditorManager& editorParam, DIALOG* enlace=NULL);
+          GUIEscenario  (fwg::EditorManager& editorParam, DIALOG* enlace=NULL);
 
   private:
     int   Keyboard      (int msg, DIALOG* d, int code);
@@ -28,7 +28,7 @@ class GUIEscenario : public GUIControl
     int   Omision       (int msg, DIALOG* d, int code);
 
   private:
-    fgm::EditorManager& editor;
+    fwg::EditorManager& editor;
 };
 
 }

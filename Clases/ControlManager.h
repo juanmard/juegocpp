@@ -15,7 +15,7 @@
 
 #define MAXPERIPHERALS 5
 
-namespace fgm {
+namespace fwg {
 
 /// Control de controles para objetos controlables.
 ///

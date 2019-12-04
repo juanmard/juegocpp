@@ -12,7 +12,7 @@
 #include "Menu.h"
 #include "Formulario.h"
 
-namespace fgm {
+namespace fwg {
     
 /// @class EditableObject
 /// Clase "completamente abstracta" que define el comportamiento de un objeto editable.

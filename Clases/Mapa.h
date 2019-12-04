@@ -14,7 +14,7 @@
 #include "PrintableObject.h"
 #include "DatFile.h"
 
-namespace fgm {
+namespace fwg {
     
 class Actor;
 class ActorManager;

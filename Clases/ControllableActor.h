@@ -13,7 +13,7 @@
 #include "ControllableObject.h"
 #include "Control.h"
 
-namespace fgm {
+namespace fwg {
 
 /// Define un actor controlable mediante herencia.
 ///

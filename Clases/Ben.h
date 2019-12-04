@@ -12,7 +12,7 @@
 #include "Almacen.h"
 #include "Sprite.h"
 
-namespace fgm {
+namespace fwg {
     
 /**
  * \brief   Clase que modela el actor controlable de Ben.

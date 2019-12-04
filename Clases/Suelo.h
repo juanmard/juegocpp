@@ -15,7 +15,7 @@
 #include <string>
 #include "Actor.h"
 
-namespace fgm {
+namespace fwg {
 
 /// Gráfico de suelo modificable en tamaño para actores.
 ///

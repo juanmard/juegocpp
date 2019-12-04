@@ -10,16 +10,16 @@
 #include "Mosaico.h"
 #include <sstream>
 
-namespace fgm {
+namespace fwg {
     
 
 Mosaico::Mosaico ():
-fgm::ActorGraphic()
+ActorGraphic()
 {
 };
 
-Mosaico::Mosaico (const Mosaico& copia, fgm::Actor* propietario):
-fgm::ActorGraphic (propietario)
+Mosaico::Mosaico (const Mosaico& copia, Actor* propietario):
+fwg::ActorGraphic (propietario)
 {
     /// Se genera una nueva lista y se copian las teleslas con el nuevo propietario.
     /// @todo Encapsular esto en una clase propia de lista de Teselas.
@@ -39,8 +39,8 @@ fgm::ActorGraphic (propietario)
     }
 };
 
-Mosaico::Mosaico (fgm::Actor* actor):
-fgm::ActorGraphic (actor)
+Mosaico::Mosaico (Actor* actor):
+ActorGraphic (actor)
 {
     // Asignamos al actor que hemos definido como propietario
     // a este mismo mosaico.
@@ -100,7 +100,7 @@ void Mosaico::swap_Tesela (Tesela* tesela_1, Tesela* tesela_2)
     //teselas.swap ();
 };
 
-Mosaico* Mosaico::clone (fgm::Actor* propietario) const
+Mosaico* Mosaico::clone (Actor* propietario) const
 {
     return (new Mosaico(*this,propietario));
 };

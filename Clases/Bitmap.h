@@ -14,7 +14,7 @@
 #include "Almacen.h"
 #include <string>
 
-namespace fgm {
+namespace fwg {
 /// Parte gráfica de un actor como gráfico fijo.
 ///
 /// Esta clase modela una imagen fija como gráfico para un actor.
@@ -22,11 +22,11 @@ namespace fgm {
 ///          debe ser utilizado en otros contextos, como por ejemplo como parte
 ///          de una animación más compleja en los Sprites.
 ///
-class Bitmap : public fgm::ActorGraphic
+class Bitmap : public fwg::ActorGraphic
 {
 protected:
-    static fgm::Almacen* almacenGlobal;      ///< Puntero estático del almacén para todos los objetos de la clase Bitmap.
-    fgm::Almacen* almacen;                   ///< Puntero al almacén de la clase. @warning ¿Es esta variable necesario?
+    static fwg::Almacen* almacenGlobal; ///< Puntero estático del almacén para todos los objetos de la clase Bitmap.
+    fwg::Almacen* almacen;              ///< Puntero al almacén de la clase. @warning ¿Es esta variable necesario?
     BITMAP* fuente;                     ///< Fuente de la imagen del Bitmap.
     std::string nombre;                 ///< Nombre del Bitmap.
 
@@ -35,7 +35,7 @@ public:
     /// @param aowner  Puntero al actor que se le será asignado como dueño.
     /// @param bmp  Puntero al BITMAP de Allegro.
     ///
-    Bitmap (fgm::Actor* aowner, BITMAP* bmp);
+    Bitmap (fwg::Actor* aowner, BITMAP* bmp);
 
     /// Constructor.
     ///
@@ -43,14 +43,14 @@ public:
     /// @param aowner  Puntero al actor que se le será asignado como dueño.
     /// @param nombreParam  Cadena de texto con el nombre que se le asignará al Bitmap.
     ///
-    Bitmap (fgm::Actor* aowner, std::string nombreParam);
+    Bitmap (fwg::Actor* aowner, std::string nombreParam);
 
     /// Constructor.
     /// @param aowner  Puntero al actor que se le será asignado como dueño.
     /// @param bmp  Puntero al BITMAP de Allegro.
     /// @param nombreParam  Cadena de texto con el nombre que se le asignará al Bitmap.
     ///
-    Bitmap (fgm::Actor* aowner, BITMAP* bmp, std::string nombreParam);
+    Bitmap (fwg::Actor* aowner, BITMAP* bmp, std::string nombreParam);
 
     /// Constructor.
     ///
@@ -59,7 +59,7 @@ public:
     /// @param almacen  Puntero al almacén donde se encuentran todos los gráficos del juego.
     /// @param nombre  Cadena de texto con el nombre que se le asignará al Bitmap.
     ///
-    Bitmap (fgm::Actor* aowner, fgm::Almacen* almacen, const std::string nombre);
+    Bitmap (fwg::Actor* aowner, fwg::Almacen* almacen, const std::string nombre);
 
 
     /// Dibuja en BITMAP de Allegro.
@@ -94,7 +94,7 @@ public:
     /// @param propietario  Puntero al nuevo propietario del Bitmap.
     /// @return Puntero a la nueva copia creada.
     ///
-    virtual Bitmap* clone (fgm::Actor* propietario) const;
+    virtual Bitmap* clone (fwg::Actor* propietario) const;
 
     /// Devuelve la estructura básica del objeto en forma de cadena.
     /// @todo Hacer este procedimiento virtual y que los distintos gráficos hereden
@@ -115,7 +115,7 @@ public:
 
     /// Fija el puntero global que hace referencia al almacén.
     /// @param almacen  Puntero al almacén estático.
-    static void set_almacen (fgm::Almacen* almacen)
+    static void set_almacen (fwg::Almacen* almacen)
     {
         almacenGlobal = almacen;
     };

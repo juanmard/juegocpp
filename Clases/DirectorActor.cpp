@@ -1,7 +1,7 @@
 #include "DirectorActor.h"
 #include "ActorManager.h"
 
-namespace fgm {
+namespace fwg {
     
 /**
  * \brief   Constructor de copia.

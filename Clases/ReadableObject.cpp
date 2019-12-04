@@ -8,6 +8,8 @@
 
 #include "ReadableObject.h"
 
+namespace fwg {
+
 ReadableObject::ReadableObject ()
 {
 };
@@ -45,3 +47,4 @@ std::istream& operator>> (std::istream& is, ReadableObject& objeto)
     return is;
 };
 
+}

@@ -6,7 +6,7 @@
 #include "LadrilloGUI.h"
 #include <vector>
 
-namespace fgm {
+namespace fwg {
 
 /**
  * \brief   Actor para ser golpeado por la pelota del juego.

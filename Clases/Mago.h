@@ -12,7 +12,7 @@
 #include "Almacen.h"
 #include "Sprite.h"
 
-namespace fgm {
+namespace fwg {
     
 class Mago : public ControllableActor 
 {

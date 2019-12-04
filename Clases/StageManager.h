@@ -16,13 +16,25 @@
 #include "ActorManager.h"
 
 
-namespace fgm {
+namespace fwg {
 
 /// Controlador del escenario del juego.
 ///
 /// Debe controlar como se representa el escenario del juego en pantalla y brindar
 /// los procedimientos necesarios. 
 ///
+/// @todo Eliminar las referencias a allegro en el espacio de nombres "fwg".
+///       Para ello quitar el tipo "BITMAP" y sustituirlo por "Buffer" que de forma
+///       genérica realice una creación del buffer como zona de memoria y herede el
+///       comportamiento de allegro mediante un método virtual.
+///       @code
+///         class Buffer {
+///                       Buffer ();
+///               virtual void reservar (int alto, int ancho);
+///               virtual void copiar (Buffer fuente, Buffer destino);
+///             }
+///       @endcode
+///       
 class StageManager {
 protected:
     Game* game;             ///< Referencia al juego propietario.

@@ -5,7 +5,7 @@
 #include "Sprite.h"
 #include "DatFile.h"
 
-namespace fgm {
+namespace fwg {
 
 class ControllableActor;
 

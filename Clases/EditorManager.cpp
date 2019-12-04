@@ -11,7 +11,7 @@
 #include "Dialog.h"
 #include "StageManager.h"
 
-namespace fgm {
+namespace fwg {
 
 int EditorManager::refX = 0;
 int EditorManager::refY = 0;

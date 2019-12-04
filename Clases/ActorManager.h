@@ -14,7 +14,7 @@
 #include <string>
 #include "PrintableObject.h"
 
-namespace fgm {
+namespace fwg {
 
 class Game;
 class Actor;

@@ -9,7 +9,7 @@
 #include "Paleta.h"
 #include "Nombres.h"
 
-namespace fgm {
+namespace fwg {
 
 Paleta::Paleta()
 {

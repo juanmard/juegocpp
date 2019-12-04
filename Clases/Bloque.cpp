@@ -9,7 +9,7 @@
 #include "Bloque.h"
 #include <sstream>
 
-namespace fgm {
+namespace fwg {
 
 Bloque::Bloque ():
 x(0), y(0), w(0), h(0)

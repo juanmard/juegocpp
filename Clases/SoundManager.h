@@ -12,7 +12,7 @@
 #include <allegro.h>
 #include "DatFile.h"
 
-namespace fgm {
+namespace fwg {
 
 /// Controlador de la lista de sonidos del sistema.
 /// @todo Añadir lista de objetos y dejar la parte temporal, eliminar referencias

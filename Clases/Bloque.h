@@ -13,7 +13,7 @@
 #include <string>
 
 
-namespace fgm {
+namespace fwg {
 
 /// Modela un bloque genérico representado por una posición, una anchura y una altura.
 ///

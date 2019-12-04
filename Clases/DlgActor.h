@@ -21,11 +21,11 @@ namespace alg4 {
 class DlgActor
 {
   public:
-            DlgActor          (fgm::Actor* actor);
+            DlgActor          (fwg::Actor* actor);
             DlgActor          (Dialog* dlg);
             ~DlgActor         ();
     void    show              ();
-    void    load              (fgm::Actor* actor);
+    void    load              (fwg::Actor* actor);
     void    save              ();
 
   protected:
@@ -33,7 +33,7 @@ class DlgActor
     int             x_rel, y_rel;
     int             x_ant, y_ant;
     bool            enganchado;
-    fgm::Actor*     actor;
+    fwg::Actor*     actor;
     static DIALOG   dlg_propiedades[];
 
     void            msg_idle            ();

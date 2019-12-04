@@ -1,6 +1,6 @@
 #include "Pelota.h"
 
-namespace fgm {
+namespace fwg {
     
 Pelota::Pelota ():
 DirectorActor()

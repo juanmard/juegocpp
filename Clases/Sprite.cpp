@@ -12,7 +12,7 @@
 #include <guichan/allegro/allegroimage.hpp>
 #include <allegro.h>
 
-namespace fgm {
+namespace fwg {
 
 Sprite::Sprite (Actor* aowner):
 ActorGraphic(aowner),

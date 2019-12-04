@@ -4,7 +4,8 @@
 #include <string>
 #include "ActorManager.h"
 
-namespace fgm {
+/// Espacio de nombre para el "Frame Work Game".
+namespace fwg {
 
 // Predefiniciones de clases.
 class ActorManager;

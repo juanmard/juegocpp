@@ -10,7 +10,7 @@
 #include <sstream>
 
 
-namespace fgm {
+namespace fwg {
     
 Plataforma::Plataforma (const Plataforma& copia):
 Actor(copia),

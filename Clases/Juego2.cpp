@@ -26,7 +26,7 @@
 #include "gui/ActorGUI.hpp"
 
 
-namespace fgm {
+namespace fwg {
 
 // Definición del juego.
 Juego2::Juego2 ()
@@ -112,6 +112,14 @@ void Juego2::mainGame ()
       update ();
     }
 
+    // Si se pulsa la 'C', se prueba.
+    if (key[KEY_C])
+    {   
+      // Se borran las teclas pulsadas para evitar rellamadas.
+      key[KEY_C] = false;
+      key[KEY_ESC] = false;
+    }
+
     // Si se pulsa la 'E', se prueba el editor.
     if (key[KEY_E])
     {
@@ -178,8 +186,8 @@ void Juego2::mainGame ()
       control_manager->add_control(loro2->get_control());
 
       // Prueba con sprite de Allegro.
-      Sprite *prueba = (Sprite *) loro2->get_actor_graphic();
-      alg4::SpriteAllegro* prueba2 = new alg4::SpriteAllegro (*prueba,loro2);
+      //Sprite *prueba = (Sprite *) loro2->get_actor_graphic();
+      //alg4::SpriteAllegro* prueba2 = new alg4::SpriteAllegro (*prueba,loro2);
 
       // Prueba de Guichan integrado en el juego.
       ///prueba_guichan (prueba2);
@@ -374,7 +382,7 @@ void Juego2::mainGame ()
 ///
 int main ()
 {
-  fgm::Juego2 game;
+  fwg::Juego2 game;
 
   srand (time(NULL));
   game.set_name("Juego++ v2.0");

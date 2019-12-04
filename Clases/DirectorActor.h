@@ -2,7 +2,7 @@
 
 #include "Actor.h"
 
-namespace fgm {
+namespace fwg {
     
 class ActorManager;
 

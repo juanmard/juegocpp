@@ -1,7 +1,7 @@
 #include <allegro.h>
 #include "AirCraft.h"
 
-namespace fgm {
+namespace fwg {
 /**
  * Constructor de copia.
  */

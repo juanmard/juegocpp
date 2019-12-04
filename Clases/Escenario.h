@@ -9,7 +9,7 @@
 #include <allegro.h>
 #include "Bloque.h"
 
-namespace fgm {
+namespace fwg {
     
 class Actor;
 class ActorManager;

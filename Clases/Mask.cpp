@@ -1,6 +1,6 @@
 #include "Mask.h"
 
-namespace fgm {
+namespace fwg {
 
 Mask::Mask()
 {

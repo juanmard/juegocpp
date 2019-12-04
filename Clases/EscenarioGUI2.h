@@ -15,7 +15,7 @@ namespace alg4 {
 class EscenarioGUI2
 {
   public:
-          EscenarioGUI2  (fgm::EditorManager& editorParam, DIALOG* enlace=NULL);
+          EscenarioGUI2  (fwg::EditorManager& editorParam, DIALOG* enlace=NULL);
     void  addEnlace     (DIALOG* enlace);
 
   private:
@@ -28,7 +28,7 @@ class EscenarioGUI2
 
   private:
     static int          local_x, local_y;
-    fgm::EditorManager& editor;
+    fwg::EditorManager& editor;
     DIALOG*             enlaces;
 
   public:

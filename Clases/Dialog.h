@@ -37,14 +37,14 @@ public:
           ultimo=19};
 
 public:
-                Dialog          (fgm::EditorManager *editor);
+                Dialog          (fwg::EditorManager *editor);
                 ~Dialog         ();
     void        show            ();
     void        draw            ();
     void        mouse_out       ();
     void        mouse_in        ();
     int         propiedades     ();
-    void        setActor        (fgm::Actor *actor);
+    void        setActor        (fwg::Actor *actor);
 
 protected:
     void        menu_contextual         (int x, int y);
@@ -54,7 +54,7 @@ protected:
     void        duplicarActor           ();
     int         CambiarTraje            ();
     void        actualizarValoresActor  ();
-    void        dibujarCuadrado         (fgm::Bloque cuadro, int color);
+    void        dibujarCuadrado         (fwg::Bloque cuadro, int color);
     void        centrarActor            (int indice);
     void        setColorRibete          (int color);
     void        tomarReferencia         ();
@@ -72,8 +72,8 @@ protected:
     ///
     void grabarActores ();
 
-    fgm::EditorManager *   manager;
-    fgm::Actor *           actor;
+    fwg::EditorManager *   manager;
+    fwg::Actor *           actor;
     std::string            strNombre;
     std::string            strPosicion;
     std::string            strDimensiones;

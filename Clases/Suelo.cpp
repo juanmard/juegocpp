@@ -11,7 +11,7 @@
 #include <sstream>
 #include <fstream>
 
-namespace fgm {
+namespace fwg {
 
 Suelo::Suelo ():
 Mosaico(),

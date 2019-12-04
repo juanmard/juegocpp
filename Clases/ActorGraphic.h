@@ -14,7 +14,7 @@
 #include <sstream>
 #include "PrintableObject.h"
 
-namespace fgm {
+namespace fwg {
 class Actor;
 class Mask;
 

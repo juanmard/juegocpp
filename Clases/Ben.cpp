@@ -10,7 +10,7 @@
 #include "Sprite.h"
 #include <iostream>
 
-namespace fgm {
+namespace fwg {
 
 Ben::Ben ():
 ControllableActor()

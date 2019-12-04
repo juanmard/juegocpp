@@ -9,7 +9,7 @@
 #include "Almacen.h"
 #include "Sprite.h"
 
-namespace fgm {
+namespace fwg {
 
 Mago::Mago ():
 ControllableActor()

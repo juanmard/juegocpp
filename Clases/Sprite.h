@@ -19,7 +19,7 @@
 #include <sstream>
 #include <guichan/image.hpp>
 
-namespace fgm {
+namespace fwg {
     
 //class Object;
 class EditableObject;

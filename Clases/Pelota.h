@@ -5,7 +5,7 @@
 #include "Bitmap.h"
 #include "Nombres.h"
 
-namespace fgm {
+namespace fwg {
 
 class Pelota : public DirectorActor
 {

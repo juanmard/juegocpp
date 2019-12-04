@@ -12,8 +12,6 @@
 #include "Actor.h"
 #include <fstream>
 
-/// Macro para comparar y crear el actor de clase "cls".
-#define CMP_CLASE(cls) if (!clase.compare (#cls)) return (*new cls());
 #include "AirCraft.h"
 #include "Ben.h"
 #include "Herny.h"
@@ -25,7 +23,7 @@
 #include "Plataforma.h"
 
 
-namespace fgm {
+namespace fwg {
 
 Mapa::Mapa ():
 nombre ("sin nombre"),
@@ -188,17 +186,20 @@ std::size_t Mapa::buscar_propiedad (const std::string& propiedad, std::ifstream&
     return pos;
 };
 
+/// Macro para comparar y crear el actor de clase "cls".
+#define CMP_CLASE(cadena,cls) if (!cadena.compare (#cls)) return (*new cls());
+
 Actor& Mapa::crear_actor (const std::string& clase) const
 {
-    CMP_CLASE(AirCraft);
-    CMP_CLASE(Ben);
-    CMP_CLASE(Herny);
-    CMP_CLASE(Ladrillo);
-    CMP_CLASE(Loro);
-    CMP_CLASE(Mago);
-    CMP_CLASE(Paleta);
-    CMP_CLASE(Pelota);
-    CMP_CLASE(Plataforma);
+    CMP_CLASE(clase, AirCraft);
+    CMP_CLASE(clase, Ben);
+    CMP_CLASE(clase, Herny);
+    CMP_CLASE(clase, Ladrillo);
+    CMP_CLASE(clase, Loro);
+    CMP_CLASE(clase, Mago);
+    CMP_CLASE(clase, Paleta);
+    CMP_CLASE(clase, Pelota);
+    CMP_CLASE(clase, Plataforma);
     throw std::string ("La clase \"" + clase + "\" no existe o no puede ser controlada por \"ActorManager\"");
 };
 

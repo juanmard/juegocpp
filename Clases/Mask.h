@@ -3,7 +3,7 @@
 
 #include <allegro.h>
 
-namespace fgm {
+namespace fwg {
     
 class Mask
 {

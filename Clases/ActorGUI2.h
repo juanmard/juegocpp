@@ -7,7 +7,7 @@
 #include "GUIControl.h"
 #include "EditorManager.h"
 
-namespace fgm { class Actor; };
+namespace fwg { class Actor; };
 
 namespace alg4 {
     
@@ -21,18 +21,18 @@ class ActorGUI2 : public GUIControl
 
   public:
                ActorGUI2 ();
-               ActorGUI2 (fgm::Actor &actor, std::vector<DIALOG> &gui_padre);
+               ActorGUI2 (fwg::Actor &actor, std::vector<DIALOG> &gui_padre);
     virtual   ~ActorGUI2 ();
-    void       setActor  (fgm::Actor &a);
+    void       setActor  (fwg::Actor &a);
 
   private:
-    fgm::Actor &         actor;
+    fwg::Actor &         actor;
     unsigned int         pto_inserccion;
     std::vector<DIALOG> &gui;
 
   public:
     static DIALOG      dlg_plantilla[];
-    static fgm::Actor* actor_activo;
+    static fwg::Actor* actor_activo;
 
     /**
      * \brief   Callback de las coordenadas.

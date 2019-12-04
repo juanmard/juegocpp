@@ -13,7 +13,7 @@
 #include <vector>
 #include <allegro.h>
 
-namespace fgm { class Bitmap; };
+namespace fwg { class Bitmap; };
 namespace alg4 {
 
 /// Formulario implementado como una lista de controles que interaccionan entre ellos.
@@ -84,7 +84,7 @@ public:
     /// @param y  Posición y referida al formulario origen.
     /// @param picture  Imagen a mostrar en el formulario.
     ///
-    void add (const int x, const int y, const fgm::Bitmap* picture);
+    void add (const int x, const int y, const fwg::Bitmap* picture);
 
     /// Añade un control al formulario sin cadena de texto asociada.
     /// @param tipo  Tipo de control a añadir.

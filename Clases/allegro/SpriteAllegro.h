@@ -19,14 +19,14 @@ namespace alg4
 
 /// Clase para implementar la clase gráfica "Sprite" en Allegro.
 ///
-class SpriteAllegro : public fgm::Sprite
+class SpriteAllegro : public fwg::Sprite
 {
 public:
     /// Constructor.
     /// @param  aowner  Propietario del "sprite" gráfico.
     /// @note Se mantiene por cuestiones de compatibilidad con el código escrito
     ///       hasta ahora, pero cualquier objeto gráfico debería tener entidad por sí solo.
-    SpriteAllegro (fgm::Actor* aowner);
+    SpriteAllegro (fwg::Actor* aowner);
 
     /// Constructor de copia.
     /// Se toma la base del "Sprite" y se le asigna un nuevo propietario.
@@ -35,7 +35,7 @@ public:
     /// @note Se mantiene por cuestiones de compatibilidad con el código escrito
     ///       hasta ahora, pero cualquier objeto gráfico debería tener entidad por sí solo.
     ///       Se usa fundamentalmente para pruebas.
-    SpriteAllegro (const fgm::Sprite& copia, fgm::Actor* aowner);
+    SpriteAllegro (const fwg::Sprite& copia, fwg::Actor* aowner);
 
     /// Destructor.
     ~SpriteAllegro ();

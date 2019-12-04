@@ -35,7 +35,7 @@ END_OF_FUNCTION(tick_count);
 /*---------------------------------------------------------------------------------*/
 
 
-namespace fgm {
+namespace fwg {
 /**
  * \brief   Constructor por omisión.
  */

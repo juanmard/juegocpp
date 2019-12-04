@@ -8,7 +8,7 @@
 
 #include "StageManager.h"
 
-namespace fgm {
+namespace fwg {
 
 StageManager::StageManager (Game* g, int w, int h):
 game (g),
