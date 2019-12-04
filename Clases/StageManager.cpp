@@ -55,8 +55,8 @@ BITMAP* StageManager::getBuffer () const
 
 void StageManager::update ()
 {
-  actualizar_seguimiento ();
-  draw ();
+    actualizar_seguimiento ();
+    draw ();
 };
 
 void StageManager::rellenar_buffer ()

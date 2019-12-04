@@ -1,6 +1,12 @@
-
+///---------------------------------------------------------
+/// @file       Game.cpp
+/// @author     Juan Manuel Rico
+/// @date       Diciembre 2019
+/// @version    1.0.0
+///
+/// @brief      FrameWork del juego.
+///---------------------------------------------------------
 #include "Game.h"
-#include <allegro.h>
 #include <iostream>
 #include "ActorManager.h"
 #include "StageManager.h"
@@ -9,31 +15,8 @@
 #include "SoundManager.h"
 #include "Almacen.h"
 
-/*------------------------------------------------------------------------------*/
-/* Variables y funciones globales para sincronizar juego en distintas máquinas. */
-/*------------------------------------------------------------------------------*/
-/**
- * \todo    Integrar en la clase "Game" como funciones y variables estáticas.
- */
-void tick_count();
-
-/**
- * Las variables que modifiquen las funciones 'timer' de Allegro tienen que
- *  ser de tipo 'volatile'.
- */
-volatile int tick;
-
-/**
- * \brief   Función definida como 'timer' de Allegro.
- * \todo    Independizar de la biblioteca Allegro mediante clases.
- */
-void tick_count()
-{
-  tick++;
-}
-END_OF_FUNCTION(tick_count);
-/*---------------------------------------------------------------------------------*/
-
+// Para pruebas...
+#include "./allegro/TimerAllegro.h"
 
 namespace fwg {
 /**
@@ -61,27 +44,28 @@ Game::~Game ()
  */
 void Game::init (int gfx_mode, int w, int h, int col)
 {
+  /// @todo Agregar todas estas funciones en una única clase genérica.
+  /// init_graphic_motor ()
+
   allegro_init ();
   install_keyboard ();
   install_mouse ();
-  install_timer ();
-
-  /* Protegemos variables e instalamos interrupción del "timer".
-   * (14 para ejecutar 70 veces por segundo).
-   */
-  LOCK_VARIABLE (tick);
-  LOCK_FUNCTION (tick_count);
-  install_int (&tick_count, 14);
+  
+  /// Para pruebas...
+  /// @todo Eliminar estas referencias de Allegro4
+  ///       de la clase principal.
+  alg4::TimerAllegro* tempo = new alg4::TimerAllegro (); 
+  setTimer(tempo);
+  ///---------------------------------------------
+  
+  timer->install ();
 
   /* Entramos en modo gráfico. */
   set_color_depth(col);
-  if (set_gfx_mode(gfx_mode, w, h, 0, 0) < 0)
-  {
+  if (set_gfx_mode(gfx_mode, w, h, 0, 0) < 0) {
     shutdown("No se pudo inicializar modo gráfico");
     return;
-  }
-  else
-  {
+  } else {
     gfx_w = w;
     gfx_h = h;
   }
@@ -92,7 +76,7 @@ void Game::init (int gfx_mode, int w, int h, int col)
   create_soundmanager ();
   create_controlmanager ();
   create_collisionmanager ();
-  create_storage_manager ();
+  create_storagemanager ();
 
   /* Se empieza el juego. */
   start ();
@@ -168,14 +152,16 @@ void Game::create_collisionmanager ()
 void Game::start ()
 {
   /* Inicializamos la sincronización con el juego. */
-  actual_tick = tick;
-  old_tick = tick;
-  max_frame_skip = 15;
+  timer->start();
   paused = false;
 
   /* Se llama al procedimiento principal. */
   mainGame ();
   shutdown ();
+}
+
+void Game::setTimer (Timer* temporizador) {
+    timer = temporizador;
 }
 
 /**
@@ -196,7 +182,7 @@ void Game::set_name (string n) {
 /**
  * \brief   Se obtiene el nombre del juego.
  */
-string Game::get_name () {
+std::string Game::get_name () {
   return name;
 }
 
@@ -204,49 +190,29 @@ string Game::get_name () {
  * \brief   Se actualiza el estado del juego.
  */
 void Game::update () {
-  /* Se actualiza el ciclo lógico. */
-  if (actual_tick <= tick)
-  {
-    // Se actualiza el estado de la lista de actores.
-    actor_manager->update ();
+    /// Se actualiza el ciclo lógico mientras no se supere
+    /// el quantum de tiempo (14ms).
+    if (timer->updateLogic()) {
+        // Se actualiza el estado de la lista de actores.
+        if (actor_manager) actor_manager->update ();
+        if (collision_manager) collision_manager->update ();
+        if (control_manager) control_manager->update ();
+    }
 
-    /* Se comprueba la existencia de los controladores para actualizarlos. */
-    if (collision_manager) collision_manager->update ();
-    if (control_manager) control_manager->update ();
-    actual_tick++;
-  }
+    /// Se actualiza el ciclo gráfico.
+    if (timer->updateGraphic()) {
+        stage_manager->update ();
+    }
 
-  /* Se actualiza el ciclo gráfico. */
-  if ((actual_tick >= tick) || (frame_skip > max_frame_skip))
-  {
-    stage_manager->update ();
-    if (frame_skip > max_frame_skip) actual_tick = tick;
-    graphic_tick++;
-    frame_skip = 0;
-  }
-  else
-  {
-    frame_skip++;
-  }
-
-  /* Si se ha cumplido un segundo, se actualizan los "fps" por pantalla. */
-//  if ((tick-old_tick >= 70) && stage_manager->is_info ())
-//  if (tick-old_tick >= 70)
-  if (false) {
-    rectfill (stage_manager->getBuffer(), 0, 0, SCREEN_W, 50, 0);
-    textprintf_ex (stage_manager->getBuffer(), font, 0, 0,-1, makecol(255, 100, 200),
-                   "fps: %u frameskip:%u", graphic_tick, frame_skip);
-    blit (stage_manager->getBuffer(), screen, 0, 0, 0, 0, SCREEN_W, 50);
-    graphic_tick = 0;
-    old_tick = tick;
-  }
-}
-
-/**
- * \brief   Se cambian los máximos 'frames' para saltar.
- */
-void Game::set_max_frame_skip (int max_fs) {
-  max_frame_skip = max_fs;
+    /// Si se ha cumplido un segundo, se actualizan los "fps"
+    /// por pantalla.
+    if (timer->has_new_second ()) {
+        stage_manager->set_ribete(Bloque(0,20,SCREEN_W,SCREEN_H-20));
+        rectfill (screen, 0, 0, SCREEN_W, 18, makecol(25,128,255));
+        textprintf_ex (screen, font, 5, 5,-1, makecol(25,128,255),
+                        "fps: %u frameskip:%u", timer->get_fps(), timer->get_frameskip());
+        timer->reset_second ();
+    }    
 }
 
 /**
@@ -273,7 +239,7 @@ bool Game::is_paused (void) {
 /**
  * \brief   Se crea el almacén por omisión.
  */
-void Game::create_storage_manager () {
+void Game::create_storagemanager () {
     // Creamos el almacén de recursos.
     storage_manager = new Almacen("sprites3.dat");
 }

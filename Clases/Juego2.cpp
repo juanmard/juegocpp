@@ -159,7 +159,7 @@ void Juego2::mainGame ()
       }
       else
       {
-        stage_manager->set_seguimiento (loro);
+        stage_manager->set_seguimiento (ben);
       }
 
       // Limpieza teclado.

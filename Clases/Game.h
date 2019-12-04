@@ -1,13 +1,22 @@
+///---------------------------------------------------------
+/// @file       Game.h
+/// @author     Juan Manuel Rico
+/// @date       Diciembre 2019
+/// @version    1.0.0
+///
+/// @brief      FrameWork del juego.
+///---------------------------------------------------------
 #ifndef _GAME_H_
 #define _GAME_H_
 
 #include <string>
 #include "ActorManager.h"
+#include "Timer.h"
 
 /// Espacio de nombre para el "Frame Work Game".
 namespace fwg {
 
-// Predefiniciones de clases.
+/// Predefiniciones de clases.
 class ActorManager;
 class StageManager;
 class SoundManager;
@@ -21,8 +30,9 @@ class Almacen;
  */
 class Game
 {
-  public:
+public:
     typedef enum {ALLY, ENEMY} team_t;
+    enum {RUNNING, PAUSED} state;
 
     ActorManager        *actor_manager;
     StageManager        *stage_manager;
@@ -31,6 +41,16 @@ class Game
     CollisionManager    *collision_manager;
     Almacen             *storage_manager;
 
+protected:
+    std::string     name;
+    int             gfx_w, gfx_h;
+    int             colors;
+
+private:
+    Timer*  timer;
+    bool    paused;     ///< Indica el estado pausado del juego.
+
+public:
                      Game       ();
     virtual         ~Game       ();
     virtual void    init        (int gfx_mode, int w, int h, int col);
@@ -41,22 +61,9 @@ class Game
     void            set_name    (std::string name);
     std::string     get_name    ();
     void            update      ();
+    void            setTimer    (Timer* temporizador);
 
-  protected:
-    void        set_max_frame_skip  (int max_fs);
-
-    std::string      name;
-    int         gfx_w, gfx_h;
-    int         colors;
-
-  private:
-    int     actual_tick;
-    int     old_tick;
-    int     graphic_tick;
-    int     frame_skip;
-    int     max_frame_skip;
-    bool    paused;
-
+private:
     void            start                   ();
     void            shutdown                (std::string message);
     virtual void    create_actormanager     ();
@@ -64,7 +71,7 @@ class Game
     virtual void    create_soundmanager     ();
     virtual void    create_controlmanager   ();
     virtual void    create_collisionmanager ();
-    virtual void    create_storage_manager   ();
+    virtual void    create_storagemanager   ();
 };
 
 };
