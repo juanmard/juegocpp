@@ -14,10 +14,12 @@
 #include "CollisionManager.h"
 #include "SoundManager.h"
 #include "Almacen.h"
+#include "Timer.h"
 
 namespace fwg {
 
-    Game::Game ()
+    Game::Game ():
+    state(CREATED)
     {
       actorManager = NULL;
       stageManager = NULL;
@@ -33,6 +35,7 @@ namespace fwg {
 
     void Game::init (int gfx_mode, int w, int h, int col)
     {
+      state = INIT;
       /// @todo Agregar todas estas funciones en una única clase genérica.
       /// initGraphicMotor ()
       /// 
@@ -43,10 +46,14 @@ namespace fwg {
 
       // Entramos en modo gráfico.
       set_color_depth(col);
-      if (set_gfx_mode(gfx_mode, w, h, 0, 0) < 0) {
+      if (set_gfx_mode(gfx_mode, w, h, 0, 0) < 0)
+      {
+        state = SHUTDOWN;
         shutdown("No se pudo inicializar modo gráfico");
         return;
-      } else {
+      }
+      else
+      {
         gfx_w = w;
         gfx_h = h;
       }
@@ -116,14 +123,15 @@ namespace fwg {
 
     void Game::start ()
     {
-      // Inicializamos la sincronización con el juego.
+      // Iniciazamos la sincronización del temporizador con el juego.
       timer->start();
-      paused = false;
 
       // Se llama al procedimiento principal.
+      state = RUNNING;
       mainGame ();
 
       // Se termina el juego.
+      state = SHUTDOWN;
       shutdown ();
     }
 
@@ -186,37 +194,19 @@ namespace fwg {
         }    
     }
 
-    /// @todo Eliminar esta variable y usar la variable de estado.
-    ///       Ejemplo:
-    ///       @code
-    ///         state = PAUSED;
-    ///       @encode
-    ///         
     void Game::pause ()
     {
-      paused = true;
+      state = PAUSED;
     }
 
-    /// @todo Eliminar esta variable y usar la variable de estado.
-    ///       Ejemplo:
-    ///       @code
-    ///         state = RUNNING;
-    ///       @encode
-    ///         
     void Game::play ()
     {
-      paused = false;
+      state = RUNNING;
     }
 
-    /// @todo Eliminar esta variable y usar la variable de estado.
-    ///       Ejemplo:
-    ///       @code
-    ///         return (state == PAUSED);
-    ///       @encode
-    ///         
     bool Game::isPaused () const
     {
-      return paused;
+      return (state == PAUSED);
     }
 
     void Game::createStorageManager ()

@@ -10,8 +10,6 @@
 #define _GAME_H_
 
 #include <string>
-#include "ActorManager.h"
-#include "Timer.h"
 
 /// Espacio de nombre para el "FrameWork Game".
 namespace fwg {
@@ -23,6 +21,7 @@ namespace fwg {
     class ControlManager;
     class CollisionManager;
     class Almacen;
+    class Timer;
 
     /// Clase que recoge las funciones básicas de un juego.
     /// 
@@ -30,20 +29,25 @@ namespace fwg {
     /// el motor gráfico y mantener los bucles de actualización
     /// de lógica y gráfica del juego.
     /// 
-    /// @todo - Eliminar el tipo 'team_t' que no se usa.
-    ///       - Cambiar la clase 'Almacen' por clase 'StorageManager'.
-    ///       - Eliminar y aislar referencias a Allegro en esta clase.
-    ///       - Cambiar la variable 'bool paused' por el estado actual
-    ///         del juego.
+    /// @todo Cosas por corregir en la clase: 
+    /// - Eliminar el tipo 'team_t' que no se usa.
+    /// - Cambiar la clase 'Almacen' por clase 'StorageManager'.
+    /// - Eliminar y aislar referencias a Allegro en esta clase.
     ///         
     class Game
     {
         public:
             typedef enum {ALLY, ENEMY} team_t;
-            enum State {
-                  RUNNING,  ///< Juego funcionando normalmente.
-                  PAUSED    ///< Juego en pausa.
-                 };
+            
+            /// Estados del juego en su ciclo de vida.
+            enum State
+            {
+              CREATED,  ///< Juego creado.
+              INIT,     ///< Juego iniciado.
+              RUNNING,  ///< Juego funciona normalmente.
+              PAUSED,   ///< Juego en pausa.
+              SHUTDOWN  ///< Juego apagándose.
+            };
 
         public:
             ActorManager        *actorManager;     ///< Controlador de actores.
@@ -56,11 +60,10 @@ namespace fwg {
         protected:
             std::string name;           ///< Nombre del juego.
             int         gfx_w, gfx_h;   ///< Tamaño ventana.
-            int         colors;         ///< ¿Profundidad de color?.
+            int         colors;         ///< Profundidad de color.
 
         private:
             Timer*  timer;      ///< Temporizador del juego.
-            bool    paused;     ///< Indica el estado pausado del juego.
             State   state;      ///< Estado actual del juego.
 
         public:
@@ -139,7 +142,7 @@ namespace fwg {
             /// 
             /// @param temporizador Referencia al temporizador del juego.
             /// 
-            void setTimer    (Timer* temporizador);
+            void setTimer (Timer* temporizador);
 
         private:
             /// Se inicia el juego.

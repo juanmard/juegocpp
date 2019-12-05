@@ -1,7 +1,7 @@
 #include "Dialog.h"
 #include "DlgActor.h"
 #include "VentanaALG.h"
-//#include "resize.h"
+#include "ActorManager.h"
 #include <iostream>
 #include <fstream>
 #include "GUIEscenario.h"

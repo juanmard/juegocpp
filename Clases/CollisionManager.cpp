@@ -7,8 +7,9 @@
 ///      - 1.0.0 Noviembre 2015
 ///
 
-#include "CollisionManager.h"
 #include "Actor.h"
+#include "ActorManager.h"
+#include "CollisionManager.h"
 #include <list>
 
 namespace fwg {
