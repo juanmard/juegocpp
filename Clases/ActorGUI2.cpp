@@ -76,7 +76,7 @@ gui (gui_padre)
   //dlg_plantilla[dimensiones].dp3 = new VectorGUI2 (a.get_w(), a.get_h());
 
   // Gráfico:
-  fwg::ActorGraphic *graf = a.get_actor_graphic ();
+  fwg::ActorGraphic *graf = a.getActorGraphic ();
   cadena = new std::string(graf->print ());
   *cadena = cadena->substr (0, cadena->find(" >>"));
   dlg_plantilla[grafico].dp = const_cast<char*>(cadena->c_str());
@@ -133,7 +133,7 @@ void  ActorGUI2::setActor (fwg::Actor &a)
   object_message (&gui[pto + nombre], MSG_DRAW, 0);
 
   // Gráfico:
-  fwg::ActorGraphic *graf = a.get_actor_graphic ();
+  fwg::ActorGraphic *graf = a.getActorGraphic ();
   cadena = new std::string(graf->print ());
   *cadena = cadena->substr (0, cadena->find(" >>"));
   gui[pto + grafico].dp = const_cast<char*>(cadena->c_str());

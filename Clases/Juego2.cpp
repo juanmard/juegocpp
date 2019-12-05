@@ -332,7 +332,7 @@ void Juego2::mainGame ()
         }
         else if (!comando.compare("armario"))
         {
-          actorManager->get_armario ();
+          actorManager->getArmario ();
         }
         else if (!comando.compare("pausa"))
         {

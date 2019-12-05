@@ -133,7 +133,7 @@ void Mapa::load (std::string& file, ActorManager& manager)
         }
     }
     // Se preparan todos los actores agregados para actuar.
-    manager.add_all_to_create ();
+    manager.addAllToCreate ();
 
     // Se cierra el fichero.
     ifs.close();

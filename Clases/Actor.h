@@ -64,8 +64,8 @@ private:
     State state;
     
 public:
-    State get_state () const {return state;};
-    void  set_state (State new_state) {state = new_state;};
+    State getState () const {return state;};
+    void  setState (State new_state) {state = new_state;};
     
 /// --------------------------------------------
 
@@ -306,7 +306,7 @@ public:
     /// Devuelve un puntero como referencia a la parte gráfica del actor.
     /// @return Puntero a la parte gráfica del actor.
     ///
-    ActorGraphic* get_actor_graphic () const;
+    ActorGraphic* getActorGraphic () const;
 
     /// Devuelve la posición x del componente gráfico del actor.
     /// @return Valor de la posición x.

@@ -43,7 +43,7 @@ ladrillo (ladri)
 void  LadrilloGUI::rellenarGUI (fwg::Ladrillo& ladrillo)
 {
   // Rellenamos el gráfico.
-  fwg::Bitmap* grafico = (fwg::Bitmap*) ladrillo.get_actor_graphic ();
+  fwg::Bitmap* grafico = (fwg::Bitmap*) ladrillo.getActorGraphic ();
   gui_padre[pto_inserccion+bitmap].dp = grafico->get_imagen();
 }
 

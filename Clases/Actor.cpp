@@ -185,10 +185,10 @@ void Actor::set_actor_graphic (ActorGraphic* ag)
     }
 };
 
-ActorGraphic* Actor::get_actor_graphic () const
-{
-  return agraph;
-};
+        ActorGraphic* Actor::getActorGraphic () const
+        {
+            return agraph;
+        }
 
 int Actor::get_color (void)
 {

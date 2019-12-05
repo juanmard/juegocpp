@@ -118,12 +118,12 @@ void EditorManager::duplicar_actor (Actor* actor)
 
 Actor* EditorManager::get_actor (int x, int y) const
 {
-  return game->actorManager->get_actor (x, y);
+  return game->actorManager->getActor (x, y);
 };
 
 std::string& EditorManager::get_nombre_actor (int indice) const
 {
-  Actor* actor = game->actorManager->get_actor (indice);
+  Actor* actor = game->actorManager->getActor (indice);
   if (actor)
   {
     return *new std::string (actor->get_nombre());
@@ -169,7 +169,7 @@ void EditorManager::actualizar_escenario ()
 
 unsigned int EditorManager::get_num_actores () const
 {
-  return game->actorManager->num_actors ();
+  return game->actorManager->numActors ();
 };
 
 void EditorManager::set_ribete (Bloque bloque) const
@@ -185,7 +185,7 @@ void EditorManager::borrar_pantalla () const
 void EditorManager::centrar_actor (int indice) const
 {
   // Se toma el actor de la lista dado por el índice.
-  Actor* actor = game->actorManager->get_actor (indice);
+  Actor* actor = game->actorManager->getActor (indice);
 
   // Si el actor existe.
   if (actor)
