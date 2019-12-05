@@ -23,8 +23,8 @@ void CollisionManager::update ()
   std::list<Actor *>::const_iterator iter1, iter2, end;
 
   // El bucle hace combinaciones dos a dos de todos los actores.
-  iter1 = game->actor_manager->get_begin_iterator ();
-  end = game->actor_manager->get_end_iterator ();
+  iter1 = game->actorManager->get_begin_iterator ();
+  end = game->actorManager->get_end_iterator ();
   while ( iter1 != end )
   {
     iter2 = iter1;

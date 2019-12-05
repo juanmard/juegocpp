@@ -548,16 +548,16 @@ int  Dialog::kdb_coordenadas (DIALOG* d, int code)
 
 void Dialog::leerActores ()
 {
-    this->manager->game->actor_manager->delete_actors ();
-//    this->manager->game->actor_manager->load ("test.txt");
-    this->manager->game->actor_manager->add_all_to_create ();
+    this->manager->game->actorManager->delete_actors ();
+//    this->manager->game->actorManager->load ("test.txt");
+    this->manager->game->actorManager->add_all_to_create ();
     std::cout << "Lista de actores leídos." << std::endl;
 };
 
 void Dialog::grabarActores ()
 {
     std::ofstream outfile ("test.txt");
-    outfile << *(this->manager->game->actor_manager);
+    outfile << *(this->manager->game->actorManager);
     outfile.close();
     std::cout << "Grabados objetos en fichero \"test.txt\"" << std::endl;
 };

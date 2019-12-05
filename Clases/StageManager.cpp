@@ -65,7 +65,7 @@ void StageManager::rellenar_buffer ()
   static int azul = makecol (25,100,255);
 
   // Se sitúa la lista de actores al inicio.
-  game->actor_manager->rewind ();
+  game->actorManager->rewind ();
 
   // Dibujamos los decorados de fondo.
   // Coloreamos de azul el fondo.
@@ -81,7 +81,7 @@ void StageManager::rellenar_buffer ()
   if (verBloques)
   {
     bool estado_bloque;
-    while ((tmp = game->actor_manager->next()) != NULL)
+    while ((tmp = game->actorManager->next()) != NULL)
     {
       // Dibuja el actor.
       tmp->draw (this);
@@ -95,7 +95,7 @@ void StageManager::rellenar_buffer ()
   }
   else
   {
-    while ((tmp = game->actor_manager->next()) != NULL)
+    while ((tmp = game->actorManager->next()) != NULL)
     {
       tmp->draw (this);
     }

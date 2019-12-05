@@ -24,13 +24,16 @@ END_OF_FUNCTION(tick_count);
 namespace alg4 {
 
     TimerAllegro::TimerAllegro (unsigned int mseg, unsigned int max_fs):
-    Timer (mseg, max_fs) {
+    Timer (mseg, max_fs)
+    {
     }
 
-    TimerAllegro::~TimerAllegro () {
+    TimerAllegro::~TimerAllegro ()
+    {
     }
     
-    void TimerAllegro::install () {
+    void TimerAllegro::install ()
+    {
         // Se instala el temporizador.
         install_timer ();
 
@@ -40,7 +43,8 @@ namespace alg4 {
         install_int (&tick_count, quantum);
     }
     
-    unsigned int TimerAllegro::getTick () const {
+    unsigned int TimerAllegro::getTick () const
+    {
         return tick;
     }
 }
