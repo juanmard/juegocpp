@@ -36,7 +36,7 @@ public:
     Ben ();
 
               Ben         (Almacen &almacen);
-    void      do_action   (ControllableActor::action_t act, int magnitude);
+    void      doAction   (ControllableActor::Action act, int magnitude);
     void      update      ();
     void      hit         (Actor *who, int damage);
     void      getEstado   (std::string &strEstado) const;

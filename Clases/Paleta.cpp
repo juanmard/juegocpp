@@ -45,7 +45,7 @@ Paleta::~Paleta(void)
 {
 };
 
-void Paleta::do_action (ControllableObject::action_t act, int magnitude)
+void Paleta::doAction (ControllableObject::Action act, int magnitude)
 {
   switch (act)
   {

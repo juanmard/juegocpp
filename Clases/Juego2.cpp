@@ -71,18 +71,23 @@ void Juego2::mainGame ()
   actorManager->add(loro);
 
   // Se añade el control del loro, al manejador de controles.
-  controlManager->add_control(loro->get_control());
+  controlManager->addControl(loro->getControl());
   
   // Se añade el periférico del loro que realizará el control.
-  controlManager->add_peripheral(loro->get_peripheral());
-
+  controlManager->addPeripheral(loro->getPeripheral());
 
   // Se usa una prueba de Ben.
   Ben *ben = new Ben(*storageManager);
   ben->set_x(220);
   ben->set_y(200);
   actorManager->add(ben);
-  loro->get_control()->set_owner(ben);  // Se usa el control del loro para probar a Ben.
+  loro->getControl()->setOwner(ben);  // Se usa el control del loro para probar a Ben.
+
+  // Prueba de AirCraft
+  AirCraft* nave = new AirCraft();
+  actorManager->add(nave);
+  loro->getControl()->setOwner(nave);
+
 
   // Se crea el 'EditorManager' básico para comenzar con las pruebas.
   EditorManager editorManager (this);
@@ -186,7 +191,7 @@ void Juego2::mainGame ()
       loro2->set_x(100);
       loro2->set_y(300);
       actorManager->add(loro2);
-      controlManager->add_control(loro2->get_control());
+      controlManager->addControl(loro2->getControl());
 
       // Prueba con sprite de Allegro.
       //Sprite *prueba = (Sprite *) loro2->get_actor_graphic();

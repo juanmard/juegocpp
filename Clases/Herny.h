@@ -15,7 +15,7 @@ class Herny : public ControllableActor
         /**
          * Redefinimos las acciones para este actor.
          */
-        typedef enum {DOWN, UP, LEFT, RIGHT, JUMP} action_t;
+        typedef enum {DOWN, UP, LEFT, RIGHT, JUMP} Action;
 
         /**
          * \todo    Generalizar los estados en una clase e incluirlos en la definicion general de "Actor".
@@ -25,7 +25,7 @@ class Herny : public ControllableActor
                             Herny               ();
                             Herny               (Almacen &almacen);
                             Herny               (const Herny &copia);    
-        void                do_action           (ControllableActor::action_t act, int magnitude);
+        void                doAction           (ControllableActor::Action act, int magnitude);
         void                CambiarEstado       ();
         void                CambiarEstado       (Almacen &almacen);
         void                ActualizarEstado    ();

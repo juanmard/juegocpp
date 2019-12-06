@@ -91,7 +91,7 @@ sentido(1)
 /**
  * \brief   Acciones del mago.
  */
-void Mago::do_action (ControllableActor::action_t act, int magnitude)
+void Mago::doAction (ControllableActor::Action act, int magnitude)
 {
   switch (act)
   {

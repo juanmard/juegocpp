@@ -8,12 +8,14 @@
 
 #include "Keyboard.h"
 
+namespace fwg {
+
 Keyboard::Keyboard()
 {
-    for (int i=0; i<KEY_MAX;i++) old_state[i]=key[i];
+    for (int i=0; i<KEY_MAX;i++) oldState[i]=key[i];
 };
 
-Peripheral::state_t Keyboard::get_state(state_t comp)
+Peripheral::State Keyboard::getState(State comp)
 {
     if (keyboard_needs_poll())
         poll_keyboard();
@@ -22,13 +24,13 @@ Peripheral::state_t Keyboard::get_state(state_t comp)
         return INVALID_STATE;
 };
 
-Peripheral::component_t Keyboard::get_change()
+Peripheral::Component Keyboard::getChange()
 {
     for (int i=0;i<KEY_MAX;i++)
     {
-        if (key[i]!=old_state[i])
+        if (key[i]!=oldState[i])
         {
-            old_state[i]=key[i];
+            oldState[i]=key[i];
             return i;
         }
     }
@@ -37,11 +39,11 @@ Peripheral::component_t Keyboard::get_change()
 
 void Keyboard::reset()
 {
-    for (int i=0; i<KEY_MAX;i++) old_state[i]=key[i];
+    for (int i=0; i<KEY_MAX;i++) oldState[i]=key[i];
 };
 
 /// @todo Queda por completar todos los nombres de los componentes del teclado.
-std::string Keyboard::get_component_name(component_t comp)
+std::string Keyboard::getComponentName (Component comp)
 {
     std::string ret;
 
@@ -55,3 +57,5 @@ std::string Keyboard::get_component_name(component_t comp)
     }
     return ret;
 };
+
+}

@@ -118,7 +118,7 @@ sentido(1)
 /**
  * \brief   Acciones de Ben.
  */
-void Ben::do_action (ControllableActor::action_t act, int magnitude)
+void Ben::doAction (ControllableActor::Action act, int magnitude)
 {
   // Se actualiza el estado según la acción a ejecutar.
   switch (act)
