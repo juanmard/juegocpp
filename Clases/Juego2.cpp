@@ -16,6 +16,7 @@
 #include "Juego2.h"
 #include "Mosaico.h"
 #include "Tesela.h"
+#include "Joystick.h"
 
 /// Prueba de guichan.
 #include <guichan.hpp>
@@ -83,11 +84,31 @@ void Juego2::mainGame ()
   actorManager->add(ben);
   loro->getControl()->setOwner(ben);  // Se usa el control del loro para probar a Ben.
 
-  // Prueba de AirCraft
+  //-------------------------------------------------
+  // Prueba de AirCraft y Joystick.
   AirCraft* nave = new AirCraft();
   actorManager->add(nave);
-  loro->getControl()->setOwner(nave);
 
+  // Se crea el control necesario para las acciones.
+  Control* control = new Control ();
+  control->addActionName (0, "Izquierda");
+  control->addActionName (1, "Derecha");
+  control->addActionName (2, "Arriba");
+  control->addActionName (3, "Abajo");
+  control->addActionName (4, "Saltar");
+  control->setOwner(nave);
+  controlManager->addControl(control);
+
+  // Se crea el periférico.
+  Joystick* joy = new Joystick();
+  controlManager->addPeripheral(joy);
+  
+  // Se asocian las acciones del control con el periférico.
+  control->setActionPeripheral (0, joy, 0, Peripheral::ON_PRESSING);
+  control->setActionPeripheral (1, joy, 1, Peripheral::ON_PRESSING);
+  control->setActionPeripheral (2, joy, 2, Peripheral::ON_PRESSING);
+  control->setActionPeripheral (3, joy, 3, Peripheral::ON_PRESSING);
+  control->setActionPeripheral (4, joy, 4, Peripheral::ON_PRESSING);
 
   // Se crea el 'EditorManager' básico para comenzar con las pruebas.
   EditorManager editorManager (this);

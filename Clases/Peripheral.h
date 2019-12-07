@@ -39,7 +39,8 @@ namespace fwg {
             /// Se define el tipo para los diferentes estados del componente.
             typedef int State;
 
-            /// Se define el tipo para identificar a los diferentes componentes del periférico.
+            /// Se define el tipo para identificar a los diferentes componentes
+            /// del periférico.
             typedef int Component;
 
             /// Constructor por defecto.
