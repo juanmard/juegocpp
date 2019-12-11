@@ -91,11 +91,11 @@ void Juego2::mainGame ()
 
   // Se crea el control necesario para las acciones.
   Control* control = new Control ();
-  control->addActionName (0, "Izquierda");
-  control->addActionName (1, "Derecha");
-  control->addActionName (2, "Arriba");
-  control->addActionName (3, "Abajo");
-  control->addActionName (4, "Saltar");
+  control->addActionName (AirCraft::LEFT, "Izquierda");
+  control->addActionName (AirCraft::RIGHT, "Derecha");
+  control->addActionName (AirCraft::UP, "Arriba");
+  control->addActionName (AirCraft::DOWN, "Abajo");
+  control->addActionName (4, "Disparar");
   control->setOwner(nave);
   controlManager->addControl(control);
 
@@ -104,11 +104,11 @@ void Juego2::mainGame ()
   controlManager->addPeripheral(joy);
   
   // Se asocian las acciones del control con el periférico.
-  control->setActionPeripheral (0, joy, 0, Peripheral::ON_PRESSING);
-  control->setActionPeripheral (1, joy, 1, Peripheral::ON_PRESSING);
-  control->setActionPeripheral (2, joy, 2, Peripheral::ON_PRESSING);
-  control->setActionPeripheral (3, joy, 3, Peripheral::ON_PRESSING);
-  control->setActionPeripheral (4, joy, 4, Peripheral::ON_PRESSING);
+  control->setActionPeripheral (AirCraft::LEFT, joy, Joystick::LEFT, Peripheral::ON_PRESSING);
+  control->setActionPeripheral (AirCraft::RIGHT, joy, Joystick::RIGHT, Peripheral::ON_PRESSING);
+  control->setActionPeripheral (AirCraft::UP, joy, Joystick::UP, Peripheral::ON_PRESSING);
+  control->setActionPeripheral (AirCraft::DOWN, joy, Joystick::DOWN, Peripheral::ON_PRESSING);
+  control->setActionPeripheral (4, joy, Joystick::BUTTON_1, Peripheral::ON_PRESSING);
 
   // Se crea el 'EditorManager' básico para comenzar con las pruebas.
   EditorManager editorManager (this);

@@ -29,11 +29,31 @@ namespace fwg {
     ///
     class Joystick : public Peripheral
     {
+        public:
+            enum {
+                   UP = 20,      ///< Joystick up.
+                   DOWN,         ///< Joystick down.
+                   LEFT,         ///< Joystick left.
+                   RIGHT,        ///< Joystick right.
+                   BUTTON_1 = 0, ///< Button 1.
+                   BUTTON_2,     ///< Button 2.
+                   BUTTON_3,     ///< Button 3.
+                   BUTTON_4,     ///< Button 4.
+                   BUTTON_5,     ///< Button 5.
+                   BUTTON_6,     ///< Button 6.
+                   BUTTON_7,     ///< Button 7.
+                   BUTTON_8,     ///< Button 8.
+                   BUTTON_9,     ///< Button 9.
+                   BUTTON_10,    ///< Button 10.                
+                   BUTTON_11,    ///< Button 11.                
+                   BUTTON_12     ///< Button 12.                
+                 } joyState;
+                 
         protected:
             /// @note Encontrar una forma de representar toda la estructura de
             ///       posibles componentes de un joystick.
             /// int oldState[MAX_JOYSTICKS+MAX_JOYSTICK_AXIS+MAX_JOYSTICK_BUTTONS]
-            int oldState[MAX_JOYSTICK_BUTTONS];
+            int oldState[MAX_JOYSTICK_BUTTONS+MAX_JOYSTICK_AXIS];
             int activos; ///< Número de joysticks activos.
             
         public:

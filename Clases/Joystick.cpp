@@ -38,6 +38,12 @@ namespace fwg {
         if (joy_left != 0) std::cout << "Stick LEFT - " << joy_left << std::endl; 
         if (joy_right != 0) std::cout << "Stick RIGHT - " << joy_right << std::endl; 
         
+        /// Prueba de componente, damos prioridad al componente stick.
+        if ((joy_up != 0) && (comp == UP)) return TRUE;
+        if ((joy_down != 0) && (comp == DOWN)) return TRUE;
+        if ((joy_left !=0) && (comp == LEFT)) return TRUE;
+        if ((joy_right != 0) && (comp == RIGHT)) return TRUE;
+        
         // Pruebas de botón.
         if (joy[0].button[comp].b)
         {
