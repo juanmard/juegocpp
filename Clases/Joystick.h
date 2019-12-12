@@ -10,28 +10,38 @@
 #ifndef _JOYSTICK_H_
 #define _JOYSTICK_H_
 
-#include <allegro.h>
+#include <vector>
 #include "Peripheral.h"
 
 namespace fwg {
     
+    /// Clase para los ejes de un joystick.
+    /// 
+    class JoyAxi{public: int d1,d2;};
+    
+    /// Clase para los botones de un joystick.
+    /// 
+    class JoyButton{public: bool b; int value;};
+    
     /// Define el comportamiento del joystick como un periférico.
     /// 
     /// @todo Cosas por terminar en esta clase:
-    ///        - Eliminar referencias de Allegro y hacer más genérica
-    ///          la clase.
     ///        - Completar todos los nombres de los componentes del
-    ///          teclado en el método 'getComponentName'.
+    ///          joystick en el método 'getComponentName'.
     ///        - Establecer la numeración de los componentes y los estados
     ///          de todos los joysticks y ejes posibles, así como los 'oldState'
     ///          de todos. Actualmente el componente está definido como un entero,
     ///          así como sus estados.
+    ///        - Definir por separado el enumeral de botones y ejes.
     ///
     class Joystick : public Peripheral
     {
-        public:
+    public:
+            /// @note Estos pueden definirse por separado para
+            ///       las clases "JoyAxis" y "JoyButtons"
             enum {
-                   UP = 20,      ///< Joystick up.
+                   NONE = 20,    ///< Joystick without state.
+                   UP,            ///< Joystick up.
                    DOWN,         ///< Joystick down.
                    LEFT,         ///< Joystick left.
                    RIGHT,        ///< Joystick right.
@@ -49,12 +59,16 @@ namespace fwg {
                    BUTTON_12     ///< Button 12.                
                  } joyState;
                  
+        public:
+            static int activos;                 ///< Número de joysticks activos.
+
         protected:
-            /// @note Encontrar una forma de representar toda la estructura de
-            ///       posibles componentes de un joystick.
-            /// int oldState[MAX_JOYSTICKS+MAX_JOYSTICK_AXIS+MAX_JOYSTICK_BUTTONS]
-            int oldState[MAX_JOYSTICK_BUTTONS+MAX_JOYSTICK_AXIS];
-            int activos; ///< Número de joysticks activos.
+            std::vector<JoyAxi> axis;           ///< Set of axis.
+            std::vector<JoyButton> buttons;     ///< Set of buttons.
+            std::vector<int> oldStateAxis;      ///< Old state of axis.
+            std::vector<bool> oldStateButtons;  ///< Old state of buttons.
+            unsigned int numAxis;               ///< Número de ejes detectados del joystick.
+            unsigned int numButtons;            ///< Número de botones detectados del joystick.
             
         public:
             /// Constructor por defecto.
@@ -81,16 +95,34 @@ namespace fwg {
             ///
             std::string getComponentName (Component comp);
 
-            /// Inicializa el teclado.
+            /// Inicializa el joystick.
             ///
             void reset ();
             
-        private:
+        protected:
             /// Instala el joystick en el motor gráfico.
             /// 
-            void install ();
+            /// @return Devuelve 'true' si se ha realizado la instalación
+            ///         correctamente.
+            /// 
+            virtual bool install ();
+            
+            /// Obtiene el número máximo de botones.
+            /// 
+            /// @return Número máximo de botones para este joystick.
+            /// 
+            virtual unsigned int getNumButtons ();
 
-
+            /// Obtiene el número máximo de ejes.
+            /// 
+            /// @return Número máximo de ejes para este joystick.
+            /// 
+            virtual unsigned int getNumAxis ();
+            
+            /// Refresca los datos del joystick.
+            /// 
+            virtual void update ();
+            
     };
 }
 

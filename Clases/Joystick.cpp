@@ -12,43 +12,67 @@
 
 namespace fwg {
 
+    /// Se inicializa la variable de clase.
+    /// 
+    int Joystick::activos = 0;
+    
     Joystick::Joystick()
     {
-        /// @warning Puede que intente instalar más de una vez si se
-        ///          crean más de un objeto de tipo joystick.
-        install ();
+        /// Se instala/detecta el joystick.
+        /// @todo Comprobar el joystick para no instalarlo
+        ///       más de una vez. (¿Dando un nombre al objeto Joystick?)
+        ///       
+        if (install ())
+        {
+            /// @todo Comprobar que el joystick se a instalado correctamente.
+            /// 
+            numAxis = getNumAxis();
+            numButtons= getNumButtons();
+            
+            /// Redimensionamos vectores según el tipo de joystick.
+            /// 
+            axis.resize(numAxis);
+            buttons.resize(numButtons);
+            oldStateAxis.resize(numAxis);
+            oldStateButtons.resize(numButtons);
+            
+            /// Se resetea los valores de los vectores.
+            /// @todo Definir un reset individual como método para las
+            ///       clases "JoyAxis" y "JoyButtons"
+            ///       
+            reset();
+        }
+        else
+        {
+            std::cout << "No utilice directamente un objeto 'Joystick'." << std::endl;
+        }
     }
 
-    void Joystick::install ()
+    bool Joystick::install ()
     {
-        if (install_joystick (JOY_TYPE_AUTODETECT) == 0)
-        {
-            activos = num_joysticks;
-            std::cout << "Joystick instalado. Activos: " << activos << std::endl;
-        }
+         return false;
     }
     
     Peripheral::State Joystick::getState(State comp)
     {
-        poll_joystick();
+        update ();
         
-        // Pruebas de stick.
-        if (joy_up != 0) std::cout << "Stick UP - " << joy_up << std::endl; 
-        if (joy_down != 0) std::cout << "Stick DOWN - " << joy_down << std::endl; 
-        if (joy_left != 0) std::cout << "Stick LEFT - " << joy_left << std::endl; 
-        if (joy_right != 0) std::cout << "Stick RIGHT - " << joy_right << std::endl; 
+        if (axis[1].d1 != 0) std::cout << "Stick UP" << std::endl;
+        if (axis[1].d2 != 0) std::cout << "Stick DOWN" << std::endl; 
+        if (axis[0].d2 != 0) std::cout << "Stick RIGHT" << std::endl; 
+        if (axis[0].d1 != 0) std::cout << "Stick LEFT" << std::endl; 
         
         /// Prueba de componente, damos prioridad al componente stick.
-        if ((joy_up != 0) && (comp == UP)) return TRUE;
-        if ((joy_down != 0) && (comp == DOWN)) return TRUE;
-        if ((joy_left !=0) && (comp == LEFT)) return TRUE;
-        if ((joy_right != 0) && (comp == RIGHT)) return TRUE;
+        if ((axis[1].d1 != 0) && (comp == UP)) return true;
+        if ((axis[1].d2 != 0) && (comp == DOWN)) return true;
+        if ((axis[0].d2 != 0) && (comp == RIGHT)) return true;
+        if ((axis[0].d1 != 0) && (comp == LEFT)) return true;
         
         // Pruebas de botón.
-        if (joy[0].button[comp].b)
+        if ( (buttons[comp].b) && (comp < static_cast<int>(numButtons)) )
         {
-            std::cout << "Botón " << comp << " - " << joy[0].button[comp].name << std::endl;
-            return TRUE;
+            std::cout << "Botón " << comp << " - " << buttons[comp].b << std::endl;
+            return true;
         }
         else
             return INVALID_STATE;
@@ -56,11 +80,11 @@ namespace fwg {
 
     Peripheral::Component Joystick::getChange()
     {
-        for (int i=0;i<MAX_JOYSTICK_BUTTONS;i++)
+        for (unsigned int i=0; i < numButtons; i++)
         {
-            if (joy[0].button[i].b != oldState[i])
+            if (buttons[i].b != oldStateButtons[i])
             {
-                oldState[i] = joy[0].button[i].b;
+                oldStateButtons[i] = buttons[i].b;
                 return i;
             }
         }
@@ -69,7 +93,18 @@ namespace fwg {
 
     void Joystick::reset()
     {
-        for (int i=0; i<MAX_JOYSTICK_BUTTONS;i++) oldState[i]=joy[0].button[i].b;
+        for (unsigned int i=0; i<numAxis; i++)
+        {
+            axis[i].d1=0;
+            axis[i].d2=0;
+        }
+        for (unsigned int i=0; i<numButtons; i++)
+        {
+            buttons[i].b = false;
+            buttons[i].value = 0;
+        }
+        for (unsigned int i=0; i<numAxis; i++) oldStateAxis[i]=0;
+        for (unsigned int i=0; i<numButtons; i++) oldStateButtons[i]=false;
     }
 
     std::string Joystick::getComponentName (Component comp)
@@ -78,9 +113,33 @@ namespace fwg {
 
         switch (comp)
         {
+            case NONE:     ret="None"; break;
+            case UP:       ret="Up"; break;
+            case DOWN:     ret="Down"; break;
+            case LEFT:     ret="Left"; break;
+            case RIGHT:    ret="Right"; break;
+            case BUTTON_1: ret="Button 1"; break;
+            case BUTTON_2: ret="Button 2"; break;
+            case BUTTON_3: ret="Button 3"; break;
+            case BUTTON_4: ret="Button 4"; break;
+            case BUTTON_5: ret="Button 5"; break;
+            case BUTTON_6: ret="Button 6"; break;
             default:       ret="Sin nombre"; break;
         }
         return ret;
     }
     
+    unsigned int Joystick::getNumAxis ()
+    {
+        return 0;
+    }
+
+    unsigned int Joystick::getNumButtons ()
+    {
+        return 0;
+    }
+    
+    void Joystick::update ()
+    {       
+    }
 }

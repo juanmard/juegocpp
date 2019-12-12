@@ -12,6 +12,7 @@
 
 #include <string>
 
+//#define TRUE                true
 #define INVALID_STATE       -2
 #define INVALID_COMPONENT   -2
 

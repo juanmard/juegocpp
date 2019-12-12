@@ -16,7 +16,6 @@
 #include "Juego2.h"
 #include "Mosaico.h"
 #include "Tesela.h"
-#include "Joystick.h"
 
 /// Prueba de guichan.
 #include <guichan.hpp>
@@ -28,6 +27,7 @@
 
 /// Clases de Allegro 4
 #include "allegro/TimerAllegro.h"
+#include "allegro/JoystickAllegro.h"
 
 
 namespace fwg {
@@ -100,34 +100,37 @@ void Juego2::mainGame ()
   controlManager->addControl(control);
 
   // Se crea el periférico.
-  Joystick* joy = new Joystick();
+  Joystick* joy = new alg4::JoystickAllegro();
+  Joystick* joy2 = new alg4::JoystickAllegro();
   controlManager->addPeripheral(joy);
   
   // Se asocian las acciones del control con el periférico.
-  control->setActionPeripheral (AirCraft::LEFT, joy, Joystick::LEFT, Peripheral::ON_PRESSING);
-  control->setActionPeripheral (AirCraft::RIGHT, joy, Joystick::RIGHT, Peripheral::ON_PRESSING);
-  control->setActionPeripheral (AirCraft::UP, joy, Joystick::UP, Peripheral::ON_PRESSING);
-  control->setActionPeripheral (AirCraft::DOWN, joy, Joystick::DOWN, Peripheral::ON_PRESSING);
-  control->setActionPeripheral (4, joy, Joystick::BUTTON_1, Peripheral::ON_PRESSING);
+  control->setActionPeripheral (AirCraft::LEFT,  joy, Joystick::LEFT,     Peripheral::ON_PRESSING);
+  control->setActionPeripheral (AirCraft::RIGHT, joy, Joystick::RIGHT,    Peripheral::ON_PRESSING);
+  control->setActionPeripheral (AirCraft::UP,    joy, Joystick::UP,       Peripheral::ON_PRESSING);
+  control->setActionPeripheral (AirCraft::DOWN,  joy, Joystick::DOWN,     Peripheral::ON_PRESSING);
+  control->setActionPeripheral (4,               joy, Joystick::BUTTON_1, Peripheral::ON_PRESSING);
 
   // Se crea el 'EditorManager' básico para comenzar con las pruebas.
   EditorManager editorManager (this);
 
   // Mostramos un breve mensaje en consola sobre las teclas de prueba.
-  std::cout << "----------------------------------" << std::endl;
-  std::cout << "----    Teclas básicas        ----" << std::endl;
-  std::cout << "----------------------------------" << std::endl << std::endl;
-  std::cout << " P - Pausa el juego." << std::endl;
-  std::cout << " E - Entra en modo edición." << std::endl;
-  std::cout << " S - Se activa el seguimiento del jugador." << std::endl;
+  std::cout << "-------------------------------------------" << std::endl;
+  std::cout << "----         Teclas básicas            ----" << std::endl;
+  std::cout << "-------------------------------------------" << std::endl
+                                                             << std::endl;
+  std::cout << " P - Pausa el juego."                        << std::endl;
+  std::cout << " E - Entra en modo edición."                 << std::endl;
+  std::cout << " S - Se activa el seguimiento del jugador."  << std::endl;
   std::cout << " T - Realiza una prueba de gráficos Bitmap." << std::endl;
-  std::cout << " V - Visualiza los bloques de los actores." << std::endl;
-  std::cout << " G - Pruebas de GUI para Sprites'." << std::endl;
-  std::cout << " F - Prueba de letras." << std::endl;
-  std::cout << " M - Prueba de mapas de actores." << std::endl;
-  std::cout << " I - Consola interactiva." << std::endl;
-  std::cout << " ESC - Termina el juego." << std::endl;
-  std::cout << "----------------------------------" << std::endl << std::endl;
+  std::cout << " V - Visualiza los bloques de los actores."  << std::endl;
+  std::cout << " G - Pruebas de GUI para Sprites'."          << std::endl;
+  std::cout << " F - Prueba de letras."                      << std::endl;
+  std::cout << " M - Prueba de mapas de actores."            << std::endl;
+  std::cout << " I - Consola interactiva."                   << std::endl;
+  std::cout << " ESC - Termina el juego."                    << std::endl;
+  std::cout << "-------------------------------------------" << std::endl
+                                                             << std::endl;
 
   // Simulamos la G.
   //key[KEY_G]=true;
