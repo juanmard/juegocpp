@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="juegocpp" Version="10.0.0" InternalType="Console">
   <VirtualDirectory Name="guichan">
+    <VirtualDirectory Name="allegro">
+      <File Name="../../guichan/src/allegro/allegroinput.cpp"/>
+      <File Name="../../guichan/src/allegro/allegroimageloader.cpp"/>
+      <File Name="../../guichan/src/allegro/allegroimage.cpp"/>
+      <File Name="../../guichan/src/allegro/allegrographics.cpp"/>
+      <File Name="../../guichan/src/allegro/allegrofont.cpp"/>
+      <File Name="../../guichan/src/allegro/allegro.cpp"/>
+    </VirtualDirectory>
     <File Name="../../guichan/src/widget.cpp"/>
     <File Name="../../guichan/src/text.cpp"/>
     <File Name="../../guichan/src/selectionevent.cpp"/>
@@ -27,19 +35,14 @@
     <File Name="../../guichan/src/cliprectangle.cpp"/>
     <File Name="../../guichan/src/actionevent.cpp"/>
   </VirtualDirectory>
-  <VirtualDirectory Name="allegro">
-    <File Name="../../guichan/src/allegro/allegrofont.cpp"/>
-    <File Name="../../guichan/src/allegro/allegrographics.cpp"/>
-    <File Name="../../guichan/src/allegro/allegroimageloader.cpp"/>
-    <File Name="../../guichan/src/allegro/allegroimage.cpp"/>
-    <File Name="../../guichan/src/allegro/allegro.cpp"/>
-    <File Name="../../guichan/src/allegro/allegroinput.cpp"/>
-    <File Name="../Clases/allegro/JoystickAllegro.cpp"/>
-    <File Name="../Clases/allegro/SpriteAllegro.h"/>
-    <File Name="../Clases/allegro/JoystickAllegro.h"/>
-    <File Name="../Clases/allegro/TimerAllegro.cpp"/>
+  <VirtualDirectory Name="alg4">
     <File Name="../Clases/allegro/TimerAllegro.h"/>
+    <File Name="../Clases/allegro/TimerAllegro.cpp"/>
+    <File Name="../Clases/allegro/SpriteAllegro.h"/>
     <File Name="../Clases/allegro/SpriteAllegro.cpp"/>
+    <File Name="../Clases/allegro/JoystickAllegro.h"/>
+    <File Name="../Clases/allegro/JoystickAllegro.cpp"/>
+    <VirtualDirectory Name="alg4"/>
   </VirtualDirectory>
   <VirtualDirectory Name="gui">
     <File Name="../Clases/gui/MenuGUI.cpp" ExcludeProjConfig="Debug;"/>
@@ -106,7 +109,6 @@
     <File Name="../Clases/Mask.cpp"/>
     <File Name="../Clases/Mapa.h"/>
     <File Name="../Clases/Mapa.cpp"/>
-    <File Name="../Clases/Makefile" ExcludeProjConfig="Debug;"/>
     <File Name="../Clases/Mago.h"/>
     <File Name="../Clases/Mago.cpp"/>
     <File Name="../Clases/Loro.h"/>
