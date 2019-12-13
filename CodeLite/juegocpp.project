@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Project Name="juegocpp" Version="10.0.0" InternalType="Console">
+  <VirtualDirectory Name="guichan">
+    <File Name="../../guichan/src/widget.cpp"/>
+    <File Name="../../guichan/src/text.cpp"/>
+    <File Name="../../guichan/src/selectionevent.cpp"/>
+    <File Name="../../guichan/src/rectangle.cpp"/>
+    <File Name="../../guichan/src/mouseinput.cpp"/>
+    <File Name="../../guichan/src/mouseevent.cpp"/>
+    <File Name="../../guichan/src/keyinput.cpp"/>
+    <File Name="../../guichan/src/keyevent.cpp"/>
+    <File Name="../../guichan/src/key.cpp"/>
+    <File Name="../../guichan/src/inputevent.cpp"/>
+    <File Name="../../guichan/src/imagefont.cpp"/>
+    <File Name="../../guichan/src/image.cpp"/>
+    <File Name="../../guichan/src/guichan.cpp"/>
+    <File Name="../../guichan/src/gui.cpp"/>
+    <File Name="../../guichan/src/graphics.cpp"/>
+    <File Name="../../guichan/src/genericinput.cpp"/>
+    <File Name="../../guichan/src/font.cpp"/>
+    <File Name="../../guichan/src/focushandler.cpp"/>
+    <File Name="../../guichan/src/exception.cpp"/>
+    <File Name="../../guichan/src/event.cpp"/>
+    <File Name="../../guichan/src/defaultfont.cpp"/>
+    <File Name="../../guichan/src/containerevent.cpp"/>
+    <File Name="../../guichan/src/color.cpp"/>
+    <File Name="../../guichan/src/cliprectangle.cpp"/>
+    <File Name="../../guichan/src/actionevent.cpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="allegro">
+    <File Name="../../guichan/src/allegro/allegrofont.cpp"/>
+    <File Name="../../guichan/src/allegro/allegrographics.cpp"/>
+    <File Name="../../guichan/src/allegro/allegroimageloader.cpp"/>
+    <File Name="../../guichan/src/allegro/allegroimage.cpp"/>
+    <File Name="../../guichan/src/allegro/allegro.cpp"/>
+    <File Name="../../guichan/src/allegro/allegroinput.cpp"/>
+    <File Name="../Clases/allegro/JoystickAllegro.cpp"/>
+    <File Name="../Clases/allegro/SpriteAllegro.h"/>
+    <File Name="../Clases/allegro/JoystickAllegro.h"/>
+    <File Name="../Clases/allegro/TimerAllegro.cpp"/>
+    <File Name="../Clases/allegro/TimerAllegro.h"/>
+    <File Name="../Clases/allegro/SpriteAllegro.cpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="gui">
+    <File Name="../Clases/gui/MenuGUI.cpp" ExcludeProjConfig="Debug;"/>
+    <File Name="../Clases/gui/MenuGUI.hpp" ExcludeProjConfig="Debug;"/>
+    <File Name="../Clases/gui/VectorGUI.hpp" ExcludeProjConfig="Debug;"/>
+    <File Name="../Clases/gui/EscenarioGUI.cpp" ExcludeProjConfig="Debug;"/>
+    <File Name="../Clases/gui/ActorGUI.hpp" ExcludeProjConfig="Debug;"/>
+    <File Name="../Clases/gui/Escenario.cpp" ExcludeProjConfig="Debug;"/>
+    <File Name="../Clases/gui/EscenarioGUI.hpp" ExcludeProjConfig="Debug;"/>
+    <File Name="../Clases/gui/VectorGUI.cpp" ExcludeProjConfig="Debug;"/>
+    <File Name="../Clases/gui/ActorGUI.cpp" ExcludeProjConfig="Debug;"/>
+    <File Name="../Clases/gui/Escenario.hpp" ExcludeProjConfig="Debug;"/>
+    <File Name="../Clases/gui/SpriteGUI.cpp" ExcludeProjConfig="Debug;"/>
+    <File Name="../Clases/gui/SpriteGUI.hpp" ExcludeProjConfig="Debug;"/>
+  </VirtualDirectory>
+  <Description/>
+  <Dependencies/>
+  <VirtualDirectory Name="frame work">
+    <File Name="../Clases/VentanaALG.h"/>
+    <File Name="../Clases/VentanaALG.cpp"/>
+    <File Name="../Clases/VectorGUI2.h"/>
+    <File Name="../Clases/VectorGUI2.cpp"/>
+    <File Name="../Clases/Vector2Di.h"/>
+    <File Name="../Clases/Vector2Di.cpp"/>
+    <File Name="../Clases/Vector2Df.h"/>
+    <File Name="../Clases/Vector2Df.cpp"/>
+    <File Name="../Clases/Timer.h"/>
+    <File Name="../Clases/Timer.cpp"/>
+    <File Name="../Clases/TextALG.h"/>
+    <File Name="../Clases/TextALG.cpp"/>
+    <File Name="../Clases/Tesela.h"/>
+    <File Name="../Clases/Tesela.cpp"/>
+    <File Name="../Clases/Suelo.h"/>
+    <File Name="../Clases/Suelo.cpp"/>
+    <File Name="../Clases/StageManager.h"/>
+    <File Name="../Clases/StageManager.cpp"/>
+    <File Name="../Clases/Sprite.h"/>
+    <File Name="../Clases/Sprite.cpp"/>
+    <File Name="../Clases/SoundManager.h"/>
+    <File Name="../Clases/SoundManager.cpp"/>
+    <File Name="../Clases/ReadableObject.h"/>
+    <File Name="../Clases/ReadableObject.cpp"/>
+    <File Name="../Clases/PrintableObject.h"/>
+    <File Name="../Clases/PrintableObject.cpp"/>
+    <File Name="../Clases/Plataforma.h"/>
+    <File Name="../Clases/Plataforma.cpp"/>
+    <File Name="../Clases/PhysicObject.h"/>
+    <File Name="../Clases/PhysicObject.cpp"/>
+    <File Name="../Clases/Peripheral.h"/>
+    <File Name="../Clases/Peripheral.cpp"/>
+    <File Name="../Clases/Pelota.h"/>
+    <File Name="../Clases/Pelota.cpp"/>
+    <File Name="../Clases/Paleta.h"/>
+    <File Name="../Clases/Paleta.cpp"/>
+    <File Name="../Clases/Nombres.h"/>
+    <File Name="../Clases/Nombres.cpp"/>
+    <File Name="../Clases/Mosaico.h"/>
+    <File Name="../Clases/Mosaico.cpp"/>
+    <File Name="../Clases/MenuALG.h"/>
+    <File Name="../Clases/MenuALG.cpp"/>
+    <File Name="../Clases/Menu.h"/>
+    <File Name="../Clases/Menu.cpp"/>
+    <File Name="../Clases/Mask.h"/>
+    <File Name="../Clases/Mask.cpp"/>
+    <File Name="../Clases/Mapa.h"/>
+    <File Name="../Clases/Mapa.cpp"/>
+    <File Name="../Clases/Makefile" ExcludeProjConfig="Debug;"/>
+    <File Name="../Clases/Mago.h"/>
+    <File Name="../Clases/Mago.cpp"/>
+    <File Name="../Clases/Loro.h"/>
+    <File Name="../Clases/Loro.cpp"/>
+    <File Name="../Clases/LadrilloGUI.h"/>
+    <File Name="../Clases/LadrilloGUI.cpp"/>
+    <File Name="../Clases/Ladrillo.h"/>
+    <File Name="../Clases/Ladrillo.cpp"/>
+    <File Name="../Clases/Keyboard.h"/>
+    <File Name="../Clases/Keyboard.cpp"/>
+    <File Name="../Clases/JuegoPrueba.h"/>
+    <File Name="../Clases/Juego2.h"/>
+    <File Name="../Clases/Juego2.cpp"/>
+    <File Name="../Clases/Joystick.h"/>
+    <File Name="../Clases/Joystick.cpp"/>
+    <File Name="../Clases/ItemALG.h"/>
+    <File Name="../Clases/ItemALG.cpp"/>
+    <File Name="../Clases/Herny.h"/>
+    <File Name="../Clases/Herny.cpp"/>
+    <File Name="../Clases/GUIVector.h"/>
+    <File Name="../Clases/GUIVector.cpp"/>
+    <File Name="../Clases/GUIEscenario.h"/>
+    <File Name="../Clases/GUIEscenario.cpp"/>
+    <File Name="../Clases/GUIControl.h"/>
+    <File Name="../Clases/GUIControl.cpp"/>
+    <File Name="../Clases/GUIContador.h"/>
+    <File Name="../Clases/GUIContador.cpp"/>
+    <File Name="../Clases/Game.h"/>
+    <File Name="../Clases/Game.cpp"/>
+    <File Name="../Clases/Frame.h"/>
+    <File Name="../Clases/Frame.cpp"/>
+    <File Name="../Clases/Formulario.h"/>
+    <File Name="../Clases/Formulario.cpp"/>
+    <File Name="../Clases/EscenarioGUI2.h"/>
+    <File Name="../Clases/EscenarioGUI2.cpp"/>
+    <File Name="../Clases/Escenario.h"/>
+    <File Name="../Clases/Escenario.cpp"/>
+    <File Name="../Clases/EditorManager.h"/>
+    <File Name="../Clases/EditorManager.cpp"/>
+    <File Name="../Clases/EditableObject.h"/>
+    <File Name="../Clases/DlgActor.h"/>
+    <File Name="../Clases/DlgActor.cpp"/>
+    <File Name="../Clases/DirectorActor.h"/>
+    <File Name="../Clases/DirectorActor.cpp"/>
+    <File Name="../Clases/DialogALG.h"/>
+    <File Name="../Clases/DialogALG.cpp"/>
+    <File Name="../Clases/Dialog.h"/>
+    <File Name="../Clases/Dialog.cpp"/>
+    <File Name="../Clases/DatFile.h"/>
+    <File Name="../Clases/DatFile.cpp"/>
+    <File Name="../Clases/ctlSprite.h" ExcludeProjConfig="Debug;"/>
+    <File Name="../Clases/ctlSprite.cpp" ExcludeProjConfig="Debug;"/>
+    <File Name="../Clases/ctlObject.h" ExcludeProjConfig="Debug;"/>
+    <File Name="../Clases/ctlObject.cpp" ExcludeProjConfig="Debug;"/>
+    <File Name="../Clases/ControlManager.h"/>
+    <File Name="../Clases/ControlManager.cpp"/>
+    <File Name="../Clases/ControllableObject.h"/>
+    <File Name="../Clases/ControllableActor.h"/>
+    <File Name="../Clases/ControllableActor.cpp"/>
+    <File Name="../Clases/ControlALG.h"/>
+    <File Name="../Clases/ControlALG.cpp"/>
+    <File Name="../Clases/Control.h"/>
+    <File Name="../Clases/Control.cpp"/>
+    <File Name="../Clases/ContadorGUI.h"/>
+    <File Name="../Clases/ContadorGUI.cpp"/>
+    <File Name="../Clases/CollisionManager.h"/>
+    <File Name="../Clases/CollisionManager.cpp"/>
+    <File Name="../Clases/BoxALG.h"/>
+    <File Name="../Clases/BoxALG.cpp"/>
+    <File Name="../Clases/Bloque.h"/>
+    <File Name="../Clases/Bloque.cpp"/>
+    <File Name="../Clases/Bitmap.h"/>
+    <File Name="../Clases/Bitmap.cpp"/>
+    <File Name="../Clases/Ben.h"/>
+    <File Name="../Clases/Ben.cpp"/>
+    <File Name="../Clases/BaseALG.h"/>
+    <File Name="../Clases/BaseALG.cpp"/>
+    <File Name="../Clases/AlmacenGUI.h"/>
+    <File Name="../Clases/AlmacenGUI.cpp"/>
+    <File Name="../Clases/Almacen.h"/>
+    <File Name="../Clases/Almacen.cpp"/>
+    <File Name="../Clases/AirCraft.h"/>
+    <File Name="../Clases/AirCraft.cpp"/>
+    <File Name="../Clases/ActorManager.h"/>
+    <File Name="../Clases/ActorManager.cpp"/>
+    <File Name="../Clases/ActorGUI2.h"/>
+    <File Name="../Clases/ActorGUI2.cpp"/>
+    <File Name="../Clases/ActorGraphic.h"/>
+    <File Name="../Clases/ActorGraphic.cpp"/>
+    <File Name="../Clases/Actor.h"/>
+    <File Name="../Clases/Actor.cpp"/>
+  </VirtualDirectory>
+  <Settings Type="Executable">
+    <GlobalSettings>
+      <Compiler Options="" C_Options="" Assembler="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+    <Configuration Name="Debug" CompilerType="GCC" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-Wall" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="../../guichan/include"/>
+      </Compiler>
+      <Linker Options="-L/usr/lib/i386-linux-gnu -lalleg" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Debug" Command="/home/juanma/Proyectos/juego-framework/CodeLite/Debug/juegocpp" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../Extras" PauseExecWhenProcTerminates="no" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="Default"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="Release" CompilerType="GCC" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-O2;-Wall" C_Options="-O2;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+        <Preprocessor Value="NDEBUG"/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Release" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="Default"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+  </Settings>
+</CodeLite_Project>

@@ -17,7 +17,7 @@ ActorGUI::ActorGUI ()
     this->init ();
 };
 
-ActorGUI::ActorGUI (Actor* actorEditar)
+ActorGUI::ActorGUI (fwg::Actor* actorEditar)
 {
     // Inicializa en vacío.
     this->init ();
@@ -36,7 +36,7 @@ ActorGUI::~ActorGUI ()
 {
 };
 
-void ActorGUI::setActor (Actor* nuevoActor)
+void ActorGUI::setActor (fwg::Actor* nuevoActor)
 {
     actor = nuevoActor;
 };

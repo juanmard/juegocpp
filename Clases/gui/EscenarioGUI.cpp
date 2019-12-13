@@ -11,7 +11,7 @@
 namespace gui
 {
 
-EscenarioGUI::EscenarioGUI (StageManager* param)
+EscenarioGUI::EscenarioGUI (fwg::StageManager* param)
 {
     // Se reserva el puntero de representación del escenario.
     stage_manager = param;

@@ -22,10 +22,10 @@ class GCN_CORE_DECLSPEC EscenarioGUI :
     public:
         /// Constructor por defecto de la GUI del escenario.
         /// @note No asigna el escenario que se desea editar.
-                EscenarioGUI ();
+        EscenarioGUI ();
 
         /// Constructor básico de la GUI.
-                ///EscenarioGUI (Actor* actor);
+        ///EscenarioGUI (Actor* actor);
 
         /// Destructor del editor del escenario.
         ///virtual ~EscenarioGUI ();

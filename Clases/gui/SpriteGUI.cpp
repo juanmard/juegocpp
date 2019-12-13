@@ -18,7 +18,7 @@
 namespace gui
 {
 
-SpriteGUI::SpriteGUI (Sprite* sprite_editar):
+SpriteGUI::SpriteGUI (fwg::Sprite* sprite_editar):
     sprite(sprite_editar),
     etiqueta(new gcn::Label ("GUI Sprite")),
     add_frame (new gcn::Button ("Añadir")),
@@ -92,7 +92,7 @@ SpriteGUI::SpriteGUI (Sprite* sprite_editar):
     prueba_menu->addActionListener (this);
 };
 
-const std::string &SpriteGUI::getCaption () const
+const std::string& SpriteGUI::getCaption () const
 {
     return etiqueta->getCaption ();
 };

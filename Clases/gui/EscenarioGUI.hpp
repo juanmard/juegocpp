@@ -24,7 +24,7 @@ class GCN_CORE_DECLSPEC EscenarioGUI :
     public:
         /// Constructor por defecto de la GUI del escenario.
         /// @note No asigna el escenario que se desea editar.
-                EscenarioGUI (fwg::StageManager* param);
+        EscenarioGUI (fwg::StageManager* param);
 
         /// Constructor básico de la GUI.
                 ///EscenarioGUI (fwg::Actor* actor);
