@@ -8,6 +8,9 @@
 
 #include "Loro.h"
 #include "Keyboard.h"
+#include "Control.h"
+
+namespace fwg {
 
 Loro::Loro ():
 ControllableActor (),
@@ -56,22 +59,22 @@ kboard (new Keyboard())
 
     // Se crea el control necesario para las acciones del loro.
     control = new Control ();
-    control->add_action_name (LEFT,  "Izquierda");
-    control->add_action_name (RIGHT, "Derecha");
-    control->add_action_name (UP,    "Arriba");
-    control->add_action_name (DOWN,  "Abajo");
-    control->add_action_name (JUMP,  "Saltar");
-    control->set_owner(this);
+    control->addActionName (LEFT,  "Izquierda");
+    control->addActionName (RIGHT, "Derecha");
+    control->addActionName (UP,    "Arriba");
+    control->addActionName (DOWN,  "Abajo");
+    control->addActionName (JUMP,  "Saltar");
+    control->setOwner(this);
 
     // Se va a usar el teclado como único periférico para el loro.
-    control->set_actionperipheral (UP,    kboard,  KEY_UP,    Peripheral::ON_PRESSING);
-    control->set_actionperipheral (DOWN,  kboard,  KEY_DOWN,  Peripheral::ON_PRESSING);
-    control->set_actionperipheral (LEFT,  kboard,  KEY_LEFT,  Peripheral::ON_PRESSING);
-    control->set_actionperipheral (RIGHT, kboard,  KEY_RIGHT, Peripheral::ON_PRESSING);
-    control->set_actionperipheral (JUMP,  kboard,  KEY_A,     Peripheral::ON_PRESS);
+    control->setActionPeripheral (UP,    kboard,  KEY_UP,    Peripheral::ON_PRESSING);
+    control->setActionPeripheral (DOWN,  kboard,  KEY_DOWN,  Peripheral::ON_PRESSING);
+    control->setActionPeripheral (LEFT,  kboard,  KEY_LEFT,  Peripheral::ON_PRESSING);
+    control->setActionPeripheral (RIGHT, kboard,  KEY_RIGHT, Peripheral::ON_PRESSING);
+    control->setActionPeripheral (JUMP,  kboard,  KEY_A,     Peripheral::ON_PRESS);
 };
 
-void Loro::do_action (ControllableActor::action_t act, int magnitude)
+void Loro::doAction (ControllableActor::Action act, int magnitude)
 {
     switch(act)
     {
@@ -133,7 +136,7 @@ std::string Loro::getNombre () const
     return "Loro";
 };
 
-Peripheral* Loro::get_peripheral () const
+Peripheral* Loro::getPeripheral () const
 {
     return kboard;
 };
@@ -186,3 +189,4 @@ void Loro::hit (Actor* who, int damage)
     };
 };
 
+}

@@ -13,35 +13,35 @@
 #include "ActorGraphic.h"
 #include "StageManager.h"
 #include "Dialog.h"
-#include "ActorGUI.h"
 
-#include "Suelo.h"      ///< A modo de prueba. Eliminar.
+// Prueba a eliminar.
+#include "Suelo.h"
 
-ActorGUI *Actor::gui = NULL;
+namespace fwg
+{
 
 Actor::Actor():
-agraph(NULL),
-tiempo_estado(0),
-estado(0),
-mostrarBloque (false),
-wait_graph(NULL)
+            agraph(NULL),
+            tiempo_estado(0),
+            estado(0),
+            mostrarBloque (false),
+            wait_graph(NULL)
 {
 };
 
 Actor::Actor(const Actor &copia):
-//~ agraph(copia.agraph),
-nombre (copia.nombre),
-x(copia.x), y(copia.y),
-w(copia.w), h(copia.h),
-color(copia.color),
-tiempo_estado(copia.tiempo_estado),
-estado(copia.estado),
-mostrarBloque (copia.mostrarBloque),
-power(copia.power),
-team(copia.team),
-is_detectable(copia.is_detectable),
-collision_method(copia.collision_method),
-wait_graph(copia.wait_graph)
+            nombre (copia.nombre),
+            x(copia.x), y(copia.y),
+            w(copia.w), h(copia.h),
+            color(copia.color),
+            tiempo_estado(copia.tiempo_estado),
+            estado(copia.estado),
+            mostrarBloque (copia.mostrarBloque),
+            power(copia.power),
+            team(copia.team),
+            is_detectable(copia.is_detectable),
+            collision_method(copia.collision_method),
+            wait_graph(copia.wait_graph)
 {
     // Duplicamos la parte gráfica del actor a copiar y se la asignamos al nuevo.
     // Para ello...
@@ -59,8 +59,10 @@ Actor::~Actor()
 
 void Actor::draw (BITMAP *bmp)
 {
-    // Se dibuja si el actor tiene parte gráfica.
-    if (agraph) agraph->draw (bmp);
+    if (state != DISABLE) {
+        // Se dibuja si el actor tiene parte gráfica.
+        if (agraph) agraph->draw (bmp);
+    }
 };
 
 void Actor::draw_block (BITMAP *pantalla)
@@ -183,19 +185,14 @@ void Actor::set_actor_graphic (ActorGraphic* ag)
     }
 };
 
-ActorGraphic* Actor::get_actor_graphic () const
-{
-  return agraph;
-};
+        ActorGraphic* Actor::getActorGraphic () const
+        {
+            return agraph;
+        }
 
 int Actor::get_color (void)
 {
     return color;
-};
-
-ActorGUI* Actor::getGUI ()
-{
-    return gui;
 };
 
 int Actor::get_x()
@@ -257,12 +254,14 @@ bool Actor::isIntersectado (const Bloque& bloque)
 
 void Actor::draw (StageManager* stageManager)
 {
-    // Se calcula la posición relativa del actor al escenario.
-    int relx = x - stageManager->get_x();
-    int rely = y - stageManager->get_y();
+    if (state != DISABLE) {
+        // Se calcula la posición relativa del actor al escenario.
+        int relx = x - stageManager->get_x();
+        int rely = y - stageManager->get_y();
 
-    // Se dibuja en el escenario en la posición calculada.
-    if (agraph) agraph->draw (relx,rely,stageManager->getBuffer());
+        // Se dibuja en el escenario en la posición calculada.
+        if (agraph) agraph->draw (relx,rely,stageManager->getBuffer());
+    }
 };
 
 void Actor::draw_block (StageManager* stageManager)
@@ -278,6 +277,7 @@ void Actor::draw_block (StageManager* stageManager)
     rect (stageManager->getBuffer(), relx, rely, w + relx, h + rely, color);
   }
 };
+
 
 Bloque& Actor::getBloque ()
 {
@@ -326,19 +326,6 @@ bool Actor::get_mostrar_bloque () const
     return mostrarBloque;
 };
 
-Menu& Actor::getMenu () const
-{
-    Menu *menu = new Menu();
-    menu->add(const_cast<char*>("Actor - Mover"),  0, (void *) this, NULL, Actor::Mover);
-    menu->add(const_cast<char*>("Actor - Tamaño"), 0, (void *) this, NULL, Actor::Dimensionar);
-    return *menu;
-};
-
-Formulario& Actor::getFormulario () const
-{
-    return (*new Formulario());
-};
-
 std::string& Actor::print () const
 {
     std::ostringstream cadena;
@@ -368,24 +355,16 @@ void  Actor::mensajeErrorGrafico () const
     std::cout << "ERROR: Actor \"" << getNombre() << "\" sin componente gráfica." << std::endl;
 };
 
-void  Actor::addGUI (vector<DIALOG> &gui_padre)
+/// @note A eliminar de la clase.
+Menu& Actor::getMenu () const
 {
-  gui = new ActorGUI (*this, gui_padre);
+    return *new Menu();
 };
 
-void  Actor::addEnlace (DIALOG* enlace)
+/// @note A eliminar de la clase.
+alg4::Formulario& Actor::getFormulario () const
 {
-    gui->addEnlace (enlace);
-};
-
-void Actor::drawGUI ()
-{
-    // Si existe la GUI, solo hay que cambiar el actor.
-    // En otro caso, habría que crearla.
-    if (gui)
-    {
-        gui->setActor (*this);
-    }
+    return *new alg4::Formulario();
 };
 
 //std::ostream& operator<< (std::ostream &os, const Actor &actor)
@@ -452,8 +431,8 @@ std::ifstream& Actor::leer (std::ifstream& ifs)
         ifs >> comando;
 
         // Suponemos que es un suelo el gráfico...
-        // ActorGraphic &grafico = GraphicManager::crearGrafico (comando);
-        ActorGraphic &grafico = *new Suelo();
+        //ActorGraphic &grafico = GraphicManager::crearGrafico (comando);
+        ActorGraphic& grafico = *new Suelo();
         ifs.ignore (100,'{');
         ifs >> grafico;
         ifs.ignore (100,'}');
@@ -471,4 +450,7 @@ std::ifstream& operator>> (std::ifstream& ifs, Actor& actor)
 {
     return actor.leer(ifs);
 };
+
+}
+
 

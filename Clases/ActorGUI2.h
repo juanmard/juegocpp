@@ -1,5 +1,5 @@
-#ifndef _ACTORGUI_H_
-#define _ACTORGUI_H_
+#ifndef _ACTORGUI2_H_
+#define _ACTORGUI2_H_
 
 #include <allegro.h>
 #include <vector>
@@ -7,37 +7,37 @@
 #include "GUIControl.h"
 #include "EditorManager.h"
 
-class Actor;
+namespace fwg { class Actor; };
 
-using std::vector;
-
+namespace alg4 {
+    
 /** 
  * \brief   GUI básica de los actores.
  */
-class ActorGUI : public GUIControl
+class ActorGUI2 : public GUIControl
 {
   public:
     enum {inicio=0, nombre=10, posicion=11, dimensiones=12, grafico=13, tiempo=14, prueba=15, estado=16, slider=17, fin=19};
 
   public:
-                      ActorGUI               (Actor &actor, vector<DIALOG> &gui_padre);
-                      ActorGUI               ();
-    virtual           ~ActorGUI              ();
-    void              setActor               (Actor &a);
+               ActorGUI2 ();
+               ActorGUI2 (fwg::Actor &actor, std::vector<DIALOG> &gui_padre);
+    virtual   ~ActorGUI2 ();
+    void       setActor  (fwg::Actor &a);
 
   private:
-    Actor &         actor;
-    unsigned int    pto_inserccion;
-    vector<DIALOG> &gui;
+    fwg::Actor &         actor;
+    unsigned int         pto_inserccion;
+    std::vector<DIALOG> &gui;
 
   public:
-    static DIALOG     dlg_plantilla[];
-    static Actor *    actor_activo;
+    static DIALOG      dlg_plantilla[];
+    static fwg::Actor* actor_activo;
 
     /**
      * \brief   Callback de las coordenadas.
      */
-    static int callback (int msg, DIALOG *d, int c)
+    static int callback (int msg, DIALOG* d, int c)
     {
       // Se procesan los mensajes.
       switch (msg)
@@ -53,9 +53,9 @@ class ActorGUI : public GUIControl
     /**
      * \brief   Getter de la lista de estados.
      */
-    static char *  list_getter (int index, int *list_size)
+    static char*  list_getter (int index, int* list_size)
     {
-      char * salida = NULL;
+      char* salida = NULL;
       if (actor_activo)
       {
         // Si 'index' es negativo debe devolver NULL e indicar el tamaño de la lista.
@@ -66,9 +66,9 @@ class ActorGUI : public GUIControl
         }
         else
         {
-          static char * prueba[] = {const_cast<char*>("uno"),   const_cast<char*>("dos"),
-                                    const_cast<char*>("tres"),  const_cast<char*>("cuatro"),
-                                    const_cast<char*>("cinco"), const_cast<char*>("seis")
+          static char* prueba[] = {const_cast<char*>("uno"),   const_cast<char*>("dos"),
+                                   const_cast<char*>("tres"),  const_cast<char*>("cuatro"),
+                                   const_cast<char*>("cinco"), const_cast<char*>("seis")
                                     };
           salida = prueba[index];
         }
@@ -79,7 +79,7 @@ class ActorGUI : public GUIControl
     /**
      * \brief   Callback del texto de gráfico.
      */
-    static int callback_graf (int msg, DIALOG *d, int c)
+    static int callback_graf (int msg, DIALOG* d, int c)
     {
       switch (msg)
       {
@@ -102,4 +102,5 @@ class ActorGUI : public GUIControl
 
 };
 
+}
 #endif

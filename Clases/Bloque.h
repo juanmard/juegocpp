@@ -12,6 +12,9 @@
 #include "PrintableObject.h"
 #include <string>
 
+
+namespace fwg {
+
 /// Modela un bloque genérico representado por una posición, una anchura y una altura.
 ///
 /// En el juego se usa para representar los límites de los actores en su parte física
@@ -98,6 +101,7 @@ public:
     /// Vuelca en una cadena las características del bloque.
     /// @return Cadena con las características del bloque.
     virtual std::string & print() const;
+};
 };
 
 #endif

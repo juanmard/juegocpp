@@ -9,6 +9,8 @@
 #include "MenuALG.h"
 #include "Menu.h"
 
+namespace alg4 {
+
 class DlgActor;
 class VentanaALG;
 class DialogALG;
@@ -35,14 +37,14 @@ public:
           ultimo=19};
 
 public:
-                Dialog          (EditorManager *editor);
+                Dialog          (fwg::EditorManager *editor);
                 ~Dialog         ();
     void        show            ();
     void        draw            ();
     void        mouse_out       ();
     void        mouse_in        ();
     int         propiedades     ();
-    void        setActor        (Actor *actor);
+    void        setActor        (fwg::Actor *actor);
 
 protected:
     void        menu_contextual         (int x, int y);
@@ -52,7 +54,7 @@ protected:
     void        duplicarActor           ();
     int         CambiarTraje            ();
     void        actualizarValoresActor  ();
-    void        dibujarCuadrado         (Bloque cuadro, int color);
+    void        dibujarCuadrado         (fwg::Bloque cuadro, int color);
     void        centrarActor            (int indice);
     void        setColorRibete          (int color);
     void        tomarReferencia         ();
@@ -70,12 +72,12 @@ protected:
     ///
     void grabarActores ();
 
-    EditorManager *   manager;
-    Actor *           actor;
-    string            strNombre;
-    string            strPosicion;
-    string            strDimensiones;
-    string            strEstado;
+    fwg::EditorManager *   manager;
+    fwg::Actor *           actor;
+    std::string            strNombre;
+    std::string            strPosicion;
+    std::string            strDimensiones;
+    std::string            strEstado;
 
     //Prueba de menú dinámico.
     Menu menu_dinamico;
@@ -166,7 +168,7 @@ public:
         }
         else
         {
-          string *cadena = new string(objeto.manager->get_nombre_actor (index));
+          std::string *cadena = new std::string(objeto.manager->get_nombre_actor (index));
           salida = const_cast<char *>(cadena->c_str());
         }
       }
@@ -379,3 +381,4 @@ public:
     };
 };
 
+}

@@ -1,0 +1,210 @@
+# depslib dependency file v1.0
+1465937203 source:/home/juanma/Proyectos/juegocpp/Clases/Actor.cpp
+	<sstream>
+	<iostream>
+	<fstream>
+	"Actor.h"
+	"ActorGraphic.h"
+	"StageManager.h"
+	"Dialog.h"
+	"ActorGUI2.h"
+	"Suelo.h"
+
+1465937203 /home/juanma/Proyectos/juegocpp/Clases/Actor.h
+	<allegro.h>
+	"EditableObject.h"
+	"PrintableObject.h"
+	"Menu.h"
+	"Formulario.h"
+	"CollisionManager.h"
+	"Game.h"
+	"Nombres.h"
+	"Bloque.h"
+	<vector>
+	"EditorManager.h"
+	"GUIEscenario.h"
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/EditableObject.h
+	"Menu.h"
+	"Formulario.h"
+
+1465153929 /home/juanma/Proyectos/juegocpp/Clases/Menu.h
+	<allegro.h>
+	<vector>
+	<string>
+
+1464560081 /home/juanma/Proyectos/juegocpp/Clases/Formulario.h
+	<string>
+	<vector>
+	<allegro.h>
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/PrintableObject.h
+	<string>
+	<sstream>
+	<ostream>
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/CollisionManager.h
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/Game.h
+	<string>
+	"ActorManager.h"
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/ActorManager.h
+	<list>
+	<iostream>
+	<string>
+	"PrintableObject.h"
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/Nombres.h
+	<string>
+	<iostream>
+
+1464297127 /home/juanma/Proyectos/juegocpp/Clases/Bloque.h
+	"PrintableObject.h"
+	<string>
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/EditorManager.h
+	<allegro.h>
+	<string>
+	"Bloque.h"
+	"Almacen.h"
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/Almacen.h
+	<allegro.h>
+	<stdio.h>
+	<iostream>
+	<string>
+	<map>
+	<vector>
+
+1464212407 /home/juanma/Proyectos/juegocpp/Clases/GUIEscenario.h
+	<allegro.h>
+	"GUIControl.h"
+	"EditorManager.h"
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/GUIControl.h
+	<allegro.h>
+	<vector>
+
+1464439827 /home/juanma/Proyectos/juegocpp/Clases/ActorGraphic.h
+	<allegro.h>
+	<string>
+	<sstream>
+	"PrintableObject.h"
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/StageManager.h
+	<allegro.h>
+	<string.h>
+	"Game.h"
+	"Actor.h"
+	"ActorManager.h"
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/Dialog.h
+	<sstream>
+	<string>
+	<allegro.h>
+	"EditorManager.h"
+	"BoxALG.h"
+	"TextALG.h"
+	"MenuALG.h"
+	"Menu.h"
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/BoxALG.h
+	"ControlALG.h"
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/ControlALG.h
+	<allegro.h>
+	"DialogALG.h"
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/DialogALG.h
+	<allegro.h>
+	<vector>
+	"ControlALG.h"
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/TextALG.h
+	"ControlALG.h"
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/MenuALG.h
+	<vector>
+	"ControlALG.h"
+	"ItemALG.h"
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/ItemALG.h
+	<allegro.h>
+	<string>
+	"MenuALG.h"
+
+1465937203 /home/juanma/Proyectos/juegocpp/Clases/ActorGUI2.h
+	<allegro.h>
+	<vector>
+	"GUIEscenario.h"
+	"GUIControl.h"
+	"EditorManager.h"
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/Suelo.h
+	"Mosaico.h"
+	<allegro.h>
+	"Almacen.h"
+	<string>
+	"Actor.h"
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/Mosaico.h
+	"ActorGraphic.h"
+	"DatFile.h"
+	"Tesela.h"
+	<string>
+	<list>
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/DatFile.h
+	<allegro.h>
+	<string>
+
+1464210740 /home/juanma/Proyectos/juegocpp/Clases/Tesela.h
+	<allegro.h>
+	"PrintableObject.h"
+	"Bitmap.h"
+	<string>
+
+1464211132 /home/juanma/Proyectos/juegocpp/Clases/Bitmap.h
+	"ActorGraphic.h"
+	"Actor.h"
+	"Almacen.h"
+	<string>
+
+1464440089 source:/home/juanma/Proyectos/juegocpp/Clases/ActorGraphic.cpp
+	"ActorGraphic.h"
+	"Actor.h"
+
+1465937203 source:/home/juanma/Proyectos/juegocpp/Clases/ActorGUI2.cpp
+	"ActorGUI2.h"
+	<string>
+	<sstream>
+	"Actor.h"
+	"ActorGraphic.h"
+	"LadrilloGUI.h"
+	"VectorGUI2.h"
+	"GUIContador.h"
+	"GUIVector.h"
+	"EscenarioGUI.h"
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/LadrilloGUI.h
+	<vector>
+	<allegro.h>
+
+1465422160 /home/juanma/Proyectos/juegocpp/Clases/VectorGUI2.h
+	<vector>
+	<allegro.h>
+	"EditorManager.h"
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/GUIContador.h
+	<allegro.h>
+	"GUIControl.h"
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/GUIVector.h
+	"GUIControl.h"
+	<allegro.h>
+
+1464038860 /home/juanma/Proyectos/juegocpp/Clases/EscenarioGUI.h
+	<allegro.h>
+	"EditorManager.h"
+

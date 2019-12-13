@@ -11,7 +11,9 @@
 
 #include "Vector2Df.h"
 
-/// Define un objeto físico-
+namespace fwg {
+
+/// Define un objeto físico.
 ///
 /// Se trata de conseguir un objeto que se comporta físicamente en un entorno.
 ///
@@ -35,5 +37,6 @@ public:
     ///
     virtual ~PhysicObject ();
 };
+}
 
 #endif

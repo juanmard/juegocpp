@@ -13,6 +13,8 @@
 #include <allegro.h>
 #include <fstream>
 
+namespace fwg {
+
 Ladrillo::Ladrillo ()
 {
     crear_ladrillo ();
@@ -137,14 +139,14 @@ Menu& Ladrillo::getMenu () const
   return nuevo;
 };
 
-void  Ladrillo::addGUI (vector<DIALOG> &gui_padre)
+void  Ladrillo::addGUI (std::vector<DIALOG>& gui_padre)
 {
   // Agregamos la GUI como actor.
-  Actor::addGUI (gui_padre);
+  // Actor::addGUI (gui_padre);
 
   // Agregamos la GUI como Ladrillo y guardamos la referencia.
   //LadrilloGUI *gui = new LadrilloGUI (*this, gui_padre); // Warning de "gui" sin usar.
-  new LadrilloGUI (*this, gui_padre);
+  //new LadrilloGUI (*this, gui_padre);
 };
 
 std::ifstream&  Ladrillo::leer (std::ifstream& ifs)
@@ -224,3 +226,5 @@ void Ladrillo::crear_ladrillo ()
   this->estado = Ladrillo::ESPERA;
   //this->set_actor_graphic (chaqueta);
 };
+
+}

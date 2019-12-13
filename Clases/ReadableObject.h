@@ -13,6 +13,8 @@
 #include <sstream>
 #include <istream>
 
+namespace fwg {
+
 /// Define el comportamiento de un objeto leible en modo texto.
 ///
 /// Se trata de leer las características de un objeto a partir de una cadena de caracteres que lo representa.
@@ -57,5 +59,7 @@ public:
     ///
     friend std::istream& operator>> (std::istream& is, ReadableObject& objeto);
 };
+
+}
 
 #endif

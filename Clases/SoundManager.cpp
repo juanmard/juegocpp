@@ -8,6 +8,8 @@
 
 #include "SoundManager.h"
 
+namespace fwg {
+
 SoundManager::SoundManager ()
 {
    /**
@@ -46,3 +48,5 @@ SoundManager::SoundManager ()
 SoundManager::~SoundManager(void)
 {
 };
+
+}

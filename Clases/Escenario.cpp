@@ -21,8 +21,11 @@
 #include "ActorManager.h"
 #include <list>
 
+
+namespace fwg {
+
 /**
- * \brief		Constructor de la clase. Esta clase NO ES NECESARIA, esta función la realiza y la debe realizar la clase StageManager.
+ * \brief   Constructor de la clase. Esta clase NO ES NECESARIA, esta función la realiza y la debe realizar la clase StageManager.
  */
 Escenario::Escenario ()
 {
@@ -62,10 +65,11 @@ void Escenario::Draw (ActorManager actorManager)
 	// Se comprueba la intersección del bloque del escenario con los bloques
 	// de los actores. Esta acción se le pide que la realice el actorManager y éste devuelve una
 	// lista de actores a dibujar.
-	listaActoresDibujar = actorManager.get_actores (marco);
+	listaActoresDibujar = actorManager.getActores (marco);
 
 	// Se recorre la lista de actores y se dibuja en la pantalla.
 	// 		Si listaActoresDibujar fuera una clase se usaría la acción: listaActoresDibujar.Draw (pantalla);
 	// 		En este caso debemos realizar el bucle la clase Escenario.
 
+}
 }

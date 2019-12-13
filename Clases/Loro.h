@@ -14,6 +14,8 @@
 #include "Sprite.h"
 #include "Peripheral.h"
 
+namespace fwg {
+    
 /// Loro que se mueve siguiendo una horizontal.
 ///
 /// Los criterios que se pueden utilizar para el movimiento suelen ser varios, lo más
@@ -74,7 +76,7 @@ public:
     ///       que responde a las interaciiones del entorno.
     ///       estado actual + control (inputs) + entorno (colisiones) = acciones + estado futuro
     ///
-    void do_action (ControllableActor::action_t act, int magnitude);
+    void doAction (ControllableActor::Action act, int magnitude);
 
     /// Obtiene el nombre en forma de cadena de texto.
     /// @param strNombre Referencia a la cadena donde se guardará el nombre del loro.
@@ -91,7 +93,7 @@ public:
     /// Obtiene el periférico que usa el loro para ejecutar el control.
     /// @return Periférico que usa el control del loro.
     ///
-    Peripheral* get_peripheral () const;
+    Peripheral* getPeripheral () const;
 
     /// Actualiza el estado en función del estado actual.
     /// Se utiliza para implementar, junto con 'tiempo_estado', las transiciones epsilon
@@ -107,5 +109,6 @@ public:
     void hit (Actor* who, int damage);
 
 };
+}
 
 #endif

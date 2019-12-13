@@ -13,6 +13,7 @@
 #include "Almacen.h"
 #include "Suelo.h"
 
+namespace fwg {
 /// Actor que cambia la dirección de la pelota.
 ///
 /// Es controlable mediante el teclado. Y se creó el actor para un primer juego de
@@ -58,7 +59,7 @@ public:
     /// @param act  Acción que se debe realizar.
     /// @param magnitude  Magnitud en la acción que se realiza.
     ///
-    void do_action (ControllableObject::action_t act, int magnitude);
+    void doAction (ControllableObject::Action act, int magnitude);
     
     /// Acciones ante colisiones.
     /// @param who  Puntero al actor que provoca la comisión.
@@ -83,5 +84,6 @@ public:
     ///
     std::string getNombre () const;
 };
+}
 
 #endif

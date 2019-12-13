@@ -4,42 +4,44 @@
  * 
  */
 
-#ifndef _ESCENARIOGUI_H_
-#define _ESCENARIOGUI_H_
+#ifndef _ESCENARIOGUI2_H_
+#define _ESCENARIOGUI2_H_
 
 #include <allegro.h>
 #include "EditorManager.h"
 
-class EscenarioGUI
+namespace alg4 {
+
+class EscenarioGUI2
 {
   public:
-          EscenarioGUI  (EditorManager &editorParam, DIALOG *enlace=NULL);
-    void  addEnlace     (DIALOG *enlace);
+          EscenarioGUI2  (fwg::EditorManager& editorParam, DIALOG* enlace=NULL);
+    void  addEnlace     (DIALOG* enlace);
 
   private:
-    int   Keyboard      (int msg, DIALOG *d, int code);
-    int   Draw          (int msg, DIALOG *d, int code);
-    int   Wheel         (int msg, DIALOG *d, int code);
-    int   MoveMouse     (int msg, DIALOG *d, int code);
-    int   LPressMouse   (int msg, DIALOG *d, int code);
-    int   DClick        (int msg, DIALOG *d, int code);
+    int   Keyboard      (int msg, DIALOG* d, int code);
+    int   Draw          (int msg, DIALOG* d, int code);
+    int   Wheel         (int msg, DIALOG* d, int code);
+    int   MoveMouse     (int msg, DIALOG* d, int code);
+    int   LPressMouse   (int msg, DIALOG* d, int code);
+    int   DClick        (int msg, DIALOG* d, int code);
 
   private:
-    static int        local_x, local_y;
-    EditorManager &   editor;
-    DIALOG *          enlaces;
+    static int          local_x, local_y;
+    fwg::EditorManager& editor;
+    DIALOG*             enlaces;
 
   public:
     /**
      * \brief  Callback del escenario.
      */
-    static int callback (int msg, DIALOG *d, int c)
+    static int callback (int msg, DIALOG* d, int c)
     {
       // Se sitúa el puntero del objeto instanciado en 'dp3'.
       if (d->dp3)
       {
         // Creamos una referencia temporal al objeto actual.
-        EscenarioGUI &obj = *(static_cast<EscenarioGUI *>(d->dp3));
+        EscenarioGUI2& obj = *(static_cast<EscenarioGUI2*>(d->dp3));
         static int mouse_ant_x, mouse_ant_y;
 
         // Se procesan los mensajes.
@@ -105,5 +107,6 @@ class EscenarioGUI
       return d_text_proc (msg, d, c);
     };
 };
+}
 
-#endif // _ESCENARIOGUI_H_
+#endif // _ESCENARIOGUI2_H_

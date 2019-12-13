@@ -6,13 +6,14 @@
 /// @date Marzo 2015
 /// @version 1.0.0
 ///
+#ifndef _EDITABLEOBJECT_H_
+#define _EDITABLEOBJECT_H_
 
 #include "Menu.h"
 #include "Formulario.h"
 
-#ifndef _EDITABLEOBJECT_H_
-#define _EDITABLEOBJECT_H_
-
+namespace fwg {
+    
 /// @class EditableObject
 /// Clase "completamente abstracta" que define el comportamiento de un objeto editable.
 ///
@@ -27,7 +28,7 @@ public:
     /// Obtiene un formulario donde poder modificar los parámetros del objeto.
     /// @return Formulario completado con los datos actuales del objeto.
     ///
-    virtual Formulario& getFormulario () const = 0;
+    virtual alg4::Formulario& getFormulario () const = 0;
 
     /// Como objeto editable debe dibujar objetos de control y auxiliares que le permitan editarlo.
     ///
@@ -40,5 +41,6 @@ public:
     ///       propiedades pero que no tenga una representación como dibujo.
     //virtual void drawControl () const = 0;
 };
+}
 
 #endif

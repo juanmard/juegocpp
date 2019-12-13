@@ -12,8 +12,6 @@
 #include <allegro.h>
 #include "EditableObject.h"
 #include "PrintableObject.h"
-#include "Menu.h"
-#include "Formulario.h"
 #include "CollisionManager.h"
 #include "Game.h"
 #include "Nombres.h"
@@ -22,9 +20,10 @@
 #include "EditorManager.h"
 #include "GUIEscenario.h"
 
+namespace fwg {
+
 class ActorGraphic;
 class Mask;
-class ActorGUI;
 
 /// Elemento básico con dinámica dentro del juego.
 ///
@@ -53,23 +52,30 @@ class ActorGUI;
 ///
 class Actor : public EditableObject, public PrintableObject
 {
+/// --------------------------------------------
+/// 2019/12/01 - Prueba de estados en la lista de actores.
+/// Se trata de controlar el estado en la lista de actores
+/// ("ActorManager") para controlar su visibilidad sin ser
+/// borrado, su cambio a una lista de actores para borrar.
 public:
-    /// @todo Investigar si la definición de amistad de esta clase es necesaria.
-    friend class ActorGUI;
+    enum State {ENABLE, DISABLE, TO_DELETE};
 
+private:
+    State state;
+    
+public:
+    State getState () const {return state;};
+    void  setState (State new_state) {state = new_state;};
+    
+/// --------------------------------------------
+
+public:
     /// Estados posibles del actor.
     /// @todo Se debe poder heredar, incluir estados desde los hijos. Investigar.
     ///       De esta forma eliminaríamos la clase "Nombres" que no me gusta nada.
     ///       27-nov-09 - No me gusta nada, pero ésta no es una solución para los estados de los actores.
     ///
     typedef int state_t;
-
-private:
-    /// Creamos una GUI única para todos los actores.
-    /// @todo A eliminar. Lo más lógico es que exista un "Formulario" y un "Menu" común para cada clase
-    ///       derivada (estáticos) y se combinen para generar una interfaz con el usuario.
-    ///
-    static ActorGUI* gui;
 
 protected:
     ActorGraphic* agraph;                                   ///< Parte gráfica del actor.
@@ -217,8 +223,8 @@ public:
     /// Obtiene un formulario donde modificar los valores del actor.
     /// @return Referencia al formulario.
     /// @note Se hace virtual para que los actores derivados puedan incluir sus propias variables.
-    ///
-    virtual Formulario& getFormulario () const;
+    /// @note Esto debería ir en otra clase heredada para ser utilizada en alllegro 4.
+    virtual alg4::Formulario& getFormulario () const;
 
     /// Obtiene una cadena representativa con las propiedades completas del actor.
     /// Se define como virtual para permitir que los actores derivados puedan definir
@@ -300,7 +306,7 @@ public:
     /// Devuelve un puntero como referencia a la parte gráfica del actor.
     /// @return Puntero a la parte gráfica del actor.
     ///
-    ActorGraphic* get_actor_graphic () const;
+    ActorGraphic* getActorGraphic () const;
 
     /// Devuelve la posición x del componente gráfico del actor.
     /// @return Valor de la posición x.
@@ -405,27 +411,6 @@ public:
     ///
     bool get_mostrar_bloque () const;
 
-    /// Prueba para añadir la GUI de las propiedades del actor a una GUI padre.
-    /// @todo Esto no debería estar aquí, está demasiado relacionado con la GUI
-    ///       que no es realmente necesaria para el comportamiento del actor en
-    ///       el juego, aunque sí para su edición. Crear una clase que admita
-    ///       este comportamiento y eliminar de la clase actor.
-    ///
-    virtual void addGUI (vector<DIALOG> &gui_padre);
-
-    /// Traslada las propiedades del actor en la GUI.
-    /// @note Este comportamiento podría sustituirse por el procedimiento "getFormulario".
-    ///
-    virtual void drawGUI ();
-
-    /// Devuelve la GUI del actor.
-    /// @return Puntero que hace referencia a la GUI del actor.
-    /// @todo A eliminar en esta nueva implementación de la clase.
-    ///       este mismo trabajo lo hace la parte de la clase "EditObject"
-    ///       entregando el menú y el formulario asociado al actor.
-    ///
-    virtual ActorGUI* getGUI ();
-
     /// Indica que ha habido una colisión con algún otro actor.
     /// @param who Actor con el que se ha producido la colisión.
     /// @param damage Daño que provoca dicha colisión.
@@ -434,7 +419,7 @@ public:
     ///       se podría calcular mejor la física de la colisión.
     ///
     virtual void hit (Actor* who, int damage);
-
+    
     /// Prueba de polimorfismo con iostream. Se hace con Ladrillo.
     /// @param is Entrada de datos para lectura del buffer (Input Stream).
     /// @param a Actor a actualizar con la lectura de datos.
@@ -481,7 +466,7 @@ private:
     /// @note Reunir todos los errores en una misma clase.
     ///
     void mensajeErrorGrafico () const;
-
+    
     /// Sobrecarga del operador de lectura.
     /// Métodos amigos no-miembros de la clase.
     /// @param is Referencia al buffer de entrada (Input Stream).
@@ -495,6 +480,9 @@ private:
     /// @return Devuelve la referencia al fichero para encadenar lecturas.
     ///
     friend std::ifstream& operator>> (std::ifstream& ifs, Actor& actor);
+
 };
+
+}
 
 #endif

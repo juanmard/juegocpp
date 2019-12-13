@@ -9,8 +9,8 @@
 #include <allegro.h>
 #include "Bloque.h"
 
-using namespace std;
-
+namespace fwg {
+    
 class Actor;
 class ActorManager;
 
@@ -48,3 +48,4 @@ private:
 	BITMAP 	*pantalla;
 };
 
+}

@@ -15,6 +15,8 @@
 #include "Bitmap.h"
 #include <string>
 
+namespace fwg {
+
 class Mosaico;
 
 /// Parte gráfica de un Mosaico.
@@ -131,4 +133,6 @@ public:
     virtual std::string& print () const;
 };
 
+
+}
 #endif

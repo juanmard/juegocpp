@@ -10,13 +10,16 @@
 #include "Mosaico.h"
 #include <sstream>
 
+namespace fwg {
+    
+
 Mosaico::Mosaico ():
 ActorGraphic()
 {
 };
 
 Mosaico::Mosaico (const Mosaico& copia, Actor* propietario):
-ActorGraphic (propietario)
+fwg::ActorGraphic (propietario)
 {
     /// Se genera una nueva lista y se copian las teleslas con el nuevo propietario.
     /// @todo Encapsular esto en una clase propia de lista de Teselas.
@@ -120,3 +123,4 @@ void Mosaico::clear ()
 {
     this->teselas.clear();
 };
+}

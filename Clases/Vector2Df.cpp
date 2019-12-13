@@ -1,6 +1,6 @@
 ///
 /// @file Vector2Df.cpp
-/// @brief Fichero de implementación de la clase "Vector2Df".
+/// @brief Fichero de implementaciÃ³n de la clase "Vector2Df".
 /// @author Juan Manuel Rico
 /// @date Noviembre 2015
 /// @version 1.0.1
@@ -8,6 +8,8 @@
 
 #include "Vector2Df.h"
 #include <sstream>
+
+namespace fwg {
 
 Vector2Df::Vector2Df ()
 {
@@ -43,3 +45,5 @@ unsigned int Vector2Df::read (const std::string& cadena)
 //    iss.ignore (10,',');
 //    iss >> y;
 //};
+
+}

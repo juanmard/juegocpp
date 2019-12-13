@@ -13,6 +13,8 @@
 #include <sstream>
 #include <ostream>
 
+namespace fwg {
+
 /// Define el comportamiento de un objeto imprimible en modo texto.
 ///
 class PrintableObject
@@ -54,5 +56,7 @@ public:
     friend std::ostream& operator<< (std::ostream& ostream, const PrintableObject& objeto);
 
 };
+
+}
 
 #endif

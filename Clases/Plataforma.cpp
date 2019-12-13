@@ -9,6 +9,9 @@
 #include "Plataforma.h"
 #include <sstream>
 
+
+namespace fwg {
+    
 Plataforma::Plataforma (const Plataforma& copia):
 Actor(copia),
 //origen (copia.getOrigen()),
@@ -23,7 +26,7 @@ activa (true)
     ///       el actor propietario en el gráfico. Algo así:
     ///       @code this->agraph->owner = this; @endcode
     ///       De otra forma quedará una incongruencia entre actor, gráfico y propietario del gráfico.
-    grafico = dynamic_cast<Suelo *>(copia.get_actor_graphic());
+    grafico = dynamic_cast<Suelo*>(copia.getActorGraphic());
 };
 
 Plataforma::Plataforma ()
@@ -149,3 +152,4 @@ void Plataforma::draw (StageManager* stageManager)
     }
 };
 
+}

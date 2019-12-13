@@ -3,6 +3,8 @@
 
 #include <allegro.h>
 
+namespace fwg {
+    
 class Mask
 {
     public:
@@ -26,5 +28,7 @@ class Mask
         int num_y;
         unsigned long int **sp_mask;
 };
+
+}
 
 #endif

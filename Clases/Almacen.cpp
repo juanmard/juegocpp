@@ -11,22 +11,21 @@
 #include "Almacen.h"
 #include "AlmacenGUI.h"
 
+namespace fwg {
+
 Almacen::Almacen (std::string paramNombreFichero)
 {
     // Se intenta cargar el fichero de datos en memoria.
     fichero = load_datafile (paramNombreFichero.c_str ());
-    if (fichero)
-    {
+    if (fichero) {
         // Se pudo cargar el fichero de datos en memoria. Guardamos el nombre del fichero.
         nombreFichero = paramNombreFichero;
 
         // Recorremos los datos y emparejamos nombres con punteros de los distintos recursos.
         std::string nombre;
-        for (int i=0; fichero[i].type != DAT_END; i++)
-        {
+        for (int i=0; fichero[i].type != DAT_END; i++) {
             nombre = get_datafile_property(&fichero[i], DAT_ID('N','A','M','E'));
-            switch (fichero[i].type)
-            {
+            switch (fichero[i].type) {
             case DAT_BITMAP:
                 bitmaps[nombre] = (BITMAP*) fichero[i].dat;
                 // cout << "Bitmap >> " << nombre << "," << bitmaps[nombre] << endl;
@@ -47,9 +46,7 @@ Almacen::Almacen (std::string paramNombreFichero)
                 break;
             }
         }
-    }
-    else
-    {
+    } else {
         // No se encontró el fichero. Borramos la cadena del nombre. Avisamos en consola.
         nombreFichero.clear ();
         std::cout << "ERROR: No se pudo acceder al fichero de datos: \"" << paramNombreFichero << "\"" << std::endl \
@@ -57,12 +54,12 @@ Almacen::Almacen (std::string paramNombreFichero)
     }
 
     // Se crea una GUI para esta clase.
-    gui = new AlmacenGUI (*this);
+    gui = new alg4::AlmacenGUI (*this);
 };
 
 Almacen::Almacen ():
-nombreFichero (NULL),
-gui (NULL)
+    nombreFichero (NULL),
+    gui (NULL)
 {
 };
 
@@ -79,12 +76,10 @@ BITMAP* Almacen::get_bitmap (std::string nombreBitmap)
 
 BITMAP* Almacen::get_bitmap (int indice)
 {
-    if (fichero[indice].type == DAT_BITMAP)
-    {
+    if (fichero[indice].type == DAT_BITMAP) {
         return (BITMAP*) fichero[indice].dat;
-    }
-    else
-    {
+    } else {
+        std::cout << "Warning: Bitmap no encontrado." << std::endl;
         return NULL;
     }
 };
@@ -105,12 +100,10 @@ std::string Almacen::get_name (BITMAP* puntero)
     std::map<std::string, BITMAP*>::iterator it;
 
     it = bitmaps.begin ();
-    while ( (it!=bitmaps.end()) && nombre.empty() )
-    {
+    while ( (it!=bitmaps.end()) && nombre.empty() ) {
         // Para 'debug' mostramos el proceso de búsqueda.
         // cout << it->first << " => " << it->second << endl;
-        if (it->second == puntero)
-        {
+        if (it->second == puntero) {
             nombre = it->first;
         }
         it++;
@@ -128,7 +121,7 @@ std::vector<DIALOG>& Almacen::get_DIALOG ()
 
 unsigned int Almacen::get_size () const
 {
-   return (bitmaps.size () + paletas.size () + sonidos.size ());
+    return (bitmaps.size () + paletas.size () + sonidos.size ());
 };
 
 std::string Almacen::get_nombre () const
@@ -139,5 +132,7 @@ std::string Almacen::get_nombre () const
 void Almacen::add_GUI (std::vector<DIALOG>& gui_padre)
 {
     // Se crea una GUI para esta clase.
-    gui = new AlmacenGUI (*this, gui_padre);
+    gui = new alg4::AlmacenGUI (*this, gui_padre);
 };
+
+}

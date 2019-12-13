@@ -9,6 +9,8 @@
 #include "ActorGraphic.h"
 #include "Actor.h"
 
+namespace fwg {
+    
 ActorGraphic::ActorGraphic ():
 owner(NULL),
 graph_free (true)
@@ -113,3 +115,4 @@ void ActorGraphic::set_free (bool estate)
     graph_free = estate;
 };
 
+}

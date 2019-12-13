@@ -12,6 +12,8 @@
 #include <allegro.h>
 #include "DatFile.h"
 
+namespace fwg {
+
 /// Controlador de la lista de sonidos del sistema.
 /// @todo Añadir lista de objetos y dejar la parte temporal, eliminar referencias
 ///       a las bibliotecas de alegro para generalizar la clase.
@@ -37,5 +39,7 @@ public:
 //public:
     //SAMPLE* rebote;   ///< Sonido de prueba para el rebote.
 };
+
+}
 
 #endif

@@ -10,6 +10,7 @@
 #include "GUIControl.h"
 #include <allegro.h>
 
+namespace alg4 {
 /**
  * \class   GUIVector
  * \brief   Representa un vector en pantalla como dos números enteros en la misma línea y separados por una coma.
@@ -20,18 +21,19 @@
 class GUIVector : public GUIControl
 {
   public:
-          GUIVector (int &xParam, int &yParam);
-    void  setVector (int &xParam, int &yParam);
+          GUIVector (int& xParam, int& yParam);
+    void  setVector (int& xParam, int& yParam);
 
   private:
-    int   Keyboard  (int msg, DIALOG *d, int code);
-    int   Draw      (int msg, DIALOG *d, int code);
-    int   Wheel     (int msg, DIALOG *d, int code);
-    int   Omision   (int msg, DIALOG *d, int code);
+    int   Keyboard  (int msg, DIALOG* d, int code);
+    int   Draw      (int msg, DIALOG* d, int code);
+    int   Wheel     (int msg, DIALOG* d, int code);
+    int   Omision   (int msg, DIALOG* d, int code);
 
   private:
-    int *     x;
-    int *     y;
+    int*     x;
+    int*     y;
 };
+}
 
 #endif // _GUIVECTOR_H_

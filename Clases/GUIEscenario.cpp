@@ -7,12 +7,12 @@
 #include "GUIEscenario.h"
 #include <sstream>
 
-using namespace std;
+namespace alg4 {
 
 /**
  * \brief   Constructor.
  */
-GUIEscenario::GUIEscenario (EditorManager& editorParam, DIALOG* enlace):
+GUIEscenario::GUIEscenario (fwg::EditorManager& editorParam, DIALOG* enlace):
 editor (editorParam)
 {
   enlazados.clear ();
@@ -129,7 +129,7 @@ int  GUIEscenario::MoveMouse (int msg, DIALOG* d, int code)
 
   // Se actualizan la coordenadas.
   // editor.setMensaje (os.str());
-  ostringstream os;
+  std::ostringstream os;
   os  << "Globales: " << mouse_x << "," << mouse_y;
   textout_ex (screen, font, os.str().c_str(), 0, 400, gui_fg_color, gui_bg_color);
 
@@ -183,3 +183,5 @@ int  GUIEscenario::Omision (int msg, DIALOG* d, int code)
 {
   return d_text_proc (msg, d, code);
 };
+
+}

@@ -16,55 +16,35 @@
 #include "Juego2.h"
 #include "Mosaico.h"
 #include "Tesela.h"
-//#include "ctlSprite.h"
 
+/// Prueba de guichan.
+#include <guichan.hpp>
+#include <guichan/allegro.hpp>
+#include "gui/SpriteGUI.hpp"
+#include "gui/EscenarioGUI.hpp"
+#include "allegro/SpriteAllegro.h"
+#include "gui/ActorGUI.hpp"
+
+/// Clases de Allegro 4
+#include "allegro/TimerAllegro.h"
+#include "allegro/JoystickAllegro.h"
+
+
+namespace fwg {
+
+// Definición del juego.
 Juego2::Juego2 ()
 {
 };
 
-void Juego2::create_storage_manager ()
+void Juego2::createStorageManager ()
 {
   // Creamos el almacén de recursos.
-  storage_manager = new Almacen("sprites3.dat");
+  storageManager = new Almacen("sprites3.dat");
 };
 
 void Juego2::mainGame ()
 {
-    // Pruebas de clases.
-    /*
-    Vector2Df vector(1.0f,2.0f);
-    std::string cadena1, cadena2=" prueba... <1.2f, 3.4f>";
-    cadena1 << vector;
-    std::ostringstream canalCadena;
-    std::cout << cadena1;
-    canalCadena << cadena1;
-    canalCadena << cadena2;
-    canalCadena << vector;
-    std::cout << canalCadena.str() << std::endl;
-    std::cout << vector << std::endl;
-    std::string cadena3("<1.234565, 6.787678>");
-    cadena2 >> vector;
-    std::cout << vector;
-    cadena3 >> vector;
-    std::cout << vector;
-    std::cin >> vector;
-    std::cout << vector << std::endl;
-    std::cout << canalCadena.str();
-
-    Plataforma prueba(*storage_manager);
-    std::cout << prueba << std::endl;
-
-    Bloque prueba2 (1,2,3,4);
-    std::cout << prueba2;
-
-    std::fstream pruebatxt("prueba_objeto.txt",std::fstream::in | std::fstream::out | std::fstream::app);
-    pruebatxt << canalCadena.str() <<std::endl;
-    pruebatxt << vector << std::endl;
-    pruebatxt << prueba2 << std::endl;
-    pruebatxt.close ();
-    */
-    
-
     Mapa mapa;
     std::cout << mapa << std::endl;
 
@@ -76,59 +56,107 @@ void Juego2::mainGame ()
     std::cout << prueba_bitmap;
 
   // Se cambia la paleta de colores que se toma del almacén de recursos.
-  set_palette (storage_manager->get_palette ("SPRITES"));
+  set_palette (storageManager->get_palette ("SPRITES"));
 
   // Se cargan actores desde fichero de prueba.
   // @todo Leer este mismo fichero desde el almacén de recursos.
   // @todo Delegar esta función a la clase Mapa.
-  mapa.load (*new std::string("test2.txt"),*actor_manager);
-//  this->actor_manager->load("test2.txt");
+  mapa.load (*new std::string("test2.txt"),*actorManager);
+//  this->actorManager->load("test2.txt");
 
   // Se crea aparte un actor de tipo loro para pruebas.
-  Loro *loro=new Loro(*storage_manager);
+  Loro *loro=new Loro(*storageManager);
   loro->set_x(150);
   loro->set_y(400);
-  actor_manager->add(loro);
+  // Se elimina el loro para mostrar.
+  actorManager->add(loro);
 
   // Se añade el control del loro, al manejador de controles.
-  control_manager->add_control(loro->get_control());
+  controlManager->addControl(loro->getControl());
   
   // Se añade el periférico del loro que realizará el control.
-  control_manager->add_peripheral(loro->get_peripheral());
+  controlManager->addPeripheral(loro->getPeripheral());
+
+  // Se usa una prueba de Ben.
+  Ben *ben = new Ben(*storageManager);
+  ben->set_x(220);
+  ben->set_y(200);
+  actorManager->add(ben);
+  loro->getControl()->setOwner(ben);  // Se usa el control del loro para probar a Ben.
+
+  //-------------------------------------------------
+  // Prueba de AirCraft y Joystick.
+  AirCraft* nave = new AirCraft();
+  actorManager->add(nave);
+
+  // Se crea el control necesario para las acciones.
+  Control* control = new Control ();
+  control->addActionName (AirCraft::LEFT, "Izquierda");
+  control->addActionName (AirCraft::RIGHT, "Derecha");
+  control->addActionName (AirCraft::UP, "Arriba");
+  control->addActionName (AirCraft::DOWN, "Abajo");
+  control->addActionName (4, "Disparar");
+  control->setOwner(nave);
+  controlManager->addControl(control);
+
+  // Se crea el periférico.
+  Joystick* joy = new alg4::JoystickAllegro();
+  Joystick* joy2 = new alg4::JoystickAllegro();
+  controlManager->addPeripheral(joy);
+  
+  // Se asocian las acciones del control con el periférico.
+  control->setActionPeripheral (AirCraft::LEFT,  joy, Joystick::LEFT,     Peripheral::ON_PRESSING);
+  control->setActionPeripheral (AirCraft::RIGHT, joy, Joystick::RIGHT,    Peripheral::ON_PRESSING);
+  control->setActionPeripheral (AirCraft::UP,    joy, Joystick::UP,       Peripheral::ON_PRESSING);
+  control->setActionPeripheral (AirCraft::DOWN,  joy, Joystick::DOWN,     Peripheral::ON_PRESSING);
+  control->setActionPeripheral (4,               joy, Joystick::BUTTON_1, Peripheral::ON_PRESSING);
 
   // Se crea el 'EditorManager' básico para comenzar con las pruebas.
-  EditorManager editor_manager (this);
+  EditorManager editorManager (this);
 
   // Mostramos un breve mensaje en consola sobre las teclas de prueba.
-  std::cout << "----------------------------------" << std::endl;
-  std::cout << "----    Teclas básicas        ----" << std::endl;
-  std::cout << "----------------------------------" << std::endl << std::endl;
-  std::cout << " P - Pausa el juego." << std::endl;
-  std::cout << " E - Entra en modo edición." << std::endl;
-  std::cout << " S - Se activa el seguimiento del jugador." << std::endl;
+  std::cout << "-------------------------------------------" << std::endl;
+  std::cout << "----         Teclas básicas            ----" << std::endl;
+  std::cout << "-------------------------------------------" << std::endl
+                                                             << std::endl;
+  std::cout << " P - Pausa el juego."                        << std::endl;
+  std::cout << " E - Entra en modo edición."                 << std::endl;
+  std::cout << " S - Se activa el seguimiento del jugador."  << std::endl;
   std::cout << " T - Realiza una prueba de gráficos Bitmap." << std::endl;
-  std::cout << " V - Visualiza los bloques de los actores." << std::endl;
-  std::cout << " G - Pruebas de GUI para Sprites'." << std::endl;
-  std::cout << " F - Prueba de letras." << std::endl;
-  std::cout << " M - Prueba de mapas de actores." << std::endl;
-  std::cout << " I - Consola interactiva." << std::endl;
-  std::cout << " ESC - Termina el juego." << std::endl;
-  std::cout << "----------------------------------" << std::endl << std::endl;
+  std::cout << " V - Visualiza los bloques de los actores."  << std::endl;
+  std::cout << " G - Pruebas de GUI para Sprites'."          << std::endl;
+  std::cout << " F - Prueba de letras."                      << std::endl;
+  std::cout << " M - Prueba de mapas de actores."            << std::endl;
+  std::cout << " I - Consola interactiva."                   << std::endl;
+  std::cout << " ESC - Termina el juego."                    << std::endl;
+  std::cout << "-------------------------------------------" << std::endl
+                                                             << std::endl;
+
+  // Simulamos la G.
+  //key[KEY_G]=true;
 
   // Bucle principal del juego.
   while (!key[KEY_ESC])
   {
     // Si no está en pausa se actualiza el juego.
-    if (!is_paused())
+    if (!isPaused())
     {
-      update();
+      update ();
+    }
+
+    // Si se pulsa la 'C', se prueba.
+    if (key[KEY_C])
+    {   
+      // Se borran las teclas pulsadas para evitar rellamadas.
+      key[KEY_C] = false;
+      key[KEY_ESC] = false;
     }
 
     // Si se pulsa la 'E', se prueba el editor.
     if (key[KEY_E])
     {
       // Se activa el editor.
-      editor_manager.activate ();
+      editorManager.activate ();
 
       // Se borran las teclas pulsadas para evitar rellamadas cuando se termine el editor.
       key[KEY_E] = false;
@@ -138,7 +166,7 @@ void Juego2::mainGame ()
     // Se pausa y despausa el juego a modo de prueba.
     if (key[KEY_P])
     {
-      if (is_paused ())
+      if (isPaused ())
       {
         play ();
       }
@@ -156,14 +184,14 @@ void Juego2::mainGame ()
     {
       // Si el escenario está en modo seguimiento, se deja de seguir y se pone el escenario en el lugar original;
       // en otro caso, a modo de prueba se hace el seguimiento al loro.
-      if ( stage_manager->is_seguimiento () )
+      if ( stageManager->is_seguimiento () )
       {
-        stage_manager->mover_marco (0,0);
-        stage_manager->set_seguimiento (NULL);
+        stageManager->mover_marco (0,0);
+        stageManager->set_seguimiento (NULL);
       }
       else
       {
-        stage_manager->set_seguimiento (loro);
+        stageManager->set_seguimiento (ben);
       }
 
       // Limpieza teclado.
@@ -173,7 +201,7 @@ void Juego2::mainGame ()
     // Conmuta entre visualizar o no los bloques que definen a los actores.
     if (key[KEY_V])
     {
-      stage_manager->set_ver_bloques (!stage_manager->get_ver_bloques ());
+      stageManager->set_ver_bloques (!stageManager->get_ver_bloques ());
 
       // Limpieza de teclado.
       key[KEY_V] = false;
@@ -183,24 +211,21 @@ void Juego2::mainGame ()
     if (key[KEY_G])
     {
       // Se crea un Loro de prueba para el editor de Sprites.
-      Loro *loro2=new Loro(*storage_manager);
+      Loro *loro2=new Loro(*storageManager);
       loro2->set_x(100);
       loro2->set_y(300);
-      actor_manager->add(loro2);
-      control_manager->add_control(loro2->get_control());
+      actorManager->add(loro2);
+      controlManager->addControl(loro2->getControl());
 
-      // Prueba con sprite.
-      Sprite* prueba = (Sprite *) loro2->get_actor_graphic();
-      const Sprite& prb2 = *prueba;
-      
-      //Menu &menu = prueba->getMenu ();
-      //do_menu(menu, mouse_x, mouse_y);
+      // Prueba con sprite de Allegro.
+      //Sprite *prueba = (Sprite *) loro2->get_actor_graphic();
+      //alg4::SpriteAllegro* prueba2 = new alg4::SpriteAllegro (*prueba,loro2);
 
-      //Formulario &form = prueba->getFormulario ();
-      //form.show ();
+      // Prueba de Guichan integrado en el juego.
+      ///prueba_guichan (prueba2);
 
-//      ctlSprite *control = new ctlSprite(prb2);
-//      control->show ();
+      // Se cambia la paleta de colores que la prueba de Guichan cambia.
+      set_palette (storageManager->get_palette ("SPRITES"));
 
       // Limpieza de teclado.
       key[KEY_ESC] = false;
@@ -215,7 +240,7 @@ void Juego2::mainGame ()
       Actor *camello = new Actor ();
 
       // 2 - Se le dice a la clase Bitmap de dónde obtener los gráficos.
-      Bitmap::set_almacen (storage_manager);
+      Bitmap::set_almacen (storageManager);
 
       // 3 - Se crea un gráfico indicando simplemente el gráfico y a qué actor se le desea asignar.
       Bitmap *bmp_camello = new Bitmap (camello, "sprite_107");
@@ -228,10 +253,10 @@ void Juego2::mainGame ()
       camello->set_actor_graphic (bmp_camello);
 
       // 5 - Se agrega el nuevo actor al controlador de actores.
-      actor_manager->add(camello);
+      actorManager->add(camello);
 
       // 6 - Se descarga la información en pantalla.
-      std::cout << "Bitmap: " << bmp_camello->get_imagen () << " Nombre: " << storage_manager->get_name (bmp_camello->get_imagen()) << std::endl;
+      std::cout << "Bitmap: " << bmp_camello->get_imagen () << " Nombre: " << storageManager->get_name (bmp_camello->get_imagen()) << std::endl;
 
       // Por otra parte, Se prueba el uso del Bitmap en la Tesela.
       // 1 - Se crea un nuevo actor vacío.
@@ -251,7 +276,7 @@ void Juego2::mainGame ()
       arbol->set_wh (32,15);
 
       // 5 - Se añade el nuevo actor al controlador de actores para que lo muestre en pantalla.
-      actor_manager->add(arbol);
+      actorManager->add(arbol);
 
       // 6 - Se descarga la información en pantalla.
       std::cout << "Mosaico de hojas: " << std::endl << hojas->print () << std::endl;
@@ -268,7 +293,7 @@ void Juego2::mainGame ()
     {
       // Por otra parte, se prueba el mapa de actores.
       Mapa mapa_prb;
-      mapa_prb.read (*actor_manager);
+      mapa_prb.read (*actorManager);
       std::cout << std::endl << mapa_prb << std::endl;
 
       // Limpieza de teclado.
@@ -317,12 +342,12 @@ void Juego2::mainGame ()
         else if (!comando.compare("nuevo"))
         {
           std::cout << "[nuevo]=> ";
-          std::cin >> *actor_manager;
+          std::cin >> *actorManager;
         }
         else if (!comando.compare("grabar"))
         {
           std::ofstream outfile ("test.txt");
-          outfile << *actor_manager;
+          outfile << *actorManager;
           outfile.close();
           std::cout << "Grabados objetos en fichero \"test.txt\"" << std::endl;
         }
@@ -331,12 +356,12 @@ void Juego2::mainGame ()
           std::cout << "--------------------------------" << std::endl \
                     << "-- Lista de todos los actores --" << std::endl \
                     << "--------------------------------" << std::endl \
-                    << *actor_manager \
+                    << *actorManager \
                     << "--------------------------------" << std::endl;
         }
         else if (!comando.compare("armario"))
         {
-          actor_manager->get_armario ();
+          actorManager->getArmario ();
         }
         else if (!comando.compare("pausa"))
         {
@@ -380,6 +405,8 @@ void Juego2::mainGame ()
   fade_out(2);
 };
 
+}
+
 /// Procedimiento principal del programa.
 ///
 /// Procedimiento no perteneciente a la clase y que crea
@@ -387,13 +414,12 @@ void Juego2::mainGame ()
 ///
 int main ()
 {
-  Juego2 game;
+  fwg::Juego2 game;
 
   srand (time(NULL));
-  game.set_name("Juego++ v2.0");
-  //game.init(GFX_AUTODETECT_WINDOWED, 800,600,8);
-  game.init(GFX_SAFE, 800,600,8);
+  game.setName("Juego++ v2.0");
+  game.setTimer(new alg4::TimerAllegro ());
+  game.init (GFX_SAFE, 800,600,8);
   return 0;
 }
 END_OF_MAIN ();
-

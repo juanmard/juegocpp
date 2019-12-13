@@ -12,6 +12,8 @@
 #include "AlmacenGUI.h"
 #include <sstream>
 
+namespace alg4 {
+
 /* Plantilla estática */
 DIALOG AlmacenGUI::dlg_plantilla[] =
 {
@@ -25,9 +27,9 @@ DIALOG AlmacenGUI::dlg_plantilla[] =
 };
 
 /* Variable estática que referencia al almacen activo. */
-Almacen* AlmacenGUI::almacen_activo = NULL;
+fwg::Almacen* AlmacenGUI::almacen_activo = NULL;
 
-AlmacenGUI::AlmacenGUI (Almacen& _almacen):
+AlmacenGUI::AlmacenGUI (fwg::Almacen& _almacen):
 almacen (_almacen),
 pto_inserccion (0),
 activado (false)
@@ -49,7 +51,7 @@ activado (false)
   dlg.insert (dlg.end(), &dlg_plantilla[0], &dlg_plantilla[5]);
 };
 
-AlmacenGUI::AlmacenGUI (Almacen& _almacen, std::vector<DIALOG>& gui_padre):
+AlmacenGUI::AlmacenGUI (fwg::Almacen& _almacen, std::vector<DIALOG>& gui_padre):
 almacen (_almacen),
 activado (false)
 {
@@ -90,7 +92,7 @@ std::vector<DIALOG>& AlmacenGUI::get_GUI ()
 /**
  * \brief   Cambiamos el objeto 'almacen' a visualizar en la GUI.
  */
-void AlmacenGUI::activar_almacen (Almacen& almacenParam)
+void AlmacenGUI::activar_almacen (fwg::Almacen& almacenParam)
 {
   almacen_activo = &almacenParam;
 };
@@ -116,3 +118,4 @@ void AlmacenGUI::mover_mouse (DIALOG* d)
   }
 }
 
+}

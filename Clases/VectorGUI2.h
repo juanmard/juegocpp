@@ -4,8 +4,8 @@
  * 
  */
 
-#ifndef _VECTORGUI_H_
-#define _VECTORGUI_H_
+#ifndef _VectorGUI2_H_
+#define _VectorGUI2_H_
 
 #include <vector>
 #include <allegro.h>
@@ -16,10 +16,10 @@ using std::vector;
 /**
  *
  */
-class VectorGUI
+class VectorGUI2
 {
   public:
-          VectorGUI (int &xParam, int &yParam, DIALOG *enlacesParam=NULL);
+          VectorGUI2 (int &xParam, int &yParam, DIALOG *enlacesParam=NULL);
     void  addEnlace (DIALOG *enlace);
     void  setVector (int &xParam, int &yParam);
 
@@ -43,7 +43,7 @@ class VectorGUI
       if (d->dp3)
       {
         // Creamos una referencia temporal al objeto actual.
-        VectorGUI &obj = *(static_cast<VectorGUI *>(d->dp3));
+        VectorGUI2 &obj = *(static_cast<VectorGUI2 *>(d->dp3));
 
         // Se procesan los mensajes propios.
         switch (msg)
@@ -80,4 +80,4 @@ class VectorGUI
     };
 };
 
-#endif // _VECTORGUI_H_
+#endif // _VectorGUI2_H_

@@ -11,6 +11,8 @@
 #include <sstream>
 #include <fstream>
 
+namespace fwg {
+
 Suelo::Suelo ():
 Mosaico(),
 size(0),
@@ -191,3 +193,4 @@ void Suelo::ajustar ()
     if(owner) owner->set_wh (32*size+20,15);
 };
 
+}

@@ -10,7 +10,6 @@
 #define SPRITE_H
 
 #include "ActorGraphic.h"
-#include "EditableObject.h"
 #include <vector>
 #include "Frame.h"
 #include <allegro.h>
@@ -18,11 +17,17 @@
 #include "Actor.h"
 #include "Mask.h"
 #include <sstream>
+#include <guichan/image.hpp>
+
+namespace fwg {
+    
+//class Object;
+class EditableObject;
 
 /// Gráfico en movimiento, una animación simple para los actores.
 /// Esta clase modela varias imágenes en movimiento como gráfico para un actor.
 ///
-class Sprite : public ActorGraphic, EditableObject
+class Sprite : public EditableObject, public ActorGraphic //, Object
 {
 protected:
     std::vector<Frame> frames;  ///< Conjunto de cuadros que forman la animación.
@@ -133,7 +138,7 @@ public:
     /// Genera un formulario para edición del sprite.
     /// @return Formulario con los controles necesarios para la edición del sprite.
     ///
-    Formulario& getFormulario () const;
+    alg4::Formulario& getFormulario () const;
 
     /// Prueba estática para menú.
     static int prueba_menu_static (void)
@@ -141,6 +146,34 @@ public:
         return D_O_K;
     };
 
+    /// Entrega el "frame" del "sprite" indicado por su posición.
+    /// @param  ind  Índice dentro de la sucesión de "frame".
+    /// @return Referencia al "Frame" que contiene el "sprite".
+    ///
+    const Frame* getFrame (int ind) const;
+
+    ///
+    void setXFrame (int ind, int x);
+    void setYFrame (int ind, int y);
+
+    /// Entrega el número de "frames" del "sprite".
+    /// @return Número de "frames" que tiene el "sprite".
+    ///
+    unsigned int getNumFrames () const;
+
+    /// Entrega la imagen para la GUI que representa el "frame" indicado con el índice.
+    /// @param  ind  Índice dentro de la sucesión de "frames".
+    /// @return Referencia a una imagen creada que contiene el frame indicado por "ind".
+    /// @warning El obtener una imagen para la GUI no es es un comportamiento necesario
+    ///          para el desarrollo normal del juego, por tanto este comportamiento debe
+    ///          trasladarse a otra clase que lo implemente. Quizás haciendo heredar la
+    ///          la clase SpriteGUI de esta clase creando un Sprite con la característica
+    ///          añadida de que se puede editar mediante una GUI, de esta forma se puede
+    ///          independizar aún más el "juego" de lo que es la "edición del juego".
+    /// @todo Pasar este procedimiento a SpriteGUI y heredar este de Sprite.
+    ///
+    virtual const gcn::Image* getImage (unsigned int ind) const;
 };
+}
 
 #endif

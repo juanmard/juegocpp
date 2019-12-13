@@ -14,6 +14,8 @@
 #include "PrintableObject.h"
 #include "DatFile.h"
 
+namespace fwg {
+    
 class Actor;
 class ActorManager;
 
@@ -118,5 +120,5 @@ private:
     Actor& crear_actor (const std::string& clase) const;
 };
 
-
+}
 #endif

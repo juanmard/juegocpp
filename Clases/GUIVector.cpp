@@ -7,12 +7,11 @@
 #include "GUIVector.h"
 #include <sstream>
 
-using std::ostringstream;
-
+namespace alg4 {
 /**
  * \brief   Constructor.
  */
-GUIVector::GUIVector(int &xParam, int &yParam):
+GUIVector::GUIVector(int& xParam, int& yParam):
 x (&xParam),
 y (&yParam)
 {
@@ -22,7 +21,7 @@ y (&yParam)
  * \brief   Comprueba las teclas en el control del vector.
  * \return  El procesado de la tecla.
  */
-int  GUIVector::Keyboard (int msg, DIALOG *d, int code)
+int  GUIVector::Keyboard (int msg, DIALOG* d, int code)
 {
   // Salida por omisión.
   int salida = D_O_K;
@@ -53,15 +52,15 @@ int  GUIVector::Keyboard (int msg, DIALOG *d, int code)
  * \brief   Dibuja los valores en la GUI.
  * \return  El valor al dibujar.
  */
-int  GUIVector::Draw (int msg, DIALOG *d, int code)
+int  GUIVector::Draw (int msg, DIALOG* d, int code)
 {
   // Se borra el fondo.
   rectfill (screen, d->x, d->y, d->x + d->w, d->y + d->h, gui_bg_color);
 
   // Se actualizan los datos.
-  ostringstream os;
+  std::ostringstream os;
   os << *x << "," << *y;
-  d->dp = const_cast<char *>(os.str().c_str ());
+  d->dp = const_cast<char*>(os.str().c_str ());
 
   // Se dibuja como un texto.
   return d_text_proc (msg, d, code);
@@ -71,7 +70,7 @@ int  GUIVector::Draw (int msg, DIALOG *d, int code)
  * \brief   Comprueba la rueda del ratón.
  * \return  El procesado de la rueda.
  */
-int  GUIVector::Wheel (int msg, DIALOG *d, int code)
+int  GUIVector::Wheel (int msg, DIALOG* d, int code)
 {
   // Actualizamos los valores referenciados por el vector según los clicks de la rueda.
   if (key[KEY_ALT])
@@ -91,7 +90,7 @@ int  GUIVector::Wheel (int msg, DIALOG *d, int code)
 /**
  * \brief   Se cambia el par de valores a los que se hace referencia en la GUI.
  */
-void  GUIVector::setVector (int &xParam, int &yParam)
+void  GUIVector::setVector (int& xParam, int& yParam)
 {
   x = &xParam;
   y = &yParam;
@@ -105,8 +104,9 @@ void  GUIVector::setVector (int &xParam, int &yParam)
  * \param   code  Código.
  * \return  El código obtenido por omisión.
  */
-int  GUIVector::Omision (int msg, DIALOG *d, int code)
+int  GUIVector::Omision (int msg, DIALOG* d, int code)
 {
   return d_text_proc (msg, d, code);
 };
 
+}

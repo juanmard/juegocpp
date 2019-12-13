@@ -15,13 +15,27 @@
 #include "Actor.h"
 #include "ActorManager.h"
 
+
+namespace fwg {
+
 /// Controlador del escenario del juego.
 ///
 /// Debe controlar como se representa el escenario del juego en pantalla y brindar
 /// los procedimientos necesarios. 
 ///
-class StageManager
-{
+/// @todo Eliminar las referencias a allegro en el espacio de nombres "fwg".
+///       Para ello quitar el tipo "BITMAP" y sustituirlo por "Buffer" que de forma
+///       gen√©rica realice una creaci√≥n del buffer como zona de memoria y herede el
+///       comportamiento de allegro mediante un m√©todo virtual.
+///       @code
+///         class Buffer {
+///                       Buffer ();
+///               virtual void reservar (int alto, int ancho);
+///               virtual void copiar (Buffer fuente, Buffer destino);
+///             }
+///       @endcode
+///       
+class StageManager {
 protected:
     Game* game;             ///< Referencia al juego propietario.
     BITMAP* buffer;         ///< Buffer principal a volcar en pantalla.
@@ -32,7 +46,7 @@ protected:
     bool verBloques;        ///< Muestra los bloques de los actores.
     bool verInfo;           ///< Muestra las informaciones del juego.
     bool verRibete;         ///< Muestra el ribete en pantalla.
-    std::string info;       ///< Cadena de informaciÛn a mostrar.
+    std::string info;       ///< Cadena de informaci√≥n a mostrar.
 
 public:
     /// Constructor.
@@ -58,13 +72,13 @@ public:
     ///
     unsigned int get_h () const;
 
-    /// Obtiene la posiciÛn 'x' del marco.
-    /// @return PosiciÛn 'x' del marco.
+    /// Obtiene la posici√≥n 'x' del marco.
+    /// @return Posici√≥n 'x' del marco.
     ///
     unsigned int get_x () const;
 
-    /// Obtiene la posiciÛn 'y' del marco.
-    /// @return PosiciÛn 'y' del marco.
+    /// Obtiene la posici√≥n 'y' del marco.
+    /// @return Posici√≥n 'y' del marco.
     ///
     unsigned int get_y () const;
 
@@ -73,8 +87,8 @@ public:
     ///
     BITMAP* getBuffer () const;
 
-    /// Actualiza gr·ficamente el escenario.
-    /// @note Actualmente al actualizar el escenario ˙nicamnente lo vuelve a dibujar.
+    /// Actualiza gr√°ficamente el escenario.
+    /// @note Actualmente al actualizar el escenario √∫nicamnente lo vuelve a dibujar.
     ///
     void update ();
 
@@ -92,10 +106,10 @@ public:
     ///
     void draw ();
 
-    /// Mueve el marco del escenario a la posiciÛn especificada dentro de las
+    /// Mueve el marco del escenario a la posici√≥n especificada dentro de las
     /// coordenadas generalizadas del juego.
-    /// @param x  PosiciÛn 'x' del marco de la nueva posiciÛn.
-    /// @param y  PosiciÛn 'y' del marco de la nueva posiciÛn.
+    /// @param x  Posici√≥n 'x' del marco de la nueva posici√≥n.
+    /// @param y  Posici√≥n 'y' del marco de la nueva posici√≥n.
     ///
     void mover_marco (int x, int y);
 
@@ -110,37 +124,37 @@ public:
     ///
     void actualizar_seguimiento ();
 
-    /// Confirma si existe un actor que est· siendo seguido por el escenario.
-    /// @return Si existe o no seguimiento de alg˙n actor.
+    /// Confirma si existe un actor que est√° siendo seguido por el escenario.
+    /// @return Si existe o no seguimiento de alg√∫n actor.
     ///
     bool is_seguimiento () const;
 
-    /// Confirma si el escenario quiere mostrar informaciÛn.
-    /// @return Si est· mostrando o no mensajes de informaciÛn.
+    /// Confirma si el escenario quiere mostrar informaci√≥n.
+    /// @return Si est√° mostrando o no mensajes de informaci√≥n.
     ///
     bool is_info () const;
 
 
-    /// Cambia la activaciÛn de la visualizaciÛn de los bloques.
-    /// @param activar  Si es 'true' activamos la visualizaciÛn de los bloques.
+    /// Cambia la activaci√≥n de la visualizaci√≥n de los bloques.
+    /// @param activar  Si es 'true' activamos la visualizaci√≥n de los bloques.
     ///
     void set_ver_bloques (bool activar = true);
 
-    /// Obtiene el estado de la visualizaciÛn de los bloques.
-    /// @return  Si es 'true' es que los bloques est·n activos.
+    /// Obtiene el estado de la visualizaci√≥n de los bloques.
+    /// @return  Si es 'true' es que los bloques est√°n activos.
     ///
     bool get_ver_bloques () const;
 
-    /// Dibuja un rect·ngulo en el buffer.
+    /// Dibuja un rect√°ngulo en el buffer.
     ///
-    /// Dibuja un rect·ngulo referido al inicio del buffer. En coordenadas del juego,
-    /// referido a la posiciÛn actual del escenario.
-    /// @param cuadro  Bloque con las dimensiones del rect·ngulo que se quiere dibujar.
-    /// @param color Color del rect·ngulo a dibujar.
+    /// Dibuja un rect√°ngulo referido al inicio del buffer. En coordenadas del juego,
+    /// referido a la posici√≥n actual del escenario.
+    /// @param cuadro  Bloque con las dimensiones del rect√°ngulo que se quiere dibujar.
+    /// @param color Color del rect√°ngulo a dibujar.
     ///
     void dibujar_cuadro (Bloque cuadro, int color);
 
-    /// Delimita la zona del marco con el dibujo de un rect·ngulo que hace de ribete.
+    /// Delimita la zona del marco con el dibujo de un rect√°ngulo que hace de ribete.
     /// @param ribete  Bloque con las dimensiones del ribete.
     ///
     void set_ribete (Bloque ribete);
@@ -160,11 +174,13 @@ public:
     ///
     Bloque& get_marco ();
 
-    /// Concatena la cadena a la lÌnea de informaciÛn.
-    /// @param cadena  InformaciÛn a concatenar.
+    /// Concatena la cadena a la l√≠nea de informaci√≥n.
+    /// @param cadena  Informaci√≥n a concatenar.
     /// @return Referencia a la cadena para seguir concatenando.
     ///
     std::string& operator<< (std::string cadena);
+};
+
 };
 
 #endif

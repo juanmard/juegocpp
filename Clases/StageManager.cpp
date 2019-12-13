@@ -8,6 +8,8 @@
 
 #include "StageManager.h"
 
+namespace fwg {
+
 StageManager::StageManager (Game* g, int w, int h):
 game (g),
 marco (0, 0, w, h),
@@ -53,20 +55,21 @@ BITMAP* StageManager::getBuffer () const
 
 void StageManager::update ()
 {
-  actualizar_seguimiento ();
-  draw ();
+    actualizar_seguimiento ();
+    draw ();
 };
 
 void StageManager::rellenar_buffer ()
 {
   Actor* tmp;
+  static int azul = makecol (25,100,255);
 
   // Se sitúa la lista de actores al inicio.
-  game->actor_manager->rewind ();
+  game->actorManager->rewind ();
 
   // Dibujamos los decorados de fondo.
   // Coloreamos de azul el fondo.
-  clear_to_color (buffer, makecol (25,100,255));
+  clear_to_color (buffer, azul);
 
   // Se recorre la lista de actores y se dibujan en el buffer del escenario.
   // @todo  Comprobar los actores que se encuentran dentro del marco del
@@ -78,7 +81,7 @@ void StageManager::rellenar_buffer ()
   if (verBloques)
   {
     bool estado_bloque;
-    while ((tmp = game->actor_manager->next()) != NULL)
+    while ((tmp = game->actorManager->next()) != NULL)
     {
       // Dibuja el actor.
       tmp->draw (this);
@@ -92,7 +95,7 @@ void StageManager::rellenar_buffer ()
   }
   else
   {
-    while ((tmp = game->actor_manager->next()) != NULL)
+    while ((tmp = game->actorManager->next()) != NULL)
     {
       tmp->draw (this);
     }
@@ -193,3 +196,4 @@ bool StageManager::is_info () const
     return verInfo;
 };
 
+};

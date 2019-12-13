@@ -2,6 +2,7 @@
 #include "Almacen.h"
 #include "Bitmap.h"
 
+namespace fwg {
 /**
  * Constructor de copia.
  */
@@ -12,7 +13,7 @@ siguiente (copia.siguiente)
 {
     // Una vez copiada la parte gráfica (ControllableActor),
     // la referenciamos en el objeto.
-    skin = dynamic_cast<Sprite *>(agraph);
+    skin = dynamic_cast<Sprite*>(agraph);
 }
 
 /**
@@ -85,7 +86,7 @@ Herny::Herny ()
   siguiente = Herny::cayendo;
 }
 
-void Herny::do_action (ControllableActor::action_t act, int magnitude)
+void Herny::doAction (ControllableActor::Action act, int magnitude)
 {
     switch (act)
     {
@@ -99,12 +100,12 @@ void Herny::do_action (ControllableActor::action_t act, int magnitude)
 
         case LEFT:
             x-=1;
-            static_cast<Sprite *>(agraph)->setMirror (true);
+            static_cast<Sprite*>(agraph)->setMirror (true);
             break;
 
         case RIGHT:
             x+=1;
-            static_cast<Sprite *>(agraph)->setMirror (false);
+            static_cast<Sprite*>(agraph)->setMirror (false);
             break;
     }
 }
@@ -218,3 +219,4 @@ string  Herny::getNombre () const
 {
   return Nombres::Imprimir (nombre);
 };
+}

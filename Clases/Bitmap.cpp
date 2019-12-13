@@ -9,6 +9,8 @@
 #include "Bitmap.h"
 #include <sstream>
 
+namespace fwg {
+
 // Inicializamos el almacén global de la clase.
 Almacen* Bitmap::almacenGlobal = NULL;
 
@@ -129,3 +131,4 @@ BITMAP* Bitmap::get_imagen () const
   }
 };
 
+}

@@ -1,8 +1,11 @@
 #pragma once
+
 #include "DirectorActor.h"
 #include "DatFile.h"
 #include "Bitmap.h"
 #include "Nombres.h"
+
+namespace fwg {
 
 class Pelota : public DirectorActor
 {
@@ -51,3 +54,4 @@ protected:
     Bitmap  *tomate, *granada, *estrella;
     SAMPLE  *rebote;
 };
+}

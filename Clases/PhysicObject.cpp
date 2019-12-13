@@ -9,6 +9,8 @@
 
 #include "PhysicObject.h"
 
+namespace fwg {
+    
 const float PhysicObject::g = 9.8f;
 
 PhysicObject::PhysicObject ():
@@ -25,3 +27,4 @@ PhysicObject::~PhysicObject ()
 {
 };
 
+}

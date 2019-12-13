@@ -1,36 +1,40 @@
+///---------------------------------------------------------
+/// @file       Peripheral.cpp
+/// @author     Juan Manuel Rico
+/// @date       Octubre 2015
+/// @version    1.0.0
 ///
-/// @file Peripheral.cpp
-/// @brief Fichero de implementación de la clase "Peripheral".
-/// @author Juan Manuel Rico
-/// @date Octubre 2015
-/// @version 1.0.0
-///
+/// @brief      Define un periférico para el control.
+///---------------------------------------------------------
 
 #include "Peripheral.h"
 
-Peripheral::Peripheral ()
-{
-};
+namespace fwg {
+    
+    Peripheral::Peripheral ()
+    {
+    }
 
-Peripheral::~Peripheral ()
-{
-};
+    Peripheral::~Peripheral ()
+    {
+    }
 
-Peripheral::state_t Peripheral::get_state (component_t comp)
-{
-    return 0;
-};
+    Peripheral::State Peripheral::getState (Component comp)
+    {
+        return 0;
+    }
 
-Peripheral::component_t Peripheral::get_change ()
-{
-    return 0;
-};
+    Peripheral::Component Peripheral::getChange ()
+    {
+        return 0;
+    }
 
-std::string Peripheral::get_component_name (component_t comp)
-{
-    return "";
-};
+    std::string Peripheral::getComponentName (Component comp)
+    {
+        return "";
+    }
 
-void Peripheral::reset ()
-{
-};
+    void Peripheral::reset ()
+    {
+    }
+}

@@ -7,7 +7,12 @@
 ///
 
 #include "Sprite.h"
+#include "EditableObject.h"
 #include "Bitmap.h"
+#include <guichan/allegro/allegroimage.hpp>
+#include <allegro.h>
+
+namespace fwg {
 
 Sprite::Sprite (Actor* aowner):
 ActorGraphic(aowner),
@@ -163,6 +168,7 @@ std::string Sprite::getString () const
 
     // Se incluye la estructura del padre.
     // cadena  << ActorGraphic::getString ();
+    cadena << "Padre: " << owner->getNombre() << " ";
 
     // Se incluyen las propiedades de Sprite.
     cadena  << "Sprite >> NumFrames: " << frames.size () \
@@ -179,6 +185,11 @@ std::string Sprite::getString () const
     return (cadena.str());
 };
 
+const Frame* Sprite::getFrame (int ind) const
+{
+    return &frames[ind];
+};
+
 Menu& Sprite::getMenu () const
 {
     Menu* ptr_menu = new Menu ();
@@ -192,18 +203,39 @@ Menu& Sprite::getMenu () const
     return *ptr_menu;
 };
 
-Formulario& Sprite::getFormulario () const
+alg4::Formulario& Sprite::getFormulario () const
 {
-    Formulario* ptr_formulario = new Formulario ();
-    ptr_formulario->add (Formulario::BOX, 0, 0, 400, 200);
+    alg4::Formulario* ptr_formulario = new alg4::Formulario ();
+    ptr_formulario->add (alg4::Formulario::BOX, 0, 0, 400, 200);
     ptr_formulario->add (10, 10, "Esto es una etiqueta de formulario.");
     ptr_formulario->add (10, 20, "Esta es otra.");
     ptr_formulario->add (10, 30, "Y una más.");
-    ptr_formulario->add (Formulario::SLIDER, 10, 60, 190, 15);
-    ptr_formulario->add (Formulario::BOX, 10, 90, 200, 20);
+    ptr_formulario->add (alg4::Formulario::SLIDER, 10, 60, 190, 15);
+    ptr_formulario->add (alg4::Formulario::BOX, 10, 90, 200, 20);
     ptr_formulario->add (10, 130, new Bitmap (NULL,frames[0].bmp));    
     ptr_formulario->add (60, 130, new Bitmap (NULL,frames[1].bmp));    
     ptr_formulario->add (110,130, new Bitmap (NULL,frames[2].bmp));    
     return *ptr_formulario;
 };
 
+unsigned int Sprite::getNumFrames () const
+{
+    return frames.size ();
+};
+
+const gcn::Image* Sprite::getImage (unsigned int ind) const
+{
+    throw *new std::runtime_error ("La obtención de una imagen desde un \"Sprite\" está sin implementar.\n¿Ha creado un \"SpriteAllegro\"?.");
+};
+
+void Sprite::setXFrame (int ind, int x)
+{
+    frames[ind].cx = x;
+};
+
+void Sprite::setYFrame (int ind, int y)
+{
+    frames[ind].cy = y;
+};
+
+}

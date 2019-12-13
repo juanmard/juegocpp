@@ -13,6 +13,8 @@
 #include "ReadableObject.h"
 #include <string>
 
+namespace fwg {
+    
 /// Modela un vector en 2D.
 ///
 /// Se utilizan componentes con números en coma flotante.
@@ -54,4 +56,5 @@ private:
     virtual unsigned int read (const std::string& cadena);
 };
 
+}
 #endif

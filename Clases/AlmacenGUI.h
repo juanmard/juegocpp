@@ -16,6 +16,8 @@
 #include <vector>
 #include "Almacen.h"
 
+namespace alg4 {
+
 /// Clase que genera una GUI (Graphical User Interface) para la clase 'Almacen'.
 ///
 /// La clase instancia de momento sólo la GUI para Allegro.
@@ -38,7 +40,7 @@
 class AlmacenGUI
 {
   private:
-    Almacen& almacen;
+    fwg::Almacen& almacen;
     unsigned int pto_inserccion;
     std::vector<DIALOG> dlg;
 
@@ -53,13 +55,13 @@ public:
     /// Constructor de la GUI para el almacén dado por parámetro.
     /// @param almacen  Referencia al almacén que se le asocia esta GUI.
     ///
-    AlmacenGUI (Almacen& almacenParam);
+    AlmacenGUI (fwg::Almacen& almacenParam);
 
     /// Constructor de la GUI para el almacén dado por parámetro.
-    AlmacenGUI (Almacen& almacen, std::vector<DIALOG>& dlg_padre);
-    AlmacenGUI ();
-    ~AlmacenGUI ();
-    void activar_almacen (Almacen& almacen);
+        AlmacenGUI ();
+        AlmacenGUI (fwg::Almacen& almacen, std::vector<DIALOG>& dlg_padre);
+        ~AlmacenGUI ();
+    void activar_almacen (fwg::Almacen& almacen);
     std::vector<DIALOG>& get_GUI ();
     void add_GUI (std::vector<DIALOG>& padre);
 
@@ -67,7 +69,7 @@ private:
     void mover_mouse (DIALOG* dlg);
 
   public:
-    static Almacen* almacen_activo;
+    static fwg::Almacen* almacen_activo;
     static DIALOG dlg_plantilla[];
     
     /**
@@ -99,7 +101,7 @@ private:
      *          todos los objetos siempre que guardemos en d[0].dp3 el objeto al
      *          que hace referencia.
      */
-    static int callback (int msg, DIALOG *d, int c)
+    static int callback (int msg, DIALOG* d, int c)
     {
       // Se sitúa el puntero del manager en 'dp3' pues en 'dp' 
       // debe estar el 'getter' de la lista y en 'dp2' el array de la selección.
@@ -127,14 +129,14 @@ private:
               {
                 // Limpiamos el fondo antes de volver a dibujar.
                 // Este bitmap lo podríamos hacer global a toda la clase.
-                BITMAP *fondo = create_bitmap (d[2].w,d[2].h);
+                BITMAP* fondo = create_bitmap (d[2].w,d[2].h);
                 clear_to_color (fondo, gui_bg_color);
                 d[2].dp = fondo;
                 object_message (&d[2], MSG_DRAW, 0);
                 destroy_bitmap (fondo);
                 
                 // Asignamos el recurso si es un bitmap.
-                BITMAP *bitmap = obj.almacen.get_bitmap (d[0].d1);
+                BITMAP* bitmap = obj.almacen.get_bitmap (d[0].d1);
                 if (bitmap) d[2].dp = bitmap;
                 obj.indice_ant = d[0].d1;
                 return object_message(&d[2], MSG_DRAW, 0);
@@ -164,7 +166,7 @@ private:
      *
      * \todo    Separar este control como una ventana.
      */
-    static int callback_mov (int msg, DIALOG *d, int c)
+    static int callback_mov (int msg, DIALOG* d, int c)
     {
       // Se comprueba si el puntero del objeto está ya en 'dp3.
       if (d[0].dp3)
@@ -217,5 +219,7 @@ private:
       return d_box_proc (msg, d, c);
     }
 };
+
+}
 
 #endif

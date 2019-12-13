@@ -11,6 +11,8 @@
 #include "Dialog.h"
 #include "StageManager.h"
 
+namespace fwg {
+
 int EditorManager::refX = 0;
 int EditorManager::refY = 0;
 
@@ -22,7 +24,7 @@ actorAtrapado (false),
 actorFijado (false)
 {
   // Referencia a la GUI.
-  gui = new Dialog(this);
+  gui = new alg4::Dialog(this);
 };
 
 EditorManager::~EditorManager ()
@@ -35,18 +37,18 @@ void EditorManager::activate ()
   game->pause ();
  
   // Guardamos el ribete actual del juego.
-  // Bloque ribete_ant (game->stage_manager->getRibete ());
+  // Bloque ribete_ant (game->stageManager->getRibete ());
   Bloque ribete_ant (0, 0, SCREEN_W, SCREEN_H-100);
 
   // Le decimos al escenario que queremos ver los bloques de los actores.
-  game->stage_manager->set_ver_bloques (true);
+  game->stageManager->set_ver_bloques (true);
 
   // Se hace visible el menú de edición.
   gui->show ();
 
   // Cuando se termina de editar:
-  game->stage_manager->set_ver_bloques (false);     //  1 - Ocultamos los bloques.
-  game->stage_manager->set_ribete (ribete_ant);     //  2 - Se recupera el ribete.
+  game->stageManager->set_ver_bloques (false);     //  1 - Ocultamos los bloques.
+  game->stageManager->set_ribete (ribete_ant);     //  2 - Se recupera el ribete.
   ///gui->mouse_out ();                             //  3 - Ocultamos el ratón.
   borrar_pantalla ();                               //  4 - Borramos la pantalla.
   game->play ();                                    //  5 - Se vuelve al juego.
@@ -54,7 +56,7 @@ void EditorManager::activate ()
 
 void EditorManager::dibujar_escenario ()
 {
-  game->stage_manager->draw ();
+  game->stageManager->draw ();
 };
 
 void EditorManager::mover_actor (int x, int y)
@@ -105,23 +107,23 @@ void EditorManager::duplicar_actor (Actor* actor)
       nuevo->set_y (nuevo->get_y () - 10);
 
       // Se añade a la lista de actores.
-      game->actor_manager->add (nuevo);
+      game->actorManager->add (nuevo);
 
       // Se actualiza la lista de actores creados para hacerlos visibles.
       // \todo Hacer friend estos procedimientos para usarlos sólo desde los "Manager"
-      //game->actor_manager->add_all_to_create ();
+      //game->actorManager->add_all_to_create ();
     }
   }
 };
 
 Actor* EditorManager::get_actor (int x, int y) const
 {
-  return game->actor_manager->get_actor (x, y);
+  return game->actorManager->getActor (x, y);
 };
 
 std::string& EditorManager::get_nombre_actor (int indice) const
 {
-  Actor* actor = game->actor_manager->get_actor (indice);
+  Actor* actor = game->actorManager->getActor (indice);
   if (actor)
   {
     return *new std::string (actor->get_nombre());
@@ -134,45 +136,45 @@ std::string& EditorManager::get_nombre_actor (int indice) const
 
 void EditorManager::mover_escenario (int x, int y)
 {
-  game->stage_manager->mover_marco (x, y);
+  game->stageManager->mover_marco (x, y);
 };
 
 int EditorManager::get_escenario_x () const
 {
-  return game->stage_manager->get_x ();
+  return game->stageManager->get_x ();
 };
 
 int EditorManager::get_escenario_y () const
 {
-  return game->stage_manager->get_y ();
+  return game->stageManager->get_y ();
 };
 
 void  EditorManager::step () const
 {
-  //game->stage_manager->setRibete (Bloque (10,10,640,190));
-  //game->actor_manager->update ();
+  //game->stageManager->setRibete (Bloque (10,10,640,190));
+  //game->actorManager->update ();
   game->update ();
   gui->draw ();
 };
 
 BITMAP* EditorManager::get_buffer ()
 {
-  return game->stage_manager->getBuffer ();
+  return game->stageManager->getBuffer ();
 };
 
 void EditorManager::actualizar_escenario ()
 {
-  return game->stage_manager->rellenar_buffer ();
+  return game->stageManager->rellenar_buffer ();
 };
 
 unsigned int EditorManager::get_num_actores () const
 {
-  return game->actor_manager->num_actors ();
+  return game->actorManager->numActors ();
 };
 
 void EditorManager::set_ribete (Bloque bloque) const
 {
-  return game->stage_manager->set_ribete(bloque);
+  return game->stageManager->set_ribete(bloque);
 };
 
 void EditorManager::borrar_pantalla () const
@@ -183,7 +185,7 @@ void EditorManager::borrar_pantalla () const
 void EditorManager::centrar_actor (int indice) const
 {
   // Se toma el actor de la lista dado por el índice.
-  Actor* actor = game->actor_manager->get_actor (indice);
+  Actor* actor = game->actorManager->getActor (indice);
 
   // Si el actor existe.
   if (actor)
@@ -192,8 +194,8 @@ void EditorManager::centrar_actor (int indice) const
     //            y sólo es necesario hacerlo una vez. Igualar las dimensiones
     //            de 'marco' y 'ribete' antes de entrar en edición.
     // Se toman los bloques del marco y el ribete.
-    Bloque& marco = game->stage_manager->get_marco ();
-    Bloque& ribete = game->stage_manager->get_ribete ();
+    Bloque& marco = game->stageManager->get_marco ();
+    Bloque& ribete = game->stageManager->get_ribete ();
     // Se igualan las dimensiones del marco a las del ribete.
     // De esta forma queda el actor en el centro de la pantalla.
     marco.set_wh (ribete.get_w (), ribete.get_h ());
@@ -208,20 +210,20 @@ void EditorManager::centrar_actor (int indice) const
 
 void EditorManager::set_color_ribete (int color)
 {
-  game->stage_manager->set_color_ribete (color);
+  game->stageManager->set_color_ribete (color);
 };
 
 std::string& EditorManager::get_escenario_xy () const
 {
   std::ostringstream oss;
-  Bloque marco (game->stage_manager->get_marco ());
+  Bloque marco (game->stageManager->get_marco ());
   oss << "(" << marco.get_x () << ", " << marco.get_y () << ")";
   return *new std::string(oss.str ());
 };
 
 Almacen& EditorManager::get_almacen () const
 {
-  return *(game->storage_manager);
+  return *(game->storageManager);
 }
 
 bool EditorManager::is_actor_atrapado () const
@@ -307,7 +309,7 @@ void EditorManager::activar_actor (int x, int y)
   {
     actor->set_color (makecol(0,255,0));
     actor->set_mostrar_bloque (true);
-    actor->drawGUI ();
+///    actor->drawGUI ();
     actorActivado = true;
   }
 };
@@ -372,3 +374,5 @@ int EditorManager::get_local_y (int y)
 {
   return ( y - get_escenario_y () );
 };
+
+}

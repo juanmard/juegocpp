@@ -15,6 +15,8 @@
 #include <string>
 #include "Actor.h"
 
+namespace fwg {
+
 /// Gráfico de suelo modificable en tamaño para actores.
 ///
 /// Esta clase modela un suelo gráfico modificable en tamaño y basado en mosaicos.
@@ -106,4 +108,5 @@ private:
     BITMAP* bloque;      ///< Gráfico del suelo 2 (bloques de repetición).
 };
 
+}
 #endif

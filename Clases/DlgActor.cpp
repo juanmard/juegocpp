@@ -1,5 +1,6 @@
 #include "DlgActor.h"
 
+namespace alg4 {
 /**
  * \brief   Inicialización de las variables estáticas.
  */
@@ -19,7 +20,7 @@ DIALOG DlgActor::dlg_propiedades[] =
 /**
  * \brief   Construye la clase que servirá de GUI para editar un actor.
  */
-DlgActor::DlgActor (Actor *actor_tmp)
+DlgActor::DlgActor (fwg::Actor *actor_tmp)
 {
   // Guardamos referencia al propietario.
   actor = actor_tmp;
@@ -68,7 +69,7 @@ void  DlgActor::show ()
 /**
  * \brief   Carga el actor a editar.
  */
-void  DlgActor::load (Actor *remoto)
+void  DlgActor::load (fwg::Actor *remoto)
 {
   // Propiedades de prueba.
   static char buffer[200];
@@ -181,3 +182,4 @@ void  DlgActor::msg_dclick ()
   // Pase lo que pase... cambiamos el estado del enganche.
   enganchado = !enganchado;
 };
+}

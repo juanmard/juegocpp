@@ -9,6 +9,8 @@
 #include "Almacen.h"
 #include "Sprite.h"
 
+namespace fwg {
+
 Mago::Mago ():
 ControllableActor()
 {
@@ -89,7 +91,7 @@ sentido(1)
 /**
  * \brief   Acciones del mago.
  */
-void Mago::do_action (ControllableActor::action_t act, int magnitude)
+void Mago::doAction (ControllableActor::Action act, int magnitude)
 {
   switch (act)
   {
@@ -276,4 +278,5 @@ Mago::Sprites_t  Mago::estado2Sprite (Estados_t estado_act) const
         break;
   }
   return sprite_act;
+}
 }

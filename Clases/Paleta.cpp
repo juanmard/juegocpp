@@ -9,6 +9,8 @@
 #include "Paleta.h"
 #include "Nombres.h"
 
+namespace fwg {
+
 Paleta::Paleta()
 {
   piel = new Suelo (this, 2);
@@ -43,7 +45,7 @@ Paleta::~Paleta(void)
 {
 };
 
-void Paleta::do_action (ControllableObject::action_t act, int magnitude)
+void Paleta::doAction (ControllableObject::Action act, int magnitude)
 {
   switch (act)
   {
@@ -101,3 +103,4 @@ std::string Paleta::getNombre () const
 //  return Nombres::Imprimir (nombre);
   return "Paleta";
 };
+}

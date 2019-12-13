@@ -1,5 +1,7 @@
 #include "Mask.h"
 
+namespace fwg {
+
 Mask::Mask()
 {
     sp_mask=NULL;
@@ -136,4 +138,6 @@ int Mask::check_ppcollision(Mask *m1, Mask *m2, int x1, int y1, int x2, int y2)
         }
         return 0; /* no collision */
     }
+}
+
 }

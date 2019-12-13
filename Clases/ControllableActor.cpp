@@ -1,25 +1,29 @@
+///---------------------------------------------------------
+/// @file       ControllableActor.cpp
+/// @author     Juan Manuel Rico
+/// @date       Marzo 2015
+/// @version    1.0.0
 ///
-/// @file    ControllableActor.h
-/// @brief   Fichero de definiciones de "ControllableActor".
-/// @author  Juan Manuel Rico
-/// @date    Marzo 2015
-/// @version 1.0.0
-/// 
-
+/// @brief      Define un actor que es controlable.
+///---------------------------------------------------------
 #include "ControllableActor.h"
+#include "Control.h"
 
-ControllableActor::ControllableActor ():
-control (NULL)
-{
-};
+namespace fwg {
 
-ControllableActor::ControllableActor (const ControllableActor &copia):
-Actor (copia),
-control (NULL)
-{
-};
+    ControllableActor::ControllableActor ():
+    control (NULL)
+    {
+    }
 
-Control* ControllableActor::get_control () const
-{
-    return control;
-};
+    ControllableActor::ControllableActor (const ControllableActor& copia):
+    Actor (copia),
+    control (NULL)
+    {
+    }
+
+    Control* ControllableActor::getControl () const
+    {
+        return control;
+    }
+}

@@ -44,6 +44,9 @@
 #include <string>
 #include "Plataforma.h"
 
+
+namespace fwg {
+    
 /// Juego de prueba heredado de Game.
 ///
 /// Esta clase genera un simple juego para probar los distintos actores.
@@ -66,7 +69,13 @@ public:
     /// En el almacén se dispone de todo el vestuario y recursos necesarios
     /// que se van a necesitar a lo largo del juego (Gráficos, animaciones, sonidos, etc.).
     ///
-    void create_storage_manager ();
+    void createStorageManager ();
+
+private:
+    /// Se crea una prueba para guichan.
+    void prueba_guichan (Sprite* prueba);
 };
+
+}
 
 #endif

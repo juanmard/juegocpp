@@ -7,9 +7,12 @@
 ///      - 1.0.0 Noviembre 2015
 ///
 
-#include "CollisionManager.h"
 #include "Actor.h"
+#include "ActorManager.h"
+#include "CollisionManager.h"
 #include <list>
+
+namespace fwg {
 
 CollisionManager::CollisionManager (Game* g)
 {
@@ -21,8 +24,8 @@ void CollisionManager::update ()
   std::list<Actor *>::const_iterator iter1, iter2, end;
 
   // El bucle hace combinaciones dos a dos de todos los actores.
-  iter1 = game->actor_manager->get_begin_iterator ();
-  end = game->actor_manager->get_end_iterator ();
+  iter1 = game->actorManager->getBeginIterator ();
+  end = game->actorManager->getEndIterator ();
   while ( iter1 != end )
   {
     iter2 = iter1;
@@ -54,4 +57,5 @@ bool  CollisionManager::Bounding (Actor* actor1, Actor* actor2)
          || (actor2->get_x() > actor1->get_x() + actor1->get_w())
          || (actor1->get_y() > actor2->get_y() + actor2->get_h())
          || (actor2->get_y() > actor1->get_y() + actor1->get_h())));
-};
+}
+}

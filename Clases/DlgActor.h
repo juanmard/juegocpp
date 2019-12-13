@@ -7,6 +7,8 @@
 
 #define   MSG_MOUSEMOVE   MSG_USER + 2
 
+namespace alg4 {
+
 /**
  * \brief       Muestra un actor en una pequeña GUI para editar sus propiedades.
  * \details     Esta GUI utiliza funciones básicas de Allegro. Contiene funciones globales para los
@@ -19,19 +21,19 @@
 class DlgActor
 {
   public:
-            DlgActor          (Actor *actor);
-            DlgActor          (Dialog *dlg);
+            DlgActor          (fwg::Actor* actor);
+            DlgActor          (Dialog* dlg);
             ~DlgActor         ();
     void    show              ();
-    void    load              (Actor *actor);
+    void    load              (fwg::Actor* actor);
     void    save              ();
 
   protected:
-    Dialog          *owner;
+    Dialog*         owner;
     int             x_rel, y_rel;
     int             x_ant, y_ant;
     bool            enganchado;
-    Actor           *actor;
+    fwg::Actor*     actor;
     static DIALOG   dlg_propiedades[];
 
     void            msg_idle            ();
@@ -83,3 +85,5 @@ class DlgActor
       return D_O_K;
     }
 };
+
+}

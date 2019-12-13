@@ -11,10 +11,12 @@
 #include "GUIControl.h"
 #include "EditorManager.h"
 
+namespace alg4 {
+
 class GUIEscenario : public GUIControl
 {
   public:
-          GUIEscenario  (EditorManager& editorParam, DIALOG* enlace=NULL);
+          GUIEscenario  (fwg::EditorManager& editorParam, DIALOG* enlace=NULL);
 
   private:
     int   Keyboard      (int msg, DIALOG* d, int code);
@@ -26,7 +28,9 @@ class GUIEscenario : public GUIControl
     int   Omision       (int msg, DIALOG* d, int code);
 
   private:
-    EditorManager& editor;
+    fwg::EditorManager& editor;
 };
+
+}
 
 #endif // _GUIESCENARIO_H_

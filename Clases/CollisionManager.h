@@ -9,6 +9,8 @@
 #ifndef _COLLISIONMANAGER_H_
 #define _COLLISIONMANAGER_H_
 
+namespace fwg {
+
 class Game;
 class Actor;
 
@@ -52,6 +54,7 @@ public:
     /// @return Si existe o no intersección entre ambos actores.
     ///
     bool Bounding (Actor* actor1, Actor* actor2);
+};
 };
 
 #endif

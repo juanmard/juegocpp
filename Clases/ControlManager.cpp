@@ -1,84 +1,96 @@
+///---------------------------------------------------------
+/// @file       ControlManager.cpp
+/// @author     Juan Manuel Rico
+/// @date       Octubre 2015
+/// @version    1.0.0
 ///
-/// @file ControlManager.cpp
-/// @brief Fichero de implementación de la clase "ControlManager".
-/// @author Juan Manuel Rico
-/// @date Octubre 2015
-/// @version 1.0.0
-///
+/// @brief      Controlador de controles.
+///---------------------------------------------------------
 
 #include "ControlManager.h"
+#include "Control.h"
 
-ControlManager::ControlManager()
-{
-    for (int i=0;i<MAXPERIPHERALS;i++)
-    old_state[i]=false;
-};
+namespace fwg {
 
-ControlManager::~ControlManager()
-{
-    for (peripherals_iter=peripherals.begin();
-    peripherals_iter!=peripherals.end();
-    peripherals_iter++)
+    ControlManager::ControlManager()
     {
-       delete(*peripherals_iter);
+        for (int i=0;i<MAXPERIPHERALS;i++)
+            oldState[i]=false;
     }
 
-    for (controls_iter=controls.begin();
-    controls_iter!=controls.end();controls_iter++)
+    ControlManager::~ControlManager()
     {
-        delete(*controls_iter);
-    }
-};
-
-int ControlManager::add_control(Control* c)
-{
-    controls.push_back(c);
-    return controls.size()-1;
-};
-
-int ControlManager::add_peripheral(Peripheral* p)
-{
-    peripherals.push_back(p);
-    return peripherals.size()-1;
-};
-
-Control* ControlManager::get_control(int number)
-{
-    return controls[number];
-};
-
-Peripheral* ControlManager::get_peripheral(int number)
-{
-    return peripherals[number];
-};
-
-ControlManager::change_t ControlManager::get_change()
-{
-    change_t ret;
-    Peripheral::component_t comp;
-    int pos=0;
-
-    for (peripherals_iter=peripherals.begin();
-    peripherals_iter!=peripherals.end();
-    peripherals_iter++)
-    {
-        pos++;
-        comp=(*peripherals_iter)->get_change();
-        if (comp!=INVALID_COMPONENT)
+        for (peripheralsIter = peripherals.begin();
+             peripheralsIter != peripherals.end();
+             peripheralsIter++)
         {
-            ret.comp=comp;
-            ret.p=*peripherals_iter;
-            old_state[pos]=true;
+           delete(*peripheralsIter);
         }
-        else
-            old_state[pos]=false;
-    }
-    return ret;
-};
 
-void ControlManager::update()
-{
-    for (controls_iter=controls.begin();
-    controls_iter!=controls.end(); controls_iter++)
-    (*controls_iter)->update();
-};
+        for (controlsIter= controls.begin();
+             controlsIter != controls.end();
+             controlsIter++)
+        {
+            delete(*controlsIter);
+        }
+    }
+
+    int ControlManager::addControl(Control* c)
+    {
+        controls.push_back(c);
+        return controls.size()-1;
+    }
+
+    int ControlManager::addPeripheral(Peripheral* p)
+    {
+        peripherals.push_back(p);
+        return peripherals.size()-1;
+    }
+
+    Control* ControlManager::getControl(int number)
+    {
+        return controls[number];
+    }
+
+    Peripheral* ControlManager::getPeripheral(int number)
+    {
+        return peripherals[number];
+    }
+
+    ControlManager::Change ControlManager::getChange()
+    {
+        Change ret;
+        Peripheral::Component comp;
+        int pos = 0;
+
+        for (peripheralsIter = peripherals.begin();
+             peripheralsIter != peripherals.end();
+             peripheralsIter++)
+        {
+            pos++;
+            comp = (*peripheralsIter)->getChange();
+            if (comp != INVALID_COMPONENT)
+            {
+                ret.comp = comp;
+                ret.p = *peripheralsIter;
+                oldState[pos] = true;
+            }
+            else
+            {
+                oldState[pos] = false;
+            }
+        }
+        return ret;
+    }
+
+    void ControlManager::update()
+    {
+        for (controlsIter = controls.begin();
+             controlsIter != controls.end();
+             controlsIter++)
+        {
+            (*controlsIter)->update();
+        }
+    }
+    
+}

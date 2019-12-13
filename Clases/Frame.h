@@ -23,7 +23,7 @@ class Frame
 {
 public:
   BITMAP* bmp;  ///< Imagen que debe mostrar el cuadro.
-  Mask* mask;   ///< Máscara de colisión del cuadro.
+  fwg::Mask* mask;   ///< Máscara de colisión del cuadro.
   int cx;       ///< Coordenada x de la posición relativa del cuadro.
   int cy;       ///< Coordenada y de la posición relativa del cuadro.
   int ticks;    ///< Tiempo (en ciclos de juego) que debe permanecer el cuadro en pantalla.
@@ -40,6 +40,10 @@ public:
     /// Entrega una cadena con la estructura de datos del cuadro.
     /// @return Cadena de caracteres con la estructura del cuadro.
     std::string print () const;
+
+    /// Entrega un puntero a la imagen del "frame".
+    /// @return Puntero al BITMAP de Allegro con la imagen del "frame".
+    BITMAP* getBitmap () const;
 };
 
 #endif

@@ -12,6 +12,8 @@
 #include "Almacen.h"
 #include "Sprite.h"
 
+namespace fwg {
+    
 class Mago : public ControllableActor 
 {
   public:
@@ -30,9 +32,9 @@ public:
     Mago ();
 
     Mago        (Almacen &almacen);
-    void    do_action   (ControllableActor::action_t act, int magnitude);
+    void    doAction   (ControllableActor::Action act, int magnitude);
     void    update      ();
-    void    hit         (Actor *who, int damage);
+    void    hit         (Actor* who, int damage);
 
   private:
     Sprites_t     estado2Sprite     (Estados_t estado) const;
@@ -45,4 +47,5 @@ public:
     int                         sentido;
 };
 
+}
 #endif // _MAGO_H_

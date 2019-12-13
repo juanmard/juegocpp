@@ -12,6 +12,8 @@
 #include "Almacen.h"
 #include "Sprite.h"
 
+namespace fwg {
+    
 /**
  * \brief   Clase que modela el actor controlable de Ben.
  */
@@ -34,7 +36,7 @@ public:
     Ben ();
 
               Ben         (Almacen &almacen);
-    void      do_action   (ControllableActor::action_t act, int magnitude);
+    void      doAction   (ControllableActor::Action act, int magnitude);
     void      update      ();
     void      hit         (Actor *who, int damage);
     void      getEstado   (std::string &strEstado) const;
@@ -46,7 +48,7 @@ public:
     Sprites_t     estado2Sprite     (Estados_t estado) const;
 
   private:
-    std::map<Sprites_t,Sprite *>     sprites;
+    std::map<Sprites_t, Sprite *>     sprites;
     Estados_t                   estado, estado_ant, estado_sig;
     unsigned int                timer;
     int                         gravedad;
@@ -56,4 +58,5 @@ public:
   friend std::ostream&  operator<< (std::ostream &os, Ben &ben);
 };
 
+}
 #endif // _BEN_H_

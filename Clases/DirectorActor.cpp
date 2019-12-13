@@ -1,6 +1,8 @@
 #include "DirectorActor.h"
 #include "ActorManager.h"
 
+namespace fwg {
+    
 /**
  * \brief   Constructor de copia.
  */
@@ -37,5 +39,7 @@ void DirectorActor::Elimina  (Actor *who)
  */
 DirectorActor * DirectorActor::clone () const
 {
-	return NULL;
+    return NULL;
+}
+
 }
