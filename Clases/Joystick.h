@@ -63,6 +63,7 @@ namespace fwg {
             static int activos;                 ///< Número de joysticks activos.
 
         protected:
+            unsigned int joyId;                 ///< Identificador del joystick.
             std::vector<JoyAxi> axis;           ///< Set of axis.
             std::vector<JoyButton> buttons;     ///< Set of buttons.
             std::vector<int> oldStateAxis;      ///< Old state of axis.

@@ -16,7 +16,8 @@ namespace fwg {
     /// 
     int Joystick::activos = 0;
     
-    Joystick::Joystick()
+    Joystick::Joystick():
+    joyId(0)
     {
     }
     
@@ -48,10 +49,10 @@ namespace fwg {
     {
         update ();
         
-        if (axis[1].d1 != 0) std::cout << "Stick UP" << std::endl;
-        if (axis[1].d2 != 0) std::cout << "Stick DOWN" << std::endl; 
-        if (axis[0].d2 != 0) std::cout << "Stick RIGHT" << std::endl; 
-        if (axis[0].d1 != 0) std::cout << "Stick LEFT" << std::endl; 
+        if (axis[1].d1 != 0) std::cout << "Joy" << joyId << " - UP" << std::endl;
+        if (axis[1].d2 != 0) std::cout << "Joy" << joyId << " - DOWN" << std::endl; 
+        if (axis[0].d2 != 0) std::cout << "Joy" << joyId << " - RIGHT" << std::endl; 
+        if (axis[0].d1 != 0) std::cout << "Joy" << joyId << " - LEFT" << std::endl; 
         
         /// Prueba de componente, damos prioridad al componente stick.
         if ((axis[1].d1 != 0) && (comp == UP)) return true;
@@ -62,7 +63,7 @@ namespace fwg {
         // Pruebas de botón.
         if ( (buttons[comp].b) && (comp < static_cast<int>(numButtons)) )
         {
-            std::cout << "Botón " << comp << " - " << buttons[comp].b << std::endl;
+            std::cout << "Joy" << joyId << " - Botón " << comp << std::endl;
             return true;
         }
         else

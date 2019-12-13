@@ -22,6 +22,7 @@ namespace alg4 {
         bool salida = false;
         if (install_joystick (JOY_TYPE_AUTODETECT) == 0)
         {
+             joyId = activos;
              activos++;
              std::cout << "Joystick instalado. Activos: " << activos << std::endl;
              salida = true;
@@ -31,12 +32,12 @@ namespace alg4 {
        
     unsigned int JoystickAllegro::getNumAxis ()
     {
-        return joy[0].stick[0].num_axis;
+        return joy[joyId].stick[0].num_axis;
     }
 
     unsigned int JoystickAllegro::getNumButtons ()
     {
-        return joy[0].num_buttons;
+        return joy[joyId].num_buttons;
     }
     
     void JoystickAllegro::update ()
@@ -46,14 +47,14 @@ namespace alg4 {
         /// Se actualizan los ejes.
         for (unsigned int i=0; i<numAxis; i++)
         {
-            axis[i].d1 = joy[0].stick[0].axis[i].d1;
-            axis[i].d2 = joy[0].stick[0].axis[i].d2;
+            axis[i].d1 = joy[joyId].stick[0].axis[i].d1;
+            axis[i].d2 = joy[joyId].stick[0].axis[i].d2;
         }
 
         /// Se actualizan los botones.
         for (unsigned int i=0; i<numButtons; i++)
         {
-            buttons[i].b = joy[0].button[i].b;
+            buttons[i].b = joy[joyId].button[i].b;
         }
     }
 }

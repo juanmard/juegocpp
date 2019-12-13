@@ -52,7 +52,6 @@ namespace alg4 {
             /// Refresca los datos del joystick.
             /// 
             void update ();
-            
     };
 }
 
