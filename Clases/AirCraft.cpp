@@ -13,7 +13,9 @@
 
 namespace fwg {
 
-    AirCraft::AirCraft()
+    AirCraft::AirCraft():
+    color1(makecol(20,127,34)),
+    color2(makecol(255,127,34))
     {
       image = NULL;
       this->set_wh(20,60);
@@ -47,6 +49,8 @@ namespace fwg {
             case RIGHT:
                 x += 4;
                 break;
+            case 4: color1++; break;
+            case 5: color2++; break;
         }
         if (x < 0) x = 0;
         if (x > SCREEN_W - get_w()) x = SCREEN_W - get_w();
@@ -60,9 +64,9 @@ namespace fwg {
 
     void AirCraft::draw (StageManager* stageManager)
     {
-        rectfill (stageManager->getBuffer(), x, y, x+w, y+h, makecol(20,127,34));
+        rectfill (stageManager->getBuffer(), x, y, x+w, y+h, color1);
         ellipse (stageManager->getBuffer(), x+(w/2), y+(h/2),
-                 y/3, x/3, makecol(255,127,34));
+                 y/3, x/3, color2);
     }
     
     AirCraft* AirCraft::clone () const

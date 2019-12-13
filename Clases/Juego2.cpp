@@ -96,7 +96,11 @@ void Juego2::mainGame ()
   control->addActionName (AirCraft::UP, "Arriba");
   control->addActionName (AirCraft::DOWN, "Abajo");
   control->addActionName (4, "Disparar");
-  control->addActionName (5, "Bombas");
+  control->addActionName (5, "Bombas 1");
+  control->addActionName (6, "Bombas 2");
+  control->addActionName (7, "Bombas 3");
+  control->addActionName (8, "Bombas 4"); 
+  control->addActionName (9, "Bombas 5");
   control->setOwner(nave);
   controlManager->addControl(control);
 
@@ -113,6 +117,10 @@ void Juego2::mainGame ()
   control->setActionPeripheral (AirCraft::DOWN,  joy,  Joystick::DOWN,     Peripheral::ON_PRESSING);
   control->setActionPeripheral (4,               joy,  Joystick::BUTTON_1, Peripheral::ON_PRESSING);
   control->setActionPeripheral (5,               joy2, Joystick::UP,       Peripheral::ON_PRESSING);
+  control->setActionPeripheral (6,               joy2, Joystick::DOWN,     Peripheral::ON_PRESS);
+  control->setActionPeripheral (7,               joy2, Joystick::LEFT,     Peripheral::ON_PRESS);
+  control->setActionPeripheral (8,               joy2, Joystick::RIGHT,    Peripheral::ON_PRESS);
+  control->setActionPeripheral (9,               joy2, Joystick::BUTTON_1, Peripheral::ON_PRESS);
 
   // Se crea el 'EditorManager' básico para comenzar con las pruebas.
   EditorManager editorManager (this);

@@ -46,6 +46,8 @@ namespace fwg {
 
         protected:
             BITMAP* image; ///< Gráfico de la nave.
+            int color1;    ///< Color de prueba.
+            int color2;    ///< Color de prueba.
 
         public:
             /// Constructor.

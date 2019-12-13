@@ -49,21 +49,24 @@ namespace fwg {
     {
         update ();
         
-        if (axis[1].d1 != 0) std::cout << "Joy" << joyId << " - UP" << std::endl;
-        if (axis[1].d2 != 0) std::cout << "Joy" << joyId << " - DOWN" << std::endl; 
-        if (axis[0].d2 != 0) std::cout << "Joy" << joyId << " - RIGHT" << std::endl; 
-        if (axis[0].d1 != 0) std::cout << "Joy" << joyId << " - LEFT" << std::endl; 
+        bool salida = false;
         
-        /// Prueba de componente, damos prioridad al componente stick.
-        if ((axis[1].d1 != 0) && (comp == UP)) return true;
-        if ((axis[1].d2 != 0) && (comp == DOWN)) return true;
-        if ((axis[0].d2 != 0) && (comp == RIGHT)) return true;
-        if ((axis[0].d1 != 0) && (comp == LEFT)) return true;
+        /// Se comprueban los ejes.
+        if  (
+               ((axis[1].d1 != 0) && (comp == UP))
+            || ((axis[1].d2 != 0) && (comp == DOWN))
+            || ((axis[0].d2 != 0) && (comp == RIGHT))
+            || ((axis[0].d1 != 0) && (comp == LEFT))
+            )
+                salida = true;
         
-        // Pruebas de botón.
-        if ( (buttons[comp].b) && (comp < static_cast<int>(numButtons)) )
+        /// Se comprueban los botones.
+        if ( (buttons[comp].b) && (comp < static_cast<int>(numButtons)) ) salida = true;
+        
+        /// Se muestra información del componente.
+        if (salida)
         {
-            std::cout << "Joy" << joyId << " - Botón " << comp << std::endl;
+            std::cout << "Joy " << joyId << " - " << comp << " - <" << getComponentName(comp) << ">" << std::endl;
             return true;
         }
         else
@@ -105,17 +108,17 @@ namespace fwg {
 
         switch (comp)
         {
-            case NONE:     ret="None"; break;
-            case UP:       ret="Up"; break;
-            case DOWN:     ret="Down"; break;
-            case LEFT:     ret="Left"; break;
-            case RIGHT:    ret="Right"; break;
-            case BUTTON_1: ret="Button 1"; break;
-            case BUTTON_2: ret="Button 2"; break;
-            case BUTTON_3: ret="Button 3"; break;
-            case BUTTON_4: ret="Button 4"; break;
-            case BUTTON_5: ret="Button 5"; break;
-            case BUTTON_6: ret="Button 6"; break;
+            case NONE:     ret="None";       break;
+            case UP:       ret="Up";         break;
+            case DOWN:     ret="Down";       break;
+            case LEFT:     ret="Left";       break;
+            case RIGHT:    ret="Right";      break;
+            case BUTTON_1: ret="Button 1";   break;
+            case BUTTON_2: ret="Button 2";   break;
+            case BUTTON_3: ret="Button 3";   break;
+            case BUTTON_4: ret="Button 4";   break;
+            case BUTTON_5: ret="Button 5";   break;
+            case BUTTON_6: ret="Button 6";   break;
             default:       ret="Sin nombre"; break;
         }
         return ret;
