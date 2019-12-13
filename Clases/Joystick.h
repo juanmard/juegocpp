@@ -100,29 +100,36 @@ namespace fwg {
             void reset ();
             
         protected:
+            /// Inicializa el joystick.
+            /// 
+            /// Inicializa el joystick con la estructura de datos obtenidos
+            /// de la definición de los métodos virtuales puros de la clase
+            /// que hereda.
+            /// 
+            void init ();
+
             /// Instala el joystick en el motor gráfico.
             /// 
             /// @return Devuelve 'true' si se ha realizado la instalación
             ///         correctamente.
             /// 
-            virtual bool install ();
+            virtual bool install () = 0;
             
             /// Obtiene el número máximo de botones.
             /// 
             /// @return Número máximo de botones para este joystick.
             /// 
-            virtual unsigned int getNumButtons ();
+            virtual unsigned int getNumButtons () = 0;
 
             /// Obtiene el número máximo de ejes.
             /// 
             /// @return Número máximo de ejes para este joystick.
             /// 
-            virtual unsigned int getNumAxis ();
+            virtual unsigned int getNumAxis () = 0;
             
             /// Refresca los datos del joystick.
             /// 
-            virtual void update ();
-            
+            virtual void update () = 0;
     };
 }
 

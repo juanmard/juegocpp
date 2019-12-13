@@ -14,6 +14,7 @@ namespace alg4 {
 
     JoystickAllegro::JoystickAllegro ()
     {
+        Joystick::init();
     }
     
     bool JoystickAllegro::install ()

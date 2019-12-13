@@ -18,10 +18,10 @@ namespace fwg {
     
     Joystick::Joystick()
     {
-        /// Se instala/detecta el joystick.
-        /// @todo Comprobar el joystick para no instalarlo
-        ///       más de una vez. (¿Dando un nombre al objeto Joystick?)
-        ///       
+    }
+    
+    void Joystick::init ()
+    {
         if (install ())
         {
             /// @todo Comprobar que el joystick se a instalado correctamente.
@@ -42,17 +42,8 @@ namespace fwg {
             ///       
             reset();
         }
-        else
-        {
-            std::cout << "No utilice directamente un objeto 'Joystick'." << std::endl;
-        }
     }
 
-    bool Joystick::install ()
-    {
-         return false;
-    }
-    
     Peripheral::State Joystick::getState(State comp)
     {
         update ();
@@ -127,19 +118,5 @@ namespace fwg {
             default:       ret="Sin nombre"; break;
         }
         return ret;
-    }
-    
-    unsigned int Joystick::getNumAxis ()
-    {
-        return 0;
-    }
-
-    unsigned int Joystick::getNumButtons ()
-    {
-        return 0;
-    }
-    
-    void Joystick::update ()
-    {       
     }
 }
