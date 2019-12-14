@@ -94,8 +94,8 @@ int Tesela::get_y () const
 void Tesela::draw (BITMAP* pantalla) const
 {
   // Se calcula la posición respecto al padre.
-  int x_tmp = x + mosaico_padre->get_x ();
-  int y_tmp = y + mosaico_padre->get_y ();
+  int x_tmp = x + mosaico_padre->getX ();
+  int y_tmp = y + mosaico_padre->getY ();
 
   // Se comprueba la dirección de la tesela para dibujarla.
   if (mirror)

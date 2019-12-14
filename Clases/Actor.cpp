@@ -80,7 +80,7 @@ void Actor::update ()
     // Se actualizan los gráficos del actor.
     // Si hay un gráfico en espera y está el actual libre, se cambia el gráfico por el nuevo;
     // en otro caso, no se hace nada.
-    if ((wait_graph != NULL) && agraph->is_free())
+    if ((wait_graph != NULL) && agraph->isFree())
     {
         // @note En este caso se queda el antiguo 'agraph' huérfano.
         //       ¿Incluir en una lista de punteros huérfanos?
@@ -174,7 +174,7 @@ void Actor::set_actor_graphic (ActorGraphic* ag)
         // Si está libre de uso se lleva a cabo el cambio,
         // en otro caso se activa la necesidad de cambio que se producirá al actualizarse
         // el actor cuando se compruebe que está libre.
-        if (agraph->is_free ())
+        if (agraph->isFree ())
         {
             agraph = ag;
         }
@@ -217,12 +217,12 @@ int Actor::get_h()
 
 int Actor::get_graph_x ()
 {
-    return agraph->get_x ();
+    return agraph->getX ();
 };
 
 int Actor::get_graph_y ()
 {
-    return agraph->get_y ();
+    return agraph->getY ();
 };
 
 Nombres::codigo Actor::getCodigo ()

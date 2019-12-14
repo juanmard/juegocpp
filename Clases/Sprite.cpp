@@ -60,13 +60,13 @@ void Sprite::update ()
     if (actual_tick > frames[actual_frame].ticks)
     {
         // Con el nuevo fotograma retenemos la aniamción.
-        if (actual_frame == 0) set_free (false);
+        if (actual_frame == 0) setFree (false);
         actual_tick = 0;
         actual_frame++;
         if (actual_frame >= (int)frames.size())
         {
             // Al terminar el ciclo de la animación libera el gráfico.
-            set_free (true);
+            setFree (true);
 
             // Y prepara el gráfico para un nuevo ciclo.
             actual_frame=0;
@@ -107,12 +107,12 @@ int Sprite::get_h ()
 
 int Sprite::get_x ()
 {
-  return ActorGraphic::get_x()-(frames[actual_frame].cx);
+  return ActorGraphic::getX()-(frames[actual_frame].cx);
 }
 
 int Sprite::get_y ()
 {
-  return ActorGraphic::get_y()-(frames[actual_frame].cy);
+  return ActorGraphic::getY()-(frames[actual_frame].cy);
 }
 
 Mask* Sprite::get_mask ()

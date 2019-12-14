@@ -50,7 +50,7 @@ nombre (nombreParam)
 void Bitmap::draw (BITMAP* destino)
 {
   //draw_sprite (destino, fuente, get_x(), get_y());
-  pivot_sprite_v_flip_lit(destino, fuente, get_x(), get_y(), 0, 0, 34, 128);
+  pivot_sprite_v_flip_lit(destino, fuente, getX(), getY(), 0, 0, 34, 128);
 };
 
 void Bitmap::draw (int x, int y, BITMAP* destino, bool mirror)

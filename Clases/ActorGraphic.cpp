@@ -1,118 +1,137 @@
+///---------------------------------------------------------
+/// @file       ActorGraphic.cpp
+/// @author     Juan Manuel Rico
+/// @date       Octubre 2015
+/// @version    1.1.0
 ///
-/// @file ActorGraphic.cpp
-/// @brief Fichero de implementación de la clase "ActorGraphic".
-/// @author Juan Manuel Rico
-/// @date Octubre 2015
-/// @version 1.0.0
+/// @brief      Parte gráfica del actor.
+///---------------------------------------------------------
 ///
 
 #include "ActorGraphic.h"
 #include "Actor.h"
 
 namespace fwg {
-    
-ActorGraphic::ActorGraphic ():
-owner(NULL),
-graph_free (true)
-{
-};
 
-ActorGraphic::ActorGraphic (Actor* a):
-owner(a),
-graph_free (true)
-{
-};
+    ActorGraphic::ActorGraphic ():
+    owner(NULL),
+    graph_free (true)
+    {
+    }
 
-ActorGraphic::~ActorGraphic ()
-{
-};
+    ActorGraphic::ActorGraphic (Actor* a):
+    owner(a),
+    graph_free (true)
+    {
+    }
 
-void ActorGraphic::update ()
-{
-};
+    ActorGraphic::~ActorGraphic ()
+    {
+    }
 
-void ActorGraphic::init ()
-{
-};
+    void ActorGraphic::update ()
+    {
+    }
 
-void ActorGraphic::draw (BITMAP* bmp)
-{
-};
+    void ActorGraphic::init ()
+    {
+    }
 
-void ActorGraphic::draw (int x, int y, BITMAP* bmp)
-{
-};
+    /// @note Este método no me gusta ya que utiliza el escenario donde
+    ///       se va a representar el actor como un BITMAP de Allegro.
+    ///       Eliminar estas referencias y dejar las de el controlador
+    ///       del escenario para hacerlo más genérico (StageManager).
+    ///       
+    void ActorGraphic::draw (BITMAP* bmp)
+    {
+    }
 
-unsigned int ActorGraphic::get_w () const
-{
-    return 0;
-};
+    /// @note Este método no me gusta ya que utiliza el escenario donde
+    ///       se va a representar el actor como un BITMAP de Allegro.
+    ///       Eliminar estas referencias y dejar las de el controlador
+    ///       del escenario para hacerlo más genérico (StageManager).
+    ///       
+    void ActorGraphic::draw (int x, int y, BITMAP* bmp)
+    {
+    }
 
-unsigned int ActorGraphic::get_h () const
-{
-    return 0;
-};
+    unsigned int ActorGraphic::getW () const
+    {
+        return 0;
+    }
 
-int ActorGraphic::get_x () const
-{
-    return (int)(owner->get_x());
-};
+    unsigned int ActorGraphic::getH () const
+    {
+        return 0;
+    }
 
-int ActorGraphic::get_y () const
-{
-    return (int)(owner->get_y());
-};
+    int ActorGraphic::getX () const
+    {
+        return (int)(owner->get_x());
+    }
 
-Mask* ActorGraphic::get_mask () const
-{
-    return NULL;
-};
+    int ActorGraphic::getY () const
+    {
+        return (int)(owner->get_y());
+    }
 
-ActorGraphic* ActorGraphic::clone (Actor* propietario) const
-{
-    return new ActorGraphic();
-};
+    Mask* ActorGraphic::getMask () const
+    {
+        return NULL;
+    }
 
-/// @todo Agrupar los valores de posición y dimensiones en un bloque,
-///       para así poder imprimir directamente en el formato del bloque.
-std::string& ActorGraphic::print () const
-{
-    std::ostringstream cadena;
+    /// @note Hay que decidir si clonar un actor gráfico consiste en
+    ///       clonar también la imagen o Bitmap que lo representa o
+    ///       simplemente tener estas imágenes en un "guardarropa" y
+    ///       tomar las imágenes y animaciones de allí mediante una
+    ///       referencia (StorageManager).
+    ///       
+    ActorGraphic* ActorGraphic::clone (Actor* propietario) const
+    {
+        return new ActorGraphic();
+    }
 
-    cadena << "Propietario: " << owner->get_nombre() << std::endl;
-    cadena << "Posición: [" << get_x() << ", " << get_y() << "]" << std::endl;
-    cadena << "Dimensiones: [" << get_h() << ", " << get_w() << "]" << std::endl;
-    return *new std::string(cadena.str());
-};
+    /// @todo Agrupar los valores de posición y dimensiones en un bloque,
+    ///       para así poder imprimir directamente en el formato del bloque.
+    ///       
+    std::string& ActorGraphic::print () const
+    {
+        std::ostringstream cadena;
 
-Actor* ActorGraphic::getActor () const
-{
-  return owner;
-};
+        cadena << "Propietario: " << owner->getNombre() << std::endl;
+        cadena << "Posición: [" << getX() << ", " << getY() << "]" << std::endl;
+        cadena << "Dimensiones: [" << getH() << ", " << getW() << "]" << std::endl;
+        return *new std::string(cadena.str());
+    }
 
-std::ifstream& ActorGraphic::leer (std::ifstream& ifs)
-{
-    return ifs;
-};
+    Actor* ActorGraphic::getActor () const
+    {
+      return owner;
+    }
 
-std::ifstream& operator>> (std::ifstream& ifs, ActorGraphic& grafico)
-{
-    return grafico.leer(ifs);
-};
+    std::ifstream& ActorGraphic::leer (std::ifstream& ifs)
+    {
+        return ifs;
+    }
 
-void ActorGraphic::setOwner (Actor& propietario)
-{
-    if (!owner) this->owner = &propietario;
-};
+    std::ifstream& operator>> (std::ifstream& ifs, ActorGraphic& grafico)
+    {
+        return grafico.leer(ifs);
+    }
 
-bool ActorGraphic::is_free ()
-{
-    return graph_free;
-};
+    void ActorGraphic::setOwner (Actor& propietario)
+    {
+        if (!owner) this->owner = &propietario;
+    }
 
-void ActorGraphic::set_free (bool estate)
-{
-    graph_free = estate;
-};
+    bool ActorGraphic::isFree ()
+    {
+        return graph_free;
+    }
+
+    void ActorGraphic::setFree (bool estate)
+    {
+        graph_free = estate;
+    }
 
 }
