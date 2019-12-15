@@ -40,8 +40,8 @@ void CollisionManager::update ()
         (*iter2)->hit ((*iter1), 1);
 
         // Cambia el color de prueba de cada actor.
-        (*iter1)->set_color (!(*iter1)->get_color());
-        (*iter2)->set_color (!(*iter2)->get_color());
+        (*iter1)->setColor (!(*iter1)->getColor());
+        (*iter2)->setColor (!(*iter2)->getColor());
       }
 
       // Seguimos con el siguiente actor de la lista.
@@ -53,9 +53,9 @@ void CollisionManager::update ()
 
 bool  CollisionManager::Bounding (Actor* actor1, Actor* actor2)
 {
-  return (!((actor1->get_x() > actor2->get_x() + actor2->get_w())
-         || (actor2->get_x() > actor1->get_x() + actor1->get_w())
-         || (actor1->get_y() > actor2->get_y() + actor2->get_h())
-         || (actor2->get_y() > actor1->get_y() + actor1->get_h())));
+  return (!((actor1->getX() > actor2->getX() + actor2->getW())
+         || (actor2->getX() > actor1->getX() + actor1->getW())
+         || (actor1->getY() > actor2->getY() + actor2->getH())
+         || (actor2->getY() > actor1->getY() + actor1->getH())));
 }
 }

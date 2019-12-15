@@ -13,6 +13,8 @@
 #include <string>
 #include <iostream>
 
+namespace fwg
+{
 /// Clase que reúne todos los nombres de objetos del juego.
 ///
 /// @todo Permitir añadir nombres en tiempo de ejecución.
@@ -84,5 +86,7 @@ public:
     ///
     friend std::ostream& operator<< (std::ostream& os, const Nombres::codigo cod);
 };
+
+}
 
 #endif

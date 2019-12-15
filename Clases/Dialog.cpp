@@ -240,8 +240,8 @@ void  Dialog::mover_actor  (void)
   //  manager->moverActor (mouse_x + ref_x + manager->getEscenarioX (), mouse_y + ref_y + manager->getEscenarioY ());
   if (actor)
   {
-    actor->set_x (mouse_x + ref_x + manager->get_escenario_x ());
-    actor->set_y (mouse_y + ref_y + manager->get_escenario_y ());
+    actor->setX (mouse_x + ref_x + manager->get_escenario_x ());
+    actor->setY (mouse_y + ref_y + manager->get_escenario_y ());
     actualizarValoresActor ();
   }
 }
@@ -254,7 +254,7 @@ void Dialog::prueba_click ()
   if (manager)
   {
     // Si hay un actor editándose desactivamos el actor actualmente activo.
-    if (actor) actor->set_mostrar_bloque (false);
+    if (actor) actor->setMostrarBloque (false);
 
     // Se busca el otro actor.
     actor = manager->get_actor (mouse_x - dialog[scr].x + manager->get_escenario_x (),
@@ -327,7 +327,7 @@ void  Dialog::actualizarValoresActor ()
 void  Dialog::centrarActor (int indice)
 {
   // Si había actor anterior se desactiva.
-  if (actor) actor->set_mostrar_bloque (false);
+  if (actor) actor->setMostrarBloque (false);
 
   // Se le pide al controlador de edición que centre (y active) el actor
   // con el índice dado.
@@ -343,8 +343,8 @@ void  Dialog::setActor (fwg::Actor *actorMostrar)
   actor = actorMostrar;
 
   // Se activa en verde el bloque del actor.
-  actor->set_color (makecol(0, 255, 0));
-  actor->set_mostrar_bloque (true);
+  actor->setColor (makecol(0, 255, 0));
+  actor->setMostrarBloque (true);
 
   // Se actualizan las propiedades del actor.
   actualizarValoresActor ();
@@ -365,8 +365,8 @@ void  Dialog::tomarReferencia ()
 {
   if (actor)
   {
-    ref_x = actor->get_x() - manager->get_escenario_x () - mouse_x;
-    ref_y = actor->get_y() - manager->get_escenario_y () - mouse_y;
+    ref_x = actor->getX () - manager->get_escenario_x () - mouse_x;
+    ref_y = actor->getY () - manager->get_escenario_y () - mouse_y;
   }
   else
   {
@@ -529,16 +529,16 @@ int  Dialog::kdb_coordenadas (DIALOG* d, int code)
   //            los valores que quiere modificar.
   if (d == &dialog[dimensiones])
   {
-    x += actor->get_w ();
-    y += actor->get_h ();
-    actor->set_wh (x, y);
+    x += actor->getW ();
+    y += actor->getH ();
+    actor->setWH (x, y);
   }
   if (d == &dialog[posicion])
   {
-    x += actor->get_x ();
-    y += actor->get_y ();
-    actor->set_x (x);
-    actor->set_y (y);
+    x += actor->getX ();
+    y += actor->getY ();
+    actor->setX (x);
+    actor->setY (y);
   }
 
   // Actualizamos los valores en la gui.

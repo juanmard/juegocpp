@@ -15,13 +15,13 @@ namespace fwg {
 
     ActorGraphic::ActorGraphic ():
     owner(NULL),
-    graph_free (true)
+    graphFree (true)
     {
     }
 
     ActorGraphic::ActorGraphic (Actor* a):
     owner(a),
-    graph_free (true)
+    graphFree (true)
     {
     }
 
@@ -67,12 +67,12 @@ namespace fwg {
 
     int ActorGraphic::getX () const
     {
-        return (int)(owner->get_x());
+        return (int)(owner->getX());
     }
 
     int ActorGraphic::getY () const
     {
-        return (int)(owner->get_y());
+        return (int)(owner->getY());
     }
 
     Mask* ActorGraphic::getMask () const
@@ -126,12 +126,12 @@ namespace fwg {
 
     bool ActorGraphic::isFree ()
     {
-        return graph_free;
+        return graphFree;
     }
 
     void ActorGraphic::setFree (bool estate)
     {
-        graph_free = estate;
+        graphFree = estate;
     }
 
 }

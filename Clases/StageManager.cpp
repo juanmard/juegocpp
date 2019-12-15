@@ -87,10 +87,10 @@ void StageManager::rellenar_buffer ()
       tmp->draw (this);
 
       // Dibuja el bloque conservando el estado actual del actor.
-      estado_bloque = tmp->get_mostrar_bloque();
-      tmp->set_mostrar_bloque(true);
-      tmp->draw_block (this);
-      tmp->set_mostrar_bloque(estado_bloque);
+      estado_bloque = tmp->getMostrarBloque();
+      tmp->setMostrarBloque(true);
+      tmp->drawBlock (this);
+      tmp->setMostrarBloque(estado_bloque);
     }
   }
   else

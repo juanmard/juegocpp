@@ -43,10 +43,10 @@ namespace fwg {
         {
             /// @todo Cambiar toda este 'if' por una intersección entre bloques de
             ///       los actores y un punto.
-            if (!(  (x <= (*actorsIter)->get_x())
-                 || (y <= (*actorsIter)->get_y())
-                 || (x >= ((*actorsIter)->get_x() + (*actorsIter)->get_w()))
-                 || (y >= ((*actorsIter)->get_y() + (*actorsIter)->get_h()))
+            if (!(  (x <= (*actorsIter)->getX ())
+                 || (y <= (*actorsIter)->getY ())
+                 || (x >= ((*actorsIter)->getX () + (*actorsIter)->getW ()))
+                 || (y >= ((*actorsIter)->getY () + (*actorsIter)->getH ()))
                  ))
             {
                 encontrado = *actorsIter;
@@ -261,7 +261,7 @@ namespace fwg {
             //nuevo = new Actor();
         }
         //is >> *nuevo;
-        nuevo->prueba_iostream (is, *nuevo);
+        nuevo->pruebaIostream (is, *nuevo);
         am.add (nuevo);
 
         // Se muestra en pantalla un resumen.

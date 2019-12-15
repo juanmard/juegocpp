@@ -23,7 +23,7 @@ public:
     /// Obtiene el menú con los comandos de edición del objeto.
     /// @return Menú con los comandos creados.
     ///
-    virtual Menu& getMenu () const = 0;
+    virtual alg4::Menu& getMenu () const = 0;
 
     /// Obtiene un formulario donde poder modificar los parámetros del objeto.
     /// @return Formulario completado con los datos actuales del objeto.

@@ -26,7 +26,7 @@ public:
     ///
     /// Obtener el menu de la pelota.
     /// 
-    Menu& getMenu () const;
+    alg4::Menu& getMenu () const;
 
 protected:
     /**

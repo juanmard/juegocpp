@@ -41,7 +41,7 @@ public:
     void      hit         (Actor *who, int damage);
     void      getEstado   (std::string &strEstado) const;
     void      getNombre   (std::string &strNombre) const;
-    std::string    getNombre   () const;
+    std::string    get_nombre   () const;
     std::ostream&  operator<<  (std::ostream *sb);
 
   private:

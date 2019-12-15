@@ -79,13 +79,13 @@ sentido(1)
   sprites[saltando_izq]->init ();
 
   Sprites_t sprite_act = estado2Sprite (estado);
-  set_actor_graphic (sprites[sprite_act]);
+  setActorGraphic (sprites[sprite_act]);
   setCodigo (Nombres::mago);
-  set_x(SCREEN_W/3);
-  set_y(SCREEN_H/2);
-  set_is_detected (false);
-  set_collision_method(CollisionManager::PP_COLLISION);
-  set_wh (21,60);
+  setX (SCREEN_W/3);
+  setY (SCREEN_H/2);
+  setIsDetected (false);
+  setCollisionMethod (CollisionManager::PP_COLLISION);
+  setWH (21,60);
 };
 
 /**
@@ -144,7 +144,7 @@ void Mago::doAction (ControllableActor::Action act, int magnitude)
 void Mago::update ()
 {
   // Actualiza el sprite según el estado.
-  set_actor_graphic (sprites[estado2Sprite(estado)]);
+  setActorGraphic (sprites[estado2Sprite(estado)]);
 
   // Actualiza la parte gráfica.
   agraph->update();
@@ -233,7 +233,7 @@ void  Mago::hit  (Actor *who, int damage)
           // El suelo anula la gravedad propia del mago.
           // \todo  Generalizar para todos los actores.
           gravedad = 0;
-          y = who->get_y () - h;
+          y = who->getY () - h;
           estado = esperando;
         }
         break;

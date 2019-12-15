@@ -190,7 +190,7 @@ std::ifstream& Suelo::leer (std::ifstream& ifs)
 
 void Suelo::ajustar ()
 {
-    if(owner) owner->set_wh (32*size+20,15);
+    if(owner) owner->setWH (32*size+20,15);
 };
 
 }

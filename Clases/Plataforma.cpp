@@ -32,13 +32,13 @@ activa (true)
 Plataforma::Plataforma ()
 {
     grafico = new Suelo (this, 2);
-    set_actor_graphic (grafico);
+    setActorGraphic (grafico);
     setCodigo (Nombres::plataforma);
-    set_x (0);
-    set_y (0);
-    set_is_detected (true);
-    set_collision_method (CollisionManager::PP_COLLISION);
-    activa=true;
+    setX (0);
+    setY (0);
+    setIsDetected (true);
+    setCollisionMethod (CollisionManager::PP_COLLISION);
+    activa = true;
 };
 
 Plataforma::Plataforma (Almacen& almacen):
@@ -46,10 +46,10 @@ Actor()
 {
     this->agraph = new Suelo (this, almacen, 2);
     setCodigo (Nombres::plataforma);
-    set_x (0);
-    set_y (0);
-    set_is_detected (true);
-    set_collision_method (CollisionManager::PP_COLLISION);
+    setX (0);
+    setY (0);
+    setIsDetected (true);
+    setCollisionMethod (CollisionManager::PP_COLLISION);
 };
 
 Plataforma::~Plataforma (void)
@@ -89,7 +89,7 @@ void Plataforma::getNombre (std::string& strNombre) const
     strNombre = Nombres::Imprimir (nombre);
 };
 
-std::string Plataforma::getNombre () const
+std::string Plataforma::get_nombre () const
 {
 //  return Nombres::Imprimir (nombre);
     return "Plataforma";

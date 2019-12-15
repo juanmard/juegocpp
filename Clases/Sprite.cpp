@@ -190,16 +190,16 @@ const Frame* Sprite::getFrame (int ind) const
     return &frames[ind];
 };
 
-Menu& Sprite::getMenu () const
+alg4::Menu& Sprite::getMenu () const
 {
-    Menu* ptr_menu = new Menu ();
+    alg4::Menu* ptr_menu = new alg4::Menu ();
     ptr_menu->add (owner->getNombre());             // Se toma el nombre del propietario del Sprite.
     ptr_menu->add ("");                             // Separador.
     ptr_menu->add ("&Editar SPRITE", D_EXIT);       // Algunos items inútiles de prueba.
     ptr_menu->add ("&Repartir SPRITE", D_SELECTED);
     ptr_menu->add ("&Duplicar SPRITE", D_EXIT);
     ptr_menu->add ("&Añadir SPRITE");
-    ptr_menu->add ("&Prueba llamada", D_EXIT, NULL, NULL, Menu::callback);
+    ptr_menu->add ("&Prueba llamada", D_EXIT, NULL, NULL, alg4::Menu::callback);
     return *ptr_menu;
 };
 

@@ -18,10 +18,10 @@ namespace fwg {
     color2(makecol(255,127,34))
     {
       image = NULL;
-      this->set_wh(20,60);
-      this->set_x (100);
-      this->set_y (200);
-      this->setState(Actor::ENABLE);
+      this->setWH (20,60);
+      this->setX (100);
+      this->setY (200);
+      this->setState (Actor::ENABLE);
     }
 
     AirCraft::AirCraft  (const AirCraft& copia):
@@ -53,9 +53,9 @@ namespace fwg {
             case 5: color2++; break;
         }
         if (x < 0) x = 0;
-        if (x > SCREEN_W - get_w()) x = SCREEN_W - get_w();
+        if (x > SCREEN_W - getW ()) x = SCREEN_W - getW ();
         if (y < 0) y = 0;
-        if (y > SCREEN_H - get_h()) y = SCREEN_H - get_h();
+        if (y > SCREEN_H - getH ()) y = SCREEN_H - getH ();
     }
 
     void  AirCraft::hit (Actor* who, int damage)

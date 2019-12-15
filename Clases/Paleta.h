@@ -82,7 +82,7 @@ public:
     /// Devuelve una cadena con el nombre de la Paleta.
     /// @return Cadena con el nombre.
     ///
-    std::string getNombre () const;
+    std::string get_nombre () const;
 };
 }
 

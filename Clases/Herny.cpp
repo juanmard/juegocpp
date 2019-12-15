@@ -41,15 +41,15 @@ Herny::Herny (Almacen &almacen)
     skin->add_frame(almacen.get_bitmap("sprite_104"), 0, 0, 10);
     skin->add_frame(almacen.get_bitmap("sprite_105"), 0, 0, 10);
     skin->add_frame(almacen.get_bitmap("sprite_106"), 0, 0, 10);
-    set_actor_graphic (skin);
+    setActorGraphic (skin);
 
     setCodigo (Nombres::herny);
-    set_x(SCREEN_W/2);
-    set_y(SCREEN_H/2);
-	set_is_detected(true);
-    //set_team(ENEMY);
-    set_collision_method(CollisionManager::PP_COLLISION);
-    set_wh (26,36);
+    setX (SCREEN_W/2);
+    setY (SCREEN_H/2);
+	setIsDetected (true);
+    //setTeam (ENEMY);
+    setCollisionMethod (CollisionManager::PP_COLLISION);
+    setWH (26,36);
 
 //    tiempo_estado = 400;
 //    tiempo_estado = 0; //Desactivamos el jugador para pruebas.
@@ -70,18 +70,18 @@ Herny::Herny ()
   skin->add_frame(sprites->GetBitmap("jugador_03"), 0, 0, 10);
   skin->add_frame(sprites->GetBitmap("jugador_04"), 0, 0, 10);
   skin->add_frame(sprites->GetBitmap("jugador_05"), 0, 0, 20);
-  set_actor_graphic (skin);
+  setActorGraphic (skin);
 
   setCodigo (Nombres::herny);
-  set_x(SCREEN_W/2);
-  set_y(SCREEN_H/2);
-  set_is_detected(true);
-  //set_team(ENEMY);
-  set_collision_method(CollisionManager::PP_COLLISION);
-  set_wh (26,36);
+  setX (SCREEN_W/2);
+  setY (SCREEN_H/2);
+  setIsDetected (true);
+  //setTeam (ENEMY);
+  setCollisionMethod (CollisionManager::PP_COLLISION);
+  setWH (26,36);
 
-  //    tiempo_estado = 400;
-  //    tiempo_estado = 0; //Desactivamos el jugador para pruebas.
+  //    tiempoEstado = 400;
+  //    tiempoEstado = 0; //Desactivamos el jugador para pruebas.
   actual = Herny::de_pie;
   siguiente = Herny::cayendo;
 }
@@ -120,7 +120,7 @@ void Herny::ActualizarEstado (void)
         break;
 
     case cayendo:
-        set_y (get_y() + 1);
+        setY (getY () + 1);
         break;
 
     default:
@@ -135,17 +135,17 @@ void Herny::CambiarEstado (Almacen &almacen)
     switch (siguiente)
     {
     case de_pie:
-            set_tiempo(400);
+            setTiempo (400);
             siguiente = cayendo;
-            set_color(6);
-            this->set_actor_graphic (new Bitmap (this,almacen.get_bitmap("sprite_065")));
+            setColor (6);
+            this->setActorGraphic (new Bitmap (this,almacen.get_bitmap("sprite_065")));
         break;
 
     case cayendo:
-            set_tiempo(100);
+            setTiempo (100);
             siguiente = de_pie;
-            set_color(3);
-            this->set_actor_graphic (new Bitmap (this,almacen.get_bitmap("sprite_069")));
+            setColor (3);
+            this->setActorGraphic (new Bitmap (this,almacen.get_bitmap("sprite_069")));
          break;
 
     default:
@@ -163,17 +163,17 @@ void Herny::CambiarEstado ()
     switch (siguiente)
     {
     case de_pie:
-            set_tiempo(400);
+            setTiempo (400);
             siguiente = cayendo;
-            set_color(6);
-            this->set_actor_graphic (new Bitmap (this,sprites->GetBitmap("jugador_01")));
+            setColor (6);
+            this->setActorGraphic (new Bitmap (this,sprites->GetBitmap("jugador_01")));
         break;
 
     case cayendo:
-            set_tiempo(100);
+            setTiempo (100);
             siguiente = de_pie;
-            set_color(3);
-            this->set_actor_graphic (new Bitmap (this,sprites->GetBitmap("jugador_15")));
+            setColor (3);
+            this->setActorGraphic (new Bitmap (this,sprites->GetBitmap("jugador_15")));
          break;
     default:
         break;
@@ -210,12 +210,12 @@ Herny *  Herny::clone () const
 /**
  * \brief   Obtiene el nombre en forma de cadena de texto.
  */
-void  Herny::getNombre (string &strNombre) const
+void  Herny::getNombre (std::string& strNombre) const
 {
   strNombre = Nombres::Imprimir (nombre);
 };
 
-string  Herny::getNombre () const
+std::string  Herny::get_nombre () const
 {
   return Nombres::Imprimir (nombre);
 };

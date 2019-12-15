@@ -78,10 +78,10 @@ void  DlgActor::load (fwg::Actor *remoto)
   {
     uszprintf (buffer, sizeof(buffer), 
               "Nombre: %s\nPosición: %d, %d\nColor: %d",
-              Nombres::Imprimir(remoto->getCodigo ()).c_str(),
-              remoto->get_x(),
-              remoto->get_y(),
-              remoto->get_color()
+              fwg::Nombres::Imprimir(remoto->getCodigo ()).c_str(),
+              remoto->getX (),
+              remoto->getY (),
+              remoto->getColor()
               );
     //dlg_propiedades[2].dp = const_cast<char *>("Prueba, prueba...");
     dlg_propiedades[2].dp = buffer;

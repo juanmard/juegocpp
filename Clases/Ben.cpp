@@ -106,13 +106,13 @@ sentido(1)
   sprites[girando_izq]->init ();
 
   Sprites_t sprite_act = estado2Sprite (estado);
-  set_actor_graphic (sprites[sprite_act]);
+  setActorGraphic (sprites[sprite_act]);
   setCodigo (Nombres::ben);
-  set_x(SCREEN_W/3);
-  set_y(SCREEN_H/2);
-  set_is_detected (false);
-  set_collision_method(CollisionManager::PP_COLLISION);
-  set_wh (21,60);
+  setX (SCREEN_W/3);
+  setY (SCREEN_H/2);
+  setIsDetected (false);
+  setCollisionMethod(CollisionManager::PP_COLLISION);
+  setWH (21,60);
 };
 
 /**
@@ -187,7 +187,7 @@ void Ben::update ()
 //  {
     Sprite *tmp = sprites[estado2Sprite(estado)];
 //    tmp->init ();
-    set_actor_graphic (tmp);
+    setActorGraphic (tmp);
 //  }
 
   // Actualiza la parte gráfica.
@@ -265,7 +265,7 @@ void  Ben::hit  (Actor *who, int damage)
               default:
                   // El suelo anula la gravedad propia de Ben.
                   // \todo  Generalizar para todos los actores.
-                  y = who->get_y () - h;
+                  y = who->getY () - h;
                   gravedad = 0;
                   estado = esperando;
                   break;
@@ -354,7 +354,7 @@ void  Ben::getNombre (std::string &strNombre) const
 /**
  * \brief   Obtiene el nombre en forma de cadena de texto.
  */
-std::string  Ben::getNombre () const
+std::string  Ben::get_nombre () const
 {
   return Nombres::Imprimir (nombre);
 }

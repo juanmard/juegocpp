@@ -66,8 +66,8 @@ void Juego2::mainGame ()
 
   // Se crea aparte un actor de tipo loro para pruebas.
   Loro *loro=new Loro(*storageManager);
-  loro->set_x(150);
-  loro->set_y(400);
+  loro->setX (150);
+  loro->setY (400);
   // Se elimina el loro para mostrar.
   actorManager->add(loro);
 
@@ -79,8 +79,8 @@ void Juego2::mainGame ()
 
   // Se usa una prueba de Ben.
   Ben *ben = new Ben(*storageManager);
-  ben->set_x(220);
-  ben->set_y(200);
+  ben->setX (220);
+  ben->setY (200);
   actorManager->add(ben);
   loro->getControl()->setOwner(ben);  // Se usa el control del loro para probar a Ben.
 
@@ -223,8 +223,8 @@ void Juego2::mainGame ()
     {
       // Se crea un Loro de prueba para el editor de Sprites.
       Loro *loro2=new Loro(*storageManager);
-      loro2->set_x(100);
-      loro2->set_y(300);
+      loro2->setX (100);
+      loro2->setY (300);
       actorManager->add(loro2);
       controlManager->addControl(loro2->getControl());
 
@@ -257,11 +257,11 @@ void Juego2::mainGame ()
       Bitmap *bmp_camello = new Bitmap (camello, "sprite_107");
 
       // 4 - Se completan el resto de propiedades del actor.
-      camello->set_x (130);
-      camello->set_y (195);
-      camello->set_wh (63,44);
+      camello->setX (130);
+      camello->setY (195);
+      camello->setWH (63,44);
       camello->setCodigo (Nombres::camello); // No funciona pues no hemos definido un 'getNombre' virtual específico.
-      camello->set_actor_graphic (bmp_camello);
+      camello->setActorGraphic (bmp_camello);
 
       // 5 - Se agrega el nuevo actor al controlador de actores.
       actorManager->add(camello);
@@ -282,9 +282,9 @@ void Juego2::mainGame ()
       hojas->add_ultima_Tesela (new Tesela (hojas, *new std::string("pre2_416"), 12, -20, true));
       
       // 4 - Se completan las propiedades del actor.
-      arbol->set_x (130);
-      arbol->set_y (250);
-      arbol->set_wh (32,15);
+      arbol->setX (130);
+      arbol->setY (250);
+      arbol->setWH (32,15);
 
       // 5 - Se añade el nuevo actor al controlador de actores para que lo muestre en pantalla.
       actorManager->add(arbol);

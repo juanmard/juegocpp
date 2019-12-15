@@ -66,29 +66,29 @@ void EditorManager::mover_actor (int x, int y)
   // - Si no está actorAtrapado se ignora.
   if (actor)
   {
-    actor->set_x (x);
-    actor->set_y (y);
+    actor->setX (x);
+    actor->setY (y);
   }
 };
 
 int EditorManager::get_actor_x () const
 {
-  return actor->get_x ();
+  return actor->getX ();
 };
 
 int EditorManager::get_actor_y () const
 {
-  return actor->get_y ();
+  return actor->getY ();
 };
 
 void EditorManager::set_actor_x (int x)
 {
-  actor->set_x (x);
+  actor->setX (x);
 };
 
 void EditorManager::set_actor_y (int y)
 {
-  actor->set_y (y);
+  actor->setY (y);
 };
 
 void EditorManager::duplicar_actor (Actor* actor)
@@ -103,8 +103,8 @@ void EditorManager::duplicar_actor (Actor* actor)
     if (nuevo)
     {
       // Se desplaza para visualizarlo.
-      nuevo->set_x (nuevo->get_x () - 10);
-      nuevo->set_y (nuevo->get_y () - 10);
+      nuevo->setX (nuevo->getX () - 10);
+      nuevo->setY (nuevo->getY () - 10);
 
       // Se añade a la lista de actores.
       game->actorManager->add (nuevo);
@@ -269,13 +269,13 @@ void EditorManager::atrapar_actor (int x, int y)
   if ( is_actor_activo () )
   {
     // Se cambia el color del bloque y se muestra.
-    actor->set_color (makecol(255,0,0));
-    actor->set_mostrar_bloque (true);
+    actor->setColor (makecol(255,0,0));
+    actor->setMostrarBloque (true);
 
     // Se guarda la posición relativa del punto de 'atrape'
     // dentro del bloque del actor.
-    refX = x - get_local_x (actor->get_x());
-    refY = y - get_local_y (actor->get_y());
+    refX = x - get_local_x (actor->getX ());
+    refY = y - get_local_y (actor->getY ());
 
     // Se pasa a actor atrapado.
     actorActivado = false;
@@ -286,7 +286,7 @@ void EditorManager::atrapar_actor (int x, int y)
 
 void EditorManager::liberar_actor ()
 {
-  actor->set_mostrar_bloque (false);
+  actor->setMostrarBloque (false);
   actor = NULL;
   actorActivado = false;
   actorFijado = false;
@@ -307,8 +307,8 @@ void EditorManager::activar_actor (int x, int y)
   // Si existe, mostramos el contorno en color verde y sus valores en la GUI.
   if (actor)
   {
-    actor->set_color (makecol(0,255,0));
-    actor->set_mostrar_bloque (true);
+    actor->setColor (makecol(0,255,0));
+    actor->setMostrarBloque (true);
 ///    actor->drawGUI ();
     actorActivado = true;
   }
@@ -323,8 +323,8 @@ void EditorManager::fijar_actor (int x, int y)
   // En otro caso, liberamos.
   if ( is_actor_activo () )
   {
-    actor->set_color (makecol(255,128,255));
-    actor->set_mostrar_bloque (true);
+    actor->setColor (makecol(255,128,255));
+    actor->setMostrarBloque (true);
     actorActivado = false;
     actorFijado = true;
   }
@@ -351,8 +351,8 @@ void EditorManager::mover_actor_2 (int x, int y)
   posY = get_global_y (posY);
 
   // Finalmente, calculadas las coordenadas reales del juego, movemos el actor.
-  actor->set_x (posX);
-  actor->set_y (posY);
+  actor->setX (posX);
+  actor->setY (posY);
 };
 
 int EditorManager::get_global_x (int x)

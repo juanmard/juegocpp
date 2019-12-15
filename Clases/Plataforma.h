@@ -75,7 +75,7 @@ public:
     /// @return Cadena con el nombre.
     /// @todo Comprobar que esto es necesario.
     ///
-    std::string getNombre () const;
+    std::string get_nombre () const;
 
     /// Obtiene una cadena representativa de las propiedades de la plataforma.
     /// @return Cadena formada con las propiedades.

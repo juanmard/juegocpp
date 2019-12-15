@@ -47,15 +47,15 @@ kboard (new Keyboard())
     giro_izq->setMirror (false);
 
     setCodigo (Nombres::herny);
-    set_x(SCREEN_W/2);
-    set_y(SCREEN_H/2);
-    set_is_detected (true);
-    set_collision_method(CollisionManager::PP_COLLISION);
-    set_wh (36,26);
+    setX (SCREEN_W/2);
+    setY (SCREEN_H/2);
+    setIsDetected (true);
+    setCollisionMethod (CollisionManager::PP_COLLISION);
+    setWH (36,26);
 
     // Animación de inicio.
     estado = FLOTANDO_DER;
-    set_actor_graphic (derecha);
+    setActorGraphic (derecha);
 
     // Se crea el control necesario para las acciones del loro.
     control = new Control ();
@@ -90,7 +90,7 @@ void Loro::doAction (ControllableActor::Action act, int magnitude)
         switch (estado)
         {
         case FLOTANDO_DER:
-            tiempo_estado = 10;
+            tiempoEstado = 10;
             estado = GIRANDO_IZQ;
             break;
 
@@ -104,9 +104,9 @@ void Loro::doAction (ControllableActor::Action act, int magnitude)
         switch (estado)
         {
         case FLOTANDO_IZQ:
-            tiempo_estado = 10;
+            tiempoEstado = 10;
             estado = GIRANDO_DER;
-            set_actor_graphic (giro_der);
+            setActorGraphic (giro_der);
             break;
 
         case FLOTANDO_DER:
@@ -126,12 +126,12 @@ void Loro::doAction (ControllableActor::Action act, int magnitude)
     }
 };
 
-void Loro::getNombre (std::string &strNombre) const
+void Loro::getNombre (std::string& strNombre) const
 {
     strNombre = Nombres::Imprimir (nombre);
 };
 
-std::string Loro::getNombre () const
+std::string Loro::get_nombre () const
 {
     return "Loro";
 };
@@ -146,18 +146,18 @@ void Loro::actualizar_estado ()
     switch (estado)
     {
         case GIRANDO_IZQ:
-            estado=FLOTANDO_IZQ;
-            set_actor_graphic (izquierda);
+            estado = FLOTANDO_IZQ;
+            setActorGraphic (izquierda);
             break;
 
         case GIRANDO_DER:
-            estado=FLOTANDO_DER;
-            set_actor_graphic (derecha);
+            estado = FLOTANDO_DER;
+            setActorGraphic (derecha);
             break;
 
         case TROPEZANDO:
-            estado=FLOTANDO_DER;
-            set_actor_graphic (derecha);
+            estado = FLOTANDO_DER;
+            setActorGraphic (derecha);
             break;
     };
 };
@@ -171,17 +171,17 @@ void Loro::hit (Actor* who, int damage)
         {
         case VOLANDO_DER:
         case FLOTANDO_DER:
-            x = who->get_x() - get_w() - 3;
-            set_actor_graphic (giro_der);
+            x = who->getX () - getW () - 3;
+            setActorGraphic (giro_der);
             break;
 
         case VOLANDO_IZQ:
         case FLOTANDO_IZQ:
-            x = who->get_x() + who->get_w() + 3;
-            set_actor_graphic (giro_izq);
+            x = who->getX () + who->getW () + 3;
+            setActorGraphic (giro_izq);
             break;
         }
-        tiempo_estado = 50;
+        tiempoEstado = 50;
         estado = TROPEZANDO;
         break;
      default:

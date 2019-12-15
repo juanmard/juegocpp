@@ -44,7 +44,7 @@ ActorGraphic (actor)
 {
     // Asignamos al actor que hemos definido como propietario
     // a este mismo mosaico.
-    actor->set_actor_graphic ((Mosaico*) this);
+    actor->setActorGraphic ((Mosaico*) this);
 };
 
 void Mosaico::add_ultima_Tesela (Tesela* nueva)

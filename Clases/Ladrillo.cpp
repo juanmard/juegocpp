@@ -34,9 +34,9 @@ Ladrillo::Ladrillo (int x, int y)
     // A eliminar - Para pruebas de sonido.
     peloteo = (SAMPLE *) sprites->GetDat (76);
     crear_ladrillo ();
-    this->set_actor_graphic (chaqueta);
-    set_x (x);
-    set_y (y);
+    this->setActorGraphic (chaqueta);
+    setX (x);
+    setY (y);
 };
 
 Ladrillo::Ladrillo (int x, int y, Almacen &almacen)
@@ -45,8 +45,8 @@ Ladrillo::Ladrillo (int x, int y, Almacen &almacen)
       BITMAP *puntero = almacen.get_bitmap("sprite_041");
       chaqueta = new Bitmap(this, puntero, almacen.get_name (puntero));
       crear_ladrillo ();
-      set_x (x);
-      set_y (y);
+      setX (x);
+      setY (y);
 };
 
 Ladrillo::~Ladrillo ()
@@ -99,8 +99,8 @@ void  Ladrillo::update ()
     {
     /// El ladrillo cae libremente en este estado.
     case EN_CAIDA:
-        this->set_y (this->get_y()+2);
-        if (get_y()>600)
+        this->setY (this->getY ()+2);
+        if (getY ()>600)
         {
 //            estado = Actor::eliminar;
         }
@@ -108,7 +108,7 @@ void  Ladrillo::update ()
 
     case ESPERA:
     default:
-//        this->set_y (this->get_y()+2);
+//        this->setY (this->getY()+2);
         break;
     }
 };
@@ -123,15 +123,15 @@ void Ladrillo::getNombre (std::string &strNombre) const
   strNombre = Nombres::Imprimir (nombre);
 };
 
-std::string Ladrillo::getNombre () const
+std::string Ladrillo::get_nombre () const
 {
   return Nombres::Imprimir (nombre);
 }
 
-Menu& Ladrillo::getMenu () const
+alg4::Menu& Ladrillo::getMenu () const
 {
   // Obtenemos la referencia al menú más general de los actores.
-  Menu &nuevo = Actor::getMenu();
+  alg4::Menu &nuevo = Actor::getMenu();
 
   // Añadimos las opciones propias del 'Ladrillo'.
   // Se llama al procedimiento 'about' de prueba.
@@ -188,9 +188,9 @@ std::ifstream&  Ladrillo::leer (std::ifstream& ifs)
     Almacen *sprites = new Almacen("sprites3.dat");
     chaqueta = new Bitmap(this, sprites, piel);
     crear_ladrillo ();
-    this->set_actor_graphic (chaqueta);
-    set_x (x);
-    set_y (y);
+    this->setActorGraphic (chaqueta);
+    setX (x);
+    setY (y);
 
     /*
     // No es necesario llamar a la clase base Actor puesto que el ladrillo completa
@@ -218,13 +218,13 @@ std::string Ladrillo::getString () const
 void Ladrillo::crear_ladrillo ()
 {
   this->setCodigo (Nombres::ladrillo);
-  this->set_is_detected(true);
-  // this->set_team(ENEMY);
-  this->set_collision_method(CollisionManager::PP_COLLISION);
-  this->set_wh (32,15);
-  this->tiempo_estado=30;
+  this->setIsDetected (true);
+  // this->setTeam(ENEMY);
+  this->setCollisionMethod(CollisionManager::PP_COLLISION);
+  this->setWH (32,15);
+  this->tiempoEstado=30;
   this->estado = Ladrillo::ESPERA;
-  //this->set_actor_graphic (chaqueta);
+  //this->setActorGraphic (chaqueta);
 };
 
 }

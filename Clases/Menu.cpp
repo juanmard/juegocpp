@@ -8,6 +8,8 @@
 
 #include "Menu.h"
 
+namespace alg4 {
+
 MENU Menu::fin_menu = {NULL, NULL, NULL, 0, NULL};
 
 Menu::Menu ()
@@ -46,3 +48,4 @@ Menu::operator MENU* ()
   return &items[0];
 };
 
+}

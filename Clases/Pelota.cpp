@@ -39,16 +39,16 @@ DirectorActor (actor_manager)
     rebote = (SAMPLE *) sprites->GetDat (77);
 
     this->setCodigo (Nombres::pelota);
-    this->set_x(0);
-    this->set_y(0);
-    this->set_actor_graphic (tomate);
-	this->set_is_detected(true);
-    //this->set_team(ENEMY);
-    this->set_collision_method(CollisionManager::PP_COLLISION);
-    this->set_wh (18,20);
+    this->setX (0);
+    this->setY (0);
+    this->setActorGraphic (tomate);
+	this->setIsDetected (true);
+    //this->setTeam (ENEMY);
+    this->setCollisionMethod (CollisionManager::PP_COLLISION);
+    this->setWH (18,20);
     this->direccion_x = 2;
     this->direccion_y = 2;
-    this->tiempo_estado=30;
+    this->tiempoEstado=30;
 }
 
 /**
@@ -76,7 +76,7 @@ void Pelota::ActualizarEstado (void)
        direccion_y = -direccion_y;
 //       this->set_actor_graphic (granada);
    }
-   this->tiempo_estado = 30;
+   this->tiempoEstado = 30;
 }
 
 /**
@@ -153,9 +153,9 @@ void  Pelota::getNombre (string &strNombre) const
   strNombre = Nombres::Imprimir (nombre);
 }
 
-Menu& Pelota::getMenu () const
+alg4::Menu& Pelota::getMenu () const
 {
-    return (*new Menu());
+    return (*new alg4::Menu());
 };
 
 }

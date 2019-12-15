@@ -1,6 +1,6 @@
 ///
 /// @file Nombres.cpp
-/// @brief Fichero de implementación de la clase "Nombres".
+/// @brief Fichero de implementaciÃ³n de la clase "Nombres".
 /// @author Juan Manuel Rico
 /// @date Noviembre 2015
 /// @version
@@ -9,6 +9,9 @@
 
 #include "Nombres.h"
 
+namespace fwg
+{
+    
 Nombres::Nombres ()
 {
 };
@@ -23,3 +26,4 @@ std::ostream&  operator<< (std::ostream &os, const Nombres::codigo cod)
     return os;
 };
 
+}

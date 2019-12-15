@@ -46,7 +46,7 @@ namespace fwg {
     {
         protected:
             Actor* owner;       ///< Referencia al actor propietario del gráfico.
-            bool graph_free;    ///< Indica si el gráfico está libre para ser cambiado por otro.
+            bool graphFree;     ///< Indica si el gráfico está libre para ser cambiado por otro.
 
         public:
             /// Constructor por defecto.

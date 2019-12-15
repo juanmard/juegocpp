@@ -24,8 +24,8 @@ public:
     void                update      ();
     virtual Ladrillo *  clone       () const;
     void                getNombre   (std::string &strNombre) const;
-    std::string              getNombre   () const;
-    virtual Menu &      getMenu     () const;
+    std::string              get_nombre   () const;
+    virtual alg4::Menu &     getMenu      () const;
 
     /**
      */

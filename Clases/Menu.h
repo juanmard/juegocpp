@@ -13,6 +13,8 @@
 #include <vector>
 #include <string>
 
+namespace alg4 {
+
 /// Menú para interaccionar con los objetos editables.
 ///
 class Menu
@@ -68,4 +70,6 @@ public:
     };
 };
 
+
+}
 #endif

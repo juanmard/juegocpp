@@ -133,7 +133,7 @@ public:
     /// Genera un menú para edición del sprite.
     /// @return Menú con las opciones para la edición del sprite.
     ///
-    Menu& getMenu () const;
+    alg4::Menu& getMenu () const;
 
     /// Genera un formulario para edición del sprite.
     /// @return Formulario con los controles necesarios para la edición del sprite.

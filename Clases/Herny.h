@@ -31,8 +31,8 @@ class Herny : public ControllableActor
         void                ActualizarEstado    ();
         void                hit                 (Actor *who, int damage);
         virtual Herny *     clone               () const;
-        void                getNombre           (string &strNombre) const;
-        string              getNombre           () const;
+        void                getNombre           (std::string& strNombre) const;
+        std::string         get_nombre          () const;
 
   protected:
         Sprite *    skin;
