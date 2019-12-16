@@ -20,8 +20,6 @@
 #include "Game.h"
 #include "Nombres.h"
 #include "Bloque.h"
-//#include "EditorManager.h"
-//#include "GUIEscenario.h"
 
 namespace fwg {
 
@@ -29,12 +27,6 @@ namespace fwg {
     /// 
     class ActorGraphic;
     class Mask;
-    
-    /// Probando si son necesarias estas referencias....
-//    class CollisionManager;
-//    class Game;
-//    class Nombres;
-//    class Bloque;
     class EditorManager;
     class GUIEscenario;
 
@@ -85,14 +77,16 @@ namespace fwg {
     ///           del objeto.
     ///         - Eliminar métodos "getGraphicX" y "getGraphicY". ¿Para qué son necesarios?
     ///         - Derivar la funcionalidad de agrupar actores en equipos o grupos a la clase
-    ///           "ActorManager" y no a la clase global del juego. @see setTeam
-    ///         - Agregar la dirección en las colisiones (@see hit) pensando en un juego simple
+    ///           "ActorManager" y no a la clase global del juego. (setTeam)
+    ///         - Agregar la dirección en las colisiones (hit) pensando en un juego simple
     ///           de tipo "Pong".
-    ///         - Eliminar el método prueba de polimorfismo (@see pruebaIostream).
-    ///         - Eliminar métodos con referencias a Allegro (@see mover, dimensionar).
+    ///         - Eliminar el método prueba de polimorfismo (pruebaIostream).
+    ///         - Eliminar métodos con referencias a Allegro (mover, dimensionar).
     ///         - Eliminar métods de lectura/escritura de flujo amigos en esta clase y dejar
     ///           esta funcionalidad en herencia a "PrintableObject" y "ReadableObject".
-    ///         - Eliminar la prueba que se hace con el "Suelo" (@see leer).
+    ///         - Eliminar la prueba que se hace con el "Suelo" (leer).
+    ///         
+    /// @see setTeam, hit, pruebaIostream, mover, dimensionar, leer
     ///
     class Actor : public EditableObject, public PrintableObject
     {

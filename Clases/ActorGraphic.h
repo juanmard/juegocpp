@@ -68,12 +68,12 @@ namespace fwg {
             ///
             virtual void init ();
 
-            /// Actualiza el gráfico.
+            /// Actualiza la lógica de la gráfica.
             ///
             virtual void update ();
 
             /// Dibuja la parte gráfica del actor.
-            /// @param bmp  BITMAP en donde se dibuja la parte gráfica del actor.
+            /// @param bmp BITMAP en donde se dibuja la parte gráfica del actor.
             ///
             /// @note Normalmente esta función es sobreescrita por el hijo
             ///       que hereda (Sprite, Bitmap, pixel...).
