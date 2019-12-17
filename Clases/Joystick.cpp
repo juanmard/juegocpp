@@ -78,7 +78,7 @@ namespace fwg {
         if (salida)
         {
             std::cout << "Joy " << joyId << " - " << comp << " - <" << getComponentName(comp) << ">" << std::endl;
-            return true;
+            return TRUE_STATE;
         }
         else
             return INVALID_STATE;

@@ -25,6 +25,11 @@ namespace fwg {
     /// Cada control tiene como propietario a un objeto controlable (ControllableObject)
     /// que es el que recibe los mensajes de las acciones a realizar según las asociaciones entre
     /// eventos recibidos del control (Event) y acciones definidas en el objeto (Action).
+    /// 
+    /// @todo Por hacer en esta clase:
+    ///         - Evitar errores al no asignar periféricos a un control con acciones.
+    ///           Que en el control existan acciones sin asignar no debería dar error
+    ///           al realizar la accion de actualizar (update).
     ///
     class Control
     {

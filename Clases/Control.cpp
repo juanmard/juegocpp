@@ -72,7 +72,17 @@ namespace fwg {
         {
             // Se lee temporalmente el estado actual del periférico y su componente
             // asociado.
-            tmpState = associationsIter->peri->getState (associationsIter->comp);
+            /// @warning Se produce error catastrófico en esta línea si existen asociaciones
+            ///          de comandos sin periférico asignado. Corregir a futuro.
+            ///
+            try
+            {
+                tmpState = associationsIter->peri->getState (associationsIter->comp);
+            }
+            catch (...)
+            {
+                //throw std::cout << "ERROR: Existen comandos de control si asociaciones con periférico." << std::endl;
+            }
 
             // Se lee temporalmente el evento anterior.
             tmpOldEvent = associationsIter->oldEvent;
