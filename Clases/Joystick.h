@@ -40,8 +40,10 @@ namespace fwg {
             /// @note Estos pueden definirse por separado para
             ///       las clases "JoyAxis" y "JoyButtons"
             enum {
+                   ERROR = 30,   ///< Joystick with error.
+                   READY,        ///< Joystick ready.
                    NONE = 20,    ///< Joystick without state.
-                   UP,            ///< Joystick up.
+                   UP,           ///< Joystick up.
                    DOWN,         ///< Joystick down.
                    LEFT,         ///< Joystick left.
                    RIGHT,        ///< Joystick right.
@@ -76,6 +78,12 @@ namespace fwg {
             ///
             Joystick ();
             
+            /// Indica si el joystick está conectado y sin error.
+            /// 
+            /// @return Devuelve 'true' si el joystick está sin error.
+            ///
+            bool isOk ();
+
             /// Obtiene el estado de una tecla.
             /// 
             /// @param comp  Tecla de la que se desea conocer el estado.

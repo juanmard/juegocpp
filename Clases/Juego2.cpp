@@ -99,28 +99,58 @@ void Juego2::mainGame ()
   control->addActionName (5, "Bombas 1");
   control->addActionName (6, "Bombas 2");
   control->addActionName (7, "Bombas 3");
-  control->addActionName (8, "Bombas 4"); 
+  control->addActionName (8, "Bombas 4");
   control->addActionName (9, "Bombas 5");
   control->setOwner(nave);
-  controlManager->addControl(control);
 
-  // Se crea el periférico.
+  // Se crea el periférico Joystick de prueba.
   Joystick* joy = new alg4::JoystickAllegro();
-  Joystick* joy2 = new alg4::JoystickAllegro();
-  controlManager->addPeripheral(joy);
-  controlManager->addPeripheral(joy2);
-  
-  // Se asocian las acciones del control con el periférico.
-  control->setActionPeripheral (AirCraft::LEFT,  joy,  Joystick::LEFT,     Peripheral::ON_PRESSING);
-  control->setActionPeripheral (AirCraft::RIGHT, joy,  Joystick::RIGHT,    Peripheral::ON_PRESSING);
-  control->setActionPeripheral (AirCraft::UP,    joy,  Joystick::UP,       Peripheral::ON_PRESSING);
-  control->setActionPeripheral (AirCraft::DOWN,  joy,  Joystick::DOWN,     Peripheral::ON_PRESSING);
-  control->setActionPeripheral (4,               joy,  Joystick::BUTTON_1, Peripheral::ON_PRESSING);
-  control->setActionPeripheral (5,               joy2, Joystick::UP,       Peripheral::ON_PRESSING);
-  control->setActionPeripheral (6,               joy2, Joystick::DOWN,     Peripheral::ON_PRESS);
-  control->setActionPeripheral (7,               joy2, Joystick::LEFT,     Peripheral::ON_PRESS);
-  control->setActionPeripheral (8,               joy2, Joystick::RIGHT,    Peripheral::ON_PRESS);
-  control->setActionPeripheral (9,               joy2, Joystick::BUTTON_1, Peripheral::ON_PRESS);
+  if ( joy->isOk() ) 
+  {
+    // Se agrega el periférico.
+    controlManager->addPeripheral(joy);
+    std::cout << "Añadido primer joystick." << std::endl;
+
+    // Se asocian las acciones del control con el periférico.
+    control->setActionPeripheral (AirCraft::LEFT,  joy,  Joystick::LEFT,     Peripheral::ON_PRESSING);
+    control->setActionPeripheral (AirCraft::RIGHT, joy,  Joystick::RIGHT,    Peripheral::ON_PRESSING);
+    control->setActionPeripheral (AirCraft::UP,    joy,  Joystick::UP,       Peripheral::ON_PRESSING);
+    control->setActionPeripheral (AirCraft::DOWN,  joy,  Joystick::DOWN,     Peripheral::ON_PRESSING);
+    control->setActionPeripheral (4,               joy,  Joystick::BUTTON_1, Peripheral::ON_PRESSING);
+
+    // Una vez con al menos un periférico, se añade el control de la nave.
+    // Si no se hace así da error y se termina el programa bruscamente.
+    // 
+    // @todo Revisar la clase 'ControlManager'. No debería dar error.
+    //       Simplemente, si al control no se le asigna periférico, no ser controlado.
+    controlManager->addControl(control);
+
+    // Se crea un segundo joystick de prueba.
+    Joystick* joy2 = new alg4::JoystickAllegro();
+    if ( joy2->isOk() )
+    {
+      controlManager->addPeripheral(joy2);
+      std::cout << "Añadido segundo joystick." << std::endl;
+
+      control->setActionPeripheral (5, joy2, Joystick::UP,       Peripheral::ON_PRESSING);
+      control->setActionPeripheral (6, joy2, Joystick::DOWN,     Peripheral::ON_PRESS);
+      control->setActionPeripheral (7, joy2, Joystick::LEFT,     Peripheral::ON_PRESS);
+      control->setActionPeripheral (8, joy2, Joystick::RIGHT,    Peripheral::ON_PRESS);
+      control->setActionPeripheral (9, joy2, Joystick::BUTTON_1, Peripheral::ON_PRESS);
+    }
+    else
+    {
+      // Si el segundo joystick no está conectado y no se asignan las acciones de
+      // control, también fallará el programa. Se evita asignando las acciones a otros
+      // botones del primer periférico.
+      // 
+      control->setActionPeripheral (5, joy, Joystick::BUTTON_2, Peripheral::ON_PRESSING);
+      control->setActionPeripheral (6, joy, Joystick::BUTTON_3, Peripheral::ON_PRESS);
+      control->setActionPeripheral (7, joy, Joystick::BUTTON_4, Peripheral::ON_PRESS);
+      control->setActionPeripheral (8, joy, Joystick::BUTTON_5, Peripheral::ON_PRESS);
+      control->setActionPeripheral (9, joy, Joystick::BUTTON_6, Peripheral::ON_PRESS);        
+    }
+  }
 
   // Se crea el 'EditorManager' básico para comenzar con las pruebas.
   EditorManager editorManager (this);

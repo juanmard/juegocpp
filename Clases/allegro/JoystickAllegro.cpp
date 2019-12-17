@@ -24,8 +24,9 @@ namespace alg4 {
         {
              joyId = activos;
              activos++;
-             std::cout << "Joystick instalado. Activos: " << activos << std::endl;
-             salida = true;
+             std::cout << "Joysticks instalados: " << activos << std::endl;
+             std::cout << "Joysticks enchufados: " << num_joysticks << std::endl;
+             if (num_joysticks >= activos) salida = true;
         }
         return salida;
     }

@@ -16,13 +16,15 @@ namespace fwg {
     /// 
     int Joystick::activos = 0;
     
-    Joystick::Joystick():
-    joyId(0)
+    Joystick::Joystick ():
+    joyState (NONE),
+    joyId (0)
     {
     }
     
     void Joystick::init ()
     {
+        joyState = ERROR;
         if (install ())
         {
             /// @todo Comprobar que el joystick se a instalado correctamente.
@@ -42,7 +44,16 @@ namespace fwg {
             ///       clases "JoyAxis" y "JoyButtons"
             ///       
             reset();
+            
+            /// Se cambia el estado del Joystick para indicar que está funcionando.
+            /// 
+            joyState = READY;
         }
+    }
+
+    bool Joystick::isOk ()
+    {
+        return (joyState != ERROR);
     }
 
     Peripheral::State Joystick::getState(State comp)
