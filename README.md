@@ -12,6 +12,8 @@ Se ha cambiado muchas veces de filosofía de trabajo y eso hace que se encuentre
 Si a alguien le puede ser útil me daré por satisfecho.
 
 # Compilación e instalación.
+![test](https://github.com/juanmard/juegocpp/workflows/test/badge.svg)
+
 Para obtener el código puedes descargarlo en formato comprimido o clonarlo con el comando:
 
 git clone https://github.com/juanmard/juegocpp
