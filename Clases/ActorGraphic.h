@@ -9,9 +9,9 @@
 #ifndef _ACTORGRAPHIC_H_
 #define _ACTORGRAPHIC_H_
 
-#include <allegro.h>
 #include <string>
 #include <sstream>
+#include <allegro.h>
 #include "PrintableObject.h"
 
 class Actor;

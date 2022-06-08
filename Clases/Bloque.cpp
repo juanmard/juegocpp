@@ -6,8 +6,8 @@
 /// @version 1.0.0
 ///
 
-#include "Bloque.h"
 #include <sstream>
+#include "Bloque.h"
 
 Bloque::Bloque ():
 x(0), y(0), w(0), h(0)

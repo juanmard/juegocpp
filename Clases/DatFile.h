@@ -1,8 +1,8 @@
 #ifndef DATFILE_H
 #define DATFILE_H
 
-#include <allegro.h>
 #include <string>
+#include <allegro.h>
 
 //using namespace std;
 using std::string;

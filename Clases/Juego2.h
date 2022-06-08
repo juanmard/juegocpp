@@ -20,28 +20,33 @@
 /// @endcode
 ///
 
-#include "Game.h"
-#include "Mapa.h"
-#include  <allegro.h>
-#include  "Control.h"
-#include  "AirCraft.h"
-#include  "Keyboard.h"
-#include  "Paleta.h"
-#include  "Sprite.h"
-#include  "ActorManager.h"
-#include  "Herny.h"
-#include  "Pelota.h"
-#include  "Ladrillo.h"
-#include  "ControlManager.h"
-#include  "EditorManager.h"
-#include  "StageManager.h"
-#include  "Almacen.h"
-#include  "Loro.h"
-#include  "Mago.h"
-#include  "Ben.h"
 #include <iostream>
 #include <fstream>
 #include <string>
+
+#define ALLEGRO_WINDOWS
+#define ALLEGRO_MSVC
+#define ALLEGRO_USE_CONSOLE
+#include  <allegro.h>
+
+#include "Game.h"
+#include "Mapa.h"
+#include "Control.h"
+#include "AirCraft.h"
+#include "Keyboard.h"
+#include "Paleta.h"
+#include "Sprite.h"
+#include "ActorManager.h"
+#include "Herny.h"
+#include "Pelota.h"
+#include "Ladrillo.h"
+#include "ControlManager.h"
+#include "EditorManager.h"
+#include "StageManager.h"
+#include "Almacen.h"
+#include "Loro.h"
+#include "Mago.h"
+#include "Ben.h"
 #include "Plataforma.h"
 
 /// Juego de prueba heredado de Game.

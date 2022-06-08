@@ -9,8 +9,8 @@
 ///      - 1.0.2 Noviembre 2015
 ///
 
-#include "AlmacenGUI.h"
 #include <sstream>
+#include "AlmacenGUI.h"
 
 /* Plantilla estática */
 DIALOG AlmacenGUI::dlg_plantilla[] =

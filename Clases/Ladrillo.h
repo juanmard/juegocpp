@@ -1,10 +1,10 @@
 #pragma once
+#include <vector>
 #include "Actor.h"
 #include "DatFile.h"
 #include "Bitmap.h"
 #include "Nombres.h"
 #include "LadrilloGUI.h"
-#include <vector>
 
 using std::vector;
 

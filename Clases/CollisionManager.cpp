@@ -7,9 +7,9 @@
 ///      - 1.0.0 Noviembre 2015
 ///
 
+#include <list>
 #include "CollisionManager.h"
 #include "Actor.h"
-#include <list>
 
 CollisionManager::CollisionManager (Game* g)
 {

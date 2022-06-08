@@ -10,10 +10,10 @@
 #ifndef _TESELA_
 #define _TESELA_
 
+#include <string>
 #include <allegro.h>
 #include "PrintableObject.h"
 #include "Bitmap.h"
-#include <string>
 
 class Mosaico;
 

@@ -12,8 +12,8 @@
 #ifndef _ALMACENGUI_H_
 #define _ALMACENGUI_H_
 
-#include <allegro.h>
 #include <vector>
+#include <allegro.h>
 #include "Almacen.h"
 
 /// Clase que genera una GUI (Graphical User Interface) para la clase 'Almacen'.

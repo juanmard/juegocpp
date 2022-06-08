@@ -63,7 +63,7 @@ void Juego2::mainGame ()
     pruebatxt << prueba2 << std::endl;
     pruebatxt.close ();
     */
-    
+
 
     Mapa mapa;
     std::cout << mapa << std::endl;
@@ -92,7 +92,7 @@ void Juego2::mainGame ()
 
   // Se añade el control del loro, al manejador de controles.
   control_manager->add_control(loro->get_control());
-  
+
   // Se añade el periférico del loro que realizará el control.
   control_manager->add_peripheral(loro->get_peripheral());
 
@@ -192,7 +192,7 @@ void Juego2::mainGame ()
       // Prueba con sprite.
       Sprite* prueba = (Sprite *) loro2->get_actor_graphic();
       const Sprite& prb2 = *prueba;
-      
+
       //Menu &menu = prueba->getMenu ();
       //do_menu(menu, mouse_x, mouse_y);
 
@@ -239,12 +239,12 @@ void Juego2::mainGame ()
 
       // 2 - Se crea el mosaico vacío.
       Mosaico *hojas = new Mosaico (arbol);
-      
+
       // 3 - Se añaden Teselas al mosaico.
       hojas->add_ultima_Tesela (new Tesela (hojas, *new std::string("pre2_417")));
       hojas->add_ultima_Tesela (new Tesela (hojas, *new std::string("pre2_416"), 12, 20));
       hojas->add_ultima_Tesela (new Tesela (hojas, *new std::string("pre2_416"), 12, -20, true));
-      
+
       // 4 - Se completan las propiedades del actor.
       arbol->set_x (130);
       arbol->set_y (250);
@@ -385,7 +385,7 @@ void Juego2::mainGame ()
 /// Procedimiento no perteneciente a la clase y que crea
 /// el punto de entrada del programa ("main") que inicia el juego de prueba.
 ///
-int main ()
+int main (void)
 {
   Juego2 game;
 

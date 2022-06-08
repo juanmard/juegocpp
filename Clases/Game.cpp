@@ -1,7 +1,7 @@
 
-#include "Game.h"
-#include <allegro.h>
 #include <iostream>
+#include <allegro.h>
+#include "Game.h"
 #include "ActorManager.h"
 #include "StageManager.h"
 #include "ControlManager.h"

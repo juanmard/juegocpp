@@ -6,8 +6,8 @@
 #ifndef _DIALOGALG_H_
 #define _DIALOGALG_H_
 
-#include <allegro.h>
 #include <vector>
+#include <allegro.h>
 #include "ControlALG.h"
 
 //using namespace std;

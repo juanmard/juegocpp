@@ -6,8 +6,8 @@
 /// @version 1.0.1
 ///
 
-#include "Vector2Df.h"
 #include <sstream>
+#include "Vector2Df.h"
 
 Vector2Df::Vector2Df ()
 {

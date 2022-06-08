@@ -9,10 +9,10 @@
 #ifndef _CONTROL_H_
 #define _CONTROL_H_
 
-#include "ControllableObject.h"
 #include <string>
-#include "Peripheral.h"
 #include <list>
+#include "ControllableObject.h"
+#include "Peripheral.h"
 
 /// Define la clase de los controles del juego.
 ///

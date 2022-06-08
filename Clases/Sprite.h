@@ -9,15 +9,15 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
+#include <vector>
+#include <string.h>
+#include <sstream>
+#include <allegro.h>
 #include "ActorGraphic.h"
 #include "EditableObject.h"
-#include <vector>
 #include "Frame.h"
-#include <allegro.h>
-#include <string.h>
 #include "Actor.h"
 #include "Mask.h"
-#include <sstream>
 
 /// Gráfico en movimiento, una animación simple para los actores.
 /// Esta clase modela varias imágenes en movimiento como gráfico para un actor.

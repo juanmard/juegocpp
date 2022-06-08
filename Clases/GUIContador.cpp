@@ -4,8 +4,8 @@
  * 
  */
 
-#include "GUIContador.h"
 #include <sstream>
+#include "GUIContador.h"
 
 using std::ostringstream;
 

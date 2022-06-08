@@ -7,8 +7,8 @@
 #ifndef _GUIVECTOR_H_
 #define _GUIVECTOR_H_
 
-#include "GUIControl.h"
 #include <allegro.h>
+#include "GUIControl.h"
 
 /**
  * \class   GUIVector

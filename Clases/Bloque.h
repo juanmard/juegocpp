@@ -9,8 +9,8 @@
 #ifndef _BLOQUE_H_
 #define _BLOQUE_H_
 
-#include "PrintableObject.h"
 #include <string>
+#include "PrintableObject.h"
 
 /// Modela un bloque genérico representado por una posición, una anchura y una altura.
 ///

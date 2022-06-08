@@ -1,6 +1,6 @@
 #pragma once
 
-#include <allegro.h>
+//#include <allegro.h>
 #include "Actor.h"
 #include "Dialog.h"
 #include "Nombres.h"

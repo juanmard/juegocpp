@@ -9,9 +9,9 @@
 #ifndef _VECTOR2DF_H_
 #define _VECTOR2DF_H_
 
+#include <string>
 #include "PrintableObject.h"
 #include "ReadableObject.h"
-#include <string>
 
 /// Modela un vector en 2D.
 ///

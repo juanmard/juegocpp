@@ -9,8 +9,8 @@
 #ifndef _STAGEMANAGER_H_
 #define _STAGEMANAGER_H_
 
-#include <allegro.h>
 #include <string.h>
+//#include <allegro.h>
 #include "Game.h"
 #include "Actor.h"
 #include "ActorManager.h"

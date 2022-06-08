@@ -11,12 +11,12 @@
 #ifndef _ALMACEN_H_
 #define _ALMACEN_H_
 
-#include <allegro.h>
 #include <stdio.h>
 #include <iostream>
 #include <string>
 #include <map>
 #include <vector>
+#include <allegro.h>
 
 /// @note Esta clase se usa para editar o visualizar los recursos del almacén.
 ///       Lo ideal es que heredara de "EditableObject" y entregara un "Formulario".

@@ -17,9 +17,9 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <list>
 #include "Escenario.h"
 #include "ActorManager.h"
-#include <list>
 
 /**
  * \brief		Constructor de la clase. Esta clase NO ES NECESARIA, esta función la realiza y la debe realizar la clase StageManager.

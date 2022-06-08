@@ -1,8 +1,8 @@
 #ifndef _ACTORGUI_H_
 #define _ACTORGUI_H_
 
-#include <allegro.h>
 #include <vector>
+#include <allegro.h>
 #include "GUIEscenario.h"
 #include "GUIControl.h"
 #include "EditorManager.h"

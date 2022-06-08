@@ -9,10 +9,10 @@
 #ifndef _PLATAFORMA_H_
 #define _PLATAFORMA_H_
 
+#include <string>
 #include "Actor.h"
 #include "PhysicObject.h"
 #include "Suelo.h"
-#include <string>
 #include "Vector2Di.h"
 #include "Vector2Df.h"
 #include "StageManager.h"

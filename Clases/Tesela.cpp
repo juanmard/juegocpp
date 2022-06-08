@@ -7,9 +7,9 @@
 ///      - 1.0.0 Noviembre 2015
 ///
 
-#include "Tesela.h"
 #include <sstream>
 #include <stdio.h>
+#include "Tesela.h"
 #include "Mosaico.h"
 
 Tesela::Tesela (const Tesela& copia, Mosaico* padre):

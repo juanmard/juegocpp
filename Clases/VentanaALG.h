@@ -1,8 +1,8 @@
 #pragma once
 
-#include <allegro.h>
 #include <string>
 #include <list>
+#include <allegro.h>
 
 //using namespace std;
 using std::string;

@@ -9,9 +9,9 @@
 #ifndef _FRAME_H_
 #define _FRAME_H_
 
+#include <string>
 #include <allegro.h>
 #include "Mask.h"
-#include <string>
 
 /// Cuadro básico (Frame) de la animación.
 ///

@@ -6,8 +6,8 @@
 /// @version 1.0.0
 ///
 
-#include "Plataforma.h"
 #include <sstream>
+#include "Plataforma.h"
 
 Plataforma::Plataforma (const Plataforma& copia):
 Actor(copia),

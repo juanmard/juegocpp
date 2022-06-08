@@ -9,6 +9,7 @@
 #ifndef _ACTOR_H_
 #define _ACTOR_H_
 
+#include <vector>
 #include <allegro.h>
 #include "EditableObject.h"
 #include "PrintableObject.h"
@@ -18,7 +19,6 @@
 #include "Game.h"
 #include "Nombres.h"
 #include "Bloque.h"
-#include <vector>
 #include "EditorManager.h"
 #include "GUIEscenario.h"
 

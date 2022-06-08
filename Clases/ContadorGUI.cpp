@@ -4,8 +4,8 @@
  * 
  */
 
-#include "ContadorGUI.h"
 #include <sstream>
+#include "ContadorGUI.h"
 
 using std::ostringstream;
 

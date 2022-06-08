@@ -7,10 +7,10 @@
 ///      - 1.0.0 Noviembre 2015
 ///
 
+#include <fstream>
 #include "Mapa.h"
 #include "ActorManager.h"
 #include "Actor.h"
-#include <fstream>
 
 /// Macro para comparar y crear el actor de clase "cls".
 #define CMP_CLASE(cls) if (!clase.compare (#cls)) return (*new cls());

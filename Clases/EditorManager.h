@@ -9,8 +9,8 @@
 #ifndef _EDITORMANAGER_
 #define _EDITORMANAGER_
 
-#include <allegro.h>
 #include <string>
+#include <allegro.h>
 #include "Bloque.h"
 #include "Almacen.h"
 

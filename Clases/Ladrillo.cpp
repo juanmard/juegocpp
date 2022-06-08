@@ -7,11 +7,11 @@
 /// @version 1.0.0
 ///
 
+#include <fstream>
+#include <allegro.h>
 #include "Ladrillo.h"
 #include "Almacen.h"
 #include "Dialog.h"
-#include <allegro.h>
-#include <fstream>
 
 Ladrillo::Ladrillo ()
 {

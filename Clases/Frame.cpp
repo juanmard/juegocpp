@@ -6,8 +6,8 @@
 /// @version 1.0.0
 ///
 
-#include "Frame.h"
 #include <sstream>
+#include "Frame.h"
 
 Frame::Frame ()
 {

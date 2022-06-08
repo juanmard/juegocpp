@@ -4,8 +4,8 @@
  * 
  */
 
-#include "EscenarioGUI.h"
 #include <sstream>
+#include "EscenarioGUI.h"
 
 // Variables locales para el mouse.
 int EscenarioGUI::local_x = 0;

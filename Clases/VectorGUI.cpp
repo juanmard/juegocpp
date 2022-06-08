@@ -4,9 +4,9 @@
  * 
  */
 
+#include <sstream>
 #include "VectorGUI.h"
 #include "EscenarioGUI.h"
-#include <sstream>
 
 using std::ostringstream;
 

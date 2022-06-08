@@ -7,6 +7,7 @@
 ///
 
 #include "Keyboard.h"
+#include <allegro.h>
 
 Keyboard::Keyboard()
 {

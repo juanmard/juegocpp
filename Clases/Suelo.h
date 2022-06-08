@@ -9,10 +9,10 @@
 #ifndef _SUELO_H_
 #define _SUELO_H_
 
-#include "Mosaico.h"
-#include <allegro.h>
-#include "Almacen.h"
 #include <string>
+#include <allegro.h>
+#include "Mosaico.h"
+#include "Almacen.h"
 #include "Actor.h"
 
 /// Gráfico de suelo modificable en tamaño para actores.

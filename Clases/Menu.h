@@ -9,9 +9,9 @@
 #ifndef _MENU_H_
 #define _MENU_H_
 
-#include <allegro.h>
 #include <vector>
 #include <string>
+#include <allegro.h>
 
 /// Menú para interaccionar con los objetos editables.
 ///

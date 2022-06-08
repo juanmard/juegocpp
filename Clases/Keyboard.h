@@ -9,8 +9,8 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
-#include <allegro.h>
 #include "Peripheral.h"
+#include <allegro.h>
 
 /// Define el comportamiento del teclado como un periférico.
 ///

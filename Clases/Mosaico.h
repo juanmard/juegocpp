@@ -10,11 +10,11 @@
 #ifndef _MOSAICO_H_
 #define _MOSAICO_H_
 
+#include <string>
+#include <list>
 #include "ActorGraphic.h"
 #include "DatFile.h"
 #include "Tesela.h"
-#include <string>
-#include <list>
 
 class Tesela;
 

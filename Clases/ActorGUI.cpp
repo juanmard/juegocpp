@@ -12,9 +12,9 @@
  *
  *  \todo     Comentar todas estas clases y funciones más detalladamente.
  */
-#include "ActorGUI.h"
 #include <string>
 #include <sstream>
+#include "ActorGUI.h"
 #include "Actor.h"
 #include "ActorGraphic.h"
 #include "LadrilloGUI.h"

@@ -1,8 +1,9 @@
 #ifndef AIRCRAFT_H
 #define AIRCRAFT_H
 
-#include "ControllableActor.h"
 #include <fstream>
+#include "ControllableActor.h"
+
 /** 
  * \brief   Modela una nave espacial como actor controlable.
  * \details Esta clase modela una nave espacial para probar los actores controlables.

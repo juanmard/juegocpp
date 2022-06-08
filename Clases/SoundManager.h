@@ -9,7 +9,7 @@
 #ifndef _SOUNDMANAGER_H_
 #define _SOUNDMANAGER_H_
 
-#include <allegro.h>
+//#include <allegro.h>
 #include "DatFile.h"
 
 /// Controlador de la lista de sonidos del sistema.

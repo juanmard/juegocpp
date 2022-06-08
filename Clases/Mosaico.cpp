@@ -7,8 +7,8 @@
 ///      - 1.0.0 Noviembre 2015
 ///
 
-#include "Mosaico.h"
 #include <sstream>
+#include "Mosaico.h"
 
 Mosaico::Mosaico ():
 ActorGraphic()

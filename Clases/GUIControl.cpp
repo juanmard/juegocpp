@@ -4,8 +4,8 @@
  * 
  */
 
-#include "GUIControl.h"
 #include <iostream>
+#include "GUIControl.h"
 
 /**
  * \brief   Constructor.

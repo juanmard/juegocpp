@@ -6,8 +6,8 @@
 #ifndef _GUICONTROL_H_
 #define _GUICONTROL_H_
 
-#include <allegro.h>
 #include <vector>
+#include <allegro.h>
 
 using std::vector;
 

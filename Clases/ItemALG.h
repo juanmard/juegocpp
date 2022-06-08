@@ -20,8 +20,8 @@
 #ifndef _ItemALG_H_
 #define _ItemALG_H_
 
-#include <allegro.h>
 #include <string>
+#include <allegro.h>
 #include  "MenuALG.h"
 
 using std::string;

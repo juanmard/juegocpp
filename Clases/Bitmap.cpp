@@ -6,8 +6,8 @@
 /// @version 1.0.0
 ///
 
-#include "Bitmap.h"
 #include <sstream>
+#include "Bitmap.h"
 
 // Inicializamos el almacén global de la clase.
 Almacen* Bitmap::almacenGlobal = NULL;

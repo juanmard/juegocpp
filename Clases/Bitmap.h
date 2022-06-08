@@ -9,10 +9,10 @@
 #ifndef _BITMAP_H_
 #define _BITMAP_H_
 
+#include <string>
 #include "ActorGraphic.h"
 #include "Actor.h"
 #include "Almacen.h"
-#include <string>
 
 /// Parte gráfica de un actor como gráfico fijo.
 ///

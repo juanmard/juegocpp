@@ -4,11 +4,11 @@
  *
  */
 
+#include <iostream>
 #include "Ben.h"
 #include "ControllableActor.h"
 #include "Almacen.h"
 #include "Sprite.h"
-#include <iostream>
 
 Ben::Ben ():
 ControllableActor()
