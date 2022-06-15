@@ -1,11 +1,12 @@
 # Simple Makefile para compilar el juegocpp.
 # sudo apt-get install liballegro4-dev
-CC=gcc
-CXX=g++
-RM=rm -f
-CPPFLAGS=-g
-LDFLAGS=-g
-LDLIBS=-lalleg
+CC ?= gcc
+CXX ?= g++
+RM ?= rm -f
+CXXFLAGS ?= -g
+LDFLAGS ?= -g
+LDLIBS ?= -lalleg
+EXECUTABLE ?= juegocpp
 
 SRC=Actor.cpp Ben.cpp ControllableActor.cpp Escenario.cpp GUIVector.cpp Mago.cpp Pelota.cpp Sprite.cpp \
     VentanaALG.cpp ActorGraphic.cpp Bitmap.cpp ControlManager.cpp EscenarioGUI.cpp Herny.cpp Mapa.cpp \
@@ -28,21 +29,22 @@ OBJS=Actor.o Ben.o ControllableActor.o Escenario.o GUIVector.o Mago.o Pelota.o S
     DlgActor.o GUIControl.o LadrilloGUI.o Nombres.o Vector2Di.o BaseALG.o Control.o \
     EditorManager.o GUIEscenario.o Loro.o Paleta.o SoundManager.o VectorGUI.o
 
-all: juegocpp
+all: $(EXECUTABLE)
 
-juegocpp: $(OBJS)
+$(EXECUTABLE): $(OBJS)
 	echo "Ficheros: $(OBJS)"
-	$(CXX) $(LDFLAGS) -o juegocpp $(OBJS) $(LDLIBS) 
+	$(CXX) $(LDFLAGS) -o $(EXECUTABLE) $(OBJS) $(LDLIBS) 
 
-Juego2.o: Juego2.cpp Juego2.h
-	g++ $(CPPFLAGS) -c Juego2.cpp
+.SUFFIXES: .cpp .o
+.cpp.o:
+	${CXX} ${CXXFLAGS} -c $<
 
 install:
-	mv juegocpp ../Extras
+	mv $(EXECUTABLE) ../Extras
 
 clean:
 	$(RM) $(OBJS)
 
 distclean: clean
-	$(RM) juegocpp
-    
+	$(RM) $(EXECUTABLE)
+
