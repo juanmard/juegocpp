@@ -1,0 +1,97 @@
+name: Test Msys2
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include: [
+          # { msystem: MINGW64, runner: windows-2022 },
+          { msystem: MINGW32, runner: windows-2022 },
+          # { msystem: UCRT64, runner: windows-2022 },
+          # { msystem: CLANG64, runner: windows-2022 },
+          # { msystem: CLANG32, runner: windows-2022 },
+          # { msystem: CLANGARM64, runner: ['Windows', 'ARM64', 'CI'] }
+        ]
+    name: ${{ matrix.msystem }}
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - name: Get CPU Name
+        run : |
+          Get-CIMInstance -Class Win32_Processor | Select-Object -Property Name
+
+      - uses: actions/checkout@v3
+        with:
+          path: temp
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: ${{ contains(matrix.msystem, 'ARM64') && 'MSYS' || matrix.msystem }}
+          install: git base-devel
+          update: true
+          release: ${{ runner.arch != 'ARM64' }}
+          location: 'D:\M'
+
+      - name: "Install GCC and UNZIP"
+        shell: msys2 {0}
+        run : |
+            pacman -Su --noconfirm mingw32/mingw-w64-i686-gcc
+            pacman -Su --noconfirm  msys/unzip
+
+      - name: "Test GCC and UNZIP"
+        shell: msys2 {0}
+        run : |
+            gcc --version
+            unzip -v
+
+      - name: "Download allegro 4.4"
+        shell: msys2 {0}
+        run : |
+            wget -q http://cdn.allegro.cc/file/library/allegro/4.4.2/allegro-4.4.2-mingw-4.4.0.zip
+            wget -q https://github.com/juanmard/juegocpp/archive/refs/heads/test-allegro4.2.zip
+
+      - name: "Unzip library allegro"
+        run: |
+          msys2 -c 'unzip -q allegro-4.4.2-mingw-4.4.0.zip'
+          msys2 -c 'unzip -q test-allegro4.2.zip'
+
+      - name: "Check unzip"
+        run: |
+          msys2 -c 'pwd'
+          msys2 -c 'ls -la'
+          msys2 -c 'ls -la allegro-4.4.2-mingw-4.4.0'
+          msys2 -c 'ls -la juegocpp-test-allegro4.2'
+
+      - name: "Compile & Linking"
+        shell: msys2 {0}
+        run: |
+          cd juegocpp-test-allegro4.2/Clases
+          export CXXFLAGS="-Wall -fexceptions -g -I../../allegro-4.4.2-mingw-4.4.0/include"
+          export LDFLAGS="-lwinpthread -static -static-libgcc -static-libstdc++ -L../../allegro-4.4.2-mingw-4.4.0/lib"
+          export LDLIBS="../../allegro-4.4.2-mingw-4.4.0/lib/liballegro-4.4.2-monolith-md-debug.a"
+          export EXECUTABLE=test_juego.exe
+          make
+
+      - name: "Copy binaries"
+        run: |
+          msys2 -c 'cp juegocpp-test-allegro4.2/Clases/test_juego.exe juegocpp-test-allegro4.2/Extras'
+          msys2 -c 'ls /c/msys64/mingw32/bin/*.dll'
+          msys2 -c 'cp /c/msys64/mingw32/bin/libgcc_s_dw2-1.dll juegocpp-test-allegro4.2/Extras'
+          msys2 -c 'cp /c/msys64/mingw32/bin/libstdc++6.dll juegocpp-test-allegro4.2/Extras'
+          msys2 -c 'cp allegro-4.4.2-mingw-4.4.0/bin/allegro-4.4.2-monolith-md-debug.dll juegocpp-test-allegro4.2/Extras'
+          msys2 -c 'ls -la juegocpp-test-allegro4.2/Extras'
+
+      - name: "Upload binaries"
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.msystem }}-packages
+          path: juegocpp-test-allegro4.2/Extras/*.*
