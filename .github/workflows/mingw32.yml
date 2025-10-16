@@ -8,42 +8,46 @@ on:
 
 jobs:
 
+  # ==============================
+  # COMPILACIÓN EN UBUNTU
+  # ==============================
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - run: sudo apt install -y build-essential liballegro4-dev
-    - name: Build and install juegocpp
-      run: |
-        cd Clases
-        make
-        make install
-        cd ..
-        mkdir juegocpp
-        mv Extras/juegocpp juegocpp/
-    - uses: actions/upload-artifact@master
-      with:
-        name: juegocpp
-        path: juegocpp
+      - uses: actions/checkout@v1
+      - run: sudo apt install -y build-essential liballegro4-dev
+      - name: Build and install juegocpp (Linux)
+        run: |
+          cd Clases
+          make
+          make install
+          cd ..
+          mkdir -p juegocpp
+          mv Extras/juegocpp juegocpp/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: juegocpp-linux
+          path: juegocpp
 
+
+  # ==============================
+  # COMPILACIÓN EN WINDOWS / MSYS2
+  # ==============================
   build:
     strategy:
       fail-fast: false
       matrix:
         include: [
-          # { msystem: MINGW64, runner: windows-2022 },
           { msystem: MINGW32, runner: windows-2022 },
-          # { msystem: UCRT64, runner: windows-2022 },
-          # { msystem: CLANG64, runner: windows-2022 },
-          # { msystem: CLANG32, runner: windows-2022 },
-          # { msystem: CLANGARM64, runner: ['Windows', 'ARM64', 'CI'] }
+          { msystem: MINGW64, runner: windows-2022 },
+          { msystem: UCRT64,  runner: windows-2022 },
         ]
     name: ${{ matrix.msystem }}
     runs-on: ${{ matrix.runner }}
+
     steps:
       - name: Get CPU Name
-        run : |
-          Get-CIMInstance -Class Win32_Processor | Select-Object -Property Name
+        run: Get-CimInstance -Class Win32_Processor | Select-Object -Property Name
 
       - uses: actions/checkout@v3
         with:
@@ -53,125 +57,62 @@ jobs:
 
       - uses: msys2/setup-msys2@v2
         with:
-          msystem: ${{ contains(matrix.msystem, 'ARM64') && 'MSYS' || matrix.msystem }}
-          install: git base-devel
+          msystem: ${{ matrix.msystem }}
+          install: git base-devel unzip wget mingw-w64-${{ matrix.msystem == 'MINGW32' && 'i686' || (matrix.msystem == 'MINGW64' && 'x86_64' || 'ucrt-x86_64') }}-gcc
           update: true
           release: ${{ runner.arch != 'ARM64' }}
           location: 'D:\M'
 
-      - name: "Install GCC and UNZIP"
-        shell: msys2 {0}
-        run : |
-            pacman -Su --noconfirm mingw32/mingw-w64-i686-gcc
-            pacman -Su --noconfirm  msys/unzip
-
-      - name: "Test GCC and UNZIP"
-        shell: msys2 {0}
-        run : |
-            gcc --version
-            unzip -v
-
-      - name: "Download allegro 4.4"
-        shell: msys2 {0}
-        run : |
-            wget -q http://cdn.allegro.cc/file/library/allegro/4.4.2/allegro-4.4.2-mingw-4.4.0.zip
-            wget -q https://github.com/juanmard/juegocpp/archive/refs/heads/test-allegro4.2.zip
-
-      - name: "Unzip library allegro"
-        run: |
-          msys2 -c 'unzip -q allegro-4.4.2-mingw-4.4.0.zip'
-          msys2 -c 'unzip -q test-allegro4.2.zip'
-
-      - name: "Check unzip"
-        run: |
-          msys2 -c 'pwd'
-          msys2 -c 'ls -la'
-          msys2 -c 'ls -la allegro-4.4.2-mingw-4.4.0'
-          msys2 -c 'ls -la juegocpp-test-allegro4.2'
-
-      - name: "Compile"
+      - name: "Check GCC & Unzip"
         shell: msys2 {0}
         run: |
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Actor.cpp -o Actor.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/ActorGraphic.cpp -o ActorGraphic.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/ActorGUI.cpp -o ActorGUI.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/ActorManager.cpp -o ActorManager.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/AirCraft.cpp -o AirCraft.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Almacen.cpp -o Almacen.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/AlmacenGUI.cpp -o AlmacenGUI.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Ben.cpp -o Ben.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Bitmap.cpp -o Bitmap.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Bloque.cpp -o Bloque.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/BoxALG.cpp -o BoxALG.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/CollisionManager.cpp -o CollisionManager.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/ContadorGUI.cpp -o ContadorGUI.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Control.cpp -o Control.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/ControlALG.cpp -o ControlALG.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/ControllableActor.cpp -o ControllableActor.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/ControlManager.cpp -o ControlManager.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/DatFile.cpp -o DatFile.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Dialog.cpp -o Dialog.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/DialogALG.cpp -o DialogALG.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/DirectorActor.cpp -o DirectorActor.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/DlgActor.cpp -o DlgActor.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/EditorManager.cpp -o EditorManager.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Escenario.cpp -o Escenario.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/EscenarioGUI.cpp -o EscenarioGUI.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Formulario.cpp -o Formulario.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Frame.cpp -o Frame.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Game.cpp -o Game.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/GUIContador.cpp -o GUIContador.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/GUIControl.cpp -o GUIControl.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/GUIEscenario.cpp -o GUIEscenario.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/GUIVector.cpp -o GUIVector.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Herny.cpp -o Herny.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Juego2.cpp -o Juego2.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Keyboard.cpp -o Keyboard.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Ladrillo.cpp -o Ladrillo.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/LadrilloGUI.cpp -o LadrilloGUI.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Loro.cpp -o Loro.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Mago.cpp -o Mago.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Mapa.cpp -o Mapa.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Mask.cpp -o Mask.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Menu.cpp -o Menu.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Mosaico.cpp -o Mosaico.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Nombres.cpp -o Nombres.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Paleta.cpp -o Paleta.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Pelota.cpp -o Pelota.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Peripheral.cpp -o Peripheral.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/PhysicObject.cpp -o PhysicObject.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Plataforma.cpp -o Plataforma.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/PrintableObject.cpp -o PrintableObject.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/ReadableObject.cpp -o ReadableObject.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/SoundManager.cpp -o SoundManager.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Sprite.cpp -o Sprite.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/StageManager.cpp -o StageManager.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Suelo.cpp -o Suelo.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Tesela.cpp -o Tesela.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Vector2Df.cpp -o Vector2Df.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/Vector2Di.cpp -o Vector2Di.o
-          g++.exe -Wall -fexceptions -g -Iallegro-4.4.2-mingw-4.4.0/include -c juegocpp-test-allegro4.2/Clases/VectorGUI.cpp -o VectorGUI.o
+          gcc --version
+          unzip -v
 
-      - name: "Linking"
+      - name: "Download Allegro & source"
         shell: msys2 {0}
         run: |
-          g++.exe -lwinpthread -static -static-libgcc -static-libstdc++ -Lallegro-4.4.2-mingw-4.4.0/lib -o test_juego.exe Actor.o ActorGraphic.o ActorGUI.o ActorManager.o AirCraft.o Almacen.o AlmacenGUI.o Ben.o Bitmap.o Bloque.o BoxALG.o CollisionManager.o ContadorGUI.o Control.o ControlALG.o ControllableActor.o ControlManager.o DatFile.o Dialog.o DialogALG.o DirectorActor.o DlgActor.o EditorManager.o Escenario.o EscenarioGUI.o Formulario.o Frame.o Game.o GUIContador.o GUIControl.o GUIEscenario.o GUIVector.o Herny.o Juego2.o Keyboard.o Ladrillo.o LadrilloGUI.o Loro.o Mago.o Mapa.o Mask.o Menu.o Mosaico.o Nombres.o Paleta.o Pelota.o Peripheral.o PhysicObject.o Plataforma.o PrintableObject.o ReadableObject.o SoundManager.o Sprite.o StageManager.o Suelo.o Tesela.o Vector2Df.o Vector2Di.o VectorGUI.o allegro-4.4.2-mingw-4.4.0/lib/liballegro-4.4.2-monolith-md-debug.a
+          wget -q http://cdn.allegro.cc/file/library/allegro/4.4.2/allegro-4.4.2-mingw-4.4.0.zip
+          wget -q https://github.com/juanmard/juegocpp/archive/refs/heads/test-allegro4.2.zip
+          unzip -q allegro-4.4.2-mingw-4.4.0.zip
+          unzip -q test-allegro4.2.zip
+          ls -la
 
-      - name: "Copy binaries"
+      - name: "Compile all sources"
+        shell: msys2 {0}
         run: |
-          msys2 -c 'cp test_juego.exe juegocpp-test-allegro4.2/Extras'
-          msys2 -c 'ls /c/msys64/mingw32/bin/*.dll'
-          msys2 -c 'ls -la /c/msys64/$MSYSTEM'
-          msys2 -c 'ls -la /c/msys64/$MSYSTEM/bin'
-          msys2 -c 'ls -la /c/msys64/$MSYSTEM/lib'
-          msys2 -c 'cp /c/msys64/$MSYSTEM/bin/libgcc_s_dw2-1.dll juegocpp-test-allegro4.2/Extras'
-          msys2 -c 'cp /c/msys64/$MSYSTEM/bin/libwinpthread-1.dll juegocpp-test-allegro4.2/Extras'
-          msys2 -c 'cp /c/msys64/$MSYSTEM/bin/libstdc++6.dll juegocpp-test-allegro4.2/Extras'
-          msys2 -c 'cp allegro-4.4.2-mingw-4.4.0/bin/allegro-4.4.2-monolith-md-debug.dll juegocpp-test-allegro4.2/Extras'
-#          msys2 -c 'ls -la juegocpp-test-allegro4.2/Extras'
+          cd juegocpp-test-allegro4.2/Clases
+          SRC=$(ls *.cpp)
+          echo "Compiling: $SRC"
+          for f in $SRC; do
+            echo "-> $f"
+            g++.exe -Wall -fexceptions -g -I../../allegro-4.4.2-mingw-4.4.0/include -c $f -o ${f%.cpp}.o
+          done
 
-      - name: "Upload binaries"
+      - name: "Link all objects"
+        shell: msys2 {0}
+        run: |
+          cd juegocpp-test-allegro4.2/Clases
+          g++.exe -lwinpthread -static -static-libgcc -static-libstdc++ \
+            -L../../allegro-4.4.2-mingw-4.4.0/lib \
+            -o ../Extras/test_juego.exe *.o ../../allegro-4.4.2-mingw-4.4.0/lib/liballegro-4.4.2-monolith-md-debug.a
+          ls -la ../Extras
+
+      - name: "Copy DLLs"
+        shell: msys2 {0}
+        run: |
+          cd juegocpp-test-allegro4.2/Extras
+          DLL_DIR="/c/msys64/${MSYSTEM}/bin"
+          echo "Copying DLLs from $DLL_DIR"
+          cp "$DLL_DIR"/libgcc_s*.dll . 2>/dev/null || true
+          cp "$DLL_DIR"/libstdc++*.dll . 2>/dev/null || true
+          cp "$DLL_DIR"/libwinpthread-1.dll . 2>/dev/null || true
+          cp ../../allegro-4.4.2-mingw-4.4.0/bin/allegro-4.4.2-monolith-md-debug.dll . 2>/dev/null || true
+          echo "Final content:"
+          ls -la
+
+      - name: "Upload Windows build"
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.msystem }}-packages
-          path: juegocpp-test-allegro4.2/Extras/*.*
+          path: juegocpp-test-allegro4.2/Extras/*
