@@ -160,11 +160,12 @@ jobs:
       - name: "Copy binaries"
         run: |
           msys2 -c 'cp test_juego.exe juegocpp-test-allegro4.2/Extras'
-          msys2 -c 'ls -la /c/msys64/mingw32'
-          msys2 -c 'ls -la /c/msys64/mingw32/bin'
-          msys2 -c 'ls -la /c/msys64/mingw32/lib'
-          msys2 -c 'cp /c/msys64/mingw32/bin/libgcc_s_dw2-1.dll juegocpp-test-allegro4.2/Extras'
-          msys2 -c 'cp /c/msys64/mingw32/bin/libstdc++6.dll juegocpp-test-allegro4.2/Extras'
+          msys2 -c 'ls -la /c/msys64/$MSYSTEM'
+          msys2 -c 'ls -la /c/msys64/$MSYSTEM/bin'
+          msys2 -c 'ls -la /c/msys64/$MSYSTEM/lib'
+          msys2 -c 'cp /c/msys64/$MSYSTEM/bin/libgcc_s_dw2-1.dll juegocpp-test-allegro4.2/Extras'
+          msys2 -c 'cp /c/msys64/$MSYSTEM/bin/libwinpthread-1.dll juegocpp-test-allegro4.2/Extras'
+          msys2 -c 'cp /c/msys64/$MSYSTEM/bin/libstdc++6.dll juegocpp-test-allegro4.2/Extras'
           msys2 -c 'cp allegro-4.4.2-mingw-4.4.0/bin/allegro-4.4.2-monolith-md-debug.dll juegocpp-test-allegro4.2/Extras'
 #          msys2 -c 'ls -la juegocpp-test-allegro4.2/Extras'
 
