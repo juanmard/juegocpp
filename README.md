@@ -11,6 +11,10 @@ Se ha cambiado muchas veces de filosofía de trabajo y eso hace que se encuentre
 
 Si a alguien le puede ser útil me daré por satisfecho.
 
+<p align="center">
+  <img src="Docu/test_juego.gif" alt="Demo del juego" width="600">
+</p>
+
 # Compilación e instalación.
 ![test](https://github.com/juanmard/juegocpp/workflows/test/badge.svg)
 
