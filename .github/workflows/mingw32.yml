@@ -169,7 +169,7 @@ jobs:
 #          msys2 -c 'ls -la juegocpp-test-allegro4.2/Extras'
 
       - name: "Upload binaries"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.msystem }}-packages
           path: juegocpp-test-allegro4.2/Extras/*.*
