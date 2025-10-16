@@ -160,6 +160,7 @@ jobs:
       - name: "Copy binaries"
         run: |
           msys2 -c 'cp test_juego.exe juegocpp-test-allegro4.2/Extras'
+          msys2 -c 'ls /c/msys64/mingw32/bin/*.dll'
           msys2 -c 'ls -la /c/msys64/$MSYSTEM'
           msys2 -c 'ls -la /c/msys64/$MSYSTEM/bin'
           msys2 -c 'ls -la /c/msys64/$MSYSTEM/lib'
