@@ -1,11 +1,15 @@
 # Simple Makefile para compilar el juegocpp.
-# sudo apt-get install liballegro4-dev
+# sudo apt-get install liballegro4-dev (Debian/Ubuntu)
+#
+# v0.1: Modificado para ser usado bajo entorno MinGW32.
+#
+BASE=/d/Proyectos/Games/juegocpp
 CC=gcc
 CXX=g++
 RM=rm -f
-CPPFLAGS=-g
-LDFLAGS=-g
-LDLIBS=-lalleg
+CPPFLAGS=-g -I../allegro-4.4.2-mingw-4.5.0/include
+LDFLAGS=-g -L../allegro-4.4.2-mingw-4.5.0/lib 
+LDLIBS= ../allegro-4.4.2-mingw-4.5.0/lib/liballegro-4.4.2-monolith-mt.a
 
 SRC=Actor.cpp Ben.cpp ControllableActor.cpp Escenario.cpp GUIVector.cpp Mago.cpp Pelota.cpp Sprite.cpp \
     VentanaALG.cpp ActorGraphic.cpp Bitmap.cpp ControlManager.cpp EscenarioGUI.cpp Herny.cpp Mapa.cpp \
@@ -28,21 +32,26 @@ OBJS=Actor.o Ben.o ControllableActor.o Escenario.o GUIVector.o Mago.o Pelota.o S
     DlgActor.o GUIControl.o LadrilloGUI.o Nombres.o Vector2Di.o BaseALG.o Control.o \
     EditorManager.o GUIEscenario.o Loro.o Paleta.o SoundManager.o VectorGUI.o
 
-all: juegocpp
+# TODO: Comprobar si existe el subdirectorio de bibliotecas Allegro 4.4.2
+# if [../allegro-4.4.2-mingw-4.5.0/]
+# Si no existe, descargarlo y descomprimirlo (comprobar si wget y unzip están instalados).
+# wget http://cdn.allegro.cc/file/library/allegro/4.4.2/allegro-4.4.2-mingw-4.5.0.zip
+# unzip -q allegro-4.4.2-mingw-4.5.0.zip
+#
 
-juegocpp: $(OBJS)
+all: juegocpp.exe
+
+juegocpp.exe: $(OBJS)
 	echo "Ficheros: $(OBJS)"
-	$(CXX) $(LDFLAGS) -o juegocpp $(OBJS) $(LDLIBS) 
+	$(CXX) $(LDFLAGS) -o juegocpp.exe $(OBJS) $(LDLIBS) 
 
-Juego2.o: Juego2.cpp Juego2.h
-	g++ $(CPPFLAGS) -c Juego2.cpp
-
-install:
-	mv juegocpp ../Extras
+install: juegocpp.exe
+	mv juegocpp.exe ../Extras
 
 clean:
 	$(RM) $(OBJS)
+	$(RM) ../Extras/juegocpp.exe
 
-distclean: clean
-	$(RM) juegocpp
-    
+run: install
+	bash -c "cd $(BASE)/Extras; chmod +x ./juegocpp.exe; exec ./juegocpp.exe"
+
