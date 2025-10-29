@@ -1,0 +1,7 @@
+Clases/*.o
+.vs/*
+.vscode/*
+allegro*
+build*
+test*
+makefile
