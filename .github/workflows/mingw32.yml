@@ -4,7 +4,7 @@ on:
   push:
   pull_request:
   schedule:
-    - cron: '0 0 * * 1'
+    - cron: '0 0 * * 5'
 
 jobs:
 
@@ -39,8 +39,8 @@ jobs:
       matrix:
         include: [
           { msystem: MINGW32, runner: windows-2022 },
-          { msystem: MINGW64, runner: windows-2022 },
-          { msystem: UCRT64,  runner: windows-2022 },
+         #// { msystem: MINGW64, runner: windows-2022 },
+         #// { msystem: UCRT64,  runner: windows-2022 },
         ]
     name: ${{ matrix.msystem }}
     runs-on: ${{ matrix.runner }}
@@ -64,21 +64,24 @@ jobs:
             mingw-w64-${{ matrix.msystem == 'MINGW32' && 'i686' || (matrix.msystem == 'MINGW64' && 'x86_64' || 'ucrt-x86_64') }}-gcc
           update: true
 
-      - name: "Compile project with Allegro 4.4.2"
+      - name: "Compile project with Allegro 4.4.2 (static)"
         shell: msys2 {0}
         run: |
           set -e
-          wget -q http://cdn.allegro.cc/file/library/allegro/4.4.2/allegro-4.4.2-mingw-4.4.0.zip
-          unzip -q allegro-4.4.2-mingw-4.4.0.zip
-          unzip -q temp/test-allegro4.2.zip
+          wget -q http://cdn.allegro.cc/file/library/allegro/4.4.2/allegro-4.4.2-mingw-4.5.2.zip
+          wget -q https://github.com/juanmard/juegocpp/archive/refs/heads/test-allegro4.2.zip
+          unzip -q allegro-4.4.2-mingw-4.5.2.zip
+          unzip -q test-allegro4.2.zip
           cd juegocpp-test-allegro4.2/Clases
           for f in *.cpp; do
-            g++.exe -Wall -O2 -I../../allegro-4.4.2-mingw-4.4.0/include -c $f -o ${f%.cpp}.o
+            g++.exe -O2 -I../../allegro-4.4.2-mingw-4.5.2/include -static -DALLEGRO_STATICLINK -c $f -o ${f%.cpp}.o
           done
           g++.exe -s -static -static-libgcc -static-libstdc++ \
-            -L../../allegro-4.4.2-mingw-4.4.0/lib \
+            -L../../allegro-4.4.2-mingw-4.5.2/lib \
             -o ../Extras/test_juego.exe *.o \
-            ../../allegro-4.4.2-mingw-4.4.0/lib/liballegro-4.4.2-monolith-md-debug.a
+            ../../allegro-4.4.2-mingw-4.5.2/lib/liballegro-4.4.2-monolith-static-mt.a \
+            -ldinput8 -ldxguid -lddraw -lole32 -luuid -ldsound \
+            -lwinmm -lgdi32 -lcomdlg32 -luser32 -lkernel32 -lopengl32 -lz -lm
           echo "Build complete:"
           ls -lh ../Extras
 
@@ -86,7 +89,7 @@ jobs:
         shell: msys2 {0}
         run: |
           cd juegocpp-test-allegro4.2/Extras
-          cp ../../allegro-4.4.2-mingw-4.4.0/bin/allegro-4.4.2-monolith-md-debug.dll . 2>/dev/null || true
+          pacman -Sy --noconfirm zip
           zip -r9 ../Extras_${MSYSTEM}.zip ./*
           sha256sum ../Extras_${MSYSTEM}.zip > ../Extras_${MSYSTEM}.sha256
           echo "ZIP and hash created:"
@@ -95,7 +98,17 @@ jobs:
       - name: "Upload ZIP artifact"
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.msystem }}-build
+          name: Win32-${{ matrix.msystem }}-build
           path: |
             juegocpp-test-allegro4.2/Extras_${{ matrix.msystem }}.zip
             juegocpp-test-allegro4.2/Extras_${{ matrix.msystem }}.sha256
+
+      - name: "Create GitHub Release"
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            juegocpp-test-allegro4.2/Extras_${{ matrix.msystem }}.zip
+            juegocpp-test-allegro4.2/Extras_${{ matrix.msystem }}.sha256
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
