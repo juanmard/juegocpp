@@ -98,7 +98,17 @@ jobs:
       - name: "Upload ZIP artifact"
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.msystem }}-build
+          name: Win32-${{ matrix.msystem }}-build
           path: |
             juegocpp-test-allegro4.2/Extras_${{ matrix.msystem }}.zip
             juegocpp-test-allegro4.2/Extras_${{ matrix.msystem }}.sha256
+
+      - name: "Create GitHub Release"
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            juegocpp-test-allegro4.2/Extras_${{ matrix.msystem }}.zip
+            juegocpp-test-allegro4.2/Extras_${{ matrix.msystem }}.sha256
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
