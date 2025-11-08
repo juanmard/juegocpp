@@ -79,7 +79,9 @@ jobs:
           g++.exe -s -static -static-libgcc -static-libstdc++ \
             -L../../allegro-4.4.2-mingw-4.5.2/lib \
             -o ../Extras/test_juego.exe *.o \
-            ../../allegro-4.4.2-mingw-4.5.2/lib/liballegro-4.4.2-monolith-static-mt.a
+            ../../allegro-4.4.2-mingw-4.5.2/lib/liballegro-4.4.2-monolith-static-mt.a \
+            -ldinput8 -ldxguid -lddraw -lole32 -luuid -ldsound \
+            -lwinmm -lgdi32 -lcomdlg32 -luser32 -lkernel32 -lopengl32 -lz -lm
           echo "Build complete:"
           ls -lh ../Extras
 
