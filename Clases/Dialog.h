@@ -281,6 +281,10 @@ public:
               objeto.moviendoActor = false;
               break;
 
+          case MSG_MPRESS:
+              objeto.moverEscenario ();
+              break;
+
           case MSG_CLICK:
               break;
 

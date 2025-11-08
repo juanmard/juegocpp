@@ -75,14 +75,17 @@ int  EscenarioGUI::Wheel (int msg, DIALOG *d, int code)
 {
   int salida = D_O_K;
 
+  // Movemos el escenario.
+  //editor.mover_escenario (editor.get_escenario_x () - local_x, editor.get_escenario_y () - local_y);
+
   // Actualizamos los valores referenciados por el vector según los clicks de la rueda.
   if (key[KEY_ALT])
   {
-    //y += code;
+    d->y += 10;
   }
   else
   {
-    //x += code;
+    d->x += 10;
   }
 
   // Actualizamos los valores en la gui.
@@ -123,11 +126,10 @@ int  EscenarioGUI::MoveMouse (int msg, DIALOG *d, int code)
 
   // Se actualizan la coordenadas.
   // editor.setMensaje (os.str());
-/*
-  ostringstream os;
-  os  << "Globales: " << mouse_x << "," << mouse_y;
-  textout (screen, font, os.str().c_str(), 0, 300, gui_fg_color);
-*/
+  // std::ostringstream oss;
+  // oss << "Coord: " << mouse_x << "," << mouse_y;
+  // textout (screen, font, oss.str().c_str(), 600, 100, gui_fg_color);
+
   return D_O_K;
 };
 

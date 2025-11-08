@@ -79,11 +79,11 @@ int  GUIEscenario::Wheel (int msg, DIALOG* d, int code)
   // Actualizamos los valores referenciados por el vector según los clicks de la rueda.
   if (key[KEY_ALT])
   {
-    //y += code;
+    d->y += 1;
   }
   else
   {
-    //x += code;
+    d->x += 1;
   }
 
   // Actualizamos los valores en la gui.
@@ -129,9 +129,9 @@ int  GUIEscenario::MoveMouse (int msg, DIALOG* d, int code)
 
   // Se actualizan la coordenadas.
   // editor.setMensaje (os.str());
-  ostringstream os;
-  os  << "Globales: " << mouse_x << "," << mouse_y;
-  textout_ex (screen, font, os.str().c_str(), 0, 400, gui_fg_color, gui_bg_color);
+  ostringstream oss;
+  oss << "Global: " << mouse_x << "," << mouse_y;
+  textout_ex (screen, font, oss.str().c_str(), 0, 400, gui_fg_color, gui_bg_color);
 
   return D_O_K;
 };

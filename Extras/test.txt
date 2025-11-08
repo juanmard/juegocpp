@@ -1,42 +1,42 @@
 [Actores]
 Cantidad 21
 Ladrillo {
-    Posición    <235, 243>
+    Posición    <198, 295>
     Dimensiones <32, 15>
     Gráfico {
 sprite_041    }
 }
 
 Ladrillo {
-    Posición    <191, 154>
-    Dimensiones <32, 15>
+    Posición    <-9, 208>
+    Dimensiones <46, 56>
     Gráfico {
 sprite_090    }
 }
 
 Ladrillo {
-    Posición    <521, 42>
+    Posición    <397, -35>
     Dimensiones <32, 15>
     Gráfico {
 sprite_044    }
 }
 
 Ladrillo {
-    Posición    <161, 244>
+    Posición    <130, 277>
     Dimensiones <32, 15>
     Gráfico {
 sprite_041    }
 }
 
 Ladrillo {
-    Posición    <199, 244>
+    Posición    <164, 291>
     Dimensiones <32, 15>
     Gráfico {
 sprite_041    }
 }
 
 Ladrillo {
-    Posición    <271, 243>
+    Posición    <234, 293>
     Dimensiones <32, 15>
     Gráfico {
 sprite_041    }
@@ -78,7 +78,7 @@ sprite_041    }
 }
 
 Ladrillo {
-    Posición    <343, 48>
+    Posición    <449, -18>
     Dimensiones <32, 15>
     Gráfico {
 sprite_044    }
@@ -106,23 +106,32 @@ sprite_041    }
 }
 
 Plataforma {
-    Posición    <473, 102>
+    Posición    <380, 112>
     Dimensiones <84, 15>
     Gráfico {
-Propietario: sin nombre
-Posición: [473, 102]
-Dimensiones: [0, 0]
+Mosaico >> 
+Tesela 0 {32,0, false} Tesela sin Bitmap
+Tesela 1 {0,0, false} Tesela sin Bitmap
+Tesela 2 {0,0, false} Tesela sin Bitmap
+Tesela 3 {54,0, true} Tesela sin Bitmap
     }
 }
 
 
 Plataforma {
-    Posición    <363, 200>
+    Posición    <-40, 165>
     Dimensiones <244, 15>
     Gráfico {
-Propietario: sin nombre
-Posición: [363, 200]
-Dimensiones: [0, 0]
+Mosaico >> 
+Tesela 0 {192,0, false} Tesela sin Bitmap
+Tesela 1 {160,0, false} Tesela sin Bitmap
+Tesela 2 {128,0, false} Tesela sin Bitmap
+Tesela 3 {96,0, false} Tesela sin Bitmap
+Tesela 4 {64,0, false} Tesela sin Bitmap
+Tesela 5 {32,0, false} Tesela sin Bitmap
+Tesela 6 {0,0, false} Tesela sin Bitmap
+Tesela 7 {0,0, false} Tesela sin Bitmap
+Tesela 8 {214,0, true} Tesela sin Bitmap
     }
 }
 
@@ -131,20 +140,27 @@ Plataforma {
     Posición    <112, 63>
     Dimensiones <84, 15>
     Gráfico {
-Propietario: sin nombre
-Posición: [112, 63]
-Dimensiones: [0, 0]
+Mosaico >> 
+Tesela 0 {32,0, false} Tesela sin Bitmap
+Tesela 1 {0,0, false} Tesela sin Bitmap
+Tesela 2 {0,0, false} Tesela sin Bitmap
+Tesela 3 {54,0, true} Tesela sin Bitmap
     }
 }
 
 
 Plataforma {
-    Posición    <-30, 243>
+    Posición    <-51, 266>
     Dimensiones <180, 15>
     Gráfico {
-Propietario: sin nombre
-Posición: [-30, 243]
-Dimensiones: [0, 0]
+Mosaico >> 
+Tesela 0 {128,0, false} Tesela sin Bitmap
+Tesela 1 {96,0, false} Tesela sin Bitmap
+Tesela 2 {64,0, false} Tesela sin Bitmap
+Tesela 3 {32,0, false} Tesela sin Bitmap
+Tesela 4 {0,0, false} Tesela sin Bitmap
+Tesela 5 {0,0, false} Tesela sin Bitmap
+Tesela 6 {150,0, true} Tesela sin Bitmap
     }
 }
 
@@ -153,9 +169,11 @@ Plataforma {
     Posición    <-29, 21>
     Dimensiones <84, 15>
     Gráfico {
-Propietario: sin nombre
-Posición: [-29, 21]
-Dimensiones: [0, 0]
+Mosaico >> 
+Tesela 0 {32,0, false} Tesela sin Bitmap
+Tesela 1 {0,0, false} Tesela sin Bitmap
+Tesela 2 {0,0, false} Tesela sin Bitmap
+Tesela 3 {54,0, true} Tesela sin Bitmap
     }
 }
 

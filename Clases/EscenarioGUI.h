@@ -84,7 +84,7 @@ class EscenarioGUI
             return D_WANTFOCUS;
 
           case MSG_GOTFOCUS:
-            d->fg = makecol (0,255,0);
+            d->fg = makecol (255,0,0);
             return D_REDRAWME;
 
           case MSG_LOSTFOCUS:
@@ -92,6 +92,14 @@ class EscenarioGUI
             return D_REDRAWME;
 
           case MSG_WHEEL:
+            return obj.Wheel (msg, d, c);
+            break;
+
+          case MSG_MPRESS:
+            return obj.Wheel (msg, d, c);
+            break;
+
+          case MSG_MRELEASE:
             //return obj.Wheel (msg, d, c);
             break;
 
