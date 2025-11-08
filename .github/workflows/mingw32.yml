@@ -70,7 +70,6 @@ jobs:
           set -e
           wget -q http://cdn.allegro.cc/file/library/allegro/4.4.2/allegro-4.4.2-mingw-4.5.2.zip
           unzip -q allegro-4.4.2-mingw-4.5.2.zip
-          unzip -q temp/test-allegro4.2.zip
           cd juegocpp-test-allegro4.2/Clases
           for f in *.cpp; do
             g++.exe -Wall -O2 -I../../allegro-4.4.2-mingw-4.5.2/include -static -DALLEGRO_STATICLINK -c $f -o ${f%.cpp}.o
