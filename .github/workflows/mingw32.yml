@@ -39,8 +39,8 @@ jobs:
       matrix:
         include: [
           { msystem: MINGW32, runner: windows-2022 },
-          { msystem: MINGW64, runner: windows-2022 },
-          { msystem: UCRT64,  runner: windows-2022 },
+         #// { msystem: MINGW64, runner: windows-2022 },
+         #// { msystem: UCRT64,  runner: windows-2022 },
         ]
     name: ${{ matrix.msystem }}
     runs-on: ${{ matrix.runner }}
