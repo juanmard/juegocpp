@@ -31,7 +31,7 @@ public:
     /// Constructor mediante almacén de gráficos.
     /// @param almacen  Almacen con los gráficos para crear la animación de la fruta.
     /// @todo Este parámetro de almacen no tiene mucho sentido en esta clase, debería ser
-    ///       más sencillo crear un actor del tipo Loro.
+    ///       más sencillo crear un actor del tipo Fruta.
     ///
     Fruta (Almacen &almacen);
 

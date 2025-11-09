@@ -48,7 +48,7 @@ Actor ()
     //       @endcode
     //       Donde la clase "Animaciones" sería una clase con las animaciones ya predefinidas.
     //
-    set_actor_graphic (idle);
+    set_actor_graphic (uvas);
 };
 
 void Fruta::getNombre (std::string &strNombre) const
@@ -69,7 +69,7 @@ void Fruta::hit (Actor* who, int damage)
     case Nombres::ben:
         // Movimiento de prueba. Lo ideal será cambiar la animación.
         this->set_x(this->get_x()+2);
-        this->set_actor_graphic(uvas);
+        this->set_actor_graphic(idle);
         break;
     default:
         break;
