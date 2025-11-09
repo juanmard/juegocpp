@@ -2,8 +2,8 @@
 /// @file Sprite.h
 /// @brief Fichero de definición de la clase "Sprite".
 /// @author Juan Manuel Rico
-/// @date Octubre 2015
-/// @version 1.0.0
+/// @date Noviembre 2025
+/// @version 1.1.0
 ///
 
 #ifndef SPRITE_H
@@ -31,6 +31,10 @@ protected:
     bool mirror;                ///< Indica si la animación se encuentra girada en espejo.
 
 public:
+    /// Constructor básico.
+    ///
+    Sprite ();
+
     /// Constructor básico.
     /// @param aowner  Actor propietario del nuevo gráfico creado.
     ///
@@ -141,6 +145,10 @@ public:
         return D_O_K;
     };
 
+    /// Imprime la representación del objeto en forma de cadena de texto.
+    /// @return Obtiene la cadena que representa al objeto.
+    ///
+    /// std::string& print () const;
 };
 
 #endif

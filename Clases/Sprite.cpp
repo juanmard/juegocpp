@@ -2,12 +2,20 @@
 /// @file Sprite.cpp
 /// @brief Fichero de implementación de la clase "Sprite".
 /// @author Juan Manuel Rico
-/// @date Octubre 2015
-/// @version 1.0.0
+/// @date Noviembre 2025
+/// @version 1.1.0
 ///
 
 #include "Sprite.h"
 #include "Bitmap.h"
+
+Sprite::Sprite ():
+ActorGraphic(),
+actual_tick (0),
+actual_frame (0),
+mirror (false)
+{
+};
 
 Sprite::Sprite (Actor* aowner):
 ActorGraphic(aowner),
@@ -131,14 +139,15 @@ void Sprite::draw (int x, int y, BITMAP* bmp)
   }
   else
   {
-    rotate_scaled_sprite (bmp, frames[actual_frame].bmp,
-                          x - frames[actual_frame].cx,
-                          y - frames[actual_frame].cy,
-                          ftofix(0.0), ftofix(2.0));
+    // Para hacer una prueba de "zoom" a los "Sprites" sin invertir.
+    // rotate_scaled_sprite (bmp, frames[actual_frame].bmp,
+    //                       x - frames[actual_frame].cx,
+    //                       y - frames[actual_frame].cy,
+    //                       ftofix(0.0), ftofix(2.0));
                           
-    //draw_sprite (bmp, frames[actual_frame].bmp, 
-    //             x - frames[actual_frame].cx,
-    //             y - frames[actual_frame].cy);
+    draw_sprite (bmp, frames[actual_frame].bmp, 
+                x - frames[actual_frame].cx,
+                y - frames[actual_frame].cy);
   }
 };
 
@@ -207,3 +216,7 @@ Formulario& Sprite::getFormulario () const
     return *ptr_formulario;
 };
 
+// std::string& Sprite::print () const
+// {
+//   return *new std::string ("Sprite imprimido.\n");
+// };
