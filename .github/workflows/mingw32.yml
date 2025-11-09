@@ -69,10 +69,10 @@ jobs:
         run: |
           set -e
           wget -q http://cdn.allegro.cc/file/library/allegro/4.4.2/allegro-4.4.2-mingw-4.5.2.zip
-          wget -q https://github.com/juanmard/juegocpp/archive/refs/heads/test-allegro4.2.zip
+          wget -q https://github.com/juanmard/juegocpp/archive/refs/heads/test_Allegro4.4.2.zip
           unzip -q allegro-4.4.2-mingw-4.5.2.zip
-          unzip -q test-allegro4.2.zip
-          cd juegocpp-test-allegro4.2/Clases
+          unzip -q test_Allegro4.4.2.zip
+          cd juegocpp-test_Allegro4.4.2/Clases
           for f in *.cpp; do
             g++.exe -O2 -I../../allegro-4.4.2-mingw-4.5.2/include -static -DALLEGRO_STATICLINK -c $f -o ${f%.cpp}.o
           done
@@ -88,7 +88,7 @@ jobs:
       - name: "Package clean ZIP (no system DLLs)"
         shell: msys2 {0}
         run: |
-          cd juegocpp-test-allegro4.2/Extras
+          cd juegocpp-test_Allegro4.4.2/Extras
           pacman -Sy --noconfirm zip
           zip -r9 ../Extras_${MSYSTEM}.zip ./*
           sha256sum ../Extras_${MSYSTEM}.zip > ../Extras_${MSYSTEM}.sha256
@@ -100,15 +100,15 @@ jobs:
         with:
           name: Win32-${{ matrix.msystem }}-build
           path: |
-            juegocpp-test-allegro4.2/Extras_${{ matrix.msystem }}.zip
-            juegocpp-test-allegro4.2/Extras_${{ matrix.msystem }}.sha256
+            juegocpp-test_Allegro4.4.2/Extras_${{ matrix.msystem }}.zip
+            juegocpp-test_Allegro4.4.2/Extras_${{ matrix.msystem }}.sha256
 
       - name: "Create GitHub Release"
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            juegocpp-test-allegro4.2/Extras_${{ matrix.msystem }}.zip
-            juegocpp-test-allegro4.2/Extras_${{ matrix.msystem }}.sha256
+            juegocpp-test_Allegro4.4.2/Extras_${{ matrix.msystem }}.zip
+            juegocpp-test_Allegro4.4.2/Extras_${{ matrix.msystem }}.sha256
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
