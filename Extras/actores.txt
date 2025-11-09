@@ -6,8 +6,8 @@ Ladrillo {
     Posición  <235, 243>
 }
 
-Ladrillo {
-    Chaqueta  "sprite_090"
+Fruta {
+    Chaqueta  "sprite_014"
     Peloteo   "sample_001"
     Posición  <177, 187>
 }

@@ -13,11 +13,10 @@
 /// Define la compilación de forma estática.
 /// @todo Automatizar esto en el marco de trabajo ("FrameWork") para
 ///       que pueda ser elegido desde "Game.cpp".
-/// @code
-///
-///    #define ALLEGRO_STATICLINK
-///
-/// @endcode
+///       @code
+///       #define ALLEGRO_STATICLINK
+///       @endcode
+///       Esto también puede definirse desde el compilador añadiendo -DALLEGRO_STATICLINK a los parámetros.
 ///
 
 #include "Game.h"

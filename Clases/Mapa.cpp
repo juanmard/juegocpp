@@ -23,6 +23,7 @@
 #include "Paleta.h"
 #include "Pelota.h"
 #include "Plataforma.h"
+#include "Fruta.h"
 
 Mapa::Mapa ():
 nombre ("sin nombre"),
@@ -116,10 +117,17 @@ void Mapa::load (std::string& file, ActorManager& manager)
         try {
             Actor& actor = crear_actor(clase);
 
-            // Se leen los valores de las propiedades del actor desde el fichero de texto.
-            ifs.ignore (100,'{');
-            ifs >> actor;
-            ifs.ignore (100,'}');
+            // Hacemos pruebas con la clase "Fruta".
+            // Si es una fruta dejamos los valores sin leer del fichero.
+            if (clase == "Fruta")
+            {
+                ifs.ignore (100,'}');
+            } else {
+                // Se leen los valores de las propiedades del actor desde el fichero de texto.
+                ifs.ignore (100,'{');
+                ifs >> actor;
+                ifs.ignore (100,'}');
+            }
 
             // Se agrega el actor leído a la lista.
             manager.add (&actor);
@@ -196,6 +204,10 @@ Actor& Mapa::crear_actor (const std::string& clase) const
     CMP_CLASE(Paleta);
     CMP_CLASE(Pelota);
     CMP_CLASE(Plataforma);
+    // Para pruebas con la fruta.
+    // CMP_CLASE(Fruta);
+    if (!clase.compare("Fruta") ) return *new Fruta(*new Almacen("sprites3.dat"));
+    // ---------------------------
     throw std::string ("La clase \"" + clase + "\" no existe o no puede ser controlada por \"ActorManager\"");
 };
 

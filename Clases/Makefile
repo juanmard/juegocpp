@@ -81,7 +81,8 @@ juegocpp.exe: $(OBJECTS)
 .PHONY: prepare
 prepare: juegocpp.exe
 	cp $(EXTRASDIR)/sprites3.dat $(BUILDDIR)/$(BUILD_SUBDIR)/; \
-	cp $(EXTRASDIR)/actores.txt $(BUILDDIR)/$(BUILD_SUBDIR)/;
+	cp $(EXTRASDIR)/actores.txt $(BUILDDIR)/$(BUILD_SUBDIR)/; \
+	cp $(EXTRASDIR)/test2.txt $(BUILDDIR)/$(BUILD_SUBDIR)/;
 ifeq ($(LINK_MODE),DYNAMIC)
 	cp $(ALLEGRODIR)/bin/allegro-4.4.2-monolith-mt.dll $(BUILDDIR)/$(BUILD_SUBDIR)/;
 endif

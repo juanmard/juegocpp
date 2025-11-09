@@ -250,6 +250,7 @@ void  Ben::hit  (Actor *who, int damage)
     case Nombres::pelota:
     case Nombres::paleta:
     case Nombres::herny:
+    case Nombres::plataforma:
           switch (estado)
           {
               case disparando:
@@ -257,7 +258,7 @@ void  Ben::hit  (Actor *who, int damage)
               case andando:
               default:
                   // El suelo anula la gravedad propia de Ben.
-                  // \todo  Generalizar para todos los actores.
+                  // @todo  Generalizar para todos los actores e incluir en "PhysicObject".
                   y = who->get_y () - h;
                   gravedad = 0;
                   estado = esperando;

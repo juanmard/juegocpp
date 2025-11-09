@@ -42,7 +42,8 @@ public:
         mago,       ///< Prueba simple sin desarrollar.
         ben,        ///< Prueba de un personaje completo con Ben10.
         camello,    ///< Un actor de prueba más.
-        plataforma  ///< Actor de prueba con movimiento automático.
+        plataforma, ///< Actor de prueba con movimiento automático.
+        fruta       ///< Actor de prueba para una fruta.
     };
 
 public:
@@ -74,6 +75,7 @@ public:
             case ben:        cadena = "Ben";         break;
             case camello:    cadena = "Camello";     break;
             case plataforma: cadena = "Plataforma";  break;
+            case fruta:      cadena = "Fruta";  break;
             default:         cadena = "Sin nombre";  break;
         }
         return cadena;

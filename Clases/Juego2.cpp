@@ -17,6 +17,8 @@
 #include "Mosaico.h"
 #include "Tesela.h"
 //#include "ctlSprite.h"
+#include "Fruta.h"
+#include <locale>
 
 Juego2::Juego2 ()
 {
@@ -65,6 +67,9 @@ void Juego2::mainGame ()
     */
     
 
+    Fruta prueba_fruta (*new Almacen("sprites3.dat"));
+    std::cout << prueba_fruta << std::endl;
+
     Mapa mapa;
     std::cout << mapa << std::endl;
 
@@ -72,8 +77,8 @@ void Juego2::mainGame ()
     Tesela tesela (mosaico);
     std::cout << tesela << std::endl;
 
-    Bitmap prueba_bitmap (new Actor(),new Almacen("sprites3.dat"), "pre2_44");
-    std::cout << prueba_bitmap;
+    Bitmap prueba_bitmap (new Actor(),new Almacen("sprites3.dat"), "pre2_45");
+    std::cout << prueba_bitmap << std::endl;
 
   // Se cambia la paleta de colores que se toma del almacén de recursos.
   set_palette (storage_manager->get_palette ("SPRITES"));
@@ -84,22 +89,49 @@ void Juego2::mainGame ()
   mapa.load (*new std::string("test2.txt"),*actor_manager);
 //  this->actor_manager->load("test2.txt");
 
-  // Se crea aparte un actor de tipo loro para pruebas.
-  Loro *loro=new Loro(*storage_manager);
-  loro->set_x(150);
-  loro->set_y(400);
-  actor_manager->add(loro);
+  // ---- Se crea el actor controlable "Ben" ----
+  Ben*ben = new Ben(*storage_manager);
+  ben->set_x (90);
+  ben->set_y (180);
+  actor_manager->add(ben);
+  //control_manager->add_control(ben->get_control());
+  // control_manager->add_peripheral(ben->get_peripheral());
+  // Quizás sea más conveniente definir esto en el propio actor, como se hace con el loro.
+  // Para pruebas se le asigna el control aquí.
+  Control *control = new Control ();
+  control->add_action_name (Ben::LEFT,  "Izquierda");
+  control->add_action_name (Ben::RIGHT, "Derecha");
+  control->add_action_name (Ben::UP,    "Arriba");
+  control->add_action_name (Ben::DOWN,  "Abajo");
+  control->add_action_name (Ben::JUMP,  "Saltar");
+  Peripheral *kboard = new Keyboard();
+  control->set_actionperipheral (Ben::UP,    kboard,  KEY_UP,    Peripheral::ON_PRESSING);
+  control->set_actionperipheral (Ben::DOWN,  kboard,  KEY_DOWN,  Peripheral::ON_PRESSING);
+  control->set_actionperipheral (Ben::LEFT,  kboard,  KEY_LEFT,  Peripheral::ON_PRESSING);
+  control->set_actionperipheral (Ben::RIGHT, kboard,  KEY_RIGHT, Peripheral::ON_PRESSING);
+  control->set_actionperipheral (Ben::JUMP,  kboard,  KEY_A,     Peripheral::ON_PRESS);
+  control->set_owner(ben);
+  control_manager->add_control(control);
+  // ----------------------------------------
 
-  // Se añade el control del loro, al manejador de controles.
-  control_manager->add_control(loro->get_control());
+  // ---- Se crea aparte un actor de tipo loro para pruebas. ----
+  // Loro *loro=new Loro(*storage_manager);
+  // loro->set_x(150);
+  // loro->set_y(400);
+  // actor_manager->add(loro);
+
+  // // Se añade el control del loro, al manejador de controles.
+  // control_manager->add_control(loro->get_control());
   
-  // Se añade el periférico del loro que realizará el control.
-  control_manager->add_peripheral(loro->get_peripheral());
+  // // Se añade el periférico del loro que realizará el control.
+  // control_manager->add_peripheral(loro->get_peripheral());
+  //--------------------------------------------
 
   // Se crea el 'EditorManager' básico para comenzar con las pruebas.
   EditorManager editor_manager (this);
 
   // Mostramos un breve mensaje en consola sobre las teclas de prueba.
+  // std::locale::global(std::locale("65001"));
   std::cout << "----------------------------------" << std::endl;
   std::cout << "----    Teclas básicas        ----" << std::endl;
   std::cout << "----------------------------------" << std::endl << std::endl;
@@ -163,7 +195,7 @@ void Juego2::mainGame ()
       }
       else
       {
-        stage_manager->set_seguimiento (loro);
+        stage_manager->set_seguimiento (ben);
       }
 
       // Limpieza teclado.
@@ -184,8 +216,8 @@ void Juego2::mainGame ()
     {
       // Se crea un Loro de prueba para el editor de Sprites.
       Loro *loro2=new Loro(*storage_manager);
-      loro2->set_x(100);
-      loro2->set_y(300);
+      loro2->set_x(90);
+      loro2->set_y(180);
       actor_manager->add(loro2);
       control_manager->add_control(loro2->get_control());
 
@@ -387,13 +419,16 @@ void Juego2::mainGame ()
 ///
 int main ()
 {
-  Juego2 game;
+    Juego2 game;
 
-  srand (time(NULL));
-  game.set_name("Juego++ v2.0");
-  //game.init(GFX_AUTODETECT_WINDOWED, 800,600,8);
-  game.init(GFX_SAFE, 800,600,8);
-  return 0;
+    //SetConsoleOutputCP(U_UTF8);
+    //SetConsoleCP(U_UTF8);
+
+    srand (time(NULL));
+    game.set_name("Juego++ v2.0");
+    //game.init(GFX_AUTODETECT_WINDOWED, 800,600,8);
+    game.init(GFX_SAFE, 800, 600, 8);
+    return 0;
 }
 END_OF_MAIN ();
 
