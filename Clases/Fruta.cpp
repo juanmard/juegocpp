@@ -76,7 +76,19 @@ void Fruta::hit (Actor* who, int damage)
     };
 };
 
-std::string& Fruta::get_nombre () const
-{
+std::string& Fruta::get_nombre () const {
     return *new std::string ("Fruta");
+};
+
+Menu& Fruta::getMenu () const {
+    Menu *menu = new Menu();
+    menu->add(const_cast<char*>("Fruta - Update"), 0, (void *) this, NULL, NULL);
+    menu->add("Fruta - Draw", 0);
+    menu->add("Prueba",0, (void*) this, NULL, NULL);
+    menu->add(const_cast<char*>("Fruta - Último"), 0, (void *) this, NULL, NULL);
+    return *menu;
+};
+
+Formulario& Fruta::getFormulario () const {
+    return (*new Formulario());
 };
