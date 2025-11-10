@@ -35,8 +35,8 @@ void EditorManager::activate ()
   game->pause ();
  
   // Guardamos el ribete actual del juego.
-  // Bloque ribete_ant (game->stage_manager->getRibete ());
-  Bloque ribete_ant (0, 0, SCREEN_W, SCREEN_H-100);
+  //Bloque ribete_ant (game->stage_manager->getRibete ());
+  Bloque ribete_ant (0, 0, SCREEN_W, SCREEN_H);
 
   // Le decimos al escenario que queremos ver los bloques de los actores.
   game->stage_manager->set_ver_bloques (true);
@@ -108,7 +108,7 @@ void EditorManager::duplicar_actor (Actor* actor)
       game->actor_manager->add (nuevo);
 
       // Se actualiza la lista de actores creados para hacerlos visibles.
-      // \todo Hacer friend estos procedimientos para usarlos sólo desde los "Manager"
+      // @todo Hacer 'friend' estos procedimientos para usarlos sólo desde los "Manager"
       //game->actor_manager->add_all_to_create ();
     }
   }
@@ -124,11 +124,11 @@ std::string& EditorManager::get_nombre_actor (int indice) const
   Actor* actor = game->actor_manager->get_actor (indice);
   if (actor)
   {
-    return *new std::string (actor->get_nombre());
+    return *new std::string (actor->getNombre());
   }
   else
   {
-    return *new std::string("sin nombre");
+    return *new std::string("sin actor");
   }
 };
 
@@ -188,7 +188,7 @@ void EditorManager::centrar_actor (int indice) const
   // Si el actor existe.
   if (actor)
   {
-    // \warning   Esto se hace todas las veces que se centra el actor
+    // @warning   Esto se hace todas las veces que se centra el actor
     //            y sólo es necesario hacerlo una vez. Igualar las dimensiones
     //            de 'marco' y 'ribete' antes de entrar en edición.
     // Se toman los bloques del marco y el ribete.

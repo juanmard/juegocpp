@@ -5,3 +5,4 @@ allegro*
 build*
 test*
 makefile
+Docu/*

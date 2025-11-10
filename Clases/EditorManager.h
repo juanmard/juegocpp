@@ -50,6 +50,7 @@ public:
     ///
     /// Debe generar otra ventana, obtener la lista de objetos y realizar su propio bucle de estética
     /// para representar los objetos del juego a editar.
+    ///
     /// @param g  Puntero del juego propietario del editor.
     /// @todo Se debe generar la ventana de forma independiente de las bibliotecas (Allegro), para ello crear una
     ///       "interfase" con estas funcionalidades, es decir, desligar de esta clase.
@@ -74,12 +75,14 @@ public:
     void dibujar_escenario ();
 
     /// Duplica un actor.
+    ///
     /// @param actor  Puntero al actor que queremos duplicar.
     /// @note ¿No devuelve al actor?
     ///
     void duplicar_actor (Actor* actor);
 
     /// Mueve el actor a la posición indicada en coordenadas locales de pantalla.
+    ///
     /// @param x  Coordenada x de la posición.
     /// @param y  Coordenada y de la posición.
     ///
@@ -93,43 +96,51 @@ public:
     void mover_actor (int x, int y);
 
     /// Devuelve la coordenada x del actor.
+    ///
     /// @note Se supone que existe actor editando, si no fuera así daría error.
-    /// @warning Este tipo de procedimeintos deja mucho que desear desde el punto de vista  del POO.
+    /// @warning Este tipo de procedimeintos deja mucho que desear desde el punto de vista del POO.
     ///
     int get_actor_x () const;
 
     /// Devuelve la coordenada y del actor.
+    ///
     /// @note Se supone que existe actor editando, si no fuera así daría error.
     ///
     int get_actor_y () const;
 
     /// Modifica la coordenada x del actor.
+    ///
     /// @note Se supone que existe actor editando, si no fuera así daría error.
     ///
     void set_actor_x (int x);
 
     /// Modifica la coordenada x del actor.
+    ///
     /// @note Se supone que existe actor editando, si no fuera así daría error.
     ///
     void set_actor_y (int y);
 
     /// Devuelve el primer actor de la lista cuyo bloque se encuentra dentro de la posición dada.
+    ///
     /// @param x  Coordena x de la posición en coordenadas de juego.
     /// @param y  Coordena y de la posición en coordenadas de juego.
     ///
     /// @todo En el caso del editor lo más correcto y visual sería comprobar la máscara
     ///       del gráfico que representa al actor para diferenciar el fondo.
-    ///       En este caso también se puede debería obtener una lista de actores por solape.
+    ///       En este caso también se debería obtener una lista de actores por solape.
     ///
     Actor* get_actor (int x, int y) const;
 
     /// Devuelve el nombre del actor dado como índice.
+    ///
     /// @param indice  Índice dentro de la lista de actores.
+    ///
     /// @return Referencia a la cadena de caracteres creada con el nombre del actor.
     ///
     std::string& get_nombre_actor (int indice) const;
 
     /// Mueve el escenario a otra posición.
+    ///
     /// @param x  Coordenada x de la posición nueva.
     /// @param y  Coordenada y de la posición nueva.
     ///
@@ -142,13 +153,16 @@ public:
     unsigned int get_num_trajes () const;
 
     /// Cambia el traje de un actor dado por el índice.
+    ///
     /// @param indice  Índice del actor en la lista de actores controlables.
+    ///
     /// @note Un traje para el actor es la representación gráfica del mismo.
     /// @todo Indicar qué tipo de actor y qué traje se desea cambiar.
     ///
     void cambiar_traje (int indice);
 
     /// Obtiene la coordenada x de la posición del escenario.
+    ///
     /// @return Coordenada x de la posición deseada en coordenadas del juego.
     /// @note El escenario es la representación gráfica de los actores en el juego.
     ///       Esta representación no tiene porqué coincidir con el tamaño completo de
@@ -157,6 +171,7 @@ public:
     int get_escenario_x () const;
 
     /// Obtiene la coordenada y de la posición del escenario.
+    ///
     /// @return Coordenada y de la posición deseada en coordenadas del juego.
     ///
     int get_escenario_y () const;
@@ -166,6 +181,7 @@ public:
     void step () const;
 
     /// Obtiene el buffer de pantalla.
+    ///
     /// @return Puntero a la zona de memoria del buffer de allegro.
     /// @warning Este procedimiento nos obliga a no independizar la clase de las
     ///          bibliotecas de Allegro. Buscar la forma de sustituirla por otra.
@@ -182,8 +198,9 @@ public:
     /// Dibuja un rectángulo del color indicado.
     ///
     /// El propósito de este procedimiento es poder comprobar el comportamiento del juego.
+    ///
     /// @param cuadro  Rectángulo definido por posición y dimensiones.
-    /// @param color  Color deseado del rectángulo.
+    /// @param color   Color deseado del rectángulo.
     ///
     /// @note Quizás sea más conveniente definir este procedimiento en la clase Bloque o en
     ///       otra clase que lo heredara.
@@ -191,11 +208,13 @@ public:
     void dibujar_cuadrado (Bloque cuadro, int color);
 
     /// Obtiene el número de actores actualmente en la lista.
+    ///
     /// @return Número de actores actuales en la lista de actores controlables.
     ///
     unsigned int get_num_actores () const;
 
     /// Cambia el marco que se muestra en pantalla (ribete) del escenario.
+    ///
     /// @param bloque Bloque que representa posición y dimensiones del ribete.
     ///
     /// @todo Indicar también el color que se debe utilizar para representarlo.
@@ -207,16 +226,19 @@ public:
     void borrar_pantalla () const;
 
     /// Centra el actor pasado como índice en el escenario.
+    ///
     /// @param indice  Índice que identifica al actor en la lista de actores controlables.
     ///
     void centrar_actor (int indice) const;
 
     /// Cambia el color del ribete del escenario.
+    ///
     /// @param color  Color deseado para el ribete.
     ///
     void set_color_ribete (int color);
 
     /// Obtiene la posición del escenario en forma de cadena.
+    ///
     /// @return Cadena donde se vuelca la posición actual del escenario.
     ///
     std::string& get_escenario_xy () const;
@@ -225,43 +247,53 @@ public:
     ///
     /// El almacén de recursos es donde se deben guardar los trajes, los sonidos y algún que
     /// otro fichero necesario para el juego.
+    ///
     /// @return Referencia al almacén de recursos.
     ///
     Almacen& get_almacen () const;
 
     /// Indica si el actor actual está activo.
+    ///
     /// @return Si el actor actual está activo o no.
     ///
     bool is_actor_activo () const;
 
     /// Indica si existe algún actor atrapado por el ratón.
+    ///
     /// @return Si el actor actual está atrapado o no.
     ///
     bool is_actor_atrapado () const;
 
     /// Indica si el actor actual está fijo.
+    ///
     /// @return Si el actor actual está fijado o no.
     /// @note Este concepto no está claro, parece no ser necesario para editar el actor.
     ///
     bool is_actor_fijo () const;
 
     /// Atrapa el actor cuyo bloque se encuentre en las coordenadas especificadas.
+    ///
     /// @param x  Coordenada x de la posición de búsqueda.
     /// @param y  Coordenada y de la posición de búsqueda.
+    ///
     /// @note Se pueden dar solapes que no se contemplan en el procedimiento.
     ///
     void atrapar_actor (int x, int y);
 
     /// Activa el actor cuyo bloque se encuentre en las coordenadas especificadas.
+    ///
     /// @param x  Coordenada x de la posición de búsqueda.
     /// @param y  Coordenada y de la posición de búsqueda.
+    ///
     /// @note Se pueden dar solapes que no se contemplan en el procedimiento.
     ///
     void activar_actor (int x, int y);
 
     /// Fija el actor cuyo bloque se encuentre en las coordenadas especificadas.
+    ///
     /// @param x  Coordenada x de la posición de búsqueda.
     /// @param y  Coordenada y de la posición de búsqueda.
+    ///
     /// @note Se pueden dar solapes que no se contemplan en el procedimiento.
     ///
     void fijar_actor (int x, int y);
@@ -271,18 +303,23 @@ public:
     void liberar_actor ();
 
     /// Indica si existe un decorado atrapado por el ratón.
+    ///
     /// @return Si el decorado está atrapado o no.
+    ///
     bool is_decorado_atrapado () const;
 
     /// Mueve el actor según las coordenadas dadas.
+    ///
     /// @param x  Coordenada x de la nueva posición.
     /// @param y  Coordenada y de la nueva posición.
+    ///
     /// @todo Eliminar el 2 del nombre cuando se termine la migración a la GUI
     ///       dinámica.
     ///
     void mover_actor_2 (int x, int y);
 
     /// Mueve el decorado a una nueva posición.
+    ///
     /// @param x  Coordenada x en coordenadas del juego de la nueva posición.
     /// @param y  Coordenada y en coordenadas del juego de la nueva posición.
     ///
@@ -298,9 +335,10 @@ public:
 
     /// Devuelve la coordenada global x dando la coordenada referida a la
     /// posición del escenario.
-    /// @param x  Coordenada x del escenario.
-    /// @return Coordenada x en coordenadas del juego (global).
     ///
+    /// @param x  Coordenada x del escenario.
+    ///
+    /// @return Coordenada x en coordenadas del juego (global).
     /// @warning Este procedimiento se podría evitar o hacer más general incluyéndolo en
     ///          las propiedades de la clase Bloque o de la del Vector2Di.
     ///
@@ -308,9 +346,10 @@ public:
 
     /// Devuelve la coordenada global y dando la coordenada referida a la
     /// posición del escenario.
-    /// @param y  Coordenada y del escenario.
-    /// @return Coordenada y en coordenadas del juego (global).
     ///
+    /// @param y  Coordenada y del escenario.
+    ///
+    /// @return Coordenada y en coordenadas del juego (global).
     /// @warning Este procedimiento se podría evitar o hacer más general incluyéndolo en
     ///          las propiedades de la clase Bloque o de la del Vector2Di.
     ///
@@ -318,9 +357,10 @@ public:
 
     /// Devuelve la coordenada local x dando la coordenada referida a la
     /// posición global del juego.
-    /// @param x  Coordenada x global del juego.
-    /// @return Coordenada x en coordenadas locales.
     ///
+    /// @param x  Coordenada x global del juego.
+    ///
+    /// @return Coordenada x en coordenadas locales.
     /// @warning Este procedimiento se podría evitar o hacer más general incluyéndolo en
     ///          las propiedades de la clase Bloque o de la del Vector2Di.
     ///
@@ -328,9 +368,10 @@ public:
 
     /// Devuelve la coordenada local y dando la coordenada referida a la
     /// posición global del juego.
-    /// @param y  Coordenada y global del juego.
-    /// @return Coordenada y en coordenadas locales.
     ///
+    /// @param y  Coordenada y global del juego.
+    ///
+    /// @return Coordenada y en coordenadas locales.
     /// @warning Este procedimiento se podría evitar o hacer más general incluyéndolo en
     ///          las propiedades de la clase Bloque o de la del Vector2Di.
     ///
