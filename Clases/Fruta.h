@@ -12,6 +12,8 @@
 
 #include "Almacen.h"
 #include "Sprite.h"
+#include "Menu.h"
+#include "Formulario.h"
 
 /// Fruta estática como comida para el jugador.
 ///
@@ -57,6 +59,9 @@ public:
     /// 
     ///
     std::string& get_nombre () const;
-};
 
+    /// Redefine los métodos 'virtuales puros' de 'EditableObject'.
+    Menu&        getMenu () const;
+    Formulario&  getFormulario () const;
+};
 #endif

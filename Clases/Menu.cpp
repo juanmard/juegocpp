@@ -36,6 +36,7 @@ void Menu::add (const std::string& etiqueta, const int opciones, void* data_poin
   ultimo.dp = data_pointer;
   ultimo.child = const_cast<MENU*>(hijo);
   ultimo.proc = Menu::callback;
+//  ultimo.proc = metodo;
 
   // Se añade el item que simboliza el final del menú.
   items.push_back (fin_menu);

@@ -37,6 +37,7 @@ void Juego2::mainGame ()
 
     // Se borra la pantalla.
     clear_to_color (screen, makecol (128, 128, 128));
+    show_mouse (screen);
 
     // Se carga el mapa del juego.
     Mapa mapa;
@@ -72,11 +73,26 @@ void Juego2::mainGame ()
           prueba.draw (screen);
           
           Menu &menu = prueba.getMenu ();
-          do_menu(menu, mouse_x, mouse_y);
+          do_menu (menu, mouse_x, mouse_y);
 
-          Formulario &form = prueba.getFormulario ();
-          form.show ();
+          // Formulario &form = prueba.getFormulario ();
+          // form.show ();
+
+          // Borramos la pantalla.
+          clear_to_color (screen, makecol (128, 128, 128));
+
+          // Borramos el buffer de teclado.
           key[KEY_P] = false;
+        }
+
+        if (mouse_b & 2) {
+          Fruta prueba ( *storage_manager );
+          prueba.set_x (100);
+          prueba.set_y (200);
+          Menu &menu = prueba.getMenu ();
+          do_menu (menu, mouse_x, mouse_y);
+          menu.add("Otro añadido",0);
+          do_menu (menu,mouse_x, mouse_y);
         }
     }
 
