@@ -21,6 +21,17 @@ public:
             renderer->refrescarPantalla();
         }
     }
+
+    void dibujarCuadrado() {
+        std::cout << "Dibujando cuadrado...\n";
+        if (renderer) {
+            // Dibuja cuadrado.
+            auto rojo = renderer->makeColor(255, 0, 0);
+            renderer->dibujarCuadrado (60, 150, rojo);
+            renderer->refrescarPantalla();
+        }
+    }
+
 };
 
 #endif

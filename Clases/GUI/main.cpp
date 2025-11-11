@@ -7,16 +7,18 @@ int main() {
     AllegroRenderer renderer;
     AllegroInput input;
 
-    Grafico fruta(&renderer);  // Pasa el renderer al gráfico
     Menu menuPrincipal("Menú Principal");
- 
     menuPrincipal.setRenderer(&renderer);
+    Grafico fruta(&renderer);
 
     auto comandoDibujar = std::make_shared<ComandoDibujar>(&fruta);
     auto cmd = std::make_shared<ComandoEjemplo>();
+    auto comandoCuadrado = std::make_shared<ComandoCuadrado>(&fruta);
+
     menuPrincipal.agregarItem(ItemMenu("Dibujar fruta", true, comandoDibujar));
     menuPrincipal.agregarItem(ItemMenu("Borrar fruta", true, cmd));
     menuPrincipal.agregarItem(ItemMenu("Clonar fruta", false, cmd));
+    menuPrincipal.agregarItem(ItemMenu("Cuadrado", true, comandoCuadrado));
 
     auto gris = renderer.makeColor(128, 128, 128);
     renderer.limpiarPantalla(gris);

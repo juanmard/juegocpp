@@ -22,4 +22,14 @@ public:
     }
 };
 
+class ComandoCuadrado : public Comando {
+    Grafico* objetoGrafico;
+public:
+    ComandoCuadrado(Grafico* g) : objetoGrafico(g) {}
+    void ejecutar() override {
+        if (objetoGrafico)
+            objetoGrafico->dibujarCuadrado ();
+    }
+};
+
 #endif
