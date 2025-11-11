@@ -28,9 +28,17 @@ jobs:
           unzip
           wget
 
+    - name: Show PATH for debugging
+      run: echo $PATH
+      shell: bash
+
     - name: Add MSYS2 to PATH
       run: echo "C:\\msys64\\mingw32\\bin;${{ env.PATH }}" >> $GITHUB_PATH
-      
+
+    - name: Show PATH for debugging
+      run: echo $PATH
+      shell: bash
+
     - name: List files for debugging
       run: |
             ls -R Clases/GUI
