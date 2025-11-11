@@ -34,7 +34,7 @@ jobs:
             g++ --version
             where g++
             echo $MSYSTEM
-            if [[ "$MSYSTEM" != "MINGW32" ]]; then exec env MSYSTEM=MINGW32 /usr/bin/bash --login -i fi
+            # if [[ "$MSYSTEM" != "MINGW32" ]]; then exec env MSYSTEM=MINGW32 /usr/bin/bash --login -i fi
 
     - name: "Compile project with Allegro 4.4.2 (static)"
       shell: msys2 {0}
