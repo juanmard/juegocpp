@@ -29,13 +29,14 @@ jobs:
           wget
 
     - name: Add MSYS2 to PATH
-      run: echo "C:\\msys64\\mingw32\\bin" >> $GITHUB_PATH
+      run: echo "C:\\msys64\\mingw32\\bin;${{ env.PATH }}" >> $GITHUB_PATH
       
     - name: List files for debugging
       run: |
             ls -R Clases/GUI
+            which g++
             g++ --version
-            where g++
+
 
     - name: "Compile project with Allegro 4.4.2 (static)"
       shell: msys2 {0}
