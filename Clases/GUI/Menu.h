@@ -5,7 +5,6 @@
 #include <vector>
 #include <memory>
 #include "Comando.h"
-#include <allegro.h>
 
 constexpr int ESC_KEY_CODE = 59;
 constexpr int KEY_1_CODE = 28;
@@ -58,7 +57,7 @@ public:
     }
 
     void mostrar(IRenderer& renderer, IInput& input);
-    void mostrar_allegro(int x, int y, IInput& input);
+    void mostrar_allegro(int x, int y);
 };
 
 #endif

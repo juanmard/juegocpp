@@ -1,33 +1,9 @@
 #include "Menu.h"
-#include <string>
-#include <iostream>
+#include "AllegroMenuAdapter.h"
 
-MENU* convertir_items_a_MENU(std::vector<ItemMenu>& items) {
-    MENU* allegroMenu = new MENU[items.size() + 1];
-    for (size_t i = 0; i < items.size(); ++i) {
-        allegroMenu[i].text = const_cast<char*>(items[i].nombre.c_str());
-        allegroMenu[i].proc = nullptr; // sin callback
-        allegroMenu[i].child = nullptr;
-        allegroMenu[i].flags = items[i].estado ? 0 : D_DISABLED;
-        allegroMenu[i].dp = nullptr;
-    }
-    allegroMenu[items.size()].text = nullptr;
-    allegroMenu[items.size()].proc = nullptr;
-    allegroMenu[items.size()].child = nullptr;
-    allegroMenu[items.size()].flags = 0;
-    allegroMenu[items.size()].dp = nullptr;
-    return allegroMenu;
-}
 
-void Menu::mostrar_allegro(int x, int y, IInput& input) {
-    MENU* allegroMenu = convertir_items_a_MENU(items);
-
-    gui_fg_color = makecol(0,0,255);
-    gui_bg_color = makecol(255,255,255);
-    gui_mg_color = makecol(128,128,128);
-    int selected = do_menu(allegroMenu, x, y);
-    delete[] allegroMenu;
-
+void Menu::mostrar_allegro(int x, int y) {
+    int selected = AllegroMenuAdapter::mostrarMenuAllegro(*this, x, y);
     if (selected >= 0 && (size_t)selected < items.size()) {
         if (items[selected].comando && (items[selected].estado)) {
             items[selected].comando->ejecutar();
