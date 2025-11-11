@@ -11,6 +11,8 @@ constexpr int KEY_1_CODE = 28;
 constexpr int KEY_2_CODE = 29;
 constexpr int KEY_3_CODE = 30;
 
+class Menu;
+
 struct ItemMenu {
     std::string nombre;
     bool estado;
@@ -29,6 +31,7 @@ public:
     virtual ColorType makeColor(int r, int g, int b) = 0;
     virtual void limpiarPantalla(ColorType color) = 0;
     virtual void dibujarTexto(const char* texto, int x, int y, ColorType color) = 0;
+    virtual int mostrarMenu(const Menu& menu, int x, int y) = 0;
     virtual void refrescarPantalla() = 0;
     virtual ~IRenderer() {}
 };
@@ -49,6 +52,7 @@ class Menu {
 public:
     std::string titulo;
     std::vector<ItemMenu> items;
+    IRenderer* renderer = nullptr;
 
     Menu(const std::string& tit) : titulo(tit) {}
 
@@ -57,7 +61,7 @@ public:
     }
 
     void mostrar(IRenderer& renderer, IInput& input);
-    void mostrar_allegro(int x, int y);
+    void mostrar(int x, int y);
+    void setRenderer(IRenderer* r);
 };
-
 #endif

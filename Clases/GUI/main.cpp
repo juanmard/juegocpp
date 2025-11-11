@@ -2,15 +2,15 @@
 #include "ComandosConcretos.h"
 #include "Grafico.h"
 #include "AllegroAdapter.h"
-#include "AllegroMenuAdapter.h"
 
 int main() {
     AllegroRenderer renderer;
     AllegroInput input;
 
     Grafico fruta(&renderer);  // Pasa el renderer al gráfico
-
     Menu menuPrincipal("Menú Principal");
+ 
+    menuPrincipal.setRenderer(&renderer);
 
     auto comandoDibujar = std::make_shared<ComandoDibujar>(&fruta);
     auto cmd = std::make_shared<ComandoEjemplo>();
@@ -25,7 +25,7 @@ int main() {
     renderer.limpiarPantalla(gris);
     while (input.obtenerCodigoTecla() != ESC_KEY_CODE) {
         if (input.clicDerecho()){
-            menuPrincipal.mostrar_allegro(mouse_x, mouse_y);
+            menuPrincipal.mostrar (mouse_x, mouse_y);
         }
     }
     return 0;
