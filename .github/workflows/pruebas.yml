@@ -26,11 +26,15 @@ jobs:
 
     - name: Add MSYS2 to PATH
       run: echo "C:\\msys64\\mingw32\\bin" >> $GITHUB_PATH
+      
+    - name: List files for debugging
+      run: ls -R Clases/GUI
 
     - name: Build with make in Clases/GUI
       shell: bash
       run: |
         cd Clases/GUI
         make
+
 
 
