@@ -54,13 +54,24 @@ jobs:
             unzip -q allegro-4.4.2-mingw-4.5.2.zip
 
     - name: Build with make in Clases/GUI
-      shell: bash
+      shell: msys
       run: |
             export PATH=/c/msys64/mingw32/bin:$PATH
             which g++
             g++ --version
             cd Clases/GUI
             make
+
+
+    - name: "Package clean ZIP (no system DLLs)"
+      shell: msys2 {0}
+      run: |
+            cd Clases/GUI
+            pacman -Sy --noconfirm zip
+            zip -r9 ../../Win32-MinGw-build-test.zip ./*
+            sha256sum ../../Win32-MinGw-build-test.zip > ../../Win32-MinGw-build-test.sha256
+            echo "ZIP and hash created:"
+            ls -lh ../../Win32-MinGw-build-test*
 
     - name: "Upload ZIP artifact"
       uses: actions/upload-artifact@v4
