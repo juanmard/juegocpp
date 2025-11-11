@@ -21,7 +21,6 @@ jobs:
         update: true
         install: >
           mingw-w64-i686-toolchain
-          mingw-w64-i686-allegro
           make
           unzip
           wget
@@ -30,7 +29,9 @@ jobs:
       run: echo "C:\\msys64\\mingw32\\bin" >> $GITHUB_PATH
       
     - name: List files for debugging
-      run: ls -R Clases/GUI
+      run: |
+            ls -R Clases/GUI
+            g++ --version
 
     - name: "Compile project with Allegro 4.4.2 (static)"
       shell: msys2 {0}
@@ -44,6 +45,15 @@ jobs:
       run: |
         cd Clases/GUI
         make
+
+    - name: "Upload ZIP artifact"
+      uses: actions/upload-artifact@v4
+      with:
+          name: Win32-MinGw-build-test
+          path: |
+            Win32-MinGw-build-test.zip
+            Win32-MinGw-build-test.sha256
+
 
 
 
