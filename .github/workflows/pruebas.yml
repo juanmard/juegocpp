@@ -56,10 +56,13 @@ jobs:
     - name: Build with make in Clases/GUI
       shell: bash
       run: |
-        cd Clases/GUI
-        make
+            export PATH=/c/msys64/mingw32/bin:$PATH
+            which g++
+            g++ --version
+            cd Clases/GUI
+            make
 
-    - name: "Upload ZIP artifact"
+            - name: "Upload ZIP artifact"
       uses: actions/upload-artifact@v4
       with:
           name: Win32-MinGw-build-test
