@@ -54,7 +54,7 @@ jobs:
             unzip -q allegro-4.4.2-mingw-4.5.2.zip
 
     - name: Build with make in Clases/GUI
-      shell: msys
+      shell: msys2 {0}
       run: |
             export PATH=/c/msys64/mingw32/bin:$PATH
             which g++
