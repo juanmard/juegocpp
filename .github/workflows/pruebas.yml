@@ -25,13 +25,12 @@ jobs:
           make
 
     - name: Add MSYS2 to PATH
-      run: echo "::add-path::${{ env.MSYS2_PATH }}"
-      env:
-        MSYS2_PATH: C:\msys64\mingw32\bin
+      run: echo "C:\\msys64\\mingw32\\bin" >> $GITHUB_PATH
 
     - name: Build with make in Clases/GUI
       shell: bash
       run: |
         cd Clases/GUI
         make
+
 
