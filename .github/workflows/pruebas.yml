@@ -23,6 +23,8 @@ jobs:
           mingw-w64-i686-toolchain
           mingw-w64-i686-allegro
           make
+          unzip
+          wget
 
     - name: Add MSYS2 to PATH
       run: echo "C:\\msys64\\mingw32\\bin" >> $GITHUB_PATH
