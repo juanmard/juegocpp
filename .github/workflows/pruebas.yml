@@ -33,7 +33,7 @@ jobs:
       shell: bash
 
     - name: Add MSYS2 to PATH
-      run: echo "C:\\msys64\\mingw32\\bin;${{ env.PATH }}" >> $GITHUB_PATH
+      run: echo "C:\\msys64\\mingw32\\bin;" >> $GITHUB_PATH
 
     - name: Show PATH for debugging
       run: echo $PATH
@@ -62,7 +62,7 @@ jobs:
             cd Clases/GUI
             make
 
-            - name: "Upload ZIP artifact"
+    - name: "Upload ZIP artifact"
       uses: actions/upload-artifact@v4
       with:
           name: Win32-MinGw-build-test
