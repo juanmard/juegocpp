@@ -1,0 +1,39 @@
+name: Build with MSYS2
+
+on:
+  push:
+    branches:
+      - dev-editor
+  pull_request:
+    branches:
+      - dev-editor
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup MSYS2
+      uses: msys2/setup-msys2@v2
+      with:
+        update: true
+        install: >
+          mingw-w64-i686-toolchain
+          mingw-w64-i686-allegro
+          make
+          mingw-w64-i686-gcc
+          mingw-w64-i686-gcc-c++
+          mingw-w64-i686-make
+
+    - name: Add MSYS2 to PATH
+      run: echo "::add-path::${{ env.MSYS2_PATH }}"
+      env:
+        MSYS2_PATH: C:\msys64\mingw32\bin
+
+    - name: Build with make in Clases/GUI
+      shell: bash
+      run: |
+        cd Clases/GUI
+        make
