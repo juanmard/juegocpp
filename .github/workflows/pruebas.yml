@@ -11,6 +11,8 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    env:
+      MSYSTEM: MINGW32
 
     steps:
     - uses: actions/checkout@v3
@@ -18,6 +20,7 @@ jobs:
     - name: Setup MSYS2
       uses: msys2/setup-msys2@v2
       with:
+        msystem: MINGW32
         update: true
         install: >
           mingw-w64-i686-toolchain
@@ -33,8 +36,6 @@ jobs:
             ls -R Clases/GUI
             g++ --version
             where g++
-            echo $MSYSTEM
-            # if [[ "$MSYSTEM" != "MINGW32" ]]; then exec env MSYSTEM=MINGW32 /usr/bin/bash --login -i fi
 
     - name: "Compile project with Allegro 4.4.2 (static)"
       shell: msys2 {0}
