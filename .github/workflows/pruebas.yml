@@ -30,6 +30,13 @@ jobs:
     - name: List files for debugging
       run: ls -R Clases/GUI
 
+    - name: "Compile project with Allegro 4.4.2 (static)"
+      shell: msys2 {0}
+      run: |
+            set -e
+            wget -q http://cdn.allegro.cc/file/library/allegro/4.4.2/allegro-4.4.2-mingw-4.5.2.zip
+            unzip -q allegro-4.4.2-mingw-4.5.2.zip
+
     - name: Build with make in Clases/GUI
       shell: bash
       run: |
