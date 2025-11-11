@@ -15,4 +15,11 @@ public:
     }
 };
 
+class ComandoEjemplo : public Comando {
+public:
+    void ejecutar() override {
+        std::cout << "Comando ejecutado desde Allegro\n";
+    }
+};
+
 #endif

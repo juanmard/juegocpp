@@ -12,11 +12,21 @@ int main() {
     Menu menuPrincipal("Menú Principal");
 
     auto comandoDibujar = std::make_shared<ComandoDibujar>(&fruta);
+    auto cmd = std::make_shared<ComandoEjemplo>();
     menuPrincipal.agregarItem(ItemMenu("Dibujar fruta", true, comandoDibujar));
-    menuPrincipal.agregarItem(ItemMenu("Borrar fruta", false, comandoDibujar));
+    menuPrincipal.agregarItem(ItemMenu("Borrar fruta", true, cmd));
+    menuPrincipal.agregarItem(ItemMenu("Clonar fruta", false, cmd));
 
+    auto gris = renderer.makeColor(128, 128, 128);
+    renderer.limpiarPantalla(gris);
+    show_mouse(screen);
     menuPrincipal.mostrar(renderer, input);
-
+    renderer.limpiarPantalla(gris);
+    while (input.obtenerCodigoTecla() != ESC_KEY_CODE) {
+        if (input.clicDerecho()){
+            menuPrincipal.mostrar_allegro(mouse_x, mouse_y, input);
+        }
+    }
     return 0;
 }
 END_OF_MAIN();
