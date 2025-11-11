@@ -25,26 +25,13 @@ jobs:
         install: >
           mingw-w64-i686-toolchain
           make
+          zip
           unzip
           wget
-
-    - name: Show PATH for debugging
-      run: echo $PATH
-      shell: bash
-
-    - name: Add MSYS2 to PATH
-      run: echo "C:\\msys64\\mingw32\\bin;" >> $GITHUB_PATH
-
-    - name: Show PATH for debugging
-      run: echo $PATH
-      shell: bash
 
     - name: List files for debugging
       run: |
             ls -R Clases/GUI
-            which g++
-            g++ --version
-
 
     - name: "Compile project with Allegro 4.4.2 (static)"
       shell: msys2 {0}
@@ -62,13 +49,12 @@ jobs:
             cd Clases/GUI
             make
 
-
-    - name: "Package clean ZIP (no system DLLs)"
+    - name: "Package clean ZIP"
       shell: msys2 {0}
       run: |
             cd Clases/GUI
             pacman -Sy --noconfirm zip
-            zip -r9 ../../Win32-MinGw-build-test.zip ./*
+            zip -r9 ../../Win32-MinGw-build-test.zip ./menu.exe
             sha256sum ../../Win32-MinGw-build-test.zip > ../../Win32-MinGw-build-test.sha256
             echo "ZIP and hash created:"
             ls -lh ../../Win32-MinGw-build-test*
@@ -80,7 +66,5 @@ jobs:
           path: |
             Win32-MinGw-build-test.zip
             Win32-MinGw-build-test.sha256
-
-
 
 
