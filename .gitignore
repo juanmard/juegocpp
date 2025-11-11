@@ -1,6 +1,6 @@
 .vs/*
 .vscode/*
-allegro*
+allegro-4.4.2*
 build*
 test/*
 Docu/*
