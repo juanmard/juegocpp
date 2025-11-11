@@ -1,8 +1,10 @@
-Clases/*.o
 .vs/*
 .vscode/*
 allegro*
 build*
-test*
-makefile
+test/*
 Docu/*
+Tools/*
+Clases/*.o
+Clases/GUI/*.o
+Clases/GUI/*.exe
