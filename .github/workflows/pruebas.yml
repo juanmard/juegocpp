@@ -20,12 +20,9 @@ jobs:
       with:
         update: true
         install: >
-          mingw-w64-i686-toolchain
-          mingw-w64-i686-allegro
-          make
-          mingw-w64-i686-gcc
-          mingw-w64-i686-gcc-c++
-          mingw-w64-i686-make
+        mingw-w64-i686-toolchain
+        mingw-w64-i686-allegro
+        make
 
     - name: Add MSYS2 to PATH
       run: echo "::add-path::${{ env.MSYS2_PATH }}"
