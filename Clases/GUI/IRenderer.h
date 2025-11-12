@@ -1,8 +1,6 @@
 #ifndef IRENDERER_H
 #define IRENDERER_H
 
-#include "Menu.h"
-
 class Menu;
 
 class IRenderer {

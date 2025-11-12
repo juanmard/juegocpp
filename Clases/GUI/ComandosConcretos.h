@@ -32,4 +32,22 @@ public:
     }
 };
 
+class CommandSalir : public Comando {
+public:
+    void ejecutar() override {
+        // Aquí la acción para cerrar diálogo, se devuelve código Allegro esperado
+        //return D_CLOSE;
+        std::cout << "Comando salir\n";
+    }
+};
+
+class CommandOtro : public Comando {
+public:
+    void ejecutar() override {
+        std::cout << "Comando otro\n";
+        // Otra acción
+        //return D_O_K;
+    }
+};
+
 #endif

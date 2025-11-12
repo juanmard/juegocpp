@@ -3,6 +3,8 @@
 #include "Grafico.h"
 #include "AllegroRenderer.h"
 #include "AllegroInput.h"
+#include "Control.h"
+#include "Dialog.h"
 
 int main() {
     AllegroRenderer renderer;
@@ -32,6 +34,13 @@ int main() {
         }
         if (input.clicIzquierdo()){
             renderer.limpiarPantalla(gris);
+            CommandSalir salirCmd;
+            CommandOtro otroCmd;
+
+            Dialog dlg;
+            dlg.agregarControl(Control(16, 24, 612, 300, 254, 50, 0, 0, &salirCmd));
+            dlg.agregarControl(Control(0, 0, 640, 15, 7, 15, 0, 0, &otroCmd));
+            int resultado = dlg.mostrar();
         }
     }
     return 0;
