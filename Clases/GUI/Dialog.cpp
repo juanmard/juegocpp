@@ -10,8 +10,6 @@ void Dialog::setRenderer(IRenderer* r) {
 
 // Mostrar llama al método del renderer asignado
 int Dialog::mostrar() {
-    if (!renderer) {
-        return -1; // o lanzar excepción, no hay renderer asignado
-    }
+    if (!renderer) { return -1; };
     return renderer->mostrarDialog(*this);
 }

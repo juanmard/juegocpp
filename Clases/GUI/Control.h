@@ -3,7 +3,20 @@
 
 #include "Comando.h"
 
-struct Control {
+enum class TipoControl {
+    BOX,
+    TEXT_AREA,
+    BOTON,
+    SLIDER,
+    CAJA_TEXTO,
+    LABEL,
+    CHECKBOX,
+    RADIOBUTTON
+};
+
+class Control {
+public:
+    TipoControl tipo;
     int x, y, w, h;
     int fg, bg;
     int key;
@@ -11,7 +24,7 @@ struct Control {
     Comando* comando;
     void* data;
 
-    Control(int x_, int y_, int w_, int h_,
+    Control(TipoControl t_, int x_, int y_, int w_, int h_,
             int fg_, int bg_, int key_, int flags_,
             Comando* cmd = nullptr, void* d = nullptr);
 };

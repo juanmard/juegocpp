@@ -4,6 +4,8 @@
 #include <memory>
 #include "Comando.h"
 #include "Grafico.h"
+#include "Control.h"
+#include "SliderCtrl.h"
 
 class ComandoDibujar : public Comando {
     Grafico* objetoGrafico;
@@ -50,4 +52,15 @@ public:
     }
 };
 
+class ComandoTest : public Comando {
+public:
+   SliderCtrl* control;
+
+    ComandoTest(SliderCtrl* c) : control(c) {}
+    void ejecutar() override {
+        std::cout << "Comando test - " << (control->tipo == TipoControl::SLIDER) ? "Es un slider." : "No sé lo que es.";
+        // Otra acción
+        //return D_O_K;
+    }
+};
 #endif

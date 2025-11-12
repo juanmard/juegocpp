@@ -5,6 +5,7 @@
 #include "AllegroInput.h"
 #include "Control.h"
 #include "Dialog.h"
+#include "SliderCtrl.h"
 
 int main() {
     AllegroRenderer renderer;
@@ -35,15 +36,21 @@ int main() {
         if (input.clicIzquierdo()){
             renderer.limpiarPantalla(gris);
             Dialog dlg;
-            AllegroRenderer allegroRenderer;
-            dlg.setRenderer(&allegroRenderer);
+            dlg.setRenderer(&renderer);
             CommandSalir salirCmd;
             CommandOtro otroCmd;
-            dlg.agregarControl(Control(16, 24, 612, 300, 254, 50, 0, 0, &salirCmd));
-            dlg.agregarControl(Control(0, 0, 640, 15, 7, 15, 0, 0, &otroCmd));
+            ComandoTest testCmd(new SliderCtrl (TipoControl::SLIDER, 100,100));
+            auto blanco = renderer.makeColor(200, 200, 200);
+            auto rojo = renderer.makeColor(255, 0, 0);
+            dlg.agregarControl(Control(TipoControl::BOX,       20,  20, 400, 50, rojo, blanco, 0, 0, &salirCmd));
+            dlg.agregarControl(Control(TipoControl::SLIDER,    20,  80, 400, 50, rojo, blanco, 0, 0, &otroCmd));
+            dlg.agregarControl(Control(TipoControl::BOX,       20, 140, 400, 50, rojo, blanco, 0, 0, &otroCmd));
+            dlg.agregarControl(SliderCtrl(TipoControl::SLIDER, 20, 200, 400, 50, rojo, blanco, 0, 0, &testCmd));
+            dlg.agregarControl(Control(TipoControl::TEXT_AREA, 20, 260, 400, 50, rojo, blanco, 0, 0, &testCmd));
+            dlg.agregarControl(Control(TipoControl::BOX,       20, 320, 400, 50, rojo, blanco, 0, 0, &otroCmd));
             int resultado = dlg.mostrar();
         }
     }
-    return 0;
+    return D_CLOSE;
 }
 END_OF_MAIN();
