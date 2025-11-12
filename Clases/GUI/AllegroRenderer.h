@@ -1,7 +1,7 @@
-#ifndef ALLEGROADAPTER_H
-#define ALLEGROADAPTER_H
+#ifndef ALLEGRORENDERER_H
+#define ALLEGRORENDERER_H
 
-#include "Menu.h"
+#include "IRenderer.h"
 #include <allegro.h>
 
 class AllegroRenderer : public IRenderer {
@@ -14,7 +14,7 @@ public:
             allegro_message("Error al iniciar modo gráfico!");
             exit(1);
         }
-        clear_to_color(screen, makecol(0,0,0));
+        clear_to_color(screen, makecol(128,128,128));
         show_mouse(screen);
     }
 
@@ -74,28 +74,6 @@ public:
         delete[] menu;
     }
 
-};
-
-class AllegroInput : public IInput {
-public:
-    AllegroInput() {
-        install_mouse();
-        install_keyboard();
-    }
-
-    int obtenerCodigoTecla() override {
-        if (keypressed()) {
-            int c = readkey();
-            return c >> 8; // o interpreta según convenga
-        }
-        return 0;
-    }
-
-    void esperar(int ms) override { rest(ms); }
-
-    bool clicDerecho() override {
-        return mouse_b & 2;
-    }
 };
 
 #endif

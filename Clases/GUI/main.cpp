@@ -1,7 +1,8 @@
 #include "Menu.h"
 #include "ComandosConcretos.h"
 #include "Grafico.h"
-#include "AllegroAdapter.h"
+#include "AllegroRenderer.h"
+#include "AllegroInput.h"
 
 int main() {
     AllegroRenderer renderer;
@@ -28,6 +29,9 @@ int main() {
     while (input.obtenerCodigoTecla() != ESC_KEY_CODE) {
         if (input.clicDerecho()){
             menuPrincipal.mostrar (mouse_x, mouse_y);
+        }
+        if (input.clicIzquierdo()){
+            renderer.limpiarPantalla(gris);
         }
     }
     return 0;
