@@ -2,6 +2,7 @@
 #define IRENDERER_H
 
 class Menu;
+class Dialog;
 
 class IRenderer {
 public:
@@ -13,6 +14,7 @@ public:
     virtual void dibujarCuadrado(int x, int y, ColorType color) = 0;
     virtual int mostrarMenu(const Menu& menu, int x, int y) = 0;
     virtual void refrescarPantalla() = 0;
+    virtual int mostrarDialog(const Dialog& dialog) = 0;
     virtual ~IRenderer() {}
 };
 

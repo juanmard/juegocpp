@@ -1,17 +1,26 @@
+// Dialog.h
 #ifndef DIALOG_H
 #define DIALOG_H
 
 #include <vector>
 #include "Control.h"
-#include <functional>
+#include "IRenderer.h"
 
 class Dialog {
 public:
     std::vector<Control> controls;
 
+    // Agrega controles al diálogo
     void agregarControl(const Control& c);
 
-    int mostrar(); // Implementación Allegro en cpp separado
+    // Muestra el diálogo usando un renderizador externo
+    // El renderizador implementará la interfaz IRenderer
+    int mostrar();
+    void setRenderer(IRenderer* renderer);
+
+private:
+    IRenderer* renderer = nullptr;
 };
 
-#endif // DIALOG_H
+#endif
+

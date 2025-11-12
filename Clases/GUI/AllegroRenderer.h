@@ -2,7 +2,9 @@
 #define ALLEGRORENDERER_H
 
 #include "IRenderer.h"
+#include "Dialog.h"
 #include <allegro.h>
+#include "Menu.h"
 
 class AllegroRenderer : public IRenderer {
 public:
@@ -74,6 +76,11 @@ public:
         delete[] menu;
     }
 
+public:
+    int mostrarDialog(const Dialog& dialog) override;
+
+private:
+    static int allegroCallback(int msg, DIALOG* d, int c);
 };
 
 #endif
