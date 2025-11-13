@@ -58,7 +58,7 @@ public:
 
     ComandoTest(SliderCtrl* c) : control(c) {}
     void ejecutar() override {
-        std::cout << "Comando test - " << (control->tipo == TipoControl::SLIDER) ? "Es un slider." : "No sé lo que es.";
+        std::cout << "Comando test - " << ((control->tipo == TipoControl::BOX) ? "Es un SLIDER." : "No sé lo que es.") << "\n";
         // Otra acción
         //return D_O_K;
     }

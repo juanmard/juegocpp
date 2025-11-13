@@ -84,70 +84,56 @@ int AllegroRenderer::mostrarDialog(const Dialog& dialog) {
     for (size_t i = 0; i < n; ++i) {
         const Control& c = dialog.controls[i];
 
+        /// Se inicia por defecto.
+        allegroDialog[i].proc = allegroCallback;
+        allegroDialog[i].x = c.x;
+        allegroDialog[i].y = c.y;
+        allegroDialog[i].w = c.w;
+        allegroDialog[i].h = c.h;
+        allegroDialog[i].fg = c.fg;
+        allegroDialog[i].bg = c.bg;
+        allegroDialog[i].key = c.key;
+        allegroDialog[i].flags = c.flags;
+        allegroDialog[i].d1 = 0;
+        allegroDialog[i].d2 = 0;
+        allegroDialog[i].dp = const_cast<Control*>(&c);
+        allegroDialog[i].dp2 = nullptr;
+        allegroDialog[i].dp3 = nullptr;
+
+        /// Cambios según el tipo de control.
         switch (c.tipo) {
         case TipoControl::SLIDER:
             allegroDialog[i].proc = d_slider_proc;
-            allegroDialog[i].x = c.x;
-            allegroDialog[i].y = c.y;
-            allegroDialog[i].w = c.w;
-            allegroDialog[i].h = c.h;
-            allegroDialog[i].fg = c.fg;
-            allegroDialog[i].bg = c.bg;
-            allegroDialog[i].key = c.key;
-            allegroDialog[i].flags = c.flags;
             allegroDialog[i].d1 = 20;
             allegroDialog[i].d2 = 10;
             allegroDialog[i].dp = nullptr;
-            allegroDialog[i].dp2 = nullptr;
-            allegroDialog[i].dp3 = nullptr;
+            break;
+        case TipoControl::BUTTON:
+            allegroDialog[i].proc = d_button_proc;
+            allegroDialog[i].dp = (void*) "Botón de prueba.";
+            // allegroDialog[i].flags = D_EXIT;
             break;
         case TipoControl::BOX:
-            allegroDialog[i].proc = d_box_proc; //allegroCallback;
-            allegroDialog[i].x = c.x;
-            allegroDialog[i].y = c.y;
-            allegroDialog[i].w = c.w;
-            allegroDialog[i].h = c.h;
-            allegroDialog[i].fg = c.fg;
-            allegroDialog[i].bg = c.bg;
-            allegroDialog[i].key = c.key;
-            allegroDialog[i].flags = c.flags;
-            allegroDialog[i].d1 = 0;
-            allegroDialog[i].d2 = 0;
-            allegroDialog[i].dp = nullptr; //const_cast<Control*>(&c);
-            allegroDialog[i].dp2 = nullptr;
-            allegroDialog[i].dp3 = nullptr;
+            allegroDialog[i].proc = d_box_proc;
+            allegroDialog[i].dp = nullptr;
             break;
-        case TipoControl::TEXT_AREA:
-            allegroDialog[i].proc = d_ctext_proc; //allegroCallback;
-            allegroDialog[i].x = c.x;
-            allegroDialog[i].y = c.y;
-            allegroDialog[i].w = c.w;
-            allegroDialog[i].h = c.h;
-            allegroDialog[i].fg = c.fg;
-            allegroDialog[i].bg = c.bg;
-            allegroDialog[i].key = c.key;
-            allegroDialog[i].flags = c.flags;
-            allegroDialog[i].d1 = 0;
-            allegroDialog[i].d2 = 0;
-            allegroDialog[i].dp = (void*) "Este es el área de texto.";
-            allegroDialog[i].dp2 = nullptr; // Custom font data.;
-            allegroDialog[i].dp3 = nullptr;
+        case TipoControl::LABEL:
+        {   
+            PALETTE palette;
+            allegroDialog[i].proc = d_ctext_proc;
+            allegroDialog[i].dp = (void*) "Texto con un aspecto distinto.";
+            allegroDialog[i].dp2 = (void*) load_font("../../Extras/prueba-font.pcx", palette, NULL);
+            if (!allegroDialog[i].dp2) {
+                allegroDialog[i].dp = (void*) "No existe: '../../Extras/prueba-font.pcx'.";
+            }
+        }
+            break;
+        case TipoControl::TEXTBOX:
+            allegroDialog[i].proc = d_textbox_proc;
+            allegroDialog[i].dp = (void*) "Un objeto de cuadro de texto. El campo dp apunta al texto que se mostrará en el cuadro. Si el texto es largo, habrá una barra de desplazamiento vertical en el lado derecho del objeto que se puede usar para desplazarse por el texto. El valor predeterminado es imprimir el texto con ajuste de línea, pero si se establece la marca D_SELECTED, el texto se imprimirá con ajuste de caracteres. El campo d1 se usa internamente para almacenar el número de líneas de texto y d2 se usa para almacenar cuánto se ha desplazado por el texto.";
+            allegroDialog[i].flags = D_SELECTED;
             break;
         default:
-            allegroDialog[i].proc = allegroCallback;
-            allegroDialog[i].x = c.x;
-            allegroDialog[i].y = c.y;
-            allegroDialog[i].w = c.w;
-            allegroDialog[i].h = c.h;
-            allegroDialog[i].fg = c.fg;
-            allegroDialog[i].bg = c.bg;
-            allegroDialog[i].key = c.key;
-            allegroDialog[i].flags = c.flags;
-            allegroDialog[i].d1 = 0;
-            allegroDialog[i].d2 = 0;
-            allegroDialog[i].dp = const_cast<Control*>(&c);
-            allegroDialog[i].dp2 = nullptr;
-            allegroDialog[i].dp3 = nullptr;
             break;
         }
 

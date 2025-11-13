@@ -37,17 +37,19 @@ int main() {
             renderer.limpiarPantalla(gris);
             Dialog dlg;
             dlg.setRenderer(&renderer);
-            CommandSalir salirCmd;
-            CommandOtro otroCmd;
-            ComandoTest testCmd(new SliderCtrl (TipoControl::SLIDER, 100,100));
             auto blanco = renderer.makeColor(200, 200, 200);
             auto rojo = renderer.makeColor(255, 0, 0);
+            SliderCtrl sliderTest(20, 200, 400, 50, rojo, blanco, 0, 0);
+            ComandoTest testCmd(&sliderTest);
+            CommandSalir salirCmd;
+            CommandOtro otroCmd;
             dlg.agregarControl(Control(TipoControl::BOX,       20,  20, 400, 50, rojo, blanco, 0, 0, &salirCmd));
             dlg.agregarControl(Control(TipoControl::SLIDER,    20,  80, 400, 50, rojo, blanco, 0, 0, &otroCmd));
-            dlg.agregarControl(Control(TipoControl::BOX,       20, 140, 400, 50, rojo, blanco, 0, 0, &otroCmd));
-            dlg.agregarControl(SliderCtrl(TipoControl::SLIDER, 20, 200, 400, 50, rojo, blanco, 0, 0, &testCmd));
-            dlg.agregarControl(Control(TipoControl::TEXT_AREA, 20, 260, 400, 50, rojo, blanco, 0, 0, &testCmd));
+            dlg.agregarControl(Control(TipoControl::BUTTON,    20, 140, 400, 50, rojo, blanco, 0, 0, &otroCmd));
+            dlg.agregarControl(sliderTest);
+            dlg.agregarControl(Control(TipoControl::LABEL, 20, 260, 400, 50, rojo, blanco, 0, 0, &testCmd));
             dlg.agregarControl(Control(TipoControl::BOX,       20, 320, 400, 50, rojo, blanco, 0, 0, &otroCmd));
+            dlg.agregarControl(Control(TipoControl::TEXTBOX,   20, 380, 400, 50, rojo, blanco, 0, 0, &testCmd));
             int resultado = dlg.mostrar();
         }
     }

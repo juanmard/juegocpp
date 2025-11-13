@@ -9,10 +9,10 @@ public:
     unsigned int min;   ///< Valor mínimo.
     unsigned int max;   ///< Valor máximo.
 
-    SliderCtrl(TipoControl t_, int x_, int y_, int w_, int h_, int fg_, int bg_, int key_, int flags_, Comando* cmd = nullptr, void* d = nullptr)
-        : Control(t_, x_, y_, w_, h_, fg_, bg_, key_, flags_, cmd, d) {};
-
-    SliderCtrl(TipoControl t_, int x_, int y_) : Control(t_, x_, y_, 100, 50, 0x00ff00, 0xff0000, 0, 0, nullptr, nullptr){};
+    SliderCtrl(int x_, int y_, int w_, int h_, int fg_, int bg_, int key_, int flags_, Comando* cmd = nullptr, void* d = nullptr)
+        : Control(TipoControl::SLIDER, x_, y_, w_, h_, fg_, bg_, key_, flags_, cmd, d) {};
+        
+    SliderCtrl(int x_, int y_) : Control(TipoControl::SLIDER, x_, y_, 0, 0, 0, 0, 0, 0, nullptr, nullptr) {};
 
     // Métodos específicos para "SliderCtrl" pueden añadirse aquí.
     void setValue (int value) {

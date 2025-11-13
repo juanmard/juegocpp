@@ -6,11 +6,14 @@
 enum class TipoControl {
     BOX,
     TEXT_AREA,
+    MENU,
+    TEXTBOX,
     BOTON,
     SLIDER,
     CAJA_TEXTO,
     LABEL,
     CHECKBOX,
+    BUTTON,
     RADIOBUTTON
 };
 
