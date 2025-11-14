@@ -20,7 +20,7 @@ public:
 class ComandoEjemplo : public Comando {
 public:
     void ejecutar() override {
-        std::cout << "Comando ejecutado desde Allegro\n";
+        std::cout << "Comando ejecutado desde Allegro" << std::endl;
     }
 };
 
@@ -37,30 +37,24 @@ public:
 class CommandSalir : public Comando {
 public:
     void ejecutar() override {
-        // Aquí la acción para cerrar diálogo, se devuelve código Allegro esperado
-        //return D_CLOSE;
-        std::cout << "Comando salir\n";
+        //std::cout << "Comando salir" << std::endl;
     }
 };
 
 class CommandOtro : public Comando {
 public:
     void ejecutar() override {
-        std::cout << "Comando otro\n";
-        // Otra acción
-        //return D_O_K;
+        std::cout << "Comando otro" << std::endl;
     }
 };
 
 class ComandoTest : public Comando {
 public:
-   SliderCtrl* control;
+   SliderCtrl* ctrl;
 
-    ComandoTest(SliderCtrl* c) : control(c) {}
+    ComandoTest(SliderCtrl* c) { ctrl = c; }
     void ejecutar() override {
-        std::cout << "Comando test - " << ((control->tipo == TipoControl::BOX) ? "Es un SLIDER." : "No sé lo que es.") << "\n";
-        // Otra acción
-        //return D_O_K;
+        std::cout << "pos - " << ctrl->pos << std::endl;
     }
 };
 #endif

@@ -1,6 +1,8 @@
 // AllegroRenderer.cpp
 #include "AllegroRenderer.h"
+#include "SliderCtrl.h"
 #include <allegro.h>
+#include <iostream>
 
 AllegroRenderer::AllegroRenderer() {
     allegro_init();
@@ -67,12 +69,20 @@ void AllegroRenderer::liberarMenu(MENU* menu) {
 }
 
 int AllegroRenderer::allegroCallback(int msg, DIALOG* d, int c) {
-    Control* ctrl = reinterpret_cast<Control*>(d->dp);
+    Control* ctrl = reinterpret_cast<Control*>(d->dp3);
     if (ctrl && ctrl->comando) {
         ctrl->comando->ejecutar();
-        return D_O_K;
+        SliderCtrl *sld = reinterpret_cast<SliderCtrl*>(ctrl);
+        switch (ctrl->tipo){
+            case TipoControl::SLIDER:
+                sld->pos = d->d2;
+                // std::cout << "pos - " << sld->pos << std::endl;
+                int salida = d_slider_proc (msg, d, c);          
+                return salida;
+                break;
+        }
     }
-    return d_keyboard_proc(msg, d, c);
+    return D_O_K;
 }
 
 int AllegroRenderer::mostrarDialog(const Dialog& dialog) {
@@ -94,19 +104,15 @@ int AllegroRenderer::mostrarDialog(const Dialog& dialog) {
         allegroDialog[i].bg = c.bg;
         allegroDialog[i].key = c.key;
         allegroDialog[i].flags = c.flags;
-        allegroDialog[i].d1 = 0;
-        allegroDialog[i].d2 = 0;
-        allegroDialog[i].dp = const_cast<Control*>(&c);
+        allegroDialog[i].dp = nullptr;
         allegroDialog[i].dp2 = nullptr;
-        allegroDialog[i].dp3 = nullptr;
+        allegroDialog[i].dp3 = const_cast<Control*>(&c);
 
         /// Cambios según el tipo de control.
         switch (c.tipo) {
         case TipoControl::SLIDER:
-            allegroDialog[i].proc = d_slider_proc;
-            allegroDialog[i].d1 = 20;
-            allegroDialog[i].d2 = 10;
-            allegroDialog[i].dp = nullptr;
+            // allegroDialog[i].proc = d_slider_proc;
+            allegroDialog[i].d1 = 100;
             break;
         case TipoControl::BUTTON:
             allegroDialog[i].proc = d_button_proc;
@@ -130,6 +136,7 @@ int AllegroRenderer::mostrarDialog(const Dialog& dialog) {
             break;
         case TipoControl::TEXTBOX:
             allegroDialog[i].proc = d_textbox_proc;
+            allegroDialog[i].d2 = 0;
             allegroDialog[i].dp = (void*) "Un objeto de cuadro de texto. El campo dp apunta al texto que se mostrará en el cuadro. Si el texto es largo, habrá una barra de desplazamiento vertical en el lado derecho del objeto que se puede usar para desplazarse por el texto. El valor predeterminado es imprimir el texto con ajuste de línea, pero si se establece la marca D_SELECTED, el texto se imprimirá con ajuste de caracteres. El campo d1 se usa internamente para almacenar el número de líneas de texto y d2 se usa para almacenar cuánto se ha desplazado por el texto.";
             allegroDialog[i].flags = D_SELECTED;
             break;
@@ -149,7 +156,6 @@ int AllegroRenderer::mostrarDialog(const Dialog& dialog) {
     allegroDialog[n].dp = nullptr;
     allegroDialog[n].dp2 = nullptr;
     allegroDialog[n].dp3 = nullptr;
-    allegroDialog[n].d1 = allegroDialog[n].d2 =0;
 
     int result = do_dialog(allegroDialog, -1);
     delete[] allegroDialog;

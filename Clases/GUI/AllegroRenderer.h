@@ -3,8 +3,8 @@
 
 #include "IRenderer.h"
 #include "Dialog.h"
-#include <allegro.h>
 #include "Menu.h"
+#include <allegro.h>
 
 class AllegroRenderer : public IRenderer {
 public:
