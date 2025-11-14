@@ -63,9 +63,18 @@ int main() {
             //       se agrega una copia del control, no teniendo la misma referencia que el control que se inicializó.
             //       Si se inicializa con el control (copia) que se encuentra en el array, todo funciona.
             //
-            ComandoTest testCmd(reinterpret_cast<SliderCtrl *>(&dlg.controls[3]));
-            dlg.controls[3].comando = &testCmd;
+            SliderCtrl *sld1 = reinterpret_cast<SliderCtrl*>(&dlg.controls[3]);
+            ComandoTest testCmd(sld1);
+            sld1->comando = &testCmd;
             
+            // Prueba de listeners.
+            // @note Si funciona, un cambio en el slider 1 (azul), debería cambiar el 2 (rojo),
+            //       ya que el rojo está escuchando al azul.
+            SliderCtrl *sld2 = reinterpret_cast<SliderCtrl*>(&dlg.controls[0]);
+            ComandoTest testCmd2(sld2);
+            sld2->comando = &testCmd2;
+            sld1->addListener (sld2);
+
             int resultado = dlg.mostrar();
         }
     }

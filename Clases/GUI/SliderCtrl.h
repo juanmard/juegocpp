@@ -1,9 +1,11 @@
 #ifndef SLIDERCTRL_H
 #define SLIDERCTRL_H
 
+#include <iostream>
 #include "Control.h"
+#include "IControlListener.h"
 
-class SliderCtrl : public Control {
+class SliderCtrl : public Control, public IControlListener {
 public:
     unsigned int pos;   ///< Posición actual del slider.
     unsigned int min;   ///< Valor mínimo.
@@ -15,10 +17,18 @@ public:
     SliderCtrl(int x_, int y_) : Control(TipoControl::SLIDER, x_, y_, 0, 0, 0, 0, 0, 0) { pos = 5; };
     void setComando (Comando* cmd) { comando = cmd; };
 
-    // Métodos específicos para "SliderCtrl" pueden añadirse aquí.
+    // Métodos específicos para "SliderCtrl".
     void setValue (int value) {
-        // Implementación para establecer el valor del slider
-        pos = value;
+        if (pos != value) {
+            pos = value;
+            notifyListeners();
+        }
+
+    }
+
+    void controlChanged(Control* control) override {
+        std::cout << "--- " << pos << " ---" << std::endl;
+        pos = reinterpret_cast<SliderCtrl *>(control)->pos;
     }
 };
 

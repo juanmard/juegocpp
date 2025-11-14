@@ -75,10 +75,9 @@ int AllegroRenderer::allegroCallback(int msg, DIALOG* d, int c) {
         SliderCtrl *sld = reinterpret_cast<SliderCtrl*>(ctrl);
         switch (ctrl->tipo){
             case TipoControl::SLIDER:
-                sld->pos = d->d2;
+                sld->setValue(d->d2);
                 // std::cout << "pos - " << sld->pos << std::endl;
-                int salida = d_slider_proc (msg, d, c);          
-                return salida;
+                return d_slider_proc (msg, d, c);          
                 break;
         }
     }
@@ -113,6 +112,7 @@ int AllegroRenderer::mostrarDialog(const Dialog& dialog) {
         case TipoControl::SLIDER:
             // allegroDialog[i].proc = d_slider_proc;
             allegroDialog[i].d1 = 100;
+            allegroDialog[i].d2 = reinterpret_cast<const SliderCtrl&>(c).pos;
             break;
         case TipoControl::BUTTON:
             allegroDialog[i].proc = d_button_proc;
