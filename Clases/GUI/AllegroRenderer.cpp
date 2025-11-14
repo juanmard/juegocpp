@@ -72,9 +72,9 @@ int AllegroRenderer::allegroCallback(int msg, DIALOG* d, int c) {
     Control* ctrl = reinterpret_cast<Control*>(d->dp3);
     if (ctrl && ctrl->comando) {
         ctrl->comando->ejecutar();
-        SliderCtrl *sld = reinterpret_cast<SliderCtrl*>(ctrl);
         switch (ctrl->tipo){
             case TipoControl::SLIDER:
+                SliderCtrl *sld = reinterpret_cast<SliderCtrl*>(ctrl);
                 sld->setValue(d->d2);
                 // std::cout << "pos - " << sld->pos << std::endl;
                 return d_slider_proc (msg, d, c);          
@@ -87,11 +87,12 @@ int AllegroRenderer::allegroCallback(int msg, DIALOG* d, int c) {
 int AllegroRenderer::mostrarDialog(const Dialog& dialog) {
     // Se convierte Dialog -> DIALOG.
     // @todo Separarlo en un método privado.
-    size_t n = dialog.controls.size();
-    DIALOG* allegroDialog = new DIALOG[n + 1];
+    controls = &dialog.controls; // Mantener referencia a los controles del diálogo.
+    size_t n = controls->size();
+    allegroDialog = new DIALOG[n + 1];
 
     for (size_t i = 0; i < n; ++i) {
-        const Control& c = dialog.controls[i];
+        const Control& c = *(dialog.controls[i].get());
 
         /// Se inicia por defecto.
         allegroDialog[i].proc = allegroCallback;
@@ -160,4 +161,31 @@ int AllegroRenderer::mostrarDialog(const Dialog& dialog) {
     int result = do_dialog(allegroDialog, -1);
     delete[] allegroDialog;
     return result;
+}
+
+void AllegroRenderer::setSliderValue(Control* control, int val) {
+    // obtener DIALOG* asociado a control
+    DIALOG* dlgCtrl = findDialogControl(control);
+    
+    // Suponiendo que allegroDialog es el array de DIALOG usado en mostrarDialog
+    //DIALOG* dlgCtrl = &allegroDialog[0];
+    if (dlgCtrl) {
+        dlgCtrl->d2 = val;  // d2 = valor slider
+        // Forzar refuerzo gráfico
+        dlgCtrl->flags |= D_DIRTY;
+        // Redibujar si quieres que se vea inmediatamente
+        // do_dialog(dlgCtrl, -1);
+    }
+}
+
+DIALOG* AllegroRenderer::findDialogControl(Control* control) {
+    auto it = std::find_if(
+        controls->begin(), controls->end(),
+        [control](const std::unique_ptr<Control>& ptr) { return ptr.get() == control; }
+    );
+    if (it != controls->end()) {
+        size_t index = std::distance(controls->begin(), it);
+        return &allegroDialog[index];
+    }
+    return nullptr;
 }

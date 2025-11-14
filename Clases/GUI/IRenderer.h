@@ -3,6 +3,7 @@
 
 class Menu;
 class Dialog;
+class Control;
 
 class IRenderer {
 public:
@@ -15,6 +16,7 @@ public:
     virtual int mostrarMenu(const Menu& menu, int x, int y) = 0;
     virtual void refrescarPantalla() = 0;
     virtual int mostrarDialog(const Dialog& dialog) = 0;
+    virtual void setSliderValue(Control* control, int val) = 0;
     virtual ~IRenderer() {}
 };
 

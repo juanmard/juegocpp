@@ -1,12 +1,18 @@
 #ifndef ALLEGRORENDERER_H
 #define ALLEGRORENDERER_H
 
+#include <vector>
+#include <memory>
 #include "IRenderer.h"
 #include "Dialog.h"
 #include "Menu.h"
 #include <allegro.h>
 
 class AllegroRenderer : public IRenderer {
+public:
+    const std::vector<std::unique_ptr<Control>>* controls; // Vector para mantener referencia a los controles. @todo ¿Simplificar la declaración con una clase?
+    DIALOG* allegroDialog;
+
 public:
     AllegroRenderer();
     ~AllegroRenderer();
@@ -21,6 +27,8 @@ public:
 
 public:
     int mostrarDialog(const Dialog& dialog) override;
+    void setSliderValue(Control* control, int val) override;
+    DIALOG* findDialogControl(Control* control);
 
 private:
     static int allegroCallback(int msg, DIALOG* d, int c);

@@ -3,19 +3,22 @@
 #define DIALOG_H
 
 #include <vector>
+#include <memory>
 #include "Control.h"
 #include "IRenderer.h"
 
 class Dialog {
 public:
-    std::vector<Control> controls;
+    // Cambiar el vector para almacenar punteros únicos
+    std::vector<std::unique_ptr<Control>> controls;
 
-    // Agrega controles al diálogo
-    void agregarControl(const Control& c);
+    // Cambiar a agregar punteros únicos para mantener polimorfismo
+    void agregarControl(std::unique_ptr<Control> c) {
+        controls.push_back(std::move(c));
+    }
 
-    // Muestra el diálogo usando un renderizador externo
-    // El renderizador implementará la interfaz IRenderer
     int mostrar();
+
     void setRenderer(IRenderer* renderer);
 
 private:

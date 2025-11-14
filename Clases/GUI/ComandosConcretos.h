@@ -54,7 +54,7 @@ public:
 
     ComandoTest(SliderCtrl* c) { ctrl = c; }
     void ejecutar() override {
-        std::cout << "pos - " << ctrl->pos << std::endl;
+        // std::cout << "pos - " << ctrl->pos << std::endl;
     }
 };
 #endif
