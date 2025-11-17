@@ -11,6 +11,7 @@ public:
     unsigned int x;   ///< Posición - Coordenada x.
     unsigned int y;   ///< Posición - Coordenada y.
     //unsigned int z;   ///< Posición - Coordenada z.
+    std::string texto; ///< Texto asociado al vector.
 
     VectorCtrl(int x_, int y_, int w_, int h_, int fg_, int bg_, int key_, int flags_, Comando* cmd = nullptr, void* d = nullptr)
         : Control(TipoControl::VECTOR, x_, y_, w_, h_, fg_, bg_, key_, flags_, cmd, d) {};
@@ -33,9 +34,9 @@ public:
     }
 
     void controlChanged(Control* control) override {
-        //this->setXY(reinterpret_cast<ControlCtrl *>(control)->pos);
-        //renderer->setSliderValue(this, pos);
-        std::cout << "--- " << x << " --- " << this->nombre << std::endl;
+        this->setXY(reinterpret_cast<SliderCtrl *>(control)->pos, 100);
+        renderer->updateVector(this);
+        //std::cout << "--- " << x << " --- " << this->nombre << std::endl;
     }
 };
 

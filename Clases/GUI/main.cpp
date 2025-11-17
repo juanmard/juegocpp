@@ -100,7 +100,7 @@ int main() {
             vct->comando = &prueba;
             vct->setNombre ("Vector de prueba");
             vct->setRenderer(&renderer);
-            // sdl1->addListener (&vectorTest);
+            sld1->addListener (vct);
 
             int resultado = dlg.mostrar();
         }

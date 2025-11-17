@@ -65,7 +65,7 @@ public:
 
     ComandoVector(VectorCtrl* c) { ctrl = c; }
     void ejecutar() override {
-        std::cout << ctrl->x << ", " << ctrl->y << std::endl;
+       // std::cout << ctrl->x << ", " << ctrl->y << std::endl;
     }
 };
 #endif

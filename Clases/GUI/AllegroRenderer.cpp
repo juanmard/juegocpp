@@ -1,6 +1,7 @@
 // AllegroRenderer.cpp
 #include "AllegroRenderer.h"
 #include "SliderCtrl.h"
+#include "VectorCtrl.h"
 #include <allegro.h>
 #include <iostream>
 
@@ -83,7 +84,8 @@ int AllegroRenderer::allegroCallback(int msg, DIALOG* d, int c) {
             }
             break;
             case TipoControl::VECTOR:
-                d->dp = (void *) "Test de prueba.";
+                //d->dp = (void *) "Test de prueba.";
+                if (msg == MSG_DRAW) {rectfill(screen, d->x, d->y, d->x + d->w - 1, d->y + d->h - 1, d->bg);};
                 return d_ctext_proc (msg, d, c);
             break;
         }
@@ -206,5 +208,20 @@ void AllegroRenderer::print (int msg) {
     };
     if ( (msg != MSG_IDLE) && (msg != MSG_WANTMOUSE) ) {
         std::cout << textos[msg-1] << std::endl;
+    }
+}
+
+void AllegroRenderer::updateVector(Control* control) {
+    VectorCtrl* vctrl = reinterpret_cast<VectorCtrl*>(control);
+    DIALOG* dlgCtrl = findDialogControl(control);
+    if (dlgCtrl) {
+        // Actualiza la propiedad texto con las coordenadas
+        vctrl->texto = std::to_string(vctrl->x) + ", " + std::to_string(vctrl->y);
+
+        // Apunta dp directamente al buffer interno del string
+        dlgCtrl->dp = const_cast<char*>(vctrl->texto.c_str());
+
+        dlgCtrl->flags |= D_DIRTY;  // marcar para redibujar
+        // std::cout << "Vector actualizado en GUI: " << vctrl->texto << std::endl;
     }
 }
