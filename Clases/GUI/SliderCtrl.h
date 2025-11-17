@@ -29,7 +29,7 @@ public:
     void controlChanged(Control* control) override {
         this->setValue(reinterpret_cast<SliderCtrl *>(control)->pos);
         renderer->setSliderValue(this, pos);
-        std::cout << "--- " << pos << " --- " << this->nombre << std::endl;
+        // std::cout << "--- " << pos << " --- " << this->nombre << std::endl;
     }
 };
 

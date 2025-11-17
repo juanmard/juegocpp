@@ -1,0 +1,42 @@
+#ifndef VECTORCTRL_H
+#define VECTORCTRL_H
+
+#include <iostream>
+#include "Control.h"
+#include "IControlListener.h"
+
+class VectorCtrl : public Control, public IControlListener {
+public:
+    // @todo Sustituir en futuro por una clase (p.j. la clase "Bloque").
+    unsigned int x;   ///< Posición - Coordenada x.
+    unsigned int y;   ///< Posición - Coordenada y.
+    //unsigned int z;   ///< Posición - Coordenada z.
+
+    VectorCtrl(int x_, int y_, int w_, int h_, int fg_, int bg_, int key_, int flags_, Comando* cmd = nullptr, void* d = nullptr)
+        : Control(TipoControl::VECTOR, x_, y_, w_, h_, fg_, bg_, key_, flags_, cmd, d) {};
+        
+    VectorCtrl(unsigned int x_, unsigned int y_) : Control(TipoControl::VECTOR, x_, y_, 0, 0, 0, 0, 0, 0) {};
+    void setComando (Comando* cmd) { comando = cmd; };
+
+    // Métodos específicos para "VectorCtrl".
+    void setXY (unsigned int x_, unsigned int y_) {
+        bool changed = false;
+        if ( x != x_) {
+             x = x_;
+             changed = true;
+        }
+        if ( y != y_) {
+             y = y_;
+             changed = true;
+        }
+        if (changed) { notifyListeners(); }
+    }
+
+    void controlChanged(Control* control) override {
+        //this->setXY(reinterpret_cast<ControlCtrl *>(control)->pos);
+        //renderer->setSliderValue(this, pos);
+        std::cout << "--- " << x << " --- " << this->nombre << std::endl;
+    }
+};
+
+#endif // VECTORCTRL_H

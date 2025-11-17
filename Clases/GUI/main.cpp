@@ -6,6 +6,7 @@
 #include "Control.h"
 #include "Dialog.h"
 #include "SliderCtrl.h"
+#include "VectorCtrl.h"
 
 int main() {
     AllegroRenderer renderer;
@@ -43,6 +44,8 @@ int main() {
             auto azul = renderer.makeColor(0, 0, 255);
             SliderCtrl sliderTest(20, 200, 400, 50, azul, blanco, 0, 0);
             SliderCtrl sliderTest2(20, 20, 400, 50, rojo, blanco, 0, 0);
+            VectorCtrl vectorTest(20, 260, 400, 50, rojo, blanco, 0, 0);
+
             
             // @warning Esta forma de «enlazar» el comando con el control no funciona.
             //          El cambio de valores en el control de Allegro no se transfiere al objeto instanciado.
@@ -56,14 +59,10 @@ int main() {
             dlg.agregarControl(std::make_unique<Control>(TipoControl::BOX,       20,  80, 400, 50, rojo, blanco, 0, 0, &salirCmd));
             dlg.agregarControl(std::make_unique<Control>(TipoControl::BUTTON,    20, 140, 400, 50, rojo, blanco, 0, 0, &salirCmd));
             dlg.agregarControl(std::make_unique<SliderCtrl>(sliderTest));
-            dlg.agregarControl(std::make_unique<Control>(TipoControl::LABEL,     20, 260, 400, 50, rojo, blanco, 0, 0, &salirCmd));
+            dlg.agregarControl(std::make_unique<VectorCtrl>(vectorTest));
             dlg.agregarControl(std::make_unique<Control>(TipoControl::BOX,       20, 320, 400, 50, rojo, blanco, 0, 0, &salirCmd));
             dlg.agregarControl(std::make_unique<Control>(TipoControl::TEXTBOX,   20, 380, 400, 50, rojo, blanco, 0, 0, &salirCmd));
             
-            // @note ¡Comprobado! En estas dos líneas sí funciona... y es que, al parecer, al agregar el control al diálogo
-            //       se agrega una copia del control, no teniendo la misma referencia que el control que se inicializó.
-            //       Si se inicializa con el control (copia) que se encuentra en el array, todo funciona.
-            //
             SliderCtrl *sld1 = dynamic_cast<SliderCtrl*>(dlg.controls[3].get());
             if (!sld1) {
                 std::cerr << "Error: El control sld1 no es un SliderCtrl." << std::endl;
@@ -90,6 +89,18 @@ int main() {
             // Añadir listener: sld2 escucha a sld1.
             sld1->addListener (sld2);
             //sld2->addListener (sld1);
+
+            // Añadir prueba Vector.
+            VectorCtrl *vct = dynamic_cast<VectorCtrl*>(dlg.controls[4].get());
+            if (!vct) {
+                std::cerr << "Error: El control vct no es un VectorCtrl." << std::endl;
+                return D_CLOSE;
+            }
+            ComandoVector prueba(vct);
+            vct->comando = &prueba;
+            vct->setNombre ("Vector de prueba");
+            vct->setRenderer(&renderer);
+            // sdl1->addListener (&vectorTest);
 
             int resultado = dlg.mostrar();
         }

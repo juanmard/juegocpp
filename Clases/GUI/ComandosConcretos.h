@@ -6,6 +6,7 @@
 #include "Grafico.h"
 #include "Control.h"
 #include "SliderCtrl.h"
+#include "VectorCtrl.h"
 
 class ComandoDibujar : public Comando {
     Grafico* objetoGrafico;
@@ -55,6 +56,16 @@ public:
     ComandoTest(SliderCtrl* c) { ctrl = c; }
     void ejecutar() override {
         // std::cout << "pos - " << ctrl->pos << std::endl;
+    }
+};
+
+class ComandoVector : public Comando {
+public:
+   VectorCtrl* ctrl;
+
+    ComandoVector(VectorCtrl* c) { ctrl = c; }
+    void ejecutar() override {
+        std::cout << ctrl->x << ", " << ctrl->y << std::endl;
     }
 };
 #endif

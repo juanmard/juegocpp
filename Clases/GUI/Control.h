@@ -19,7 +19,8 @@ enum class TipoControl {
     LABEL,
     CHECKBOX,
     BUTTON,
-    RADIOBUTTON
+    RADIOBUTTON,
+    VECTOR
 };
 
 class Control {

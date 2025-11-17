@@ -74,11 +74,18 @@ int AllegroRenderer::allegroCallback(int msg, DIALOG* d, int c) {
         ctrl->comando->ejecutar();
         switch (ctrl->tipo){
             case TipoControl::SLIDER:
+            // print (msg);
+            {
                 SliderCtrl *sld = reinterpret_cast<SliderCtrl*>(ctrl);
                 sld->setValue(d->d2);
                 // std::cout << "pos - " << sld->pos << std::endl;
-                return d_slider_proc (msg, d, c);          
-                break;
+                return d_slider_proc (msg, d, c);
+            }
+            break;
+            case TipoControl::VECTOR:
+                d->dp = (void *) "Test de prueba.";
+                return d_ctext_proc (msg, d, c);
+            break;
         }
     }
     return D_O_K;
@@ -124,10 +131,11 @@ int AllegroRenderer::mostrarDialog(const Dialog& dialog) {
             allegroDialog[i].proc = d_box_proc;
             allegroDialog[i].dp = nullptr;
             break;
-        case TipoControl::LABEL:
+        case TipoControl::VECTOR:
         {   
             PALETTE palette;
-            allegroDialog[i].proc = d_ctext_proc;
+            allegroDialog[i].proc = allegroCallback;
+            // allegroDialog[i].proc = d_ctext_proc;
             allegroDialog[i].dp = (void*) "Texto con un aspecto distinto.";
             allegroDialog[i].dp2 = (void*) load_font("../../Extras/prueba-font.pcx", palette, NULL);
             if (!allegroDialog[i].dp2) {
@@ -164,17 +172,12 @@ int AllegroRenderer::mostrarDialog(const Dialog& dialog) {
 }
 
 void AllegroRenderer::setSliderValue(Control* control, int val) {
-    // obtener DIALOG* asociado a control
+    // Obtener DIALOG* asociado a control
     DIALOG* dlgCtrl = findDialogControl(control);
-    
-    // Suponiendo que allegroDialog es el array de DIALOG usado en mostrarDialog
-    //DIALOG* dlgCtrl = &allegroDialog[0];
     if (dlgCtrl) {
         dlgCtrl->d2 = val;  // d2 = valor slider
         // Forzar refuerzo gráfico
         dlgCtrl->flags |= D_DIRTY;
-        // Redibujar si quieres que se vea inmediatamente
-        // do_dialog(dlgCtrl, -1);
     }
 }
 
@@ -188,4 +191,20 @@ DIALOG* AllegroRenderer::findDialogControl(Control* control) {
         return &allegroDialog[index];
     }
     return nullptr;
+}
+
+void AllegroRenderer::print (int msg) {
+    static std::string textos[]= {
+        "MSG_START", "MSG_END", "MSG_DRAW", "MSG_CLICK",
+        "MSG_DCLICK", "MSG_KEY", "MSG_CHAR", "MSG_UCHAR",
+        "MSG_XCHAR", "MSG_WANTFOCUS", "MSG_GOTFOCUS",
+        "MSG_LOSTFOCUS", "MSG_GOTMOUSE", "MSG_LOSTMOUSE",
+        "MSG_IDLE", "MSG_RADIO", "MSG_WHEEL", "MSG_LPRESS",
+        "MSG_LRELEASE", "MSG_MPRESS", "MSG_MRELEASE",
+        "MSG_RPRESS", "MSG_RRELEASE", "MSG_WANTMOUSE",
+        "MSG_USER"
+    };
+    if ( (msg != MSG_IDLE) && (msg != MSG_WANTMOUSE) ) {
+        std::cout << textos[msg-1] << std::endl;
+    }
 }

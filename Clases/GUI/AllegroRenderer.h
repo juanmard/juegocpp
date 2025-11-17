@@ -32,6 +32,7 @@ public:
 
 private:
     static int allegroCallback(int msg, DIALOG* d, int c);
+    static void print (int msg);
 };
 
 #endif
