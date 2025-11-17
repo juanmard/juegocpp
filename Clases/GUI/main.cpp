@@ -101,6 +101,7 @@ int main() {
             vct->setNombre ("Vector de prueba");
             vct->setRenderer(&renderer);
             sld1->addListener (vct);
+            vct->addListener (sld2);
 
             int resultado = dlg.mostrar();
         }

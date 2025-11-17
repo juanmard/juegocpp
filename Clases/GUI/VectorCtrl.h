@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Control.h"
 #include "IControlListener.h"
+#include "SliderCtrl.h"
 
 class VectorCtrl : public Control, public IControlListener {
 public:
@@ -36,11 +37,7 @@ public:
         }
     }
 
-    void controlChanged(Control* control) override {
-        //this->setXY(reinterpret_cast<SliderCtrl *>(control)->pos, 100);
-        renderer->updateVector(this);
-        //std::cout << "--- " << x << " --- " << this->nombre << std::endl;
-    }
+    void controlChanged(Control* control) override;
 };
 
 #endif // VECTORCTRL_H

@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Control.h"
 #include "IControlListener.h"
+#include "VectorCtrl.h"
 
 class SliderCtrl : public Control, public IControlListener {
 public:
@@ -21,16 +22,14 @@ public:
     void setValue (int value) {
         if (pos != value) {
             pos = value;
+            // if (value < min) pos = min;
+            // if (value > max) pos = max;
             notifyListeners();
         }
 
     }
 
-    void controlChanged(Control* control) override {
-        this->setValue(reinterpret_cast<SliderCtrl *>(control)->pos);
-        renderer->setSliderValue(this, pos);
-        // std::cout << "--- " << pos << " --- " << this->nombre << std::endl;
-    }
+    void controlChanged(Control* control) override;
 };
 
 #endif // SLIDERCTRL_H

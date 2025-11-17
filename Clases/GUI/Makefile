@@ -5,7 +5,7 @@ LDFLAGS = -L../../allegro-4.4.2-mingw-4.5.2/lib -lallegro-4.4.2-monolith-static-
           -lmsimg32 -ldxguid -lole32 -luuid -luser32 -lkernel32 -lopengl32 -lz -lm \
           -static -static-libgcc -static-libstdc++
 
-SOURCES = main.cpp Menu.cpp Control.cpp Dialog.cpp AllegroRenderer.cpp
+SOURCES = main.cpp Menu.cpp Control.cpp SliderCtrl.cpp VectorCtrl.cpp Dialog.cpp AllegroRenderer.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 TARGET = menu
 

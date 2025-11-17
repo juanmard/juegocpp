@@ -163,7 +163,7 @@ int AllegroRenderer::mostrarDialog(const Dialog& dialog) {
         allegroDialog[i].dp2 = nullptr;
         allegroDialog[i].dp3 = const_cast<Control*>(&c);
 
-        /// Cambios según el tipo de control.
+        /// Inicializaciones varias según el tipo de control.
         switch (c.tipo) {
         case TipoControl::SLIDER:
             // allegroDialog[i].proc = d_slider_proc;
