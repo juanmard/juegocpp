@@ -83,9 +83,55 @@ int AllegroRenderer::allegroCallback(int msg, DIALOG* d, int c) {
                 return d_slider_proc (msg, d, c);
             }
             break;
+            /// @todo Esto debería pasar a un comando ejecutardo desde el control.
+            ///       Y hacer de todas estas procedimientos virtuales de IRenderer y IInput.
+            ///       Por ejemplo, un método como "BorrarTextoControl (ctrl);".
+            ///
             case TipoControl::VECTOR:
                 //d->dp = (void *) "Test de prueba.";
                 if (msg == MSG_DRAW) {rectfill(screen, d->x, d->y, d->x + d->w - 1, d->y + d->h - 1, d->bg);};
+                if (msg == MSG_WHEEL) {
+                    VectorCtrl *vctr = reinterpret_cast<VectorCtrl*>(ctrl);
+                    bool ctrl_pressed = key[KEY_LCONTROL] || key[KEY_RCONTROL];
+                    bool shift_pressed = key[KEY_LSHIFT] || key[KEY_RSHIFT];
+                    if (ctrl_pressed) {
+                        // comportamiento con CTRL pulsado
+                        vctr->setXY (vctr->x + c, vctr->y + c);
+                    } else if (shift_pressed) {
+                        // comportamiento con SHIFT pulsado
+                        vctr->setXY (vctr->x, vctr->y + c);
+                    } else {
+                        // comportamiento sin modificadores
+                        vctr->setXY (vctr->x + c, vctr->y);
+                    }
+
+                    // Test de prueba por pantalla.
+                    std::cout << "VectorCtrl cambiado: " << vctr->x << ", " << vctr->y << std::endl;
+                    
+                    // Actualizar texto mostrado
+                    d->flags |= D_DIRTY;
+                }
+
+                if (msg == MSG_WANTFOCUS) {
+                    std::cout << "VectorCtrl quiere el foco." << std::endl;
+                    return D_WANTFOCUS;
+                };
+
+                if (msg == MSG_GOTFOCUS) {
+                    std::cout << "VectorCtrl ha recibido el foco." << std::endl;
+                    auto temp = d->fg;
+                    d->fg = d->bg;
+                    d->bg = temp;
+                    d->flags |= D_DIRTY;
+                };
+
+                if (msg == MSG_LOSTFOCUS) {
+                    std::cout << "VectorCtrl ha perdido el foco." << std::endl;
+                    auto temp = d->fg;
+                    d->fg = d->bg;
+                    d->bg = temp;
+                    d->flags |= D_DIRTY;
+                };
                 return d_ctext_proc (msg, d, c);
             break;
         }

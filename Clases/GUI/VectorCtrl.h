@@ -30,11 +30,14 @@ public:
              y = y_;
              changed = true;
         }
-        if (changed) { notifyListeners(); }
+        if (changed) {
+            renderer->updateVector(this);
+            notifyListeners();
+        }
     }
 
     void controlChanged(Control* control) override {
-        this->setXY(reinterpret_cast<SliderCtrl *>(control)->pos, 100);
+        //this->setXY(reinterpret_cast<SliderCtrl *>(control)->pos, 100);
         renderer->updateVector(this);
         //std::cout << "--- " << x << " --- " << this->nombre << std::endl;
     }
