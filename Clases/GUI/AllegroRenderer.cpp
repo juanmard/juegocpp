@@ -106,19 +106,19 @@ int AllegroRenderer::allegroCallback(int msg, DIALOG* d, int c) {
                     }
 
                     // Test de prueba por pantalla.
-                    std::cout << "VectorCtrl cambiado: " << vctr->x << ", " << vctr->y << std::endl;
+                    // std::cout << "VectorCtrl cambiado: " << vctr->x << ", " << vctr->y << std::endl;
                     
                     // Actualizar texto mostrado
                     d->flags |= D_DIRTY;
                 }
 
                 if (msg == MSG_WANTFOCUS) {
-                    std::cout << "VectorCtrl quiere el foco." << std::endl;
+                    // std::cout << "VectorCtrl quiere el foco." << std::endl;
                     return D_WANTFOCUS;
                 };
 
                 if (msg == MSG_GOTFOCUS) {
-                    std::cout << "VectorCtrl ha recibido el foco." << std::endl;
+                    // std::cout << "VectorCtrl ha recibido el foco." << std::endl;
                     auto temp = d->fg;
                     d->fg = d->bg;
                     d->bg = temp;
@@ -126,17 +126,64 @@ int AllegroRenderer::allegroCallback(int msg, DIALOG* d, int c) {
                 };
 
                 if (msg == MSG_LOSTFOCUS) {
-                    std::cout << "VectorCtrl ha perdido el foco." << std::endl;
+                    // std::cout << "VectorCtrl ha perdido el foco." << std::endl;
                     auto temp = d->fg;
                     d->fg = d->bg;
                     d->bg = temp;
                     d->flags |= D_DIRTY;
                 };
+                if (msg == MSG_DCLICK) {
+                    // std::cout << "VectorCtrl ha perdido el foco." << std::endl;
+                    //d->fg = makecol(0,0,255);
+                    static std::string prueba;
+                    d->dp = (void*) prueba.c_str();
+                    d->d1 = 50;
+                    d->d2 = 3;
+                    ctrl->tipo = TipoControl::TEXTBOX;
+                    std::cout << "Estamos en TEXTBOX" << std::endl;
+                    d->flags |= D_DIRTY;
+                    return d_edit_proc (msg, d, c);
+                };
                 return d_ctext_proc (msg, d, c);
+            break;
+            case TipoControl::TEXTBOX:
+                if (msg == MSG_DCLICK)
+                {
+                    std::cout << "Estamos en VECTOR" << std::endl;
+                    ctrl->tipo = TipoControl::VECTOR;
+                    VectorCtrl *vct = reinterpret_cast<VectorCtrl*>(ctrl);
+                    unsigned int x, y;
+                    extraerEnteros (std::string((char *)d->dp), x, y);
+                    vct->setXY(x,y);
+                    d->flags |= D_DIRTY;
+                    return d_ctext_proc (msg, d, c);
+                }
+                return d_edit_proc (msg, d, c);
             break;
         }
     }
     return D_O_K;
+}
+
+void AllegroRenderer::extraerEnteros (std::string input, unsigned int& x, unsigned int& y)
+{
+    // Encontrar la posición de la coma.
+    size_t commaPos = input.find(',');
+    if (commaPos == std::string::npos) {
+        std::cerr << "Error: no se encontró coma en la cadena.\n";
+        return;
+    }
+    
+    // Extraer las subcadenas antes y después de la coma.
+    std::string xStr = input.substr(0, commaPos);
+    std::string yStr = input.substr(commaPos + 1);
+    
+    // Convertir las subcadenas a enteros
+    x = std::stoi(xStr);
+    y = std::stoi(yStr);
+    
+    // Mostrar resultados
+    std::cout << "x = " << x << ", y = " << y << std::endl;
 }
 
 int AllegroRenderer::mostrarDialog(const Dialog& dialog) {
@@ -169,6 +216,7 @@ int AllegroRenderer::mostrarDialog(const Dialog& dialog) {
             // allegroDialog[i].proc = d_slider_proc;
             allegroDialog[i].d1 = 100;
             allegroDialog[i].d2 = reinterpret_cast<const SliderCtrl&>(c).pos;
+            //allegroDialog[i].d2 = 50;
             break;
         case TipoControl::BUTTON:
             allegroDialog[i].proc = d_button_proc;

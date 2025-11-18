@@ -15,11 +15,11 @@ public:
     SliderCtrl(int x_, int y_, int w_, int h_, int fg_, int bg_, int key_, int flags_, Comando* cmd = nullptr, void* d = nullptr)
         : Control(TipoControl::SLIDER, x_, y_, w_, h_, fg_, bg_, key_, flags_, cmd, d) {};
         
-    SliderCtrl(int x_, int y_) : Control(TipoControl::SLIDER, x_, y_, 0, 0, 0, 0, 0, 0) { pos = 5; };
+    SliderCtrl(int x_, int y_) : Control(TipoControl::SLIDER, x_, y_, 0, 0, 0, 0, 0, 0), pos(50), min(20), max(80) {};
     void setComando (Comando* cmd) { comando = cmd; };
 
     // Métodos específicos para "SliderCtrl".
-    void setValue (int value) {
+    void setValue (unsigned int value) {
         if (pos != value) {
             pos = value;
             // if (value < min) pos = min;

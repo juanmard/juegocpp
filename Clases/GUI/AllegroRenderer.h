@@ -34,6 +34,7 @@ public:
 private:
     static int allegroCallback(int msg, DIALOG* d, int c);
     static void print (int msg);
+    static void extraerEnteros (std::string input, unsigned int& x, unsigned int& y);
 };
 
 #endif
