@@ -77,7 +77,7 @@ int AllegroRenderer::allegroCallback(int msg, DIALOG* d, int c) {
             case TipoControl::SLIDER:
             // print (msg);
             {
-                SliderCtrl *sld = reinterpret_cast<SliderCtrl*>(ctrl);
+                SliderCtrl *sld = dynamic_cast<SliderCtrl*>(ctrl);
                 sld->setValue(d->d2);
                 // std::cout << "pos - " << sld->pos << std::endl;
                 return d_slider_proc (msg, d, c);
@@ -91,7 +91,7 @@ int AllegroRenderer::allegroCallback(int msg, DIALOG* d, int c) {
                 //d->dp = (void *) "Test de prueba.";
                 if (msg == MSG_DRAW) {rectfill(screen, d->x, d->y, d->x + d->w - 1, d->y + d->h - 1, d->bg);};
                 if (msg == MSG_WHEEL) {
-                    VectorCtrl *vctr = reinterpret_cast<VectorCtrl*>(ctrl);
+                    VectorCtrl *vctr = dynamic_cast<VectorCtrl*>(ctrl);
                     bool ctrl_pressed = key[KEY_LCONTROL] || key[KEY_RCONTROL];
                     bool shift_pressed = key[KEY_LSHIFT] || key[KEY_RSHIFT];
                     if (ctrl_pressed) {
@@ -151,7 +151,7 @@ int AllegroRenderer::allegroCallback(int msg, DIALOG* d, int c) {
                 {
                     std::cout << "Estamos en VECTOR" << std::endl;
                     ctrl->tipo = TipoControl::VECTOR;
-                    VectorCtrl *vct = reinterpret_cast<VectorCtrl*>(ctrl);
+                    VectorCtrl *vct = dynamic_cast<VectorCtrl*>(ctrl);
                     unsigned int x, y;
                     extraerEnteros (std::string((char *)d->dp), x, y);
                     vct->setXY(x,y);
@@ -213,11 +213,13 @@ int AllegroRenderer::mostrarDialog(const Dialog& dialog) {
         /// Inicializaciones varias según el tipo de control.
         switch (c.tipo) {
         case TipoControl::SLIDER:
+        {
             // allegroDialog[i].proc = d_slider_proc;
-            allegroDialog[i].d1 = 200;
-            allegroDialog[i].d2 = dynamic_cast<const SliderCtrl&>(c).pos;
-           //  allegroDialog[i].d2 = 50;
-            break;
+            SliderCtrl& slider = dynamic_cast<SliderCtrl&>(const_cast<Control&>(c));
+            allegroDialog[i].d1 = slider.max - slider.min; // rango
+            allegroDialog[i].d2 = slider.pos; // valor actual
+        }
+        break;
         case TipoControl::BUTTON:
             allegroDialog[i].proc = d_button_proc;
             allegroDialog[i].dp = (void*) "Botón de prueba.";
