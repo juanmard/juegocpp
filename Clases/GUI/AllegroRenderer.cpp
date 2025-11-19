@@ -214,9 +214,9 @@ int AllegroRenderer::mostrarDialog(const Dialog& dialog) {
         switch (c.tipo) {
         case TipoControl::SLIDER:
             // allegroDialog[i].proc = d_slider_proc;
-            allegroDialog[i].d1 = 100;
-            allegroDialog[i].d2 = reinterpret_cast<const SliderCtrl&>(c).pos;
-            //allegroDialog[i].d2 = 50;
+            allegroDialog[i].d1 = 200;
+            allegroDialog[i].d2 = dynamic_cast<const SliderCtrl&>(c).pos;
+           //  allegroDialog[i].d2 = 50;
             break;
         case TipoControl::BUTTON:
             allegroDialog[i].proc = d_button_proc;
@@ -306,7 +306,7 @@ void AllegroRenderer::print (int msg) {
 }
 
 void AllegroRenderer::updateVector(Control* control) {
-    VectorCtrl* vctrl = reinterpret_cast<VectorCtrl*>(control);
+    VectorCtrl* vctrl = dynamic_cast<VectorCtrl*>(control);
     DIALOG* dlgCtrl = findDialogControl(control);
     if (dlgCtrl) {
         // Actualiza la propiedad texto con las coordenadas

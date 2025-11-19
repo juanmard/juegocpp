@@ -4,9 +4,13 @@
 void VectorCtrl::controlChanged(Control* control) {
         switch (control->tipo){
             case TipoControl::SLIDER:
+            {
                 // std::cout << "VectorCtrl ha cambiado su valor." << std::endl;
-                this->setXY(reinterpret_cast<SliderCtrl *>(control)->pos, this->y);
-                break;
+                if (auto slider = dynamic_cast<SliderCtrl*>(control)) {
+                    x = slider->pos;
+                }
+            }
+            break;
             default:
                 break;
         }
