@@ -8,3 +8,4 @@ Tools/*
 Clases/*.o
 Clases/GUI/*.o
 Clases/GUI/*.exe
+Clases/GUI/*.d
