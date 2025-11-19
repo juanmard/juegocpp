@@ -74,26 +74,9 @@ int AllegroRenderer::allegroCallback(int msg, DIALOG* d, int c) {
     if (ctrl && ctrl->comando) {
         ctrl->comando->ejecutar();
         
-        // Traducir mensaje Allegro a ControlEvent y modifiers
-        ControlEvent evtype = ControlEvent::Unknown;
         int modifiers = 0;
-        switch (msg) {
-            case MSG_DRAW: evtype = ControlEvent::Draw; break;
-            case MSG_WHEEL: evtype = ControlEvent::Wheel; 
-    //            if (key[KEY_LCONTROL] || key[KEY_RCONTROL]) modifiers |= MODIFIER_CTRL;
-    //            if (key[KEY_LSHIFT] || key[KEY_RSHIFT]) modifiers |= MODIFIER_SHIFT;
-                break;
-            case MSG_WANTFOCUS: evtype = ControlEvent::WantFocus; break;
-            case MSG_GOTFOCUS: evtype = ControlEvent::GotFocus; break;
-            case MSG_LOSTFOCUS: evtype = ControlEvent::LostFocus; break;
-            case MSG_DCLICK: evtype = ControlEvent::DoubleClick; break;
-            case MSG_CHAR: evtype = ControlEvent::CharEvent; break;
-            default: evtype = ControlEvent::Unknown; break;
-        }
-
-        InputEvent ev{ evtype, c, modifiers };
-        ctrl->manejarEvento(ev);
-        return D_O_K;
+        InputEvent ev { msgToEvent (msg), c, modifiers };
+        return ctrl->manejarEvento(ev);
     }
     return D_O_K;
 }
@@ -234,7 +217,69 @@ void AllegroRenderer::updateVector(Control* control) {
     }
 }
 
-int AllegroRenderer::defaultSlider() {
-    return D_O_K;
-    //return d_slider_proc(MSG_DRAW, nullptr, 0);
+int AllegroRenderer::defaultSlider(SliderCtrl* sld, const InputEvent& ev) {
+    DIALOG* dlgCtrl = findDialogControl(sld);
+    return d_slider_proc(eventToMsg(ev.event), dlgCtrl, ev.c);
 };
+
+int AllegroRenderer::eventToMsg (const ControlEvent evtype) const {
+    switch (evtype){
+        case ControlEvent::Start:         return MSG_START;     break;
+        case ControlEvent::End:           return MSG_END;       break;
+        case ControlEvent::Draw:          return MSG_DRAW;      break;
+        case ControlEvent::Click:         return MSG_CLICK;     break;
+        case ControlEvent::DoubleClick:   return MSG_DCLICK;    break;
+        case ControlEvent::Key:           return MSG_KEY;       break;
+        case ControlEvent::Char:          return MSG_CHAR;      break;
+        case ControlEvent::UChar:         return MSG_UCHAR;     break;
+        case ControlEvent::XChar:         return MSG_XCHAR;     break;
+        case ControlEvent::WantFocus:     return MSG_WANTFOCUS; break;
+        case ControlEvent::GotFocus:      return MSG_GOTFOCUS;  break;
+        case ControlEvent::LostFocus:     return MSG_LOSTFOCUS; break;
+        case ControlEvent::GotMouse:      return MSG_GOTMOUSE;  break;
+        case ControlEvent::LostMouse:     return MSG_LOSTMOUSE; break;
+        case ControlEvent::Idle:          return MSG_IDLE;      break;
+        case ControlEvent::Radio:         return MSG_RADIO;     break;
+        case ControlEvent::Wheel:         return MSG_WHEEL;     break;
+        case ControlEvent::LeftPress:     return MSG_LPRESS;    break;
+        case ControlEvent::LeftRelease:   return MSG_LRELEASE;  break;
+        case ControlEvent::MiddlePress:   return MSG_MPRESS;    break;
+        case ControlEvent::MiddleRelease: return MSG_MRELEASE;  break;
+        case ControlEvent::RightPress:    return MSG_RPRESS;    break;
+        case ControlEvent::RightRelease:  return MSG_RRELEASE;  break;
+        case ControlEvent::WantMouse:     return MSG_WANTMOUSE; break;
+        default:                          return MSG_USER;      break;
+    }
+}
+
+ControlEvent AllegroRenderer::msgToEvent (int msg) {
+    ControlEvent evtype;
+    switch (msg) {
+        case MSG_START:     evtype = ControlEvent::Start;         break;
+        case MSG_END:       evtype = ControlEvent::End;           break;
+        case MSG_DRAW:      evtype = ControlEvent::Draw;          break;
+        case MSG_CLICK:     evtype = ControlEvent::Click;         break;
+        case MSG_DCLICK:    evtype = ControlEvent::DoubleClick;   break;
+        case MSG_KEY:       evtype = ControlEvent::Key;           break;
+        case MSG_CHAR:      evtype = ControlEvent::Char;          break;
+        case MSG_UCHAR:     evtype = ControlEvent::UChar;         break;
+        case MSG_XCHAR:     evtype = ControlEvent::XChar;         break;
+        case MSG_WANTFOCUS: evtype = ControlEvent::WantFocus;     break;
+        case MSG_GOTFOCUS:  evtype = ControlEvent::GotFocus;      break;
+        case MSG_LOSTFOCUS: evtype = ControlEvent::LostFocus;     break;
+        case MSG_GOTMOUSE:  evtype = ControlEvent::GotMouse;      break;
+        case MSG_LOSTMOUSE: evtype = ControlEvent::LostMouse;     break;
+        case MSG_IDLE:      evtype = ControlEvent::Idle;          break;
+        case MSG_RADIO:     evtype = ControlEvent::Radio;         break;
+        case MSG_WHEEL:     evtype = ControlEvent::Wheel;         break;
+        case MSG_LPRESS:    evtype = ControlEvent::LeftPress;     break;
+        case MSG_LRELEASE:  evtype = ControlEvent::LeftRelease;   break;
+        case MSG_MPRESS:    evtype = ControlEvent::MiddlePress;   break;
+        case MSG_MRELEASE:  evtype = ControlEvent::MiddleRelease; break;
+        case MSG_RPRESS:    evtype = ControlEvent::RightPress;    break;
+        case MSG_RRELEASE:  evtype = ControlEvent::RightRelease;  break;
+        case MSG_WANTMOUSE: evtype = ControlEvent::WantMouse;     break;
+        default:            evtype = ControlEvent::Unknown;       break;
+    }
+    return evtype;
+}

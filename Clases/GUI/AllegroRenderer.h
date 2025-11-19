@@ -3,10 +3,11 @@
 
 #include <vector>
 #include <memory>
+#include <allegro.h>
 #include "IRenderer.h"
 #include "Dialog.h"
 #include "Menu.h"
-#include <allegro.h>
+#include "SliderCtrl.h"
 
 class AllegroRenderer : public IRenderer {
 public:
@@ -28,14 +29,15 @@ public:
 public:
     int mostrarDialog(const Dialog& dialog) override;
     void setSliderValue(Control* control, int val) override;
-    int defaultSlider() override;
+    int defaultSlider(SliderCtrl* sld, const InputEvent &ev) override;
     void updateVector(Control* control) override;
     DIALOG* findDialogControl(Control* control);
 
 private:
     static int allegroCallback(int msg, DIALOG* d, int c);
     static void print (int msg);
-    static void extraerEnteros (std::string input, unsigned int& x, unsigned int& y);
+    int eventToMsg (const ControlEvent ev) const;
+    static ControlEvent msgToEvent (int msg);
 };
 
 #endif

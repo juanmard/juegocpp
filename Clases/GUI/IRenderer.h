@@ -4,6 +4,8 @@
 class Menu;
 class Dialog;
 class Control;
+class SliderCtrl;
+struct InputEvent;
 
 class IRenderer {
 public:
@@ -18,7 +20,7 @@ public:
     virtual int mostrarDialog(const Dialog& dialog) = 0;
     virtual void setSliderValue(Control* control, int val) = 0;
     virtual void updateVector(Control* control) = 0;
-    virtual int defaultSlider() = 0;
+    virtual int defaultSlider(SliderCtrl* sld, const InputEvent &ev) = 0;
     virtual ~IRenderer() {}
 };
 

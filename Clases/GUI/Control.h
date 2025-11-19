@@ -25,13 +25,30 @@ enum class TipoControl {
 
 // Enumeración genérica de eventos para el GUI
 enum class ControlEvent {
+    Start,
+    End,
     Draw,
-    Wheel,
+    Click,
+    DoubleClick,
+    Key,
+    Char,
+    UChar,
+    XChar,
     WantFocus,
     GotFocus,
     LostFocus,
-    DoubleClick,
-    CharEvent,
+    GotMouse,
+    LostMouse,
+    Idle,
+    Radio,
+    Wheel,
+    LeftPress,
+    LeftRelease,
+    MiddlePress,
+    MiddleRelease,
+    RightPress,
+    RightRelease,
+    WantMouse,
     Unknown
 };
 
@@ -63,7 +80,7 @@ protected:
     std::vector<IControlListener*> listeners;
 public:
     virtual ~Control() {}
-    virtual int manejarEvento(const InputEvent& ev) { return 1; };
+    virtual int manejarEvento(const InputEvent& ev) { return 0; };
 
     void addListener(IControlListener* listener) {
         listeners.push_back(listener);

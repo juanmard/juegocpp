@@ -29,14 +29,46 @@ int SliderCtrl::manejarEvento(const InputEvent& ev) {
     switch (ev.event) {
             case ControlEvent::Draw:
                 std::cout << "SliderCtrl Draw event." << std::endl;
-                return renderer->defaultSlider();
                 break;
             case ControlEvent::DoubleClick:
                 std::cout << "SliderCtrl DoubleClick event." << std::endl;
                 break;
+            case ControlEvent::Wheel:
+                std::cout << "SliderCtrl Wheel event." << std::endl;
+                break;
+            case ControlEvent::WantFocus:
+                std::cout << "SliderCtrl WhantFocus event." << std::endl;
+                break;
+            case ControlEvent::GotFocus:
+                std::cout << "SliderCtrl GotFocus event." << std::endl;
+                break;
+            case ControlEvent::LostFocus:
+                std::cout << "SliderCtrl LostFocus event." << std::endl;
+                break;
+            case ControlEvent::Char:
+                std::cout << "SliderCtrl CharEvent event." << std::endl;
+                break;
+            case ControlEvent::LeftPress:
+                std::cout << "SliderCtrl LeftPress event." << std::endl;
+                break;
+            case ControlEvent::LeftRelease:
+                std::cout << "SliderCtrl LeftRelease event." << std::endl;
+                break;
+            case ControlEvent::RightPress:
+                std::cout << "SliderCtrl RightPress event." << std::endl;
+                break;
+            case ControlEvent::RightRelease:
+                std::cout << "SliderCtrl RightRelease event." << std::endl;
+                break;
+            case ControlEvent::MiddlePress:
+                std::cout << "SliderCtrl MiddlePress event." << std::endl;
+                break;
+            case ControlEvent::MiddleRelease:
+                std::cout << "SliderCtrl MiddleRelease event." << std::endl;
+                break;
             default:
                 break;
     }
-    return 1;
+    return renderer->defaultSlider(this, ev);
 }
 
