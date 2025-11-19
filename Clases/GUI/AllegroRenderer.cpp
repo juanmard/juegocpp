@@ -78,7 +78,7 @@ int AllegroRenderer::allegroCallback(int msg, DIALOG* d, int c) {
             // print (msg);
             {
                 SliderCtrl *sld = dynamic_cast<SliderCtrl*>(ctrl);
-                sld->setValue(d->d2);
+                sld->setValue(d->d2 + sld->min);
                 // std::cout << "pos - " << sld->pos << std::endl;
                 return d_slider_proc (msg, d, c);
             }
@@ -217,7 +217,7 @@ int AllegroRenderer::mostrarDialog(const Dialog& dialog) {
             // allegroDialog[i].proc = d_slider_proc;
             SliderCtrl& slider = dynamic_cast<SliderCtrl&>(const_cast<Control&>(c));
             allegroDialog[i].d1 = slider.max - slider.min; // rango
-            allegroDialog[i].d2 = slider.pos; // valor actual
+            allegroDialog[i].d2 = slider.pos - slider.min; // valor actual
         }
         break;
         case TipoControl::BUTTON:

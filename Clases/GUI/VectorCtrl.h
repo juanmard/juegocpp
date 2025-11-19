@@ -15,7 +15,7 @@ public:
     std::string texto; ///< Texto asociado al vector.
 
     VectorCtrl(int x_, int y_, int w_, int h_, int fg_, int bg_, int key_, int flags_, Comando* cmd = nullptr, void* d = nullptr)
-        : Control(TipoControl::VECTOR, x_, y_, w_, h_, fg_, bg_, key_, flags_, cmd, d),x(0), y(0) {};
+        : Control(TipoControl::VECTOR, x_, y_, w_, h_, fg_, bg_, key_, flags_, cmd, d), x(0), y(0) {};
         
     VectorCtrl(unsigned int x_, unsigned int y_) : Control(TipoControl::VECTOR, x_, y_, 0, 0, 0, 0, 0, 0), x(0), y(0) {};
     void setComando (Comando* cmd) { comando = cmd; };

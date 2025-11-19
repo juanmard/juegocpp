@@ -13,9 +13,9 @@ public:
     unsigned int max;   ///< Valor máximo.
 
     SliderCtrl(int x_, int y_, int w_, int h_, int fg_, int bg_, int key_, int flags_, Comando* cmd = nullptr, void* d = nullptr)
-        : Control(TipoControl::SLIDER, x_, y_, w_, h_, fg_, bg_, key_, flags_, cmd, d), pos(50), min(0), max(100) {};
+        : Control(TipoControl::SLIDER, x_, y_, w_, h_, fg_, bg_, key_, flags_, cmd, d), pos(50), min(10), max(120) {};
         
-    SliderCtrl(int x_, int y_) : Control(TipoControl::SLIDER, x_, y_, 0, 0, 0, 0, 0, 0), pos(50), min(0), max(100) {};
+    SliderCtrl(int x_, int y_) : Control(TipoControl::SLIDER, x_, y_, 0, 0, 0, 0, 0, 0), pos(50), min(10), max(120) {};
     void setComando (Comando* cmd) { comando = cmd; };
 
     // Métodos específicos para "SliderCtrl".

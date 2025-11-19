@@ -7,7 +7,7 @@ void VectorCtrl::controlChanged(Control* control) {
             {
                 // std::cout << "VectorCtrl ha cambiado su valor." << std::endl;
                 if (auto slider = dynamic_cast<SliderCtrl*>(control)) {
-                    x = slider->pos;
+                    setXY(slider->pos, y);
                 }
             }
             break;
