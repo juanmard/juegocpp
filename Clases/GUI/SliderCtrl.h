@@ -19,12 +19,13 @@ public:
     void setComando (Comando* cmd) { comando = cmd; };
 
     // Métodos específicos para "SliderCtrl".
-    void setValue (unsigned int value) {
-        if ((pos != value) && (value >= min) && (value <= max)) {
+    bool setValue (unsigned int value) {
+        bool need_change = (pos != value) && (value >= min) && (value <= max);
+        if (need_change) {
             pos = value;
             notifyListeners();
         }
-
+        return need_change;
     }
 
     void controlChanged(Control* control) override;
