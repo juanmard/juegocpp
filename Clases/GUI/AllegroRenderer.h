@@ -28,6 +28,7 @@ public:
 public:
     int mostrarDialog(const Dialog& dialog) override;
     void setSliderValue(Control* control, int val) override;
+    int defaultSlider() override;
     void updateVector(Control* control) override;
     DIALOG* findDialogControl(Control* control);
 

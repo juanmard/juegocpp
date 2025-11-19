@@ -23,6 +23,25 @@ enum class TipoControl {
     VECTOR
 };
 
+// Enumeración genérica de eventos para el GUI
+enum class ControlEvent {
+    Draw,
+    Wheel,
+    WantFocus,
+    GotFocus,
+    LostFocus,
+    DoubleClick,
+    CharEvent,
+    Unknown
+};
+
+// Estructura que representa un evento de entrada
+struct InputEvent {
+    ControlEvent event;
+    int c;              // valor asociado (ej. delta rueda o tecla)
+    int modifiers;      // bitmask para Ctrl, Shift, etc.
+};
+
 class Control {
 public:
     IRenderer* renderer = nullptr;  // ¿Hacer este puntero estático para que sea común a todos los controles?
@@ -33,7 +52,7 @@ public:
     int fg, bg;
     int key;
     int flags;
-    Comando* comando;
+    Comando* comando = nullptr;
     void* data;
 
     Control(TipoControl t_, int x_, int y_, int w_, int h_,
@@ -44,6 +63,7 @@ protected:
     std::vector<IControlListener*> listeners;
 public:
     virtual ~Control() {}
+    virtual int manejarEvento(const InputEvent& ev) { return 1; };
 
     void addListener(IControlListener* listener) {
         listeners.push_back(listener);
@@ -52,7 +72,6 @@ public:
         listeners.erase(std::remove(listeners.begin(), listeners.end(), listener), listeners.end());
     }
 
-    //virtual void setValueFromUserAction() = 0;
 
     void setNombre(const std::string& nombre);
     void setRenderer(IRenderer* r);

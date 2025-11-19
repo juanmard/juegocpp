@@ -18,6 +18,7 @@ public:
     virtual int mostrarDialog(const Dialog& dialog) = 0;
     virtual void setSliderValue(Control* control, int val) = 0;
     virtual void updateVector(Control* control) = 0;
+    virtual int defaultSlider() = 0;
     virtual ~IRenderer() {}
 };
 

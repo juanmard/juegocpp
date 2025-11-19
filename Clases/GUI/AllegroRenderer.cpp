@@ -73,117 +73,29 @@ int AllegroRenderer::allegroCallback(int msg, DIALOG* d, int c) {
     Control* ctrl = reinterpret_cast<Control*>(d->dp3);
     if (ctrl && ctrl->comando) {
         ctrl->comando->ejecutar();
-        switch (ctrl->tipo){
-            case TipoControl::SLIDER:
-            // print (msg);
-            {
-                SliderCtrl *sld = dynamic_cast<SliderCtrl*>(ctrl);
-                sld->setValue(d->d2 + sld->min);
-                // std::cout << "pos - " << sld->pos << std::endl;
-                return d_slider_proc (msg, d, c);
-            }
-            break;
-            /// @todo Esto debería pasar a un comando ejecutardo desde el control.
-            ///       Y hacer de todas estas procedimientos virtuales de IRenderer y IInput.
-            ///       Por ejemplo, un método como "BorrarTextoControl (ctrl);".
-            ///
-            case TipoControl::VECTOR:
-                //d->dp = (void *) "Test de prueba.";
-                if (msg == MSG_DRAW) {rectfill(screen, d->x, d->y, d->x + d->w - 1, d->y + d->h - 1, d->bg);};
-                if (msg == MSG_WHEEL) {
-                    VectorCtrl *vctr = dynamic_cast<VectorCtrl*>(ctrl);
-                    bool ctrl_pressed = key[KEY_LCONTROL] || key[KEY_RCONTROL];
-                    bool shift_pressed = key[KEY_LSHIFT] || key[KEY_RSHIFT];
-                    if (ctrl_pressed) {
-                        // comportamiento con CTRL pulsado
-                        vctr->setXY (vctr->x + c, vctr->y + c);
-                    } else if (shift_pressed) {
-                        // comportamiento con SHIFT pulsado
-                        vctr->setXY (vctr->x, vctr->y + c);
-                    } else {
-                        // comportamiento sin modificadores
-                        vctr->setXY (vctr->x + c, vctr->y);
-                    }
-
-                    // Test de prueba por pantalla.
-                    // std::cout << "VectorCtrl cambiado: " << vctr->x << ", " << vctr->y << std::endl;
-                    
-                    // Actualizar texto mostrado
-                    d->flags |= D_DIRTY;
-                }
-
-                if (msg == MSG_WANTFOCUS) {
-                    // std::cout << "VectorCtrl quiere el foco." << std::endl;
-                    return D_WANTFOCUS;
-                };
-
-                if (msg == MSG_GOTFOCUS) {
-                    // std::cout << "VectorCtrl ha recibido el foco." << std::endl;
-                    auto temp = d->fg;
-                    d->fg = d->bg;
-                    d->bg = temp;
-                    d->flags |= D_DIRTY;
-                };
-
-                if (msg == MSG_LOSTFOCUS) {
-                    // std::cout << "VectorCtrl ha perdido el foco." << std::endl;
-                    auto temp = d->fg;
-                    d->fg = d->bg;
-                    d->bg = temp;
-                    d->flags |= D_DIRTY;
-                };
-                if (msg == MSG_DCLICK) {
-                    // std::cout << "VectorCtrl ha perdido el foco." << std::endl;
-                    //d->fg = makecol(0,0,255);
-                    static std::string prueba;
-                    d->dp = (void*) prueba.c_str();
-                    d->d1 = 50;
-                    d->d2 = 3;
-                    ctrl->tipo = TipoControl::TEXTBOX;
-                    std::cout << "Estamos en TEXTBOX" << std::endl;
-                    d->flags |= D_DIRTY;
-                    return d_edit_proc (msg, d, c);
-                };
-                return d_ctext_proc (msg, d, c);
-            break;
-            case TipoControl::TEXTBOX:
-                if (msg == MSG_DCLICK)
-                {
-                    std::cout << "Estamos en VECTOR" << std::endl;
-                    ctrl->tipo = TipoControl::VECTOR;
-                    VectorCtrl *vct = dynamic_cast<VectorCtrl*>(ctrl);
-                    unsigned int x, y;
-                    extraerEnteros (std::string((char *)d->dp), x, y);
-                    vct->setXY(x,y);
-                    d->flags |= D_DIRTY;
-                    return d_ctext_proc (msg, d, c);
-                }
-                return d_edit_proc (msg, d, c);
-            break;
+        
+        // Traducir mensaje Allegro a ControlEvent y modifiers
+        ControlEvent evtype = ControlEvent::Unknown;
+        int modifiers = 0;
+        switch (msg) {
+            case MSG_DRAW: evtype = ControlEvent::Draw; break;
+            case MSG_WHEEL: evtype = ControlEvent::Wheel; 
+    //            if (key[KEY_LCONTROL] || key[KEY_RCONTROL]) modifiers |= MODIFIER_CTRL;
+    //            if (key[KEY_LSHIFT] || key[KEY_RSHIFT]) modifiers |= MODIFIER_SHIFT;
+                break;
+            case MSG_WANTFOCUS: evtype = ControlEvent::WantFocus; break;
+            case MSG_GOTFOCUS: evtype = ControlEvent::GotFocus; break;
+            case MSG_LOSTFOCUS: evtype = ControlEvent::LostFocus; break;
+            case MSG_DCLICK: evtype = ControlEvent::DoubleClick; break;
+            case MSG_CHAR: evtype = ControlEvent::CharEvent; break;
+            default: evtype = ControlEvent::Unknown; break;
         }
+
+        InputEvent ev{ evtype, c, modifiers };
+        ctrl->manejarEvento(ev);
+        return D_O_K;
     }
     return D_O_K;
-}
-
-void AllegroRenderer::extraerEnteros (std::string input, unsigned int& x, unsigned int& y)
-{
-    // Encontrar la posición de la coma.
-    size_t commaPos = input.find(',');
-    if (commaPos == std::string::npos) {
-        std::cerr << "Error: no se encontró coma en la cadena.\n";
-        return;
-    }
-    
-    // Extraer las subcadenas antes y después de la coma.
-    std::string xStr = input.substr(0, commaPos);
-    std::string yStr = input.substr(commaPos + 1);
-    
-    // Convertir las subcadenas a enteros
-    x = std::stoi(xStr);
-    y = std::stoi(yStr);
-    
-    // Mostrar resultados
-    std::cout << "x = " << x << ", y = " << y << std::endl;
 }
 
 int AllegroRenderer::mostrarDialog(const Dialog& dialog) {
@@ -321,3 +233,8 @@ void AllegroRenderer::updateVector(Control* control) {
         // std::cout << "Vector actualizado en GUI: " << vctrl->texto << std::endl;
     }
 }
+
+int AllegroRenderer::defaultSlider() {
+    return D_O_K;
+    //return d_slider_proc(MSG_DRAW, nullptr, 0);
+};

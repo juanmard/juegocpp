@@ -29,6 +29,7 @@ public:
     }
 
     void controlChanged(Control* control) override;
+    int manejarEvento(const InputEvent& ev) override;
 };
 
 #endif // SLIDERCTRL_H
