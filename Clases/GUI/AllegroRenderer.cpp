@@ -299,3 +299,40 @@ void AllegroRenderer::invertirBackgroundForeground(VectorCtrl* vector){
     std::swap(d->fg, d->bg);
     d->flags |= D_DIRTY;
 };
+
+void AllegroRenderer::editarTexto(VectorCtrl* vector){
+    DIALOG* d = findDialogControl(vector);
+
+    if (vector->tipo == TipoControl::TEXTBOX){
+        d->proc = d_edit_proc;
+        d->dp = const_cast<char*>(vector->texto.c_str());
+        d->d1 = 50*4; // Máximo 50 caracteres
+        d->d2 = 0;
+        d->flags |= D_DIRTY;
+    } else if (vector->tipo == TipoControl::VECTOR){
+        d->proc = allegroCallback;
+        extraerEnteros (vector->texto, vector->x, vector->y);
+        d->flags |= D_DIRTY;
+    }
+};
+
+void AllegroRenderer::extraerEnteros (std::string input, unsigned int& x, unsigned int& y)
+{
+    // Encontrar la posiciÃ³n de la coma.
+    size_t commaPos = input.find(',');
+    if (commaPos == std::string::npos) {
+        std::cerr << "Error: no se encontrÃ³ coma en la cadena.\n";
+        return;
+    }
+    
+    // Extraer las subcadenas antes y despuÃ©s de la coma.
+    std::string xStr = input.substr(0, commaPos);
+    std::string yStr = input.substr(commaPos + 1);
+    
+    // Convertir las subcadenas a enteros
+    x = std::stoi(xStr);
+    y = std::stoi(yStr);
+    
+    // Mostrar resultados
+    std::cout << "x = " << x << ", y = " << y << std::endl;
+}

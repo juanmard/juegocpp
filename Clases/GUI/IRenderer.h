@@ -25,6 +25,7 @@ public:
     virtual int defaultSlider(SliderCtrl* sld, const InputEvent& ev) = 0;
     virtual int defaultVector(VectorCtrl* vector, const InputEvent& ev) = 0;
     virtual void invertirBackgroundForeground(VectorCtrl* vector) = 0;
+    virtual void editarTexto(VectorCtrl* control) = 0;
     virtual ~IRenderer() {}
 };
 

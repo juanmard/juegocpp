@@ -24,8 +24,17 @@ int VectorCtrl::manejarEvento(const InputEvent& ev) {
             renderer->limpiarControl(this);
             break;
         case ControlEvent::DoubleClick:
-            std::cout << "VectorCtrl DoubleClick event." << std::endl;
-            renderer->dibujarCuadrado(x, y, renderer->makeColor(0, 255, 0));
+            // std::cout << "VectorCtrl DoubleClick event." << std::endl;
+            if (tipo == TipoControl::VECTOR) {
+                tipo = TipoControl::TEXTBOX;
+                renderer->dibujarCuadrado(x, y, renderer->makeColor(0, 255, 0));
+                texto = "100,200";
+                renderer->editarTexto(this);
+            } else if (tipo == TipoControl::TEXTBOX) {
+                tipo = TipoControl::VECTOR;
+                renderer->dibujarCuadrado(x, y, renderer->makeColor(255, 0, 0));
+                renderer->editarTexto(this);
+            }
             break;
         case ControlEvent::Wheel:
             std::cout << "VectorCtrl Wheel event." << std::endl;

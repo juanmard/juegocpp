@@ -24,6 +24,7 @@ public:
     void limpiarPantalla(ColorType color) override;
     void limpiarControl(Control* control) override;
     void invertirBackgroundForeground(VectorCtrl* vector) override;
+    void editarTexto(VectorCtrl* vector) override;
     void refrescarPantalla() override {}; 
     int mostrarMenu(const Menu& menu, int x, int y) override;
     MENU* convertirItemsAMenu(const Menu& menu);
@@ -42,6 +43,7 @@ private:
     static void print (int msg);
     int eventToMsg (const ControlEvent ev) const;
     static ControlEvent msgToEvent (int msg);
+    void extraerEnteros (std::string input, unsigned int& x, unsigned int& y);
 };
 
 #endif
