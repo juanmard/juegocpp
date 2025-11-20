@@ -3,7 +3,8 @@
 allegro-4.4.2*
 build*
 test/*
-Docu/*
+Docu/html/*
+Docu/latex/*
 Tools/*
 Clases/*.o
 Clases/GUI/*.o

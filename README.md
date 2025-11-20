@@ -9,7 +9,13 @@ Para subirlo a GitHub se ha limpiado gran parte del código.
 El código sigue en desarrollo y muy posiblemente no se termine nunca.
 Se ha cambiado muchas veces de filosofía de trabajo y eso hace que se encuentren dispersas innumerables pruebas que nunca se terminaron.
 
-Si a alguien le puede ser útil me daré por satisfecho.
+En esta rama de desarrollo se están haciendo pruebas con la GUI.
+El aspecto de la prueba es el siguiente:
+
+<p align="center">
+  <img src="./Docu/Pruebas GUI.gif" alt="GIF de pruebas GUI" width="300"/>
+</p>
+
 
 # Compilación e instalación.
 ![test](https://github.com/juanmard/juegocpp/workflows/test/badge.svg)
@@ -18,28 +24,7 @@ Para obtener el código puedes descargarlo en formato comprimido o clonarlo con 
 
 git clone https://github.com/juanmard/juegocpp
 
-para compilarlo en la plataforma GNU/Linux y en la distribución Debian debes:
+Las pruebas de GUI se encuentran en la carpeta «Clases/GUI».
+El «Makefile» se encuentra preparado para compilar en un entorno MSYS2 de 32bits.
 
-```[bash]
-   #  Instalar las herramientas básicas para compilar, desde una terminal:
-   apt-get install build-essential
-
-   # Instalar las bibliotecas de allegro, desde terminal:
-   apt-get install liballegro4-dev
-
-  # Entrar en la carpeta "Clases" y compilar mediante "make":
-  cd Clases
-  make
-
-  # Instalar el ejecutable generado en la carpeta donde se encuentran gráficos y mapas:
-  make install
-
-  # Ejecutar el programa:
-  cd ../Extras
-  ./juegocpp
-
-```
-
-El ejecutable está lleno de pruebas cuyas teclas podrás encontrar en el código, también dispone de un menú interactivo desde consola.
-Espero que disfrutes investigando.
 
