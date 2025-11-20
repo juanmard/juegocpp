@@ -100,6 +100,7 @@ int main() {
             vct->comando = &prueba;
             vct->setNombre ("Vector de prueba");
             vct->setRenderer(&renderer);
+            vct->setInput(&input);
             sld1->addListener (vct);
             vct->addListener (sld2);
 

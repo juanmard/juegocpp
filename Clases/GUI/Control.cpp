@@ -13,3 +13,7 @@ void Control::setNombre(const std::string& nombre) {
 void Control::setRenderer(IRenderer* r) {
     renderer = r;
 }
+
+void Control::setInput(IInput* i) {
+    input = i;
+}

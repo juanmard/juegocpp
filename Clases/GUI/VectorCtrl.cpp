@@ -25,18 +25,24 @@ int VectorCtrl::manejarEvento(const InputEvent& ev) {
             break;
         case ControlEvent::DoubleClick:
             std::cout << "VectorCtrl DoubleClick event." << std::endl;
+            renderer->dibujarCuadrado(x, y, renderer->makeColor(0, 255, 0));
             break;
         case ControlEvent::Wheel:
             std::cout << "VectorCtrl Wheel event." << std::endl;
+            if (input->getKey() == Key::LSHIFT || input->getKey() == Key::RSHIFT) setXY (x, y + ev.c);
+            else if (input->getKey() == Key::LCONTROL || input->getKey() == Key::RCONTROL) setXY (x + ev.c*10, y + ev.c*10);
+            else setXY (x + ev.c, y);
             break;
         case ControlEvent::WantFocus:
             std::cout << "VectorCtrl WhantFocus event." << std::endl;
             break;
         case ControlEvent::GotFocus:
             std::cout << "VectorCtrl GotFocus event." << std::endl;
+            renderer->invertirBackgroundForeground (this);
             break;
         case ControlEvent::LostFocus:
             std::cout << "VectorCtrl LostFocus event." << std::endl;
+            renderer->invertirBackgroundForeground (this);
             break;
         case ControlEvent::Char:
             std::cout << "VectorCtrl CharEvent event." << std::endl;

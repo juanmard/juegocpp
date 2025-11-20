@@ -7,6 +7,7 @@
 #include "Comando.h"
 #include "IControlListener.h"
 #include "IRenderer.h"
+#include "IInput.h"
 
 enum class TipoControl {
     BOX,
@@ -62,6 +63,7 @@ struct InputEvent {
 class Control {
 public:
     IRenderer* renderer = nullptr;  // ¿Hacer este puntero estático para que sea común a todos los controles?
+    IInput* input = nullptr;
 
     std::string nombre;
     TipoControl tipo;
@@ -92,6 +94,7 @@ public:
 
     void setNombre(const std::string& nombre);
     void setRenderer(IRenderer* r);
+    void setInput(IInput* i);
 
 protected:
     void notifyListeners() {

@@ -23,6 +23,7 @@ public:
     ColorType makeColor(int r, int g, int b) override;
     void limpiarPantalla(ColorType color) override;
     void limpiarControl(Control* control) override;
+    void invertirBackgroundForeground(VectorCtrl* vector) override;
     void refrescarPantalla() override {}; 
     int mostrarMenu(const Menu& menu, int x, int y) override;
     MENU* convertirItemsAMenu(const Menu& menu);

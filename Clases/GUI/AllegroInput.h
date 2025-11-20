@@ -28,6 +28,16 @@ public:
     bool clicIzquierdo() override {
         return mouse_b & 1;
     }
+
+    virtual Key getKey() override {
+        if (key[KEY_LSHIFT]) return Key::LSHIFT;
+        if (key[KEY_RSHIFT]) return Key::RSHIFT;
+        if (key[KEY_LCONTROL]) return Key::LCONTROL;
+        if (key[KEY_RCONTROL]) return Key::RCONTROL;
+        if (key[KEY_ALT]) return Key::ALT;
+        if (key[KEY_ALTGR]) return Key::ALTGR;
+        return Key::NONE;
+    };
 };
 
 #endif

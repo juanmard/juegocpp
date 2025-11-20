@@ -223,6 +223,7 @@ int AllegroRenderer::defaultSlider(SliderCtrl* sld, const InputEvent& ev) {
 
 int AllegroRenderer::defaultVector (VectorCtrl* vector, const InputEvent& ev) {
     DIALOG* dlgCtrl = findDialogControl(vector);
+    if (ev.event == ControlEvent::WantFocus) { return D_WANTFOCUS; }
     return d_ctext_proc(eventToMsg(ev.event), dlgCtrl, ev.c);
 };
 
@@ -292,3 +293,9 @@ void AllegroRenderer::limpiarControl (Control* control) {
     DIALOG* d = findDialogControl(control);
     rectfill(screen, d->x, d->y, d->x + d->w - 1, d->y + d->h - 1, d->bg);
 }
+
+void AllegroRenderer::invertirBackgroundForeground(VectorCtrl* vector){
+    DIALOG* d = findDialogControl(vector);
+    std::swap(d->fg, d->bg);
+    d->flags |= D_DIRTY;
+};
