@@ -312,14 +312,16 @@ void AllegroRenderer::editarTexto(VectorCtrl* vector){
         d->flags |= D_DIRTY;
     } else if (vector->tipo == TipoControl::VECTOR){
         d->proc = allegroCallback;
-        extraerEnteros (vector->texto, vector->x, vector->y);
+        unsigned int x, y;
+        extraerEnteros ((char*)d->dp, x, y);
+        vector->setXY (x, y);
         d->flags |= D_DIRTY;
     }
 };
 
 void AllegroRenderer::extraerEnteros (std::string input, unsigned int& x, unsigned int& y)
 {
-    // Encontrar la posiciÃ³n de la coma.
+    // Encontrar la posición de la coma.
     size_t commaPos = input.find(',');
     if (commaPos == std::string::npos) {
         std::cerr << "Error: no se encontró coma en la cadena." << std::endl;

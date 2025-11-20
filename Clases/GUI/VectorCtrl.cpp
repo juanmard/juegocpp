@@ -27,18 +27,18 @@ int VectorCtrl::manejarEvento(const InputEvent& ev) {
             // std::cout << "VectorCtrl DoubleClick event." << std::endl;
             if (tipo == TipoControl::VECTOR) {
                 tipo = TipoControl::TEXTBOX;
-                renderer->dibujarCuadrado(x, y, renderer->makeColor(0, 255, 0));
+                // renderer->dibujarCuadrado(x, y, renderer->makeColor(0, 255, 0));
                 renderer->limpiarControl(this);
                 texto = std::to_string(x) + ", " + std::to_string(y);
                 renderer->editarTexto(this);
             } else if (tipo == TipoControl::TEXTBOX) {
                 tipo = TipoControl::VECTOR;
-                renderer->dibujarCuadrado(x, y, renderer->makeColor(255, 0, 0));
+                // renderer->dibujarCuadrado(x, y, renderer->makeColor(255, 0, 0));
                 renderer->editarTexto(this);
             }
             break;
         case ControlEvent::Wheel:
-            std::cout << "VectorCtrl Wheel event." << std::endl;
+            // std::cout << "VectorCtrl Wheel event." << std::endl;
             if (input->getKey() == Key::LSHIFT || input->getKey() == Key::RSHIFT) setXY (x, y + ev.c);
             else if (input->getKey() == Key::LCONTROL || input->getKey() == Key::RCONTROL) setXY (x + ev.c*10, y + ev.c*10);
             else setXY (x + ev.c, y);
@@ -47,15 +47,20 @@ int VectorCtrl::manejarEvento(const InputEvent& ev) {
             std::cout << "VectorCtrl WhantFocus event." << std::endl;
             break;
         case ControlEvent::GotFocus:
-            std::cout << "VectorCtrl GotFocus event." << std::endl;
+            // std::cout << "VectorCtrl GotFocus event." << std::endl;
             renderer->invertirBackgroundForeground (this);
             break;
         case ControlEvent::LostFocus:
-            std::cout << "VectorCtrl LostFocus event." << std::endl;
+            // std::cout << "VectorCtrl LostFocus event." << std::endl;
             renderer->invertirBackgroundForeground (this);
             break;
         case ControlEvent::Char:
-            std::cout << "VectorCtrl CharEvent event." << std::endl;
+            std::cout << "VectorCtrl Char event." << std::endl;
+            if (input->getKey() == Key::ENTER) {
+                InputEvent nuevo = ev;
+                nuevo.event = ControlEvent::DoubleClick;
+                manejarEvento(nuevo);
+            }
             break;
         case ControlEvent::LeftPress:
             std::cout << "VectorCtrl LeftPress event." << std::endl;

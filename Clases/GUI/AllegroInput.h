@@ -30,6 +30,10 @@ public:
     }
 
     virtual Key getKey() override {
+        if (key[KEY_A]) return Key::Key_A;
+        if (key[KEY_B]) return Key::Key_B;
+        if (key[KEY_C]) return Key::Key_C;
+        if (key[KEY_ENTER]) return Key::ENTER;
         if (key[KEY_LSHIFT]) return Key::LSHIFT;
         if (key[KEY_RSHIFT]) return Key::RSHIFT;
         if (key[KEY_LCONTROL]) return Key::LCONTROL;

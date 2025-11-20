@@ -6,6 +6,10 @@ constexpr int KEY_1_CODE = 28;
 
 enum class Key {
     NONE,
+    Key_A,
+    Key_B,
+    Key_C,
+    ENTER,
     LSHIFT,
     RSHIFT,
     LCONTROL,
