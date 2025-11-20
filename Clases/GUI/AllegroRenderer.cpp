@@ -224,7 +224,8 @@ int AllegroRenderer::defaultSlider(SliderCtrl* sld, const InputEvent& ev) {
 int AllegroRenderer::defaultVector (VectorCtrl* vector, const InputEvent& ev) {
     DIALOG* dlgCtrl = findDialogControl(vector);
     if (ev.event == ControlEvent::WantFocus) { return D_WANTFOCUS; }
-    return d_ctext_proc(eventToMsg(ev.event), dlgCtrl, ev.c);
+    if (vector->tipo == TipoControl::TEXTBOX) return d_edit_proc(eventToMsg(ev.event), dlgCtrl, ev.c);
+    else return d_ctext_proc(eventToMsg(ev.event), dlgCtrl, ev.c);
 };
 
 int AllegroRenderer::eventToMsg (const ControlEvent evtype) const {
@@ -304,9 +305,9 @@ void AllegroRenderer::editarTexto(VectorCtrl* vector){
     DIALOG* d = findDialogControl(vector);
 
     if (vector->tipo == TipoControl::TEXTBOX){
-        d->proc = d_edit_proc;
+        d->proc = allegroCallback;
         d->dp = const_cast<char*>(vector->texto.c_str());
-        d->d1 = 50*4; // Máximo 50 caracteres
+        d->d1 = vector->texto.size()*4;
         d->d2 = 0;
         d->flags |= D_DIRTY;
     } else if (vector->tipo == TipoControl::VECTOR){
@@ -321,7 +322,7 @@ void AllegroRenderer::extraerEnteros (std::string input, unsigned int& x, unsign
     // Encontrar la posiciÃ³n de la coma.
     size_t commaPos = input.find(',');
     if (commaPos == std::string::npos) {
-        std::cerr << "Error: no se encontrÃ³ coma en la cadena.\n";
+        std::cerr << "Error: no se encontró coma en la cadena." << std::endl;
         return;
     }
     

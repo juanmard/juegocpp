@@ -28,7 +28,8 @@ int VectorCtrl::manejarEvento(const InputEvent& ev) {
             if (tipo == TipoControl::VECTOR) {
                 tipo = TipoControl::TEXTBOX;
                 renderer->dibujarCuadrado(x, y, renderer->makeColor(0, 255, 0));
-                texto = "100,200";
+                renderer->limpiarControl(this);
+                texto = std::to_string(x) + ", " + std::to_string(y);
                 renderer->editarTexto(this);
             } else if (tipo == TipoControl::TEXTBOX) {
                 tipo = TipoControl::VECTOR;
