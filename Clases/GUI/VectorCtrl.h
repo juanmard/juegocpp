@@ -38,7 +38,7 @@ public:
     }
 
     void controlChanged(Control* control) override;
-    int manejarEvento(const InputEvent& ev) override {return 0;};
+    int manejarEvento(const InputEvent& ev) override;
 };
 
 #endif // VECTORCTRL_H

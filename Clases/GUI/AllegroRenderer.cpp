@@ -165,11 +165,9 @@ int AllegroRenderer::mostrarDialog(const Dialog& dialog) {
 }
 
 void AllegroRenderer::setSliderValue(Control* control, int val) {
-    // Obtener DIALOG* asociado a control
     DIALOG* dlgCtrl = findDialogControl(control);
     if (dlgCtrl) {
-        dlgCtrl->d2 = val;  // d2 = valor slider
-        // Forzar refuerzo gráfico
+        dlgCtrl->d2 = val;
         dlgCtrl->flags |= D_DIRTY;
     }
 }
@@ -219,7 +217,13 @@ void AllegroRenderer::updateVector(Control* control) {
 
 int AllegroRenderer::defaultSlider(SliderCtrl* sld, const InputEvent& ev) {
     DIALOG* dlgCtrl = findDialogControl(sld);
+    sld->setValue(dlgCtrl->d2 + sld->min);
     return d_slider_proc(eventToMsg(ev.event), dlgCtrl, ev.c);
+};
+
+int AllegroRenderer::defaultVector (VectorCtrl* vector, const InputEvent& ev) {
+    DIALOG* dlgCtrl = findDialogControl(vector);
+    return d_ctext_proc(eventToMsg(ev.event), dlgCtrl, ev.c);
 };
 
 int AllegroRenderer::eventToMsg (const ControlEvent evtype) const {
@@ -282,4 +286,9 @@ ControlEvent AllegroRenderer::msgToEvent (int msg) {
         default:            evtype = ControlEvent::Unknown;       break;
     }
     return evtype;
+}
+
+void AllegroRenderer::limpiarControl (Control* control) {
+    DIALOG* d = findDialogControl(control);
+    rectfill(screen, d->x, d->y, d->x + d->w - 1, d->y + d->h - 1, d->bg);
 }

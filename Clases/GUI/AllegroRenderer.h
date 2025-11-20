@@ -8,6 +8,7 @@
 #include "Dialog.h"
 #include "Menu.h"
 #include "SliderCtrl.h"
+#include "VectorCtrl.h"
 
 class AllegroRenderer : public IRenderer {
 public:
@@ -21,6 +22,7 @@ public:
     void dibujarCuadrado(int x, int y, ColorType color) override;
     ColorType makeColor(int r, int g, int b) override;
     void limpiarPantalla(ColorType color) override;
+    void limpiarControl(Control* control) override;
     void refrescarPantalla() override {}; 
     int mostrarMenu(const Menu& menu, int x, int y) override;
     MENU* convertirItemsAMenu(const Menu& menu);
@@ -29,7 +31,8 @@ public:
 public:
     int mostrarDialog(const Dialog& dialog) override;
     void setSliderValue(Control* control, int val) override;
-    int defaultSlider(SliderCtrl* sld, const InputEvent &ev) override;
+    int defaultSlider(SliderCtrl* sld, const InputEvent& ev) override;
+    int defaultVector(VectorCtrl* vector, const InputEvent& ev) override;
     void updateVector(Control* control) override;
     DIALOG* findDialogControl(Control* control);
 
