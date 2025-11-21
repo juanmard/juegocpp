@@ -20,21 +20,24 @@ void Menu::mostrar(IRenderer& renderer, IInput& input) {
         renderer.dibujarTexto("Presione ESC para salir", 20, 400, rojo);
 
         renderer.refrescarPantalla();
-        int codigo = input.obtenerCodigoTecla();
-        switch (codigo) {
-            case ESC_KEY_CODE:
+        int index=10;
+        Key tecla = input.getKey();
+        switch (tecla) {
+            case Key::ESC:
                 salir = true;
                 break;
+            case Key::Key_1: index = 0; break;
+            case Key::Key_2: index = 1; break;
+            case Key::Key_3: index = 2; break;
+            case Key::Key_4: index = 3; break;
+            case Key::Key_5: index = 4; break;
             default:
-                if (codigo >= KEY_1_CODE && codigo <= (KEY_1_CODE+5)) {
-                    int index = codigo - KEY_1_CODE;
-                    if (index < (int)items.size() && items[index].comando) {
-                        items[index].comando->ejecutar();
-                    }
-                }
                 break;
         }
-
+        if (index < 10 && items[index].comando) {
+            items[index].comando->ejecutar();
+            index = 10;
+        }
         input.esperar(500);
     }
 }

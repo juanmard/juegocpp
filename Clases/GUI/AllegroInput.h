@@ -33,6 +33,13 @@ public:
         if (key[KEY_A]) return Key::Key_A;
         if (key[KEY_B]) return Key::Key_B;
         if (key[KEY_C]) return Key::Key_C;
+        if (key[KEY_1]) return Key::Key_1;
+        if (key[KEY_2]) return Key::Key_2;
+        if (key[KEY_3]) return Key::Key_3;
+        if (key[KEY_4]) return Key::Key_4;
+        if (key[KEY_5]) return Key::Key_5;
+        if (key[KEY_6]) return Key::Key_6;
+        if (key[KEY_ESC]) return Key::ESC;
         if (key[KEY_ENTER]) return Key::ENTER;
         if (key[KEY_LSHIFT]) return Key::LSHIFT;
         if (key[KEY_RSHIFT]) return Key::RSHIFT;

@@ -30,8 +30,10 @@ int main() {
     show_mouse(screen);
     // Se comenta para ir directamente a la segunda prueba.
     // menuPrincipal.mostrar(renderer, input);
+
+    // Prueba segunda de Dialog.
     renderer.limpiarPantalla(gris);
-    while (input.obtenerCodigoTecla() != ESC_KEY_CODE) {
+    while (input.getKey() != Key::ESC) {
         if (input.clicDerecho()){
             menuPrincipal.mostrar (mouse_x, mouse_y);
         }
