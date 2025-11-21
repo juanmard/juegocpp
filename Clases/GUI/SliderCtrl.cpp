@@ -7,7 +7,6 @@ void SliderCtrl::controlChanged(Control* control) {
                 // std::cout << "SliderCtrl ha cambiado su valor." << std::endl;
                 if (auto sldc = dynamic_cast<SliderCtrl*>(control)) {
                     if (setValue (sldc->pos)) renderer->setSliderValue(this, pos - min);
-                    // std::cout << "--- " << pos << " --- " << this->nombre << std::endl;
                 }
             }
             break;
