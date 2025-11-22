@@ -24,6 +24,9 @@ jobs:
         update: true
         install: >
           mingw-w64-i686-toolchain
+          mingw-w64-i686-SDL2
+          mingw-w64-i686-SDL2_mixer
+          mingw-w64-i686-SDL2_ttf
           make
           zip
           unzip
@@ -47,14 +50,15 @@ jobs:
             which g++
             g++ --version
             cd Clases/GUI
-            make
+            make allegro
+            make sdl
 
     - name: "Package clean ZIP"
       shell: msys2 {0}
       run: |
             cd Clases/GUI
             pacman -Sy --noconfirm zip
-            zip -r9 ../../Win32-MinGw-build-test.zip ./menu.exe
+            zip -r9 ../../Win32-MinGw-build-test.zip ./testAllegro.exe ./testSDL.exe
             sha256sum ../../Win32-MinGw-build-test.zip > ../../Win32-MinGw-build-test.sha256
             echo "ZIP and hash created:"
             ls -lh ../../Win32-MinGw-build-test*
