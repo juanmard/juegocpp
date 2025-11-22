@@ -19,6 +19,11 @@ public:
         return 0;
     }
 
+    void obtenerPosicionMouse(int& x, int& y) override {
+        x = mouse_x;
+        y = mouse_y;
+    };
+
     void esperar(int ms) override { rest(ms); }
 
     bool clicDerecho() override {

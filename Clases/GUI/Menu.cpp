@@ -21,16 +21,16 @@ void Menu::mostrar(IRenderer& renderer, IInput& input) {
 
         renderer.refrescarPantalla();
         int index=10;
-        Key tecla = input.getKey();
+        IInput::Key tecla = input.getKey();
         switch (tecla) {
-            case Key::ESC:
+            case IInput::Key::ESC:
                 salir = true;
                 break;
-            case Key::Key_1: index = 0; break;
-            case Key::Key_2: index = 1; break;
-            case Key::Key_3: index = 2; break;
-            case Key::Key_4: index = 3; break;
-            case Key::Key_5: index = 4; break;
+            case IInput::Key::Key_1: index = 0; break;
+            case IInput::Key::Key_2: index = 1; break;
+            case IInput::Key::Key_3: index = 2; break;
+            case IInput::Key::Key_4: index = 3; break;
+            case IInput::Key::Key_5: index = 4; break;
             default:
                 break;
         }

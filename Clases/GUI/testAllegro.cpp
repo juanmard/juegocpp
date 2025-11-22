@@ -33,7 +33,7 @@ int main() {
 
     // Prueba segunda de Dialog.
     renderer.limpiarPantalla(gris);
-    while (input.getKey() != Key::ESC) {
+    while (input.getKey() != IInput::Key::ESC) {
         if (input.clicDerecho()){
             menuPrincipal.mostrar (mouse_x, mouse_y);
         }

@@ -36,8 +36,8 @@ int VectorCtrl::manejarEvento(const InputEvent& ev) {
             }
             break;
         case ControlEvent::Wheel:
-            if (input->getKey() == Key::LSHIFT || input->getKey() == Key::RSHIFT) setXY (x, y + ev.c);
-            else if (input->getKey() == Key::LCONTROL || input->getKey() == Key::RCONTROL) setXY (x + ev.c*10, y + ev.c*10);
+            if (input->getKey() == IInput::Key::LSHIFT || input->getKey() == IInput::Key::RSHIFT) setXY (x, y + ev.c);
+            else if (input->getKey() == IInput::Key::LCONTROL || input->getKey() == IInput::Key::RCONTROL) setXY (x + ev.c*10, y + ev.c*10);
             else setXY (x + ev.c, y);
             break;
         case ControlEvent::WantFocus:
@@ -51,7 +51,7 @@ int VectorCtrl::manejarEvento(const InputEvent& ev) {
             break;
         case ControlEvent::Char:
             std::cout << "VectorCtrl Char event." << std::endl;
-            if (input->getKey() == Key::ENTER) {
+            if (input->getKey() == IInput::Key::ENTER) {
                 InputEvent nuevo = ev;
                 nuevo.event = ControlEvent::DoubleClick;
                 manejarEvento(nuevo);
