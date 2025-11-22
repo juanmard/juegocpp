@@ -1,6 +1,8 @@
 #include "VectorCtrl.h"
 #include "SliderCtrl.h"
 
+/// @details A modo de prueba, cuando cambia un «Slider» se modifica la posición x del vector.
+///
 void VectorCtrl::controlChanged(Control* control) {
         switch (control->tipo){
             case TipoControl::SLIDER:
@@ -17,6 +19,10 @@ void VectorCtrl::controlChanged(Control* control) {
         renderer->updateVector(this);
 }
 
+/// @note Sería conveniente no utilizar el tipo para establecer el modo de edición,
+///       ya que el control no deja de ser un VECTOR, aunque entre en modo edición.
+///       Lo igeal sería un bool que indicara que el VECTOR está en modo edición.
+///
 int VectorCtrl::manejarEvento(const InputEvent& ev) {
     switch (ev.event) {
         case ControlEvent::Draw:
