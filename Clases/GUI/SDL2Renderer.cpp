@@ -1,0 +1,129 @@
+#include "SDL2Renderer.h"
+#include <SDL2/SDL_ttf.h> 
+#include <stdexcept>
+
+void SDL2Renderer::dibujarTexto(const char* texto, int x, int y, ColorType color) {
+    if (!texto || texto[0] == '\0') return;
+
+    // Convertir ColorType a R,G,B
+    Uint8 r = (color >> 16) & 0xFF;
+    Uint8 g = (color >> 8) & 0xFF;
+    Uint8 b = color & 0xFF;
+
+    static TTF_Font* font = nullptr;
+    if (!font) {
+        font = TTF_OpenFont("C:/Windows/Fonts/arial.ttf", 16);  // Cambia la ruta según tu sistema
+        if (!font) {
+            throw std::runtime_error("No se pudo cargar la fuente TTF");
+        }
+    }
+
+    SDL_Color sdlColor = { r, g, b, 255 };
+
+    SDL_Surface* surface = TTF_RenderText_Blended(font, texto, sdlColor);
+    if (!surface) {
+        throw std::runtime_error("Error al crear superficie de texto");
+    }
+
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(m_renderer, surface);
+    SDL_FreeSurface(surface);
+    if (!texture) {
+        throw std::runtime_error("Error al crear textura de texto");
+    }
+
+    SDL_Rect destRect = { x, y, 0, 0 };
+    SDL_QueryTexture(texture, nullptr, nullptr, &destRect.w, &destRect.h);
+
+    SDL_RenderCopy(m_renderer, texture, nullptr, &destRect);
+    SDL_DestroyTexture(texture);
+}
+
+
+SDL2Renderer::SDL2Renderer()
+: m_window(nullptr), m_renderer(nullptr) {
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+        throw std::runtime_error("No se pudo inicializar SDL");
+    }
+
+    m_window = SDL_CreateWindow(
+        "SDL2 Renderer Window",
+        SDL_WINDOWPOS_CENTERED,
+        SDL_WINDOWPOS_CENTERED,
+        800,
+        600,
+        SDL_WINDOW_SHOWN
+    );
+
+    if (!m_window) {
+        SDL_Quit();
+        throw std::runtime_error("No se pudo crear la ventana SDL");
+    }
+
+    m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    if (!m_renderer) {
+        SDL_DestroyWindow(m_window);
+        SDL_Quit();
+        throw std::runtime_error("No se pudo crear el renderizador SDL");
+    }
+
+    // Inicializar TTF si se usa texto (opcional)
+    if (TTF_Init() == -1) {
+        SDL_DestroyRenderer(m_renderer);
+        SDL_DestroyWindow(m_window);
+        SDL_Quit();
+        throw std::runtime_error("No se pudo inicializar SDL_ttf");
+    }
+}
+
+SDL2Renderer::~SDL2Renderer() {
+    TTF_Quit();
+    if (m_renderer) SDL_DestroyRenderer(m_renderer);
+    if (m_window) SDL_DestroyWindow(m_window);
+    SDL_Quit();
+}
+
+IRenderer::ColorType SDL2Renderer::makeColor(int r, int g, int b) {
+    // Empaqueta en 0x00RRGGBB (usa 24 bits sin alfa)
+    return ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF);
+}
+
+void SDL2Renderer::limpiarPantalla(ColorType color) {
+    int r = (color >> 16) & 0xFF;
+    int g = (color >> 8) & 0xFF;
+    int b = color & 0xFF;
+
+    SDL_SetRenderDrawColor(m_renderer, r, g, b, 255);
+    SDL_RenderClear(m_renderer);
+}
+
+void SDL2Renderer::dibujarCuadrado(int x, int y, ColorType color) {
+    int r = (color >> 16) & 0xFF;
+    int g = (color >> 8) & 0xFF;
+    int b = color & 0xFF;
+
+    SDL_Rect rect = { x, y, 100, 100 };  // Tamaño fijo 100x100, se puede modificar
+
+    SDL_SetRenderDrawColor(m_renderer, r, g, b, 255);
+    SDL_RenderFillRect(m_renderer, &rect);
+}
+
+// Los demás métodos se pueden implementar de forma similar en pasos posteriores...
+
+void SDL2Renderer::limpiarControl(Control* control) {
+    // Ejemplo de método vacío para compilar, añadir lógica según control
+}
+
+int SDL2Renderer::mostrarMenu(const Menu& menu, int x, int y) { return 0; }
+void SDL2Renderer::refrescarPantalla() {
+    SDL_RenderPresent(m_renderer);
+}
+int SDL2Renderer::mostrarDialog(const Dialog& dialog) { return 0; }
+
+void SDL2Renderer::setSliderValue(Control* control, int val) {}
+void SDL2Renderer::updateVector(Control* control) {}
+
+int SDL2Renderer::defaultSlider(SliderCtrl* sld, const InputEvent& ev) { return 0; }
+int SDL2Renderer::defaultVector(VectorCtrl* vector, const InputEvent& ev) { return 0; }
+void SDL2Renderer::invertirBackgroundForeground(VectorCtrl* vector) {}
+void SDL2Renderer::editarTexto(VectorCtrl* control) {}
+
