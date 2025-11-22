@@ -15,6 +15,7 @@ public:
     unsigned int y;      ///< Posición - Coordenada y.
     //unsigned int z;    ///< Posición - Coordenada z.
     std::string texto;   ///< Texto asociado al vector.
+    bool modoEdicion;    ///< Nos indica si el vector está siendo editado.
 
     /// @brief Constructor del vector dando todos los parámetros.
     /// 
@@ -25,7 +26,7 @@ public:
     /// @param x_ Posición x del control en pantalla.
     /// @param y_ Posición y del control en pantalla.
     ///
-    VectorCtrl(unsigned int x_, unsigned int y_) : Control(TipoControl::VECTOR, x_, y_, 0, 0, 0, 0, 0, 0), x(0), y(0) {};
+    VectorCtrl(unsigned int x_, unsigned int y_) : Control(TipoControl::VECTOR, x_, y_, 0, 0, 0, 0, 0, 0), x(0), y(0), texto(""), modoEdicion(false) {};
     
     /// @brief Establece el comando a ejecutar.
     /// @param cmd Comando a ejecutar.

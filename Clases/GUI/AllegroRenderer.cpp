@@ -224,7 +224,7 @@ int AllegroRenderer::defaultSlider(SliderCtrl* sld, const InputEvent& ev) {
 int AllegroRenderer::defaultVector (VectorCtrl* vector, const InputEvent& ev) {
     DIALOG* dlgCtrl = findDialogControl(vector);
     if (ev.event == ControlEvent::WantFocus) { return D_WANTFOCUS; }
-    if (vector->tipo == TipoControl::TEXTBOX) return d_edit_proc(eventToMsg(ev.event), dlgCtrl, ev.c);
+    if (vector->modoEdicion) return d_edit_proc(eventToMsg(ev.event), dlgCtrl, ev.c);
     else return d_ctext_proc(eventToMsg(ev.event), dlgCtrl, ev.c);
 };
 
@@ -304,17 +304,15 @@ void AllegroRenderer::invertirBackgroundForeground(VectorCtrl* vector){
 void AllegroRenderer::editarTexto(VectorCtrl* vector){
     DIALOG* d = findDialogControl(vector);
 
-    if (vector->tipo == TipoControl::TEXTBOX){
-        d->proc = allegroCallback;
-        d->dp = const_cast<char*>(vector->texto.c_str());
-        d->d1 = vector->texto.size()*4;
-        d->d2 = 0;
-        d->flags |= D_DIRTY;
-    } else if (vector->tipo == TipoControl::VECTOR){
-        d->proc = allegroCallback;
+    if (vector->modoEdicion){
         unsigned int x, y;
         extraerEnteros ((char*)d->dp, x, y);
         vector->setXY (x, y);
+        d->flags |= D_DIRTY;
+    } else {
+        d->dp = const_cast<char*>(vector->texto.c_str());
+        d->d1 = vector->texto.size()*4;
+        d->d2 = 0;
         d->flags |= D_DIRTY;
     }
 };
@@ -328,14 +326,14 @@ void AllegroRenderer::extraerEnteros (std::string input, unsigned int& x, unsign
         return;
     }
     
-    // Extraer las subcadenas antes y despuÃ©s de la coma.
+    // Extraer las subcadenas antes y después de la coma.
     std::string xStr = input.substr(0, commaPos);
     std::string yStr = input.substr(commaPos + 1);
     
-    // Convertir las subcadenas a enteros
+    // Convertir las subcadenas a enteros.
     x = std::stoi(xStr);
     y = std::stoi(yStr);
     
-    // Mostrar resultados
+    // Mostrar resultados.
     std::cout << "x = " << x << ", y = " << y << std::endl;
 }
