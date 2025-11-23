@@ -102,7 +102,7 @@ void SDL2Renderer::dibujarCuadrado(int x, int y, ColorType color) {
     int g = (color >> 8) & 0xFF;
     int b = color & 0xFF;
 
-    SDL_Rect rect = { x, y, 100, 100 };  // Tamaño fijo 100x100, se puede modificar
+    SDL_Rect rect = { x, y, 150, 150 };  // Tamaño fijo 150x150, se puede modificar
 
     SDL_SetRenderDrawColor(m_renderer, r, g, b, 255);
     SDL_RenderFillRect(m_renderer, &rect);

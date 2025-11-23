@@ -33,6 +33,7 @@ int SDL_main(int argc, char* argv[]) {
             if (input.clicIzquierdo()) {
                 int mouseX, mouseY;
                 input.obtenerPosicionMouse(mouseX, mouseY);
+                std::cout << mouseX << ", " << mouseY << std::endl;
                 if (estáDentroCuadrado(mouseX, mouseY, cuadradoX, cuadradoY, ancho, alto)) {
                     rojo = !rojo;
                     textoActual = rojo ? "Cuadrado Rojo" : "Cuadrado Verde";
