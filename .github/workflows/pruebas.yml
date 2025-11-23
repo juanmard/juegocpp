@@ -57,8 +57,9 @@ jobs:
       shell: msys2 {0}
       run: |
             cd Clases/GUI
+            dlls=$(for f in libgcc_s_dw2-1.dll libstdc++-6.dll SDL2_ttf.dll SDL2.dll; do whereis $f | awk -F: '{print $2}' | xargs; done)
             pacman -Sy --noconfirm zip
-            zip -r9 ../../Win32-MinGw-build-test.zip ./testAllegro.exe ./testSDL.exe
+            zip -r9 ../../Win32-MinGw-build-test.zip ./testAllegro.exe ./testSDL.exe $dlls
             sha256sum ../../Win32-MinGw-build-test.zip > ../../Win32-MinGw-build-test.sha256
             echo "ZIP and hash created:"
             ls -lh ../../Win32-MinGw-build-test*

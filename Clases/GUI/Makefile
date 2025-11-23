@@ -16,7 +16,7 @@ SDL2_STATIC_CXXFLAGS := -ID:/msys64/mingw32/include/SDL2 -Dmain=SDL_main
 SDL2_STATIC_LDFLAGS := -LD:/msys64/mingw32/lib -lmingw32 -lSDL2main D:/msys64/mingw32/lib/libSDL2.a -lSDL2_ttf -lfreetype -lz -lm -lkernel32 -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 -lversion -luuid -ladvapi32 -lsetupapi -lshell32 -ldinput8
 
 # Fuentes y objetos de Allegro y SDL2
-ALLEGRO_SOURCES = AllegroRenderer.cpp Control.cpp Dialog.cpp main.cpp Menu.cpp SliderCtrl.cpp VectorCtrl.cpp testSDL2.cpp
+ALLEGRO_SOURCES = AllegroRenderer.cpp Control.cpp Dialog.cpp testAllegro.cpp Menu.cpp SliderCtrl.cpp VectorCtrl.cpp
 ALLEGRO_OBJECTS = $(ALLEGRO_SOURCES:.cpp=.o)
 
 SDL2_SOURCES = SDL2Input.cpp SDL2Renderer.cpp testSDL.cpp Control.cpp SliderCtrl.cpp
