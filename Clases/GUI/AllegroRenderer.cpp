@@ -132,7 +132,10 @@ int AllegroRenderer::mostrarDialog(const Dialog& dialog) {
             allegroDialog[i].dp = (void*) "Texto con un aspecto distinto.";
             allegroDialog[i].dp2 = (void*) load_font("../../Extras/prueba-font.pcx", palette, NULL);
             if (!allegroDialog[i].dp2) {
-                allegroDialog[i].dp = (void*) "No existe: '../../Extras/prueba-font.pcx'.";
+                allegroDialog[i].dp2 = (void*) load_font("./prueba-font.pcx", palette, NULL);
+                if (!allegroDialog[i].dp2) {
+                    allegroDialog[i].dp = (void*) "No existe: '../../Extras/prueba-font.pcx' ni './prueba-font.pcx'.";
+                }
             }
         }
             break;
