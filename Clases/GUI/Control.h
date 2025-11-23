@@ -50,6 +50,7 @@ enum class ControlEvent {
     RightPress,
     RightRelease,
     WantMouse,
+    MouseMove,
     Unknown
 };
 

@@ -1,6 +1,8 @@
 #ifndef SDL2RENDERER_H
 #define SDL2RENDERER_H
 
+#include "Control.h"
+#include "SliderCtrl.h"
 #include "IRenderer.h"
 #include <SDL2/SDL.h>
 
@@ -48,6 +50,16 @@ private:
     // Otras variables necesarias (por ejemplo, fuentes TTF, colores, etc.)
 
     // Métodos internos auxiliares para dibujado, gestión de texto, etc.
+
+    // Pruebas con el Slider.
+    int slider_x = 50, slider_y = 90;
+    int slider_width = 300, slider_height = 8;
+    int handle_width = 10, handle_height = 30;
+
+    // Valor del slider: 0-100
+    int slider_min = 0, slider_max = 100;
+    int slider_value = 50;
+    bool dragging = false;
 };
 
 #endif

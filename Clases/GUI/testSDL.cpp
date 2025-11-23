@@ -1,8 +1,8 @@
-#define SDL_MAIN_HANDLED
 #include <iostream>
 #include <string>
 #include "SDL2Renderer.h"
 #include "SDL2Input.h"
+#include "SliderCtrl.h"
 #include "IInput.h"
 
 // Comprueba si (x,y) está dentro del rectángulo dado
@@ -10,7 +10,7 @@ bool estáDentroCuadrado(int x, int y, int rx, int ry, int rw, int rh) {
     return x >= rx && x <= rx + rw && y >= ry && y <= ry + rh;
 }
 
-int main() {
+int SDL_main(int argc, char* argv[]) {
     try {
         SDL2Renderer renderer;
         SDL2Input input;
@@ -24,9 +24,11 @@ int main() {
         std::string textoActual = "Cuadrado Rojo";
 
         bool running = true;
+        std::cout << "Inicio" << std::endl;
 
         while (running) {
             input.procesarEventos();
+            //renderer.limpiarPantalla(renderer.makeColor(0, 0, 0));
 
             if (input.clicIzquierdo()) {
                 int mouseX, mouseY;
@@ -34,10 +36,13 @@ int main() {
                 if (estáDentroCuadrado(mouseX, mouseY, cuadradoX, cuadradoY, ancho, alto)) {
                     rojo = !rojo;
                     textoActual = rojo ? "Cuadrado Rojo" : "Cuadrado Verde";
+                } else {
+                    SliderCtrl slider (10,400);
+                    InputEvent ev;
+                    ev.event = ControlEvent::Draw;
+                    renderer.defaultSlider(&slider, ev);
                 }
             }
-
-            renderer.limpiarPantalla(renderer.makeColor(0, 0, 0));
 
             renderer.dibujarCuadrado(cuadradoX, cuadradoY,
                 rojo ? renderer.makeColor(255, 0, 0) : renderer.makeColor(0, 255, 0));
@@ -47,8 +52,18 @@ int main() {
 
             renderer.refrescarPantalla();
 
-            if (input.getKey() == IInput::Key::ESC) {
+            input.obtenerCodigoTecla ();
+            IInput::Key tecla = input.getKey();
+            if (tecla == IInput::Key::ENTER)
+            {
+                renderer.dibujarTexto("Pulsado ENTER", 10, 450, renderer.makeColor(128, 255, 255));
+                std::cout << "Pulsado ENTER" << std::endl;
+            }
+
+            if (tecla == IInput::Key::ESC) {
                 running = false;
+                renderer.dibujarTexto("Pulsado ESC", 10, 450, renderer.makeColor(128, 255, 255));
+                std::cout << "Pulsado ESC" << std::endl;
             }
 
             input.esperar(16); // Aproximado 60 fps

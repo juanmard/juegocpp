@@ -1,50 +1,50 @@
-# Compilador y flags comunes
+# Variables generales
 CXX = g++
 CXXFLAGS = -g -std=c++17 -MMD -MP
 
-# Include paths para Allegro y SDL2
+# Includes y libs Allegro
 ALLEGRO_INCLUDES = -I../../allegro-4.4.2-mingw-4.5.2/include -static -DALLEGRO_STATICLINK
-SDL2_INCLUDES = -I/mingw32/include/SDL2
-
-# Librerías en enlace para Allegro y SDL2
 ALLEGRO_LDFLAGS = -L../../allegro-4.4.2-mingw-4.5.2/lib -lallegro-4.4.2-monolith-static-mt-debug \
-    -lddraw -ldinput8 -ldsound -lwinmm -lcomctl32 -lgdi32 -lwsock32 \
-    -lmsimg32 -ldxguid -lole32 -luuid -luser32 -lkernel32 -lopengl32 -lz -lm \
-    -static -static-libgcc -static-libstdc++
+     -lddraw -ldinput8 -ldsound -lwinmm -lcomctl32 -lgdi32 -lwsock32 \
+     -lmsimg32 -ldxguid -lole32 -luuid -luser32 -lkernel32 -lopengl32 -lz -lm \
+     -static -static-libgcc -static-libstdc++
 
-SDL2_LDFLAGS = -L/mingw32/lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -mwindows
+# Leer flags estáticas SDL2 dinámicamente
+#SDL2_STATIC_CXXFLAGS := $(shell sdl2-config --cflags)
+SDL2_STATIC_CXXFLAGS := -ID:/msys64/mingw32/include/SDL2 -Dmain=SDL_main
+#SDL2_STATIC_LDFLAGS := $(shell sdl2-config --static-libs) -lSDL2_ttf -lfreetype -lz
+SDL2_STATIC_LDFLAGS := -LD:/msys64/mingw32/lib -lmingw32 -lSDL2main D:/msys64/mingw32/lib/libSDL2.a -lSDL2_ttf -lfreetype -lz -lm -lkernel32 -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 -lversion -luuid -ladvapi32 -lsetupapi -lshell32 -ldinput8
 
-# Archivos fuente Allegro y SDL2
-ALLEGRO_SOURCES = AllegroRenderer.cpp Control.cpp Dialog.cpp testAllegro.cpp Menu.cpp SliderCtrl.cpp VectorCtrl.cpp
-SDL2_SOURCES = SDL2Input.cpp SDL2Renderer.cpp testSDL.cpp
-
-# Archivos objeto correspondientes
+# Fuentes y objetos de Allegro y SDL2
+ALLEGRO_SOURCES = AllegroRenderer.cpp Control.cpp Dialog.cpp main.cpp Menu.cpp SliderCtrl.cpp VectorCtrl.cpp testSDL2.cpp
 ALLEGRO_OBJECTS = $(ALLEGRO_SOURCES:.cpp=.o)
+
+SDL2_SOURCES = SDL2Input.cpp SDL2Renderer.cpp testSDL.cpp Control.cpp SliderCtrl.cpp
 SDL2_OBJECTS = $(SDL2_SOURCES:.cpp=.o)
 
 # Objetivo por defecto (Allegro)
 all: allegro
 
-# Construye ejecutable Allegro
+# Regla para compilar Allegro
 allegro: $(ALLEGRO_OBJECTS)
-	$(CXX) $^ -o testAllegro.exe $(ALLEGRO_LDFLAGS)
+	$(CXX) $^ -o menu $(ALLEGRO_LDFLAGS)
 
-# Construye ejecutable SDL2
+# Regla para compilar SDL2 estático
 sdl: $(SDL2_OBJECTS)
-	$(CXX) $^ -o testSDL.exe $(SDL2_LDFLAGS)
+	$(CXX) $^ -o testSDL.exe $(SDL2_STATIC_LDFLAGS)
 
-# Regla genérica para compilar con Allegro includes
+# Compilar objetos Allegro
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) $(ALLEGRO_INCLUDES) -c $< -o $@
 
-# Regla específica para archivos SDL2 que usan SDL includes
+# Compilar objetos SDL2 con flags SDL estáticas
 SDL2Input.o SDL2Renderer.o testSDL.o: %.o: %.cpp
-	$(CXX) $(CXXFLAGS) $(SDL2_INCLUDES) -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(SDL2_STATIC_CXXFLAGS) -c $< -o $@
 
-# Limpieza de objetos y ejecutables
+# Limpieza
 clean:
-	rm -f $(ALLEGRO_OBJECTS) $(SDL2_OBJECTS) testAllegro.exe testSDL.exe *.d
+	rm -f $(ALLEGRO_OBJECTS) $(SDL2_OBJECTS) menu testSDL.exe *.d
 
-# Incluir archivos .d para dependencias automáticas
+# Incluir dependencias automáticas
 -include $(ALLEGRO_OBJECTS:.o=.d)
 -include $(SDL2_OBJECTS:.o=.d)
