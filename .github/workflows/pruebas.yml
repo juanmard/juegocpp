@@ -57,7 +57,7 @@ jobs:
       shell: msys2 {0}
       run: |
             cd Clases/GUI
-            dlls=$(for f in libgcc_s_dw2-1.dll libstdc++-6.dll SDL2_ttf.dll SDL2.dll libwinpthread-1.dll libfreetype-6.dll libharfbuzz-0.dll libbrotlidec.dll libbz2-1.dll libpng16-16.dll libgraphite2.dll libglib-2.0-0.dll libbrotlicommon.dll libintl-8.dll libpcre2-8-0.dll; do whereis $f | awk -F: '{print $2}' | xargs; done)
+            dlls=$(for f in libgcc_s_dw2-1.dll libstdc++-6.dll SDL2_ttf.dll SDL2.dll libwinpthread-1.dll libfreetype-6.dll libharfbuzz-0.dll libbrotlidec.dll libbz2-1.dll libpng16-16.dll libgraphite2.dll libglib-2.0-0.dll libbrotlicommon.dll libintl-8.dll libpcre2-8-0.dll zlib1.dll; do whereis $f | awk -F: '{print $2}' | xargs; done)
             pacman -Sy --noconfirm zip
             zip -r9 -j ../../Win32-MinGw-build-test.zip ./testAllegro.exe ./testSDL.exe $dlls
             sha256sum ../../Win32-MinGw-build-test.zip > ../../Win32-MinGw-build-test.sha256
