@@ -16,10 +16,10 @@ SDL2_STATIC_LDFLAGS := $(shell sdl2-config --static-libs) -lSDL2_ttf -lfreetype 
 #SDL2_STATIC_LDFLAGS := -LD:/msys64/mingw32/lib -lmingw32 -lSDL2main D:/msys64/mingw32/lib/libSDL2.a -lSDL2_ttf -lfreetype -lz -lm -lkernel32 -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 -lversion -luuid -ladvapi32 -lsetupapi -lshell32 -ldinput8
 
 # Fuentes y objetos de Allegro y SDL2
-ALLEGRO_SOURCES = AllegroRenderer.cpp Control.cpp Dialog.cpp testAllegro.cpp Menu.cpp SliderCtrl.cpp VectorCtrl.cpp
+ALLEGRO_SOURCES = AllegroRenderer.cpp Control.cpp Dialog.cpp Menu.cpp SliderCtrl.cpp VectorCtrl.cpp testAllegro.cpp
 ALLEGRO_OBJECTS = $(ALLEGRO_SOURCES:.cpp=.o)
 
-SDL2_SOURCES = SDL2Input.cpp SDL2Renderer.cpp testSDL.cpp Control.cpp SliderCtrl.cpp
+SDL2_SOURCES = SDL2Input.cpp SDL2Renderer.cpp Control.cpp SliderCtrl.cpp testSDL.cpp 
 SDL2_OBJECTS = $(SDL2_SOURCES:.cpp=.o)
 
 # Objetivo por defecto (Allegro)
@@ -27,7 +27,7 @@ all: allegro
 
 # Regla para compilar Allegro
 allegro: $(ALLEGRO_OBJECTS)
-	$(CXX) $^ -o menu $(ALLEGRO_LDFLAGS)
+	$(CXX) $^ -o testAllegro.exe $(ALLEGRO_LDFLAGS)
 
 # Regla para compilar SDL2 estático
 sdl: $(SDL2_OBJECTS)
