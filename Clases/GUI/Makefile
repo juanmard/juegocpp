@@ -10,10 +10,10 @@ ALLEGRO_LDFLAGS = -L../../allegro-4.4.2-mingw-4.5.2/lib -lallegro-4.4.2-monolith
      -static -static-libgcc -static-libstdc++
 
 # Leer flags estáticas SDL2 dinámicamente
-#SDL2_STATIC_CXXFLAGS := $(shell sdl2-config --cflags)
-SDL2_STATIC_CXXFLAGS := -ID:/msys64/mingw32/include/SDL2 -Dmain=SDL_main
-#SDL2_STATIC_LDFLAGS := $(shell sdl2-config --static-libs) -lSDL2_ttf -lfreetype -lz
-SDL2_STATIC_LDFLAGS := -LD:/msys64/mingw32/lib -lmingw32 -lSDL2main D:/msys64/mingw32/lib/libSDL2.a -lSDL2_ttf -lfreetype -lz -lm -lkernel32 -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 -lversion -luuid -ladvapi32 -lsetupapi -lshell32 -ldinput8
+SDL2_STATIC_CXXFLAGS := $(shell sdl2-config --cflags)
+#SDL2_STATIC_CXXFLAGS := -ID:/msys64/mingw32/include/SDL2 -Dmain=SDL_main
+SDL2_STATIC_LDFLAGS := $(shell sdl2-config --static-libs) -lSDL2_ttf -lfreetype -lz
+#SDL2_STATIC_LDFLAGS := -LD:/msys64/mingw32/lib -lmingw32 -lSDL2main D:/msys64/mingw32/lib/libSDL2.a -lSDL2_ttf -lfreetype -lz -lm -lkernel32 -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 -lversion -luuid -ladvapi32 -lsetupapi -lshell32 -ldinput8
 
 # Fuentes y objetos de Allegro y SDL2
 ALLEGRO_SOURCES = AllegroRenderer.cpp Control.cpp Dialog.cpp testAllegro.cpp Menu.cpp SliderCtrl.cpp VectorCtrl.cpp
