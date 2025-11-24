@@ -22,14 +22,13 @@ void SDL2Renderer::dibujarTexto(const char* texto, int x, int y, ColorType color
 
     SDL_Color sdlColor = { r, g, b, 255 };
 
-    SDL_Log("Dibujando texto: %s en (%d,%d) con color RGB(%d,%d,%d)", texto, x, y, r, g, b);
-    static SDL_Surface* surface = TTF_RenderText_Blended(font, texto, sdlColor);
+    // SDL_Log("Dibujando texto: %s en (%d,%d) con color RGB(%d,%d,%d)", texto, x, y, r, g, b);
+    SDL_Surface* surface = TTF_RenderText_Blended(font, texto, sdlColor);
     if (!surface) {
         throw std::runtime_error("Error al crear superficie de texto");
     }
 
     SDL_Texture* texture = SDL_CreateTextureFromSurface(m_renderer, surface);
-    SDL_FreeSurface(surface);
     if (!texture) {
         throw std::runtime_error("Error al crear textura de texto");
     }
@@ -38,6 +37,7 @@ void SDL2Renderer::dibujarTexto(const char* texto, int x, int y, ColorType color
     SDL_QueryTexture(texture, nullptr, nullptr, &destRect.w, &destRect.h);
 
     SDL_RenderCopy(m_renderer, texture, nullptr, &destRect);
+    SDL_FreeSurface(surface);
     SDL_DestroyTexture(texture);
 }
 

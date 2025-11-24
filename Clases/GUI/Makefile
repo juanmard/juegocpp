@@ -43,7 +43,7 @@ SDL2Input.o SDL2Renderer.o testSDL.o: %.o: %.cpp
 
 # Limpieza
 clean:
-	rm -f $(ALLEGRO_OBJECTS) $(SDL2_OBJECTS) menu testSDL.exe *.d
+	rm -f $(ALLEGRO_OBJECTS) $(SDL2_OBJECTS) testAllegro.exe testSDL.exe *.d
 
 # Incluir dependencias automáticas
 -include $(ALLEGRO_OBJECTS:.o=.d)
