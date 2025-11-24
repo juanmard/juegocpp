@@ -13,7 +13,8 @@ void SDL2Renderer::dibujarTexto(const char* texto, int x, int y, ColorType color
 
     static TTF_Font* font = nullptr;
     if (!font) {
-        font = TTF_OpenFont("C:/Windows/Fonts/arial.ttf", 16);  // Cambia la ruta según tu sistema
+        font = TTF_OpenFont("C:/Windows/Fonts/arial.ttf", 16);
+        //font = TTF_OpenFont("D:/Users/Juanma/AppData/Local/Microsoft/Windows/Fonts/junglefe.ttf", 16);
         if (!font) {
             throw std::runtime_error("No se pudo cargar la fuente TTF");
         }
@@ -115,12 +116,14 @@ void SDL2Renderer::limpiarControl(Control* control) {
 }
 
 int SDL2Renderer::mostrarMenu(const Menu& menu, int x, int y) { return 0; }
+
 void SDL2Renderer::refrescarPantalla() {
     SDL_RenderPresent(m_renderer);
 }
 int SDL2Renderer::mostrarDialog(const Dialog& dialog) { return 0; }
 
 void SDL2Renderer::setSliderValue(Control* control, int val) {}
+
 void SDL2Renderer::updateVector(Control* control) {}
 
 int SDL2Renderer::defaultSlider(SliderCtrl* sld, const InputEvent& ev) {
@@ -131,42 +134,42 @@ int SDL2Renderer::defaultSlider(SliderCtrl* sld, const InputEvent& ev) {
             slider_x = sld->x;
             slider_y = sld->y;
             SDL_Rect bar = {slider_x, slider_y, slider_width, slider_height};
-            SDL_SetRenderDrawColor(m_renderer, 100,100,100,255);
+            SDL_SetRenderDrawColor(m_renderer, 100, 100, 100, 255);
             SDL_RenderFillRect(m_renderer, &bar);
 
             // Manija del slider
-            int handle_x = slider_x + (slider_value-slider_min)*(slider_width-handle_width)/(slider_max-slider_min);
+            handle_x = slider_x + (slider_value-slider_min)*(slider_width-handle_width)/(slider_max-slider_min);
             SDL_Rect handle = {handle_x, slider_y-handle_height/2+slider_height/2, handle_width, handle_height};
-            SDL_SetRenderDrawColor(m_renderer, 180,60,60,255);
+            SDL_SetRenderDrawColor(m_renderer, 180, 60, 60, 255);
             SDL_RenderFillRect(m_renderer, &handle);
             SDL_RenderPresent(m_renderer);
         }
         break;
         case ControlEvent::LeftPress:
         {
-            // int mx = e.button.x, my = e.button.y;
-            // int handle_x = slider_x + (slider_value-slider_min)*(slider_width-handle_width)/(slider_max-slider_min);
-            // if(mx >= handle_x && mx <= handle_x+handle_width &&
-            // my >= slider_y-handle_height/2 && my <= slider_y+handle_height/2)
-            std::cout << "Botón abajo" << std::endl;
+            int mx, my;
+            sld->input->obtenerPosicionMouse(mx, my);
+            if(mx >= handle_x && mx <= handle_x+handle_width &&
+               my >= slider_y-handle_height/2 && my <= slider_y+handle_height/2)
             dragging = true;
+            SDL_Log ("Drag");
         }
         break;
         case ControlEvent::LeftRelease:
         {
-            std::cout << "Botón arriba" << std::endl;
             dragging = false;
+            SDL_Log("Drop");
         }
         break;
         case ControlEvent::MouseMove:
         {
             if (dragging) {
-                // int mx = e.motion.x;
-                // int pos = mx - slider_x - handle_width/2;
-                // if(pos < 0) pos = 0;
-                // if(pos > slider_width-handle_width) pos = slider_width - handle_width;
-                // slider_value = slider_min +
-                //     pos*(slider_max-slider_min)/(slider_width-handle_width);
+                int mx, my;
+                sld->input->obtenerPosicionMouse(mx,my);
+                int pos = mx - slider_x - handle_width/2;
+                if(pos < 0) pos = 0;
+                if(pos > slider_width-handle_width) pos = slider_width - handle_width;
+                slider_value = slider_min + pos*(slider_max-slider_min)/(slider_width-handle_width);
             }
         }
         break;

@@ -33,7 +33,7 @@ bool SDL2Input::clicIzquierdo() {
     return c;
 }
 
-void SDL2Input::procesarEventos() {
+void SDL2Input::procesarEventos(InputEvent &ev) {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
@@ -67,8 +67,31 @@ void SDL2Input::procesarEventos() {
             break;
 
         case SDL_MOUSEBUTTONDOWN:
-            if (event.button.button == SDL_BUTTON_LEFT) leftClick = true;
-            else if (event.button.button == SDL_BUTTON_RIGHT) rightClick = true;
+            if (event.button.button == SDL_BUTTON_LEFT) {
+                SDL_Log ("LeftPress");
+                ev.event = ControlEvent::LeftPress;
+                leftClick = true;
+            } else if (event.button.button == SDL_BUTTON_RIGHT){
+                SDL_Log ("RightPress");
+                ev.event = ControlEvent::RightPress;
+                rightClick = true;
+            }
+            break;
+
+        case SDL_MOUSEBUTTONUP:
+            if (event.button.button == SDL_BUTTON_LEFT) {
+                SDL_Log ("LeftRelease");
+                ev.event = ControlEvent::LeftRelease;
+                leftClick = false;
+            } else if (event.button.button == SDL_BUTTON_RIGHT){
+                SDL_Log ("RightRelease");
+                ev.event = ControlEvent::RightRelease;
+                rightClick = false;
+            }
+            break;
+        case SDL_MOUSEMOTION:
+            ev.event = ControlEvent::MouseMove;
+            // SDL_Log ("MouseMove");
             break;
 
         case SDL_QUIT:

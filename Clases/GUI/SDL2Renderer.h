@@ -59,6 +59,7 @@ private:
     // Valor del slider: 0-100
     int slider_min = 0, slider_max = 100;
     int slider_value = 50;
+    int handle_x = 0;
     bool dragging = false;
 };
 

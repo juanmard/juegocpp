@@ -1,6 +1,7 @@
 #ifndef SDL2INPUT_H
 #define SDL2INPUT_H
 
+#include "Control.h"
 #include "IInput.h"
 #include <SDL2/SDL.h>
 
@@ -20,7 +21,7 @@ public:
     void obtenerPosicionMouse(int& x, int& y) override;
 
     // Procesar eventos SDL, debe llamarse en el bucle principal
-    void procesarEventos();
+    void procesarEventos(InputEvent& ev);
 
 private:
     int lastKeyCode;

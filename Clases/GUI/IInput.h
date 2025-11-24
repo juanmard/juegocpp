@@ -12,7 +12,7 @@ public:
     };
 
 public:
-    // Devuelve el código de la tecla pulsada, o 0 si no hay.
+    // Devuelve el código de la tecla pulsada.
     virtual int obtenerCodigoTecla() = 0;
     virtual Key getKey() = 0;
 
@@ -25,6 +25,7 @@ public:
     /// Obtener posición del mouse (coordenadas en pantalla).
     virtual void obtenerPosicionMouse(int& x, int& y) = 0;
 
+    virtual void procesarEventos(InputEvent &ev) = 0;
     virtual ~IInput() {}
 };
 

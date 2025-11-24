@@ -23,13 +23,16 @@ int SDL_main(int argc, char* argv[]) {
         bool rojo = true;
         std::string textoActual = "Cuadrado Rojo";
 
-        bool running = true;
         std::cout << "Inicio" << std::endl;
+        SliderCtrl slider (10, 400);
+        slider.setInput((IInput*)&input);
+        InputEvent ev;
 
+        bool running = true;
         while (running) {
-            input.procesarEventos();
-            //renderer.limpiarPantalla(renderer.makeColor(0, 0, 0));
-
+            // Se procesan eventos y estados.
+            input.procesarEventos(ev);
+            renderer.defaultSlider(&slider, ev);
             if (input.clicIzquierdo()) {
                 int mouseX, mouseY;
                 input.obtenerPosicionMouse(mouseX, mouseY);
@@ -37,21 +40,8 @@ int SDL_main(int argc, char* argv[]) {
                 if (estáDentroCuadrado(mouseX, mouseY, cuadradoX, cuadradoY, ancho, alto)) {
                     rojo = !rojo;
                     textoActual = rojo ? "Cuadrado Rojo" : "Cuadrado Verde";
-                } else {
-                    SliderCtrl slider (10,400);
-                    InputEvent ev;
-                    ev.event = ControlEvent::Draw;
-                    renderer.defaultSlider(&slider, ev);
                 }
             }
-
-            renderer.dibujarCuadrado(cuadradoX, cuadradoY,
-                rojo ? renderer.makeColor(255, 0, 0) : renderer.makeColor(0, 255, 0));
-
-            renderer.dibujarTexto(textoActual.c_str(), cuadradoX, cuadradoY + alto + 10,
-                renderer.makeColor(255, 255, 255));
-
-            renderer.refrescarPantalla();
 
             input.obtenerCodigoTecla ();
             IInput::Key tecla = input.getKey();
@@ -67,6 +57,17 @@ int SDL_main(int argc, char* argv[]) {
                 std::cout << "Pulsado ESC" << std::endl;
             }
 
+            // Se redibujan los elementos.
+            renderer.limpiarPantalla(renderer.makeColor(0, 0, 0));
+            renderer.dibujarCuadrado(cuadradoX, cuadradoY,
+                rojo ? renderer.makeColor(255, 0, 0) : renderer.makeColor(0, 255, 0));
+            renderer.dibujarTexto(textoActual.c_str(), cuadradoX, cuadradoY + alto + 10,
+                renderer.makeColor(255, 255, 255));
+            ev.event = ControlEvent::Draw;
+            renderer.defaultSlider(&slider, ev);
+            renderer.refrescarPantalla();
+
+            // Se hace una espera.
             input.esperar(16); // Aproximado 60 fps
         }
     } catch (const std::exception& e) {
