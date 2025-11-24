@@ -33,7 +33,9 @@ public:
     bool clicIzquierdo() override {
         return mouse_b & 1;
     }
-
+    
+    void procesarEventos(InputEvent &ev) override {};
+    
     virtual Key getKey() override {
         if (key[KEY_A]) return Key::Key_A;
         if (key[KEY_B]) return Key::Key_B;
