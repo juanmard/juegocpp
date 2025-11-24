@@ -11,10 +11,10 @@ void SDL2Renderer::dibujarTexto(const char* texto, int x, int y, ColorType color
     Uint8 g = (color >> 8) & 0xFF;
     Uint8 b = color & 0xFF;
 
-    static TTF_Font* font = nullptr;
+    static TTF_Font* font;
     if (!font) {
-        font = TTF_OpenFont("C:/Windows/Fonts/arial.ttf", 16);
-        //font = TTF_OpenFont("D:/Users/Juanma/AppData/Local/Microsoft/Windows/Fonts/junglefe.ttf", 16);
+        font = TTF_OpenFont("C:/Windows/Fonts/georgiab.ttf", 22);
+        //font = TTF_OpenFont("C:/Users/Juanma/AppData/Local/Microsoft/Windows/Fonts/junglefe.ttf", 16);
         if (!font) {
             throw std::runtime_error("No se pudo cargar la fuente TTF");
         }
@@ -22,7 +22,8 @@ void SDL2Renderer::dibujarTexto(const char* texto, int x, int y, ColorType color
 
     SDL_Color sdlColor = { r, g, b, 255 };
 
-    SDL_Surface* surface = TTF_RenderText_Blended(font, texto, sdlColor);
+    SDL_Log("Dibujando texto: %s en (%d,%d) con color RGB(%d,%d,%d)", texto, x, y, r, g, b);
+    static SDL_Surface* surface = TTF_RenderText_Blended(font, texto, sdlColor);
     if (!surface) {
         throw std::runtime_error("Error al crear superficie de texto");
     }
@@ -180,4 +181,3 @@ int SDL2Renderer::defaultSlider(SliderCtrl* sld, const InputEvent& ev) {
 int SDL2Renderer::defaultVector(VectorCtrl* vector, const InputEvent& ev) { return 0; }
 void SDL2Renderer::invertirBackgroundForeground(VectorCtrl* vector) {}
 void SDL2Renderer::editarTexto(VectorCtrl* control) {}
-
