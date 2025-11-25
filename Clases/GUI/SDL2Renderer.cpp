@@ -155,6 +155,14 @@ int SDL2Renderer::defaultSlider(SliderCtrl* sld, const InputEvent& ev) {
             if(mx >= handle_x && mx <= handle_x+handle_width &&
                my >= slider_y-handle_height/2 && my <= slider_y+handle_height/2)
             dragging = true;
+            if (mx>= slider_x && mx <= slider_x + slider_width &&
+                my >= slider_y && my <= slider_y + slider_height) {
+                SDL_Log("Click en la barra del slider");
+                int pos = mx - slider_x - handle_width/2;
+                if(pos < 0) pos = 0;
+                if(pos > slider_width-handle_width) pos = slider_width - handle_width;
+                slider_value = slider_min + pos*(slider_max-slider_min)/(slider_width-handle_width);
+                }
             SDL_Log ("Drag");
         }
         break;
