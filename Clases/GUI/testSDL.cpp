@@ -51,8 +51,12 @@ int _main(int argc, char* argv[]) {
         vector.setNombre("Vector de prueba.");
         vector.setInput((IInput*)&input);
         vector.setRenderer((IRenderer*)&renderer);
-
+        
+        // Prueba.
+        vector.setXY(slider.pos,10);
         slider.addListener(&vector);
+        vector.addListener(&slider);
+        
         InputEvent ev;
 
         bool running = true;
@@ -60,6 +64,7 @@ int _main(int argc, char* argv[]) {
            // Se procesan eventos y estados.
             input.procesarEventos(ev);
             renderer.defaultSlider(&slider, ev);
+            renderer.defaultVector(&vector, ev);
             if (input.clicIzquierdo()) {
                 int mouseX, mouseY;
                 input.obtenerPosicionMouse(mouseX, mouseY);

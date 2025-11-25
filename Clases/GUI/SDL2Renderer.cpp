@@ -130,7 +130,9 @@ int SDL2Renderer::mostrarDialog(const Dialog& dialog) { return 0; }
 /// @note Es posible que este método no sea necesario si el valor del slider en la GUI no se encontrara duplicado, si no
 ///       que fuera una referencia al único valor que representa el slider.
 ///
-void SDL2Renderer::setSliderValue(Control* control, int val) {}
+void SDL2Renderer::setSliderValue(Control* control, int val) {
+        slider_value = val;
+}
 
 void SDL2Renderer::updateVector(Control* control) {
     VectorCtrl* vector = dynamic_cast<VectorCtrl*>(control);
@@ -203,6 +205,13 @@ int SDL2Renderer::defaultSlider(SliderCtrl* sld, const InputEvent& ev) {
 };
 
 int SDL2Renderer::defaultVector(VectorCtrl* vector, const InputEvent& ev) {
+    if (ev.event == ControlEvent::Wheel) {
+        //std::cout << "Wheel" << std::endl;
+        vector->setXY(vector->x + ev.c, vector->y);
+    }
+    if (ev.event == ControlEvent::LeftPress) {
+        std::cout << "Vector LPress" << std::endl;
+    }
     dibujarTexto (vector->texto.c_str(), 10, 500, makeColor(250,250,0));
     return 0;
 }

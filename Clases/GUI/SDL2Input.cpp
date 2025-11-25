@@ -94,6 +94,13 @@ void SDL2Input::procesarEventos(InputEvent &ev) {
             // SDL_Log ("MouseMove");
             break;
 
+        case SDL_MOUSEWHEEL:
+            ev.event = ControlEvent::Wheel;
+            ev.c = event.wheel.y;
+            SDL_Log ("MouseWheel");
+            SDL_Log ((std::to_string (event.wheel.direction) + ", x: " + std::to_string(event.wheel.x) + ", y: " + std::to_string(event.wheel.y)).c_str()); 
+            break;
+
         case SDL_QUIT:
             exit(0);
             break;
