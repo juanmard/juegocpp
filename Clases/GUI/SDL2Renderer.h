@@ -58,7 +58,7 @@ private:
     int handle_width = 10, handle_height = 30;
 
     // Valor del slider: 0-100
-    int slider_min = 0, slider_max = 100;
+    int slider_min = 10, slider_max = 100;
     int slider_value = 50;
     int handle_x = 0;
     bool dragging = false;

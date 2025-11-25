@@ -1,19 +1,39 @@
+
+
 #include <iostream>
 #include <string>
-#include "SDL2Renderer.h"
-#include "SDL2Input.h"
 #include "SliderCtrl.h"
 #include "IInput.h"
+
+#define SDL2
+
+#ifdef SDL2
+    #include "SDL2Renderer.h"
+    #include "SDL2Input.h"
+
+    #define _Renderer SDL2Renderer
+    #define _Input SDL2Input
+    #define _main SDL_main
+#endif
+#ifdef ALLEGRO4
+    #include "AllegroRenderer.h"
+    #include "AllegroInput.h"
+
+    #define _Renderer AllegroRenderer
+    #define _Input AllegroInput
+    #define _main main
+#endif
+
 
 // Comprueba si (x,y) está dentro del rectángulo dado
 bool estáDentroCuadrado(int x, int y, int rx, int ry, int rw, int rh) {
     return x >= rx && x <= rx + rw && y >= ry && y <= ry + rh;
 }
 
-int SDL_main(int argc, char* argv[]) {
+int _main(int argc, char* argv[]) {
     try {
-        SDL2Renderer renderer;
-        SDL2Input input;
+        _Renderer renderer;
+        _Input input;
 
         const int cuadradoX = 100;
         const int cuadradoY = 100;
@@ -24,13 +44,20 @@ int SDL_main(int argc, char* argv[]) {
         std::string textoActual = "Cuadrado Rojo";
 
         std::cout << "Inicio" << std::endl;
-        SliderCtrl slider (10, 400);
+        SliderCtrl slider (10, 400, 300, 8, 0, 0, 0, 0);
         slider.setInput((IInput*)&input);
+        slider.setRenderer((IRenderer*)&renderer);
+        VectorCtrl vector (10,250);
+        vector.setNombre("Vector de prueba.");
+        vector.setInput((IInput*)&input);
+        vector.setRenderer((IRenderer*)&renderer);
+
+        slider.addListener(&vector);
         InputEvent ev;
 
         bool running = true;
         while (running) {
-            // Se procesan eventos y estados.
+           // Se procesan eventos y estados.
             input.procesarEventos(ev);
             renderer.defaultSlider(&slider, ev);
             if (input.clicIzquierdo()) {
@@ -42,7 +69,6 @@ int SDL_main(int argc, char* argv[]) {
                     textoActual = rojo ? "Cuadrado Rojo" : "Cuadrado Verde";
                 }
             }
-
 
             renderer.limpiarPantalla(renderer.makeColor(0, 0, 0));
             input.obtenerCodigoTecla ();
@@ -60,15 +86,17 @@ int SDL_main(int argc, char* argv[]) {
             }
 
             // Se redibujan los elementos.
+            //renderer.limpiarPantalla(renderer.makeColor(0, 0, 0));
             renderer.dibujarCuadrado(cuadradoX, cuadradoY, rojo ? renderer.makeColor(255, 0, 0) : renderer.makeColor(0, 255, 0));
             renderer.dibujarTexto(textoActual.c_str(), cuadradoX, cuadradoY + alto + 10, renderer.makeColor(255, 255, 255));
             renderer.dibujarTexto("Haz clic en el cuadrado para cambiar su color.", 10, 10, renderer.makeColor(200, 200, 200)); 
             ev.event = ControlEvent::Draw;
             renderer.defaultSlider(&slider, ev);
+            renderer.defaultVector(&vector, ev);
             renderer.refrescarPantalla();
 
             // Se hace una espera.
-            input.esperar(16); // Aproximado 60 fps
+            input.esperar(10); // Aproximado 60 fps
         }
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << "\n";
@@ -76,3 +104,6 @@ int SDL_main(int argc, char* argv[]) {
     }
     return 0;
 }
+#ifdef ALLEGRO4
+END_OF_MAIN();
+#endif

@@ -19,7 +19,7 @@ SDL2_STATIC_LDFLAGS := $(shell sdl2-config --static-libs | sed 's/-mwindows//g')
 ALLEGRO_SOURCES = AllegroRenderer.cpp Control.cpp Dialog.cpp Menu.cpp SliderCtrl.cpp VectorCtrl.cpp testAllegro.cpp
 ALLEGRO_OBJECTS = $(ALLEGRO_SOURCES:.cpp=.o)
 
-SDL2_SOURCES = SDL2Input.cpp SDL2Renderer.cpp Control.cpp SliderCtrl.cpp testSDL.cpp 
+SDL2_SOURCES = SDL2Input.cpp SDL2Renderer.cpp Control.cpp SliderCtrl.cpp VectorCtrl.cpp testSDL.cpp 
 SDL2_OBJECTS = $(SDL2_SOURCES:.cpp=.o)
 
 # Objetivo por defecto (Allegro)
