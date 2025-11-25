@@ -59,10 +59,8 @@ int SDL_main(int argc, char* argv[]) {
 
             // Se redibujan los elementos.
             renderer.limpiarPantalla(renderer.makeColor(0, 0, 0));
-            renderer.dibujarCuadrado(cuadradoX, cuadradoY,
-                rojo ? renderer.makeColor(255, 0, 0) : renderer.makeColor(0, 255, 0));
-            renderer.dibujarTexto(textoActual.c_str(), cuadradoX, cuadradoY + alto + 10,
-                renderer.makeColor(255, 255, 255));
+            renderer.dibujarCuadrado(cuadradoX, cuadradoY, rojo ? renderer.makeColor(255, 0, 0) : renderer.makeColor(0, 255, 0));
+            renderer.dibujarTexto(textoActual.c_str(), cuadradoX, cuadradoY + alto + 10, renderer.makeColor(255, 255, 255));
             ev.event = ControlEvent::Draw;
             renderer.defaultSlider(&slider, ev);
             renderer.refrescarPantalla();

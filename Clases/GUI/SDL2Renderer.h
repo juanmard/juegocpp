@@ -5,6 +5,7 @@
 #include "SliderCtrl.h"
 #include "IRenderer.h"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h> 
 
 class SDL2Renderer : public IRenderer {
 public:
@@ -61,6 +62,10 @@ private:
     int slider_value = 50;
     int handle_x = 0;
     bool dragging = false;
+
+    // Pruebas de font.
+    static TTF_Font* font;
+    
 };
 
 #endif

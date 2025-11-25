@@ -1,7 +1,8 @@
 #include "SDL2Renderer.h"
-#include <SDL2/SDL_ttf.h> 
 #include <stdexcept>
 #include <iostream>
+
+TTF_Font* SDL2Renderer::font = nullptr;  // Definición e inicialización estática.
 
 void SDL2Renderer::dibujarTexto(const char* texto, int x, int y, ColorType color) {
     if (!texto || texto[0] == '\0') return;
@@ -11,36 +12,29 @@ void SDL2Renderer::dibujarTexto(const char* texto, int x, int y, ColorType color
     Uint8 g = (color >> 8) & 0xFF;
     Uint8 b = color & 0xFF;
 
-    static TTF_Font* font;
-    if (!font) {
-        font = TTF_OpenFont("C:/Windows/Fonts/georgiab.ttf", 22);
-        //font = TTF_OpenFont("C:/Users/Juanma/AppData/Local/Microsoft/Windows/Fonts/junglefe.ttf", 16);
-        if (!font) {
-            throw std::runtime_error("No se pudo cargar la fuente TTF");
-        }
-    }
-
     SDL_Color sdlColor = { r, g, b, 255 };
 
-    // SDL_Log("Dibujando texto: %s en (%d,%d) con color RGB(%d,%d,%d)", texto, x, y, r, g, b);
-    SDL_Surface* surface = TTF_RenderText_Blended(font, texto, sdlColor);
+    //SDL_Log("Dibujando texto: '%s' en (%d,%d) con color RGB(%d,%d,%d)", texto, x, y, r, g, b);
+//    SDL_Surface* surface = TTF_RenderText_Blended(font, texto, sdlColor);
+    SDL_Surface* surface = TTF_RenderText_Solid(font, texto, sdlColor);
     if (!surface) {
-        throw std::runtime_error("Error al crear superficie de texto");
+        SDL_Log("Error al crear superficie de texto: %s", TTF_GetError());
+        //throw std::runtime_error("Error al crear superficie de texto");
     }
 
     SDL_Texture* texture = SDL_CreateTextureFromSurface(m_renderer, surface);
     if (!texture) {
+        SDL_Log("Error al crear textura de texto: %s", SDL_GetError());
         throw std::runtime_error("Error al crear textura de texto");
     }
+    SDL_FreeSurface(surface);
 
     SDL_Rect destRect = { x, y, 0, 0 };
     SDL_QueryTexture(texture, nullptr, nullptr, &destRect.w, &destRect.h);
 
     SDL_RenderCopy(m_renderer, texture, nullptr, &destRect);
-    SDL_FreeSurface(surface);
     SDL_DestroyTexture(texture);
 }
-
 
 SDL2Renderer::SDL2Renderer()
 : m_window(nullptr), m_renderer(nullptr) {
@@ -75,6 +69,14 @@ SDL2Renderer::SDL2Renderer()
         SDL_DestroyWindow(m_window);
         SDL_Quit();
         throw std::runtime_error("No se pudo inicializar SDL_ttf");
+    }
+    if (!font) {
+//        font = TTF_OpenFont("georgiab.ttf", 22);
+        font = TTF_OpenFont("C:/Windows/Fonts/georgiab.ttf", 22);
+        //font = TTF_OpenFont("C:/Users/Juanma/AppData/Local/Microsoft/Windows/Fonts/junglefe.ttf", 16);
+        if (!font) {
+            throw std::runtime_error("No se pudo cargar la fuente TTF");
+        }
     }
 }
 
