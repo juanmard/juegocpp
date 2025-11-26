@@ -130,8 +130,8 @@ int SDL2Renderer::mostrarDialog(const Dialog& dialog) { return 0; }
 /// @note Es posible que este método no sea necesario si el valor del slider en la GUI no se encontrara duplicado, si no
 ///       que fuera una referencia al único valor que representa el slider.
 ///
-void SDL2Renderer::setSliderValue(Control* control, int val) {
-        slider_value = val;
+void SDL2Renderer::setSliderValue(SliderCtrl* slider, int val) {
+        slider_value = slider->pos;
 }
 
 void SDL2Renderer::updateVector(Control* control) {

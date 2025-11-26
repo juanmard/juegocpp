@@ -167,8 +167,8 @@ int AllegroRenderer::mostrarDialog(const Dialog& dialog) {
     return result;
 }
 
-void AllegroRenderer::setSliderValue(Control* control, int val) {
-    DIALOG* dlgCtrl = findDialogControl(control);
+void AllegroRenderer::setSliderValue(SliderCtrl* slider, int val) {
+    DIALOG* dlgCtrl = findDialogControl(slider);
     if (dlgCtrl) {
         dlgCtrl->d2 = val;
         dlgCtrl->flags |= D_DIRTY;

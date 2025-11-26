@@ -33,7 +33,7 @@ public:
 
     int mostrarDialog(const Dialog& dialog) override;
 
-    void setSliderValue(Control* control, int val) override;
+    void setSliderValue(SliderCtrl* slider, int val) override;
 
     void updateVector(Control* control) override;
 
