@@ -54,19 +54,43 @@ int _main(int argc, char* argv[]) {
         vector.setInput((IInput*)&input);
         vector.setRenderer((IRenderer*)&renderer);
         
-        // Prueba.
+        // Prueba controles.
         vector.setXY(slider.pos,10);
         slider.addListener(&vector);
         vector.addListener(&slider);
 
+        // Prueba Menú.
+        Menu mainMenu("Archivo");
+        mainMenu.agregarItem(ItemMenu("Nuevo", true, std::make_shared<CommandSalir>()));
+        mainMenu.agregarItem(ItemMenu("Abrir", true, std::make_shared<CommandOtro>()));
+        mainMenu.agregarItem(ItemMenu("Preferencias", true, std::make_shared<ComandoCuadrado>(new Grafico(&renderer))));
+        mainMenu.agregarItem(ItemMenu("Guardar", true, std::make_shared<CommandOtro>()));
+        mainMenu.agregarItem(ItemMenu("Borrar", true, std::make_shared<CommandOtro>()));
+
+// Probar con submenús.
+//        ItemMenu opciones("Opciones");
+//        opciones.submenu.push_back(ItemMenu("Preferencias", false, std::make_shared<CommandSalir>()));
+//        mainMenu.agregarItem(opciones);
+
+        mainMenu.setRenderer((IRenderer*)&renderer);
+        mainMenu.setInput((IInput*)&input);
+        int menuX, menuY;
+        bool menuActivo = false;
+        int seleccion = -1;
+
+        // Evento a rellenar.
         InputEvent ev;
 
         bool running = true;
         while (running) {
-           // Se procesan eventos y estados.
+            // Se limpia la pantalla.
+            renderer.limpiarPantalla(renderer.makeColor(0, 0, 0));
+
+            // Se procesan eventos y estados.
             input.procesarEventos(ev);
             renderer.defaultSlider(&slider, ev);
             renderer.defaultVector(&vector, ev);
+
             if (input.clicIzquierdo()) {
                 int mouseX, mouseY;
                 input.obtenerPosicionMouse(mouseX, mouseY);
@@ -75,9 +99,31 @@ int _main(int argc, char* argv[]) {
                     rojo = !rojo;
                     textoActual = rojo ? "Cuadrado Rojo" : "Cuadrado Verde";
                 }
+
+                if (menuActivo) {
+                    // Si se pulsa dentro de un item y existe selección, se ejecuta el comando.
+                    int mx=mouseX, my=mouseY;
+                    const int ancho = 200;
+                    const int altoOpcion = 40;
+
+                    // Verifica si click está sobre alguna opción
+                    for (size_t i = 0; i < mainMenu.items.size(); ++i) {
+                        int oy = menuY + i * altoOpcion;
+                        if (mx >= menuX && mx < menuX + ancho && my >= oy && my < oy + altoOpcion) {
+                            seleccion = int(i);
+                            menuActivo = false;
+                            mainMenu.items[seleccion].comando->ejecutar();
+                        }
+                    }
+
+                    // Click fuera del menú, cancela.
+                    if (!(mx >= menuX && mx < menuX + ancho && my >= menuY && my < menuY + altoOpcion * mainMenu.items.size())) {
+                        menuActivo = false;
+                        seleccion = -1;
+                    }
+                }
             }
 
-            renderer.limpiarPantalla(renderer.makeColor(0, 0, 0));
             input.obtenerCodigoTecla ();
             IInput::Key tecla = input.getKey();
             if (tecla == IInput::Key::ENTER)
@@ -92,38 +138,24 @@ int _main(int argc, char* argv[]) {
                 std::cout << "Pulsado ESC" << std::endl;
             }
 
-            if (tecla == IInput::Key::Key_1){
+            if (tecla == IInput::Key::Key_1 || input.clicDerecho()){
                 SDL_Log ("Inicio Menú");
-
-                int x, y;
-                input.obtenerPosicionMouse(x,y);
-
-                const int ancho = 160;
-                const int altoOpcion = 24;
-
-                int hoverItem = -1; // Índice del item bajo el puntero, -1 si ninguno
-                int menuX = x, menuY = y; // Posición del menú
-
-                Menu mainMenu("Archivo");
-                mainMenu.agregarItem(ItemMenu("Nuevo", true, std::make_shared<CommandSalir>()));
-                mainMenu.agregarItem(ItemMenu("Abrir", true, std::make_shared<CommandOtro>()));
-
-                ItemMenu opciones("Opciones");
-                opciones.submenu.push_back(ItemMenu("Preferencias", true, std::make_shared<CommandOtro>()));
-                mainMenu.agregarItem(opciones);
-
-                mainMenu.setRenderer((IRenderer*)&renderer);
-                mainMenu.mostrar(x, y);
+                input.obtenerPosicionMouse(menuX, menuY);
+                menuActivo = true;
             }
 
             // Se redibujan los elementos.
             //renderer.limpiarPantalla(renderer.makeColor(0, 0, 0));
             renderer.dibujarCuadrado(cuadradoX, cuadradoY, rojo ? renderer.makeColor(255, 0, 0) : renderer.makeColor(0, 255, 0));
             renderer.dibujarTexto(textoActual.c_str(), cuadradoX, cuadradoY + alto + 10, renderer.makeColor(255, 255, 255));
-            renderer.dibujarTexto("Haz clic en el cuadrado para cambiar su color.", 10, 10, renderer.makeColor(200, 200, 200)); 
+            renderer.dibujarTexto("Haz clic en el cuadrado para cambiar su color.", 10, 10, renderer.makeColor(200, 200, 200));
+            renderer.dibujarTexto("Clic con el derecho para opciones.", 10, 40, renderer.makeColor(200, 200, 200));
             ev.event = ControlEvent::Draw;
             renderer.defaultSlider(&slider, ev);
             renderer.defaultVector(&vector, ev);
+            if (menuActivo) {
+                seleccion = mainMenu.mostrar(menuX, menuY);
+            }
             renderer.refrescarPantalla();
 
             // Se hace una espera.

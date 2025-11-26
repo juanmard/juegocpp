@@ -283,71 +283,49 @@ void SDL2Renderer::editarTexto(VectorCtrl* control) {}
 // }
 
 
+/// @brief  
+/// @param menu 
+/// @param x 
+/// @param y 
+/// @return 
+/// @todo Cambiar el nombre por "draw".
 int SDL2Renderer::mostrarMenu(const Menu& menu, int x, int y) {
-    // Suponiendo acceso al SDL_Renderer* y bucle propio de eventos
-    // Dibuja el menú en (x, y), espera un click
-    const int ancho = 160;
+    const int ancho = 200;
     const int altoOpcion = 40;
-    bool activo = true;
-    int seleccion = -1;
-    SDL_Event ev;
-
     int hoverItem = -1; // Índice del item bajo el puntero, -1 si ninguno
-    int menuX = x, menuY = y; // Posición del menú
+    //int menuX, menuY;   // Posición del menú
+    //menu.input->obtenerPosicionMouse(menuX,menuY);
 
-    while (activo) {
-        // Dibuja fondo y opciones
-        SDL_SetRenderDrawColor(m_renderer, 220, 220, 240, 255);
-        SDL_Rect fondo = {x, y, ancho, int(menu.items.size()) * altoOpcion };
-        SDL_RenderFillRect(m_renderer, &fondo);
+    // Dibuja fondo y opciones
+    SDL_SetRenderDrawColor(m_renderer, 220, 220, 240, 255);
+    SDL_Rect fondo = {x, y, ancho, int(menu.items.size()) * altoOpcion };
+    SDL_RenderFillRect(m_renderer, &fondo);
 
-        // Obtén la posición actual del mouse
-        int mouseX, mouseY;
-        SDL_GetMouseState(&mouseX, &mouseY);
-        hoverItem = -1;
+    // Obtén la posición actual del mouse
+    int mouseX, mouseY;
+    SDL_GetMouseState(&mouseX, &mouseY);
+    hoverItem = -1;
 
-        // Dibuja cada opción del menú
-        for (size_t i = 0; i < menu.items.size(); ++i) {
-            int itemY = menuY + int(i)*altoOpcion;
-            // Verifica si el mouse está sobre la opción
-            if (mouseX >= menuX && mouseX < menuX + ancho &&
-                mouseY >= itemY && mouseY < itemY + altoOpcion) {
-                hoverItem = int(i);
-            }
-            // Colores: resaltado si hover
-            SDL_Rect r = { menuX, itemY, ancho, altoOpcion };
-            if (hoverItem == int(i)) {
-                SDL_SetRenderDrawColor(m_renderer, 60, 120, 220, 255); // Azul claro para hover
-            } else {
-                SDL_SetRenderDrawColor(m_renderer, 220, 220, 240, 255); // Fondo normal
-            }
-            SDL_RenderFillRect(m_renderer, &r);
-            // Dibuja el texto encima
-            dibujarTexto(menu.items[i].nombre.c_str(), menuX + 12, itemY + 5, makeColor(10, 10, 80));
-        }
-        refrescarPantalla();
-
-
-        // Espera eventos
-        while (SDL_PollEvent(&ev)) {
-            if (ev.type == SDL_MOUSEBUTTONDOWN && ev.button.button == SDL_BUTTON_LEFT) {
-                int mx = ev.button.x, my = ev.button.y;
-                // Verifica si click está sobre alguna opción
-                for (size_t i = 0; i < menu.items.size(); ++i) {
-                    int oy = y + i * altoOpcion;
-                    if (mx >= x && mx < x + ancho && my >= oy && my < oy + altoOpcion) {
-                        seleccion = int(i);
-                        activo = false;
-                    }
-                }
-                // Click fuera, cancela
-                if (!(mx >= x && mx < x + ancho && my >= y && my < y + altoOpcion * menu.items.size())) {
-                    activo = false;
-                }
-            }
-            if (ev.type == SDL_QUIT) { activo = false; }
-        }
-        SDL_Delay(16);
+    // Dibuja cada opción del menú
+    for (size_t i = 0; i < menu.items.size(); ++i) {
+        int itemY = y + int(i)*altoOpcion;
+        // Verifica si el mouse está sobre la opción
+        if (mouseX >= x && mouseX < x + ancho &&
+        mouseY >= itemY && mouseY < itemY + altoOpcion) {
+        hoverItem = int(i);
     }
-    return seleccion;
+
+    // Colores: resaltado si hover
+    SDL_Rect r = { x, itemY, ancho, altoOpcion };
+    if (hoverItem == int(i)) {
+        SDL_SetRenderDrawColor(m_renderer, 60, 120, 220, 255); // Azul claro para hover
+    } else {
+        SDL_SetRenderDrawColor(m_renderer, 220, 220, 240, 255); // Fondo normal
+    }
+    SDL_RenderFillRect(m_renderer, &r);
+    
+    // Dibuja el texto encima
+    dibujarTexto(menu.items[i].nombre.c_str(), x + 12, itemY + 5, makeColor(10, 10, 80));
+    }
+    return hoverItem;
 }

@@ -14,6 +14,7 @@ public:
     std::string titulo;
     std::vector<ItemMenu> items;
     IRenderer* renderer = nullptr;
+    IInput* input = nullptr;
 
     Menu(const std::string& tit) : titulo(tit) {}
 
@@ -22,8 +23,9 @@ public:
     }
 
     void mostrar(IRenderer& renderer, IInput& input);
-    void mostrar(int x, int y);
+    int  mostrar(int x, int y);
     void setRenderer(IRenderer* r);
+    void setInput(IInput* i);
 };
 
 #endif

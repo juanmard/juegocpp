@@ -52,12 +52,18 @@ void Menu::mostrar(IRenderer& renderer, IInput& input) {
 //     }
 // }
 
-void Menu::mostrar(int x, int y) {
+int Menu::mostrar(int x, int y) {
     if (renderer) {
-        renderer->mostrarMenu(*this, x, y);
+        return renderer->mostrarMenu(*this, x, y);
     }
+    return -1;
 }
 
 void Menu::setRenderer(IRenderer* r) {
     renderer = r;
+}
+
+void Menu::setInput(IInput *i)
+{
+    input = i;
 }
