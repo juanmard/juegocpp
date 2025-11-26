@@ -11,9 +11,7 @@ struct ItemMenu {
     std::vector<ItemMenu> submenu;
     std::shared_ptr<Comando> comando;
 
-    ItemMenu(const std::string& nom, bool est = true,
-             std::shared_ptr<Comando> cmd = nullptr)
-        : nombre(nom), estado(est), comando(cmd) {}
+    ItemMenu(const std::string& nom, bool est = true, std::shared_ptr<Comando> cmd = nullptr) : nombre(nom), estado(est), comando(cmd) {}
 };
 
 #endif

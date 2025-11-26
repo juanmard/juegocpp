@@ -42,13 +42,19 @@ void Menu::mostrar(IRenderer& renderer, IInput& input) {
     }
 }
 
+// void Menu::mostrar(int x, int y) {
+//     if (!renderer) return;
+//     int selected = renderer->mostrarMenu(*this, x, y);
+//     if (selected >= 0 && (size_t)selected < items.size()) {
+//         if (items[selected].comando && items[selected].estado) {
+//             items[selected].comando->ejecutar();
+//         }
+//     }
+// }
+
 void Menu::mostrar(int x, int y) {
-    if (!renderer) return;
-    int selected = renderer->mostrarMenu(*this, x, y);
-    if (selected >= 0 && (size_t)selected < items.size()) {
-        if (items[selected].comando && items[selected].estado) {
-            items[selected].comando->ejecutar();
-        }
+    if (renderer) {
+        renderer->mostrarMenu(*this, x, y);
     }
 }
 

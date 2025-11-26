@@ -38,7 +38,7 @@ public:
 class CommandSalir : public Comando {
 public:
     void ejecutar() override {
-        //std::cout << "Comando salir" << std::endl;
+        std::cout << "Comando salir" << std::endl;
     }
 };
 

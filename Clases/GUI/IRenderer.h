@@ -18,6 +18,8 @@ public:
     virtual void dibujarTexto(const char* texto, int x, int y, ColorType color) = 0;
     virtual void dibujarCuadrado(int x, int y, ColorType color) = 0;
     virtual int mostrarMenu(const Menu& menu, int x, int y) = 0;
+ //   virtual int mostrarMenu(const Menu& menu, int x, int y) = 0;
+
     virtual void refrescarPantalla() = 0;
     virtual int mostrarDialog(const Dialog& dialog) = 0;
     virtual void setSliderValue(SliderCtrl* slider, int val) = 0;

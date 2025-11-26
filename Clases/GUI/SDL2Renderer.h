@@ -1,7 +1,9 @@
 #ifndef SDL2RENDERER_H
 #define SDL2RENDERER_H
 
+#include "Dialog.h"
 #include "Control.h"
+#include "Menu.h"
 #include "SliderCtrl.h"
 #include "IRenderer.h"
 #include <SDL2/SDL.h>
@@ -58,7 +60,7 @@ private:
     int handle_width = 10, handle_height = 30;
 
     // Valor del slider: 0-100
-    int slider_min = 10, slider_max = 100;
+    int slider_min = 10, slider_max = 120;
     int slider_value = 50;
     int handle_x = 0;
     bool dragging = false;

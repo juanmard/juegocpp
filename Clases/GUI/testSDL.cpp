@@ -3,7 +3,9 @@
 #include <iostream>
 #include <string>
 #include "SliderCtrl.h"
+#include "Menu.h"
 #include "IInput.h"
+#include "ComandosConcretos.h"
 
 #define SDL2
 
@@ -88,6 +90,30 @@ int _main(int argc, char* argv[]) {
                 running = false;
                 renderer.dibujarTexto("Pulsado ESC", 10, 450, renderer.makeColor(128, 255, 255));
                 std::cout << "Pulsado ESC" << std::endl;
+            }
+
+            if (tecla == IInput::Key::Key_1){
+                SDL_Log ("Inicio Menú");
+
+                int x, y;
+                input.obtenerPosicionMouse(x,y);
+
+                const int ancho = 160;
+                const int altoOpcion = 24;
+
+                int hoverItem = -1; // Índice del item bajo el puntero, -1 si ninguno
+                int menuX = x, menuY = y; // Posición del menú
+
+                Menu mainMenu("Archivo");
+                mainMenu.agregarItem(ItemMenu("Nuevo", true, std::make_shared<CommandSalir>()));
+                mainMenu.agregarItem(ItemMenu("Abrir", true, std::make_shared<CommandOtro>()));
+
+                ItemMenu opciones("Opciones");
+                opciones.submenu.push_back(ItemMenu("Preferencias", true, std::make_shared<CommandOtro>()));
+                mainMenu.agregarItem(opciones);
+
+                mainMenu.setRenderer((IRenderer*)&renderer);
+                mainMenu.mostrar(x, y);
             }
 
             // Se redibujan los elementos.
