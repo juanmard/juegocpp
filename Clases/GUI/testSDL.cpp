@@ -44,10 +44,10 @@ int _main(int argc, char* argv[]) {
         std::string textoActual = "Cuadrado Rojo";
 
         std::cout << "Inicio" << std::endl;
-        SliderCtrl slider (10, 400, 300, 8, 0, 0, 0, 0);
+        SliderCtrl slider (50, 400, 300, 8, 0, 0, 0, 0);
         slider.setInput((IInput*)&input);
         slider.setRenderer((IRenderer*)&renderer);
-        VectorCtrl vector (10,250);
+        VectorCtrl vector (50, 450, 200, 30, 0, 0, 0, 0);
         vector.setNombre("Vector de prueba.");
         vector.setInput((IInput*)&input);
         vector.setRenderer((IRenderer*)&renderer);
@@ -56,7 +56,7 @@ int _main(int argc, char* argv[]) {
         vector.setXY(slider.pos,10);
         slider.addListener(&vector);
         vector.addListener(&slider);
-        
+
         InputEvent ev;
 
         bool running = true;

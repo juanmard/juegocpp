@@ -76,6 +76,10 @@ void SDL2Input::procesarEventos(InputEvent &ev) {
                 ev.event = ControlEvent::RightPress;
                 rightClick = true;
             }
+            if (event.button.clicks == 2){
+                ev.event = ControlEvent::DoubleClick;
+                SDL_Log ("DoubleClick");
+            }
             break;
 
         case SDL_MOUSEBUTTONUP:
@@ -89,6 +93,7 @@ void SDL2Input::procesarEventos(InputEvent &ev) {
                 rightClick = false;
             }
             break;
+
         case SDL_MOUSEMOTION:
             ev.event = ControlEvent::MouseMove;
             // SDL_Log ("MouseMove");
@@ -97,8 +102,8 @@ void SDL2Input::procesarEventos(InputEvent &ev) {
         case SDL_MOUSEWHEEL:
             ev.event = ControlEvent::Wheel;
             ev.c = event.wheel.y;
-            SDL_Log ("MouseWheel");
-            SDL_Log ((std::to_string (event.wheel.direction) + ", x: " + std::to_string(event.wheel.x) + ", y: " + std::to_string(event.wheel.y)).c_str()); 
+            //SDL_Log ("MouseWheel");
+            //SDL_Log ((std::to_string (event.wheel.direction) + ", x: " + std::to_string(event.wheel.x) + ", y: " + std::to_string(event.wheel.y)).c_str()); 
             break;
 
         case SDL_QUIT:

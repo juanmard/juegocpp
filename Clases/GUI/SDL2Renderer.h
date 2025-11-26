@@ -62,6 +62,7 @@ private:
     int slider_value = 50;
     int handle_x = 0;
     bool dragging = false;
+    bool dibujarMarco = false;
 
     // Pruebas de font.
     static TTF_Font* font;

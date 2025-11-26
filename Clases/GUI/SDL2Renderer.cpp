@@ -205,15 +205,38 @@ int SDL2Renderer::defaultSlider(SliderCtrl* sld, const InputEvent& ev) {
 };
 
 int SDL2Renderer::defaultVector(VectorCtrl* vector, const InputEvent& ev) {
-    if (ev.event == ControlEvent::Wheel) {
-        //std::cout << "Wheel" << std::endl;
-        vector->setXY(vector->x + ev.c, vector->y);
-    }
-    if (ev.event == ControlEvent::LeftPress) {
-        std::cout << "Vector LPress" << std::endl;
-    }
-    dibujarTexto (vector->texto.c_str(), 10, 500, makeColor(250,250,0));
+        switch (ev.event){
+        case ControlEvent::Draw: {
+                //std::cout << "Draw" << std::endl;
+                // Letras.
+                dibujarTexto (vector->texto.c_str(), (int)vector->Control::x + 22, (int)vector->Control::y, makeColor(250,250,0));
+
+                // Marco del vector.
+                if (dibujarMarco) {
+                    SDL_Rect marco = {(int)vector->Control::x, (int)vector->Control::y, (int)vector->w, (int)vector->h};
+                    SDL_SetRenderDrawColor(m_renderer, 100, 100, 100, 255);
+                    SDL_RenderDrawRect(m_renderer, &marco);
+                }
+            }
+            break;
+
+        case ControlEvent::DoubleClick:
+            dibujarMarco = !dibujarMarco;
+            break;
+
+        case ControlEvent::Wheel:
+            vector->setXY(vector->x + ev.c, vector->y);
+            break;
+
+        case ControlEvent::LeftPress:
+            std::cout << "Vector LPress" << std::endl;
+            break;
+
+        default:
+            break;
+        }
     return 0;
 }
+
 void SDL2Renderer::invertirBackgroundForeground(VectorCtrl* vector) {}
 void SDL2Renderer::editarTexto(VectorCtrl* control) {}
