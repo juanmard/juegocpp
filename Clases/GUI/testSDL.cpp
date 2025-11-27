@@ -68,9 +68,9 @@ int _main(int argc, char* argv[]) {
         mainMenu.agregarItem(ItemMenu("Borrar", true, std::make_shared<CommandOtro>()));
 
 // Probar con submenús.
-//        ItemMenu opciones("Opciones");
-//        opciones.submenu.push_back(ItemMenu("Preferencias", false, std::make_shared<CommandSalir>()));
-//        mainMenu.agregarItem(opciones);
+        ItemMenu opciones("Opciones");
+        opciones.submenu.push_back(ItemMenu("Preferencias", false, std::make_shared<CommandSalir>()));
+        mainMenu.agregarItem(opciones);
 
         mainMenu.setRenderer((IRenderer*)&renderer);
         mainMenu.setInput((IInput*)&input);
@@ -112,7 +112,18 @@ int _main(int argc, char* argv[]) {
                         if (mx >= menuX && mx < menuX + ancho && my >= oy && my < oy + altoOpcion) {
                             seleccion = int(i);
                             menuActivo = false;
-                            mainMenu.items[seleccion].comando->ejecutar();
+                            // if (seleccion != -1) {
+                            //     if (!item.submenu.empty()) {
+                            //         Menu subMenu("SubMenu");
+                            //         subMenu.items = item.submenu;
+                            //         subMenu.setRenderer(&renderer);
+                            //         subMenu.setInput(&input);
+                            //         seleccion = subMenu.mostrar(menuX + ancho, menuY); // Desplaza lateralmente
+                            //     } else if (item.comando) {
+                            //         item.comando->ejecutar(); // Ejecuta acción
+                            //         menuActivo = false;
+                            //     }
+                            // }
                         }
                     }
 

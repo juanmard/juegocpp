@@ -309,23 +309,38 @@ int SDL2Renderer::mostrarMenu(const Menu& menu, int x, int y) {
     // Dibuja cada opción del menú
     for (size_t i = 0; i < menu.items.size(); ++i) {
         int itemY = y + int(i)*altoOpcion;
-        // Verifica si el mouse está sobre la opción
+
+        // Verifica si el mouse está sobre la opción.
         if (mouseX >= x && mouseX < x + ancho &&
         mouseY >= itemY && mouseY < itemY + altoOpcion) {
-        hoverItem = int(i);
-    }
+            hoverItem = int(i);
+        }
 
-    // Colores: resaltado si hover
-    SDL_Rect r = { x, itemY, ancho, altoOpcion };
-    if (hoverItem == int(i)) {
-        SDL_SetRenderDrawColor(m_renderer, 60, 120, 220, 255); // Azul claro para hover
-    } else {
-        SDL_SetRenderDrawColor(m_renderer, 220, 220, 240, 255); // Fondo normal
-    }
-    SDL_RenderFillRect(m_renderer, &r);
-    
-    // Dibuja el texto encima
-    dibujarTexto(menu.items[i].nombre.c_str(), x + 12, itemY + 5, makeColor(10, 10, 80));
+        // Colores: resaltado si hover.
+        SDL_Rect r = { x, itemY, ancho, altoOpcion };
+        if (hoverItem == int(i)) {
+            SDL_SetRenderDrawColor(m_renderer, 60, 120, 220, 255); // Azul claro para hover
+        } else {
+            SDL_SetRenderDrawColor(m_renderer, 220, 220, 240, 255); // Fondo normal
+        }
+        SDL_RenderFillRect(m_renderer, &r);
+        
+        // Dibuja el texto encima
+        ColorType normalColor = makeColor(10, 10, 80);
+        ColorType submenuColor = makeColor(255, 10, 80);
+        ColorType color = normalColor;
+
+        std::string label = menu.items[i].nombre;
+        if (!menu.items[i].submenu.empty()) {
+            label = "** " + label;
+            color = submenuColor;
+            Menu subMenu("SubMenu");
+            subMenu.items = menu.items[i].submenu;
+            subMenu.setRenderer((IRenderer*)&m_renderer);
+            // subMenu.setInput(&m_input);
+            hoverItem = subMenu.mostrar(x + ancho, y); // Desplaza lateralmente
+        }
+        dibujarTexto(label.c_str(), x + 12, itemY + 5, color);
     }
     return hoverItem;
 }
