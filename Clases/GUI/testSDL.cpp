@@ -101,7 +101,7 @@ int _main(int argc, char* argv[]) {
             if (input.clicIzquierdo()) {
                 int mouseX, mouseY;
                 input.obtenerPosicionMouse(mouseX, mouseY);
-                std::cout << mouseX << ", " << mouseY << std::endl;
+                // std::cout << mouseX << ", " << mouseY << std::endl;
                 if (estáDentroCuadrado(mouseX, mouseY, cuadradoX, cuadradoY, ancho, alto)) {
                     rojo = !rojo;
                     textoActual = rojo ? "Cuadrado Rojo" : "Cuadrado Verde";
@@ -119,18 +119,8 @@ int _main(int argc, char* argv[]) {
                         if (mx >= menuX && mx < menuX + ancho && my >= oy && my < oy + altoOpcion) {
                             seleccion = int(i);
                             menuActivo = false;
-                            // if (seleccion != -1) {
-                            //     if (!item.submenu.empty()) {
-                            //         Menu subMenu("SubMenu");
-                            //         subMenu.items = item.submenu;
-                            //         subMenu.setRenderer(&renderer);
-                            //         subMenu.setInput(&input);
-                            //         seleccion = subMenu.mostrar(menuX + ancho, menuY); // Desplaza lateralmente
-                            //     } else if (item.comando) {
-                            //         item.comando->ejecutar(); // Ejecuta acción
-                            //         menuActivo = false;
-                            //     }
-                            // }
+                            // índice del menú.
+                            std::cout << "Item: " << seleccion << " - " << mainMenu.items[seleccion].nombre << std::endl;
                         }
                     }
 
@@ -157,7 +147,7 @@ int _main(int argc, char* argv[]) {
             }
 
             if (tecla == IInput::Key::Key_1 || input.clicDerecho()){
-                SDL_Log ("Inicio Menú");
+                // SDL_Log ("Inicio Menú");
                 input.obtenerPosicionMouse(menuX, menuY);
                 menuActivo = true;
             }

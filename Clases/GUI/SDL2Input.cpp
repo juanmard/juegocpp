@@ -68,27 +68,27 @@ void SDL2Input::procesarEventos(InputEvent &ev) {
 
         case SDL_MOUSEBUTTONDOWN:
             if (event.button.button == SDL_BUTTON_LEFT) {
-                SDL_Log ("LeftPress");
+                // SDL_Log ("LeftPress");
                 ev.event = ControlEvent::LeftPress;
                 leftClick = true;
             } else if (event.button.button == SDL_BUTTON_RIGHT){
-                SDL_Log ("RightPress");
+                // SDL_Log ("RightPress");
                 ev.event = ControlEvent::RightPress;
                 rightClick = true;
             }
             if (event.button.clicks == 2){
                 ev.event = ControlEvent::DoubleClick;
-                SDL_Log ("DoubleClick");
+                // SDL_Log ("DoubleClick");
             }
             break;
 
         case SDL_MOUSEBUTTONUP:
             if (event.button.button == SDL_BUTTON_LEFT) {
-                SDL_Log ("LeftRelease");
+                // SDL_Log ("LeftRelease");
                 ev.event = ControlEvent::LeftRelease;
                 leftClick = false;
             } else if (event.button.button == SDL_BUTTON_RIGHT){
-                SDL_Log ("RightRelease");
+                // SDL_Log ("RightRelease");
                 ev.event = ControlEvent::RightRelease;
                 rightClick = false;
             }

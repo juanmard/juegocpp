@@ -230,7 +230,7 @@ int SDL2Renderer::defaultVector(VectorCtrl* vector, const InputEvent& ev) {
             break;
 
         case ControlEvent::LeftPress:
-            std::cout << "Vector LPress" << std::endl;
+            // std::cout << "Vector LPress" << std::endl;
             break;
 
         default:
