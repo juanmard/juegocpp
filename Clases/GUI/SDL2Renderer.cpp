@@ -298,12 +298,15 @@ int SDL2Renderer::mostrarMenu(const Menu& menu, int x, int y, int nivel = 0) {
     ColorType normalColor = makeColor(10, 10, 80);
     ColorType submenuColor = makeColor(255, 10, 80);
     ColorType color = normalColor;
+    SDL_Color hover={60, 120, 220, 255};
+    SDL_Color bg={220, 220, 240, 255};
+    SDL_Color sombra={220, 0, 0, 255};
     static int menuActivo = -1;      // Índice del item principal activo (submenu abierto)
     static int submenuActivo = -1;   // Índice del item activo dentro del submenú
 
 
     // Dibuja fondo del menú
-    SDL_SetRenderDrawColor(m_renderer, 220, 0, 0, 255);
+    SDL_SetRenderDrawColor(m_renderer, sombra.r, sombra.g, sombra.b, sombra.a);
     SDL_Rect fondo = {x+2, y+2, ancho+2, (int(menu.items.size()) * altoOpcion)+2};
     SDL_RenderFillRect(m_renderer, &fondo);
 
@@ -315,14 +318,15 @@ int SDL2Renderer::mostrarMenu(const Menu& menu, int x, int y, int nivel = 0) {
 
     for (size_t i = 0; i < menu.items.size(); ++i) {
         int itemY = y + int(i) * altoOpcion;
-        std::string label = menu.items[i].nombre;
+        ItemMenu itemAct = menu.items[i];
+        std::string label = itemAct.nombre;
 
-        // Detecta si el mouse está sobre la opción
+        // Detecta si el mouse está sobre la opción.
         bool estaHover = (mouseX >= x && mouseX < x + ancho &&
                           mouseY >= itemY && mouseY < itemY + altoOpcion);
         if (estaHover) {
             hoverItem = int(i);
-            SDL_SetRenderDrawColor(m_renderer, 60, 120, 220, 255);
+            SDL_SetRenderDrawColor(m_renderer, hover.r, hover.g, hover.b, hover.a);
             if (nivel == 0) {
                 menuActivo = int(i);    // Guarda el menú activo en nivel 0
                 submenuActivo = -1;     // Resetea submenú activo si cambia menú principal
@@ -330,10 +334,10 @@ int SDL2Renderer::mostrarMenu(const Menu& menu, int x, int y, int nivel = 0) {
                 submenuActivo = int(i); // Guarda el submenu activo si estamos en submenú
             }
         } else {
-            SDL_SetRenderDrawColor(m_renderer, 220, 220, 240, 255);
+            SDL_SetRenderDrawColor(m_renderer, bg.r, bg.g, bg.b, bg.a);
         }
 
-        // Si es el item activo (hover o persistente), cambia color y label para submenú
+        // Si es el item activo (hover o persistente), cambia color y label para submenú.
         bool abrirSubmenu = false;
         if (nivel == 0) {
             abrirSubmenu = (menuActivo == int(i));
@@ -341,20 +345,20 @@ int SDL2Renderer::mostrarMenu(const Menu& menu, int x, int y, int nivel = 0) {
             abrirSubmenu = (submenuActivo == int(i));
         }
 
-        if (abrirSubmenu && !menu.items[i].submenu.empty()) {
-            label += " >";
+        if (abrirSubmenu && !itemAct.submenu.empty()) {
             color = submenuColor;
+        } else {
+            color = normalColor;
         }
 
-        SDL_Rect r = { x, itemY, ancho, altoOpcion };
-
         // Dibuja rectángulo y texto
+        SDL_Rect r = { x, itemY, ancho, altoOpcion };
         SDL_RenderFillRect(m_renderer, &r);
         dibujarTexto(label.c_str(), x + 12, itemY + 5, color);
 
         // Si hay submenú y está activo o en hover, dibuja submenú desplazado a la derecha
-        if (abrirSubmenu && !menu.items[i].submenu.empty()) {
-            subMenu.items = menu.items[i].submenu;
+        if (abrirSubmenu && !itemAct.submenu.empty()) {
+            subMenu.items = itemAct.submenu;
             subMenu.setRenderer((IRenderer*)&m_renderer);
             mostrarMenu(subMenu, x + ancho + 1, itemY, nivel + 1);
         }
