@@ -67,9 +67,11 @@ int _main(int argc, char* argv[]) {
         mainMenu.agregarItem(ItemMenu("Guardar", true, std::make_shared<CommandOtro>()));
         mainMenu.agregarItem(ItemMenu("Borrar", true, std::make_shared<CommandOtro>()));
 
-// Probar con submenús.
+        // Probar con submenús.
         ItemMenu opciones("Opciones");
-        opciones.submenu.push_back(ItemMenu("Preferencias", false, std::make_shared<CommandSalir>()));
+        opciones.submenu.push_back(ItemMenu("Preferencias", true, std::make_shared<CommandSalir>()));
+        opciones.submenu.push_back(ItemMenu("Extras", true, std::make_shared<CommandSalir>()));
+        opciones.submenu.push_back(ItemMenu("Ayuda", true, std::make_shared<CommandSalir>()));
         mainMenu.agregarItem(opciones);
 
         mainMenu.setRenderer((IRenderer*)&renderer);

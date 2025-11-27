@@ -289,58 +289,84 @@ void SDL2Renderer::editarTexto(VectorCtrl* control) {}
 /// @param y 
 /// @return 
 /// @todo Cambiar el nombre por "draw".
-int SDL2Renderer::mostrarMenu(const Menu& menu, int x, int y) {
+// Variables miembros en la clase SDL2Renderer
+int SDL2Renderer::mostrarMenu(const Menu& menu, int x, int y, int nivel = 0) {
     const int ancho = 200;
     const int altoOpcion = 40;
-    int hoverItem = -1; // Índice del item bajo el puntero, -1 si ninguno
-    //int menuX, menuY;   // Posición del menú
-    //menu.input->obtenerPosicionMouse(menuX,menuY);
+    int hoverItem = -1;
+    Menu subMenu("SubMenu");
+    ColorType normalColor = makeColor(10, 10, 80);
+    ColorType submenuColor = makeColor(255, 10, 80);
+    ColorType color = normalColor;
+    static int menuActivo = -1;      // Índice del item principal activo (submenu abierto)
+    static int submenuActivo = -1;   // Índice del item activo dentro del submenú
 
-    // Dibuja fondo y opciones
-    SDL_SetRenderDrawColor(m_renderer, 220, 220, 240, 255);
-    SDL_Rect fondo = {x, y, ancho, int(menu.items.size()) * altoOpcion };
+
+    // Dibuja fondo del menú
+    SDL_SetRenderDrawColor(m_renderer, 220, 0, 0, 255);
+    SDL_Rect fondo = {x+2, y+2, ancho+2, (int(menu.items.size()) * altoOpcion)+2};
     SDL_RenderFillRect(m_renderer, &fondo);
 
-    // Obtén la posición actual del mouse
+    // Obtén posición actual del mouse
     int mouseX, mouseY;
     SDL_GetMouseState(&mouseX, &mouseY);
+
     hoverItem = -1;
 
-    // Dibuja cada opción del menú
     for (size_t i = 0; i < menu.items.size(); ++i) {
-        int itemY = y + int(i)*altoOpcion;
-
-        // Verifica si el mouse está sobre la opción.
-        if (mouseX >= x && mouseX < x + ancho &&
-        mouseY >= itemY && mouseY < itemY + altoOpcion) {
-            hoverItem = int(i);
-        }
-
-        // Colores: resaltado si hover.
-        SDL_Rect r = { x, itemY, ancho, altoOpcion };
-        if (hoverItem == int(i)) {
-            SDL_SetRenderDrawColor(m_renderer, 60, 120, 220, 255); // Azul claro para hover
-        } else {
-            SDL_SetRenderDrawColor(m_renderer, 220, 220, 240, 255); // Fondo normal
-        }
-        SDL_RenderFillRect(m_renderer, &r);
-        
-        // Dibuja el texto encima
-        ColorType normalColor = makeColor(10, 10, 80);
-        ColorType submenuColor = makeColor(255, 10, 80);
-        ColorType color = normalColor;
-
+        int itemY = y + int(i) * altoOpcion;
         std::string label = menu.items[i].nombre;
-        if (!menu.items[i].submenu.empty()) {
-            label = "** " + label;
+
+        // Detecta si el mouse está sobre la opción
+        bool estaHover = (mouseX >= x && mouseX < x + ancho &&
+                          mouseY >= itemY && mouseY < itemY + altoOpcion);
+        if (estaHover) {
+            hoverItem = int(i);
+            SDL_SetRenderDrawColor(m_renderer, 60, 120, 220, 255);
+            if (nivel == 0) {
+                menuActivo = int(i);    // Guarda el menú activo en nivel 0
+                submenuActivo = -1;     // Resetea submenú activo si cambia menú principal
+            } else {
+                submenuActivo = int(i); // Guarda el submenu activo si estamos en submenú
+            }
+        } else {
+            SDL_SetRenderDrawColor(m_renderer, 220, 220, 240, 255);
+        }
+
+        // Si es el item activo (hover o persistente), cambia color y label para submenú
+        bool abrirSubmenu = false;
+        if (nivel == 0) {
+            abrirSubmenu = (menuActivo == int(i));
+        } else {
+            abrirSubmenu = (submenuActivo == int(i));
+        }
+
+        if (abrirSubmenu && !menu.items[i].submenu.empty()) {
+            label += " >";
             color = submenuColor;
-            Menu subMenu("SubMenu");
+        }
+
+        SDL_Rect r = { x, itemY, ancho, altoOpcion };
+
+        // Dibuja rectángulo y texto
+        SDL_RenderFillRect(m_renderer, &r);
+        dibujarTexto(label.c_str(), x + 12, itemY + 5, color);
+
+        // Si hay submenú y está activo o en hover, dibuja submenú desplazado a la derecha
+        if (abrirSubmenu && !menu.items[i].submenu.empty()) {
             subMenu.items = menu.items[i].submenu;
             subMenu.setRenderer((IRenderer*)&m_renderer);
-            // subMenu.setInput(&m_input);
-            hoverItem = subMenu.mostrar(x + ancho, y); // Desplaza lateralmente
+            mostrarMenu(subMenu, x + ancho + 1, itemY, nivel + 1);
         }
-        dibujarTexto(label.c_str(), x + 12, itemY + 5, color);
     }
+
+    // Si el mouse no está sobre ningún ítem ni menú, puede resetearse para cerrar
+    bool mouseFueraMenu = !(mouseX >= x && mouseX < x + ancho &&
+                           mouseY >= y && mouseY < y + int(menu.items.size()) * altoOpcion);
+    if (mouseFueraMenu && nivel == 0 && hoverItem == -1) {
+        // menuActivo = -1;
+        submenuActivo = -1;
+    }
+
     return hoverItem;
 }

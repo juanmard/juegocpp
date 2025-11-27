@@ -17,15 +17,13 @@ public:
     virtual void limpiarControl (Control* control) = 0;
     virtual void dibujarTexto(const char* texto, int x, int y, ColorType color) = 0;
     virtual void dibujarCuadrado(int x, int y, ColorType color) = 0;
-    virtual int mostrarMenu(const Menu& menu, int x, int y) = 0;
- //   virtual int mostrarMenu(const Menu& menu, int x, int y) = 0;
-
+    virtual int  mostrarMenu(const Menu& menu, int x, int y, int nivel = 0) = 0;
     virtual void refrescarPantalla() = 0;
-    virtual int mostrarDialog(const Dialog& dialog) = 0;
+    virtual int  mostrarDialog(const Dialog& dialog) = 0;
     virtual void setSliderValue(SliderCtrl* slider, int val) = 0;
     virtual void updateVector(Control* control) = 0;
-    virtual int defaultSlider(SliderCtrl* sld, const InputEvent& ev) = 0;
-    virtual int defaultVector(VectorCtrl* vector, const InputEvent& ev) = 0;
+    virtual int  defaultSlider(SliderCtrl* sld, const InputEvent& ev) = 0;
+    virtual int  defaultVector(VectorCtrl* vector, const InputEvent& ev) = 0;
     virtual void invertirBackgroundForeground(VectorCtrl* vector) = 0;
     virtual void editarTexto(VectorCtrl* control) = 0;
     virtual ~IRenderer() {}
