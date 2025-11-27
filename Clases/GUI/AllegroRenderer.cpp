@@ -37,12 +37,13 @@ void AllegroRenderer::limpiarPantalla(ColorType color) {
     clear_to_color(screen, color);
 }
 
-int AllegroRenderer::mostrarMenu(const Menu& menu, int x, int y) {
+int AllegroRenderer::mostrarMenu(const Menu& menu, int x, int y, int nivel) {
     MENU* allegroMenu = convertirItemsAMenu(menu);
     gui_fg_color = makecol(0,0,255);
     gui_bg_color = makecol(255,255,255);
     gui_mg_color = makecol(128,128,128);
     int selected = do_menu(allegroMenu, x, y);
+    std::cout << "Item: " << selected << std::endl;
     liberarMenu(allegroMenu);
     return selected;
 }

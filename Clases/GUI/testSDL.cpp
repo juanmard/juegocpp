@@ -113,7 +113,7 @@ int _main(int argc, char* argv[]) {
                     const int ancho = 200;
                     const int altoOpcion = 40;
 
-                    // Verifica si click está sobre alguna opción
+                    // Verifica si click está sobre alguna opción.
                     for (size_t i = 0; i < mainMenu.items.size(); ++i) {
                         int oy = menuY + i * altoOpcion;
                         if (mx >= menuX && mx < menuX + ancho && my >= oy && my < oy + altoOpcion) {
@@ -121,6 +121,13 @@ int _main(int argc, char* argv[]) {
                             menuActivo = false;
                             // índice del menú.
                             std::cout << "Item: " << seleccion << " - " << mainMenu.items[seleccion].nombre << std::endl;
+
+                            // Se ejecuta su comando asociado.
+                            if (seleccion >= 0 && (size_t)seleccion < mainMenu.items.size()) {
+                                if (mainMenu.items[seleccion].comando && mainMenu.items[seleccion].estado) {
+                                    mainMenu.items[seleccion].comando->ejecutar();
+                                }
+                            }
                         }
                     }
 
@@ -164,6 +171,8 @@ int _main(int argc, char* argv[]) {
             if (menuActivo) {
                 seleccion = mainMenu.mostrar(menuX, menuY);
             }
+
+            // Se actualiza pantalla.
             renderer.refrescarPantalla();
 
             // Se hace una espera.

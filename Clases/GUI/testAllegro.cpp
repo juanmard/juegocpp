@@ -15,6 +15,7 @@ int main() {
     Menu menuPrincipal("Menú Principal");
     menuPrincipal.setRenderer(&renderer);
     Grafico fruta(&renderer);
+    int seleccion = -1;
 
     auto comandoDibujar = std::make_shared<ComandoDibujar>(&fruta);
     auto cmd = std::make_shared<ComandoEjemplo>();
@@ -35,8 +36,15 @@ int main() {
     renderer.limpiarPantalla(gris);
     while (input.getKey() != IInput::Key::ESC) {
         if (input.clicDerecho()){
-            menuPrincipal.mostrar (mouse_x, mouse_y);
+            seleccion = menuPrincipal.mostrar (mouse_x, mouse_y);
+            // Se ejecuta su comando asociado.
+            if (seleccion >= 0 && (size_t)seleccion < menuPrincipal.items.size()) {
+                if (menuPrincipal.items[seleccion].comando && menuPrincipal.items[seleccion].estado) {
+                    menuPrincipal.items[seleccion].comando->ejecutar();
+                }
+            }
         }
+
         if (input.clicIzquierdo()){
             renderer.limpiarPantalla(gris);
             Dialog dlg;
