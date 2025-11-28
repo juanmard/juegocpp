@@ -169,7 +169,8 @@ int SDL2Renderer::defaultSlider(SliderCtrl* sld, const InputEvent& ev) {
 
             // Prueba para cambiar el tamaño de Font.
             TTF_CloseFont(font);
-            font = TTF_OpenFont("C:/Windows/Fonts/georgiab.ttf", slider_value);
+//          font = TTF_OpenFont("C:/Windows/Fonts/georgiab.ttf", slider_value);
+            font = TTF_OpenFont("C:/Windows/Fonts/consolab.ttf", slider_value);
         }
         break;
         case ControlEvent::LeftPress:

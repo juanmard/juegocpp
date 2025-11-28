@@ -44,6 +44,10 @@ private:
     int eventToMsg (const ControlEvent ev) const;
     static ControlEvent msgToEvent (int msg);
     void extraerEnteros (std::string input, unsigned int& x, unsigned int& y);
+    
+    // Pruebas:
+    static int dibujarPrueba(void);
+    static AllegroRenderer* renderer_actual;
 };
 
 #endif

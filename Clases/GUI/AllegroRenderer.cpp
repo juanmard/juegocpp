@@ -37,12 +37,41 @@ void AllegroRenderer::limpiarPantalla(ColorType color) {
     clear_to_color(screen, color);
 }
 
+AllegroRenderer* AllegroRenderer::renderer_actual = nullptr;
+
+int AllegroRenderer::dibujarPrueba(void) {
+    // std::cout << "Dibujando cuadrado" << std::endl;
+
+    // Tenemos que usar el render_actual.
+    AllegroRenderer* self = static_cast<AllegroRenderer*>(renderer_actual);
+    if (self) {
+        self->dibujarCuadrado (200,100,self->makeColor(0,220,23));
+        // rectfill(screen, 200,100, 240, 140, makeacol(0,220,23,255));
+    }
+    return D_O_K;
+}
+
 int AllegroRenderer::mostrarMenu(const Menu& menu, int x, int y, int nivel) {
     MENU* allegroMenu = convertirItemsAMenu(menu);
     gui_fg_color = makecol(0,0,255);
     gui_bg_color = makecol(255,255,255);
     gui_mg_color = makecol(128,128,128);
+
+    // Prueba de menú anidado.
+    if (allegroMenu[0].child == nullptr) {
+        MENU *prueba = new MENU[4];  // 4 elementos (3 + NULL final)
+        prueba[0] = { const_cast<char*>("prueba 1"), nullptr, nullptr, 0, nullptr };
+        prueba[1] = { const_cast<char*>("prueba 2"), AllegroRenderer::dibujarPrueba, nullptr, 0, nullptr};
+        prueba[2] = { const_cast<char*>("prueba 3"), nullptr, nullptr, 0, nullptr };
+        prueba[3] = { NULL, NULL, NULL, 0, NULL };
+        allegroMenu[0].child = prueba;
+    }
+
+    // Mostramos e interaccionamos con el menú.
+    renderer_actual = this;
     int selected = do_menu(allegroMenu, x, y);
+    renderer_actual = nullptr;
+
     std::cout << "Item: " << selected << std::endl;
     liberarMenu(allegroMenu);
     return selected;
