@@ -256,9 +256,9 @@ void SDL2Renderer::editarTexto(VectorCtrl* control) {}
 /// @todo Cambiar el nombre por "draw".
 // Variables miembros en la clase SDL2Renderer
 int SDL2Renderer::mostrarMenu(const Menu& menu, int x, int y, int nivel = 0) {
-    int ancho = 200;
-    int altoOpcion = 40;
-    if (TTF_SizeText (font, "1234567890123456789", &ancho, &altoOpcion) != 0){
+    int ancho;
+    int altoOpcion;
+    if (TTF_SizeText (font, "123456789012", &ancho, &altoOpcion) != 0){
         ancho = 200;
         altoOpcion = 40;
     };
