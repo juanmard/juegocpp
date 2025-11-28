@@ -13,9 +13,11 @@ void SDL2Renderer::dibujarTexto(const char* texto, int x, int y, ColorType color
     Uint8 b = color & 0xFF;
 
     SDL_Color sdlColor = { r, g, b, 255 };
+    SDL_Color fore = {220,220,220,255};
+    SDL_Color back = {220,20,120,255};
 
     //SDL_Log("Dibujando texto: '%s' en (%d,%d) con color RGB(%d,%d,%d)", texto, x, y, r, g, b);
-    SDL_Surface* surface = TTF_RenderText_Solid(font, texto, sdlColor);
+    SDL_Surface* surface = TTF_RenderUTF8_Solid (font, texto, sdlColor);
     if (!surface) {
         SDL_Log("Error al crear superficie de texto: %s", TTF_GetError());
         throw std::runtime_error("Error al crear superficie de texto");
@@ -70,7 +72,7 @@ SDL2Renderer::SDL2Renderer()
         throw std::runtime_error("No se pudo inicializar SDL_ttf");
     }
     if (!font) {
-        font = TTF_OpenFont("C:/Windows/Fonts/georgiab.ttf", 22);
+        font = TTF_OpenFont("C:/Windows/Fonts/georgiab.ttf", 24);
         if (!font) {
             throw std::runtime_error("No se pudo cargar la fuente TTF");
         }
@@ -164,6 +166,10 @@ int SDL2Renderer::defaultSlider(SliderCtrl* sld, const InputEvent& ev) {
             SDL_Rect handle = {handle_x, slider_y-handle_height/2+slider_height/2, handle_width, handle_height};
             SDL_SetRenderDrawColor(m_renderer, 180, 60, 60, 255);
             SDL_RenderFillRect(m_renderer, &handle);
+
+            // Prueba para cambiar el tamaño de Font.
+            TTF_CloseFont(font);
+            font = TTF_OpenFont("C:/Windows/Fonts/georgiab.ttf", slider_value);
         }
         break;
         case ControlEvent::LeftPress:
@@ -242,47 +248,6 @@ int SDL2Renderer::defaultVector(VectorCtrl* vector, const InputEvent& ev) {
 void SDL2Renderer::invertirBackgroundForeground(VectorCtrl* vector) {}
 void SDL2Renderer::editarTexto(VectorCtrl* control) {}
 
-// int SDL2Renderer::mostrarMenu(const Menu& menu, int x, int y) {
-//     int seleccionado = -1;
-//     bool activo = true;
-
-//     while (activo) {
-//         // Dibuja menú y opciones...
-//         for (size_t i = 0; i < menu.items.size(); ++i) {
-//             // Resalta si el ratón está encima
-//             // Dibuja menu.items[i].nombre
-//             SDL_Log(menu.items[i].nombre);
-//         }
-//         refrescarPantalla();
-
-//         // Poll eventos mouse/teclado
-//         SDL_Event ev;
-//         while (SDL_PollEvent(&ev)) {
-//             if (ev.type == SDL_MOUSEBUTTONDOWN && ev.button.button == SDL_BUTTON_LEFT) {
-//                 // Identifica opción clicada
-//                 seleccionado = indice_seleccionado(ev.button.x, ev.button.y, x, y, menu.items.size());
-//                 if (seleccionado != -1) {
-//                     auto& item = menu.items[seleccionado];
-//                     // Si es submenú, llama recursivamente
-//                     if (!item.submenu.empty()) {
-//                         Menu subMenu("SubMenu");
-//                         subMenu.items = item.submenu;
-//                         subMenu.setRenderer(this);
-//                         subMenu.mostrarMenu (subMenu, x + ancho, y); // Desplaza lateralmente
-//                     } else if (item.comando) {
-//                         item.comando->ejecutar(); // Ejecuta acción
-//                     }
-//                     activo = false; // Cierra menú actual
-//                 }
-//             }
-//             // Escape/cancelar, clic fuera, etc.
-//         }
-//         SDL_Delay(16); // Control de framerate
-//     }
-//     return seleccionado;
-// }
-
-
 /// @brief  
 /// @param menu 
 /// @param x 
@@ -291,8 +256,14 @@ void SDL2Renderer::editarTexto(VectorCtrl* control) {}
 /// @todo Cambiar el nombre por "draw".
 // Variables miembros en la clase SDL2Renderer
 int SDL2Renderer::mostrarMenu(const Menu& menu, int x, int y, int nivel = 0) {
-    const int ancho = 200;
-    const int altoOpcion = 40;
+    int ancho = 200;
+    int altoOpcion = 40;
+    if (TTF_SizeText (font, "1234567890123456789", &ancho, &altoOpcion) != 0){
+        ancho = 200;
+        altoOpcion = 40;
+    };
+    int paddX = 4, paddY = 2; // Padding.
+    // std::cout << "Ancho: " << ancho << "  Alto: " << altoOpcion << std::endl;
     int hoverItem = -1;
     Menu subMenu("SubMenu");
     ColorType normalColor = makeColor(10, 10, 80);
@@ -307,7 +278,7 @@ int SDL2Renderer::mostrarMenu(const Menu& menu, int x, int y, int nivel = 0) {
 
     // Dibuja fondo del menú
     SDL_SetRenderDrawColor(m_renderer, sombra.r, sombra.g, sombra.b, sombra.a);
-    SDL_Rect fondo = {x+2, y+2, ancho+2, (int(menu.items.size()) * altoOpcion)+2};
+    SDL_Rect fondo = {x+2, y+2, ancho+2, (int(menu.items.size()) * (altoOpcion+2*paddY)) + 2};
     SDL_RenderFillRect(m_renderer, &fondo);
 
     // Obtén posición actual del mouse
@@ -317,7 +288,7 @@ int SDL2Renderer::mostrarMenu(const Menu& menu, int x, int y, int nivel = 0) {
     hoverItem = -1;
 
     for (size_t i = 0; i < menu.items.size(); ++i) {
-        int itemY = y + int(i) * altoOpcion;
+        int itemY = y + int(i) * (altoOpcion+2*paddY);
         ItemMenu itemAct = menu.items[i];
         std::string label = itemAct.nombre;
 
@@ -352,9 +323,9 @@ int SDL2Renderer::mostrarMenu(const Menu& menu, int x, int y, int nivel = 0) {
         }
 
         // Dibuja rectángulo y texto
-        SDL_Rect r = { x, itemY, ancho, altoOpcion };
+        SDL_Rect r = { x, itemY, ancho, altoOpcion + 2*paddY };
         SDL_RenderFillRect(m_renderer, &r);
-        dibujarTexto(label.c_str(), x + 12, itemY + 5, color);
+        dibujarTexto(label.c_str(), x + paddX, itemY + paddY, color);
 
         // Si hay submenú y está activo o en hover, dibuja submenú desplazado a la derecha
         if (abrirSubmenu && !itemAct.submenu.empty()) {

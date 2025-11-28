@@ -53,9 +53,23 @@ void Menu::mostrar(IRenderer& renderer, IInput& input) {
 // }
 
 int Menu::mostrar(int x, int y) {
+    // Si está definido el "render" para el menú...
     if (renderer) {
-        return renderer->mostrarMenu(*this, x, y);
+        // Le pedimos al render que muestre el menú y nos dé el índice del item seleccionado.
+        int selected = renderer->mostrarMenu(*this, x, y);
+
+        // Si el índice es el correcto para los items que hay del menú...
+        if (selected >= 0 && (size_t)selected < items.size()) {
+            // y el item tiene definido el comando y el está activo...
+            if (items[selected].comando && items[selected].estado) {
+                // Se ejecuta el comando definido.
+                items[selected].comando->ejecutar();
+            }
+        }
+        // Se devuelve el índice del item seleccionado.
+        return selected;
     }
+    // Se indica que no se ha seleccionado ningún item correcto.
     return -1;
 }
 

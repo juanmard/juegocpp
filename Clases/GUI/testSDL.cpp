@@ -164,7 +164,7 @@ int _main(int argc, char* argv[]) {
             renderer.dibujarCuadrado(cuadradoX, cuadradoY, rojo ? renderer.makeColor(255, 0, 0) : renderer.makeColor(0, 255, 0));
             renderer.dibujarTexto(textoActual.c_str(), cuadradoX, cuadradoY + alto + 10, renderer.makeColor(255, 255, 255));
             renderer.dibujarTexto("Haz clic en el cuadrado para cambiar su color.", 10, 10, renderer.makeColor(200, 200, 200));
-            renderer.dibujarTexto("Clic con el derecho para opciones.", 10, 40, renderer.makeColor(200, 200, 200));
+            renderer.dibujarTexto("Clic con el derecho para menú opciones.", 10, 40, renderer.makeColor(200, 200, 200));
             ev.event = ControlEvent::Draw;
             renderer.defaultSlider(&slider, ev);
             renderer.defaultVector(&vector, ev);
