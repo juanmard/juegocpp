@@ -64,6 +64,7 @@ int AllegroRenderer::mostrarMenu(const Menu& menu, int x, int y, int nivel) {
         prueba[1] = { const_cast<char*>("prueba 2"), AllegroRenderer::dibujarPrueba, nullptr, 0, nullptr};
         prueba[2] = { const_cast<char*>("prueba 3"), nullptr, nullptr, 0, nullptr };
         prueba[3] = { NULL, NULL, NULL, 0, NULL };
+        prueba[2].child = &prueba[1];
         allegroMenu[0].child = prueba;
     }
 
