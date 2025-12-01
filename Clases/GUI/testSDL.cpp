@@ -109,6 +109,9 @@ int _main(int argc, char* argv[]) {
 
                 if (menuActivo) {
                     // Si se pulsa dentro de un item y existe selección, se ejecuta el comando.
+                    // @note Esto debería ser responsabilidad del "renderer". En este nivel de
+                    //       código simplemente habría que ejecutar "mostrarMenu" y que el comportamiento
+                    //       fuera recibir un código de ítem.
                     int mx=mouseX, my=mouseY;
                     const int ancho = 200;
                     const int altoOpcion = 40;
@@ -122,10 +125,31 @@ int _main(int argc, char* argv[]) {
                             // índice del menú.
                             std::cout << "Item: " << seleccion << " - " << mainMenu.items[seleccion].nombre << std::endl;
 
-                            // Se ejecuta su comando asociado.
-                            if (seleccion >= 0 && (size_t)seleccion < mainMenu.items.size()) {
-                                if (mainMenu.items[seleccion].comando && mainMenu.items[seleccion].estado) {
-                                    mainMenu.items[seleccion].comando->ejecutar();
+                            // Si el ítem sobre el que se hace "click" tiene un submenu, se repite el proceso de mostrar el
+                            // submenú. Esto necesita ser un bucle que se rompa cuando la selección sea un ítem con comando.
+                            // Para ello, "mostrarMenu" debería devolver el ítem elegido, no únicamente el índice del ítem.
+                            //
+                            // ItemElegido = mostrarMenu(...); // Donde: ItemMenu & mostrarMenu (Menu & menu, int x, int y);
+                            //
+                            ItemMenu itemElegido = mainMenu.items[seleccion];
+
+                            // Si el ítem está activo, intenta ejecutarlo.
+                            if (itemElegido.estado) {
+                                if (itemElegido.comando) {
+                                        itemElegido.comando->ejecutar();
+                                        // Salir del bucle de representación del menú devolviendo el control al procedimiento que lo llamó.
+                                        // Puede ser un diálogo que englobe otros controles o el mismo procedimiento principal.
+                                        // menuActivo = false;
+                                } else {
+                                    std::cout << "El ítem [" << itemElegido.nombre << "] no tiene comando asociado para ejecutar." << std::endl;
+                                }
+
+                                // Si el ítem tiene un submenú, representar el submenú.
+                                if (!itemElegido.submenu.empty()) {
+                                    // Menu menuActual = itemElegido.sudmenu;
+                                    // Este debe ser el punto de vuelta al bucle.
+                                    // itemElegido = mostrarMenu(menuActual, x + desplazamiento_x, y +desplazamiento_y);
+                                    std::cout << "El ítem [" << itemElegido.nombre << "] tiene SUBMENÚ." << std::endl;
                                 }
                             }
                         }

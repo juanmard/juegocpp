@@ -63,7 +63,7 @@ int Menu::mostrar(int x, int y) {
             // y el item tiene definido el comando y el está activo...
             if (items[selected].comando && items[selected].estado) {
                 // Se ejecuta el comando definido.
-                items[selected].comando->ejecutar();
+                // items[selected].comando->ejecutar();
             }
         }
         // Se devuelve el índice del item seleccionado.
