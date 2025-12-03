@@ -83,7 +83,7 @@ int _main(int argc, char* argv[]) {
         mainMenu.setInput((IInput*)&input);
         int menuX, menuY;
         bool menuActivo = false;
-        int seleccion = -1;
+        ItemMenu item("prueba");
 
         // Evento a rellenar.
         InputEvent ev;
@@ -108,58 +108,8 @@ int _main(int argc, char* argv[]) {
                 }
 
                 if (menuActivo) {
-                    // Si se pulsa dentro de un item y existe selección, se ejecuta el comando.
-                    // @note Esto debería ser responsabilidad del "renderer". En este nivel de
-                    //       código simplemente habría que ejecutar "mostrarMenu" y que el comportamiento
-                    //       fuera recibir un código de ítem.
-                    int mx=mouseX, my=mouseY;
-                    const int ancho = 200;
-                    const int altoOpcion = 40;
-
-                    // Verifica si click está sobre alguna opción.
-                    for (size_t i = 0; i < mainMenu.items.size(); ++i) {
-                        int oy = menuY + i * altoOpcion;
-                        if (mx >= menuX && mx < menuX + ancho && my >= oy && my < oy + altoOpcion) {
-                            seleccion = int(i);
-                            menuActivo = false;
-                            // índice del menú.
-                            std::cout << "Item: " << seleccion << " - " << mainMenu.items[seleccion].nombre << std::endl;
-
-                            // Si el ítem sobre el que se hace "click" tiene un submenu, se repite el proceso de mostrar el
-                            // submenú. Esto necesita ser un bucle que se rompa cuando la selección sea un ítem con comando.
-                            // Para ello, "mostrarMenu" debería devolver el ítem elegido, no únicamente el índice del ítem.
-                            //
-                            // ItemElegido = mostrarMenu(...); // Donde: ItemMenu & mostrarMenu (Menu & menu, int x, int y);
-                            //
-                            ItemMenu itemElegido = mainMenu.items[seleccion];
-
-                            // Si el ítem está activo, intenta ejecutarlo.
-                            if (itemElegido.estado) {
-                                if (itemElegido.comando) {
-                                        itemElegido.comando->ejecutar();
-                                        // Salir del bucle de representación del menú devolviendo el control al procedimiento que lo llamó.
-                                        // Puede ser un diálogo que englobe otros controles o el mismo procedimiento principal.
-                                        // menuActivo = false;
-                                } else {
-                                    std::cout << "El ítem [" << itemElegido.nombre << "] no tiene comando asociado para ejecutar." << std::endl;
-                                }
-
-                                // Si el ítem tiene un submenú, representar el submenú.
-                                if (!itemElegido.submenu.empty()) {
-                                    // Menu menuActual = itemElegido.sudmenu;
-                                    // Este debe ser el punto de vuelta al bucle.
-                                    // itemElegido = mostrarMenu(menuActual, x + desplazamiento_x, y +desplazamiento_y);
-                                    std::cout << "El ítem [" << itemElegido.nombre << "] tiene SUBMENÚ." << std::endl;
-                                }
-                            }
-                        }
-                    }
-
-                    // Click fuera del menú, cancela.
-                    if (!(mx >= menuX && mx < menuX + ancho && my >= menuY && my < menuY + altoOpcion * mainMenu.items.size())) {
-                        menuActivo = false;
-                        seleccion = -1;
-                    }
+                    // Item del menú.
+                    std::cout << "Item: " << item.nombre << std::endl;
                 }
             }
 
@@ -193,7 +143,7 @@ int _main(int argc, char* argv[]) {
             renderer.defaultSlider(&slider, ev);
             renderer.defaultVector(&vector, ev);
             if (menuActivo) {
-                seleccion = mainMenu.mostrar(menuX, menuY);
+                item = mainMenu.mostrar(menuX, menuY);
             }
 
             // Se actualiza pantalla.

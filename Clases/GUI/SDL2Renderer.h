@@ -29,7 +29,7 @@ public:
     // Dibuja un cuadrado coloreado (x,y pos + tamaño fijo o variable)
     void dibujarCuadrado(int x, int y, ColorType color) override;
 
-    int mostrarMenu(const Menu& menu, int x, int y, int nivel) override;
+    const ItemMenu & mostrarMenu(const Menu& menu, int x, int y, int nivel) override;
 
     void refrescarPantalla() override;
 

@@ -255,94 +255,74 @@ void SDL2Renderer::editarTexto(VectorCtrl* control) {}
 /// @param y 
 /// @return 
 /// @todo Cambiar el nombre por "draw".
-// Variables miembros en la clase SDL2Renderer
-int SDL2Renderer::mostrarMenu(const Menu& menu, int x, int y, int nivel = 0) {
-    int ancho;
-    int altoOpcion;
-    if (TTF_SizeText (font, "123456789012", &ancho, &altoOpcion) != 0){
-        ancho = 200;
-        altoOpcion = 40;
-    };
-    int paddX = 4, paddY = 2; // Padding.
-    // std::cout << "Ancho: " << ancho << "  Alto: " << altoOpcion << std::endl;
-    int hoverItem = -1;
-    Menu subMenu("SubMenu");
+///
+const ItemMenu & SDL2Renderer::mostrarMenu(const Menu& menu, int x, int y, int nivel = 0) {
+    // Se difinen colores y grosor de sombra.
+    int paddX = 4, paddY = 10;
     ColorType normalColor = makeColor(10, 10, 80);
     ColorType submenuColor = makeColor(255, 10, 80);
     ColorType color = normalColor;
     SDL_Color hover={60, 120, 220, 255};
     SDL_Color bg={220, 220, 240, 255};
     SDL_Color sombra={220, 0, 0, 255};
-    static int menuActivo = -1;      // Índice del item principal activo (submenu abierto)
-    static int submenuActivo = -1;   // Índice del item activo dentro del submenú
 
+    // Se calcula el ancho y el alto del ítem según el tamaño y tipo de letra.
+    int ancho, altoOpcion;
+    if (TTF_SizeText (font, "123456789012", &ancho, &altoOpcion) != 0){
+        ancho = 200;
+        altoOpcion = 40;
+    };
 
-    // Dibuja fondo del menú
+    // Dibuja fondo del menú.
     SDL_SetRenderDrawColor(m_renderer, sombra.r, sombra.g, sombra.b, sombra.a);
     SDL_Rect fondo = {x+2, y+2, ancho+2, (int(menu.items.size()) * (altoOpcion+2*paddY)) + 2};
     SDL_RenderFillRect(m_renderer, &fondo);
 
-    // Obtén posición actual del mouse
+    // Obtener posición actual del mouse.
     int mouseX, mouseY;
     SDL_GetMouseState(&mouseX, &mouseY);
 
-    hoverItem = -1;
-
+    // Recorriendo todos los ítems, comprobar sobre que ítem está el ratón.
+    int indiceItem = 0;
     for (size_t i = 0; i < menu.items.size(); ++i) {
         int itemY = y + int(i) * (altoOpcion+2*paddY);
-        ItemMenu itemAct = menu.items[i];
-        std::string label = itemAct.nombre;
+        std::string label = menu.items[i].nombre;
 
-        // Detecta si el mouse está sobre la opción.
+        // Detecta si el mouse está sobre la opción y cambiamos el color según esté o no y se guarda el índice activo actualmente.
         bool estaHover = (mouseX >= x && mouseX < x + ancho &&
-                          mouseY >= itemY && mouseY < itemY + altoOpcion);
+                          mouseY >= itemY && mouseY < itemY + altoOpcion + 2*paddY);
         if (estaHover) {
-            hoverItem = int(i);
+            indiceItem = int(i);
             SDL_SetRenderDrawColor(m_renderer, hover.r, hover.g, hover.b, hover.a);
-            if (nivel == 0) {
-                menuActivo = int(i);    // Guarda el menú activo en nivel 0
-                submenuActivo = -1;     // Resetea submenú activo si cambia menú principal
-            } else {
-                submenuActivo = int(i); // Guarda el submenu activo si estamos en submenú
-            }
         } else {
             SDL_SetRenderDrawColor(m_renderer, bg.r, bg.g, bg.b, bg.a);
         }
 
-        // Si es el item activo (hover o persistente), cambia color y label para submenú.
-        bool abrirSubmenu = false;
-        if (nivel == 0) {
-            abrirSubmenu = (menuActivo == int(i));
-        } else {
-            abrirSubmenu = (submenuActivo == int(i));
-        }
-
-        if (abrirSubmenu && !itemAct.submenu.empty()) {
-            color = submenuColor;
-        } else {
-            color = normalColor;
-        }
-
-        // Dibuja rectángulo y texto
+        // Dibuja rectángulo y texto del item.
         SDL_Rect r = { x, itemY, ancho, altoOpcion + 2*paddY };
         SDL_RenderFillRect(m_renderer, &r);
         dibujarTexto(label.c_str(), x + paddX, itemY + paddY, color);
-
-        // Si hay submenú y está activo o en hover, dibuja submenú desplazado a la derecha
-        if (abrirSubmenu && !itemAct.submenu.empty()) {
-            subMenu.items = itemAct.submenu;
-            subMenu.setRenderer((IRenderer*)&m_renderer);
-            mostrarMenu(subMenu, x + ancho + 1, itemY, nivel + 1);
-        }
     }
 
-    // Si el mouse no está sobre ningún ítem ni menú, puede resetearse para cerrar
+    // Si el mouse no está sobre ningún ítem ni menú, puede resetearse para cerrar.
     bool mouseFueraMenu = !(mouseX >= x && mouseX < x + ancho &&
-                           mouseY >= y && mouseY < y + int(menu.items.size()) * altoOpcion);
-    if (mouseFueraMenu && nivel == 0 && hoverItem == -1) {
-        // menuActivo = -1;
-        submenuActivo = -1;
+                           mouseY >= y && mouseY < y + int( menu.items.size()) * (altoOpcion+2*paddY) );
+    if (mouseFueraMenu){
+        // indiceItem = -1;
+        // En este caso se saldría del bucle para los submenús.
+        std::cout << "Salida de menú. Cerrar menús y submenús." << std::endl;
+        indiceItem = 0;
     }
 
-    return hoverItem;
+    // DEBUG: Verifica límites
+    // std::cout << "DEBUG: indiceItem=" << indiceItem 
+    //           << ", menu.items.size()=" << menu.items.size() << std::endl;
+    
+    if (indiceItem < 0 || indiceItem >= static_cast<int>(menu.items.size())) {
+        std::cerr << "ERROR: índice fuera de rango!" << std::endl;
+        indiceItem = 0;  // Valor por defecto seguro
+    }
+
+    std::cout << menu.items[indiceItem].nombre << std::endl;
+    return menu.items[indiceItem];
 }

@@ -2,6 +2,7 @@
 #define IRENDERER_H
 
 class Menu;
+struct ItemMenu;
 class Dialog;
 class Control;
 class SliderCtrl;
@@ -17,7 +18,7 @@ public:
     virtual void limpiarControl (Control* control) = 0;
     virtual void dibujarTexto(const char* texto, int x, int y, ColorType color) = 0;
     virtual void dibujarCuadrado(int x, int y, ColorType color) = 0;
-    virtual int  mostrarMenu(const Menu& menu, int x, int y, int nivel = 0) = 0;
+    virtual const ItemMenu & mostrarMenu(const Menu& menu, int x, int y, int nivel = 0) = 0;
     virtual void refrescarPantalla() = 0;
     virtual int  mostrarDialog(const Dialog& dialog) = 0;
     virtual void setSliderValue(SliderCtrl* slider, int val) = 0;

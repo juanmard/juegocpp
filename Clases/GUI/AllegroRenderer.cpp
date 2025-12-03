@@ -51,7 +51,7 @@ int AllegroRenderer::dibujarPrueba(void) {
     return D_O_K;
 }
 
-int AllegroRenderer::mostrarMenu(const Menu& menu, int x, int y, int nivel) {
+const ItemMenu& AllegroRenderer::mostrarMenu(const Menu& menu, int x, int y, int nivel) {
     MENU* allegroMenu = convertirItemsAMenu(menu);
     gui_fg_color = makecol(0,0,255);
     gui_bg_color = makecol(255,255,255);
@@ -75,7 +75,7 @@ int AllegroRenderer::mostrarMenu(const Menu& menu, int x, int y, int nivel) {
 
     std::cout << "Item: " << selected << std::endl;
     liberarMenu(allegroMenu);
-    return selected;
+    return menu.items[selected];
 }
 
 MENU* AllegroRenderer::convertirItemsAMenu(const Menu& menu) {

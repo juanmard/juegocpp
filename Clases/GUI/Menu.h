@@ -23,7 +23,7 @@ public:
     }
 
     void mostrar(IRenderer& renderer, IInput& input);
-    int  mostrar(int x, int y);
+    const ItemMenu & mostrar(int x, int y);
     void setRenderer(IRenderer* r);
     void setInput(IInput* i);
 };

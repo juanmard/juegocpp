@@ -26,7 +26,7 @@ public:
     void invertirBackgroundForeground(VectorCtrl* vector) override;
     void editarTexto(VectorCtrl* vector) override;
     void refrescarPantalla() override {}; 
-    int mostrarMenu(const Menu& menu, int x, int y, int nivel=0) override;
+    const ItemMenu& mostrarMenu(const Menu& menu, int x, int y, int nivel=0) override;
     MENU* convertirItemsAMenu(const Menu& menu);
     void liberarMenu(MENU* menu);
 

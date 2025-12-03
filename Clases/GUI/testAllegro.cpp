@@ -36,12 +36,9 @@ int main() {
     renderer.limpiarPantalla(gris);
     while (input.getKey() != IInput::Key::ESC) {
         if (input.clicDerecho()){
-            seleccion = menuPrincipal.mostrar (mouse_x, mouse_y);
-            // Se ejecuta su comando asociado.
-            if (seleccion >= 0 && (size_t)seleccion < menuPrincipal.items.size()) {
-                if (menuPrincipal.items[seleccion].comando && menuPrincipal.items[seleccion].estado) {
-                    menuPrincipal.items[seleccion].comando->ejecutar();
-                }
+            const ItemMenu& item = menuPrincipal.mostrar (mouse_x, mouse_y);
+            if (item.comando && item.estado) {
+                item.comando->ejecutar();
             }
         }
 
