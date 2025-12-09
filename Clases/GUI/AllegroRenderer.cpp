@@ -6,15 +6,15 @@
 #include <iostream>
 
 AllegroRenderer::AllegroRenderer() {
-    allegro_init();
-    install_keyboard();
-    set_color_depth(32);
-    if (set_gfx_mode(GFX_AUTODETECT_WINDOWED, 640, 480, 0, 0) != 0) {
-        allegro_message("Error al iniciar modo gráfico!");
-        exit(1);
-    }
-    clear_to_color(screen, makecol(128,128,128));
-    show_mouse(screen);
+    // allegro_init();
+    // install_keyboard();
+    // set_color_depth(32);
+    // if (set_gfx_mode(GFX_AUTODETECT_WINDOWED, 640, 480, 0, 0) != 0) {
+    //     allegro_message("Error al iniciar modo gráfico!");
+    //     exit(1);
+    // }
+    // clear_to_color(screen, makecol(128,128,128));
+    // show_mouse(screen);
 }
 
 AllegroRenderer::~AllegroRenderer() {

@@ -166,7 +166,11 @@ void Dialog::show (void)
   SliderCtrl sliderTest(20, 200, 400, 50, azul, blanco, 0, 0);
   SliderCtrl sliderTest2(20, 20, 400, 50, rojo, blanco, 0, 0);
   VectorCtrl vectorTest(20, 260, 400, 50, rojo, blanco, 0, 0);
+  dialogo.agregarControl(std::unique_ptr<Control>(&sliderTest));
+  dialogo.agregarControl(std::unique_ptr<Control>(&vectorTest));
+  dialogo.agregarControl(std::unique_ptr<Control>(&sliderTest2));
 
+  renderer.dibujarCuadrado(10, 10, azul);
   dialogo.mostrar ();
 }
 
