@@ -9,6 +9,7 @@
 #include "IRenderer.h"
 #include "IInput.h"
 
+namespace jmr {
 class Menu {
 public:
     std::string titulo;
@@ -27,5 +28,5 @@ public:
     void setRenderer(IRenderer* r);
     void setInput(IInput* i);
 };
-
+}
 #endif

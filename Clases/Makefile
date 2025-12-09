@@ -6,6 +6,7 @@ else
 ifeq ($(MSYSTEM),MINGW32)
 # Directorios y herramientas.
 SRCDIR=./
+GUIDIR=GUI
 BUILDDIR=build
 EXTRASDIR=../Extras
 ALLEGRODIR=../allegro-4.4.2-mingw-4.5.2
@@ -39,9 +40,12 @@ endif
 # Comprobación presencia Allegro.
 CHECK_ALLEGRO=$(ALLEGRODIR)/lib
 
-# Fuentes y Objetos.
-SOURCES=$(wildcard $(SRCDIR)/*.cpp)
-OBJECTS=$(patsubst $(SRCDIR)/%.cpp,$(BUILDDIR)/$(BUILD_SUBDIR)/%.o,$(SOURCES))
+# Fuentes y Objetos (raíz + GUI, preservando subcarpetas en build).
+SOURCES_ROOT = $(wildcard $(SRCDIR)/*.cpp)
+SOURCES_GUI  = $(wildcard $(GUIDIR)/*.cpp)
+SOURCES      = $(SOURCES_ROOT) $(SOURCES_GUI)
+
+OBJECTS = $(patsubst %.cpp,$(BUILDDIR)/$(BUILD_SUBDIR)/%.o,$(SOURCES))
 
 .PHONY: all
 all: check_allegro dirs juegocpp.exe prepare run
@@ -69,8 +73,12 @@ check_allegro:
 dirs:
 	@mkdir -p $(BUILDDIR)/$(BUILD_SUBDIR)
 
-# Compilar fuentes en OBJ en carpeta «build».
-$(BUILDDIR)/$(BUILD_SUBDIR)/%.o: $(SRCDIR)/%.cpp
+# Compilar fuentes en OBJ en carpeta «build», respetando subdirectorios.
+# Ejemplos:
+#   ./Menu.cpp      -> build/static/Menu.o
+#   GUI/Menu.cpp    -> build/static/GUI/Menu.o
+$(BUILDDIR)/$(BUILD_SUBDIR)/%.o: %.cpp
+	@mkdir -p $(@D)
 	$(CXX) $(CPPFLAGS) -c $< -o $@
 
 # Construir ejecutable.
@@ -99,6 +107,7 @@ ifeq ($(LINK_MODE),STATIC)
 else ifeq ($(LINK_MODE),DYNAMIC)
 	$(RM) -r $(BUILDDIR)/dynamic
 endif
+
 # Si no estamos en entorno MinGW32, salimos.
 else
 $(error Este Makefile solo funciona en entorno MinGW32.)

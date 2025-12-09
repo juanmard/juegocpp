@@ -157,7 +157,17 @@ void Dialog::show (void)
   // El valor de la salida depende del control que la provocó.
   //  int salida = D_O_K;
   //  salida = do_dialog (dialog, scr);
-  do_dialog (dialog, scr);
+//  do_dialog (dialog, scr);
+
+  dialogo.setRenderer(&renderer);
+  auto blanco = renderer.makeColor(200, 200, 200);
+  auto rojo = renderer.makeColor(255, 0, 0);
+  auto azul = renderer.makeColor(0, 0, 255);
+  SliderCtrl sliderTest(20, 200, 400, 50, azul, blanco, 0, 0);
+  SliderCtrl sliderTest2(20, 20, 400, 50, rojo, blanco, 0, 0);
+  VectorCtrl vectorTest(20, 260, 400, 50, rojo, blanco, 0, 0);
+
+  dialogo.mostrar ();
 }
 
 /**

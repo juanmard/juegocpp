@@ -1,5 +1,6 @@
 #include "Menu.h"
 
+namespace jmr {
 void Menu::mostrar(IRenderer& renderer, IInput& input) {
     bool salir = false;
 
@@ -76,4 +77,5 @@ void Menu::setRenderer(IRenderer* r) {
 void Menu::setInput(IInput *i)
 {
     input = i;
+}
 }

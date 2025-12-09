@@ -60,7 +60,7 @@ int _main(int argc, char* argv[]) {
         vector.addListener(&slider);
 
         // Prueba Menú.
-        Menu mainMenu("Archivo");
+        jmr::Menu mainMenu("Archivo");
         mainMenu.agregarItem(ItemMenu("Nuevo", true, std::make_shared<CommandSalir>()));
         mainMenu.agregarItem(ItemMenu("Abrir", true, std::make_shared<CommandOtro>()));
         mainMenu.agregarItem(ItemMenu("Preferencias", true, std::make_shared<ComandoCuadrado>(new Grafico(&renderer))));

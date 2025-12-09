@@ -26,12 +26,12 @@ public:
     void invertirBackgroundForeground(VectorCtrl* vector) override;
     void editarTexto(VectorCtrl* vector) override;
     void refrescarPantalla() override {}; 
-    const ItemMenu& mostrarMenu(const Menu& menu, int x, int y, int nivel=0) override;
-    MENU* convertirItemsAMenu(const Menu& menu);
+    const ItemMenu& mostrarMenu(const jmr::Menu& menu, int x, int y, int nivel=0) override;
+    MENU* convertirItemsAMenu(const jmr::Menu& menu);
     void liberarMenu(MENU* menu);
 
 public:
-    int mostrarDialog(const Dialog& dialog) override;
+    int mostrarDialog(const jmr::Dialog& dialog) override;
     void setSliderValue(SliderCtrl* slider, int val) override;
     int defaultSlider(SliderCtrl* sld, const InputEvent& ev) override;
     int defaultVector(VectorCtrl* vector, const InputEvent& ev) override;

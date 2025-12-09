@@ -29,11 +29,11 @@ public:
     // Dibuja un cuadrado coloreado (x,y pos + tamaño fijo o variable)
     void dibujarCuadrado(int x, int y, ColorType color) override;
 
-    const ItemMenu & mostrarMenu(const Menu& menu, int x, int y, int nivel) override;
+    const ItemMenu & mostrarMenu(const jmr::Menu& menu, int x, int y, int nivel) override;
 
     void refrescarPantalla() override;
 
-    int mostrarDialog(const Dialog& dialog) override;
+    int mostrarDialog(const jmr::Dialog& dialog) override;
 
     void setSliderValue(SliderCtrl* slider, int val) override;
 

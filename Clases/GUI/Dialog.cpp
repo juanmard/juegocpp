@@ -1,10 +1,14 @@
 #include "Dialog.h"
 
+namespace jmr {
+
 void Dialog::setRenderer(IRenderer* r) {
-renderer = r;
+    renderer = r;
 }
 
 int Dialog::mostrar() {
-if (!renderer) { return -1; }
-return renderer->mostrarDialog(*this);
+    if (!renderer) { return -1; }
+    return renderer->mostrarDialog(*this);
+}
+
 }

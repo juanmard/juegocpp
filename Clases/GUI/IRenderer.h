@@ -1,9 +1,12 @@
 #ifndef IRENDERER_H
 #define IRENDERER_H
 
-class Menu;
+namespace jmr {
+    class Menu;
+    class Dialog;
+}
+
 struct ItemMenu;
-class Dialog;
 class Control;
 class SliderCtrl;
 class VectorCtrl;
@@ -18,9 +21,9 @@ public:
     virtual void limpiarControl (Control* control) = 0;
     virtual void dibujarTexto(const char* texto, int x, int y, ColorType color) = 0;
     virtual void dibujarCuadrado(int x, int y, ColorType color) = 0;
-    virtual const ItemMenu & mostrarMenu(const Menu& menu, int x, int y, int nivel = 0) = 0;
+    virtual const ItemMenu & mostrarMenu(const jmr::Menu& menu, int x, int y, int nivel = 0) = 0;
     virtual void refrescarPantalla() = 0;
-    virtual int  mostrarDialog(const Dialog& dialog) = 0;
+    virtual int  mostrarDialog(const jmr::Dialog& dialog) = 0;
     virtual void setSliderValue(SliderCtrl* slider, int val) = 0;
     virtual void updateVector(Control* control) = 0;
     virtual int  defaultSlider(SliderCtrl* sld, const InputEvent& ev) = 0;

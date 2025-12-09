@@ -51,7 +51,7 @@ int AllegroRenderer::dibujarPrueba(void) {
     return D_O_K;
 }
 
-const ItemMenu& AllegroRenderer::mostrarMenu(const Menu& menu, int x, int y, int nivel) {
+const ItemMenu& AllegroRenderer::mostrarMenu(const jmr::Menu& menu, int x, int y, int nivel) {
     MENU* allegroMenu = convertirItemsAMenu(menu);
     gui_fg_color = makecol(0,0,255);
     gui_bg_color = makecol(255,255,255);
@@ -78,7 +78,7 @@ const ItemMenu& AllegroRenderer::mostrarMenu(const Menu& menu, int x, int y, int
     return menu.items[selected];
 }
 
-MENU* AllegroRenderer::convertirItemsAMenu(const Menu& menu) {
+MENU* AllegroRenderer::convertirItemsAMenu(const jmr::Menu& menu) {
     const auto& items = menu.items;
     MENU* allegroMenu = new MENU[items.size() + 1];
     for (size_t i = 0; i < items.size(); ++i) {
@@ -112,7 +112,7 @@ int AllegroRenderer::allegroCallback(int msg, DIALOG* d, int c) {
     return D_O_K;
 }
 
-int AllegroRenderer::mostrarDialog(const Dialog& dialog) {
+int AllegroRenderer::mostrarDialog(const jmr::Dialog& dialog) {
     // Se convierte Dialog -> DIALOG.
     // @todo Separarlo en un método privado.
     controls = &dialog.controls; // Mantener referencia a los controles del diálogo.

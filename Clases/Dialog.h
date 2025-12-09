@@ -8,11 +8,19 @@
 #include "TextALG.h"
 #include "MenuALG.h"
 #include "Menu.h"
+#include "GUI/Dialog.h"
+#include "GUI/AllegroRenderer.h"
 
 class DlgActor;
 class VentanaALG;
 class DialogALG;
 class ItemALG;
+
+/// Declaración de intenciones (diciembre 2025).
+///
+/// Se trata de ir modificando poco a poco los métodos para independizarlos de Allegro4 e ir
+/// utilizando las clases definidas en GUI.
+///
 
 /**
  * \brief       Muestra una pequeña GUI para editar los objetos del juego.
@@ -50,9 +58,7 @@ protected:
     void        prueba_click            ();
     void        mover_actor             ();
     void        duplicarActor           ();
-    int         CambiarTraje            ();
     void        actualizarValoresActor  ();
-    void        dibujarCuadrado         (Bloque cuadro, int color);
     void        centrarActor            (int indice);
     void        setColorRibete          (int color);
     void        tomarReferencia         ();
@@ -81,6 +87,10 @@ protected:
     Menu menu_dinamico;
 
 public:
+    // Nuevas propiedades.
+    AllegroRenderer renderer;
+    jmr::Dialog dialogo;
+
     // Diálogo principal. 
     static DIALOG   dialog[];
 

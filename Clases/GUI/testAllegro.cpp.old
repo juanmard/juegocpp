@@ -12,7 +12,7 @@ int main() {
     AllegroRenderer renderer;
     AllegroInput input;
 
-    Menu menuPrincipal("Menú Principal");
+    jmr::Menu menuPrincipal("Menú Principal");
     menuPrincipal.setRenderer(&renderer);
     Grafico fruta(&renderer);
     int seleccion = -1;
@@ -44,7 +44,7 @@ int main() {
 
         if (input.clicIzquierdo()){
             renderer.limpiarPantalla(gris);
-            Dialog dlg;
+            jmr::Dialog dlg;
             dlg.setRenderer(&renderer);
             auto blanco = renderer.makeColor(200, 200, 200);
             auto rojo = renderer.makeColor(255, 0, 0);

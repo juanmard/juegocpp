@@ -1,0 +1,72 @@
+#include <SDL/SDL2.h>
+#include <stdio.h>
+
+const int WINDOW_WIDTH = 400;
+const int WINDOW_HEIGHT = 200;
+
+int main(int argc, char* argv[]) {
+    SDL_Init(SDL_INIT_VIDEO);
+    SDL_Window* window = SDL_CreateWindow("SDL2 Slider Example",
+        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+        WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+
+    // Slider parámetros
+    int slider_x = 50, slider_y = 90;
+    int slider_width = 300, slider_height = 8;
+    int handle_width = 20, handle_height = 30;
+
+    // Valor del slider: 0-100
+    int slider_min = 0, slider_max = 100;
+    int slider_value = 50;
+    bool dragging = false;
+
+    // Loop principal
+    bool running = true;
+    while(running) {
+        SDL_Event e;
+        while(SDL_PollEvent(&e)) {
+            if(e.type == SDL_QUIT) running = false;
+            if(e.type == SDL_MOUSEBUTTONDOWN) {
+                int mx = e.button.x, my = e.button.y;
+                int handle_x = slider_x + (slider_value-slider_min)*(slider_width-handle_width)/(slider_max-slider_min);
+                if(mx >= handle_x && mx <= handle_x+handle_width &&
+                   my >= slider_y-handle_height/2 && my <= slider_y+handle_height/2)
+                    dragging = true;
+            }
+            if(e.type == SDL_MOUSEBUTTONUP)
+                dragging = false;
+            if(e.type == SDL_MOUSEMOTION && dragging) {
+                int mx = e.motion.x;
+                int pos = mx - slider_x - handle_width/2;
+                if(pos < 0) pos = 0;
+                if(pos > slider_width-handle_width) pos = slider_width - handle_width;
+                slider_value = slider_min +
+                    pos*(slider_max-slider_min)/(slider_width-handle_width);
+            }
+        }
+
+        // Render
+        SDL_SetRenderDrawColor(renderer, 240,240,240,255);
+        SDL_RenderClear(renderer);
+
+        // Barra del slider
+        SDL_Rect bar = {slider_x, slider_y, slider_width, slider_height};
+        SDL_SetRenderDrawColor(renderer, 100,100,100,255);
+        SDL_RenderFillRect(renderer, &bar);
+
+        // Manija del slider
+        int handle_x = slider_x + (slider_value-slider_min)*(slider_width-handle_width)/(slider_max-slider_min);
+        SDL_Rect handle = {handle_x, slider_y-handle_height/2+slider_height/2, handle_width, handle_height};
+        SDL_SetRenderDrawColor(renderer, 180,60,60,255);
+        SDL_RenderFillRect(renderer, &handle);
+
+        SDL_RenderPresent(renderer);
+        SDL_Delay(10);
+    }
+
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+    return 0;
+}

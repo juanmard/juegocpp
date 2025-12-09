@@ -125,7 +125,7 @@ void SDL2Renderer::refrescarPantalla() {
     SDL_RenderPresent(m_renderer);
 }
 
-int SDL2Renderer::mostrarDialog(const Dialog& dialog) { return 0; }
+int SDL2Renderer::mostrarDialog(const jmr::Dialog& dialog) { return 0; }
 
 /// @brief Cambia el valor del slider en la GUI.
 /// @param control Control que representa al slider.
@@ -256,7 +256,7 @@ void SDL2Renderer::editarTexto(VectorCtrl* control) {}
 /// @return 
 /// @todo Cambiar el nombre por "draw".
 ///
-const ItemMenu & SDL2Renderer::mostrarMenu(const Menu& menu, int x, int y, int nivel = 0) {
+const ItemMenu & SDL2Renderer::mostrarMenu(const jmr::Menu& menu, int x, int y, int nivel = 0) {
     // Se difinen colores y grosor de sombra.
     int paddX = 4, paddY = 10;
     ColorType normalColor = makeColor(10, 10, 80);
