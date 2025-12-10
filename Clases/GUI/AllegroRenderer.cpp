@@ -51,6 +51,16 @@ int AllegroRenderer::dibujarPrueba(void) {
     return D_O_K;
 }
 
+/// @brief  Dibuja la frontera o límites del control.
+/// @param x 
+/// @param y 
+/// @param w 
+/// @param h 
+/// @param color 
+void AllegroRenderer::dibujarFrontera (int x, int y, int w, int h, ColorType color) {
+    rect (screen, x, y, x+w, y+h, color);
+}
+
 const ItemMenu& AllegroRenderer::mostrarMenu(const jmr::Menu& menu, int x, int y, int nivel) {
     MENU* allegroMenu = convertirItemsAMenu(menu);
     gui_fg_color = makecol(0,0,255);
@@ -176,6 +186,10 @@ int AllegroRenderer::mostrarDialog(const jmr::Dialog& dialog) {
             allegroDialog[i].dp = (void*) "Un objeto de cuadro de texto. El campo dp apunta al texto que se mostrará en el cuadro. Si el texto es largo, habrá una barra de desplazamiento vertical en el lado derecho del objeto que se puede usar para desplazarse por el texto. El valor predeterminado es imprimir el texto con ajuste de línea, pero si se establece la marca D_SELECTED, el texto se imprimirá con ajuste de caracteres. El campo d1 se usa internamente para almacenar el número de líneas de texto y d2 se usa para almacenar cuánto se ha desplazado por el texto.";
             allegroDialog[i].flags = D_SELECTED;
             break;
+        case TipoControl::STAGE:
+            // allegroDialog[i].proc = d_box_proc;
+            allegroDialog[i].dp = nullptr;
+            break;
         default:
             break;
         }
@@ -266,6 +280,12 @@ int AllegroRenderer::defaultSlider(SliderCtrl* sld, const InputEvent& ev) {
     DIALOG* dlgCtrl = findDialogControl(sld);
     sld->setValue(dlgCtrl->d2 + sld->min);
     return d_slider_proc(eventToMsg(ev.event), dlgCtrl, ev.c);
+};
+
+int AllegroRenderer::defaultControl(Control* ctrl, const InputEvent& ev) {
+    //DIALOG* dlgCtrl = findDialogControl(ctrl);
+    //return d_slider_proc(eventToMsg(ev.event), dlgCtrl, ev.c);
+    return D_O_K;
 };
 
 int AllegroRenderer::defaultVector (VectorCtrl* vector, const InputEvent& ev) {

@@ -21,7 +21,8 @@ enum class TipoControl {
     CHECKBOX,
     BUTTON,
     RADIOBUTTON,
-    VECTOR
+    VECTOR,
+    STAGE
 };
 
 // Enumeración genérica de eventos para el GUI

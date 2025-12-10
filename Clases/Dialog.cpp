@@ -170,6 +170,7 @@ void Dialog::show (void)
   auto sldRojo  = std::make_unique<SliderCtrl>(20, 140, 400, 50, rojo,  blanco, 0, 0);
   auto vecTest  = std::make_unique<VectorCtrl>(20, 260, 400, 50, rojo,  blanco, 0, 0);
   auto boton    = std::make_unique<Control>(TipoControl::BUTTON, 20, 80, 400, 50, rojo, blanco, 0, 0, nullptr);
+  auto stage    = std::make_unique<StageCtrl>(20, 10, 400, 50, rojo, blanco, 0, 0);
 
   ComandoTest testCmd(sldAzul.get());
   sldAzul->comando = &testCmd;
@@ -195,12 +196,21 @@ void Dialog::show (void)
   sldRojo->addListener (vecTest.get());
   vecTest->addListener (sldRojo.get());
 
+  // Se prepara el escenario.
+  stage->setNombre("Escenario");
+  stage->comando = &testCmd;
+  stage->setRenderer(&renderer);
+  stage->setInput(&input);
+
+  // Generamos el diálogo.
   dialogo.agregarControl(std::move(sldAzul));
   dialogo.agregarControl(std::move(sldRojo));
   dialogo.agregarControl(std::move(vecTest));
   dialogo.agregarControl(std::move(boton));
+  dialogo.agregarControl(std::move(stage));
 
-  renderer.dibujarCuadrado(10, 10, rojo);
+  // renderer.dibujarCuadrado(10, 10, rojo);
+  // stage->dibujarMarco ();
   dialogo.mostrar ();
 }
 

@@ -11,6 +11,7 @@
 #include "GUI/Dialog.h"
 #include "GUI/AllegroRenderer.h"
 #include "GUI/AllegroInput.h"
+#include "GUI/StageCtrl.h"
 
 class DlgActor;
 class VentanaALG;

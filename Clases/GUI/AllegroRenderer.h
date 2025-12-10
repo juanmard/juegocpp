@@ -30,11 +30,14 @@ public:
     MENU* convertirItemsAMenu(const jmr::Menu& menu);
     void liberarMenu(MENU* menu);
 
+    void dibujarFrontera (int x, int y, int w, int h, ColorType color) override;
+
 public:
     int mostrarDialog(const jmr::Dialog& dialog) override;
     void setSliderValue(SliderCtrl* slider, int val) override;
     int defaultSlider(SliderCtrl* sld, const InputEvent& ev) override;
     int defaultVector(VectorCtrl* vector, const InputEvent& ev) override;
+    int defaultControl(Control* ctrl, const InputEvent& ev) override;
     void updateVector(Control* control) override;
     DIALOG* findDialogControl(Control* control);
 
