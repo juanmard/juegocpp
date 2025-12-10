@@ -162,38 +162,43 @@ void Dialog::show (void)
 
   dialogo.setRenderer(&renderer);
   auto blanco = renderer.makeColor(200, 200, 200);
-  auto rojo = renderer.makeColor(255, 0, 0);
-  auto azul = renderer.makeColor(0, 0, 255);
-  SliderCtrl sliderTest2(20, 140, 400, 50, rojo, blanco, 0, 0);
-  SliderCtrl sliderTest( 20, 200, 400, 50, azul, blanco, 0, 0);
-  VectorCtrl vectorTest( 20, 260, 400, 50, rojo, blanco, 0, 0);
+  auto rojo   = renderer.makeColor(255, 0, 0);
+  auto azul   = renderer.makeColor(0, 0, 255);
 
-  ComandoTest testCmd(&sliderTest);
-  sliderTest.comando = &testCmd;
-  sliderTest.setNombre("Slider Azul");
-  sliderTest.setRenderer(&renderer);
+  // Crear controles.
+  auto sldAzul  = std::make_unique<SliderCtrl>(20, 200, 400, 50, azul,  blanco, 0, 0);
+  auto sldRojo  = std::make_unique<SliderCtrl>(20, 140, 400, 50, rojo,  blanco, 0, 0);
+  auto vecTest  = std::make_unique<VectorCtrl>(20, 260, 400, 50, rojo,  blanco, 0, 0);
+  auto boton    = std::make_unique<Control>(TipoControl::BUTTON, 20, 80, 400, 50, rojo, blanco, 0, 0, nullptr);
 
-  ComandoTest testCmd2(&sliderTest2);
-  sliderTest2.comando = &testCmd2;
-  sliderTest2.setNombre("Slider Rojo");
-  sliderTest2.setRenderer(&renderer);
+  ComandoTest testCmd(sldAzul.get());
+  sldAzul->comando = &testCmd;
+  sldAzul->setNombre("Slider Azul");
+  sldAzul->setRenderer(&renderer);
+  sldAzul->setInput(&input);
+
+  ComandoTest testCmd2(sldRojo.get());
+  sldRojo->comando = &testCmd2;
+  sldRojo->setNombre("Slider Rojo");
+  sldRojo->setRenderer(&renderer);
+  sldRojo->setInput(&input);
 
   // Añadir listener.
-  sliderTest2.addListener (&sliderTest);
+  sldRojo->addListener (sldAzul.get());
 
   // Añadir prueba Vector.
-  ComandoVector prueba(&vectorTest);
-  vectorTest.comando = &prueba;
-  vectorTest.setNombre ("Vector de prueba");
-  vectorTest.setRenderer(&renderer);
-  vectorTest.setInput(&input);
-  sliderTest.addListener (&vectorTest);
-  vectorTest.addListener (&sliderTest2);
+  ComandoVector prueba(vecTest.get());
+  vecTest->comando = &prueba;
+  vecTest->setNombre ("Vector de prueba");
+  vecTest->setRenderer(&renderer);
+  vecTest->setInput(&input);
+  sldRojo->addListener (vecTest.get());
+  vecTest->addListener (sldRojo.get());
 
-  dialogo.agregarControl(std::make_unique<SliderCtrl>(sliderTest));
-  dialogo.agregarControl(std::make_unique<VectorCtrl>(vectorTest));
-  dialogo.agregarControl(std::make_unique<SliderCtrl>(sliderTest2));
-  dialogo.agregarControl(std::make_unique<Control>(TipoControl::BUTTON, 20, 80, 400, 50, rojo, blanco, 0, 0, nullptr));
+  dialogo.agregarControl(std::move(sldAzul));
+  dialogo.agregarControl(std::move(sldRojo));
+  dialogo.agregarControl(std::move(vecTest));
+  dialogo.agregarControl(std::move(boton));
 
   renderer.dibujarCuadrado(10, 10, rojo);
   dialogo.mostrar ();
