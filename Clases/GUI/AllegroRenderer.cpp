@@ -57,8 +57,8 @@ int AllegroRenderer::dibujarPrueba(void) {
 /// @param w 
 /// @param h 
 /// @param color 
-void AllegroRenderer::dibujarFrontera (int x, int y, int w, int h, ColorType color) {
-    rect (screen, x, y, x+w, y+h, color);
+void AllegroRenderer::dibujarFrontera (Control* ctrl) {
+    rect (screen, ctrl->x, ctrl->y, ctrl->x + ctrl->w, ctrl->y + ctrl->h, ctrl->fg);
 }
 
 const ItemMenu& AllegroRenderer::mostrarMenu(const jmr::Menu& menu, int x, int y, int nivel) {
@@ -285,6 +285,7 @@ int AllegroRenderer::defaultSlider(SliderCtrl* sld, const InputEvent& ev) {
 int AllegroRenderer::defaultControl(Control* ctrl, const InputEvent& ev) {
     //DIALOG* dlgCtrl = findDialogControl(ctrl);
     //return d_slider_proc(eventToMsg(ev.event), dlgCtrl, ev.c);
+    if (ev.event == ControlEvent::WantFocus) { return D_WANTFOCUS; }
     return D_O_K;
 };
 
@@ -362,8 +363,9 @@ void AllegroRenderer::limpiarControl (Control* control) {
     rectfill(screen, d->x, d->y, d->x + d->w - 1, d->y + d->h - 1, d->bg);
 }
 
-void AllegroRenderer::invertirBackgroundForeground(VectorCtrl* vector){
-    DIALOG* d = findDialogControl(vector);
+void AllegroRenderer::invertirBackgroundForeground(Control* ctrl){
+    DIALOG* d = findDialogControl(ctrl);
+    std::swap(ctrl->fg, ctrl->bg);
     std::swap(d->fg, d->bg);
     d->flags |= D_DIRTY;
 };

@@ -48,9 +48,11 @@ int StageCtrl::manejarEvento(const InputEvent& ev) {
             break;
         case ControlEvent::GotFocus:
             std::cout << "StageCtrl GotFocus event." << std::endl;
+            renderer->invertirBackgroundForeground (this);
             break;
         case ControlEvent::LostFocus:
             std::cout << "StageCtrl LostFocus event." << std::endl;
+            renderer->invertirBackgroundForeground (this);
             break;
         case ControlEvent::Char:
             std::cout << "StageCtrl CharEvent event." << std::endl;
@@ -89,6 +91,6 @@ int StageCtrl::manejarEvento(const InputEvent& ev) {
 ///
 void StageCtrl::dibujarMarco (void) {
     if (renderer) {
-        renderer->dibujarFrontera (x, y, width, height, renderer->makeColor(255, 0, 0));
+        renderer->dibujarFrontera (this);
     }
 }

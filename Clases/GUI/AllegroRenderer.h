@@ -23,14 +23,14 @@ public:
     ColorType makeColor(int r, int g, int b) override;
     void limpiarPantalla(ColorType color) override;
     void limpiarControl(Control* control) override;
-    void invertirBackgroundForeground(VectorCtrl* vector) override;
+    void invertirBackgroundForeground(Control* ctrl) override;
     void editarTexto(VectorCtrl* vector) override;
     void refrescarPantalla() override {}; 
     const ItemMenu& mostrarMenu(const jmr::Menu& menu, int x, int y, int nivel=0) override;
     MENU* convertirItemsAMenu(const jmr::Menu& menu);
     void liberarMenu(MENU* menu);
 
-    void dibujarFrontera (int x, int y, int w, int h, ColorType color) override;
+    void dibujarFrontera (Control* control) override;
 
 public:
     int mostrarDialog(const jmr::Dialog& dialog) override;
