@@ -193,7 +193,20 @@ int AllegroRenderer::mostrarDialog(const jmr::Dialog& dialog) {
     allegroDialog[n].dp2 = nullptr;
     allegroDialog[n].dp3 = nullptr;
 
+
+    // Prueba de dialog.
+    static DIALOG test[] = {
+        { d_text_proc,                  10, 360, 82,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("Prueba 01"),        NULL, NULL },
+        { d_text_proc,                  10, 380, 40,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("Prueba 02"),        NULL, NULL },
+        { d_text_proc,                  10, 400, 82,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("Prueba 03"),        NULL, NULL },
+        { d_text_proc,                  10, 420, 40,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("Prueba 04"),        NULL, NULL },
+        { d_text_proc,                  10, 440, 82,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("Prueba 05"),        NULL, NULL },
+        { d_text_proc,                  10, 460, 40,  8,   50,  219, 0,    0,      0,   0,   const_cast<char *>("Prueba 06"),        NULL, NULL },
+        { NULL,                          0,   0,  0,  0,    0,    0, 0,    0,      0,   0,   NULL,                                   NULL, NULL }
+    };
+
     int result = do_dialog(allegroDialog, -1);
+    result = do_dialog(test, -1);
     delete[] allegroDialog;
     return result;
 }

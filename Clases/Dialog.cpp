@@ -6,6 +6,7 @@
 #include <fstream>
 #include "GUIEscenario.h"
 #include "ActorGUI.h"
+#include "GUI/ComandosConcretos.h"
 
 // Inicialización de las variables estáticas de la clase.
 // Diálogo general de la GUI del editor.
@@ -157,20 +158,44 @@ void Dialog::show (void)
   // El valor de la salida depende del control que la provocó.
   //  int salida = D_O_K;
   //  salida = do_dialog (dialog, scr);
-//  do_dialog (dialog, scr);
+  // do_dialog (dialog, scr);
 
   dialogo.setRenderer(&renderer);
   auto blanco = renderer.makeColor(200, 200, 200);
   auto rojo = renderer.makeColor(255, 0, 0);
   auto azul = renderer.makeColor(0, 0, 255);
-  SliderCtrl sliderTest(20, 200, 400, 50, azul, blanco, 0, 0);
-  SliderCtrl sliderTest2(20, 20, 400, 50, rojo, blanco, 0, 0);
-  VectorCtrl vectorTest(20, 260, 400, 50, rojo, blanco, 0, 0);
-  dialogo.agregarControl(std::unique_ptr<Control>(&sliderTest));
-  dialogo.agregarControl(std::unique_ptr<Control>(&vectorTest));
-  dialogo.agregarControl(std::unique_ptr<Control>(&sliderTest2));
+  SliderCtrl sliderTest2(20, 140, 400, 50, rojo, blanco, 0, 0);
+  SliderCtrl sliderTest( 20, 200, 400, 50, azul, blanco, 0, 0);
+  VectorCtrl vectorTest( 20, 260, 400, 50, rojo, blanco, 0, 0);
 
-  renderer.dibujarCuadrado(10, 10, azul);
+  ComandoTest testCmd(&sliderTest);
+  sliderTest.comando = &testCmd;
+  sliderTest.setNombre("Slider Azul");
+  sliderTest.setRenderer(&renderer);
+
+  ComandoTest testCmd2(&sliderTest2);
+  sliderTest2.comando = &testCmd2;
+  sliderTest2.setNombre("Slider Rojo");
+  sliderTest2.setRenderer(&renderer);
+
+  // Añadir listener.
+  sliderTest2.addListener (&sliderTest);
+
+  // Añadir prueba Vector.
+  ComandoVector prueba(&vectorTest);
+  vectorTest.comando = &prueba;
+  vectorTest.setNombre ("Vector de prueba");
+  vectorTest.setRenderer(&renderer);
+  vectorTest.setInput(&input);
+  sliderTest.addListener (&vectorTest);
+  vectorTest.addListener (&sliderTest2);
+
+  dialogo.agregarControl(std::make_unique<SliderCtrl>(sliderTest));
+  dialogo.agregarControl(std::make_unique<VectorCtrl>(vectorTest));
+  dialogo.agregarControl(std::make_unique<SliderCtrl>(sliderTest2));
+  dialogo.agregarControl(std::make_unique<Control>(TipoControl::BUTTON, 20, 80, 400, 50, rojo, blanco, 0, 0, nullptr));
+
+  renderer.dibujarCuadrado(10, 10, rojo);
   dialogo.mostrar ();
 }
 

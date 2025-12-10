@@ -10,6 +10,7 @@
 #include "Menu.h"
 #include "GUI/Dialog.h"
 #include "GUI/AllegroRenderer.h"
+#include "GUI/AllegroInput.h"
 
 class DlgActor;
 class VentanaALG;
@@ -89,6 +90,7 @@ protected:
 public:
     // Nuevas propiedades.
     AllegroRenderer renderer;
+    AllegroInput input;
     jmr::Dialog dialogo;
 
     // Diálogo principal. 
