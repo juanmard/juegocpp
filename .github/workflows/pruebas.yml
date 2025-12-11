@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - dev-editor
+      - dev-integration
   pull_request:
     branches:
       - dev-editor
@@ -71,5 +72,6 @@ jobs:
           path: |
             Win32-MinGw-build-test.zip
             Win32-MinGw-build-test.sha256
+
 
 
