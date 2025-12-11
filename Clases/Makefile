@@ -24,7 +24,7 @@ LINK_MODE=STATIC
 
 # Rutas librerías e includes de Allegro según el tipo de compilación.
 ifeq ($(LINK_MODE),STATIC)
-    CPPFLAGS=-g -I../allegro-4.4.2-mingw-4.5.2/include -static -DALLEGRO_STATICLINK
+    CPPFLAGS=-g -I../allegro-4.4.2-mingw-4.5.2/include -I. -I./GUI -static -DALLEGRO_STATICLINK
     LDFLAGS=-static -L../allegro-4.4.2-mingw-4.5.2/lib
     LDLIBS=../allegro-4.4.2-mingw-4.5.2/lib/liballegro-4.4.2-monolith-static-mt.a \
            -ldinput8 -ldxguid -lddraw -lole32 -luuid -ldsound \

@@ -151,8 +151,8 @@ void Dialog::show (void)
   manager->borrar_pantalla ();
 
   // Se modifica el tamaño del escenario mostrado (ribete) y se ajusta a la GUI.
-  manager->set_ribete (Bloque (dialog[scr].x, dialog[scr].y,
-                              dialog[scr].w, dialog[scr].h));
+  //manager->set_ribete (Bloque (dialog[scr].x, dialog[scr].y,
+  //                            dialog[scr].w, dialog[scr].h));
 
   // Se hace visible el menú de edición.
   // El valor de la salida depende del control que la provocó.
@@ -201,6 +201,8 @@ void Dialog::show (void)
   stage->comando = &testCmd;
   stage->setRenderer(&renderer);
   stage->setInput(&input);
+  stage->setEditorManager (this->manager);
+  stage->editor_manager->set_ribete (stage->marco);
 
   // Generamos el diálogo.
   dialogo.agregarControl(std::move(sldAzul));
@@ -209,8 +211,6 @@ void Dialog::show (void)
   dialogo.agregarControl(std::move(boton));
   dialogo.agregarControl(std::move(stage));
 
-  // renderer.dibujarCuadrado(10, 10, rojo);
-  // stage->dibujarMarco ();
   dialogo.mostrar ();
 }
 

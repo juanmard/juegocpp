@@ -4,6 +4,8 @@
 #include <iostream>
 #include "Control.h"
 #include "IControlListener.h"
+#include "EditorManager.h"
+#include "Bloque.h"
 
 /// Control del escenario.
 /// Permite mostrar al usuario una representación de los actores en la escena y modificar los mismos.
@@ -12,17 +14,24 @@
 ///
 class StageCtrl : public Control, public IControlListener {
 public:
-    unsigned int x;       ///< Posición x del escenario.
-    unsigned int y;       ///< Posición y del escenario.
-    unsigned int width;   ///< Ancho del escenario.
-    unsigned int height;  ///< Alto del escenario.
+    Bloque marco;
+
+    /// Referencia al EditorManager, de prueba.
+    EditorManager* editor_manager = nullptr;
 
     ///
-    StageCtrl(int x_, int y_, int w_, int h_, int fg_, int bg_, int key_, int flags_, Comando* cmd = nullptr, void* d = nullptr)
-        : Control(TipoControl::STAGE, x_, y_, w_, h_, fg_, bg_, key_, flags_, cmd, d), x(16), y(24), width(w_), height(h_) {};
+    StageCtrl(int x_, int y_, int w_, int h_, int fg_, int bg_, int key_, int flags_, Comando* cmd = nullptr, void* d = nullptr) :
+    Control(TipoControl::STAGE, x_, y_, w_, h_, fg_, bg_, key_, flags_, cmd, d),
+    marco(x_, y_, w_, h_) {
+        //editor_manager->set_ribete(marco);
+    }
 
     ///
-    StageCtrl(int x_, int y_) : Control(TipoControl::STAGE, x_, y_, 0, 0, 0, 0, 0, 0), width(612), height(300) {};
+    StageCtrl(int x_, int y_) :
+    Control(TipoControl::STAGE, x_, y_, 0, 0, 0, 0, 0, 0),
+    marco(x_, y_, 600, 100) {
+        // Prueba.
+    };
 
     ///
     void setComando (Comando* cmd) { comando = cmd; };
@@ -43,6 +52,9 @@ public:
     /// @brief Dibuja el marco del control.
     ///
     void dibujarMarco (void);
+
+    /// De forma temporal usamos una referencia al "game" completo.
+    void setEditorManager(EditorManager* _editor_manager) {editor_manager = _editor_manager; };
 };
 
 #endif // STAGECTRL_H

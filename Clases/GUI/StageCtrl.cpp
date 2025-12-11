@@ -1,4 +1,5 @@
 #include "StageCtrl.h"
+#include "Actor.h"
 
 void StageCtrl::controlChanged(Control* control) {
         switch (control->tipo){
@@ -34,11 +35,12 @@ int StageCtrl::manejarEvento(const InputEvent& ev) {
     switch (ev.event) {
         case ControlEvent::Draw:
             std::cout << "StageCtrl Draw event." << std::endl;
+            editor_manager->dibujar_escenario();
             dibujarMarco();
             break;
         case ControlEvent::DoubleClick:
             std::cout << "StageCtrl DoubleClick event." << std::endl;
-            renderer->dibujarCuadrado (100,100,renderer->makeColor(0,20,200));
+            editor_manager->dibujar_escenario();
             break;
         case ControlEvent::Wheel:
             std::cout << "StageCtrl Wheel event." << std::endl;

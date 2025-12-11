@@ -66,6 +66,7 @@ void StageManager::rellenar_buffer ()
 
   // Dibujamos los decorados de fondo.
   // Coloreamos de azul el fondo.
+  /// @todo Eliminar por ser de Allegro4.
   clear_to_color (buffer, makecol (25,100,255));
 
   // Se recorre la lista de actores y se dibujan en el buffer del escenario.
