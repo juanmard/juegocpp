@@ -55,7 +55,7 @@ void EditorManager::activate ()
 void EditorManager::dibujar_escenario ()
 {
   if (game) {
-  game->stage_manager->draw ();
+    game->stage_manager->draw ();
   }
 };
 

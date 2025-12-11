@@ -60,7 +60,12 @@ int StageCtrl::manejarEvento(const InputEvent& ev) {
             std::cout << "StageCtrl CharEvent event." << std::endl;
             break;
         case ControlEvent::LeftPress:
+        {
             std::cout << "StageCtrl LeftPress event." << std::endl;
+            int x, y;
+            input->obtenerPosicionMouse (x, y);
+            editor_manager->atrapar_actor (x, y);
+        }
             break;
         case ControlEvent::LeftRelease:
             std::cout << "StageCtrl LeftRelease event." << std::endl;
@@ -76,6 +81,14 @@ int StageCtrl::manejarEvento(const InputEvent& ev) {
             break;
         case ControlEvent::MiddleRelease:
             std::cout << "StageCtrl MiddleRelease event." << std::endl;
+            break;
+        case ControlEvent::MouseMove:
+        {
+            std::cout << "StageCtrl MouseMove event." << std::endl;
+            int x, y;
+            input->obtenerPosicionMouse (x,y);
+            editor_manager->mover_actor (x,y);
+        }
             break;
         default:
             break;
