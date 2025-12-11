@@ -5,6 +5,12 @@
 #include <allegro.h>
 #include <iostream>
 
+// Actualizamos las propiedades estáticas de la clase.
+int AllegroRenderer::mouse_ant_x = 0;
+int AllegroRenderer::mouse_ant_y = 0;
+
+/// @todo Pasar un valor booleano que indique si se quiero o no una ventana nueva al crear
+///       el objeto renderer.
 AllegroRenderer::AllegroRenderer() {
     // allegro_init();
     // install_keyboard();
@@ -15,6 +21,10 @@ AllegroRenderer::AllegroRenderer() {
     // }
     // clear_to_color(screen, makecol(128,128,128));
     // show_mouse(screen);
+
+    // Actualizamos las propiedades estáticas de la clase.
+    mouse_ant_x = mouse_x;
+    mouse_ant_y = mouse_y;
 }
 
 AllegroRenderer::~AllegroRenderer() {
@@ -110,13 +120,19 @@ void AllegroRenderer::liberarMenu(MENU* menu) {
     delete[] menu;
 }
 
+/// @warning En este caso se tienen que dar las dos condiciones, que exista el control
+///          y que tenga un comando asociado para procesar los eventos. Esto no debería
+///          ser así, los eventos tienen que ser siempre procesados, tenga o no el control
+///          un comando asociado para ejecutar.
 int AllegroRenderer::allegroCallback(int msg, DIALOG* d, int c) {
     Control* ctrl = reinterpret_cast<Control*>(d->dp3);
     if (ctrl && ctrl->comando) {
         ctrl->comando->ejecutar();
-        
-        int modifiers = 0;
-        InputEvent ev { msgToEvent (msg), c, modifiers };
+
+        /// @warning Esto es una prueba simple para enviar datos según el tipo de evento.
+        ///          De momento enviamos el mismo tipo a todos los eventos. Lo usaremos como prueba
+        ///          en el evento de "MouseMove"
+        InputEvent ev { msgToEvent (msg), MouseMoveData{mouse_x, mouse_y, 5.2f, -3.1f} };
         return ctrl->manejarEvento(ev);
     }
     return D_O_K;
@@ -279,7 +295,7 @@ void AllegroRenderer::updateVector(Control* control) {
 int AllegroRenderer::defaultSlider(SliderCtrl* sld, const InputEvent& ev) {
     DIALOG* dlgCtrl = findDialogControl(sld);
     sld->setValue(dlgCtrl->d2 + sld->min);
-    return d_slider_proc(eventToMsg(ev.event), dlgCtrl, ev.c);
+    return d_slider_proc(eventToMsg(ev.event), dlgCtrl, 0);
 };
 
 int AllegroRenderer::defaultControl(Control* ctrl, const InputEvent& ev) {
@@ -292,8 +308,8 @@ int AllegroRenderer::defaultControl(Control* ctrl, const InputEvent& ev) {
 int AllegroRenderer::defaultVector (VectorCtrl* vector, const InputEvent& ev) {
     DIALOG* dlgCtrl = findDialogControl(vector);
     if (ev.event == ControlEvent::WantFocus) { return D_WANTFOCUS; }
-    if (vector->modoEdicion) return d_edit_proc(eventToMsg(ev.event), dlgCtrl, ev.c);
-    else return d_ctext_proc(eventToMsg(ev.event), dlgCtrl, ev.c);
+    if (vector->modoEdicion) return d_edit_proc(eventToMsg(ev.event), dlgCtrl, 0);
+    else return d_ctext_proc(eventToMsg(ev.event), dlgCtrl, 0);
 };
 
 int AllegroRenderer::eventToMsg (const ControlEvent evtype) const {
@@ -343,7 +359,6 @@ ControlEvent AllegroRenderer::msgToEvent (int msg) {
         case MSG_LOSTFOCUS: evtype = ControlEvent::LostFocus;     break;
         case MSG_GOTMOUSE:  evtype = ControlEvent::GotMouse;      break;
         case MSG_LOSTMOUSE: evtype = ControlEvent::LostMouse;     break;
-        case MSG_IDLE:      evtype = ControlEvent::Idle;          break;
         case MSG_RADIO:     evtype = ControlEvent::Radio;         break;
         case MSG_WHEEL:     evtype = ControlEvent::Wheel;         break;
         case MSG_LPRESS:    evtype = ControlEvent::LeftPress;     break;
@@ -353,7 +368,22 @@ ControlEvent AllegroRenderer::msgToEvent (int msg) {
         case MSG_RPRESS:    evtype = ControlEvent::RightPress;    break;
         case MSG_RRELEASE:  evtype = ControlEvent::RightRelease;  break;
         case MSG_WANTMOUSE: evtype = ControlEvent::WantMouse;     break;
-        default:            evtype = ControlEvent::Unknown;       break;
+        case MSG_IDLE:
+            // Se comprueba si se ha movido el ratón.
+            // Si no se ha movido, lanzamos el evento "Idle";
+            // Si se ha movido, lanzamos un evento "MouseMove" y actualizamos las coordenas del ratón.
+            if ( (mouse_ant_x == mouse_x) && (mouse_ant_y == mouse_y) ) {
+                evtype = ControlEvent::Idle;
+            } else {
+                evtype = ControlEvent::MouseMove;
+                mouse_ant_x = mouse_x;
+                mouse_ant_y = mouse_y;
+            }
+            break;
+
+        default:
+            evtype = ControlEvent::Unknown;
+            break;
     }
     return evtype;
 }

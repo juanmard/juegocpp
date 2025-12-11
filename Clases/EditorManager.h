@@ -35,12 +35,13 @@ private:
 
 public:
     Game* game;     ///< Puntero al juego propietario de este controlador.
-    Dialog* gui;    ///< Puntero a la gui del controlador (a eliminar).
+    Dialog* gui;    ///< Puntero a la gui del controlador.
     Actor* actor;   ///< Puntero al actor que está siendo editado actualmente.
 
     /// @todo Definir estados del actor en lugar de variables booleanas.
-    //  typedef enum {activado, fijado, atrapado} Estado;
-    //  Estado estado;
+    ///  typedef enum {activado, fijado, atrapado} Estado;
+    ///  Estado estado;
+    /// @todo Documentar qué significa cada estado.
     bool actorActivado;     ///< Indica si el actor que está siendo editado está activo.
     bool actorAtrapado;     ///< Indica si el actor que está siendo editado está atrapado.
     bool actorFijado;       ///< Indica si el actor que está siendo editado está fijo.
@@ -50,6 +51,9 @@ public:
     ///
     /// Debe generar otra ventana, obtener la lista de objetos y realizar su propio bucle de estética
     /// para representar los objetos del juego a editar.
+    ///
+    /// @note La mayor parte de estas funciones serán delegadas a la GUI (Dialog), en esta clase
+    ///       únicamente se deben realizar las funciones de lógica.
     ///
     /// @param g  Puntero del juego propietario del editor.
     /// @todo Se debe generar la ventana de forma independiente de las bibliotecas (Allegro), para ello crear una
@@ -71,12 +75,13 @@ public:
     void activate ();
 
     /// Redibuja la lista de objetos.
+    /// @note Esta sería una función que debería ser delegada (al menos en parte) a la GUI.
     ///
     void dibujar_escenario ();
 
     /// Duplica un actor.
     ///
-    /// @param actor  Puntero al actor que queremos duplicar.
+    /// @param actor Puntero al actor que queremos duplicar.
     /// @note ¿No devuelve al actor?
     ///
     void duplicar_actor (Actor* actor);
@@ -93,28 +98,41 @@ public:
     ///         mover_actor (10, 10, bloque);
     ///       @endcode
     ///
+    /// @todo En esta clase sólo se debería trabajar con coordenadas del juego, el resto de
+    ///       coordenadas de representación depende de la GUI y es una función delegada a ella.
+    ///       Modificar esta función para que trabaje en coordenadas del juego.
+    ///
     void mover_actor (int x, int y);
 
-    /// Devuelve la coordenada x del actor.
+    /// Devuelve la coordenada x del actor (en coordenadas del juego).
+    ///
+    /// @return Coordenada x del actor.
     ///
     /// @note Se supone que existe actor editando, si no fuera así daría error.
-    /// @warning Este tipo de procedimeintos deja mucho que desear desde el punto de vista del POO.
+    /// @warning Este tipo de procedimientos deja mucho que desear desde el punto de vista del POO.
     ///
     int get_actor_x () const;
 
-    /// Devuelve la coordenada y del actor.
+    /// Devuelve la coordenada y del actor (en coordenadas del juego).
+    ///
+    /// @return Coordenada y del actor.
     ///
     /// @note Se supone que existe actor editando, si no fuera así daría error.
+    /// @warning Este tipo de procedimientos deja mucho que desear desde el punto de vista del POO.
     ///
     int get_actor_y () const;
 
-    /// Modifica la coordenada x del actor.
+    /// Modifica la coordenada x del actor (en coordenadas del juego).
+    ///
+    /// @param x  Coordena x de la posición del actor en coordenadas de juego.
     ///
     /// @note Se supone que existe actor editando, si no fuera así daría error.
     ///
     void set_actor_x (int x);
 
-    /// Modifica la coordenada x del actor.
+    /// Modifica la coordenada y del actor (en coordenadas del juego).
+    ///
+    /// @param y  Coordena y de la posición del actor en coordenadas de juego.
     ///
     /// @note Se supone que existe actor editando, si no fuera así daría error.
     ///
@@ -178,6 +196,8 @@ public:
 
     /// Realiza un único ciclo de acciones sobre el juego actualizando los estados.
     ///
+    /// Útil para comprobar la evolución del juego y las animaciones del mismo.
+    ///
     void step () const;
 
     /// Obtiene el buffer de pantalla.
@@ -185,6 +205,8 @@ public:
     /// @return Puntero a la zona de memoria del buffer de allegro.
     /// @warning Este procedimiento nos obliga a no independizar la clase de las
     ///          bibliotecas de Allegro. Buscar la forma de sustituirla por otra.
+    ///          A eliminar. Sustituir por @code renderer->getBuffer() @code o mejor
+    ///          delegar esta función a la GUI que permite la edición en pantalla.
     ///
     BITMAP* get_buffer ();
 
@@ -203,7 +225,7 @@ public:
     /// @param color   Color deseado del rectángulo.
     ///
     /// @note Quizás sea más conveniente definir este procedimiento en la clase Bloque o en
-    ///       otra clase que lo heredara.
+    ///       otra clase que lo heredara, por ejemplo, como una función de la GUI.
     ///
     void dibujar_cuadrado (Bloque cuadro, int color);
 
@@ -218,10 +240,13 @@ public:
     /// @param bloque Bloque que representa posición y dimensiones del ribete.
     ///
     /// @todo Indicar también el color que se debe utilizar para representarlo.
+    /// @todo Delegar a la GUI.
     ///
     void set_ribete (Bloque bloque) const;
 
     /// Borra la pantalla con un color gris.
+    ///
+    /// @todo Delegar a la GUI.
     ///
     void borrar_pantalla () const;
 
@@ -235,11 +260,15 @@ public:
     ///
     /// @param color  Color deseado para el ribete.
     ///
+    /// @todo Delegar a la GUI.
+    ///
     void set_color_ribete (int color);
 
     /// Obtiene la posición del escenario en forma de cadena.
     ///
     /// @return Cadena donde se vuelca la posición actual del escenario.
+    ///
+    /// @todo Delegar a la GUI.
     ///
     std::string& get_escenario_xy () const;
 
@@ -323,6 +352,8 @@ public:
     /// @param x  Coordenada x en coordenadas del juego de la nueva posición.
     /// @param y  Coordenada y en coordenadas del juego de la nueva posición.
     ///
+    /// @todo Delegar a la GUI.
+    ///
     void mover_decorado (int x, int y);
 
     /// Actualiza las propiedades y el aspecto del actor editado.
@@ -341,6 +372,8 @@ public:
     /// @return Coordenada x en coordenadas del juego (global).
     /// @warning Este procedimiento se podría evitar o hacer más general incluyéndolo en
     ///          las propiedades de la clase Bloque o de la del Vector2Di.
+    /// @todo Delegar a la GUI.
+    ///
     ///
     int get_global_x (int x);
 
@@ -352,6 +385,8 @@ public:
     /// @return Coordenada y en coordenadas del juego (global).
     /// @warning Este procedimiento se podría evitar o hacer más general incluyéndolo en
     ///          las propiedades de la clase Bloque o de la del Vector2Di.
+    /// @todo Delegar a la GUI.
+    ///
     ///
     int get_global_y (int y);
 
@@ -363,6 +398,8 @@ public:
     /// @return Coordenada x en coordenadas locales.
     /// @warning Este procedimiento se podría evitar o hacer más general incluyéndolo en
     ///          las propiedades de la clase Bloque o de la del Vector2Di.
+    /// @todo Delegar a la GUI.
+    ///
     ///
     int get_local_x (int x);
 
@@ -374,6 +411,8 @@ public:
     /// @return Coordenada y en coordenadas locales.
     /// @warning Este procedimiento se podría evitar o hacer más general incluyéndolo en
     ///          las propiedades de la clase Bloque o de la del Vector2Di.
+    /// @todo Delegar a la GUI.
+    ///
     ///
     int get_local_y (int y);
 

@@ -60,12 +60,18 @@ int StageCtrl::manejarEvento(const InputEvent& ev) {
             std::cout << "StageCtrl CharEvent event." << std::endl;
             break;
         case ControlEvent::LeftPress:
-        {
-            std::cout << "StageCtrl LeftPress event." << std::endl;
-            int x, y;
-            input->obtenerPosicionMouse (x, y);
-            editor_manager->atrapar_actor (x, y);
-        }
+            {
+                std::cout << "StageCtrl LeftPress event." << std::endl;
+                auto& move = std::get<MouseMoveData>(ev.data);
+
+                Actor* actor = editor_manager->get_actor (move.x-this->x, move.y-this->y);
+                if (actor) {
+                    editor_manager->atrapar_actor (x, y);
+                    if (editor_manager->actorAtrapado) {
+                        editor_manager->actor->set_color (0x00ff00);
+                    }
+                }
+            }
             break;
         case ControlEvent::LeftRelease:
             std::cout << "StageCtrl LeftRelease event." << std::endl;
@@ -83,12 +89,17 @@ int StageCtrl::manejarEvento(const InputEvent& ev) {
             std::cout << "StageCtrl MiddleRelease event." << std::endl;
             break;
         case ControlEvent::MouseMove:
-        {
-            std::cout << "StageCtrl MouseMove event." << std::endl;
-            int x, y;
-            input->obtenerPosicionMouse (x,y);
-            editor_manager->mover_actor (x,y);
-        }
+            {
+                std::cout << "StageCtrl MouseMove event." << std::endl;
+                auto& move = std::get<MouseMoveData>(ev.data);
+
+                Actor* actor = editor_manager->get_actor (move.x-this->x, move.y-this->y);
+                if (actor) {
+                    std::cout << "actor: " << actor->get_nombre() << " pos: " << move.x << ", " << move.y << std::endl;
+                    actor->set_color (~(actor->get_color()));
+                    editor_manager->dibujar_escenario ();
+                }
+            }
             break;
         default:
             break;

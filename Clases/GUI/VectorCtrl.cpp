@@ -36,9 +36,9 @@ int VectorCtrl::manejarEvento(const InputEvent& ev) {
             }
             break;
         case ControlEvent::Wheel:
-            if (input->getKey() == IInput::Key::LSHIFT || input->getKey() == IInput::Key::RSHIFT) setXY (x, y + ev.c);
-            else if (input->getKey() == IInput::Key::LCONTROL || input->getKey() == IInput::Key::RCONTROL) setXY (x + ev.c*10, y + ev.c*10);
-            else setXY (x + ev.c, y);
+            if (input->getKey() == IInput::Key::LSHIFT || input->getKey() == IInput::Key::RSHIFT) setXY (x, y);
+            else if (input->getKey() == IInput::Key::LCONTROL || input->getKey() == IInput::Key::RCONTROL) setXY (x , y);
+            else setXY (x, y);
             break;
         case ControlEvent::WantFocus:
             std::cout << "VectorCtrl WhantFocus event." << std::endl;

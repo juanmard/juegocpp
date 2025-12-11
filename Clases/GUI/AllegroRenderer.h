@@ -51,6 +51,9 @@ private:
     // Pruebas:
     static int dibujarPrueba(void);
     static AllegroRenderer* renderer_actual;
+
+    static int mouse_ant_x;      ///< Posición x anterior del ratón.
+    static int mouse_ant_y;      ///< Posición y anterior del ratón.
 };
 
 #endif
