@@ -63,18 +63,21 @@ int StageCtrl::manejarEvento(const InputEvent& ev) {
             {
                 std::cout << "StageCtrl LeftPress event." << std::endl;
                 auto& move = std::get<MouseMoveData>(ev.data);
-
-                Actor* actor = editor_manager->get_actor (move.x-this->x, move.y-this->y);
-                if (actor) {
-                    editor_manager->atrapar_actor (x, y);
-                    if (editor_manager->actorAtrapado) {
-                        editor_manager->actor->set_color (0x00ff00);
-                    }
+                Actor* act = editor_manager->actor;
+                if (act) {
+                    editor_manager->estado = EstadoActor::atrapado;
+                    act->set_color (15);
+                    editor_manager->refX = move.x - x - act->get_x();
+                    editor_manager->refY = move.y - y - act->get_y();
                 }
             }
             break;
         case ControlEvent::LeftRelease:
             std::cout << "StageCtrl LeftRelease event." << std::endl;
+            if (editor_manager->actor) {
+                editor_manager->estado = EstadoActor::libre;
+                editor_manager->actor->set_color (19);
+            }
             break;
         case ControlEvent::RightPress:
             std::cout << "StageCtrl RightPress event." << std::endl;
@@ -88,19 +91,47 @@ int StageCtrl::manejarEvento(const InputEvent& ev) {
         case ControlEvent::MiddleRelease:
             std::cout << "StageCtrl MiddleRelease event." << std::endl;
             break;
-        case ControlEvent::MouseMove:
-            {
-                std::cout << "StageCtrl MouseMove event." << std::endl;
-                auto& move = std::get<MouseMoveData>(ev.data);
+        case ControlEvent::MouseMove: 
+        {
+//                std::cout << "StageCtrl MouseMove event." << std::endl;
+            auto& move = std::get<MouseMoveData>(ev.data);
 
-                Actor* actor = editor_manager->get_actor (move.x-this->x, move.y-this->y);
-                if (actor) {
-                    std::cout << "actor: " << actor->get_nombre() << " pos: " << move.x << ", " << move.y << std::endl;
-                    actor->set_color (~(actor->get_color()));
-                    editor_manager->dibujar_escenario ();
+            switch (editor_manager->estado) {
+            case EstadoActor::activado:
+                break;
+            case EstadoActor::atrapado:
+                editor_manager->mover_actor (move.x - x - editor_manager->refX, move.y - y - editor_manager->refY);
+                break;
+            case EstadoActor::libre:
+                {
+                    Actor* actor = editor_manager->get_actor (move.x - x, move.y - y);
+                    std::cout << "Actor: " << (actor ? actor->get_nombre() : "null") << std::endl;
+                    // Si el actor bajo el ratón es distinto del guardado...
+                    if (actor != editor_manager->actor) {
+                        // Si el guardado existe...
+                        if (editor_manager->actor) {
+                            // Se devuelve el color al guardado y se libera...
+                            editor_manager->actor->set_color (~(editor_manager->actor->get_color()));
+                            editor_manager->liberar_actor ();
+                        }
+
+                        // Si bajo el ratón existe el actor...
+                        if (actor) {
+                            // Se cambia el color y se guarda.
+                            actor->set_color (~(actor->get_color()));
+                            editor_manager->actor = actor;
+                        }
+                    }
                 }
+                break;
+            default:
+                break;
             }
-            break;
+
+            // Se actualiza el escenario.
+            editor_manager->dibujar_escenario ();
+        }
+        break;
         default:
             break;
     }

@@ -18,6 +18,9 @@ class Game;
 class Actor;
 class Dialog;
 
+/// Estados del actor.
+enum class EstadoActor {libre, activado, atrapado};
+
 /// Edita las listas de objetos involucrados en un juego.
 ///
 /// Edita las listas de objetos involucrados en un juego y permite modificar, guardar
@@ -29,22 +32,15 @@ class Dialog;
 ///
 class EditorManager
 {
-private:
+public:
     /// @note Estas referencias habría que eliminarlas.
     static int refX, refY;  ///< Constantes estáticas de la clase como referencia.
 
 public:
-    Game* game;     ///< Puntero al juego propietario de este controlador.
-    Dialog* gui;    ///< Puntero a la gui del controlador.
-    Actor* actor;   ///< Puntero al actor que está siendo editado actualmente.
-
-    /// @todo Definir estados del actor en lugar de variables booleanas.
-    ///  typedef enum {activado, fijado, atrapado} Estado;
-    ///  Estado estado;
-    /// @todo Documentar qué significa cada estado.
-    bool actorActivado;     ///< Indica si el actor que está siendo editado está activo.
-    bool actorAtrapado;     ///< Indica si el actor que está siendo editado está atrapado.
-    bool actorFijado;       ///< Indica si el actor que está siendo editado está fijo.
+    Game* game;             ///< Puntero al juego propietario de este controlador.
+    Dialog* gui;            ///< Puntero a la gui del controlador.
+    EstadoActor estado;     ///< Estado del actor guardado dentro del EditorManager.
+    Actor* actor;           ///< Puntero al actor que está siendo editado actualmente.
 
 public:
     /// Construye la clase para editar un juego.
@@ -285,20 +281,20 @@ public:
     ///
     /// @return Si el actor actual está activo o no.
     ///
-    bool is_actor_activo () const;
+    bool is_actor_activo () const {return true;};
 
     /// Indica si existe algún actor atrapado por el ratón.
     ///
     /// @return Si el actor actual está atrapado o no.
     ///
-    bool is_actor_atrapado () const;
+    bool is_actor_atrapado () const {return true;};
 
     /// Indica si el actor actual está fijo.
     ///
     /// @return Si el actor actual está fijado o no.
     /// @note Este concepto no está claro, parece no ser necesario para editar el actor.
     ///
-    bool is_actor_fijo () const;
+    bool is_actor_fijo () const {return true;};
 
     /// Atrapa el actor cuyo bloque se encuentre en las coordenadas especificadas.
     ///

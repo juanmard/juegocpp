@@ -2,8 +2,8 @@
 /// @file EditorManager.cpp
 /// @brief Fichero de implementación de la clase "EditorManager".
 /// @author Juan Manuel Rico
-/// @date Noviembre 2015
-/// @version 1.0.0
+/// @date Diciembre 2025
+/// @version 2.0.0
 ///
 
 #include "EditorManager.h"
@@ -17,9 +17,7 @@ int EditorManager::refY = 0;
 EditorManager::EditorManager (Game* g):
 game (g),
 actor (NULL),
-actorActivado (false),
-actorAtrapado (false),
-actorFijado (false)
+estado (EstadoActor::libre)
 {
   // Referencia a la GUI.
   gui = new Dialog(this);
@@ -226,21 +224,6 @@ Almacen& EditorManager::get_almacen () const
   return *(game->storage_manager);
 }
 
-bool EditorManager::is_actor_atrapado () const
-{
-  return actorAtrapado;
-};
-
-bool EditorManager::is_actor_activo () const
-{
-  return actorActivado;
-}
-
-bool EditorManager::is_actor_fijo () const
-{
-  return actorFijado;
-};
-
 bool EditorManager::is_decorado_atrapado () const
 {
   return false;
@@ -278,9 +261,7 @@ void EditorManager::atrapar_actor (int x, int y)
     refY = y - get_local_y (actor->get_y());
 
     // Se pasa a actor atrapado.
-    actorActivado = false;
-    actorFijado = false;
-    actorAtrapado = true;
+    estado = EstadoActor::atrapado;
   }
 };
 
@@ -288,18 +269,16 @@ void EditorManager::liberar_actor ()
 {
   actor->set_mostrar_bloque (false);
   actor = NULL;
-  actorActivado = false;
-  actorFijado = false;
-  actorAtrapado = false;
+  estado = EstadoActor::libre;
 };
 
 void EditorManager::activar_actor (int x, int y)
 {
   // Si hay un actor activo, liberamos.
-  if ( is_actor_activo () )
-  {
-    liberar_actor ();
-  }
+  // if ( is_actor_activo () )
+  // {
+  //   liberar_actor ();
+  // }
 
   // Obtenemos el nuevo actor bajo el ratón.
   actor = get_actor (get_global_x (x), get_global_y (y));
@@ -310,28 +289,28 @@ void EditorManager::activar_actor (int x, int y)
     actor->set_color (makecol(0,255,0));
     actor->set_mostrar_bloque (true);
     actor->drawGUI ();
-    actorActivado = true;
+    estado = EstadoActor::activado;
   }
 };
 
 void EditorManager::fijar_actor (int x, int y)
 {
-  // Se intenta activar el actor bajo el cursor.
-  activar_actor (x, y);
+  // // Se intenta activar el actor bajo el cursor.
+  // activar_actor (x, y);
   
-  // Si se consiguió activar, cambiamos la variable para fijarlo.
-  // En otro caso, liberamos.
-  if ( is_actor_activo () )
-  {
-    actor->set_color (makecol(255,128,255));
-    actor->set_mostrar_bloque (true);
-    actorActivado = false;
-    actorFijado = true;
-  }
-  else
-  {
-    liberar_actor ();
-  }
+  // // Si se consiguió activar, cambiamos la variable para fijarlo.
+  // // En otro caso, liberamos.
+  // if ( is_actor_activo () )
+  // {
+  //   actor->set_color (makecol(255,128,255));
+  //   actor->set_mostrar_bloque (true);
+  //   actorActivado = false;
+  //   actorFijado = true;
+  // }
+  // else
+  // {
+  //   liberar_actor ();
+  // }
 };
 
 void EditorManager::mover_actor_2 (int x, int y)
