@@ -49,14 +49,26 @@ int VectorCtrl::manejarEvento(const InputEvent& ev) {
         case ControlEvent::LostFocus:
             renderer->invertirBackgroundForeground (this);
             break;
+
         case ControlEvent::Char:
+        case ControlEvent::Key:
+        case ControlEvent::UChar:
+        case ControlEvent::XChar:
+        {
             std::cout << "VectorCtrl Char event." << std::endl;
+            auto &data = std::get<KeyData>(ev.data);
+            std::cout << "Char 2: " << data.key << std::endl;
+
             if (input->getKey() == IInput::Key::ENTER) {
+                std::cout << "ENTER" << std::endl;
                 InputEvent nuevo = ev;
                 nuevo.event = ControlEvent::DoubleClick;
+                nuevo.data = data;
+                modoEdicion = true;
                 manejarEvento(nuevo);
             }
-            break;
+        }
+        break;
         case ControlEvent::LeftPress:
             std::cout << "VectorCtrl LeftPress event." << std::endl;
             break;

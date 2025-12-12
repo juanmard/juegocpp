@@ -1,16 +1,20 @@
 #include "StageCtrl.h"
 #include "Actor.h"
+#include "SliderCtrl.h"
 
 void StageCtrl::controlChanged(Control* control) {
         switch (control->tipo){
-            // case TipoControl::SLIDER:
-            // {
-            //     // std::cout << "SliderCtrl ha cambiado su valor." << std::endl;
-            //     if (auto sldc = dynamic_cast<StageCtrl*>(control)) {
-            //         if (setValue (sldc->pos)) renderer->setSliderValue(this, pos - min);
-            //     }
-            // }
-            // break;
+            case TipoControl::SLIDER:
+            {
+                if (auto sldc = dynamic_cast<SliderCtrl*>(control)) {
+                    Actor* act = editor_manager->game->actor_manager->get_actor(1);
+                    if (act)
+                    {
+                        act->set_x(2*sldc->pos);
+                    }
+                }
+            }
+            break;
             // case TipoControl::VECTOR:
             // {
             //     if (auto vct = dynamic_cast<VectorCtrl *>(control)) {
@@ -39,9 +43,18 @@ int StageCtrl::manejarEvento(const InputEvent& ev) {
             dibujarMarco();
             break;
         case ControlEvent::DoubleClick:
+        {
+            auto& move = std::get<MouseMoveData>(ev.data);
             std::cout << "StageCtrl DoubleClick event." << std::endl;
+            std::cout << "Escenario: " << editor_manager->get_escenario_xy () << std::endl;
+            std::cout << "Mouse: " << move.x << ", " << move.y << std::endl;
+            std::cout << "Control: " << x << ", " << y << std::endl;
+            std::cout << "Referencia: " << editor_manager->refX << ", " << editor_manager->refY << std::endl;
+            editor_manager->mover_escenario (x, y);
             editor_manager->dibujar_escenario();
-            break;
+        }
+        break;
+
         case ControlEvent::Wheel:
             std::cout << "StageCtrl Wheel event." << std::endl;
             break;
@@ -86,15 +99,26 @@ int StageCtrl::manejarEvento(const InputEvent& ev) {
             std::cout << "StageCtrl RightRelease event." << std::endl;
             break;
         case ControlEvent::MiddlePress:
-            std::cout << "StageCtrl MiddlePress event." << std::endl;
+            {
+                std::cout << "StageCtrl MiddlePress event." << std::endl;
+                auto& move = std::get<MouseMoveData>(ev.data);
+                editor_manager->refX = move.x - x;
+                editor_manager->refY = move.y - y;
+                dragEscenario = true;
+            }
             break;
         case ControlEvent::MiddleRelease:
             std::cout << "StageCtrl MiddleRelease event." << std::endl;
+            dragEscenario = false;
             break;
         case ControlEvent::MouseMove: 
         {
 //                std::cout << "StageCtrl MouseMove event." << std::endl;
             auto& move = std::get<MouseMoveData>(ev.data);
+
+            if (dragEscenario) {
+                editor_manager->mover_escenario (move.x - editor_manager->refX, move.y - editor_manager->refY);
+            }
 
             switch (editor_manager->estado) {
             case EstadoActor::activado:

@@ -49,9 +49,7 @@ public:
                 ~Dialog         ();
     void        show            ();
     void        draw            ();
-    void        mouse_out       ();
     void        mouse_in        ();
-    int         propiedades     ();
     void        setActor        (Actor *actor);
 
 protected:

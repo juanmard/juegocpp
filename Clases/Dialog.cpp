@@ -203,6 +203,7 @@ void Dialog::show (void)
   stage->setInput(&input);
   stage->setEditorManager (this->manager);
   stage->editor_manager->set_ribete (stage->marco);
+  sldRojo->addListener(stage.get());
 
   // Generamos el diálogo.
   dialogo.agregarControl(std::move(sldAzul));
@@ -212,14 +213,6 @@ void Dialog::show (void)
   dialogo.agregarControl(std::move(stage));
 
   dialogo.mostrar ();
-}
-
-/**
- * \brief   Oculta el puntero del ratón.
- */
-void Dialog::mouse_out (void)
-{
-  show_mouse (NULL);
 }
 
 /**

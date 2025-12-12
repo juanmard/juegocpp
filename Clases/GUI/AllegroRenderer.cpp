@@ -132,7 +132,17 @@ int AllegroRenderer::allegroCallback(int msg, DIALOG* d, int c) {
         /// @warning Esto es una prueba simple para enviar datos según el tipo de evento.
         ///          De momento enviamos el mismo tipo a todos los eventos. Lo usaremos como prueba
         ///          en el evento de "MouseMove"
+        ///          Se hace una nueva prueba con un mensaje de pulsación de tecla.
         InputEvent ev { msgToEvent (msg), MouseMoveData{mouse_x, mouse_y, 5.2f, -3.1f} };
+        switch (msg) {
+            case MSG_KEY:
+            case MSG_CHAR:
+            case MSG_UCHAR:
+            case MSG_XCHAR:
+                std::cout << "Char 1: " << c << std::endl;
+                ev.data = KeyData{c, 0};
+                break;
+        }
         return ctrl->manejarEvento(ev);
     }
     return D_O_K;
@@ -191,7 +201,7 @@ int AllegroRenderer::mostrarDialog(const jmr::Dialog& dialog) {
             if (!allegroDialog[i].dp2) {
                 allegroDialog[i].dp2 = (void*) load_font("./prueba-font.pcx", palette, NULL);
                 if (!allegroDialog[i].dp2) {
-                    allegroDialog[i].dp = (void*) "No existe: '../../Extras/prueba-font.pcx' ni './prueba-font.pcx'.";
+                    allegroDialog[i].dp = (void*) "No existe: \n'../../Extras/prueba-font.pcx'\n ni './prueba-font.pcx'.";
                 }
             }
         }
@@ -305,12 +315,45 @@ int AllegroRenderer::defaultControl(Control* ctrl, const InputEvent& ev) {
     return D_O_K;
 };
 
-int AllegroRenderer::defaultVector (VectorCtrl* vector, const InputEvent& ev) {
+/// @brief Comportamiento por defecto del control "VectorCtrl".
+/// @param vector Control afectado.
+/// @param ev Evento a procesar.
+/// @return Devuelve valor de Allegro4 (D_O_K, D_..., etc)
+///
+/// @todo Independizar de Allegro4 y devolver un valor propio.
+///
+int AllegroRenderer::defaultVector(VectorCtrl* vector, const InputEvent& ev) {
     DIALOG* dlgCtrl = findDialogControl(vector);
-    if (ev.event == ControlEvent::WantFocus) { return D_WANTFOCUS; }
-    if (vector->modoEdicion) return d_edit_proc(eventToMsg(ev.event), dlgCtrl, 0);
-    else return d_ctext_proc(eventToMsg(ev.event), dlgCtrl, 0);
-};
+    int c = 0;
+
+    // std::cout << "ev=" << (int)ev.event
+    //       << " msg=" << eventToMsg(ev.event)
+    //       << " c=" << c
+    //       << " ascii=" << (c & 0xFF)
+    //       << " scan=" << (c >> 8) << std::endl;
+
+    switch (ev.event) {
+        case ControlEvent::WantFocus:
+            return D_WANTFOCUS;
+            
+        case ControlEvent::Char:
+        case ControlEvent::UChar:
+        case ControlEvent::Key:
+        case ControlEvent::XChar:
+            if (auto* data = std::get_if<KeyData>(&ev.data)) {
+                c = data->key;
+            }
+            break;
+    }
+
+    if (vector->modoEdicion) {
+        // std::cout << "Char 3: " << c << std::endl;
+        return d_edit_proc(eventToMsg(ev.event), dlgCtrl, c);
+    } else {
+        return d_ctext_proc(eventToMsg(ev.event), dlgCtrl, c);
+    }
+}
+
 
 int AllegroRenderer::eventToMsg (const ControlEvent evtype) const {
     switch (evtype){

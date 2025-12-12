@@ -213,18 +213,6 @@ public:
     ///
     void actualizar_escenario ();
 
-    /// Dibuja un rectángulo del color indicado.
-    ///
-    /// El propósito de este procedimiento es poder comprobar el comportamiento del juego.
-    ///
-    /// @param cuadro  Rectángulo definido por posición y dimensiones.
-    /// @param color   Color deseado del rectángulo.
-    ///
-    /// @note Quizás sea más conveniente definir este procedimiento en la clase Bloque o en
-    ///       otra clase que lo heredara, por ejemplo, como una función de la GUI.
-    ///
-    void dibujar_cuadrado (Bloque cuadro, int color);
-
     /// Obtiene el número de actores actualmente en la lista.
     ///
     /// @return Número de actores actuales en la lista de actores controlables.
