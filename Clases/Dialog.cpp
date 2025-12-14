@@ -204,6 +204,7 @@ void Dialog::show (void)
   stage->setEditorManager (this->manager);
   stage->editor_manager->set_ribete (stage->marco);
   sldRojo->addListener(stage.get());
+  vecTest->addListener(stage.get());
 
   // Generamos el diálogo.
   dialogo.agregarControl(std::move(sldAzul));
@@ -507,18 +508,6 @@ int  Dialog::comprobarTecla (int code)
       int idx = pesta.size ();
       manager->get_almacen().add_GUI (pesta);
       position_dialog (&pesta[idx-1],590,320);
-
-      // Probamos con dos almacenes.
-/*
-       Almacen *prueba = new Almacen ("sprites3.dat");
-      idx = pesta.size();
-      prueba->addGUI (pesta);
-      position_dialog (&pesta[idx-1],100,320);
-*/
-
-      // Hacemos una prueba dinámica del dialogo principal.
-      // Se copia... ¡¡Funciona!!
-      //pesta.insert (pesta.end(), &dialog[0], &dialog[18]);
 
       popup_dialog (&pesta[0],-1);
     }

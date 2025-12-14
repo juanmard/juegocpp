@@ -50,6 +50,9 @@ void Juego2::mainGame ()
     // Se crea el 'EditorManager' básico para comenzar con las pruebas.
     EditorManager editor_manager (this);
 
+    // Iniciamos con el editor.
+    key[KEY_E] = true;
+    
     // Bucle principal del juego.
     while (!key[KEY_ESC])
     {

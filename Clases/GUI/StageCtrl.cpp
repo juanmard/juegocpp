@@ -15,15 +15,21 @@ void StageCtrl::controlChanged(Control* control) {
                 }
             }
             break;
-            // case TipoControl::VECTOR:
-            // {
-            //     if (auto vct = dynamic_cast<VectorCtrl *>(control)) {
-            //         // std::cout << "VectorCtrl ha cambiado su valor." << std::endl;
-            //         if (setValue(vct->x)) renderer->setSliderValue(this, pos - min);
-            //     }
-            // }
-            // break;
-
+            case TipoControl::VECTOR:
+            {
+                if (auto vct = dynamic_cast<VectorCtrl *>(control)) {
+                    Actor* act = editor_manager->game->actor_manager->get_actor(1);
+                    if (act)
+                    {
+                        act->set_x(vct->x);
+                        act->set_y(vct->y);
+                        // Se provoca la actualización del control.
+                        const InputEvent ev { ControlEvent::Draw, MouseMoveData{0, 0, 0.0f, 0.0f} };
+                        this->manejarEvento (ev);
+                    }
+                }
+            }
+            break;
             default:
                 break;
         }
