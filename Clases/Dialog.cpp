@@ -205,6 +205,7 @@ void Dialog::show (void)
   stage->editor_manager->set_ribete (stage->marco);
   sldRojo->addListener(stage.get());
   vecTest->addListener(stage.get());
+  stage->addListener(vecTest.get());
 
   // Generamos el diálogo.
   dialogo.agregarControl(std::move(sldAzul));

@@ -6,6 +6,7 @@
 #include "IControlListener.h"
 #include "EditorManager.h"
 #include "Bloque.h"
+#include "Actor.h"
 
 /// Control del escenario.
 /// Permite mostrar al usuario una representación de los actores en la escena y modificar los mismos.
@@ -36,6 +37,9 @@ public:
 
     ///
     void setComando (Comando* cmd) { comando = cmd; };
+
+    ///
+    Actor* getActor (void) { return this->editor_manager->actor; };
 
     /// @brief Notifica a este control otros controles que hayan cambiado.
     /// @param control Control que ha cambiado.

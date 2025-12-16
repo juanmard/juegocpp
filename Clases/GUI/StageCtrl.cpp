@@ -19,7 +19,7 @@ void StageCtrl::controlChanged(Control* control) {
             {
                 if (auto vct = dynamic_cast<VectorCtrl *>(control)) {
                     Actor* act = editor_manager->game->actor_manager->get_actor(1);
-                    if (act)
+                    if (act && (editor_manager->estado == EstadoActor::atrapado))
                     {
                         act->set_x(vct->x);
                         act->set_y(vct->y);
@@ -88,6 +88,7 @@ int StageCtrl::manejarEvento(const InputEvent& ev) {
                     act->set_color (15);
                     editor_manager->refX = move.x - x - act->get_x();
                     editor_manager->refY = move.y - y - act->get_y();
+                    this->notifyListeners();
                 }
             }
             break;
@@ -150,6 +151,7 @@ int StageCtrl::manejarEvento(const InputEvent& ev) {
                             // Se cambia el color y se guarda.
                             actor->set_color (~(actor->get_color()));
                             editor_manager->actor = actor;
+                            notifyListeners();
                         }
                     }
                 }

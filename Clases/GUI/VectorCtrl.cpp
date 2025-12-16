@@ -1,5 +1,7 @@
 #include "VectorCtrl.h"
 #include "SliderCtrl.h"
+#include "StageCtrl.h"
+#include "Actor.h"
 
 /// @details A modo de prueba, cuando cambia un «Slider» se modifica la posición x del vector.
 ///
@@ -10,6 +12,17 @@ void VectorCtrl::controlChanged(Control* control) {
                 // std::cout << "VectorCtrl ha cambiado su valor." << std::endl;
                 if (auto slider = dynamic_cast<SliderCtrl*>(control)) {
                     setXY(slider->pos, y);
+                }
+            }
+            break;
+            case TipoControl::STAGE:
+            {
+                // std::cout << "StageCtrl ha cambiado." << std::endl;
+                if (auto stage = dynamic_cast<StageCtrl*>(control)) {
+                    Actor* actor = stage->getActor ();
+                    if (actor) {
+                        setXY(actor->get_x(), actor->get_y());
+                    }
                 }
             }
             break;
