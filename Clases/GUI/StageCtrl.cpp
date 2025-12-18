@@ -80,23 +80,23 @@ int StageCtrl::manejarEvento(const InputEvent& ev) {
             break;
         case ControlEvent::LeftPress:
             {
-                std::cout << "StageCtrl LeftPress event." << std::endl;
+                // std::cout << "StageCtrl LeftPress event." << std::endl;
                 auto& move = std::get<MouseMoveData>(ev.data);
                 Actor* act = editor_manager->actor;
                 if (act) {
                     editor_manager->estado = EstadoActor::atrapado;
                     act->set_color (15);
-                    editor_manager->refX = move.x - x - act->get_x();
-                    editor_manager->refY = move.y - y - act->get_y();
+                    editor_manager->refX = editor_manager->get_escenario_x() + move.x - x - act->get_x();
+                    editor_manager->refY = editor_manager->get_escenario_y() + move.y - y - act->get_y();
                     this->notifyListeners();
                 }
             }
             break;
         case ControlEvent::LeftRelease:
-            std::cout << "StageCtrl LeftRelease event." << std::endl;
+            // std::cout << "StageCtrl LeftRelease event." << std::endl;
             if (editor_manager->actor) {
                 editor_manager->estado = EstadoActor::libre;
-                editor_manager->actor->set_color (19);
+                editor_manager->actor->set_color (5);
             }
             break;
         case ControlEvent::RightPress:
@@ -107,15 +107,15 @@ int StageCtrl::manejarEvento(const InputEvent& ev) {
             break;
         case ControlEvent::MiddlePress:
             {
-                std::cout << "StageCtrl MiddlePress event." << std::endl;
+                // std::cout << "StageCtrl MiddlePress event." << std::endl;
                 auto& move = std::get<MouseMoveData>(ev.data);
-                editor_manager->refX = move.x - x;
-                editor_manager->refY = move.y - y;
+                editor_manager->refX = editor_manager->get_escenario_x() + move.x - x;
+                editor_manager->refY = editor_manager->get_escenario_y() + move.y - y;
                 dragEscenario = true;
             }
             break;
         case ControlEvent::MiddleRelease:
-            std::cout << "StageCtrl MiddleRelease event." << std::endl;
+            // std::cout << "StageCtrl MiddleRelease event." << std::endl;
             dragEscenario = false;
             break;
         case ControlEvent::MouseMove: 
@@ -123,42 +123,53 @@ int StageCtrl::manejarEvento(const InputEvent& ev) {
 //                std::cout << "StageCtrl MouseMove event." << std::endl;
             auto& move = std::get<MouseMoveData>(ev.data);
 
+            std::cout << "Mouse:     " << move.x << ", " << move.y << std::endl;
+            std::cout << "Escenario: " << editor_manager->get_escenario_x() << ", " << editor_manager->get_escenario_y() << std::endl;
+            std::cout << "Control:   " << x << ", " << y << std::endl;
+            std::cout << "Ref:       " << editor_manager->refX << ", " << editor_manager->refY << std::endl << std::endl;
+
+            // Si se mueve el ratón estando el escenario en modo «drag», sólo se mueve el escenario.
+            // En otro caso se mira el estado del actor.
             if (dragEscenario) {
-                editor_manager->mover_escenario (move.x - editor_manager->refX, move.y - editor_manager->refY);
-            }
+                editor_manager->mover_escenario( editor_manager->refX - move.x + x,
+                                                 editor_manager->refY - move.y + y);
+            } else {
+                switch (editor_manager->estado) {
+                case EstadoActor::activado:
+                    break;
+                case EstadoActor::atrapado:
+                    editor_manager->mover_actor (editor_manager->get_escenario_x() - x + move.x - editor_manager->refX,
+                                                 editor_manager->get_escenario_y() - y + move.y - editor_manager->refY);
+                    break;
+                case EstadoActor::libre:
+                    {
+                        Actor* actor = editor_manager->get_actor (editor_manager->get_escenario_x() - x + move.x,
+                                                                  editor_manager->get_escenario_y() - y + move.y);
+                        // std::cout << "Actor: " << (actor ? actor->get_nombre() : "null") << std::endl;
+                        // Si el actor bajo el ratón es distinto del guardado...
+                        if (actor != editor_manager->actor) {
+                            // Si el guardado existe...
+                            if (editor_manager->actor) {
+                                // Se devuelve el color al guardado y se libera...
+                                editor_manager->actor->set_color (~(editor_manager->actor->get_color()));
+                                editor_manager->liberar_actor ();
+                            }
 
-            switch (editor_manager->estado) {
-            case EstadoActor::activado:
-                break;
-            case EstadoActor::atrapado:
-                editor_manager->mover_actor (move.x - x - editor_manager->refX, move.y - y - editor_manager->refY);
-                break;
-            case EstadoActor::libre:
-                {
-                    Actor* actor = editor_manager->get_actor (move.x - x, move.y - y);
-                    std::cout << "Actor: " << (actor ? actor->get_nombre() : "null") << std::endl;
-                    // Si el actor bajo el ratón es distinto del guardado...
-                    if (actor != editor_manager->actor) {
-                        // Si el guardado existe...
-                        if (editor_manager->actor) {
-                            // Se devuelve el color al guardado y se libera...
-                            editor_manager->actor->set_color (~(editor_manager->actor->get_color()));
-                            editor_manager->liberar_actor ();
-                        }
-
-                        // Si bajo el ratón existe el actor...
-                        if (actor) {
-                            // Se cambia el color y se guarda.
-                            actor->set_color (~(actor->get_color()));
-                            editor_manager->actor = actor;
-                            notifyListeners();
+                            // Si bajo el ratón existe el actor...
+                            if (actor) {
+                                // Se cambia el color y se guarda.
+                                actor->set_color (~(actor->get_color()));
+                                editor_manager->actor = actor;
+                                notifyListeners();
+                            }
                         }
                     }
+                    break;
+                default:
+                    break;
                 }
-                break;
-            default:
-                break;
             }
+
 
             // Se actualiza el escenario.
             editor_manager->dibujar_escenario ();
