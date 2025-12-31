@@ -31,6 +31,7 @@ public:
     void liberarMenu(MENU* menu);
 
     void dibujarFrontera (Control* control) override;
+    void dibujarEjes (void) override;
 
 public:
     int mostrarDialog(const jmr::Dialog& dialog) override;
@@ -46,7 +47,7 @@ private:
     static void print (int msg);
     int eventToMsg (const ControlEvent ev) const;
     static ControlEvent msgToEvent (int msg);
-    void extraerEnteros (std::string input, unsigned int& x, unsigned int& y);
+    void extraerEnteros (std::string input, int& x, int& y);
     
     // Pruebas:
     static int dibujarPrueba(void);

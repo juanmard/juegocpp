@@ -447,7 +447,7 @@ void AllegroRenderer::editarTexto(VectorCtrl* vector){
     DIALOG* d = findDialogControl(vector);
 
     if (vector->modoEdicion){
-        unsigned int x, y;
+        int x, y;
         extraerEnteros ((char*)d->dp, x, y);
         vector->setXY (x, y);
         d->flags |= D_DIRTY;
@@ -459,7 +459,7 @@ void AllegroRenderer::editarTexto(VectorCtrl* vector){
     }
 };
 
-void AllegroRenderer::extraerEnteros (std::string input, unsigned int& x, unsigned int& y)
+void AllegroRenderer::extraerEnteros (std::string input, int& x, int& y)
 {
     // Encontrar la posición de la coma.
     size_t commaPos = input.find(',');
@@ -479,3 +479,11 @@ void AllegroRenderer::extraerEnteros (std::string input, unsigned int& x, unsign
     // Mostrar resultados.
     std::cout << "x = " << x << ", y = " << y << std::endl;
 }
+
+/// @brief  Dibuja los ejes en el espacio del juego.
+///
+void AllegroRenderer::dibujarEjes () {
+    line (screen, 1000, 0, -1000, 0, makecol (255, 0, 0));
+    line (screen, 0, 1000, 0, -1000, makecol (0, 255, 0));
+}
+

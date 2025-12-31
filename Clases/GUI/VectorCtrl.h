@@ -11,9 +11,9 @@
 class VectorCtrl : public Control, public IControlListener {
 public:
     // @todo Sustituir en futuro por una clase (p.j. la clase "Bloque").
-    unsigned int x;      ///< Posición - Coordenada x.
-    unsigned int y;      ///< Posición - Coordenada y.
-    //unsigned int z;    ///< Posición - Coordenada z.
+    int x;      ///< Posición - Coordenada x.
+    int y;      ///< Posición - Coordenada y.
+    //int z;    ///< Posición - Coordenada z.
     std::string texto;   ///< Texto asociado al vector.
     bool modoEdicion;    ///< Nos indica si el vector está siendo editado.
 
@@ -26,7 +26,7 @@ public:
     /// @param x_ Posición x del control en pantalla.
     /// @param y_ Posición y del control en pantalla.
     ///
-    VectorCtrl(unsigned int x_, unsigned int y_) : Control(TipoControl::VECTOR, x_, y_, 0, 0, 0, 0, 0, 0), x(0), y(0), texto(""), modoEdicion(false) {};
+    VectorCtrl(int x_, int y_) : Control(TipoControl::VECTOR, x_, y_, 0, 0, 0, 0, 0, 0), x(0), y(0), texto(""), modoEdicion(false) {};
     
     /// @brief Establece el comando a ejecutar.
     /// @param cmd Comando a ejecutar.
@@ -37,7 +37,7 @@ public:
     /// @param x_ Valor nuevo de x.
     /// @param y_ Valor nuevo de y.
     ///
-    void setXY (unsigned int x_, unsigned int y_) {
+    void setXY (int x_, int y_) {
         bool changed = false;
         if ( x != x_) {
              x = x_;

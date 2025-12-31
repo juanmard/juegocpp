@@ -32,6 +32,7 @@ public:
     virtual int  defaultVector(VectorCtrl* vector, const InputEvent& ev) = 0;
     virtual void invertirBackgroundForeground(Control* ctrl) = 0;
     virtual void editarTexto(VectorCtrl* control) = 0;
+    virtual void dibujarEjes () = 0;
     virtual ~IRenderer() {}
 };
 
