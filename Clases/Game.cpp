@@ -8,75 +8,38 @@
 #include "CollisionManager.h"
 #include "SoundManager.h"
 #include "StorageManager.h"
+#include "AllegroTimer.h"
 
-/*------------------------------------------------------------------------------*/
-/* Variables y funciones globales para sincronizar juego en distintas máquinas. */
-/*------------------------------------------------------------------------------*/
-/**
- * \todo    Integrar en la clase "Game" como funciones y variables estáticas.
- */
-void tick_count();
-
-/**
- * Las variables que modifiquen las funciones 'timer' de Allegro tienen que
- *  ser de tipo 'volatile'.
- */
-volatile int tick;
-
-/**
- * \brief   Función definida como 'timer' de Allegro.
- * \todo    Independizar de la biblioteca Allegro mediante clases.
- */
-void tick_count()
-{
-  tick++;
-}
-END_OF_FUNCTION(tick_count);
-/*---------------------------------------------------------------------------------*/
-
-/**
- * @brief   Constructor por omisión.
- */
-Game::Game ()
-{
-  actor_manager = NULL;
-  stage_manager = NULL;
-  sound_manager = NULL;
-  control_manager = NULL;
-  collision_manager = NULL;
-  storage_manager = NULL;
-}
-
-/**
- * @brief   Destructor por omisión.
- */
-Game::~Game ()
+/// @brief  Constructor por omisión.
+Game::Game ():
+actor_manager(NULL),
+stage_manager(NULL),
+sound_manager(NULL),
+control_manager(NULL),
+collision_manager(NULL),
+storage_manager(NULL),
+timer (new AllegroTimer()),
+paused (true)
 {
 }
 
-/**
- * @brief   Inicia el juego.
- * @todo Independizar de Allegro4 usando la clase IRenderer.
- */
-void Game::init (int gfx_mode, int w, int h, int col)
-{
+/// @brief  Destructor por omisión.
+Game::~Game () {
+}
+
+/// @brief  Inicia el juego.
+/// @todo  Independizar de Allegro4 usando la clase IRenderer.
+void Game::init (int gfx_mode, int w, int h, int col) {
   allegro_init ();
   install_keyboard ();
   install_mouse ();
-  install_timer ();
-
-  /* Protegemos variables e instalamos interrupción del "timer".
-   * (14 para ejecutar 70 veces por segundo).
-   */
-  LOCK_VARIABLE (tick);
-  LOCK_FUNCTION (tick_count);
-  install_int (&tick_count, 14);
+  timer->install ();
 
   /* Entramos en modo gráfico. */
   set_color_depth(col);
   if (set_gfx_mode(gfx_mode, w, h, 0, 0) < 0)
   {
-    shutdown("No se pudo inicializar modo gráfico");
+    shutdown("No se pudo inicializar modo gráfico.");
     return;
   }
   else
@@ -97,191 +60,140 @@ void Game::init (int gfx_mode, int w, int h, int col)
   start ();
 }
 
-/**
- * \brief   Da por terminado el juego.
- */
-void Game::shutdown (std::string message = "Gracias por jugar")
-{
-  /* Se borrran los controladores. */
+
+/// @brief  Da por terminado el juego.
+void Game::shutdown (std::string message = "Gracias por jugar.") {
+  // Se borran y se liberan todos los controladores.
   if (actor_manager) delete actor_manager;
   if (stage_manager) delete stage_manager;
-  //    if (sound_manager) delete sound_manager;
+  // if (sound_manager) delete sound_manager;
   if (control_manager) delete control_manager;
   if (collision_manager) delete collision_manager;
   if (storage_manager) delete storage_manager;
 
   set_gfx_mode (GFX_TEXT,0,0,0,0);
+  // Se muestran mensajes finales.
   std::cout << name << std::endl;
   std::cout << message << std::endl;
   allegro_exit ();
 }
 
-/**
- * \brief   Crea el controlador de actores.
- */
-void Game::create_actormanager ()
-{
+/// @brief  Crea el controlador de actores.
+/// @warning  Comprobar que se ha creado el manejador correctamente.
+void Game::create_actormanager () {
   actor_manager = new ActorManager (this);
 }
 
-/**
- * \brief   Crea el controlador del escenario.
- */
-void Game::create_stagemanager ()
-{
+/// @brief  Crea el controlador del escenario.
+/// @warning  Comprobar que se ha creado el manejador correctamente.
+void Game::create_stagemanager () {
   stage_manager = new StageManager (this, gfx_w, gfx_h);
 }
 
-/**
- * @brief   Crea en el juego un controlador de sonidos.
- * @warning Se debería pensar si este es el lugar apropiado para crearlo.
- *          - ¿Forma parte del juego?
- *          - ¿No es parte del controlador de escenario ("StageManager")?
- *          - ¿Se debe crear un controlador de "efectos" independiente?
- */
-void Game::create_soundmanager ()
-{
-  //sound_manager = new SoundManager (this);
+///
+/// @brief  Crea en el juego un controlador de sonidos.
+/// @warning  Se debería pensar si este es el lugar apropiado para crearlo.
+///           - ¿Forma parte del juego?
+///           - ¿No es parte del controlador de escenario ("StageManager")?
+///           - ¿Se debe crear un controlador de "efectos" independiente?
+/// @warning  Comprobar que se ha creado el manejador correctamente.
+///
+void Game::create_soundmanager () {
   sound_manager = new SoundManager ();
 }
 
-/**
- * @brief   Crea el controlador de controles.
- */
-void Game::create_controlmanager ()
-{
-    control_manager = new ControlManager ();
+/// @brief  Crea el controlador de controles.
+/// @warning  Comprobar que se ha creado el manejador correctamente.
+void Game::create_controlmanager () {
+  control_manager = new ControlManager ();
 }
 
-/**
- * @brief   Crea el controlador de colisiones.
- */
-void Game::create_collisionmanager ()
-{
-    collision_manager = new CollisionManager (this);
+/// @brief  Crea el controlador de colisiones.
+/// @warning  Comprobar que se ha creado el manejador correctamente.
+void Game::create_collisionmanager () {
+  collision_manager = new CollisionManager (this);
 }
 
-/**
- * \brief   Se inicia el juego.
- */
-void Game::start ()
-{
-  /* Inicializamos la sincronización con el juego. */
-  actual_tick = tick;
-  old_tick = tick;
-  max_frame_skip = 15;
-  paused = false;
+/// @brief  Se inicia el juego.
+void Game::start () {
+  // Inicializamos la sincronización con el juego.
+  timer->init ();
 
-  /* Se llama al procedimiento principal. */
+  // Se llama al procedimiento principal.
   mainGame ();
+
+  // Cuando termine el procedimiento principal, apagamos el juego.
   shutdown ();
 }
 
-/**
- * \brief   Procedimiento predeterminado "main" si no se sobreescribe en el hijo.
- */
-void Game::mainGame ()
-{
+/// @brief  Procedimiento predeterminado "main" si no se sobreescribe en el hijo.
+/// @todo  Independizar de Allegro4 usando IInput.
+void Game::mainGame () {
   while (!key[KEY_ESC]);
 }
 
-/**
- * \brief   Se cambia el nombre del juego.
- */
-void Game::set_name (string n)
-{
+/// @brief  Se cambia el nombre del juego.
+void Game::set_name (std::string n) {
   name = n;
 }
 
-/**
- * \brief   Se obtiene el nombre del juego.
- */
-string Game::get_name ()
-{
+/// @brief  Se obtiene el nombre del juego.
+std::string Game::get_name () {
   return name;
 }
 
-/**
- * \brief   Se actualiza el estado del juego.
- */
-void Game::update ()
-{
-  /* Se actualiza el ciclo lógico. */
-  if (actual_tick <= tick)
-  {
-    // Se actualiza el estado de la lista de actores.
-    actor_manager->update ();
-
-    /* Se comprueba la existencia de los controladores para actualizarlos. */
+/// @brief  Se actualiza el estado del juego.
+void Game::update () {
+  // Si se ha cumplido el ciclo lógico en el timer: Se actualiza el ciclo lógico.
+  if (timer->isCicloLogico()) {
+    if (actor_manager) actor_manager->update ();
     if (collision_manager) collision_manager->update ();
     if (control_manager) control_manager->update ();
-    actual_tick++;
+    timer->incTickActual ();
   }
 
-  /* Se actualiza el ciclo gráfico. */
-  if ((actual_tick >= tick) || (frame_skip > max_frame_skip))
-  {
+  // Si se ha cumplido el ciclo gráfico o se han saltado muchos frames en el timer: Se actualiza el ciclo gráfico.
+  // En otro caso: Se añade un salto de frame.
+  if (timer->isCicloGrafico() || timer->isSkipFrame()) {
+    stage_manager->set_ribete (Bloque(0,50,SCREEN_W,SCREEN_H));
     stage_manager->update ();
-    if (frame_skip > max_frame_skip) actual_tick = tick;
-    graphic_tick++;
-    frame_skip = 0;
-  }
-  else
-  {
-    frame_skip++;
+    timer->updateFrame ();
+  } else {
+    timer->incFrame ();
   }
 
-  /* Si se ha cumplido un segundo, se actualizan los "fps" por pantalla. */
-//  if ((tick-old_tick >= 70) && stage_manager->is_info ())
-//  if (tick-old_tick >= 70)
-  if (false)
+  /// @todo Independizar de Allegro4 con IRenderer.
+  // Si se ha cumplido un segundo, se actualizan los "fps" por pantalla.
+  if (timer->isOneSecond())
   {
-    rectfill (stage_manager->getBuffer(), 0, 0, SCREEN_W, 50, 0);
-    textprintf_ex (stage_manager->getBuffer(), font, 0, 0,-1, makecol(255, 100, 200),
-                   "fps: %u frameskip:%u", graphic_tick, frame_skip);
-    blit (stage_manager->getBuffer(), screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-    graphic_tick = 0;
-    old_tick = tick;
+    rectfill (screen, 0, 0, SCREEN_W, 10, 0);
+    textprintf_ex (screen, font, 0, 0, -1, makecol(255, 100, 200),
+                   "fps: %u frameskip:%u", timer->getGraphicTick(), timer->getFrameSkip() );
+    //blit (stage_manager->getBuffer(), screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+    timer->resetGraphicTick ();
+    timer->resetOldTick ();
   }
 }
 
-/**
- * \brief   Se cambian los máximos 'frames' para saltar.
- */
-void Game::set_max_frame_skip (int max_fs)
-{
-  max_frame_skip = max_fs;
-}
-
-/**
- * \brief   Se pausa el juego.
- */
-void Game::pause ()
-{
+/// @brief  Se pausa el juego.
+void Game::pause () {
   paused = true;
 }
 
-/**
- * @brief   Se reanuda el juego.
- */
-void Game::play ()
-{
+/// @brief  Se reanuda el juego.
+void Game::play () {
   paused = false;
 }
 
-/**
- * @brief   Se comprueba si el juego está en pausa.
- */
-bool Game::is_paused (void)
-{
+/// @brief  Se comprueba si el juego está en pausa.
+/// @return  Booleano indicando si el juego está en modo pausa o no.
+bool Game::is_paused (void) {
   return paused;
 }
 
-/**
- * @brief   Se crea el almacén por omisión.
- */
-void Game::create_storagemanager ()
-{
+/// @brief  Se crea el almacén de recursos por omisión.
+/// @todo  Comprobar que se ha creado correctamente.
+void Game::create_storagemanager () {
     // Creamos el almacén de recursos.
     storage_manager = new StorageManager("sprites3.dat");
 }

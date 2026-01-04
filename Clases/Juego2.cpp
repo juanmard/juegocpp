@@ -99,6 +99,20 @@ void Juego2::mainGame ()
         }
     }
 
+    // Antes de cerrar, hacemos una prueba con el juego en marcha.
+    key[KEY_ESC] = false;
+    while (!key[KEY_ESC])
+    {
+      // Se actualiza si no está pausado.
+      if (!is_paused()) update();
+
+      // Pausamos y reanudamos con la barra espaciadora.
+      if (key[KEY_SPACE]) {
+        is_paused() ? play() : pause();
+        key[KEY_SPACE] = false;
+      }
+    }
+
   // Cerramos el juego fundiendo en negro.
   fade_out(2);
 };

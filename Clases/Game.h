@@ -3,7 +3,7 @@
 
 #include <string>
 
-// Predefiniciones de clases.
+class ITimer;
 class ActorManager;
 class StageManager;
 class SoundManager;
@@ -11,54 +11,49 @@ class ControlManager;
 class CollisionManager;
 class StorageManager;
 
-/**
- * \brief   Clase que recoge las funciones básicas de un juego.
- * \todo   Definir el tipo 'team_t' como una clase externa.
- */
+///
+/// @brief  Clase que recoge las funciones básicas de un juego.
+/// @details  Esta clase inicializa todos los componentes necesarios para un juego.
+///
 class Game
 {
-  public:
-    ActorManager *      actor_manager;
-    StageManager *      stage_manager;
-    SoundManager *      sound_manager;
-    ControlManager *    control_manager;
-    CollisionManager *  collision_manager;
-    StorageManager *    storage_manager;
+public:
+    ActorManager*      actor_manager;        ///< Referencia al manejador de actores dentro del juego.
+    StageManager*      stage_manager;        ///< Referencia al manejador del escenario donde se desarrolla el juego.
+    SoundManager*      sound_manager;        ///< Referencia al manejador de sonidos del juego.
+    ControlManager*    control_manager;      ///< Referencia al control del juego.
+    CollisionManager*  collision_manager;    ///< Referencia al manejador de colisiones entre actores del juego.
+    StorageManager*    storage_manager;      ///< Referencia al manejador de los distintos recursos del juego.
 
-                    Game        ();
-    virtual         ~Game       ();
-    virtual void    init        (int gfx_mode, int w, int h, int col);
-    virtual void    mainGame    ();
-    void            pause       ();
-    void            play        ();
-    bool            is_paused   ();
-    void            set_name    (std::string name);
-    std::string     get_name    ();
-    void            update      ();
+protected:
+    std::string name;     ///< Nombre del juego.
+    ITimer* timer;        ///< Timer para controlar ciclos lógicos y gráficos.
+    int gfx_w, gfx_h;     ///< Dimensiones de la ventana del juego en modo gráfico.
 
-  protected:
-    void        set_max_frame_skip  (int max_fs);
+private:
+    bool paused;        ///< Variable que indica el estado pausado o no del juego.
 
-    std::string   name;
-    int           gfx_w, gfx_h;
-    int           colors;
+public:
+    Game ();
+    virtual ~Game ();
+    virtual void init (int gfx_mode, int w, int h, int col);
+    virtual void mainGame ();
+    void pause ();
+    void play ();
+    bool is_paused ();
+    void set_name (std::string name);
+    std::string get_name ();
+    void update ();
 
-  private:
-    int     actual_tick;
-    int     old_tick;
-    int     graphic_tick;
-    int     frame_skip;
-    int     max_frame_skip;
-    bool    paused;
-
-    void            start                   ();
-    void            shutdown                (std::string message);
-    virtual void    create_actormanager     ();
-    virtual void    create_stagemanager     ();
-    virtual void    create_soundmanager     ();
-    virtual void    create_controlmanager   ();
-    virtual void    create_collisionmanager ();
-    virtual void    create_storagemanager   ();
+private:
+    void start ();
+    void shutdown (std::string message);
+    virtual void create_actormanager ();
+    virtual void create_stagemanager ();
+    virtual void create_soundmanager ();
+    virtual void create_controlmanager ();
+    virtual void create_collisionmanager ();
+    virtual void create_storagemanager ();
 };
 
-#endif
+#endif //_GAME_H_
