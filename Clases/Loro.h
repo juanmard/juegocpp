@@ -10,7 +10,7 @@
 #define _LORO_H_
 
 #include "ControllableActor.h"
-#include "Almacen.h"
+#include "StorageManager.h"
 #include "Sprite.h"
 #include "Peripheral.h"
 
@@ -63,7 +63,7 @@ public:
     /// @todo Este parámetro de almacen no tiene mucho sentido en esta clase, debería ser
     ///       más sencillo crear un actor del tipo Loro.
     ///
-    Loro (Almacen &almacen);
+    Loro (StorageManager &almacen);
 
     /// Responde ante las acciones definidas para el loro.
     /// @param act  Acción a realizar por el loro.

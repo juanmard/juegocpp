@@ -1,5 +1,6 @@
 #include "StageCtrl.h"
 #include "Actor.h"
+#include "ActorManager.h"
 #include "SliderCtrl.h"
 
 void StageCtrl::controlChanged(Control* control) {
@@ -46,16 +47,22 @@ int StageCtrl::manejarEvento(const InputEvent& ev) {
         case ControlEvent::Draw:
             std::cout << "StageCtrl Draw event." << std::endl;
             editor_manager->dibujar_escenario();
+            if (drawEjes) {
+                // @warning No llega a dibujarlos porque el "editor_manager" trabaja con un buffer intermedio.
+                //          Para que funcione, el "editor_manager" debe independizarse de "Allegro4".
+                // editor_manager->dibujar_ejes();
+                this->renderer->dibujarEjes ();
+            }
             dibujarMarco();
             break;
         case ControlEvent::DoubleClick:
         {
             auto& move = std::get<MouseMoveData>(ev.data);
-            std::cout << "StageCtrl DoubleClick event." << std::endl;
-            std::cout << "Escenario: " << editor_manager->get_escenario_xy () << std::endl;
-            std::cout << "Mouse: " << move.x << ", " << move.y << std::endl;
-            std::cout << "Control: " << x << ", " << y << std::endl;
-            std::cout << "Referencia: " << editor_manager->refX << ", " << editor_manager->refY << std::endl;
+            // std::cout << "StageCtrl DoubleClick event." << std::endl;
+            // std::cout << "Escenario: " << editor_manager->get_escenario_xy () << std::endl;
+            // std::cout << "Mouse: " << move.x << ", " << move.y << std::endl;
+            // std::cout << "Control: " << x << ", " << y << std::endl;
+            // std::cout << "Referencia: " << editor_manager->refX << ", " << editor_manager->refY << std::endl;
             editor_manager->mover_escenario (x, y);
             editor_manager->dibujar_escenario();
         }
@@ -101,6 +108,9 @@ int StageCtrl::manejarEvento(const InputEvent& ev) {
             break;
         case ControlEvent::RightPress:
             std::cout << "StageCtrl RightPress event." << std::endl;
+            if (editor_manager->actor) {
+                editor_manager->duplicar_actor (editor_manager->actor);
+            }
             break;
         case ControlEvent::RightRelease:
             std::cout << "StageCtrl RightRelease event." << std::endl;
@@ -169,7 +179,6 @@ int StageCtrl::manejarEvento(const InputEvent& ev) {
                     break;
                 }
             }
-
 
             // Se actualiza el escenario.
             editor_manager->dibujar_escenario ();

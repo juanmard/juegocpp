@@ -25,9 +25,9 @@ DIALOG AlmacenGUI::dlg_plantilla[] =
 };
 
 /* Variable estática que referencia al almacen activo. */
-Almacen* AlmacenGUI::almacen_activo = NULL;
+StorageManager* AlmacenGUI::almacen_activo = NULL;
 
-AlmacenGUI::AlmacenGUI (Almacen& _almacen):
+AlmacenGUI::AlmacenGUI (StorageManager& _almacen):
 almacen (_almacen),
 pto_inserccion (0),
 activado (false)
@@ -49,7 +49,7 @@ activado (false)
   dlg.insert (dlg.end(), &dlg_plantilla[0], &dlg_plantilla[5]);
 };
 
-AlmacenGUI::AlmacenGUI (Almacen& _almacen, std::vector<DIALOG>& gui_padre):
+AlmacenGUI::AlmacenGUI (StorageManager& _almacen, std::vector<DIALOG>& gui_padre):
 almacen (_almacen),
 activado (false)
 {
@@ -90,7 +90,7 @@ std::vector<DIALOG>& AlmacenGUI::get_GUI ()
 /**
  * \brief   Cambiamos el objeto 'almacen' a visualizar en la GUI.
  */
-void AlmacenGUI::activar_almacen (Almacen& almacenParam)
+void AlmacenGUI::activar_almacen (StorageManager& almacenParam)
 {
   almacen_activo = &almacenParam;
 };

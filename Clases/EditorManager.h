@@ -12,7 +12,7 @@
 #include <allegro.h>
 #include <string>
 #include "Bloque.h"
-#include "Almacen.h"
+#include "StorageManager.h"
 
 class Game;
 class Actor;
@@ -263,7 +263,7 @@ public:
     ///
     /// @return Referencia al almacén de recursos.
     ///
-    Almacen& get_almacen () const;
+    StorageManager& get_almacen () const;
 
     /// Indica si el actor actual está activo.
     ///

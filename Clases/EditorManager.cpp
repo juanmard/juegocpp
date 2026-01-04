@@ -54,6 +54,7 @@ void EditorManager::dibujar_escenario ()
 {
   if (game) {
     game->stage_manager->draw ();
+    // game->stage_manager->dibujar_ejes ();
   }
 };
 
@@ -219,7 +220,7 @@ std::string& EditorManager::get_escenario_xy () const
   return *new std::string(oss.str ());
 };
 
-Almacen& EditorManager::get_almacen () const
+StorageManager& EditorManager::get_almacen () const
 {
   return *(game->storage_manager);
 }

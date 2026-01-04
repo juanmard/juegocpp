@@ -38,7 +38,6 @@ tiempo_estado(copia.tiempo_estado),
 estado(copia.estado),
 mostrarBloque (copia.mostrarBloque),
 power(copia.power),
-team(copia.team),
 is_detectable(copia.is_detectable),
 collision_method(copia.collision_method),
 wait_graph(copia.wait_graph)
@@ -104,11 +103,6 @@ void Actor::hit (Actor *who, int damage)
 void Actor::set_collision_method (CollisionManager::collision_method_t metodo)
 {
     collision_method = metodo;
-};
-
-void Actor::set_team (Game::team_t equipo)
-{
-    team = equipo;
 };
 
 void Actor::set_is_detected (bool detectable)

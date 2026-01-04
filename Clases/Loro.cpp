@@ -15,7 +15,7 @@ kboard (NULL)
 {
 };
 
-Loro::Loro (Almacen &almacen):
+Loro::Loro (StorageManager &almacen):
 ControllableActor (),
 kboard (new Keyboard())
 {

@@ -41,7 +41,7 @@ public:
     /// @param almacen Almacen con los gráficos para crear la plataforma.
     /// @todo Este parámetro de almacen no tiene mucho sentido en esta clase.
     ///
-    Plataforma (Almacen& almacen);
+    Plataforma (StorageManager& almacen);
 
     /// Constructor de copia.
     /// @param copia Referencia a la plataforma que quiere ser copiada.

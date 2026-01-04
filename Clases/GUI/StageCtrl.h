@@ -17,6 +17,7 @@ class StageCtrl : public Control, public IControlListener {
 public:
     Bloque marco;
     bool dragEscenario;
+    bool drawEjes;
 
     /// Referencia al EditorManager, de prueba.
     EditorManager* editor_manager = nullptr;
@@ -24,14 +25,14 @@ public:
     ///
     StageCtrl(int x_, int y_, int w_, int h_, int fg_, int bg_, int key_, int flags_, Comando* cmd = nullptr, void* d = nullptr) :
     Control(TipoControl::STAGE, x_, y_, w_, h_, fg_, bg_, key_, flags_, cmd, d),
-    marco(x_, y_, w_, h_), dragEscenario(false) {
+    marco(x_, y_, w_, h_), dragEscenario(false), drawEjes(true) {
         //editor_manager->set_ribete(marco);
     }
 
     ///
     StageCtrl(int x_, int y_) :
     Control(TipoControl::STAGE, x_, y_, 0, 0, 0, 0, 0, 0),
-    marco(x_, y_, 600, 100), dragEscenario(false) {
+    marco(x_, y_, 600, 100), dragEscenario(false), drawEjes(true) {
         // Prueba.
     };
 

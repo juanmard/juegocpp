@@ -24,10 +24,11 @@ Juego2::Juego2 ()
 {
 };
 
-void Juego2::create_storage_manager ()
+void Juego2::create_storagemanager ()
 {
   // Creamos el almacén de recursos.
-  storage_manager = new Almacen("sprites3.dat");
+  storage_manager = new StorageManager("sprites3.dat");
+  // @todo Comprobar que se ha creado correctamente y no queda como NULL.
 };
 
 void Juego2::mainGame ()
@@ -42,7 +43,6 @@ void Juego2::mainGame ()
     // Se carga el mapa del juego.
     Mapa mapa;
     std::cout << mapa << std::endl;
-
 
     // Se cargan actores desde fichero de prueba.
     mapa.load (*new std::string("test2.txt"),*actor_manager);

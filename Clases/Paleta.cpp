@@ -28,7 +28,7 @@ ControllableActor (copia)
   piel = dynamic_cast<Suelo *>(agraph);
 };
 
-Paleta::Paleta (Almacen &almacen)
+Paleta::Paleta (StorageManager &almacen)
 {
   piel = new Suelo (this, almacen, 2);
   set_actor_graphic (piel);

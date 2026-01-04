@@ -1,17 +1,18 @@
 ///
-/// @file Almacen.cpp
-/// @brief Fichero con el código de implementación de la clase Almacen.
+/// @file StorageManager.cpp
+/// @brief Fichero con el código de implementación de la clase StorageManager.
 /// @author Juan Manuel Rico
 /// @date Diciembre 2010
 /// @version
 ///      - 1.0.0 Diciembre 2010
 ///      - 1.0.1 Marzo 2015
+///      - 1.0.2 Enero 2026
 ///
 
-#include "Almacen.h"
+#include "StorageManager.h"
 #include "AlmacenGUI.h"
 
-Almacen::Almacen (std::string paramNombreFichero)
+StorageManager::StorageManager (std::string paramNombreFichero)
 {
     // Se intenta cargar el fichero de datos en memoria.
     fichero = load_datafile (paramNombreFichero.c_str ());
@@ -60,24 +61,24 @@ Almacen::Almacen (std::string paramNombreFichero)
     gui = new AlmacenGUI (*this);
 };
 
-Almacen::Almacen ():
+StorageManager::StorageManager ():
 nombreFichero (NULL),
 gui (NULL)
 {
 };
 
-Almacen::~Almacen ()
+StorageManager::~StorageManager ()
 {
     // Liberar los recursos del fichero.
     // Liberar los recursos 'map'.
 };
 
-BITMAP* Almacen::get_bitmap (std::string nombreBitmap)
+BITMAP* StorageManager::get_bitmap (std::string nombreBitmap)
 {
     return bitmaps[nombreBitmap];
 };
 
-BITMAP* Almacen::get_bitmap (int indice)
+BITMAP* StorageManager::get_bitmap (int indice)
 {
     if (fichero[indice].type == DAT_BITMAP)
     {
@@ -89,17 +90,17 @@ BITMAP* Almacen::get_bitmap (int indice)
     }
 };
 
-std::string Almacen::get_nombre (int indice) const
+std::string StorageManager::get_nombre (int indice) const
 {
     return get_datafile_property(&fichero[indice], DAT_ID('N','A','M','E'));
 };
 
-RGB* Almacen::get_palette (std::string nombrePaleta)
+RGB* StorageManager::get_palette (std::string nombrePaleta)
 {
     return paletas[nombrePaleta];
 };
 
-std::string Almacen::get_name (BITMAP* puntero)
+std::string StorageManager::get_name (BITMAP* puntero)
 {
     std::string nombre;
     std::map<std::string, BITMAP*>::iterator it;
@@ -121,22 +122,22 @@ std::string Almacen::get_name (BITMAP* puntero)
     return nombre;
 };
 
-std::vector<DIALOG>& Almacen::get_DIALOG ()
+std::vector<DIALOG>& StorageManager::get_DIALOG ()
 {
     return gui->get_GUI ();
 };
 
-unsigned int Almacen::get_size () const
+unsigned int StorageManager::get_size () const
 {
    return (bitmaps.size () + paletas.size () + sonidos.size ());
 };
 
-std::string Almacen::get_nombre () const
+std::string StorageManager::get_nombre () const
 {
     return nombreFichero;
 };
 
-void Almacen::add_GUI (std::vector<DIALOG>& gui_padre)
+void StorageManager::add_GUI (std::vector<DIALOG>& gui_padre)
 {
     // Se crea una GUI para esta clase.
     gui = new AlmacenGUI (*this, gui_padre);

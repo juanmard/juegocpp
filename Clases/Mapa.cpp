@@ -206,7 +206,7 @@ Actor& Mapa::crear_actor (const std::string& clase) const
     CMP_CLASE(Plataforma);
     // Para pruebas con la fruta.
     // CMP_CLASE(Fruta);
-    if (!clase.compare("Fruta") ) return *new Fruta(*new Almacen("sprites3.dat"));
+    if (!clase.compare("Fruta") ) return *new Fruta(*new StorageManager("sprites3.dat"));
     // ---------------------------
     throw std::string ("La clase \"" + clase + "\" no existe o no puede ser controlada por \"ActorManager\"");
 };

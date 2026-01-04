@@ -6,6 +6,7 @@
 #include <fstream>
 #include "GUIEscenario.h"
 #include "ActorGUI.h"
+#include "ActorManager.h"
 #include "GUI/ComandosConcretos.h"
 
 // Inicialización de las variables estáticas de la clase.

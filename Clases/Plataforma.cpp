@@ -38,7 +38,7 @@ Plataforma::Plataforma ()
     activa=true;
 };
 
-Plataforma::Plataforma (Almacen& almacen):
+Plataforma::Plataforma (StorageManager& almacen):
 Actor()
 {
     this->agraph = new Suelo (this, almacen, 2);

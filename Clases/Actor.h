@@ -81,7 +81,6 @@ protected:
     state_t estado;                                         ///< Estado del actor.
     bool mostrarBloque;                                     ///< Indica si al representar el actor debe representarse el bloque que lo limita.
     int power;                                              ///< Representa la energía del actor en el juego.
-    Game::team_t team;                                      ///< Equipo en el que se agrupa el actor.
     bool is_detectable;                                     ///< indica si el actor es detectable dentro del juego.
     CollisionManager::collision_method_t collision_method;  ///< Método de colisión que se le aplica al actor.
     ActorGraphic* wait_graph;                               ///< Gráfico de intercambio.
@@ -330,11 +329,6 @@ public:
     /// @param cm Método que se emplea en el actor para detectar una colisión.
     ///
     void set_collision_method (CollisionManager::collision_method_t cm);
-
-    /// Cambia el equipo al que pertenece un actor.
-    /// @param tm Nuevo equipo para el actor.
-    ///
-    void set_team (Game::team_t tm);
 
     /// Cambia el tiempo de estado para un actor.
     /// @param tiempo Nuevo tiempo de estado.

@@ -10,7 +10,7 @@
 #ifndef _FRUTA_H_
 #define _FRUTA_H_
 
-#include "Almacen.h"
+#include "StorageManager.h"
 #include "Sprite.h"
 #include "Menu.h"
 #include "Formulario.h"
@@ -35,7 +35,7 @@ public:
     /// @todo Este parámetro de almacen no tiene mucho sentido en esta clase, debería ser
     ///       más sencillo crear un actor del tipo Fruta.
     ///
-    Fruta (Almacen &almacen);
+    Fruta (StorageManager &almacen);
 
     /// Obtiene el nombre en forma de cadena de texto.
     /// @param strNombre Referencia a la cadena donde se guardará el nombre de la fruta.

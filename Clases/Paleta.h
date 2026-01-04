@@ -10,7 +10,7 @@
 #define _PALETA_H_
 
 #include "ControllableActor.h"
-#include "Almacen.h"
+#include "StorageManager.h"
 #include "Suelo.h"
 
 /// Actor que cambia la dirección de la pelota.
@@ -48,7 +48,7 @@ public:
     /// @note No gusta el tener que pasar el almacén para generar el objeto, a
     ///       eliminar este parámetro si es posible.
     ///
-    Paleta (Almacen &almacen);
+    Paleta (StorageManager &almacen);
                         
     /// Destructor.
     ///

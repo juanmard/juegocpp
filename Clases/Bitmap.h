@@ -11,7 +11,7 @@
 
 #include "ActorGraphic.h"
 #include "Actor.h"
-#include "Almacen.h"
+#include "StorageManager.h"
 #include <string>
 
 /// Parte gráfica de un actor como gráfico fijo.
@@ -24,8 +24,8 @@
 class Bitmap : public ActorGraphic
 {
 protected:
-    static Almacen* almacenGlobal;      ///< Puntero estático del almacén para todos los objetos de la clase Bitmap.
-    Almacen* almacen;                   ///< Puntero al almacén de la clase. @warning ¿Es esta variable necesario?
+    static StorageManager* almacenGlobal;      ///< Puntero estático del almacén para todos los objetos de la clase Bitmap.
+    StorageManager* almacen;                   ///< Puntero al almacén de la clase. @warning ¿Es esta variable necesario?
     BITMAP* fuente;                     ///< Fuente de la imagen del Bitmap.
     std::string nombre;                 ///< Nombre del Bitmap.
 
@@ -58,7 +58,7 @@ public:
     /// @param almacen  Puntero al almacén donde se encuentran todos los gráficos del juego.
     /// @param nombre  Cadena de texto con el nombre que se le asignará al Bitmap.
     ///
-    Bitmap (Actor* aowner, Almacen* almacen, const std::string nombre);
+    Bitmap (Actor* aowner, StorageManager* almacen, const std::string nombre);
 
 
     /// Dibuja en BITMAP de Allegro.
@@ -114,7 +114,7 @@ public:
 
     /// Fija el puntero global que hace referencia al almacén.
     /// @param almacen  Puntero al almacén estático.
-    static void set_almacen (Almacen* almacen)
+    static void set_almacen (StorageManager* almacen)
     {
         almacenGlobal = almacen;
     };

@@ -1,15 +1,16 @@
 ///
-/// @file Almacen.h
-/// @brief Fichero con el código de declaración de la clase Almacen.
+/// @file StorageManager.h
+/// @brief Fichero con el código de declaración de la clase StorageManager.
 /// @author Juan Manuel Rico
 /// @date Diciembre 2010
 /// @version
 ///         - 1.0.0 Diciembre 2010
 ///         - 1.0.1 Marzo 2015
+///         - 1.0.2 Enero 2026
 ///
 
-#ifndef _ALMACEN_H_
-#define _ALMACEN_H_
+#ifndef _STORAGEMANAGER_H_
+#define _STORAGEMANAGER_H_
 
 #include <allegro.h>
 #include <stdio.h>
@@ -22,14 +23,14 @@
 ///       Lo ideal es que heredara de "EditableObject" y entregara un "Formulario".
 class AlmacenGUI;
 
-/// @class Almacen
+/// @class StorageManager
 /// Maneja los recursos (gráficos y sonidos) del juego.
 ///
 /// Esta clase nos debe dar acceso a los distintos recursos que necesita el juego.
 /// Los recursos se obtienen de un fichero de tipo DAT generado por Grabber.
 /// @todo Crear métodos "GetSample" y "SetSample" para manejo de sonidos.
 ///
-class Almacen
+class StorageManager
 {
 private:
     DATAFILE* fichero;                      ///< Puntero de referencia al fichero abierto DAT.
@@ -51,16 +52,16 @@ public:
     ///        - Cuando se produzca el error en la lectura del fichero lazar una excepción para ser capturada.
     ///        - Eliminar la creación de la GUI en el constructor. Ponerla en un método aparte.
     ///
-    Almacen (std::string paramNombreFichero);
+    StorageManager (std::string paramNombreFichero);
 
     /// Constructor por omisión. Crea un almacén vacío y sin GUI.
     ///
-    Almacen ();
+    StorageManager ();
 
     /// Destructor por omisión.
     /// @todo Liberar los recursos correctamente.
     ///
-    ~Almacen ();
+    ~StorageManager ();
 
     /// Devuelve un 'BITMAP allegro' como recurso dando el nombre del bitmap.
     ///
@@ -146,4 +147,4 @@ public:
 
 };
 
-#endif //_ALMACEN_H_
+#endif //_STORAGEMANAGER_H_

@@ -7,7 +7,7 @@
 #include "ControlManager.h"
 #include "CollisionManager.h"
 #include "SoundManager.h"
-#include "Almacen.h"
+#include "StorageManager.h"
 
 /*------------------------------------------------------------------------------*/
 /* Variables y funciones globales para sincronizar juego en distintas máquinas. */
@@ -35,7 +35,7 @@ END_OF_FUNCTION(tick_count);
 /*---------------------------------------------------------------------------------*/
 
 /**
- * \brief   Constructor por omisión.
+ * @brief   Constructor por omisión.
  */
 Game::Game ()
 {
@@ -48,14 +48,15 @@ Game::Game ()
 }
 
 /**
- * \brief   Destructor por omisión.
+ * @brief   Destructor por omisión.
  */
 Game::~Game ()
 {
 }
 
 /**
- * \brief   Inicia el juego.
+ * @brief   Inicia el juego.
+ * @todo Independizar de Allegro4 usando la clase IRenderer.
  */
 void Game::init (int gfx_mode, int w, int h, int col)
 {
@@ -90,7 +91,7 @@ void Game::init (int gfx_mode, int w, int h, int col)
   create_soundmanager ();
   create_controlmanager ();
   create_collisionmanager ();
-  create_storage_manager ();
+  create_storagemanager ();
 
   /* Se empieza el juego. */
   start ();
@@ -99,7 +100,7 @@ void Game::init (int gfx_mode, int w, int h, int col)
 /**
  * \brief   Da por terminado el juego.
  */
-void Game::shutdown (string message = "Gracias por jugar")
+void Game::shutdown (std::string message = "Gracias por jugar")
 {
   /* Se borrran los controladores. */
   if (actor_manager) delete actor_manager;
@@ -132,8 +133,8 @@ void Game::create_stagemanager ()
 }
 
 /**
- * \brief   Crea en el juego un controlador de sonidos.
- * \warning Se debería pensar si este es el lugar apropiado para crearlo.
+ * @brief   Crea en el juego un controlador de sonidos.
+ * @warning Se debería pensar si este es el lugar apropiado para crearlo.
  *          - ¿Forma parte del juego?
  *          - ¿No es parte del controlador de escenario ("StageManager")?
  *          - ¿Se debe crear un controlador de "efectos" independiente?
@@ -145,7 +146,7 @@ void Game::create_soundmanager ()
 }
 
 /**
- * \brief   Crea el controlador de controles.
+ * @brief   Crea el controlador de controles.
  */
 void Game::create_controlmanager ()
 {
@@ -153,7 +154,7 @@ void Game::create_controlmanager ()
 }
 
 /**
- * \brief   Crea el controlador de colisiones.
+ * @brief   Crea el controlador de colisiones.
  */
 void Game::create_collisionmanager ()
 {
@@ -261,7 +262,7 @@ void Game::pause ()
 }
 
 /**
- * \brief   Se reanuda el juego.
+ * @brief   Se reanuda el juego.
  */
 void Game::play ()
 {
@@ -269,7 +270,7 @@ void Game::play ()
 }
 
 /**
- * \brief   Se comprueba si el juego está en pausa.
+ * @brief   Se comprueba si el juego está en pausa.
  */
 bool Game::is_paused (void)
 {
@@ -277,10 +278,10 @@ bool Game::is_paused (void)
 }
 
 /**
- * \brief   Se crea el almacén por omisión.
+ * @brief   Se crea el almacén por omisión.
  */
-void Game::create_storage_manager ()
+void Game::create_storagemanager ()
 {
     // Creamos el almacén de recursos.
-    //storage_manager = new Almacen("sprites3.dat");
+    storage_manager = new StorageManager("sprites3.dat");
 }

@@ -9,7 +9,7 @@
 
 #include <map>
 #include "ControllableActor.h"
-#include "Almacen.h"
+#include "StorageManager.h"
 #include "Sprite.h"
 
 /**
@@ -33,7 +33,7 @@ public:
     ///
     Ben ();
 
-              Ben         (Almacen &almacen);
+              Ben         (StorageManager &almacen);
     void      do_action   (ControllableActor::action_t act, int magnitude);
     void      update      ();
     void      hit         (Actor *who, int damage);

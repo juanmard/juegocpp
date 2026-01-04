@@ -14,7 +14,7 @@ Actor ()
 {
 };
 
-Fruta::Fruta (Almacen &almacen):
+Fruta::Fruta (StorageManager &almacen):
 Actor ()
 {
     // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.

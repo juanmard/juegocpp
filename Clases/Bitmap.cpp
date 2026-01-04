@@ -10,7 +10,7 @@
 #include <sstream>
 
 // Inicializamos el almacén global de la clase.
-Almacen* Bitmap::almacenGlobal = NULL;
+StorageManager* Bitmap::almacenGlobal = NULL;
 
 Bitmap::Bitmap (Actor* aowner, BITMAP* bmp) :
 ActorGraphic (aowner),
@@ -36,7 +36,7 @@ nombre (nombreParam)
 {
 };
 
-Bitmap::Bitmap (Actor* aowner, Almacen* almacenParam, const std::string nombreParam):
+Bitmap::Bitmap (Actor* aowner, StorageManager* almacenParam, const std::string nombreParam):
 ActorGraphic (aowner),
 almacen (almacenParam),
 nombre (nombreParam)

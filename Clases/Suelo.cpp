@@ -55,7 +55,7 @@ Mosaico (aowner)
     ajustar ();
 };
 
-Suelo::Suelo (Actor* aowner, Almacen& almacen, int new_size):
+Suelo::Suelo (Actor* aowner, StorageManager& almacen, int new_size):
 Mosaico (aowner)
 {
     // Nombres de gráficos para el fichero "sprites3.dat".

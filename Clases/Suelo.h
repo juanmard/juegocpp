@@ -11,7 +11,7 @@
 
 #include "Mosaico.h"
 #include <allegro.h>
-#include "Almacen.h"
+#include "StorageManager.h"
 #include <string>
 #include "Actor.h"
 
@@ -49,7 +49,7 @@ public:
     /// @param almacen Referencia al almacén de gráficos.
     /// @param size Tamaño del suelo a crear.
     ///
-    Suelo (Actor* aowner, Almacen& almacen, int size);
+    Suelo (Actor* aowner, StorageManager& almacen, int size);
 
     /// Clona el suelo.
     /// @param propietario Actor al que se le asignará la copia.

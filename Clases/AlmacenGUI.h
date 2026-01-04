@@ -14,7 +14,7 @@
 
 #include <allegro.h>
 #include <vector>
-#include "Almacen.h"
+#include "StorageManager.h"
 
 /// Clase que genera una GUI (Graphical User Interface) para la clase 'Almacen'.
 ///
@@ -38,7 +38,7 @@
 class AlmacenGUI
 {
   private:
-    Almacen& almacen;
+    StorageManager& almacen;
     unsigned int pto_inserccion;
     std::vector<DIALOG> dlg;
 
@@ -53,13 +53,13 @@ public:
     /// Constructor de la GUI para el almacén dado por parámetro.
     /// @param almacen  Referencia al almacén que se le asocia esta GUI.
     ///
-    AlmacenGUI (Almacen& almacenParam);
+    AlmacenGUI (StorageManager& almacenParam);
 
     /// Constructor de la GUI para el almacén dado por parámetro.
-    AlmacenGUI (Almacen& almacen, std::vector<DIALOG>& dlg_padre);
+    AlmacenGUI (StorageManager& almacen, std::vector<DIALOG>& dlg_padre);
     AlmacenGUI ();
     ~AlmacenGUI ();
-    void activar_almacen (Almacen& almacen);
+    void activar_almacen (StorageManager& almacen);
     std::vector<DIALOG>& get_GUI ();
     void add_GUI (std::vector<DIALOG>& padre);
 
@@ -67,7 +67,7 @@ private:
     void mover_mouse (DIALOG* dlg);
 
   public:
-    static Almacen* almacen_activo;
+    static StorageManager* almacen_activo;
     static DIALOG dlg_plantilla[];
     
     /**

@@ -6,7 +6,6 @@
 
 #include "Ben.h"
 #include "ControllableActor.h"
-#include "Almacen.h"
 #include "Sprite.h"
 #include <iostream>
 
@@ -18,7 +17,7 @@ ControllableActor()
 /**
  * \brief    Constructor por omisión.
  */
-Ben::Ben (Almacen& almacen):
+Ben::Ben (StorageManager& almacen):
 estado(andando),
 estado_sig(andando),
 timer(0),

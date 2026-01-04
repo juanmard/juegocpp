@@ -8,7 +8,6 @@
 ///
 
 #include "Ladrillo.h"
-#include "Almacen.h"
 #include "Dialog.h"
 #include <allegro.h>
 #include <fstream>
@@ -37,7 +36,7 @@ Ladrillo::Ladrillo (int x, int y)
     set_y (y);
 };
 
-Ladrillo::Ladrillo (int x, int y, Almacen &almacen)
+Ladrillo::Ladrillo (int x, int y, StorageManager &almacen)
 {
 //    chaqueta = new Bitmap(this, almacen.GetBitmap("sprite_041"), "sprite_041");
       BITMAP *puntero = almacen.get_bitmap("sprite_041");
@@ -137,7 +136,7 @@ Menu& Ladrillo::getMenu () const
   return nuevo;
 };
 
-void  Ladrillo::addGUI (vector<DIALOG> &gui_padre)
+void  Ladrillo::addGUI (std::vector<DIALOG> &gui_padre)
 {
   // Agregamos la GUI como actor.
   Actor::addGUI (gui_padre);
@@ -183,7 +182,7 @@ std::ifstream&  Ladrillo::leer (std::ifstream& ifs)
 #endif
 
     // Actualiza o modifica los valores del ladrillo según los leídos en el fichero.
-    Almacen *sprites = new Almacen("sprites3.dat");
+    StorageManager *sprites = new StorageManager("sprites3.dat");
     chaqueta = new Bitmap(this, sprites, piel);
     crear_ladrillo ();
     this->set_actor_graphic (chaqueta);

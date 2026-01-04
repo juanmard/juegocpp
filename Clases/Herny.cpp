@@ -1,6 +1,4 @@
 #include "Herny.h"
-#include "Almacen.h"
-#include "Bitmap.h"
 
 /**
  * Constructor de copia.
@@ -18,7 +16,7 @@ siguiente (copia.siguiente)
 /**
  * Constructor por omisión.
  */
-Herny::Herny (Almacen &almacen)
+Herny::Herny (StorageManager &almacen)
 {
     //DatFile *sprites = new DatFile("sprites3.dat");
     // ¡Cuidado! Esto falla si en el almacén no existe el bitmap que se pide.
@@ -127,7 +125,7 @@ void Herny::ActualizarEstado (void)
     }
 }
 
-void Herny::CambiarEstado (Almacen &almacen)
+void Herny::CambiarEstado (StorageManager &almacen)
 {
     //DatFile *sprites = new DatFile("sprites3.dat");
     actual = siguiente;
@@ -209,12 +207,12 @@ Herny *  Herny::clone () const
 /**
  * \brief   Obtiene el nombre en forma de cadena de texto.
  */
-void  Herny::getNombre (string &strNombre) const
+void  Herny::getNombre (std::string &strNombre) const
 {
   strNombre = Nombres::Imprimir (nombre);
 };
 
-string  Herny::getNombre () const
+std::string  Herny::getNombre () const
 {
   return Nombres::Imprimir (nombre);
 };

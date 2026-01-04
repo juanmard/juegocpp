@@ -67,7 +67,7 @@ gui (gui_padre)
   // Rellenamos con los datos del objeto. Esto debería ir en 'setActor ()' que muestra otro actor.
   // Lo mejor sería obtener todos los datos en la cadena dada por 'getString' y directamente mostrarlos.
   // Nombre:
-  string *cadena = new string(a.getNombre());
+  std::string *cadena = new std::string(a.getNombre());
   dlg_plantilla[nombre].dp = const_cast<char*>(cadena->c_str());
 
   // Posición y Dimensiones (Tipo Vector).
@@ -77,7 +77,7 @@ gui (gui_padre)
 
   // Gráfico:
   ActorGraphic *graf = a.get_actor_graphic ();
-  cadena = new string(graf->print ());
+  cadena = new std::string(graf->print ());
   *cadena = cadena->substr (0, cadena->find(" >>"));
   dlg_plantilla[grafico].dp = const_cast<char*>(cadena->c_str());
 
@@ -121,7 +121,7 @@ void  ActorGUI::setActor (Actor &a)
   unsigned int pto = pto_inserccion;
 
   // Actualizamos el nombre.
-  string *cadena = new string(a.getNombre());
+  std::string *cadena = new std::string(a.getNombre());
   gui[pto + nombre].dp = const_cast<char*>(cadena->c_str());
 
   // NOTA: Esto debería ir todo en respuesta al mensaje MSG_DRAW e ir en una
@@ -134,7 +134,7 @@ void  ActorGUI::setActor (Actor &a)
 
   // Gráfico:
   ActorGraphic *graf = a.get_actor_graphic ();
-  cadena = new string(graf->print ());
+  cadena = new std::string(graf->print ());
   *cadena = cadena->substr (0, cadena->find(" >>"));
   gui[pto + grafico].dp = const_cast<char*>(cadena->c_str());
   object_message (&gui[pto + grafico], MSG_DRAW, 0);

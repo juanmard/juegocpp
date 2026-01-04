@@ -6,7 +6,6 @@
 
 #include "Mago.h"
 #include "ControllableActor.h"
-#include "Almacen.h"
 #include "Sprite.h"
 
 Mago::Mago ():
@@ -17,7 +16,7 @@ ControllableActor()
 /**
  * \brief    Constructor por omisión.
  */
-Mago::Mago (Almacen &almacen):
+Mago::Mago (StorageManager &almacen):
 estado(andando),
 estado_sig(andando),
 timer(0),
