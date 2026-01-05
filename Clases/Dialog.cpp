@@ -172,8 +172,8 @@ void Dialog::show (void)
   auto stage    = std::make_unique<StageCtrl>(  20, 10, 600, 400, rojo, blanco, 0, 0);
   auto sldAzul  = std::make_unique<SliderCtrl>( 20, 420, 400, 25, azul,  blanco, 0, 0);
   auto sldRojo  = std::make_unique<SliderCtrl>( 20, 450, 400, 25, rojo,  blanco, 0, 0);
-  auto vecTest  = std::make_unique<VectorCtrl>( 20, 480, 400, 25, rojo,  blanco, 0, 0);
-  auto boton    = std::make_unique<jmr::Control>(TipoControl::BUTTON, 20, 510, 400, 25, rojo, blanco, 0, 0, nullptr);
+  auto vecTest  = std::make_unique<VectorCtrl>( 20, 480, 400, 40, rojo,  blanco, 0, 0);
+  auto boton    = std::make_unique<jmr::Control>(TipoControl::BUTTON, 20, 525, 400, 25, rojo, blanco, 0, 0, nullptr);
 
   ComandoTest testCmd(sldAzul.get());
   sldAzul->comando = &testCmd;

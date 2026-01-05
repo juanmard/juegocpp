@@ -15,7 +15,7 @@
 /// @brief  Constructor por omisión.
 /// @todo Generar estas referencias no 'NULL' en el juego que lo herede.
 ///       En él se debe decidir qué librería debe usarse y se le asigna al juego base
-///       con 'setRenderer', 'setInput' y 'setTimer'.
+///       con 'setRenderer', 'setInput' y 'setTimer', englobadas quizás en un 'setEnviroment'.
 Game::Game ():
 actor_manager(NULL),
 stage_manager(NULL),
@@ -48,7 +48,7 @@ void Game::init (int width, int height) {
   gfx_w = width;
   gfx_h = height;
 
-  // Creamos manejadores del juego.
+  // Creamos manejadores del juego (por omisión o definidos en la clase que hereda).
   create_actormanager ();
   create_stagemanager ();
   create_soundmanager ();
@@ -66,7 +66,7 @@ void Game::shutdown (std::string message = "Gracias por jugar.") {
   // Se borran y se liberan todos los controladores.
   if (actor_manager) delete actor_manager;
   if (stage_manager) delete stage_manager;
-  // if (sound_manager) delete sound_manager;
+  if (sound_manager) delete sound_manager;
   if (control_manager) delete control_manager;
   if (collision_manager) delete collision_manager;
   if (storage_manager) delete storage_manager;

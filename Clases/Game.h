@@ -16,6 +16,10 @@ class ITimer;
 ///
 /// @brief  Clase que recoge las funciones básicas de un juego.
 /// @details  Esta clase inicializa todos los componentes necesarios para un juego y con actualización básica.
+/// @todo  Establecer un procedimiento para que los componentes IRenderer, IInput y ITimer, relacionados con
+///        las bibliotecas externas, se inicialicen con un procedimiento virtual tipo 'setEnviroment (ALLEGRO_4)', o
+///        similar nombre, donde desde la clase hija a 'Game' se pueda establecer facilmente toda la inicialización
+///        de estos componentes según la biblioteca a utilizar (Allegro4, Allegro5, SDL, DirectX...).
 ///
 class Game
 {
@@ -28,14 +32,14 @@ public:
     StorageManager*    storage_manager;      ///< Referencia al manejador de los distintos recursos del juego.
 
 protected:
-    std::string name;     ///< Nombre del juego.
-    IRenderer* renderer;  ///< Renderer para gráficos.
-    IInput* input;        ///< Input para dispositivos de entrada.
-    ITimer* timer;        ///< Timer para controlar ciclos lógicos y gráficos.
-    int gfx_w, gfx_h;     ///< Dimensiones de la ventana del juego en modo gráfico.
+    std::string name;       ///< Nombre del juego.
+    IRenderer* renderer;    ///< Renderer para gráficos.
+    IInput* input;          ///< Input para dispositivos de entrada.
+    ITimer* timer;          ///< Timer para controlar ciclos lógicos y gráficos.
+    int gfx_w, gfx_h;       ///< Dimensiones de la ventana del juego en modo gráfico.
 
 private:
-    bool paused;        ///< Variable que indica el estado pausado o no del juego.
+    bool paused;    ///< Variable que indica el estado pausado o no del juego.
 
 public:
     Game ();

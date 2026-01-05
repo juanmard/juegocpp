@@ -198,11 +198,14 @@ int AllegroRenderer::mostrarDialog(const jmr::Dialog& dialog) {
             allegroDialog[i].proc = allegroCallback;
             // allegroDialog[i].proc = d_ctext_proc;
             allegroDialog[i].dp = (void*) "Texto con un aspecto distinto.";
-            allegroDialog[i].dp2 = (void*) load_font("../../Extras/prueba-font.pcx", palette, NULL);
+            allegroDialog[i].dp2 = (void*) load_font("./prueba-font.pcx", palette, NULL);
             if (!allegroDialog[i].dp2) {
-                allegroDialog[i].dp2 = (void*) load_font("./prueba-font.pcx", palette, NULL);
+                allegroDialog[i].dp2 = (void*) load_font("../prueba-font.pcx", palette, NULL);
                 if (!allegroDialog[i].dp2) {
-                    allegroDialog[i].dp = (void*) "No existe: \n'../../Extras/prueba-font.pcx'\n ni './prueba-font.pcx'.";
+                    allegroDialog[i].dp2 = (void*) load_font("../../Extras/prueba-font.pcx", palette, NULL);
+                    if (!allegroDialog[i].dp2) {
+                        allegroDialog[i].dp = (void*) "No encuentro 'prueba-font.pcx'.";
+                    }
                 }
             }
         }
