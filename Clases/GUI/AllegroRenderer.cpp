@@ -67,7 +67,7 @@ int AllegroRenderer::dibujarPrueba(void) {
 /// @param w 
 /// @param h 
 /// @param color 
-void AllegroRenderer::dibujarFrontera (Control* ctrl) {
+void AllegroRenderer::dibujarFrontera (jmr::Control* ctrl) {
     rect (screen, ctrl->x, ctrl->y, ctrl->x + ctrl->w, ctrl->y + ctrl->h, ctrl->fg);
 }
 
@@ -125,7 +125,7 @@ void AllegroRenderer::liberarMenu(MENU* menu) {
 ///          ser así, los eventos tienen que ser siempre procesados, tenga o no el control
 ///          un comando asociado para ejecutar.
 int AllegroRenderer::allegroCallback(int msg, DIALOG* d, int c) {
-    Control* ctrl = reinterpret_cast<Control*>(d->dp3);
+    jmr::Control* ctrl = reinterpret_cast<jmr::Control*>(d->dp3);
     if (ctrl && ctrl->comando) {
         ctrl->comando->ejecutar();
 
@@ -156,7 +156,7 @@ int AllegroRenderer::mostrarDialog(const jmr::Dialog& dialog) {
     allegroDialog = new DIALOG[n + 1];
 
     for (size_t i = 0; i < n; ++i) {
-        const Control& c = *(dialog.controls[i].get());
+        const jmr::Control& c = *(dialog.controls[i].get());
 
         /// Se inicia por defecto.
         allegroDialog[i].proc = allegroCallback;
@@ -170,14 +170,14 @@ int AllegroRenderer::mostrarDialog(const jmr::Dialog& dialog) {
         allegroDialog[i].flags = c.flags;
         allegroDialog[i].dp = nullptr;
         allegroDialog[i].dp2 = nullptr;
-        allegroDialog[i].dp3 = const_cast<Control*>(&c);
+        allegroDialog[i].dp3 = const_cast<jmr::Control*>(&c);
 
         /// Inicializaciones varias según el tipo de control.
         switch (c.tipo) {
         case TipoControl::SLIDER:
         {
             // allegroDialog[i].proc = d_slider_proc;
-            SliderCtrl& slider = dynamic_cast<SliderCtrl&>(const_cast<Control&>(c));
+            SliderCtrl& slider = dynamic_cast<SliderCtrl&>(const_cast<jmr::Control&>(c));
             allegroDialog[i].d1 = slider.max - slider.min; // rango
             allegroDialog[i].d2 = slider.pos - slider.min; // valor actual
         }
@@ -259,10 +259,10 @@ void AllegroRenderer::setSliderValue(SliderCtrl* slider, int val) {
     }
 }
 
-DIALOG* AllegroRenderer::findDialogControl(Control* control) {
+DIALOG* AllegroRenderer::findDialogControl(jmr::Control* control) {
     auto it = std::find_if(
         controls->begin(), controls->end(),
-        [control](const std::unique_ptr<Control>& ptr) { return ptr.get() == control; }
+        [control](const std::unique_ptr<jmr::Control>& ptr) { return ptr.get() == control; }
     );
     if (it != controls->end()) {
         size_t index = std::distance(controls->begin(), it);
@@ -287,7 +287,7 @@ void AllegroRenderer::print (int msg) {
     }
 }
 
-void AllegroRenderer::updateVector(Control* control) {
+void AllegroRenderer::updateVector(jmr::Control* control) {
     VectorCtrl* vctrl = dynamic_cast<VectorCtrl*>(control);
     DIALOG* dlgCtrl = findDialogControl(control);
     if (dlgCtrl) {
@@ -308,7 +308,7 @@ int AllegroRenderer::defaultSlider(SliderCtrl* sld, const InputEvent& ev) {
     return d_slider_proc(eventToMsg(ev.event), dlgCtrl, 0);
 };
 
-int AllegroRenderer::defaultControl(Control* ctrl, const InputEvent& ev) {
+int AllegroRenderer::defaultControl(jmr::Control* ctrl, const InputEvent& ev) {
     //DIALOG* dlgCtrl = findDialogControl(ctrl);
     //return d_slider_proc(eventToMsg(ev.event), dlgCtrl, ev.c);
     if (ev.event == ControlEvent::WantFocus) { return D_WANTFOCUS; }
@@ -431,12 +431,12 @@ ControlEvent AllegroRenderer::msgToEvent (int msg) {
     return evtype;
 }
 
-void AllegroRenderer::limpiarControl (Control* control) {
+void AllegroRenderer::limpiarControl (jmr::Control* control) {
     DIALOG* d = findDialogControl(control);
     rectfill(screen, d->x, d->y, d->x + d->w - 1, d->y + d->h - 1, d->bg);
 }
 
-void AllegroRenderer::invertirBackgroundForeground(Control* ctrl){
+void AllegroRenderer::invertirBackgroundForeground(jmr::Control* ctrl){
     DIALOG* d = findDialogControl(ctrl);
     std::swap(ctrl->fg, ctrl->bg);
     std::swap(d->fg, d->bg);
@@ -487,3 +487,16 @@ void AllegroRenderer::dibujarEjes () {
     line (screen, 0, 1000, 0, -1000, makecol (0, 255, 0));
 }
 
+/// @brief  Muestra los 'frames per second' del juego y los 'frames' saltados.
+/// @param  graph_tick  Número de 'ticks' gráficos.
+/// @param  frame_skip  Número de frames saltados en el último ciclo.
+void AllegroRenderer::showFrames (int graph_tick, int frame_skip) {
+    rectfill (screen, 0, 0, SCREEN_W, 10, 0);
+    textprintf_ex (screen, font, 0, 0, -1, makecol(255, 100, 200),
+                   "fps: %u frameskip:%u", graph_tick, frame_skip);
+}
+
+bool AllegroRenderer::createWindow (int width, int height) {
+  set_color_depth(8);
+  return (set_gfx_mode (GFX_SAFE, width, height, 0, 0) >= 0);
+}

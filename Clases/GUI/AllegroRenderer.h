@@ -12,7 +12,7 @@
 
 class AllegroRenderer : public IRenderer {
 public:
-    const std::vector<std::unique_ptr<Control>>* controls; // Vector para mantener referencia a los controles. @todo ¿Simplificar la declaración con una clase?
+    const std::vector<std::unique_ptr<jmr::Control>>* controls; ///< Vector para mantener referencia a los controles. @todo ¿Simplificar la declaración con una clase?
     DIALOG* allegroDialog;
 
 public:
@@ -22,25 +22,26 @@ public:
     void dibujarCuadrado(int x, int y, ColorType color) override;
     ColorType makeColor(int r, int g, int b) override;
     void limpiarPantalla(ColorType color) override;
-    void limpiarControl(Control* control) override;
-    void invertirBackgroundForeground(Control* ctrl) override;
+    void limpiarControl(jmr::Control* control) override;
+    void invertirBackgroundForeground(jmr::Control* ctrl) override;
     void editarTexto(VectorCtrl* vector) override;
     void refrescarPantalla() override {}; 
     const ItemMenu& mostrarMenu(const jmr::Menu& menu, int x, int y, int nivel=0) override;
     MENU* convertirItemsAMenu(const jmr::Menu& menu);
     void liberarMenu(MENU* menu);
-
-    void dibujarFrontera (Control* control) override;
+    void dibujarFrontera (jmr::Control* control) override;
     void dibujarEjes (void) override;
+    void showFrames (int graph_tick, int frame_skip) override;
+    bool createWindow (int width, int height) override;
 
 public:
     int mostrarDialog(const jmr::Dialog& dialog) override;
     void setSliderValue(SliderCtrl* slider, int val) override;
     int defaultSlider(SliderCtrl* sld, const InputEvent& ev) override;
     int defaultVector(VectorCtrl* vector, const InputEvent& ev) override;
-    int defaultControl(Control* ctrl, const InputEvent& ev) override;
-    void updateVector(Control* control) override;
-    DIALOG* findDialogControl(Control* control);
+    int defaultControl(jmr::Control* ctrl, const InputEvent& ev) override;
+    void updateVector(jmr::Control* control) override;
+    DIALOG* findDialogControl(jmr::Control* control);
 
 private:
     static int allegroCallback(int msg, DIALOG* d, int c);

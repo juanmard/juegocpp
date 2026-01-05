@@ -65,7 +65,7 @@ public:
     /// En el almacén se dispone de todo el vestuario y recursos necesarios
     /// que se van a necesitar a lo largo del juego (Gráficos, animaciones, sonidos, etc.).
     ///
-    void create_storagemanager ();
+    // void create_storagemanager ();
 };
 
 #endif

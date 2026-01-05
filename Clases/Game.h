@@ -3,17 +3,19 @@
 
 #include <string>
 
-class ITimer;
 class ActorManager;
 class StageManager;
 class SoundManager;
 class ControlManager;
 class CollisionManager;
 class StorageManager;
+class IRenderer;
+class IInput;
+class ITimer;
 
 ///
 /// @brief  Clase que recoge las funciones básicas de un juego.
-/// @details  Esta clase inicializa todos los componentes necesarios para un juego.
+/// @details  Esta clase inicializa todos los componentes necesarios para un juego y con actualización básica.
 ///
 class Game
 {
@@ -27,6 +29,8 @@ public:
 
 protected:
     std::string name;     ///< Nombre del juego.
+    IRenderer* renderer;  ///< Renderer para gráficos.
+    IInput* input;        ///< Input para dispositivos de entrada.
     ITimer* timer;        ///< Timer para controlar ciclos lógicos y gráficos.
     int gfx_w, gfx_h;     ///< Dimensiones de la ventana del juego en modo gráfico.
 

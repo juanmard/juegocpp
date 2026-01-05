@@ -8,9 +8,15 @@
 #include "CollisionManager.h"
 #include "SoundManager.h"
 #include "StorageManager.h"
+#include "AllegroRenderer.h"
+#include "AllegroInput.h"
 #include "AllegroTimer.h"
 
+
 /// @brief  Constructor por omisión.
+/// @todo Generar estas referencias no 'NULL' en el juego que lo herede.
+///       En él se debe decidir qué librería debe usarse y se le asigna al juego base
+///       con 'setRenderer', 'setInput' y 'setTimer'.
 Game::Game ():
 actor_manager(NULL),
 stage_manager(NULL),
@@ -18,6 +24,8 @@ sound_manager(NULL),
 control_manager(NULL),
 collision_manager(NULL),
 storage_manager(NULL),
+renderer (new AllegroRenderer()),
+input (NULL), //new AllegroInput()),
 timer (new AllegroTimer()),
 paused (true)
 {
@@ -30,25 +38,16 @@ Game::~Game () {
 /// @brief  Inicia el juego.
 /// @todo  Independizar de Allegro4 usando la clase IRenderer.
 void Game::init (int gfx_mode, int w, int h, int col) {
+  // Se instala el 'timer'.
   allegro_init ();
-  install_keyboard ();
-  install_mouse ();
   timer->install ();
 
-  /* Entramos en modo gráfico. */
-  set_color_depth(col);
-  if (set_gfx_mode(gfx_mode, w, h, 0, 0) < 0)
-  {
-    shutdown("No se pudo inicializar modo gráfico.");
-    return;
-  }
-  else
-  {
-    gfx_w = w;
-    gfx_h = h;
+  // Entramos en modo gráfico.
+  if (!renderer->createWindow (w, h)) {
+    shutdown ("No se ha podido crear la ventana gráfica.");
   }
 
-  /* Creamos manejadores del juego. */
+  // Creamos manejadores del juego.
   create_actormanager ();
   create_stagemanager ();
   create_soundmanager ();
@@ -56,8 +55,9 @@ void Game::init (int gfx_mode, int w, int h, int col) {
   create_collisionmanager ();
   create_storagemanager ();
 
-  /* Se empieza el juego. */
+  // Se empieza el juego.
   start ();
+  allegro_exit ();
 }
 
 
@@ -71,11 +71,9 @@ void Game::shutdown (std::string message = "Gracias por jugar.") {
   if (collision_manager) delete collision_manager;
   if (storage_manager) delete storage_manager;
 
-  set_gfx_mode (GFX_TEXT,0,0,0,0);
-  // Se muestran mensajes finales.
+  // Mensajes finales.
   std::cout << name << std::endl;
   std::cout << message << std::endl;
-  allegro_exit ();
 }
 
 /// @brief  Crea el controlador de actores.
@@ -112,6 +110,13 @@ void Game::create_controlmanager () {
 /// @warning  Comprobar que se ha creado el manejador correctamente.
 void Game::create_collisionmanager () {
   collision_manager = new CollisionManager (this);
+}
+
+/// @brief  Se crea el almacén de recursos por omisión.
+/// @todo  Comprobar que se ha creado correctamente.
+void Game::create_storagemanager () {
+    // Creamos el almacén de recursos.
+    storage_manager = new StorageManager("sprites3.dat");
 }
 
 /// @brief  Se inicia el juego.
@@ -162,14 +167,10 @@ void Game::update () {
     timer->incFrame ();
   }
 
-  /// @todo Independizar de Allegro4 con IRenderer.
   // Si se ha cumplido un segundo, se actualizan los "fps" por pantalla.
   if (timer->isOneSecond())
   {
-    rectfill (screen, 0, 0, SCREEN_W, 10, 0);
-    textprintf_ex (screen, font, 0, 0, -1, makecol(255, 100, 200),
-                   "fps: %u frameskip:%u", timer->getGraphicTick(), timer->getFrameSkip() );
-    //blit (stage_manager->getBuffer(), screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+    renderer->showFrames (timer->getGraphicTick(), timer->getFrameSkip());
     timer->resetGraphicTick ();
     timer->resetOldTick ();
   }
@@ -191,9 +192,3 @@ bool Game::is_paused (void) {
   return paused;
 }
 
-/// @brief  Se crea el almacén de recursos por omisión.
-/// @todo  Comprobar que se ha creado correctamente.
-void Game::create_storagemanager () {
-    // Creamos el almacén de recursos.
-    storage_manager = new StorageManager("sprites3.dat");
-}

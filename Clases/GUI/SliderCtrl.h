@@ -13,7 +13,7 @@
 /// @todo Implementar métodos para obtener y establecer el valor actual del slider.
 /// @todo Añadir soporte para eventos específicos del slider (p.ej. cambio de valor).
 ///
-class SliderCtrl : public Control, public IControlListener {
+class SliderCtrl : public jmr::Control, public IControlListener {
 public:
     unsigned int pos;   ///< Posición actual del slider.
     unsigned int min;   ///< Valor mínimo.
@@ -21,10 +21,10 @@ public:
 
     ///
     SliderCtrl(int x_, int y_, int w_, int h_, int fg_, int bg_, int key_, int flags_, Comando* cmd = nullptr, void* d = nullptr)
-        : Control(TipoControl::SLIDER, x_, y_, w_, h_, fg_, bg_, key_, flags_, cmd, d), pos(18), min(0), max(120) {};
+        : jmr::Control(TipoControl::SLIDER, x_, y_, w_, h_, fg_, bg_, key_, flags_, cmd, d), pos(18), min(0), max(120) {};
         
     ///
-    SliderCtrl(int x_, int y_) : Control(TipoControl::SLIDER, x_, y_, 0, 0, 0, 0, 0, 0), pos(18), min(0), max(120) {};
+    SliderCtrl(int x_, int y_) : jmr::Control(TipoControl::SLIDER, x_, y_, 0, 0, 0, 0, 0, 0), pos(18), min(0), max(120) {};
     
     ///
     void setComando (Comando* cmd) { comando = cmd; };
@@ -45,7 +45,7 @@ public:
     /// @brief Notifica a este control otros controles que hayan cambiado.
     /// @param control Control que ha cambiado.
     ///
-    void controlChanged(Control* control) override;
+    void controlChanged(jmr::Control* control) override;
 
     /// @brief Maneja los eventos de entrada específicos del slider.
     /// @param ev Evento de entrada.

@@ -8,7 +8,7 @@
 
 /// @brief Control que nos muestra un vector de dos componentes.
 /// 
-class VectorCtrl : public Control, public IControlListener {
+class VectorCtrl : public jmr::Control, public IControlListener {
 public:
     // @todo Sustituir en futuro por una clase (p.j. la clase "Bloque").
     int x;      ///< Posición - Coordenada x.
@@ -56,7 +56,7 @@ public:
     /// @brief Establece el comportamiento del vector según cambie el control que escucha.
     /// @param control Control que ha cambiado.
     ///
-    void controlChanged(Control* control) override;
+    void controlChanged(jmr::Control* control) override;
     
     /// @brief Establece el comportamiento del vector ante eventos.
     /// @param ev Evento que se produce.

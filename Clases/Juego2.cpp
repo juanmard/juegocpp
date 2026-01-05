@@ -24,12 +24,12 @@ Juego2::Juego2 ()
 {
 };
 
-void Juego2::create_storagemanager ()
-{
-  // Creamos el almacén de recursos.
-  storage_manager = new StorageManager("sprites3.dat");
-  // @todo Comprobar que se ha creado correctamente y no queda como NULL.
-};
+// void Juego2::create_storagemanager ()
+// {
+//   // Creamos el almacén de recursos.
+//   storage_manager = new StorageManager("sprites3.dat");
+//   // @todo Comprobar que se ha creado correctamente y no queda como NULL.
+// };
 
 void Juego2::mainGame ()
 {
@@ -130,7 +130,7 @@ int main ()
     //SetConsoleCP(U_UTF8);
 
     srand (time(NULL));
-    game.set_name("Juego++ v2.0");
+    game.set_name("Juego++ v3.0");
     //game.init(GFX_AUTODETECT_WINDOWED, 800,600,8);
     game.init(GFX_SAFE, 800, 600, 8);
     return 0;

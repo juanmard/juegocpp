@@ -3,11 +3,13 @@
 #ifndef ICONTROLLISTENER_H
 #define ICONTROLLISTENER_H
 
-class Control;
+namespace jmr {
+    class Control;
+}
 
 class IControlListener {
 public:
-    virtual void controlChanged(Control* control) = 0;
+    virtual void controlChanged(jmr::Control* control) = 0;
     virtual ~IControlListener() {}
 };
 

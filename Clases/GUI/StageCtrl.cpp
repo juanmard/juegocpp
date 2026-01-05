@@ -133,10 +133,10 @@ int StageCtrl::manejarEvento(const InputEvent& ev) {
 //                std::cout << "StageCtrl MouseMove event." << std::endl;
             auto& move = std::get<MouseMoveData>(ev.data);
 
-            std::cout << "Mouse:     " << move.x << ", " << move.y << std::endl;
-            std::cout << "Escenario: " << editor_manager->get_escenario_x() << ", " << editor_manager->get_escenario_y() << std::endl;
-            std::cout << "Control:   " << x << ", " << y << std::endl;
-            std::cout << "Ref:       " << editor_manager->refX << ", " << editor_manager->refY << std::endl << std::endl;
+            // std::cout << "Mouse:     " << move.x << ", " << move.y << std::endl;
+            // std::cout << "Escenario: " << editor_manager->get_escenario_x() << ", " << editor_manager->get_escenario_y() << std::endl;
+            // std::cout << "Control:   " << x << ", " << y << std::endl;
+            // std::cout << "Ref:       " << editor_manager->refX << ", " << editor_manager->refY << std::endl << std::endl;
 
             // Si se mueve el ratón estando el escenario en modo «drag», sólo se mueve el escenario.
             // En otro caso se mira el estado del actor.
