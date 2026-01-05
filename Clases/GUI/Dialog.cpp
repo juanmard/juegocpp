@@ -1,8 +1,12 @@
 #include "Dialog.h"
 
 namespace jmr {
-    void Dialog::setRenderer(IRenderer* r) {
+    void Dialog::setRenderer (IRenderer* r) {
         renderer = r;
+    }
+
+    void Dialog::setInput (IInput* i) {
+        input = i;
     }
 
     int Dialog::mostrar() {

@@ -40,7 +40,7 @@ private:
 public:
     Game ();
     virtual ~Game ();
-    virtual void init (int gfx_mode, int w, int h, int col);
+    virtual void init (int width, int height);
     virtual void mainGame ();
     void pause ();
     void play ();
@@ -48,6 +48,8 @@ public:
     void set_name (std::string name);
     std::string get_name ();
     void update ();
+    IRenderer* getRenderer() { return renderer; };
+    IInput* getInput() { return input; };
 
 private:
     void start ();

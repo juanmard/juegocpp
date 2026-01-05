@@ -23,11 +23,12 @@
 ///       Lo ideal es que heredara de "EditableObject" y entregara un "Formulario".
 class AlmacenGUI;
 
-/// @class StorageManager
-/// Maneja los recursos (gráficos y sonidos) del juego.
-///
-/// Esta clase nos debe dar acceso a los distintos recursos que necesita el juego.
-/// Los recursos se obtienen de un fichero de tipo DAT generado por Grabber.
+/// @class  StorageManager
+/// @brief  Maneja los recursos (gráficos y sonidos) del juego.
+/// @details  En el almacén se dispone de todo el vestuario y recursos necesarios
+///           que se van a necesitar a lo largo del juego (Gráficos, animaciones, sonidos, etc.).
+///           Esta clase nos debe dar acceso a los distintos recursos que necesita el juego.
+///           Los recursos se obtienen de un fichero de tipo DAT generado por Grabber.
 /// @todo Crear métodos "GetSample" y "SetSample" para manejo de sonidos.
 ///
 class StorageManager

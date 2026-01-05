@@ -1,6 +1,5 @@
 
 #include "Game.h"
-#include <allegro.h>
 #include <iostream>
 #include "ActorManager.h"
 #include "StageManager.h"
@@ -25,7 +24,7 @@ control_manager(NULL),
 collision_manager(NULL),
 storage_manager(NULL),
 renderer (new AllegroRenderer()),
-input (NULL), //new AllegroInput()),
+input (new AllegroInput()),
 timer (new AllegroTimer()),
 paused (true)
 {
@@ -36,16 +35,18 @@ Game::~Game () {
 }
 
 /// @brief  Inicia el juego.
-/// @todo  Independizar de Allegro4 usando la clase IRenderer.
-void Game::init (int gfx_mode, int w, int h, int col) {
+void Game::init (int width, int height) {
   // Se instala el 'timer'.
-  allegro_init ();
   timer->install ();
 
   // Entramos en modo gráfico.
-  if (!renderer->createWindow (w, h)) {
+  if (!renderer->createWindow (width, height)) {
     shutdown ("No se ha podido crear la ventana gráfica.");
   }
+
+  // Tamaño de ventana.
+  gfx_w = width;
+  gfx_h = height;
 
   // Creamos manejadores del juego.
   create_actormanager ();
@@ -57,7 +58,6 @@ void Game::init (int gfx_mode, int w, int h, int col) {
 
   // Se empieza el juego.
   start ();
-  allegro_exit ();
 }
 
 
@@ -134,7 +134,7 @@ void Game::start () {
 /// @brief  Procedimiento predeterminado "main" si no se sobreescribe en el hijo.
 /// @todo  Independizar de Allegro4 usando IInput.
 void Game::mainGame () {
-  while (!key[KEY_ESC]);
+  while (input->getKey() != IInput::Key::ESC);
 }
 
 /// @brief  Se cambia el nombre del juego.

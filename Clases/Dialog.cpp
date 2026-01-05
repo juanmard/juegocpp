@@ -161,10 +161,12 @@ void Dialog::show (void)
   //  salida = do_dialog (dialog, scr);
   // do_dialog (dialog, scr);
 
-  dialogo.setRenderer(&renderer);
-  auto blanco = renderer.makeColor(200, 200, 200);
-  auto rojo   = renderer.makeColor(255, 0, 0);
-  auto azul   = renderer.makeColor(0, 0, 255);
+  renderer = manager->game->getRenderer();
+  input = manager->game->getInput();
+  dialogo.setRenderer(renderer);
+  auto blanco = renderer->makeColor(200, 200, 200);
+  auto rojo   = renderer->makeColor(255, 0, 0);
+  auto azul   = renderer->makeColor(0, 0, 255);
 
   // Crear controles.
   auto stage    = std::make_unique<StageCtrl>(  20, 10, 600, 400, rojo, blanco, 0, 0);
@@ -176,14 +178,14 @@ void Dialog::show (void)
   ComandoTest testCmd(sldAzul.get());
   sldAzul->comando = &testCmd;
   sldAzul->setNombre("Slider Azul");
-  sldAzul->setRenderer(&renderer);
-  sldAzul->setInput(&input);
+  sldAzul->setRenderer(renderer);
+  sldAzul->setInput(input);
 
   ComandoTest testCmd2(sldRojo.get());
   sldRojo->comando = &testCmd2;
   sldRojo->setNombre("Slider Rojo");
-  sldRojo->setRenderer(&renderer);
-  sldRojo->setInput(&input);
+  sldRojo->setRenderer(renderer);
+  sldRojo->setInput(input);
 
   // Añadir listener.
   sldRojo->addListener (sldAzul.get());
@@ -192,16 +194,16 @@ void Dialog::show (void)
   ComandoVector prueba(vecTest.get());
   vecTest->comando = &prueba;
   vecTest->setNombre ("Vector de prueba");
-  vecTest->setRenderer(&renderer);
-  vecTest->setInput(&input);
+  vecTest->setRenderer(renderer);
+  vecTest->setInput(input);
   sldRojo->addListener (vecTest.get());
   vecTest->addListener (sldRojo.get());
 
   // Se prepara el escenario.
   stage->setNombre("Escenario");
   stage->comando = &testCmd;
-  stage->setRenderer(&renderer);
-  stage->setInput(&input);
+  stage->setRenderer(renderer);
+  stage->setInput(input);
   stage->setEditorManager (this->manager);
   stage->editor_manager->set_ribete (stage->marco);
   sldRojo->addListener(stage.get());

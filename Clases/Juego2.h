@@ -42,6 +42,7 @@
 #include <fstream>
 #include <string>
 #include "Plataforma.h"
+#include "IInput.h"
 
 /// Juego de prueba heredado de Game.
 ///
@@ -59,13 +60,6 @@ public:
     /// Crea actores y controladores para el juego de prueba.
     ///
     void mainGame ();
-
-    /// Se crea el almacén para este juego.
-    ///
-    /// En el almacén se dispone de todo el vestuario y recursos necesarios
-    /// que se van a necesitar a lo largo del juego (Gráficos, animaciones, sonidos, etc.).
-    ///
-    // void create_storagemanager ();
 };
 
 #endif

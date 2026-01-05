@@ -40,6 +40,9 @@ public:
         if (key[KEY_A]) return Key::Key_A;
         if (key[KEY_B]) return Key::Key_B;
         if (key[KEY_C]) return Key::Key_C;
+        if (key[KEY_D]) return Key::Key_D;
+        if (key[KEY_E]) return Key::Key_E;
+        if (key[KEY_F]) return Key::Key_F;
         if (key[KEY_1]) return Key::Key_1;
         if (key[KEY_2]) return Key::Key_2;
         if (key[KEY_3]) return Key::Key_3;

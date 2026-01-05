@@ -6,6 +6,7 @@
 #include <memory>
 #include "Control.h"
 #include "IRenderer.h"
+#include "IInput.h"
 
 namespace jmr {
     class Dialog {
@@ -20,10 +21,12 @@ namespace jmr {
 
         int mostrar();
 
-        void setRenderer(IRenderer* renderer);
+        void setRenderer(IRenderer*);
+        void setInput (IInput*);
 
     private:
         IRenderer* renderer = nullptr;
+        IInput* input = nullptr;
     };
 }
 #endif

@@ -12,8 +12,9 @@ int AllegroRenderer::mouse_ant_y = 0;
 /// @todo Pasar un valor booleano que indique si se quiero o no una ventana nueva al crear
 ///       el objeto renderer.
 AllegroRenderer::AllegroRenderer() {
-    // allegro_init();
+    allegro_init();
     // install_keyboard();
+    // install_mouse ();
     // set_color_depth(32);
     // if (set_gfx_mode(GFX_AUTODETECT_WINDOWED, 640, 480, 0, 0) != 0) {
     //     allegro_message("Error al iniciar modo gráfico!");

@@ -16,20 +16,12 @@
 #include "Juego2.h"
 #include "Mosaico.h"
 #include "Tesela.h"
-//#include "ctlSprite.h"
 #include "Fruta.h"
 #include <locale>
 
 Juego2::Juego2 ()
 {
 };
-
-// void Juego2::create_storagemanager ()
-// {
-//   // Creamos el almacén de recursos.
-//   storage_manager = new StorageManager("sprites3.dat");
-//   // @todo Comprobar que se ha creado correctamente y no queda como NULL.
-// };
 
 void Juego2::mainGame ()
 {
@@ -54,6 +46,7 @@ void Juego2::mainGame ()
     key[KEY_E] = true;
     
     // Bucle principal del juego.
+    IInput::Key tecla;
     while (!key[KEY_ESC])
     {
         // Si se pulsa la 'E', se prueba el editor.
@@ -132,7 +125,7 @@ int main ()
     srand (time(NULL));
     game.set_name("Juego++ v3.0");
     //game.init(GFX_AUTODETECT_WINDOWED, 800,600,8);
-    game.init(GFX_SAFE, 800, 600, 8);
+    game.init (800, 600);
     return 0;
 }
 END_OF_MAIN ();

@@ -51,6 +51,8 @@ public:
     void        draw            ();
     void        mouse_in        ();
     void        setActor        (Actor *actor);
+    void setRenderer (IRenderer*);
+    void setInput (IInput*);
 
 protected:
     void        menu_contextual         (int x, int y);
@@ -88,8 +90,8 @@ protected:
 
 public:
     // Nuevas propiedades.
-    AllegroRenderer renderer;
-    AllegroInput input;
+    IRenderer* renderer;
+    IInput* input;
     jmr::Dialog dialogo;
 
     // Diálogo principal. 
