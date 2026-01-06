@@ -42,26 +42,23 @@ void Juego2::mainGame ()
     // Se crea el 'EditorManager' básico para comenzar con las pruebas.
     EditorManager editor_manager (this);
 
-    // Iniciamos con el editor.
-    key[KEY_E] = true;
-    
     // Bucle principal del juego.
-    IInput::Key tecla;
-    while (!key[KEY_ESC])
+    // Iniciamos con el editor.
+    IInput::Key tecla = IInput::Key::Key_E;
+    while (tecla != IInput::Key::ESC)
     {
         // Si se pulsa la 'E', se prueba el editor.
-        if (key[KEY_E])
+        if (tecla == IInput::Key::Key_E)
         {
           // Se activa el editor.
           editor_manager.activate ();
 
-          // Se borran las teclas pulsadas para evitar rellamadas cuando se termine el editor.
-          key[KEY_E] = false;
-          key[KEY_ESC] = false;
+          // Se evitan rebotes de tecla ESC.
+          while (input->getKey() == IInput::Key::ESC);
         }
 
-        // Si se pulsa la 'P', distintas pruebas de GUI.
-        if (key[KEY_P])
+        // Si se pulsa la 'A', distintas pruebas de GUI.
+        if (tecla == IInput::Key::Key_A)
         {
           Fruta prueba ( *storage_manager );
           prueba.set_x (100);
@@ -77,11 +74,11 @@ void Juego2::mainGame ()
           // Borramos la pantalla.
           clear_to_color (screen, makecol (128, 128, 128));
 
-          // Borramos el buffer de teclado.
-          key[KEY_P] = false;
+          // Se evitan rebotes de tecla ESC.
+          while (input->getKey() == IInput::Key::ESC);
         }
 
-        if (mouse_b & 2) {
+        if (input->clicDerecho()) {
           Fruta prueba ( *storage_manager );
           prueba.set_x (100);
           prueba.set_y (200);
@@ -90,20 +87,26 @@ void Juego2::mainGame ()
           menu.add("Otro añadido",0);
           do_menu (menu,mouse_x, mouse_y);
         }
+
+        // Actualizamos la tecla.
+        tecla = input->getKey();
     }
 
+    // Se evitan rebotes de tecla ESC.
+    while (input->getKey() == IInput::Key::ESC);
+
     // Antes de cerrar, hacemos una prueba con el juego en marcha.
-    key[KEY_ESC] = false;
-    while (!key[KEY_ESC])
+    while ( (tecla = input->getKey()) != IInput::Key::ESC)
     {
-      // Se actualiza si no está pausado.
+     // Se actualiza si no está pausado.
       if (!is_paused()) update();
 
       // Pausamos y reanudamos con la barra espaciadora.
-      if (key[KEY_SPACE]) {
+      if (tecla == IInput::Key::ESPACE) {
         is_paused() ? play() : pause();
-        key[KEY_SPACE] = false;
+        while (input->getKey() == IInput::Key::ESPACE);
       }
+
     }
 
   // Cerramos el juego fundiendo en negro.

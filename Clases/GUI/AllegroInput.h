@@ -37,6 +37,10 @@ public:
     void procesarEventos(InputEvent &ev) override {};
     
     virtual Key getKey() override {
+        // Se actualiza el array 'Key' con el hardware.
+        poll_keyboard();
+
+        // Se traducen las teclas según el nuevo estado.
         if (key[KEY_A]) return Key::Key_A;
         if (key[KEY_B]) return Key::Key_B;
         if (key[KEY_C]) return Key::Key_C;
@@ -49,6 +53,7 @@ public:
         if (key[KEY_4]) return Key::Key_4;
         if (key[KEY_5]) return Key::Key_5;
         if (key[KEY_6]) return Key::Key_6;
+        if (key[KEY_SPACE]) return Key::ESPACE;
         if (key[KEY_ESC]) return Key::ESC;
         if (key[KEY_ENTER]) return Key::ENTER;
         if (key[KEY_LSHIFT]) return Key::LSHIFT;
