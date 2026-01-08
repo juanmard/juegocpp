@@ -16,13 +16,12 @@ class ITimer;
 ///
 /// @brief  Clase que recoge las funciones básicas de un juego.
 /// @details  Esta clase inicializa todos los componentes necesarios para un juego y con actualización básica.
-/// @todo  Establecer un procedimiento para que los componentes IRenderer, IInput y ITimer, relacionados con
-///        las bibliotecas externas, se inicialicen con un procedimiento virtual tipo 'setEnviroment (ALLEGRO_4)', o
-///        similar nombre, donde desde la clase hija a 'Game' se pueda establecer facilmente toda la inicialización
-///        de estos componentes según la biblioteca a utilizar (Allegro4, Allegro5, SDL, DirectX...).
 ///
 class Game
 {
+public:
+    enum Entorno {ALLEGRO4, ALLEGRO5, SDL, DIRECTX};
+
 public:
     ActorManager*      actor_manager;        ///< Referencia al manejador de actores dentro del juego.
     StageManager*      stage_manager;        ///< Referencia al manejador del escenario donde se desarrolla el juego.
@@ -44,7 +43,7 @@ private:
 public:
     Game ();
     virtual ~Game ();
-    virtual void init (int width, int height);
+    virtual void init (int width, int height, Entorno entorno = Entorno::ALLEGRO4);
     virtual void mainGame ();
     void pause ();
     void play ();
@@ -64,6 +63,7 @@ private:
     virtual void create_controlmanager ();
     virtual void create_collisionmanager ();
     virtual void create_storagemanager ();
+    void setEnviroment (Entorno entorno = Entorno::ALLEGRO4);
 };
 
 #endif //_GAME_H_

@@ -7,6 +7,7 @@
 #include "CollisionManager.h"
 #include "SoundManager.h"
 #include "StorageManager.h"
+
 #include "AllegroRenderer.h"
 #include "AllegroInput.h"
 #include "AllegroTimer.h"
@@ -16,16 +17,16 @@
 /// @todo Generar estas referencias no 'NULL' en el juego que lo herede.
 ///       En él se debe decidir qué librería debe usarse y se le asigna al juego base
 ///       con 'setRenderer', 'setInput' y 'setTimer', englobadas quizás en un 'setEnviroment'.
-Game::Game ():
+Game::Game () :
 actor_manager(NULL),
 stage_manager(NULL),
 sound_manager(NULL),
 control_manager(NULL),
 collision_manager(NULL),
 storage_manager(NULL),
-renderer (new AllegroRenderer()),
-input (new AllegroInput()),
-timer (new AllegroTimer()),
+renderer (NULL),
+input (NULL),
+timer (NULL),
 paused (true)
 {
 }
@@ -35,7 +36,10 @@ Game::~Game () {
 }
 
 /// @brief  Inicia el juego.
-void Game::init (int width, int height) {
+void Game::init (int width, int height, Entorno entorno) {
+  // Se carga el entorno.
+  setEnviroment (entorno);
+
   // Se instala el 'timer'.
   timer->install ();
 
@@ -132,7 +136,7 @@ void Game::start () {
 }
 
 /// @brief  Procedimiento predeterminado "main" si no se sobreescribe en el hijo.
-/// @todo  Independizar de Allegro4 usando IInput.
+/// @details  Queda en bucle hasta que no se pulse la tecla ESC.
 void Game::mainGame () {
   while (input->getKey() != IInput::Key::ESC);
 }
@@ -192,3 +196,16 @@ bool Game::is_paused (void) {
   return paused;
 }
 
+/// @brief  Construye el entorno para el juego.
+void Game::setEnviroment (Entorno entorno) {
+  switch (entorno) {
+    case ALLEGRO4:
+      renderer = new AllegroRenderer();
+      input = new AllegroInput ();
+      timer = new AllegroTimer ();
+      break;
+
+    default:
+      break;
+  }
+}
